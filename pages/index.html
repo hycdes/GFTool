@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>hycdes blog</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+        <!-- Morris Charts CSS -->
+        <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="../vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet" type="text/css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top"
+                role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><span
+                            style="color:#FF0066">少女前线工具</span> by 命运の乐章 (Girls'
+                        Frontline tools by FatalChapter)</a>
+                </div>
+
+                <!-- DropDown (up-right) -->
+                <ul class="nav navbar-top-links navbar-right">
+                    <!-- Drop down 1 (up-right) -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"
+                            href="#">
+                            <i class="fa fa-envelope fa-fw"></i> <i class="fa
+                                fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <strong>Name1</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Date1</em>
+                                        </span>
+                                    </div>
+                                    <div>Info1</div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <strong>Name2</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Date2</em>
+                                        </span>
+                                    </div>
+                                    <div>Info2</div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <strong>Name3</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Date3</em>
+                                        </span>
+                                    </div>
+                                    <div>Info3</div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>Read all info</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-messages -->
+                    </li>
+                    <!-- Drop down 2 (up-right) -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"
+                            href="#">
+                            <i class="fa fa-tasks fa-fw"></i> <i class="fa
+                                fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-tasks">
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p>
+                                            <strong>Task 1</strong>
+                                            <span class="pull-right text-muted">40%
+                                                Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped
+                                            active">
+                                            <div class="progress-bar
+                                                progress-bar-success"
+                                                role="progressbar"
+                                                aria-valuenow="40"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                style="width: 40%">
+                                                <span class="sr-only">40%
+                                                    Complete (success)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p>
+                                            <strong>Task 2</strong>
+                                            <span class="pull-right text-muted">20%
+                                                Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped
+                                            active">
+                                            <div class="progress-bar
+                                                progress-bar-info"
+                                                role="progressbar"
+                                                aria-valuenow="20"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                style="width: 20%">
+                                                <span class="sr-only">20%
+                                                    Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p>
+                                            <strong>Task 3</strong>
+                                            <span class="pull-right text-muted">60%
+                                                Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped
+                                            active">
+                                            <div class="progress-bar
+                                                progress-bar-warning"
+                                                role="progressbar"
+                                                aria-valuenow="60"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                style="width: 60%">
+                                                <span class="sr-only">60%
+                                                    Complete (warning)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">
+                                    <div>
+                                        <p>
+                                            <strong>Task 4</strong>
+                                            <span class="pull-right text-muted">80%
+                                                Complete</span>
+                                        </p>
+                                        <div class="progress progress-striped
+                                            active">
+                                            <div class="progress-bar
+                                                progress-bar-danger"
+                                                role="progressbar"
+                                                aria-valuenow="80"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                style="width: 80%">
+                                                <span class="sr-only">80%
+                                                    Complete (danger)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a class="text-center" href="#">
+                                    <strong>See All Tasks</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-tasks -->
+                    </li>
+                </ul>
+
+                <!-- NaviBar (Left) -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control"
+                                        placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default"
+                                            type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+
+                            <!-- [NAVI]Home -->
+                            <li>
+                                <a href="index.html"><i class="fa fa-home
+                                        fa-fw"></i> 主页 Home</a>
+                            </li>
+                            <!-- [NAVI]LogiRank -->
+                            <li>
+                                <a href="LogiRank.html"><i class="fa
+                                        fa-briefcase fa-fw"></i> 后勤排序器 Logistics
+                                    ranking</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <!-- Main Pages -->
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">主页(Home)</h1>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                更新公告 Update Info
+                            </div>
+                            <div class="panel-body">
+                                <p>少女前线工具 v1.0</p>
+                                <p>* 少女前线后勤排序器添加 (<span style="color:#FF0066">New</span>)</p>
+                            </div>
+                            <div class="panel-footer">
+                                Update in 2018.12.07
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 4-pages tab -->
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                关于我 About Me
+                            </div>
+                            <div class="panel-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#home"
+                                            data-toggle="tab">基本信息</a>
+                                    </li>
+                                    <li><a href="#connect" data-toggle="tab">与我交流</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active"
+                                        id="home">
+                                        <h4>命运の乐章 Fatal Chapter</h4>
+                                        <p>研究领域：计算机/软件 → 高性能计算/网络优化</p>
+                                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp→
+                                            网络功能虚拟化(<span
+                                                style="color:dodgerblue"><a
+                                                    href="https://portal.etsi.org/nfv/nfv_white_paper.pdf"
+                                                    target="view_window">NFV</a></span>,
+                                            Network Function Virtualization)</p>
+                                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp→
+                                            虚拟网络功能资源分配(VNF-RA)</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="connect">
+                                        <h4>联系方式</h4>
+                                        <p><span style="color:dodgerblue">Official</span>:
+                                            hycdes@sjtu.edu.cn</p>
+                                        <p><span style="color:#FF0066">Personal</span>:
+                                            hycdes@qq.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Morris Charts JavaScript -->
+        <script src="../vendor/raphael/raphael.min.js"></script>
+        <script src="../vendor/morrisjs/morris.min.js"></script>
+        <script src="../data/morris-data.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+
+    </body>
+
+</html>
