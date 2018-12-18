@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>hycdes blog</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+        <!-- Morris Charts CSS -->
+        <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="../vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet" type="text/css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top"
+                role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index2.html"><span
+                            style="color:#FF0066">技术类笔记</span> by 命运の乐章
+                        (Technical notes by FatalChapter)</a>
+                </div>
+
+                <!-- DropDown (up-right) -->
+                <ul class="nav navbar-top-links navbar-right">
+                    <!-- Drop down 1 (up-right) -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"
+                            href="#">
+                            <i class="fa fa-exchange fa-fw"></i> <i class="fa
+                                fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li>
+                                <a href="index.html">
+                                    <div>
+                                        <strong>少女前线工具</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Site#1</em>
+                                        </span>
+                                    </div>
+                                    <div>Girls' Frontline tools</div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="index2.html">
+                                    <div>
+                                        <strong>技术类笔记</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Site#2</em>
+                                        </span>
+                                    </div>
+                                    <div>Technical notes</div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="index3.html">
+                                    <div>
+                                        <strong>教程类</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Site#3</em>
+                                        </span>
+                                    </div>
+                                    <div>Tutorials</div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-messages -->
+                    </li>
+                </ul>
+
+                <!-- NaviBar (Left) -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control"
+                                        placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default"
+                                            type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+
+                            <!-- [NAVI]Home -->
+                            <li>
+                                <a href="index2.html"><i class="fa fa-home
+                                        fa-fw"></i> 主页 Home</a>
+                            </li>
+
+                            <!-- [NAVI]Note_Linux -->
+                            <li>
+                                <a href="#"><i class="fa fa-linux fa-fw"></i>
+                                    Linux<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="Note_Linux_Basis.html">Terminal
+                                            basis</a>
+                                    </li>
+                                    <li>
+                                        <a href="Note_Linux_pktgen.html">pktgen</a>
+                                    </li>
+                                    <li>
+                                        <a href="Note_Linux_docker.html">Docker</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- [NAVI]Note_git -->
+                            <li>
+                                <a href="Note_git.html"><i class="fa fa-github
+                                        fa-fw"></i> git</a>
+                            </li>
+
+                            <!-- [NAVI]Note_git -->
+                            <li>
+                                <a href="Note_C++.html"><i class="fa
+                                        fa-file-code-o
+                                        fa-fw"></i> C++</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <!-- Main Pages -->
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">主页(Home)</h1>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                更新公告 Update Info
+                            </div>
+                            <div class="panel-body">
+                                <p>技术笔记 v1.0</p>
+                                <p>* 笔记移植 (<span style="color:#FF0066">New</span>)</p>
+                            </div>
+                            <div class="panel-footer">
+                                Update in 2018.12.07
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 4-pages tab -->
+                    <div class="col-lg-5">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                关于我 About Me
+                            </div>
+                            <div class="panel-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#home"
+                                            data-toggle="tab">基本信息</a>
+                                    </li>
+                                    <li><a href="#connect" data-toggle="tab">与我交流</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active"
+                                        id="home">
+                                        <h4>命运の乐章 Fatal Chapter</h4>
+                                        <p>研究领域：计算机/软件 → 高性能计算/网络优化</p>
+                                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp→
+                                            网络功能虚拟化(<span
+                                                style="color:dodgerblue"><a
+                                                    href="https://portal.etsi.org/nfv/nfv_white_paper.pdf"
+                                                    target="view_window">NFV</a></span>,
+                                            Network Function Virtualization)</p>
+                                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp→
+                                            虚拟网络功能资源分配(VNF-RA)</p>
+                                    </div>
+                                    <div class="tab-pane fade" id="connect">
+                                        <h4>联系方式</h4>
+                                        <p><span style="color:dodgerblue">Official</span>:
+                                            hycdes@sjtu.edu.cn</p>
+                                        <p><span style="color:#FF0066">Personal</span>:
+                                            hycdes@qq.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Morris Charts JavaScript -->
+        <script src="../vendor/raphael/raphael.min.js"></script>
+        <script src="../vendor/morrisjs/morris.min.js"></script>
+        <script src="../data/morris-data.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+
+    </body>
+
+</html>
