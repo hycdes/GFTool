@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>hycdes blog</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+        <!-- Morris Charts CSS -->
+        <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="../vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet" type="text/css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top"
+                role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="welcome.html"><span
+                            style="color:#FF0066">技术类笔记</span> by 命运の乐章
+                        (Technical notes by FatalChapter)</a>
+                </div>
+
+                <!-- DropDown (up-right) -->
+                <ul class="nav navbar-top-links navbar-right">
+                    <!-- Drop down 1 (up-right) -->
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"
+                            href="#">
+                            <i class="fa fa-exchange fa-fw"></i> <i class="fa
+                                fa-caret-down"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-messages">
+                            <li>
+                                <a href="index.html">
+                                    <div>
+                                        <strong>少女前线工具</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Site#1</em>
+                                        </span>
+                                    </div>
+                                    <div>Girls' Frontline tools</div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="index2.html">
+                                    <div>
+                                        <strong>技术类笔记</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Site#2</em>
+                                        </span>
+                                    </div>
+                                    <div>Technical notes</div>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="index3.html">
+                                    <div>
+                                        <strong>教程类</strong>
+                                        <span class="pull-right text-muted">
+                                            <em>Site#3</em>
+                                        </span>
+                                    </div>
+                                    <div>Tutorials</div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-messages -->
+                    </li>
+                </ul>
+
+                <!-- NaviBar (Left) -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control"
+                                        placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default"
+                                            type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+
+                            <!-- [NAVI]Home -->
+                            <li>
+                                <a href="index2.html"><i class="fa fa-home
+                                        fa-fw"></i> 主页 Home</a>
+                            </li>
+
+                            <!-- [NAVI]Note_Linux -->
+                            <li>
+                                <a href="#"><i class="fa fa-linux fa-fw"></i>
+                                    Linux<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="Note_Linux_Basis.html">Terminal
+                                            basis</a>
+                                    </li>
+                                    <li>
+                                        <a href="Note_Linux_pktgen.html">pktgen</a>
+                                    </li>
+                                    <li>
+                                        <a href="Note_Linux_docker.html">Docker</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- [NAVI]Note_git -->
+                            <li>
+                                <a href="Note_git.html"><i class="fa fa-github
+                                        fa-fw"></i> git</a>
+                            </li>
+
+                            <!-- [NAVI]Note_git -->
+                            <li>
+                                <a href="Note_C++.html"><i class="fa
+                                        fa-file-code-o
+                                        fa-fw"></i> C++</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+
+            <!-- Main Pages -->
+            <div id="page-wrapper">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Linux/pktgen</h1>
+                        </div>
+                        <!--安装依赖包和dpdk，格式：三个空格当一个tab-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    安装依赖包和dpdk（先su）
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>编译基本包</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspapt-get install
+                                        build-essential</p>
+                                    <p><b>安装GNU M4</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspwget
+                                        http://ftp.gnu.org/gnu/m4/m4-latest.tar.gz</p>
+                                    <p>&nbsp&nbsp&nbsp&nbsptar -zxvf
+                                        m4-latest.tar.gz<span
+                                            style="color:green"> # 解压</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspcd m4-1.4.17</p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp./configure</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspmake<span
+                                            style="color:green"> # 编译</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspmake install</p>
+                                    <p><b>安装flex</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspapt-get install flex</p>
+                                    <p><b>安装bison</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspapt-get install bison</p>
+                                    <p><b>安装libpcap</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspwget</p>
+                                    <p>\
+                                        http://www.tcpdump.org/release/libpcap-1.9.0.tar.gz<span
+                                            style="color:green"> #
+                                            这个请以最新版本为准，下面带版本号的同理</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbsptar -zxvf
+                                        libpcap-1.9.0.tar.gz</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspcd libpcap-1.9.0</p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp./configure</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspmake</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspmake install</p>
+                                    <p><b>安装numactl相关（需要先安装alien解压rpm）</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspapt-get install alien</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspapt-get install
+                                        numactl</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspwget</p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp\
+                                        http://www.rpmfind.net/linux/fedora/linux/releases/29/Everything/x86_64/os/Packages/n/numactl-libs-2.0.12-1.fc29.x86_64.rpm</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspwget</p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp\
+                                        http://www.rpmfind.net/linux/fedora/linux/releases/29/Everything/x86_64/os/Packages/n/numactl-devel-2.0.12-1.fc29.x86_64.rpm</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspalien -i RPM_FILE.rpm</p>
+                                    <p><b>安装DPDK</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp教程详见官网 <span
+                                            style="color:#FF0066"><a
+                                                href="http://core.dpdk.org/doc/quick-start/"
+                                                target="_blank">http://core.dpdk.org/doc/quick-start/</a></span></p>
+                                    <p><b>pktgen为DPDK自带功能</b></p>
+                                </div>
+                                <div class="panel-footer">
+                                    pktgen:install
+                                </div>
+                            </div>
+                        </div>
+                        <!--基础-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    pktgen基础
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>加载</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspmodprobe pktgen</p>
+                                    <p><b>启动后查看本机内核数量</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspls /proc/net/pktgen</p>
+                                    <p><span style="color:blueviolet">&nbsp&nbsp&nbsp&nbspkpktgend_0
+                                            kpktgend_1 kpktgend_2 kpktgend_3
+                                            pgctrl</span><span
+                                            style="color:green"> # 这就代表有4个核</span></p>
+                                    <p><b>查看pktgen版本信息</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspcat
+                                        /proc/net/pktgen/pgctrl</p>
+                                </div>
+                                <div class="panel-footer">
+                                    pktgen:basis
+                                </div>
+                            </div>
+                        </div>
+                        <!--发包实验-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    pktgen发包实验
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>启动pktgen和打开速率上限（网口名eth0，可ifconfig
+                                            -a查看）</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspmodprobe pktgen</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspethtool -s eth0
+                                        autoneg off speed 1000 duplex full</p>
+                                    <p><b>将网口跟特定CPU亲和性绑定</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspcat /proc/interrupts
+                                        | grep eth<span style="color:green"> #
+                                            查看网口中断号</span></p>
+                                    <p><span style="color:blueviolet">&nbsp&nbsp&nbsp&nbsp124:&nbsp&nbsp&nbsp0&nbsp&nbsp&nbsp780&nbsp&nbsp&nbsp0&nbsp&nbsp&nbsp151483&nbsp&nbsp&nbspIR-PCI-MSI&nbsp&nbsp&nbsp520192-edge&nbsp&nbsp&nbspeth0</span><span
+                                            style="color:green">
+                                            # 输出示例，这代表eth0的中断号为124</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp/etc/init.d/irqbalance
+                                        stop<span style="color:green"> #
+                                            关闭irqbalance服务</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspecho 1 >
+                                        /proc/irq/124/smp_affinity<span
+                                            style="color:green"> #
+                                            将CPU0与eth0中断号124绑定</span></p>
+                                    <p><b>运行写好的脚本</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspbash SCRIPT_NAME.conf</p>
+                                </div>
+                                <div class="panel-footer">
+                                    pktgen:packet sending experiment
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Linux/pktgen/pktgen_script</h1>
+                        </div>
+                        <!--发包脚本1-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    pktgen发包脚本1
+                                </div>
+                                <div class="panel-body">
+                                    <span style="color:green"><p>#! /bin/sh</p></span>
+                                    <span style="color:green"><p>#
+                                            modprobe pktgen</p></span>
+                                    <p>function pgset() {</p>
+                                    <p> local result</p>
+                                    <p> echo $1 > $PGDEV</p>
+                                    <p> result=`cat $PGDEV | fgrep "Result:
+                                        OK:"`</p>
+                                    <p> if</p>
+                                    <p> [ "$result"</p>
+                                    <p> = ""</p>
+                                    <p> ]; then</p>
+                                    <p> cat $PGDEV | fgrep Result:</p>
+                                    <p> fi</p>
+                                    <p>}</p>
+                                    <p>function pg() {</p>
+                                    <p> echo inject > $PGDEV</p>
+                                    <p> cat $PGDEV</p>
+                                    <p>}</p>
+                                    <span style="color:green"><p># Config
+                                            start here, thread config,one
+                                            CPU has own thread, add eth0</p></span>
+                                    <p>PGDEV=/proc/net/pktgen/kpktgend_0</p>
+                                    <p>pgset "rem_device_all"</p>
+                                    <p>pgset "add_device eth0"</p>
+                                    <span style="color:green"><p># Device
+                                            config,define global variations</p></span>
+                                    <span style="color:green"><p># delay
+                                            0: maximum speed, count 0:
+                                            forever, NIC adds 4 bytes CRC</p></span>
+                                    <p>CLONE_SKB="clone_skb 1000000"</p>
+                                    <p>PKT_SIZE="pkt_size 60"</p>
+                                    <p>COUNT="count 0"</p>
+                                    <p>DELAY="delay 0"</p>
+                                    <span style="color:green"><p>#
+                                            Sending to IP 10.0.1.127, MAC
+                                            00:0C:29:45:B6:2C</p></span>
+                                    <p>PGDEV=/proc/net/pktgen/eth0</p>
+                                    <p>echo "Configuring $PGDEV"</p>
+                                    <p>pgset "$COUNT"</p>
+                                    <p>pgset "$CLONE_SKB"</p>
+                                    <p>pgset "$PKT_SIZE"</p>
+                                    <p>pgset "$DELAY"</p>
+                                    <p>pgset "dst 10.0.1.127"</p>
+                                    <p>pgset "dst_mac 00:0C:29:97:9B:BE"</p>
+                                    <span style="color:green"><p># Time
+                                            to run</p></span>
+                                    <p>PGDEV=/proc/net/pktgen/pgctrl</p>
+                                    <p>echo "Running... ctrl^C to stop"</p>
+                                    <p>pgset "start"</p>
+                                    <p>echo "Done"</p>
+                                    <span style="color:green"><p># Result
+                                            can be vieved in
+                                            /proc/net/pktgen</p></span>
+                                </div>
+                                <div class="panel-footer">
+                                    pktgen:srcipt1
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /#wrapper -->
+
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+
+    </body>
+
+</html>
