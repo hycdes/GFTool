@@ -44,8 +44,8 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="welcome.html"><span
-                            style="color:#FF0066">教程类</span> by 命运の乐章
-                        (Tutorials by FatalChapter)</a>
+                            style="color:#FF0066">技术类笔记</span> by 命运の乐章
+                        (Technical notes by FatalChapter)</a>
                 </div>
 
                 <!-- DropDown (up-right) -->
@@ -118,14 +118,39 @@
 
                             <!-- [NAVI]Home -->
                             <li>
-                                <a href="index3.html"><i class="fa fa-home
+                                <a href="index2.html"><i class="fa fa-home
                                         fa-fw"></i> 主页 Home</a>
                             </li>
-                            <!-- [NAVI]Tutorial_Flash -->
+
+                            <!-- [NAVI]Note_Linux -->
                             <li>
-                                <a href="Tutorial_Flash.html"><i class="fa
-                                        fa-facebook
-                                        fa-fw"></i> Flash</a>
+                                <a href="#"><i class="fa fa-linux fa-fw"></i>
+                                    Linux<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <a href="Note_Linux_Basis.html">Terminal
+                                            basis</a>
+                                    </li>
+                                    <li>
+                                        <a href="Note_Linux_pktgen.html">pktgen</a>
+                                    </li>
+                                    <li>
+                                        <a href="Note_Linux_docker.html">Docker</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- [NAVI]Note_git -->
+                            <li>
+                                <a href="Note_git.html"><i class="fa fa-github
+                                        fa-fw"></i> git</a>
+                            </li>
+
+                            <!-- [NAVI]Note_git -->
+                            <li>
+                                <a href="Note_C++.html"><i class="fa
+                                        fa-file-code-o
+                                        fa-fw"></i> C++</a>
                             </li>
 
                         </ul>
@@ -135,67 +160,90 @@
                 <!-- /.navbar-static-side -->
             </nav>
 
+
             <!-- Main Pages -->
             <div id="page-wrapper">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">主页(Home)</h1>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                更新公告 Update Info
-                            </div>
-                            <div class="panel-body">
-                                <p>教程 v1.0</p>
-                                <p>* 教程移植 (<span style="color:#FF0066">New</span>)</p>
-                            </div>
-                            <div class="panel-footer">
-                                Update in 2018.12.07
-                            </div>
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Linux/terminal_basis</h1>
                         </div>
-                    </div>
-                    <!-- 4-pages tab -->
-                    <div class="col-lg-5">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                关于我 About Me
-                            </div>
-                            <div class="panel-body">
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#home"
-                                            data-toggle="tab">基本信息</a>
-                                    </li>
-                                    <li><a href="#connect" data-toggle="tab">与我交流</a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-pane fade in active"
-                                        id="home">
-                                        <h4>命运の乐章 Fatal Chapter</h4>
-                                        <p>研究领域：计算机/软件 → 高性能计算/网络优化</p>
-                                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp→
-                                            网络功能虚拟化(<span
-                                                style="color:dodgerblue"><a
-                                                    href="https://portal.etsi.org/nfv/nfv_white_paper.pdf"
-                                                    target="view_window">NFV</a></span>,
-                                            Network Function Virtualization)</p>
-                                        <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp→
-                                            虚拟网络功能资源分配(VNF-RA)</p>
-                                    </div>
-                                    <div class="tab-pane fade" id="connect">
-                                        <h4>联系方式</h4>
-                                        <p><span style="color:dodgerblue">Official</span>:
-                                            hycdes@sjtu.edu.cn</p>
-                                        <p><span style="color:#FF0066">Personal</span>:
-                                            hycdes@qq.com</p>
-                                    </div>
+                        <!--基本指令，格式：三个空格当一个tab-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    基本terminal指令
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>获取root权限</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspsudo passwd<span
+                                            style="color:green"> # 首次设置root密码</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspsu<span
+                                            style="color:green"> # root模式可省略sudo</span></p>
+                                    <p><b>显示进程</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspps</p>
+                                    <p>&nbsp&nbsp&nbsp&nbspps -A<span
+                                            style="color:green"> # 显示所有进程</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspps -A | grep abcd<span
+                                            style="color:green"> #
+                                            显示名字带"abcd"的进程</span></p>
+                                    <p><b>创建目录</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspmkdir -p NAME<span
+                                            style="color:green"> #
+                                            创建NAME目录，-p确保目录存在否则创建</span></p>
+                                    <p><b>查看文件</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspcat NAME</p>
+                                    <p><b>更新现有包</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspsudo apt-get update</p>
+                                    <p><b>安装典型依赖包</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspsudo apt-get install
+                                        PACKNAME</p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp一些常用的包</p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspsudo
+                                        apt-get install build-essential<span
+                                            style="color:green"> # 编译用</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspsudo
+                                        apt-get install net-tools<span
+                                            style="color:green"> # 网络工具</span></p>
+                                    <p><b>.gz文件</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbsptar -zxvf NAME.tar.gz<span
+                                            style="color:green"> #
+                                            解压.gz，输入名字一半按TAB可自动出全称</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbsptar -zcvf
+                                        NEW_NAME.tar.gz NAME<span
+                                            style="color:green"> # 压缩成.gz</span></p>
+                                    <p><b>.xz文件</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspxz -d NAME.tar.xz<span
+                                            style="color:green"> # 解压.xz为.tar</span></p>
+                                    <p>&nbsp&nbsp&nbsp&nbsptar -xvf NAME.tar<span
+                                            style="color:green"> # 解压.tar</span></p>
+                                </div>
+                                <div class="panel-footer">
+                                    terminal:basis
                                 </div>
                             </div>
                         </div>
+                        <!--网络类指令-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    网络类指令
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>全部接口信息（确保已安装net-tools）</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspifconfig -a</p>
+                                    <p><b>检查某地址能否链接</b></p>
+                                    <p>&nbsp&nbsp&nbsp&nbspping ADDRESS</p>
+                                </div>
+                                <div class="panel-footer">
+                                    terminal:net-tools
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
             </div>
 
         </div>
@@ -203,14 +251,13 @@
 
         <!-- jQuery -->
         <script src="../vendor/jquery/jquery.min.js"></script>
+
         <!-- Bootstrap Core JavaScript -->
         <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
         <!-- Metis Menu Plugin JavaScript -->
         <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-        <!-- Morris Charts JavaScript -->
-        <script src="../vendor/raphael/raphael.min.js"></script>
-        <script src="../vendor/morrisjs/morris.min.js"></script>
-        <script src="../data/morris-data.js"></script>
+
         <!-- Custom Theme JavaScript -->
         <script src="../dist/js/sb-admin-2.js"></script>
 
