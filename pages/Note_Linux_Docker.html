@@ -169,29 +169,164 @@
                         <div class="col-lg-12">
                             <h1 class="page-header">Linux/Docker</h1>
                         </div>
-                        <!--docker-->
+                        <!--docker install-->
                         <div class="col-lg-6">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    docker安装、设置和运行
+                                    docker安装
                                 </div>
                                 <div class="panel-body">
-                                    <p><b>安装</b></p>
+                                    <p><b>官网教程</b></p>
                                     <p>&nbsp&nbsp&nbsp&nbsp<a
                                             href="https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository"
                                             target="_blank">https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-using-the-repository</a></p>
+                                    <p><b>更新包库</b></p>
+                                    <p>apt-get update</p>
+                                    <p><b>安装包以允许通过HTTPS使用存储库</b></p>
+                                    <p>apt-get install apt-transport-https \</p>
+                                    <p>ca-certificates curl
+                                        software-properties-common</p>
+                                    <p><b>添加Docker’s官方GPG key:</b></p>
+                                    <p>curl -fsSL
+                                        https://download.docker.com/linux/ubuntu/gpg
+                                        | sudo apt-key add -</p>
+                                    <p><b>用指纹验证官方密钥9DC8 5822 9FC7 DD38 854A E2D8
+                                            8D81 803C 0EBF CD88</b></p>
+                                    <p>apt-key fingerprint 0EBFCD88</p>
+                                    <p><b>设置stable存储库</b></p>
+                                    <p>add-apt-repository \</p>
+                                    <p>"deb [arch=amd64]
+                                        https://download.docker.com/linux/ubuntu
+                                        $(lsb_release -cs) stable"</p>
+                                    <p><b>更新包库</b></p>
+                                    <p>apt-get update</p>
+                                    <p><b>安装docker-ce</b></p>
+                                    <p>apt-get install docker-ce</p>
+                                    <p><b>运行docker，例如运行展示用的hello-world</b></p>
+                                    <p>docker run DOCKER_NAME</p>
+                                    <p>docker run hello-world</p>
+                                </div>
+                                <div class="panel-footer">
+                                    docker:install
+                                </div>
+                            </div>
+                        </div>
+                        <!--docker configure-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    docker设置和运行
+                                </div>
+                                <div class="panel-body">
                                     <p><b>设置和运行</b></p>
                                     <p>&nbsp&nbsp&nbsp&nbsp<a
                                             href="https://docs.docker.com/config/daemon/#start-the-daemon-using-operating-system-utilities"
                                             target="_blank">https://docs.docker.com/config/daemon/#start-the-daemon-using-operating-system-utilities</a></p>
                                 </div>
                                 <div class="panel-footer">
-                                    docker:install&configure
+                                    docker:configure
                                 </div>
                             </div>
                         </div>
 
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Linux/Docker/Nginx</h1>
+                        </div>
+                        <!--Nginx install-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    Nginx安装
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>官网教程</b></p>
+                                </div>
+                                <div class="panel-footer">
+                                    Nginx:install
+                                </div>
+                            </div>
+                        </div>
+                        <!--Nginx configure-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-yellow">
+                                <div class="panel-heading">
+                                    Nginx设置和运行
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>设置和运行</b></p>
+
+                                </div>
+                                <div class="panel-footer">
+                                    Nginx:configure
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Linux/Docker/Snort</h1>
+                        </div>
+                        <!--Snort install-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    Snort安装
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>官网教程</b></p>
+                                </div>
+                                <div class="panel-footer">
+                                    Snort:install
+                                </div>
+                            </div>
+                        </div>
+                        <!--Snort configure-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    Snort设置和运行
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>将snort连接到docker中以完全访问网络</b></p>
+                                    <p>docker run --name snortSample -it --rm
+                                        --net=host linton/docker-snort /bin/bash</p>
+                                    <p><b>进入bash，退出方法</b></p>
+                                    <p>exit</p>
+                                    <p><b>运行Snort并将输出警告输出到控制台</b></p>
+                                    <p>snort -i ens33 -c
+                                        /etc/snort/etc/snort.conf -A console</p>
+                                    <p><b>运行Snort并将输出警告输出到UNIX socket</b></p>
+                                    <p>snort -i ens33 -A unsock -l /tmp -c
+                                        /etc/snort/etc/snort.conf</p>
+                                </div>
+                                <div class="panel-footer">
+                                    Snort:configure
+                                </div>
+                            </div>
+                        </div>
+                        <!--Snort rules-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    Snort规则
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>规则存放路径</b></p>
+                                    <p>/etc/snort/rules/local.rules</p>
+                                </div>
+                                <div class="panel-footer">
+                                    Snort:rules
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
 
