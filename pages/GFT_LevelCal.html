@@ -64,9 +64,21 @@
         function setMap6() {
             var MP = document.getElementById('MapInfo'); MP.value = 140;
         }
+        //非数字输入（在1~120间），现有经验超标，等级上下逆转
+        //扩编信息不符
+        function checkError(){
+            var errorNum=0;
+            return errorNum;
+        }
         function getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book) {
             var chart = document.getElementById("resultChart");
-            var tab = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>队内场次</th><th>队长场次</th><th>MVP场次</th><th>队长MVP场次</th><th>作战报告书</th></tr></thead>';
+            var tab = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>地图</th><th>战斗经验</th><th>衰减等级</th></tr></thead>';
+            tab += '<tbody><tr>';
+            tab += '<td>'; tab+=(selectMapInfo.cardname); tab += '</td>';
+            tab += '<td>'; tab+=(selectMapInfo.value+""); tab += '</td>';
+            tab += '<td>'; tab+=(selectMapInfo.declinelevel+""); tab += '</td>';
+            tab += '</tr></tbody></table>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>队内场次</th><th>队长场次</th><th>MVP场次</th><th>队长MVP场次</th><th>作战报告书</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>'; tab+=(Num_normal+""); tab += '</td>';
             tab += '<td>'; tab+=(Num_leader+""); tab += '</td>';
@@ -147,23 +159,167 @@
                 OATHValue=1;
             }
             var levelUpExp=[0,0,100,300,600,1000,1500,2100,2800,3600,4500,5500,6600,7800,9100,10500,12000,13600,15300,17100,19000,21000,23100,25300,27600,30000,32500,35100,37900,41000,44400,48600,53200,58200,63600,69400,75700,82400,89600,97300,105500,114300,123600,133500,144000,155100,166900,179400,192500,206400,221000,236400,252500,269400,287200,305800,325300,345700,367000,389300,412600,436900,462200,488500,515900,544400,574000,604800,636800,670000,704400,749500,796300,844900,895300,947500,1001500,1057400,1115300,1175100,1236900,1300800,1366800,1434900,1505200,1577800,1652600,1729700,1809200,1891100,1975400,2088000,2204100,2323600,2446700,2573400,2703800,2837900,2975800,3117600,3263300,3363300,3483300,3623300,3783300,3963300,4163300,4383300,4623300,4903300,5263300,5743300,6383300,7283300,8483300,10083300,12283300,15283300,19283300,24283300,30283300];
+            
             mapList.push(inputCardData("0-1",480,110));
-            mapList.push(inputCardData("0-2",490,112));
-            mapList.push(inputCardData("0-3",500,114));
-            mapList.push(inputCardData("0-4",510,116));
-            mapList.push(inputCardData("1-1",150,11));
-            mapList.push(inputCardData("1-2",160,15));
-            mapList.push(inputCardData("1-3",170,18));
-            mapList.push(inputCardData("1-4",180,20));
-            mapList.push(inputCardData("8-1N",500,120));
+mapList.push(inputCardData("0-2",490,112));
+mapList.push(inputCardData("0-3",500,113));
+mapList.push(inputCardData("0-4",510,116));
+mapList.push(inputCardData("1-1",150,11));
+mapList.push(inputCardData("1-2",160,15));
+mapList.push(inputCardData("1-3",170,18));
+mapList.push(inputCardData("1-4",180,20));
+mapList.push(inputCardData("1-5",190,22));
+mapList.push(inputCardData("1-6",200,25));
+mapList.push(inputCardData("1-1E",200,22));
+mapList.push(inputCardData("1-2E",210,25));
+mapList.push(inputCardData("1-3E",220,30));
+mapList.push(inputCardData("1-4E",230,35));
+mapList.push(inputCardData("1-1N",280,45));
+mapList.push(inputCardData("1-2N",290,50));
+mapList.push(inputCardData("1-3N",300,55));
+mapList.push(inputCardData("1-4N",320,60));
+mapList.push(inputCardData("2-1",200,25));
+mapList.push(inputCardData("2-2",210,28));
+mapList.push(inputCardData("2-3",220,30));
+mapList.push(inputCardData("2-4",230,30));
+mapList.push(inputCardData("2-5",240,30));
+mapList.push(inputCardData("2-6",250,35));
+mapList.push(inputCardData("2-1E",250,35));
+mapList.push(inputCardData("2-2E",260,35));
+mapList.push(inputCardData("2-3E",270,40));
+mapList.push(inputCardData("2-4E",280,45));
+mapList.push(inputCardData("2-1N",330,65));
+mapList.push(inputCardData("2-2N",350,70));
+mapList.push(inputCardData("2-3N",360,75));
+mapList.push(inputCardData("2-4N",380,80));
+mapList.push(inputCardData("3-1",250,40));
+mapList.push(inputCardData("3-2",260,40));
+mapList.push(inputCardData("3-3",270,45));
+mapList.push(inputCardData("3-4",280,48));
+mapList.push(inputCardData("3-5",290,50));
+mapList.push(inputCardData("3-6",300,55));
+mapList.push(inputCardData("3-1E",300,55));
+mapList.push(inputCardData("3-2E",310,58));
+mapList.push(inputCardData("3-3E",320,60));
+mapList.push(inputCardData("3-4E",330,65));
+mapList.push(inputCardData("3-1N",400,83));
+mapList.push(inputCardData("3-2N",410,87));
+mapList.push(inputCardData("3-3N",420,91));
+mapList.push(inputCardData("3-4N",450,97));
+mapList.push(inputCardData("4-1",300,55));
+mapList.push(inputCardData("4-2",310,60));
+mapList.push(inputCardData("4-3",320,63));
+mapList.push(inputCardData("4-4",330,65));
+mapList.push(inputCardData("4-5",340,68));
+mapList.push(inputCardData("4-6",350,70));
+mapList.push(inputCardData("4-1E",350,70));
+mapList.push(inputCardData("4-2E",360,73));
+mapList.push(inputCardData("4-3E",370,75));
+mapList.push(inputCardData("4-4E",380,80));
+mapList.push(inputCardData("4-1N",450,97));
+mapList.push(inputCardData("4-2N",460,99));
+mapList.push(inputCardData("4-3N",470,100));
+mapList.push(inputCardData("4-4N",480,100));
+mapList.push(inputCardData("5-1",350,75));
+mapList.push(inputCardData("5-2",360,75));
+mapList.push(inputCardData("5-3",370,78));
+mapList.push(inputCardData("5-4",380,80));
+mapList.push(inputCardData("5-5",390,80));
+mapList.push(inputCardData("5-6",400,85));
+mapList.push(inputCardData("5-1E",400,85));
+mapList.push(inputCardData("5-2E",410,88));
+mapList.push(inputCardData("5-3E",420,90));
+mapList.push(inputCardData("5-4E",430,93));
+mapList.push(inputCardData("5-1N",480,102));
+mapList.push(inputCardData("5-2N",480,104));
+mapList.push(inputCardData("5-3N",490,106));
+mapList.push(inputCardData("5-4N",490,108));
+mapList.push(inputCardData("6-1",400,85));
+mapList.push(inputCardData("6-2",410,87));
+mapList.push(inputCardData("6-3",420,89));
+mapList.push(inputCardData("6-4",430,91));
+mapList.push(inputCardData("6-5",440,93));
+mapList.push(inputCardData("6-6",450,95));
+mapList.push(inputCardData("6-1E",450,95));
+mapList.push(inputCardData("6-2E",450,97));
+mapList.push(inputCardData("6-3E",460,99));
+mapList.push(inputCardData("6-4E",470,100));
+mapList.push(inputCardData("6-1N",490,110));
+mapList.push(inputCardData("6-2N",490,112));
+mapList.push(inputCardData("6-3N",500,114));
+mapList.push(inputCardData("6-4N",500,116));
+mapList.push(inputCardData("7-1",450,95));
+mapList.push(inputCardData("7-2",450,96));
+mapList.push(inputCardData("7-3",460,97));
+mapList.push(inputCardData("7-4",460,98));
+mapList.push(inputCardData("7-5",470,99));
+mapList.push(inputCardData("7-6",470,100));
+mapList.push(inputCardData("7-1E",470,97));
+mapList.push(inputCardData("7-2E",470,98));
+mapList.push(inputCardData("7-3E",480,100));
+mapList.push(inputCardData("7-4E",480,100));
+mapList.push(inputCardData("7-1N",500,118));
+mapList.push(inputCardData("7-2N",500,120));
+mapList.push(inputCardData("7-3N",500,120));
+mapList.push(inputCardData("7-4N",500,120));
+mapList.push(inputCardData("8-1",470,100));
+mapList.push(inputCardData("8-2",470,100));
+mapList.push(inputCardData("8-3",470,100));
+mapList.push(inputCardData("8-4",480,100));
+mapList.push(inputCardData("8-5",480,100));
+mapList.push(inputCardData("8-6",480,100));
+mapList.push(inputCardData("8-1E",480,100));
+mapList.push(inputCardData("8-2E",480,100));
+mapList.push(inputCardData("8-3E",490,100));
+mapList.push(inputCardData("8-4E",490,100));
+mapList.push(inputCardData("8-1N",500,120));
+mapList.push(inputCardData("8-2N",500,120));
+mapList.push(inputCardData("8-3N",500,120));
+mapList.push(inputCardData("8-4N",500,120));
+mapList.push(inputCardData("9-1",480,100));
+mapList.push(inputCardData("9-2",480,100));
+mapList.push(inputCardData("9-3",480,100));
+mapList.push(inputCardData("9-4",490,100));
+mapList.push(inputCardData("9-5",490,100));
+mapList.push(inputCardData("9-6",490,100));
+mapList.push(inputCardData("9-1E",490,100));
+mapList.push(inputCardData("9-2E",490,100));
+mapList.push(inputCardData("9-3E",500,100));
+mapList.push(inputCardData("9-4E",500,100));
+mapList.push(inputCardData("10-1",490,110));
+mapList.push(inputCardData("10-2",490,112));
+mapList.push(inputCardData("10-3",490,114));
+mapList.push(inputCardData("10-4",490,116));
+mapList.push(inputCardData("10-5",490,118));
+mapList.push(inputCardData("10-6",490,120));
+mapList.push(inputCardData("10-1E",500,120));
+mapList.push(inputCardData("10-2E",500,120));
+mapList.push(inputCardData("10-3E",500,120));
+mapList.push(inputCardData("10-4E",500,120));
+mapList.push(inputCardData("11-1",510,120));
+mapList.push(inputCardData("11-2",520,120));
+mapList.push(inputCardData("11-3",530,120));
+mapList.push(inputCardData("11-4",540,120));
+mapList.push(inputCardData("11-5",550,120));
+mapList.push(inputCardData("11-6",560,120));
+mapList.push(inputCardData("11-1E",560,120));
+mapList.push(inputCardData("11-2E",570,120));
+mapList.push(inputCardData("11-3E",580,120));
+mapList.push(inputCardData("11-4E",600,120));
             selectMapInfo=mapList[MPval];
+            var errorNum=checkError();
+            if(errorNum===0){
             Num_normal=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1);
             Num_leader=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1.2);
             Num_MVP=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1.3);
             Num_leaderMVP=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1.56);
             Num_book=getNumBook(levelUpExp,CurLev,TarLev,CurExp,OATHValue);
             getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book);
-            getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book);
+            }else{
+                if(errorNum===1){
+                    
+                }
+            }
         }
         </script>
     </head>
@@ -289,232 +445,337 @@
                         </div>
                     </div>
 
-                    <!--Setting -->
+                    <!--Basic Setting -->
                     <div class="row">
-                        <p><span style="color:#FF0066">*未完工，目前录入0、1章地图数据</span></p>
-                        <form class="form-horizontal" role="form">
-                            <!--level/exp info-->
-                            <div class="col-lg-3">
-                                <h4>人形信息(T-doll info)</h4>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">当前等级(Current
-                                        level)</span>
-                                    <input type="text" class="form-control"
-                                        placeholder="输入整数" id="CurLev" value=1>
-                                </div>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">目标等级(Target
-                                        level)&nbsp&nbsp</span>
-                                    <input type="text" class="form-control"
-                                        placeholder="输入整数" id="TarLev" value=2>
-                                </div>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">现有经验(Current
-                                        exp)&nbsp</span>
-                                    <input type="text" class="form-control"
-                                        placeholder="输入整数" id="CurExp" value=0>
-                                </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse"
+                                        data-parent="#accordion"
+                                        href="#collapseOne">基础设置(Basic
+                                        setting)</a>
+                                </h4>
                             </div>
-                            <!--card info-->
-                            <div class="col-lg-3">
-                                <h4>练级信息(Leveling info)</h4>
-                                <p><h5>地图选择(Map selection)</h5>
-                                    <button type="button" class="btn btn-outline
-                                        btn-success" onclick="setMap1()">0-2</button>
-                                    <button type="button" class="btn btn-outline
-                                        btn-danger" onclick="setMap2()">4-3E</button>
-                                    <button type="button" class="btn btn-outline
-                                        btn-primary" onclick="setMap3()">5-2N</button>
-                                    <button type="button" class="btn btn-outline
-                                        btn-primary" onclick="setMap4()">6-3N</button>
-                                    <button type="button" class="btn btn-outline
-                                        btn-primary" onclick="setMap5()">8-1N</button>
-                                    <button type="button" class="btn btn-outline
-                                        btn-success" onclick="setMap6()">11-5</button>
-                                </p>
-                                <p>
-                                    <select class="form-control" id="MapInfo">
-                                        <option value=0>0-1</option>
-                                        <option value=1>0-2</option>
-                                        <option value=2>0-3</option>
-                                        <option value=3>0-4</option>
-                                        <option value=4>1-1</option>
-                                        <option value=5>1-2</option>
-                                        <option value=6>1-3</option>
-                                        <option value=7>1-4</option>
-                                        <option value=8>1-5</option>
-                                        <option value=9>1-6</option>
-                                        <option value=10>1-1E</option>
-                                        <option value=11>1-2E</option>
-                                        <option value=12>1-3E</option>
-                                        <option value=13>1-4E</option>
-                                        <option value=14>1-1N</option>
-                                        <option value=15>1-2N</option>
-                                        <option value=16>1-3N</option>
-                                        <option value=17>1-4N</option>
-                                        <option value=18>2-1</option>
-                                        <option value=19>2-2</option>
-                                        <option value=20>2-3</option>
-                                        <option value=21>2-4</option>
-                                        <option value=22>2-5</option>
-                                        <option value=23>2-6</option>
-                                        <option value=24>2-1E</option>
-                                        <option value=25>2-2E</option>
-                                        <option value=26>2-3E</option>
-                                        <option value=27>2-4E</option>
-                                        <option value=28>2-1N</option>
-                                        <option value=29>2-2N</option>
-                                        <option value=30>2-3N</option>
-                                        <option value=31>2-4N</option>
-                                        <option value=32>3-1</option>
-                                        <option value=33>3-2</option>
-                                        <option value=34>3-3</option>
-                                        <option value=35>3-4</option>
-                                        <option value=36>3-5</option>
-                                        <option value=37>3-6</option>
-                                        <option value=38>3-1E</option>
-                                        <option value=39>3-2E</option>
-                                        <option value=40>3-3E</option>
-                                        <option value=41>3-4E</option>
-                                        <option value=42>3-1N</option>
-                                        <option value=43>3-2N</option>
-                                        <option value=44>3-3N</option>
-                                        <option value=45>3-4N</option>
-                                        <option value=46>4-1</option>
-                                        <option value=47>4-2</option>
-                                        <option value=48>4-3</option>
-                                        <option value=49>4-4</option>
-                                        <option value=50>4-5</option>
-                                        <option value=51>4-6</option>
-                                        <option value=52>4-1E</option>
-                                        <option value=53>4-2E</option>
-                                        <option value=54>4-3E</option>
-                                        <option value=55>4-4E</option>
-                                        <option value=56>4-1N</option>
-                                        <option value=57>4-2N</option>
-                                        <option value=58>4-3N</option>
-                                        <option value=59>4-4N</option>
-                                        <option value=60>5-1</option>
-                                        <option value=61>5-2</option>
-                                        <option value=62>5-3</option>
-                                        <option value=63>5-4</option>
-                                        <option value=64>5-5</option>
-                                        <option value=65>5-6</option>
-                                        <option value=66>5-1E</option>
-                                        <option value=67>5-2E</option>
-                                        <option value=68>5-3E</option>
-                                        <option value=69>5-4E</option>
-                                        <option value=70>5-1N</option>
-                                        <option value=71>5-2N</option>
-                                        <option value=72>5-3N</option>
-                                        <option value=73>5-4N</option>
-                                        <option value=74>6-1</option>
-                                        <option value=75>6-2</option>
-                                        <option value=76>6-3</option>
-                                        <option value=77>6-4</option>
-                                        <option value=78>6-5</option>
-                                        <option value=79>6-6</option>
-                                        <option value=80>6-1E</option>
-                                        <option value=81>6-2E</option>
-                                        <option value=82>6-3E</option>
-                                        <option value=83>6-4E</option>
-                                        <option value=84>6-1N</option>
-                                        <option value=85>6-2N</option>
-                                        <option value=86>6-3N</option>
-                                        <option value=87>6-4N</option>
-                                        <option value=88>7-1</option>
-                                        <option value=89>7-2</option>
-                                        <option value=90>7-3</option>
-                                        <option value=91>7-4</option>
-                                        <option value=92>7-5</option>
-                                        <option value=93>7-6</option>
-                                        <option value=94>7-1E</option>
-                                        <option value=95>7-2E</option>
-                                        <option value=96>7-3E</option>
-                                        <option value=97>7-4E</option>
-                                        <option value=98>7-1N</option>
-                                        <option value=99>7-2N</option>
-                                        <option value=100>7-3N</option>
-                                        <option value=101>7-4N</option>
-                                        <option value=102>8-1</option>
-                                        <option value=103>8-2</option>
-                                        <option value=104>8-3</option>
-                                        <option value=105>8-4</option>
-                                        <option value=106>8-5</option>
-                                        <option value=107>8-6</option>
-                                        <option value=108>8-1E</option>
-                                        <option value=109>8-2E</option>
-                                        <option value=110>8-3E</option>
-                                        <option value=111>8-4E</option>
-                                        <option value=112>8-1N</option>
-                                        <option value=113>8-2N</option>
-                                        <option value=114>8-3N</option>
-                                        <option value=115>8-4N</option>
-                                        <option value=116>9-1</option>
-                                        <option value=117>9-2</option>
-                                        <option value=118>9-3</option>
-                                        <option value=119>9-4</option>
-                                        <option value=120>9-5</option>
-                                        <option value=121>9-6</option>
-                                        <option value=122>9-1E</option>
-                                        <option value=123>9-2E</option>
-                                        <option value=124>9-3E</option>
-                                        <option value=125>9-4E</option>
-                                        <option value=126>10-1</option>
-                                        <option value=127>10-2</option>
-                                        <option value=128>10-3</option>
-                                        <option value=129>10-4</option>
-                                        <option value=130>10-5</option>
-                                        <option value=131>10-6</option>
-                                        <option value=132>10-1E</option>
-                                        <option value=133>10-2E</option>
-                                        <option value=134>10-3E</option>
-                                        <option value=135>10-4E</option>
-                                        <option value=136>11-1</option>
-                                        <option value=137>11-2</option>
-                                        <option value=138>11-3</option>
-                                        <option value=139>11-4</option>
-                                        <option value=140>11-5</option>
-                                        <option value=141>11-6</option>
-                                        <option value=142>11-1E</option>
-                                        <option value=143>11-2E</option>
-                                        <option value=144>11-3E</option>
-                                        <option value=145>11-4E</option>
-                                    </select>
-                                </p>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" id="expUp">圣肝日(50%
-                                        exp up)
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" id="OATH">誓约(OATH)
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <!--Advanced Setting -->
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseOne">高级设置(Advanced
-                                            setting)</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse
-                                    collapse">
-                                    <div class="panel-body">
-                                        <p>还没想好呢</p>
-                                        <p>拉拉拉</p>
-                                    </div>
+                            <div id="collapseOne" class="panel-collapse
+                                collapse in">
+                                <div class="panel-body">
+                                    <form class="form-horizontal" role="form">
+                                        <!--level/exp info-->
+                                        <div class="col-lg-3">
+                                            <h4>人形信息(T-doll info)</h4>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">当前等级(Current
+                                                    level)</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    id="CurLev" value=1>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">目标等级(Target
+                                                    level)&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    id="TarLev" value=2>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">现有经验(Current
+                                                    exp)&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    id="CurExp" value=0>
+                                            </div>
+                                        </div>
+                                        <!--card info-->
+                                        <div class="col-lg-3">
+                                            <h4>练级信息(Leveling info)</h4>
+                                            <p><h5>地图选择(Map selection)</h5>
+                                                <button type="button" class="btn
+                                                    btn-outline
+                                                    btn-success"
+                                                    onclick="setMap1()">0-2</button>
+                                                <button type="button" class="btn
+                                                    btn-outline
+                                                    btn-danger"
+                                                    onclick="setMap2()">4-3E</button>
+                                                <button type="button" class="btn
+                                                    btn-outline
+                                                    btn-primary"
+                                                    onclick="setMap3()">5-2N</button>
+                                                <button type="button" class="btn
+                                                    btn-outline
+                                                    btn-primary"
+                                                    onclick="setMap4()">6-3N</button>
+                                                <button type="button" class="btn
+                                                    btn-outline
+                                                    btn-primary"
+                                                    onclick="setMap5()">8-1N</button>
+                                                <button type="button" class="btn
+                                                    btn-outline
+                                                    btn-success"
+                                                    onclick="setMap6()">11-5</button>
+                                            </p>
+                                            <p>
+                                                <select class="form-control"
+                                                    id="MapInfo">
+                                                    <option value=0>0-1</option>
+                                                    <option value=1>0-2</option>
+                                                    <option value=2>0-3</option>
+                                                    <option value=3>0-4</option>
+                                                    <option value=4>1-1</option>
+                                                    <option value=5>1-2</option>
+                                                    <option value=6>1-3</option>
+                                                    <option value=7>1-4</option>
+                                                    <option value=8>1-5</option>
+                                                    <option value=9>1-6</option>
+                                                    <option value=10>1-1E</option>
+                                                    <option value=11>1-2E</option>
+                                                    <option value=12>1-3E</option>
+                                                    <option value=13>1-4E</option>
+                                                    <option value=14>1-1N</option>
+                                                    <option value=15>1-2N</option>
+                                                    <option value=16>1-3N</option>
+                                                    <option value=17>1-4N</option>
+                                                    <option value=18>2-1</option>
+                                                    <option value=19>2-2</option>
+                                                    <option value=20>2-3</option>
+                                                    <option value=21>2-4</option>
+                                                    <option value=22>2-5</option>
+                                                    <option value=23>2-6</option>
+                                                    <option value=24>2-1E</option>
+                                                    <option value=25>2-2E</option>
+                                                    <option value=26>2-3E</option>
+                                                    <option value=27>2-4E</option>
+                                                    <option value=28>2-1N</option>
+                                                    <option value=29>2-2N</option>
+                                                    <option value=30>2-3N</option>
+                                                    <option value=31>2-4N</option>
+                                                    <option value=32>3-1</option>
+                                                    <option value=33>3-2</option>
+                                                    <option value=34>3-3</option>
+                                                    <option value=35>3-4</option>
+                                                    <option value=36>3-5</option>
+                                                    <option value=37>3-6</option>
+                                                    <option value=38>3-1E</option>
+                                                    <option value=39>3-2E</option>
+                                                    <option value=40>3-3E</option>
+                                                    <option value=41>3-4E</option>
+                                                    <option value=42>3-1N</option>
+                                                    <option value=43>3-2N</option>
+                                                    <option value=44>3-3N</option>
+                                                    <option value=45>3-4N</option>
+                                                    <option value=46>4-1</option>
+                                                    <option value=47>4-2</option>
+                                                    <option value=48>4-3</option>
+                                                    <option value=49>4-4</option>
+                                                    <option value=50>4-5</option>
+                                                    <option value=51>4-6</option>
+                                                    <option value=52>4-1E</option>
+                                                    <option value=53>4-2E</option>
+                                                    <option value=54>4-3E</option>
+                                                    <option value=55>4-4E</option>
+                                                    <option value=56>4-1N</option>
+                                                    <option value=57>4-2N</option>
+                                                    <option value=58>4-3N</option>
+                                                    <option value=59>4-4N</option>
+                                                    <option value=60>5-1</option>
+                                                    <option value=61>5-2</option>
+                                                    <option value=62>5-3</option>
+                                                    <option value=63>5-4</option>
+                                                    <option value=64>5-5</option>
+                                                    <option value=65>5-6</option>
+                                                    <option value=66>5-1E</option>
+                                                    <option value=67>5-2E</option>
+                                                    <option value=68>5-3E</option>
+                                                    <option value=69>5-4E</option>
+                                                    <option value=70>5-1N</option>
+                                                    <option value=71>5-2N</option>
+                                                    <option value=72>5-3N</option>
+                                                    <option value=73>5-4N</option>
+                                                    <option value=74>6-1</option>
+                                                    <option value=75>6-2</option>
+                                                    <option value=76>6-3</option>
+                                                    <option value=77>6-4</option>
+                                                    <option value=78>6-5</option>
+                                                    <option value=79>6-6</option>
+                                                    <option value=80>6-1E</option>
+                                                    <option value=81>6-2E</option>
+                                                    <option value=82>6-3E</option>
+                                                    <option value=83>6-4E</option>
+                                                    <option value=84>6-1N</option>
+                                                    <option value=85>6-2N</option>
+                                                    <option value=86>6-3N</option>
+                                                    <option value=87>6-4N</option>
+                                                    <option value=88>7-1</option>
+                                                    <option value=89>7-2</option>
+                                                    <option value=90>7-3</option>
+                                                    <option value=91>7-4</option>
+                                                    <option value=92>7-5</option>
+                                                    <option value=93>7-6</option>
+                                                    <option value=94>7-1E</option>
+                                                    <option value=95>7-2E</option>
+                                                    <option value=96>7-3E</option>
+                                                    <option value=97>7-4E</option>
+                                                    <option value=98>7-1N</option>
+                                                    <option value=99>7-2N</option>
+                                                    <option value=100>7-3N</option>
+                                                    <option value=101>7-4N</option>
+                                                    <option value=102>8-1</option>
+                                                    <option value=103>8-2</option>
+                                                    <option value=104>8-3</option>
+                                                    <option value=105>8-4</option>
+                                                    <option value=106>8-5</option>
+                                                    <option value=107>8-6</option>
+                                                    <option value=108>8-1E</option>
+                                                    <option value=109>8-2E</option>
+                                                    <option value=110>8-3E</option>
+                                                    <option value=111>8-4E</option>
+                                                    <option value=112>8-1N</option>
+                                                    <option value=113>8-2N</option>
+                                                    <option value=114>8-3N</option>
+                                                    <option value=115>8-4N</option>
+                                                    <option value=116>9-1</option>
+                                                    <option value=117>9-2</option>
+                                                    <option value=118>9-3</option>
+                                                    <option value=119>9-4</option>
+                                                    <option value=120>9-5</option>
+                                                    <option value=121>9-6</option>
+                                                    <option value=122>9-1E</option>
+                                                    <option value=123>9-2E</option>
+                                                    <option value=124>9-3E</option>
+                                                    <option value=125>9-4E</option>
+                                                    <option value=126>10-1</option>
+                                                    <option value=127>10-2</option>
+                                                    <option value=128>10-3</option>
+                                                    <option value=129>10-4</option>
+                                                    <option value=130>10-5</option>
+                                                    <option value=131>10-6</option>
+                                                    <option value=132>10-1E</option>
+                                                    <option value=133>10-2E</option>
+                                                    <option value=134>10-3E</option>
+                                                    <option value=135>10-4E</option>
+                                                    <option value=136>11-1</option>
+                                                    <option value=137>11-2</option>
+                                                    <option value=138>11-3</option>
+                                                    <option value=139>11-4</option>
+                                                    <option value=140>11-5</option>
+                                                    <option value=141>11-6</option>
+                                                    <option value=142>11-1E</option>
+                                                    <option value=143>11-2E</option>
+                                                    <option value=144>11-3E</option>
+                                                    <option value=145>11-4E</option>
+                                                </select>
+                                            </p>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox"
+                                                        id="expUp">圣肝日(50%
+                                                    exp up)
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox"
+                                                        id="OATH">誓约(OATH)
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                    <!--Advanced Setting -->
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse"
+                                        data-parent="#accordion"
+                                        href="#collapseTwo">高级设置(Advanced
+                                        setting)</a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse
+                                collapse">
+                                <div class="panel-body">
+                                    <!--Expansion -->
+                                    <div class="col-lg-12">
+                                        <p><h4>扩编情况(Expansion)</h4>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="Expan1"
+                                                    value="option1" checked><span
+                                                    style="color:dodgerblue">随等级扩编(dynamic)</span>
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="Expan2"
+                                                    value="option2">x1
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="Expan3"
+                                                    value="option3">x2
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="Expan3"
+                                                    value="option4">x3
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="Expan4"
+                                                    value="option5">x4
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="Expan5"
+                                                    value="option5">x5
+                                            </label>
+                                        </p>
+                                    </div>
+                                    <!--Data-room level -->
+                                    <div class="col-lg-1">
+                                        <p><h4>资料室等级</h4></p>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <p><select class="form-control"
+                                                id="DataRoomInfo">
+                                                <option value=0>Lv.10: 20%</option>
+                                                <option value=1>0-2</option>
+                                                <option value=2>0-3</option>
+                                                <option value=3>0-4</option>
+                                                <option value=4>1-1</option>
+                                                <option value=5>1-2</option>
+                                                <option value=6>1-3</option>
+                                                <option value=7>1-4</option>
+                                                <option value=8>1-5</option>
+                                                <option value=9>20%</option>
+                                                <option value=10>Lv.0: 3%</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p><button type="button" class="btn
+                                                btn-danger"
+                                                onclick="resetAdSet()">重置高级设置(Reset
+                                                advanced setting)</button></p>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!--Button -->
