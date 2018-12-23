@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>hycdes blog</title>
+        <title>少女前线-练级计算器 by 命运の乐章</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,13 +26,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>hycdes blog</title>
-
         <script type="text/javascript">
         window.onload = function () {
             var chart = document.getElementById("resultChart");
@@ -113,14 +106,15 @@
             }
             return 0;
         }
-        function getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book) {
+        function getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book,total_EXP) {
             var TimeAvgId=document.getElementById('TimeAvg'); var maxTime=parseFloat(TimeAvgId.value)*Num_leaderMVP/60, minTime=parseFloat(TimeAvgId.value)*Num_normal/60;
             var AmmAvgId=document.getElementById('AmmAvg'); var maxAmm=parseFloat(AmmAvgId.value)*Num_leaderMVP, minAmm=parseFloat(AmmAvgId.value)*Num_normal;
             var RatAvgId=document.getElementById('RatAvg'); var maxRat=parseFloat(RatAvgId.value)*Num_leaderMVP, minRat=parseFloat(RatAvgId.value)*Num_normal;
             var chart = document.getElementById("resultChart");
             var tab = '<p><h4>地图信息(Map information)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>地图(Map)</th><th>战斗经验(Exp/battle)</th><th>衰减等级(Decline level)</th></tr></thead>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验(Total exp)</th><th>所选地图(Map selection)</th><th>战斗经验(Exp/battle)</th><th>衰减等级(Decline level)</th></tr></thead>';
             tab += '<tbody><tr>';
+            tab += '<td>'; tab+=(total_EXP+""); tab += '</td>';
             tab += '<td>'; tab+=(selectMapInfo.cardname); tab += '</td>';
             tab += '<td>'; tab+=(selectMapInfo.value+""); tab += '</td>';
             tab += '<td>'; tab+=(selectMapInfo.declinelevel+""); tab += '</td>';
@@ -225,6 +219,7 @@
             var chartInError = document.getElementById("resultChart");
             var tab;
             var Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book;
+            var total_EXP;
             var selectMapInfo;
             var CurLevId=document.getElementById('CurLev');
             var TarLevId=document.getElementById('TarLev');
@@ -401,12 +396,13 @@ mapList.push(inputCardData("11-4E",600,120));
             selectMapInfo=mapList[MPval];
             var errorNum=checkError(levelUpExp);
             if(errorNum===0){
+                total_EXP=levelUpExp[TarLev]-levelUpExp[CurLev]-CurExp;
                 Num_normal=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1);
                 Num_leader=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1.2);
                 Num_MVP=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1.3);
                 Num_leaderMVP=getNum(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp,OATHValue,1.56);
                 Num_book=getNumBook(levelUpExp,CurLev,TarLev,CurExp,OATHValue);
-                getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book);
+                getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book,total_EXP);
             }else{
                 //不合法输入（在1~120间），等级上下逆转，现有经验超标
                 //扩编信息不符，口粮弹药时间输入非法

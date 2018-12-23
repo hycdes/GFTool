@@ -2,12 +2,15 @@
 <html lang="zh">
 
     <head>
+        <style type="text/css">
+            img{ height:100%; width:100%;}
+        </style>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>hycdes blog</title>
+        <title>Linux/Docker-by 命运の乐章</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -203,7 +206,7 @@
                                     <p><b>安装docker-ce</b></p>
                                     <p>apt-get install docker-ce</p>
                                     <p><b>运行docker，例如运行展示用的hello-world</b></p>
-                                    <p>docker run DOCKER_NAME</p>
+                                    <p>docker run <span style="color:darkgrey">IMAGE_NAME</span></p>
                                     <p>docker run hello-world</p>
                                 </div>
                                 <div class="panel-footer">
@@ -228,6 +231,35 @@
                                 </div>
                             </div>
                         </div>
+                        <!--docker basis-->
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    docker基本命令（先su）
+                                </div>
+                                <div class="panel-body">
+                                    <p><b>运行镜像</b></p>
+                                    <p>docker run <span style="color:darkgrey">IMAGE_NAME</span></p>
+                                    <p>docker run hello-world<span
+                                            style="color:green"> #
+                                            docker自带hello-world例子</span></p>
+                                    <p><b>查看运行的容器</b></p>
+                                    <p>docker ps -a</p>
+                                    <p><a href="../img/img_docker_1.png"
+                                            target="_blank"><img
+                                                src="../img/img_docker_1.png"
+                                                alt="docker ps -a"></a></p>
+                                    <p><b>进入运行的容器</b></p>
+                                    <p>docker attach <span
+                                            style="color:darkgrey">NAME_or_ID</span></p>
+                                    <p><b>删除容器（必须停止运行才能删除）</b></p>
+                                    <p>docker rm <span style="color:darkgrey">NAME</span></p>
+                                </div>
+                                <div class="panel-footer">
+                                    docker:configure
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 
@@ -242,7 +274,12 @@
                                     Nginx安装
                                 </div>
                                 <div class="panel-body">
-                                    <p><b>官网教程</b></p>
+                                    <p><b>在docker hub中查找nginx镜像（先su）</b></p>
+                                    <p>docker search nginx</p>
+                                    <p><b>列表里排行第一的即所需nginx，拉取镜像</b></p>
+                                    <p>docker pull nginx</p>
+                                    <p><b>下载完后，在本地镜像列表里就能找到nginx</b></p>
+                                    <p>docker images nginx</p>
                                 </div>
                                 <div class="panel-footer">
                                     Nginx:install
@@ -256,8 +293,20 @@
                                     Nginx设置和运行
                                 </div>
                                 <div class="panel-body">
-                                    <p><b>设置和运行</b></p>
-
+                                    <p><b>运行nginx</b></p>
+                                    <p>docker run --name <span
+                                            style="color:darkgrey">NAME</span>
+                                        -d -p
+                                        <span style="color:darkgrey">LOCAL_MACHINE_PORT:INTERNAL_CONTAINER_PORT</span>
+                                        -v <span style="color:darkgrey">LINK_FILE:CONTAINER_FILE</span>
+                                        nginx</p>
+                                    <p>docker run --name docker-nginx -d -p
+                                        8080:80 -v
+                                        ~/docker-nginx/html:/usr/share/nginx/html
+                                        nginx</p>
+                                    <p><b>使用Ctrl+C终止</b></p>
+                                    <p><span style="color:green"># -d独立运行
+                                            -p暴露容器端口(80为HTTP端口) -v将其他页面链接到容器页面</span></p>
                                 </div>
                                 <div class="panel-footer">
                                     Nginx:configure
@@ -278,7 +327,8 @@
                                     Snort安装
                                 </div>
                                 <div class="panel-body">
-                                    <p><b>官网教程</b></p>
+                                    <p><b>在docker hub中查找nginx镜像（先su）</b></p>
+                                    <p>docker search snort</p>
                                 </div>
                                 <div class="panel-footer">
                                     Snort:install
