@@ -37,6 +37,40 @@
         }
         var listNum=1;
         var fiveStarNum=0;
+        function releaseResoLimit(){
+            var MwOwn = document.getElementById('MwOwn');
+            var AwOwn = document.getElementById('AwOwn');
+            var RwOwn = document.getElementById('RwOwn');
+            var PwOwn = document.getElementById('PwOwn');
+            MwOwn.disabled = !(MwOwn.disabled);
+            AwOwn.disabled = !(AwOwn.disabled);
+            RwOwn.disabled = !(RwOwn.disabled);
+            PwOwn.disabled = !(PwOwn.disabled);
+        }
+        function releaseCoCoLimit(){
+            var ConOwn = document.getElementById('ConOwn');
+            var CoreOwn = document.getElementById('CoreOwn');
+            ConOwn.disabled = !(ConOwn.disabled);
+            CoreOwn.disabled = !(CoreOwn.disabled);
+        }
+        function resetResoLimit(){
+            var MwOwn = document.getElementById('MwOwn');
+            var AwOwn = document.getElementById('AwOwn');
+            var RwOwn = document.getElementById('RwOwn');
+            var PwOwn = document.getElementById('PwOwn');
+            var ConOwn = document.getElementById('ConOwn');
+            var CoreOwn = document.getElementById('CoreOwn');
+            var unLimitReso = document.getElementById('unLimitReso');
+            var unLimitCoCo = document.getElementById('unLimitCoCo');
+            unLimitReso.checked=true;
+            unLimitCoCo.checked=true;
+            ConOwn.disabled = true; ConOwn.value=100;
+            CoreOwn.disabled = true; CoreOwn.value=100;
+            MwOwn.disabled = true; MwOwn.value=10000;
+            AwOwn.disabled = true; AwOwn.value=10000;
+            RwOwn.disabled = true; RwOwn.value=10000;
+            PwOwn.disabled = true; PwOwn.value=10000;
+        }
         function setWeight1() {
             var Mw = document.getElementById('Mw'); Mw.value = 430;
             var Aw = document.getElementById('Aw'); Aw.value = 430;
@@ -51,27 +85,27 @@
         }
         function setWeight3() {
             var Mw = document.getElementById('Mw'); Mw.value = 97;
-            var Aw = document.getElementById('Aw'); Aw.value = 4;
-            var Rw = document.getElementById('Rw'); Rw.value = 4;
-            var Pw = document.getElementById('Pw'); Pw.value = 2;
+            var Aw = document.getElementById('Aw'); Aw.value = 404;
+            var Rw = document.getElementById('Rw'); Rw.value = 404;
+            var Pw = document.getElementById('Pw'); Pw.value = 97;
         }
         function setWeight4() {
-            var Mw = document.getElementById('Mw'); Mw.value = 4;
-            var Aw = document.getElementById('Aw'); Aw.value = 1;
-            var Rw = document.getElementById('Rw'); Rw.value = 4;
-            var Pw = document.getElementById('Pw'); Pw.value = 2;
+            var Mw = document.getElementById('Mw'); Mw.value = 430;
+            var Aw = document.getElementById('Aw'); Aw.value = 130;
+            var Rw = document.getElementById('Rw'); Rw.value = 430;
+            var Pw = document.getElementById('Pw'); Pw.value = 230;
         }
         function setWeight5() {
-            var Mw = document.getElementById('Mw'); Mw.value = 7;
-            var Aw = document.getElementById('Aw'); Aw.value = 6;
-            var Rw = document.getElementById('Rw'); Rw.value = 1;
-            var Pw = document.getElementById('Pw'); Pw.value = 4;
+            var Mw = document.getElementById('Mw'); Mw.value = 430;
+            var Aw = document.getElementById('Aw'); Aw.value = 430;
+            var Rw = document.getElementById('Rw'); Rw.value = 130;
+            var Pw = document.getElementById('Pw'); Pw.value = 230;
         }
         function setWeight6() {
-            var Mw = document.getElementById('Mw'); Mw.value = 6;
-            var Aw = document.getElementById('Aw'); Aw.value = 2;
-            var Rw = document.getElementById('Rw'); Rw.value = 6;
-            var Pw = document.getElementById('Pw'); Pw.value = 4;
+            var Mw = document.getElementById('Mw'); Mw.value = 730;
+            var Aw = document.getElementById('Aw'); Aw.value = 630;
+            var Rw = document.getElementById('Rw'); Rw.value = 130;
+            var Pw = document.getElementById('Pw'); Pw.value = 430;
         }
         function setWeightH1() {
             var Mw = document.getElementById('MwH'); Mw.value = 6000;
@@ -161,6 +195,13 @@
             }
             return TdollInfo;
         }
+        function addListMulti(){
+            var NTimes=document.getElementById('NTimes');
+            var times=parseInt(NTimes.value);
+            for(var i=0;i<times;i++){
+                addList();
+            }
+        }
         function addList() {
             var chart = document.getElementById("rankingChart");
             var sumchart=document.getElementById("sumChart");
@@ -196,12 +237,14 @@
             tabSum += "<td>"; tabSum += (listNum + ""); tabSum += "</td>";
             tabSum += "<td>"; tabSum += (fiveStarNum+""); tabSum += "</td>";
             tabSum += "<td>";
-            if(fiveStarNum/listNum>0.2){
+            if(fiveStarNum/listNum>0.15){
                 tabSum += '<span style="color:darkorange">欧皇</span>';
-            }else if(fiveStarNum/listNum<=0.2 && fiveStarNum/listNum>0.03){
+            }else if(fiveStarNum/listNum<=0.15 && fiveStarNum/listNum>0.02){
                 tabSum += '<span style="color:dodgerblue">亚洲人</span>';
-            }else{
+            }else if(fiveStarNum/listNum<=0.02 && fiveStarNum/listNum>0.01){
                 tabSum += '<span style="color:darkseagreen">非酋</span>';
+            }else{
+                tabSum += '酋长';
             }
             tabSum += "</td></tr>";
             tabSum += '</tbody></table>';
@@ -352,160 +395,297 @@
                                 content and actual luck.</p>
                         </div>
                     </div>
-                    <!-- /.row -->
+                    <!--Normal-->
                     <div class="row">
-                        <!--Normal-->
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse"
-                                        data-parent="#accordion"
-                                        href="#collapseOne">人形建造-普通(Normal
-                                        T-doll produce)</a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse
-                                collapse in">
-                                <div class="panel-body">
-                                    <!--Fast-->
-                                    <div class="col-lg-12">
-                                        <h4>快捷配比(Ratio templates)</h4>
-                                        <p>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeight1()">430-430-430-230</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeight2()">130-130-130-130</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeight3()">97-404-404-97</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeight4()">430-130-430-230</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeight5()">430-430-130-230</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeight6()">730-630-130-430</button>
-                                        </p>
-                                    </div>
-                                    <!--Resource-->
-                                    <div class="col-lg-3">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=30
-                                                id="Mw">
+                        <div class="col-lg-10">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse"
+                                            data-parent="#accordion"
+                                            href="#collapseOne">人形建造-普通(Normal
+                                            T-doll produce)</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse
+                                    collapse in">
+                                    <div class="panel-body">
+                                        <!--Fast-->
+                                        <div class="col-lg-12">
+                                            <h4>快捷配比(Ratio templates)</h4>
+                                            <p>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeight1()">430-430-430-230</button>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeight2()">130-130-130-130</button>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeight3()">97-404-404-97</button>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeight4()">430-130-430-230</button>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeight5()">430-430-130-230</button>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeight6()">730-630-130-430</button>
+                                            </p>
                                         </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=30
-                                                id="Rw">
+                                        <!--Resource-->
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数" value=30
+                                                    id="Mw">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数" value=30
+                                                    id="Rw">
+                                            </div>
+                                            <p>
+                                                <select
+                                                    class="form-control"
+                                                    id="NTimes">
+                                                    <option value=1>单次建造(Single)</option>
+                                                    <option value=10>十连(x10)</option>
+                                                </select>
+                                            </p>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">弹药(Ammunition)</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=30
-                                                id="Aw">
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数" value=30
+                                                    id="Aw">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数" value=30
+                                                    id="Pw">
+                                            </div>
                                         </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=30
-                                                id="Pw">
+                                        <div class="col-lg-12">
+                                            <p><button type="button" class="btn
+                                                    btn-info"
+                                                    onclick="addListMulti()">普通建造(Normal
+                                                    produce)</button></p>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <p><button type="button" class="btn
-                                                btn-info"
-                                                onclick="addList()">建造(Produce)</button></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--Heavy-->
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse"
-                                        data-parent="#accordion"
-                                        href="#collapseTwo">人形建造-重型(Heavy
-                                        T-doll produce)</a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse
-                                collapse">
-                                <div class="panel-body">
-                                    <!--Fast-->
-                                    <div class="col-lg-12">
-                                        <h4>快捷配比(Ratio templates)</h4>
-                                        <p>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeightH1()">6000-2000-6000-4000</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeightH2()">6000-6000-6000-4000</button>
-                                        </p>
-                                    </div>
-                                    <!--Resource-->
-                                    <div class="col-lg-3">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=1000
-                                                id="MwH">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=1000
-                                                id="RwH">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">弹药(Ammunition)</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=1000
-                                                id="AwH">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" value=1000
-                                                id="PwH">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <p><button type="button" class="btn
-                                                btn-danger"
-                                                onclick="addListH()">建造(Produce)</button></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
+                    <!--Heavy-->
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse"
+                                            data-parent="#accordion"
+                                            href="#collapseTwo">人形建造-重型(Heavy
+                                            T-doll produce)</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse
+                                    collapse">
+                                    <div class="panel-body">
+                                        <!--Fast-->
+                                        <div class="col-lg-12">
+                                            <h4>快捷配比(Ratio templates)</h4>
+                                            <p>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeightH1()">6000-2000-6000-4000</button>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeightH2()">6000-6000-6000-4000</button>
+                                            </p>
+                                        </div>
+                                        <!--Resource-->
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=1000
+                                                    id="MwH">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=1000
+                                                    id="RwH">
+                                            </div>
+                                            <p>
+                                                <select
+                                                    class="form-control"
+                                                    id="HClass">
+                                                    <option value=1>一档：人形契约x1 /
+                                                        核心x3</option>
+                                                    <option value=2>二档：人形契约x20 /
+                                                        核心x5</option>
+                                                    <option value=3>三档：人形契约x50 /
+                                                        核心x10</option>
+                                                </select>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=1000
+                                                    id="AwH">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=1000
+                                                    id="PwH">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <p><button type="button" class="btn
+                                                    btn-warning"
+                                                    onclick="addListH()">重型建造(Heavy
+                                                    produce)</button></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Resource limit-->
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse"
+                                            data-parent="#accordion"
+                                            href="#collapseThree">资源限制(Resource
+                                            limit)</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse
+                                    collapse">
+                                    <div class="panel-body">
+                                        <!--Resource-->
+                                        <div class="col-lg-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="unLimitReso"
+                                                        checked
+                                                        onclick="releaseResoLimit()">无限资源(Unlimited
+                                                    resource)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=10000
+                                                    id="MwOwn" disabled>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=10000
+                                                    id="RwOwn" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=10000
+                                                    id="AwOwn" disabled>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=10000
+                                                    id="PwOwn" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input
+                                                        type="checkbox"
+                                                        id="unLimitCoCo"
+                                                        checked
+                                                        onclick="releaseCoCoLimit()">无限契约核心(Unlimited
+                                                    contract/core)
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">契约(Contract)</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=100
+                                                    id="ConOwn" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">核心(Core)</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    value=100
+                                                    id="CoreOwn" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <p><button type="button" class="btn
+                                                    btn-danger"
+                                                    onclick="resetResoLimit()">重置资源限制设置(Reset
+                                                    resource limit setting)</button></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Result-->
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    建造列表(Produce results)
+                                    建造结果(Produce results)
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -523,9 +703,7 @@
                                 </div>
                                 <!-- /.panel-body -->
                             </div>
-
                         </div>
-
                     </div>
 
                 </div>
