@@ -29,21 +29,14 @@
         <script type="text/javascript">
         window.onload = function () {
             var chart = document.getElementById("rankingChart");
-            var tab = '点击 <span style="color:deepskyblue">建造</span> 按钮，结果将在这里显示';
+            var sumchart = document.getElementById("sumChart");
+            var tab = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>人形</th></tr></thead><tbody></tbody></table>';
+            var tab2 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody></tbody></table>';
             chart.innerHTML = tab;
+            sumchart.innerHTML = tab2;
         }
-        function creatLogiData(ilevel, impw, iamm, irat, iprt, iitm1, iitm2, itime) {
-            var logiData = new Object;
-            logiData.level = ilevel;
-            logiData.mpw = impw;
-            logiData.amm = iamm;
-            logiData.rat = irat;
-            logiData.prt = iprt;
-            logiData.itm1 = iitm1;
-            logiData.itm2 = iitm2;
-            logiData.time = itime;
-            return logiData;
-        }
+        var listNum=1;
+        var fiveStarNum=0;
         function setWeight1() {
             var Mw = document.getElementById('Mw'); Mw.value = 430;
             var Aw = document.getElementById('Aw'); Aw.value = 430;
@@ -81,166 +74,122 @@
             var Pw = document.getElementById('Pw'); Pw.value = 4;
         }
         function setWeightH1() {
-            var Mw = document.getElementById('Mw'); Mw.value = 6000;
-            var Aw = document.getElementById('Aw'); Aw.value = 2000;
-            var Rw = document.getElementById('Rw'); Rw.value = 6000;
-            var Pw = document.getElementById('Pw'); Pw.value = 4000;
+            var Mw = document.getElementById('MwH'); Mw.value = 6000;
+            var Aw = document.getElementById('AwH'); Aw.value = 2000;
+            var Rw = document.getElementById('RwH'); Rw.value = 6000;
+            var Pw = document.getElementById('PwH'); Pw.value = 4000;
         }
         function setWeightH2() {
-            var Mw = document.getElementById('Mw'); Mw.value = 6000;
-            var Aw = document.getElementById('Aw'); Aw.value = 6000;
-            var Rw = document.getElementById('Rw'); Rw.value = 6000;
-            var Pw = document.getElementById('Pw'); Pw.value = 4000;
+            var Mw = document.getElementById('MwH'); Mw.value = 6000;
+            var Aw = document.getElementById('AwH'); Aw.value = 6000;
+            var Rw = document.getElementById('RwH'); Rw.value = 6000;
+            var Pw = document.getElementById('PwH'); Pw.value = 4000;
         }
-        function obeyTime(TimeRequire, logiDataEntry) {
-            if (logiDataEntry.time >= TimeRequire) {
-                return true;
-            } else {
-                return false;
+        function creatTdollInfo(name,posibility) {
+            var TdollInfo = new Object;
+            TdollInfo.name=name;
+            TdollInfo.posibility=posibility;
+            return TdollInfo;
+        }
+        function makeStar(){
+            var starNum=Math.floor(Math.random()*100);
+            if(starNum<3) return 5;
+            else if(starNum>=3 && starNum<13) return 4;
+            else if(starNum>=13 && starNum<40) return 3;
+            else return 2;
+        }
+        //posibility*100
+        function makeTdoll(Mw,Aw,Rw,Pw,starNum){
+            var TdollInfo="";
+            var TdollList=[];
+            var th_hg,th_smg,th_ar,th_rf,th_mg,th_sg;
+            var mul_hg;
+            var mul_smg,mul_ar,mul_rf,mul_mg,mul_sg;
+            for(var i=0;i<starNum;i++){
+                TdollInfo+="☆";
             }
-        }
-        function haveItem(it1, it2, logiDataEntry) {
-            var validNum = 0;
-            if (it1 === it2) {
-                if (it1 === 0) {
-                    validNum += 2;
-                } else {
-                    if ((logiDataEntry.itm1 === "人型契约" || logiDataEntry.itm2 === "人型契约") && it1 === 1) {
-                        validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "装备契约" || logiDataEntry.itm2 === "装备契约") && it1 === 2) {
-                        validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "快速建造" || logiDataEntry.itm2 === "快速建造") && it1 === 3) {
-                        validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "快速修复" || logiDataEntry.itm2 === "快速修复") && it1 === 4) {
-                        validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "采购币" || logiDataEntry.itm2 === "采购币") && it1 === 5) {
-                        validNum += 2;
-                    }
-                }
-            } else {
-                if (it1 === 0 || it2 === 0) {
-                    validNum++;
-                }
-                if ((logiDataEntry.itm1 === "人型契约") && (it1 === 1 || it2 === 1)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm1 === "装备契约") && (it1 === 2 || it2 === 2)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm1 === "快速建造") && (it1 === 3 || it2 === 3)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm1 === "快速修复") && (it1 === 4 || it2 === 4)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm1 === "采购币") && (it1 === 5 || it2 === 5)) {
-                    validNum++;
-                }
-                if ((logiDataEntry.itm2 === "人型契约") && (it1 === 1 || it2 === 1)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm2 === "装备契约") && (it1 === 2 || it2 === 2)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm2 === "快速建造") && (it1 === 3 || it2 === 3)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm2 === "快速修复") && (it1 === 4 || it2 === 4)) {
-                    validNum++;
-                } else if ((logiDataEntry.itm2 === "采购币") && (it1 === 5 || it2 === 5)) {
-                    validNum++;
+            if(Mw+Aw+Rw+Pw <= 920){
+                mul_hg=0.35*520/(Mw+Aw+Rw+Pw);
+                if(starNum === 5){
+                    fiveStarNum++;
+                    TdollList.push(creatTdollInfo("灰熊MkV Grizzly", 200));
+                    TdollList.push(creatTdollInfo("M950a", 80));
+                    TdollList.push(creatTdollInfo("维尔德MkII Welrod", 100));
+                    TdollList.push(creatTdollInfo("NZ75", 110));
+                    TdollList.push(creatTdollInfo("竞争者 Contender", 30));
+                    TdollList.push(creatTdollInfo("风暴Px4 StormPx4", 30));
+                }else if(starNum === 4){
+                    TdollList.push(creatTdollInfo("四星", 100));
+                }else if(starNum === 3){
+                    TdollList.push(creatTdollInfo("三星", 100));
+                }else{
+                    TdollList.push(creatTdollInfo("二星", 100));
                 }
             }
-            if (validNum === 2) {
-                return true;
-            } else {
-                return false;
+            var totalPosiNum=0;
+            for(var i=0;i<TdollList.length;i++){
+                totalPosiNum += parseInt(TdollList[i].posibility);
             }
+            var selectTdoll=Math.floor(Math.random()*totalPosiNum);
+            for(var i=0;i<TdollList.length;i++){
+                selectTdoll -= parseInt(TdollList[i].posibility);
+                if(selectTdoll<=0){
+                    TdollInfo+=" ";
+                    TdollInfo+=TdollList[i].name;                    
+                    break;
+                }
+            }
+            return TdollInfo;
         }
-        function getChart(logiList, it1, it2, it1_text, it2_text, TimeRequire) {
-            var allEntry = 0;
-            var listNum = 48;
+        function addList() {
             var chart = document.getElementById("rankingChart");
-            var tab = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>排行</th><th>关卡</th><th>人力/h</th><th>弹药/h</th><th>口粮/h</th><th>零件/h</th><th>道具1</th><th>道具2</th><th>时间(h)</th></tr></thead>';
-            tab += '<tbody>';
-            for (var i = 0; i < listNum && allEntry < 10; i++) {
-                if (haveItem(it1, it2, logiList[i]) && obeyTime(TimeRequire, logiList[i])) {
-                    tab += "<tr>";
-                    tab += "<td>"; tab += ((allEntry + 1) + ""); tab += "</td>";
-                    tab += "<td>"; tab += logiList[i].level; tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].mpw + ""); tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].amm + ""); tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].rat + ""); tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].prt + ""); tab += "</td>";
-                    tab += "<td>"; tab += logiList[i].itm1; tab += "</td>";
-                    tab += "<td>"; tab += logiList[i].itm2; tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].time + ""); tab += "</td>";
-                    tab += "</tr>";
-                    allEntry++;
-                }
+            var sumchart=document.getElementById("sumChart");
+            var tab = chart.innerHTML;
+            var tabSum = sumchart.innerHTML;
+            var MwId=document.getElementById('Mw'); var Mw=parseInt(MwId.value);
+            var AwId=document.getElementById('Aw'); var Aw=parseInt(AwId.value);
+            var RwId=document.getElementById('Rw'); var Rw=parseInt(RwId.value);
+            var PwId=document.getElementById('Pw'); var Pw=parseInt(PwId.value);
+            var starNum=makeStar();
+            var Tdoll=makeTdoll(Mw,Aw,Rw,Pw,starNum);
+            tab = tab.substring(0,tab.length-16);
+            tab += "<tr>";
+            tab += "<td>"; tab += (listNum + ""); tab += "</td>";
+            tab += "<td>"; tab += (Mw+" "); tab += (Aw+" "); tab += (Rw+" "); tab += (Pw+" ");
+            tab += "</td>";
+            tab += "<td>";
+            if(starNum===5){
+                tab += '<span style="color:darkorange">'; tab += Tdoll ; tab += '</span>';
+            }else if(starNum===4){
+                tab += '<span style="color:chartreuse">'; tab += Tdoll ; tab += '</span>';
             }
+            else if(starNum===3){
+                tab += '<span style="color:dodgerblue">'; tab += Tdoll ; tab += '</span>';
+            }
+            else{
+                tab += '<span style="color:darkseagreen">'; tab += Tdoll ; tab += '</span>';
+            }
+            tab += "</td></tr>";
             tab += '</tbody></table>';
-            if (allEntry === 0) {
-                tab = "";
-                if (it1_text != '无' && it2_text != '无') {
-                    if (it1_text != it2_text) {
-                        tab += '没有既包含 <span style="color:#FF0066">';
-                        tab += it1_text;
-                        tab += '</span> 又包含<span style="color:#FF0066"> ';
-                        tab += it2_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
-                        tab += '</span> 小时的后勤条目';
-                    } else {
-                        tab += '没有包含 <span style="color:#FF0066">';
-                        tab += it1_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
-                        tab += '</span> 小时的后勤条目';
-                    }
-                } else if (it1_text === '无' && it2_text === '无') {
-                    tab += '没有时间长于 <span style="color:#FF0066">';
-                    tab += TimeRequire;
-                    tab += '</span> 小时的后勤条目';
-                } else {
-                    if (it1_text === '无') {
-                        tab += '没有包含 <span style="color:#FF0066">';
-                        tab += it2_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
-                        tab += '</span> 小时的后勤条目';
-                    } else {
-                        tab += '没有包含 <span style="color:#FF0066">';
-                        tab += it1_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
-                        tab += '</span> 小时的后勤条目';
-                    }
-                }
+            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>';
+            tabSum += "<tr>";
+            tabSum += "<td>"; tabSum += (listNum + ""); tabSum += "</td>";
+            tabSum += "<td>"; tabSum += (fiveStarNum+""); tabSum += "</td>";
+            tabSum += "<td>";
+            if(fiveStarNum/listNum>0.2){
+                tabSum += '<span style="color:darkorange">欧皇</span>';
+            }else if(fiveStarNum/listNum<=0.2 && fiveStarNum/listNum>0.03){
+                tabSum += '<span style="color:dodgerblue">亚洲人</span>';
+            }else{
+                tabSum += '<span style="color:darkseagreen">非酋</span>';
             }
+            tabSum += "</td></tr>";
+            tabSum += '</tbody></table>';
+            listNum++;
             chart.innerHTML = tab;
+            sumchart.innerHTML = tabSum;
         }
-        function getRanking() {
-            var Mw = document.getElementById('Mw');
-            var Aw = document.getElementById('Aw');
-            var Rw = document.getElementById('Rw');
-            var Pw = document.getElementById('Pw');
-            var Tr = document.getElementById('Tr');
-            var TimeRequire = parseFloat(Tr.value);
-            var Itm1 = document.getElementById('ItemNeed1');
-            var idx1 = Itm1.selectedIndex;
-            var it1 = parseInt(Itm1[idx1].value);
-            var it1_text = Itm1[idx1].text;
-            var Itm2 = document.getElementById('ItemNeed2');
-            var idx2 = Itm2.selectedIndex;
-            var it2 = parseInt(Itm2[idx2].value);
-            var it2_text = Itm2[idx2].text;
-            var logiList = [];
-            logiList.sort(function (a, b) {
-                var weight1 = a.mpw * parseInt(Mw.value) + a.amm * parseInt(Aw.value) + a.rat * parseInt(Rw.value) + a.prt * parseInt(Pw.value);
-                var weight2 = b.mpw * parseInt(Mw.value) + b.amm * parseInt(Aw.value) + b.rat * parseInt(Rw.value) + b.prt * parseInt(Pw.value);
-                if (weight1 > weight2) {
-                    return -1;
-                }
-                else if (weight1 === weight2) {
-                    return 0;
-                }
-                else return 1;
-            });
-            getChart(logiList, it1, it2, it1_text, it2_text, TimeRequire);
+        function addListH() {
         }
         </script>
     </head>
@@ -367,14 +316,13 @@
                 </div>
                 <!-- /.navbar-static-side -->
             </nav>
-
             <!-- Main Pages -->
             <div id="page-wrapper">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">建造模拟器(IOP Simulator)<span
-                                    style="color:#FF0066">* 制作中未完工！</span></h1>
+                                    style="color:#FF0066">* 制作中未完工，只做了普建的HG！</span></h1>
                         </div>
                     </div>
                     <div class="row">
@@ -459,7 +407,7 @@
                                     <div class="col-lg-12">
                                         <p><button type="button" class="btn
                                                 btn-info"
-                                                onclick="getRanking()">建造(Produce)</button></p>
+                                                onclick="addList()">建造(Produce)</button></p>
                                     </div>
                                 </div>
                             </div>
@@ -496,14 +444,14 @@
                                             <input type="text"
                                                 class="form-control"
                                                 placeholder="输入整数" value=1000
-                                                id="Mw">
+                                                id="MwH">
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                                             <input type="text"
                                                 class="form-control"
                                                 placeholder="输入整数" value=1000
-                                                id="Rw">
+                                                id="RwH">
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -512,20 +460,20 @@
                                             <input type="text"
                                                 class="form-control"
                                                 placeholder="输入整数" value=1000
-                                                id="Aw">
+                                                id="AwH">
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                                             <input type="text"
                                                 class="form-control"
                                                 placeholder="输入整数" value=1000
-                                                id="Pw">
+                                                id="PwH">
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <p><button type="button" class="btn
                                                 btn-danger"
-                                                onclick="getRanking()">建造(Produce)</button></p>
+                                                onclick="addListH()">建造(Produce)</button></p>
                                     </div>
                                 </div>
                             </div>
@@ -542,7 +490,15 @@
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <div class="table-responsive"
-                                        id="rankingChart"></div>
+                                        id="sumChart">
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="table-responsive"
+                                        id="rankingChart">
+                                    </div>
                                     <!-- /.table-responsive -->
                                 </div>
                                 <!-- /.panel-body -->
