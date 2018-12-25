@@ -186,9 +186,26 @@
                                     <p><b>更新包库</b></p>
                                     <p>apt-get update</p>
                                     <p><b>安装包以允许通过HTTPS使用存储库</b></p>
-                                    <p>apt-get install apt-transport-https \</p>
-                                    <p>ca-certificates curl
+                                    <p>apt-get install apt-transport-https
+                                        ca-certificates curl
                                         software-properties-common</p>
+                                    <p><b>安装curl（搜curl，wget下载gz，解压make）</b></p>
+                                    <span style="color:deeppink"><p>* curl
+                                            --version检查是否安装成功，如果报错说"...libcurl.so.4:...No
+                                            such file or directory"</p>
+                                        <p>&nbsp 那么 vim
+                                            /etc/ld.so.conf ，添加：</p>
+                                        <p>/usr/local/lib</p>
+                                        <p>/usr/lib</p>
+                                        <p>/lib</p>
+                                        <p>&nbsp 然后
+                                            /sbin/ldconfig -v生效</p>
+                                        <p>* 如果在curl
+                                            ./configure显示protocol没有https，需要先下载安装最新openssl</p>
+                                        <p><a
+                                                href="https://www.openssl.org/source/"
+                                                target="_blank">https://www.openssl.org/source/</a></p>
+                                    </span>
                                     <p><b>添加Docker’s官方GPG key:</b></p>
                                     <p>curl -fsSL
                                         https://download.docker.com/linux/ubuntu/gpg
@@ -368,6 +385,85 @@
                                 <div class="panel-body">
                                     <p><b>规则存放路径</b></p>
                                     <p>/etc/snort/rules/local.rules</p>
+                                    <p><b>规则格式</b></p>
+                                    <p>ACTION PROTOCOL IP/cidr PORT <span
+                                            style="color: blue">DIRECT</span>
+                                        IP/cidr PORT (RULE1; RULE2...)</p>
+                                    <p><b>举例：</b>alert tcp any any ->
+                                        192.168.1.0/24 111 (content:"|00 01 86
+                                        a5|"; msg: "mountd access";)</p>
+                                    <p><b>1. 规则动作<span style="color:darkgrey">ACTION</span></b></p>
+                                    <p>&nbsp&nbsp&nbspalert：使用选择的报警方法生成一个警报，然后记录（log）这个包</p>
+                                    <p>&nbsp&nbsp&nbsplog：记录这个包</p>
+                                    <p>&nbsp&nbsp&nbsppass：丢弃这个包</p>
+                                    <p>&nbsp&nbsp&nbspactivate：报警并且激活另一条dynamic规则，规则选项包含
+                                        activates: NUM</p>
+                                    <p>&nbsp&nbsp&nbspdynamic：保持空闲直到activate激活，规则选项包含对应的
+                                        activated_by: NUM，被激活后作为log规则执行</p>
+                                    <p><b>2. 协议<span style="color:darkgrey">PROTOCOL</span></b></p>
+                                    <p>tcp/udp/icmp/ip</p>
+                                    <p><b>3. IP地址/cidr块<span
+                                                style="color:darkgrey">IP/cidr</span></b></p>
+                                    <p>&nbsp&nbsp&nbspIP=any表任何地址</p>
+                                    <p>&nbsp&nbsp&nbspsnort没有提供根据ip地址查询域名机制，地址就是由直接的数字型ip地址和一个cidr块组成</p>
+                                    <p>&nbsp&nbsp&nbspcidr=/24：c类网络，/16：b类网络，/32：特定机器IP</p>
+                                    <p>&nbsp&nbsp&nbsp可运用非运算符，例如
+                                        !192.168.1.0/24，也可以用区间，例如[192.168.1.0/24,10.1.1.0/24]</p>
+                                    <p>&nbsp&nbsp&nbsp<span
+                                            style="color:hotpink">*
+                                            A类IP段：0.0.0.0 ~ 127.255.255.255</span></p>
+                                    <p>&nbsp&nbsp&nbsp<span
+                                            style="color:hotpink">*
+                                            B类IP段：128.0.0.0 ~ 191.255.255.255</span></p>
+                                    <p>&nbsp&nbsp&nbsp<span
+                                            style="color:hotpink">*
+                                            C类IP段：192.0.0.0 ~ 223.255.255.255</span></p>
+                                    <p><b>4. 端口号<span style="color:darkgrey">PORT</span></b></p>
+                                    <p>&nbsp&nbsp&nbspPORT=any表任何，111：portmapper，23：telnet，80：http，443：https</p>
+                                    <p>&nbsp&nbsp&nbsp可运用:表范围，例如
+                                        :1000=0~1000，500:=大于等于500，100:600=100~600，也可运用非运算符</p>
+                                    <p><b>5. 方向<span style="color:blue">DIRECT</span></b></p>
+                                    <p>&nbsp&nbsp&nbsp-&#62/&#60-单向，&#60&#62双向</p>
+                                    <p><b>6. 规则选项<span style="color:darkgrey">RULES</span></b></p>
+                                    <p>msg - 在报警和包日志中打印一个消息</p>
+                                    <p>logto - 把包记录到用户指定的文件中而不是记录到标准输出</p>
+                                    <p>ttl - 检查ip头的ttl的值</p>
+                                    <p>tos 检查IP头中TOS字段的值</p>
+                                    <p>id - 检查ip头的分片id值</p>
+                                    <p>ipoption 查看IP选项字段的特定编码</p>
+                                    <p>fragbits 检查IP头的分段位</p>
+                                    <p>dsize - 检查包的净荷尺寸的值 </p>
+                                    <p>flags -检查tcp flags的值</p>
+                                    <p>seq - 检查tcp顺序号的值</p>
+                                    <p>ack - 检查tcp应答（acknowledgement）的值</p>
+                                    <p>window 测试TCP窗口域的特殊值</p>
+                                    <p>itype - 检查icmp type的值</p>
+                                    <p>icode - 检查icmp code的值</p>
+                                    <p>icmp_id - 检查ICMP ECHO ID的值</p>
+                                    <p>icmp_seq - 检查ICMP ECHO 顺序号的值</p>
+                                    <p>content - 在包的净荷中搜索指定的样式</p>
+                                    <p>content-list 在数据包载荷中搜索一个模式集合</p>
+                                    <p>offset - content选项的修饰符，设定开始搜索的位置 </p>
+                                    <p>depth - content选项的修饰符，设定搜索的最大深度</p>
+                                    <p>nocase - 指定对content字符串大小写不敏感</p>
+                                    <p>session - 记录指定会话的应用层信息的内容</p>
+                                    <p>rpc - 监视特定应用/进程调用的RPC服务</p>
+                                    <p>resp - 主动反应（切断连接等）</p>
+                                    <p>react - 响应动作（阻塞web站点）</p>
+                                    <p>reference - 外部攻击参考ids</p>
+                                    <p>sid - snort规则id</p>
+                                    <p>rev - 规则版本号</p>
+                                    <p>classtype - 规则类别标识</p>
+                                    <p>priority - 规则优先级标识号</p>
+                                    <p>uricontent - 在数据包的URI部分搜索一个内容</p>
+                                    <p>tag - 规则的高级记录行为</p>
+                                    <p>ip_proto - IP头的协议字段值</p>
+                                    <p>sameip - 判定源IP和目的IP是否相等</p>
+                                    <p>stateless - 忽略刘状态的有效性</p>
+                                    <p>regex - 通配符模式匹配</p>
+                                    <p>within - 强迫关系模式匹配所在的范围</p>
+                                    <p>byte_test - 数字模式匹配</p>
+                                    <p>byte_jump - 数字模式测试和偏移量调整</p>
                                 </div>
                                 <div class="panel-footer">
                                     Snort:rules

@@ -515,6 +515,11 @@ mapList.push(inputCardData("11-4E",600,120));
                                 <a href="index.html"><i class="fa fa-home
                                         fa-fw"></i> 主页 Home</a>
                             </li>
+                            <!-- [NAVI]Gaming stratefy -->
+                            <li>
+                                <a href="GFT_Database.html"><i class="fa
+                                        fa-book fa-fw"></i> 资料全集 GF database</a>
+                            </li>
                             <!-- [NAVI]LogiRank -->
                             <li>
                                 <a href="GFT_LogiRank.html"><i class="fa
@@ -526,6 +531,12 @@ mapList.push(inputCardData("11-4E",600,120));
                                 <a href="GFT_LevelCal.html"><i class="fa
                                         fa-upload fa-fw"></i> 练级计算器 Levelup
                                     calculator</a>
+                            </li>
+                            <!-- [NAVI]IOPSimulate -->
+                            <li>
+                                <a href="GFT_IOPSimulate.html"><i class="fa
+                                        fa-gears fa-fw"></i> 建造模拟器 IOP
+                                    simulator</a>
                             </li>
 
                         </ul>
@@ -543,61 +554,77 @@ mapList.push(inputCardData("11-4E",600,120));
                             <h1 class="page-header">练级计算器(Levelup Calculator)</h1>
                         </div>
                     </div>
-
-                    <!--Basic Setting -->
+                    <!--Setting-->
                     <div class="row">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse"
-                                        data-parent="#accordion"
-                                        href="#collapseOne">基础设置(Basic
-                                        setting)</a>
-                                </h4>
-                            </div>
-                            <div id="collapseOne" class="panel-collapse
-                                collapse in">
-                                <div class="panel-body">
-                                    <form class="form-horizontal" role="form">
+                        <div class="col-lg-10">
+                            <!--Basic Setting -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse"
+                                            data-parent="#accordion"
+                                            href="#collapseOne">基础设置(Basic
+                                            setting)</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse
+                                    collapse in">
+                                    <div class="panel-body">
+
                                         <!--level/exp info-->
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-4">
                                             <h4>人形信息(T-doll info)</h4>
                                             <p>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-default"
-                                                    onclick="setLevel1()">30 →
+                                                    onclick="setLevel1()">30
+                                                    →
                                                     70</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-default"
-                                                    onclick="setLevel2()">70 →
+                                                    onclick="setLevel2()">70
+                                                    →
                                                     90</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-default"
-                                                    onclick="setLevel3()">100 →
+                                                    onclick="setLevel3()">100
+                                                    →
                                                     110</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-default"
-                                                    onclick="setLevel4()">110 →
+                                                    onclick="setLevel4()">110
+                                                    →
                                                     115</button>
                                             </p>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">当前等级(Current
+                                            <div class="form-group
+                                                input-group">
+                                                <span
+                                                    class="input-group-addon">当前等级(Current
                                                     level)</span>
                                                 <input type="text"
                                                     class="form-control"
                                                     placeholder="输入整数"
                                                     id="CurLev" value=1>
                                             </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">目标等级(Target
+                                            <div class="form-group
+                                                input-group">
+                                                <span
+                                                    class="input-group-addon">目标等级(Target
                                                     level)&nbsp&nbsp</span>
                                                 <input type="text"
                                                     class="form-control"
                                                     placeholder="输入整数"
-                                                    id="TarLev" value=100>
+                                                    id="TarLev"
+                                                    value=100>
                                             </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">现有经验(Current
+                                            <div class="form-group
+                                                input-group">
+                                                <span
+                                                    class="input-group-addon">现有经验(Current
                                                     exp)&nbsp</span>
                                                 <input type="text"
                                                     class="form-control"
@@ -606,36 +633,43 @@ mapList.push(inputCardData("11-4E",600,120));
                                             </div>
                                         </div>
                                         <!--card info-->
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-4">
                                             <h4>练级信息(Leveling info)</h4>
                                             <p><h5>地图选择(Map selection)</h5>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-outline
                                                     btn-success"
                                                     onclick="setMap1()">0-2</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-outline
                                                     btn-danger"
                                                     onclick="setMap2()">4-3E</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-outline
                                                     btn-primary"
                                                     onclick="setMap3()">5-2N</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-outline
                                                     btn-primary"
                                                     onclick="setMap4()">6-3N</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-outline
                                                     btn-primary"
                                                     onclick="setMap5()">8-1N</button>
-                                                <button type="button" class="btn
+                                                <button type="button"
+                                                    class="btn
                                                     btn-outline
                                                     btn-success"
                                                     onclick="setMap6()">11-5</button>
                                             </p>
                                             <p>
-                                                <select class="form-control"
+                                                <select
+                                                    class="form-control"
                                                     id="MapInfo">
                                                     <option value=0>0-1</option>
                                                     <option value=1>0-2</option>
@@ -787,127 +821,136 @@ mapList.push(inputCardData("11-4E",600,120));
                                             </p>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"
+                                                    <input
+                                                        type="checkbox"
                                                         id="expUp">圣肝日(50%
                                                     exp up)
                                                 </label>
                                             </div>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"
+                                                    <input
+                                                        type="checkbox"
                                                         id="OATH">誓约(OATH)
                                                 </label>
                                             </div>
                                         </div>
-                                    </form>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
-                    <!--Advanced Setting -->
-                    <div class="row">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse"
-                                        data-parent="#accordion"
-                                        href="#collapseTwo">高级设置(Advanced
-                                        setting)</a>
-                                </h4>
-                            </div>
-                            <div id="collapseTwo" class="panel-collapse
-                                collapse">
-                                <div class="panel-body">
-                                    <!--Expansion -->
-                                    <div class="col-lg-12">
-                                        <p><h4>扩编情况(Expansion)</h4>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="Expan1"
-                                                    value="option1" checked><span
-                                                    style="color:dodgerblue">随等级扩编(dynamic)</span>
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="Expan2"
-                                                    value="option2">x1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="Expan3"
-                                                    value="option3">x2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="Expan4"
-                                                    value="option4">x3
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="Expan5"
-                                                    value="option5">x4
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="Expan6"
-                                                    value="option5">x5
-                                            </label>
-                                        </p>
-                                    </div>
-                                    <!--Time -->
-                                    <div class="col-lg-3">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">每战均摊时间(min)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入正数"
-                                                id="TimeAvg" value=0.4>
+                            <!--Advanced Setting -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse"
+                                            data-parent="#accordion"
+                                            href="#collapseTwo">高级设置(Advanced
+                                            setting)</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse
+                                    collapse">
+                                    <div class="panel-body">
+                                        <!--Expansion -->
+                                        <div class="col-lg-12">
+                                            <p><h4>扩编情况(Expansion)</h4>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                        name="ExpanSwitch"
+                                                        id="Expan1"
+                                                        value="option1"
+                                                        checked><span
+                                                        style="color:dodgerblue">随等级扩编(dynamic)</span>
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                        name="ExpanSwitch"
+                                                        id="Expan2"
+                                                        value="option2">x1
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                        name="ExpanSwitch"
+                                                        id="Expan3"
+                                                        value="option3">x2
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                        name="ExpanSwitch"
+                                                        id="Expan4"
+                                                        value="option4">x3
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                        name="ExpanSwitch"
+                                                        id="Expan5"
+                                                        value="option5">x4
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio"
+                                                        name="ExpanSwitch"
+                                                        id="Expan6"
+                                                        value="option5">x5
+                                                </label>
+                                            </p>
                                         </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">每战弹药(Amm/battle)</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数"
-                                                id="AmmAvg" value=12>
+                                        <!--Time -->
+                                        <div class="col-lg-4">
+                                            <div class="form-group
+                                                input-group">
+                                                <span
+                                                    class="input-group-addon">每战均摊时间(min)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入正数"
+                                                    id="TimeAvg" value=0.4>
+                                            </div>
+                                            <div class="form-group
+                                                input-group">
+                                                <span
+                                                    class="input-group-addon">每战弹药(Amm/battle)</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    id="AmmAvg" value=12>
+                                            </div>
+                                            <div class="form-group
+                                                input-group">
+                                                <span
+                                                    class="input-group-addon">每战口粮(Rat/battle)&nbsp&nbsp&nbsp</span>
+                                                <input type="text"
+                                                    class="form-control"
+                                                    placeholder="输入整数"
+                                                    id="RatAvg" value=12>
+                                            </div>
                                         </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">每战口粮(Rat/battle)&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数"
-                                                id="RatAvg" value=12>
+                                        <div class="col-lg-12">
+                                            <p><button type="button"
+                                                    class="btn
+                                                    btn-danger"
+                                                    onclick="resetAdSet()">重置高级设置(Reset
+                                                    advanced setting)</button></p>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <p><button type="button" class="btn
-                                                btn-danger"
-                                                onclick="resetAdSet()">重置高级设置(Reset
-                                                advanced setting)</button></p>
-                                    </div>
 
 
+                                    </div>
                                 </div>
                             </div>
+
+                            <!--Button -->
+                            <div class="col-lg-10">
+                                <p><button type="button" class="btn btn-info"
+                                        onclick="getResult()">计算(Calculate)</button></p>
+                            </div>
                         </div>
-
                     </div>
 
-                    <!--Button -->
-                    <div class="row">
-                        <p><button type="button" class="btn btn-info"
-                                onclick="getResult()">计算(Calculate)</button></p>
-                    </div>
+
                     <!--Result -->
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-10">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     结果(Results)
