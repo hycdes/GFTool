@@ -120,6 +120,12 @@
             var Rw = document.getElementById('Rw'); Rw.value = 430;
             var Pw = document.getElementById('Pw'); Pw.value = 430;
         }
+        function setWeightH0() {
+            var Mw = document.getElementById('MwH'); Mw.value = 4000;
+            var Aw = document.getElementById('AwH'); Aw.value = 1000;
+            var Rw = document.getElementById('RwH'); Rw.value = 6000;
+            var Pw = document.getElementById('PwH'); Pw.value = 3000;
+        }
         function setWeightH1() {
             var Mw = document.getElementById('MwH'); Mw.value = 6000;
             var Aw = document.getElementById('AwH'); Aw.value = 2000;
@@ -225,6 +231,82 @@
                 mul_mg=0.8;
             }
         }
+        function getMul_SG(allReso,AwH){   //SG posibility decline
+            if(allReso>=18000){
+                mul_sg=1;
+            }else if(allReso>=17000 && allReso<18000){
+                mul_sg=0.8;
+            }else{
+                mul_sg=0.6;
+            }
+            if(AwH<=3000){
+                mul_sg *= 1;
+            }else if(AwH>3000 && AwH<=5000){
+                mul_sg *= 0.9;
+            }else{
+                mul_sg *= 0.8;
+            }
+        }
+        function getMul_SMG_H(allReso){   //SMG_Heavy posibility decline
+            mul_smg=3;
+            if(allReso>=22000){
+                mul_smg*=0.2;
+            }else if(allReso>=18000 && allReso<22000){
+                mul_smg*=0.4;
+            }else if(allReso>=10000 && allReso<18000){
+                mul_smg*=0.6;
+            }else if(allReso>=7000 && allReso<10000){
+                mul_smg*=0.8;
+            }else{
+                mul_smg*=1;
+            }
+        }
+        function getMul_AR_H(allReso){   //AR_Heavy posibility decline
+            mul_ar=3;
+            if(allReso>=22000){
+                mul_ar*=0.15;
+            }else if(allReso>=18000 && allReso<22000){
+                mul_ar*=0.2;
+            }else if(allReso>=15000 && allReso<18000){
+                mul_ar*=0.3;
+            }else if(allReso>=12000 && allReso<15000){
+                mul_ar*=0.4;
+            }else if(allReso>=10000 && allReso<12000){
+                mul_ar*=0.6;
+            }else if(allReso>=7000 && allReso<10000){
+                mul_ar*=0.8;
+            }else{
+                mul_ar*=1;
+            }
+        }
+        function getMul_RF_H(allReso){
+            mul_rf=3;
+            if(allReso>=22000){
+                mul_rf *= 0.25;
+            }else if(allReso>=18000 && allReso<22000){
+                mul_rf *= 0.35;
+            }else if(allReso>=14000 && allReso<18000){
+                mul_rf *= 0.5;
+            }else if(allReso>=12000 && allReso<14000){
+                mul_rf *= 0.7;
+            }else{
+                mul_rf *= 1;
+            }
+        }
+        function getMul_MG_H(allReso){
+            mul_mg=3;
+            if(allReso>=22000){
+                mul_mg *= 0.4;
+            }else if(allReso>=20000 && allReso<22000){
+                mul_mg *= 0.6;
+            }else if(allReso>=18000 && allReso<20000){
+                mul_mg *= 0.8;
+            }else if(allReso>=17000 && allReso<18000){
+                mul_mg *= 1;
+            }else{
+                mul_mg *= 0.8;
+            }
+        }
         function makeStar(){    //Star posibility=3,10,27,60
             var starNum=Math.floor(Math.random()*100);
             if(starNum<3) return 5;
@@ -232,12 +314,26 @@
             else if(starNum>=13 && starNum<40) return 3;
             else return 2;
         }
+        function makeStar_Heavy(HClass){    //Star posibility=15,45,40/20,60,20/25,75,0
+            var starNum=Math.floor(Math.random()*100);
+            if(HClass===1){
+                if(starNum<15) return 5;
+                else if(starNum>=15 && starNum<60) return 4;
+                else return 3;
+            }else if(HClass===2){
+                if(starNum<20) return 5;
+                else if(starNum>=20 && starNum<80) return 4;
+                else return 3;
+            }else{
+                if(starNum<25) return 5;
+                else return 4;
+            }
+        }
         //posibility*100
         function makeTdoll(Mw,Aw,Rw,Pw,starNum){
             if(starNum === 5) fiveStarNum++;
             var TdollInfo="<b>";
             var TdollList=[];
-            var th_hg,th_ar,th_rf,th_mg,th_sg;
             for(var i=0;i<starNum;i++){
                 TdollInfo+="★";
             }
@@ -459,12 +555,186 @@
             TdollInfo+="</b>";
             return TdollInfo;
         }
-        function addListMulti(){
-            var NTimes=document.getElementById('NTimes');
-            var times=parseInt(NTimes.value);
-            for(var i=0;i<times;i++){
-                addList();
+        function makeTdoll_Heavy(MwH,AwH,RwH,PwH,starNum){
+            if(starNum === 5) fiveStarNum++;
+            var TdollInfo="<b>";
+            var TdollList=[];
+            for(var i=0;i<starNum;i++){
+                TdollInfo+="★";
             }
+            //SG: 4163 and 6164
+            if(MwH>=4000 && AwH>=1000 && RwH>=6000 && PwH>=3000){
+                getMul_SG(MwH+AwH+RwH+PwH);
+                if(starNum === 5){
+                    TdollList.push(creatTdollInfo_SMG("[SG] KSG", 60));
+                    TdollList.push(creatTdollInfo_SMG("[SG] AA-12", 40));
+                    TdollList.push(creatTdollInfo_SMG("[SG] FP-6", 30));
+                    if(MwH>=6000 && AwH>=1000 && RwH>=6000 && PwH>=4000){
+                        TdollList.push(creatTdollInfo_SMG("[SG] Saiga-12", 50));
+                        TdollList.push(creatTdollInfo_SMG("[SG] S.A.T.8", 30));
+                    }
+                }else if(starNum === 4){
+                    TdollList.push(creatTdollInfo_SMG("[SG] M590", 240));
+                    TdollList.push(creatTdollInfo_SMG("[SG] M1014", 70));
+                    TdollList.push(creatTdollInfo_SMG("[SG] SPAS-12", 200));
+                    TdollList.push(creatTdollInfo_SMG("[SG] USAS-12", 100));
+                    if(MwH>=6000 && AwH>=1000 && RwH>=6000 && PwH>=4000){
+                        TdollList.push(creatTdollInfo_SMG("[SG] M37", 200));
+                        TdollList.push(creatTdollInfo_SMG("[SG] Super-Shorty", 140));
+                    }
+                }else{
+                    TdollList.push(creatTdollInfo_SMG("[SG] M1897", 300));
+                    TdollList.push(creatTdollInfo_SMG("[SG] M400", 340));
+                    TdollList.push(creatTdollInfo_SMG("[SG] KS-23", 300));
+                    TdollList.push(creatTdollInfo_SMG("[SG] NS2000", 160));
+                    if(MwH>=6000 && AwH>=1000 && RwH>=6000 && PwH>=4000){
+                        TdollList.push(creatTdollInfo_SMG("[SG] RMB93", 280));
+                    }
+                }
+            }
+            //SMG-always
+            if(true){
+                getMul_SMG_H(MwH+AwH+RwH+PwH);
+                if(starNum === 5){
+                    TdollList.push(creatTdollInfo_SMG("[SMG] 汤姆森 M1982A1", 160));
+                    if(MwH>=4000 && AwH>=4000){
+                        TdollList.push(creatTdollInfo_SMG("[SMG] Vector", 108));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] G36C", 24));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] 索米 KP31", 48));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] 79式 79-type", 132));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] SR-3MP", 57));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] C-MS", 22));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] P90", 14));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] 樱花 type-100", 108));
+                    }
+                }else if(starNum === 4){
+                    TdollList.push(creatTdollInfo_SMG("[SMG] PP-90", 114));
+                    TdollList.push(creatTdollInfo_SMG("[SMG] MP5", 220));
+                    if(MwH>=4000 && AwH>=4000){
+                        TdollList.push(creatTdollInfo_SMG("[SMG] UMP9", 220));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] UMP45", 155));
+                        TdollList.push(creatTdollInfo_SMG("[SMG] 希普卡 Shipka", 120));
+                    }
+                }else{
+                    TdollList.push(creatTdollInfo_SMG("[SMG] MAC-10", 178));
+                    TdollList.push(creatTdollInfo_SMG("[SMG] PPS-43", 99));
+                    TdollList.push(creatTdollInfo_SMG("[SMG] 蝎式 VZ61", 130));
+                    TdollList.push(creatTdollInfo_SMG("[SMG] 司登MKII StenMk2", 298));
+                    TdollList.push(creatTdollInfo_SMG("[SMG] 微型乌兹 MicroUZI", 188));
+                }
+            }
+            //AR-always+1441
+            if(true){
+                getMul_AR_H(MwH+AwH+RwH+PwH);
+                if(starNum === 5){
+                    TdollList.push(creatTdollInfo_AR("[AR] HK416", 180));
+                    TdollList.push(creatTdollInfo_AR("[AR] G11", 50));
+                    if(AwH>=4000 && RwH>=4000){
+                        TdollList.push(creatTdollInfo_AR("[AR] G41", 120));
+                        TdollList.push(creatTdollInfo_AR("[AR] FAL", 100));
+                        TdollList.push(creatTdollInfo_AR("[AR] 95式 QBZ95", 100));
+                        TdollList.push(creatTdollInfo_AR("[AR] 97式 QBZ97", 100));
+                        TdollList.push(creatTdollInfo_AR("[AR] RFB", 80));
+                        TdollList.push(creatTdollInfo_AR("[AR] T91", 100));
+                        TdollList.push(creatTdollInfo_AR("[AR] K2", 100));
+                        TdollList.push(creatTdollInfo_AR("[AR] Zas M21", 190));
+                        TdollList.push(creatTdollInfo_AR("[AR] AN-94", 50));
+                        TdollList.push(creatTdollInfo_AR("[AR] AK-12", 50));
+                        TdollList.push(creatTdollInfo_AR("[AR] MDR", 100));
+                        TdollList.push(creatTdollInfo_AR("[AR] K11", 180));
+                        TdollList.push(creatTdollInfo_AR("[AR] 64式自 ", 100));
+                    }
+                }else if(starNum === 4){
+                    TdollList.push(creatTdollInfo_AR("[AR] AS Val", 200));
+                    TdollList.push(creatTdollInfo_AR("[AR] 56-1式 56-1type", 200));
+                    TdollList.push(creatTdollInfo_AR("[AR] FAMAS", 200));
+                    TdollList.push(creatTdollInfo_AR("[AR] 9A-91", 200));
+                    TdollList.push(creatTdollInfo_AR("[AR] XM8", 200));
+                    TdollList.push(creatTdollInfo_AR("[AR] SAR-21", 200));
+                    if(MwH>=4000 && AwH>=4000){
+                        TdollList.push(creatTdollInfo_AR("[AR] G36", 100));
+                        TdollList.push(creatTdollInfo_AR("[AR] TAR-21", 200));
+                        TdollList.push(creatTdollInfo_AR("[AR] 利贝罗勒 Riberyolles", 200));
+                    }
+                }else{
+                    TdollList.push(creatTdollInfo_AR("[AR] AK-47", 290));
+                    TdollList.push(creatTdollInfo_AR("[AR] StG44", 315));
+                    TdollList.push(creatTdollInfo_AR("[AR] FNC", 290));
+                    TdollList.push(creatTdollInfo_AR("[AR] OTs-12", 270));
+                    TdollList.push(creatTdollInfo_AR("[AR] StG44", 315));
+                }
+            }
+            //RF: 4141
+            if(MwH>=4000 && RwH>=4000){
+                getMul_RF_H(MwH+AwH+RwH+PwH);
+                if(starNum === 5){
+                    TdollList.push(creatTdollInfo_RF("[RF] WA2000", 85));
+                    TdollList.push(creatTdollInfo_RF("[RF] NTW-20", 90));
+                    TdollList.push(creatTdollInfo_RF("[RF] 卡尔卡诺M1891 Carcano1891", 60));
+                    TdollList.push(creatTdollInfo_RF("[RF] Kar98k", 28));
+                    TdollList.push(creatTdollInfo_RF("[RF] 李·恩菲尔德 MLEMK1", 60));
+                    TdollList.push(creatTdollInfo_RF("[RF] M99", 28));
+                    TdollList.push(creatTdollInfo_RF("[RF] IWS20000", 16));
+                    TdollList.push(creatTdollInfo_RF("[RF] 卡尔卡诺M91/38 Carcano1938", 14));
+                }else if(starNum === 4){
+                    TdollList.push(creatTdollInfo_RF("[RF] 春田 M1903", 300));
+                    TdollList.push(creatTdollInfo_RF("[RF] 莫辛-纳甘 M1891", 260));
+                    TdollList.push(creatTdollInfo_RF("[RF] PTRD", 160));
+                    TdollList.push(creatTdollInfo_RF("[RF] SVD", 110));
+                    TdollList.push(creatTdollInfo_RF("[RF] T-5000", 100));
+                    TdollList.push(creatTdollInfo_RF("[RF] SPR-A3G", 40));
+                    TdollList.push(creatTdollInfo_RF("[RF] K31", 100));
+                }else{
+                    TdollList.push(creatTdollInfo_RF("[RF] M1加兰德 M1", 400));
+                    TdollList.push(creatTdollInfo_RF("[RF] M14", 370));
+                    TdollList.push(creatTdollInfo_RF("[RF] SV-98", 300));
+                    TdollList.push(creatTdollInfo_RF("[RF] 汉阳造88式", 90));
+                }
+            }
+            //MG: 4614 6614
+            if(true){
+                getMul_MG_H(MwH+AwH+RwH+PwH);
+                if(starNum === 5){
+                    TdollList.push(creatTdollInfo_MG("[MG] MG5", 90));
+                    if(MwH>=6000 && AwH>=6000 && PwH>=4000){
+                        TdollList.push(creatTdollInfo_MG("[MG] 内格夫 NEGEV", 40));
+                        TdollList.push(creatTdollInfo_MG("[MG] MG4", 50));
+                        TdollList.push(creatTdollInfo_MG("[MG] PKP", 70));
+                        TdollList.push(creatTdollInfo_MG("[MG] 88式 88-type", 70));
+                    }
+                }else if(starNum === 4){
+                    TdollList.push(creatTdollInfo_MG("[MG] M1918", 230));
+                    TdollList.push(creatTdollInfo_MG("[MG] M60", 150));
+                    TdollList.push(creatTdollInfo_MG("[MG] MG3", 200));
+                    TdollList.push(creatTdollInfo_MG("[MG] 阿梅丽 Ameli", 55));
+                    if(MwH>=6000 && AwH>=6000 && PwH>=4000){
+                        TdollList.push(creatTdollInfo_MG("[MG] PK", 80));
+                        TdollList.push(creatTdollInfo_MG("[MG] MK48", 80));
+                        TdollList.push(creatTdollInfo_MG("[MG] AEK-999", 80));
+                        TdollList.push(creatTdollInfo_MG("[MG] 80式", 70));
+                    }
+                }else{
+                    TdollList.push(creatTdollInfo_MG("[MG] M2HB", 170));
+                    TdollList.push(creatTdollInfo_MG("[MG] M1919A4", 350));
+                    TdollList.push(creatTdollInfo_MG("[MG] MG42", 350));
+                    TdollList.push(creatTdollInfo_MG("[MG] 布伦 BrenMK", 380));
+                }
+            }
+            var totalPosiNum=0;
+            for(var i=0;i<TdollList.length;i++){
+                totalPosiNum += parseInt(TdollList[i].posibility);
+            }
+            var selectTdoll=Math.floor(Math.random()*totalPosiNum);
+            for(var i=0;i<TdollList.length;i++){
+                selectTdoll -= parseInt(TdollList[i].posibility);
+                if(selectTdoll<=0){
+                    TdollInfo+=" ";
+                    TdollInfo+=TdollList[i].name;                    
+                    break;
+                }
+            }
+            TdollInfo+="</b>";
+            return TdollInfo;
         }
         function addList() {
             var chart = document.getElementById("rankingChart");
@@ -478,13 +748,14 @@
             var PwId=document.getElementById('Pw'); var Pw=parseInt(PwId.value); allP+=Pw; allCon++;
             var starNum=makeStar();
             var Tdoll=makeTdoll(Mw,Aw,Rw,Pw,starNum);
+            //add List
             global_list = global_list.substring(0,global_list.length-16);
-            global_5list = global_5list.substring(0,global_5list.length-16);
             global_list += "<tr>";
-            global_5list += "<tr>";
             global_list += "<td>"; global_list += (listNum + ""); global_list += "</td>";
             global_list += "<td>"; global_list += (Mw+" "); global_list += (Aw+" "); global_list += (Rw+" "); global_list += (Pw+" "); global_list += "</td>";
             global_list += "<td>";
+            global_5list = global_5list.substring(0,global_5list.length-16);
+            global_5list += "<tr>";
             if(starNum===5){
                 global_5list += "<td>"; global_5list += (listNum + ""); global_5list += "</td>";
                 global_5list += "<td>"; global_5list += (Mw+" "); global_5list += (Aw+" "); global_5list += (Rw+" "); global_5list += (Pw+" "); global_5list += "</td>";
@@ -508,9 +779,9 @@
             tabSum += "<td>"; tabSum += (fiveStarNum+""); tabSum += "</td>";
             tabSum += "<td>"; tabSum += (Math.ceil(100*fiveStarNum/listNum)+"%"); tabSum += "</td>";
             tabSum += "<td>";
-            if(fiveStarNum/listNum>0.15){
+            if(fiveStarNum/listNum>0.22){
                 tabSum += '<span style="color:darkorange"><b>欧皇</b></span>';
-            }else if(fiveStarNum/listNum<=0.15 && fiveStarNum/listNum>0.02){
+            }else if(fiveStarNum/listNum<=0.22 && fiveStarNum/listNum>0.02){
                 tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
             }else if(fiveStarNum/listNum<=0.02 && fiveStarNum/listNum>0.01){
                 tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>';
@@ -538,6 +809,80 @@
             resochart.innerHTML = tabReso;
         }
         function addListH() {
+            var chart = document.getElementById("rankingChart");
+            var sumchart=document.getElementById("sumChart");
+            var resochart=document.getElementById("resoChart");
+            var tabSum = sumchart.innerHTML;
+            var tabReso = resochart.innerHTML;
+            var HClassId=document.getElementById('HClass'); var HClass=parseInt(HClassId.value);
+            var MwHId=document.getElementById('MwH'); var MwH=parseInt(MwHId.value); allM+=MwH;
+            var AwHId=document.getElementById('AwH'); var AwH=parseInt(AwHId.value); allA+=AwH;
+            var RwHId=document.getElementById('RwH'); var RwH=parseInt(RwHId.value); allR+=RwH;
+            var PwHId=document.getElementById('PwH'); var PwH=parseInt(PwHId.value); allP+=PwH;
+            if(HClass===1){
+                allCon+=1; allCore+=3;
+            }else if(HClass===2){
+                allCon+=20; allCore+=5;
+            }else{
+                allCon+=50; allCore+=10;
+            }
+            var starNum=makeStar_Heavy(HClass);
+            var Tdoll=makeTdoll_Heavy(MwH,AwH,RwH,PwH,starNum);
+            //Add list
+            global_list = global_list.substring(0,global_list.length-16);
+            global_list += "<tr>";
+            global_list += '<td><span style="color:darkorange"><b>'; global_list += (listNum + ""); global_list += '</b></span></td>';
+            global_list += "<td>"; global_list += (MwH+" "); global_list += (AwH+" "); global_list += (RwH+" "); global_list += (PwH+" "); global_list += ("Rank"+HClass); global_list += "</td>";
+            global_list += "<td>";
+            global_5list = global_5list.substring(0,global_5list.length-16);
+            global_5list += "<tr>";
+            if(starNum===5){
+                global_5list += '<td><span style="color:darkorange"><b>'; global_5list += (listNum + ""); global_5list += "</b></span></td>";
+                global_5list += "<td>"; global_5list += (MwH+" "); global_5list += (AwH+" "); global_5list += (RwH+" "); global_5list += (PwH+" "); global_5list += ("Rank"+HClass); global_5list += "</td>";
+                global_5list += '<td><span style="color:darkorange">'; global_5list += Tdoll ; global_5list += '</span></td>';
+                global_list += '<span style="color:darkorange">'; global_list += Tdoll ; global_list += '</span>';
+            }else if(starNum===4){
+                global_list += '<span style="color:chartreuse">'; global_list += Tdoll ; global_list += '</span>';
+            }else{
+                global_list += '<span style="color:dodgerblue">'; global_list += Tdoll ; global_list += '</span>';
+            }
+            global_list += "</td></tr>";
+            global_list += '</tbody></table>';
+            global_5list += '</tr></tbody></table>';
+            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星人形获取数(5-stars num)</th><th>五星人形获取率(5-stars ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
+            tabSum += "<tr>";
+            tabSum += "<td>"; tabSum += (listNum + ""); tabSum += "</td>";
+            tabSum += "<td>"; tabSum += (fiveStarNum+""); tabSum += "</td>";
+            tabSum += "<td>"; tabSum += (Math.ceil(100*fiveStarNum/listNum)+"%"); tabSum += "</td>";
+            tabSum += "<td>";
+            if(fiveStarNum/listNum>0.22){
+                tabSum += '<span style="color:darkorange"><b>欧皇</b></span>';
+            }else if(fiveStarNum/listNum<=0.22 && fiveStarNum/listNum>0.02){
+                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
+            }else if(fiveStarNum/listNum<=0.02 && fiveStarNum/listNum>0.01){
+                tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>';
+            }else{
+                tabSum += '<b>酋长</b>';
+            }
+            tabSum += "</td></tr>";
+            tabSum += '</tbody></table>';
+            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
+            tabReso += '<td>'; tabReso += (allM+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allA+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allR+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allP+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allCon+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allCore+""); tabReso += "</td>";
+            tabReso += '</tr></tbody></table>';
+            listNum++;
+            var switchA=document.getElementById('showAllSwitch');
+            if(switchA.checked===true){
+                chart.innerHTML = global_list;
+            }else{
+                chart.innerHTML = global_5list;
+            }
+            sumchart.innerHTML = tabSum;
+            resochart.innerHTML = tabReso;
         }
         function showAll(){
             var chart = document.getElementById("rankingChart");
@@ -547,12 +892,25 @@
             var chart = document.getElementById("rankingChart");
             chart.innerHTML = global_5list;
         }
+        function addListMulti(){
+            var NTimes=document.getElementById('NTimes');
+            var times=parseInt(NTimes.value);
+            for(var i=0;i<times;i++){
+                addList();
+            }
+        }
+        function addListHMulti(){
+            var NTimesH=document.getElementById('NTimesH');
+            var timesH=parseInt(NTimesH.value);
+            for(var i=0;i<timesH;i++){
+                addListH();
+            }
+        }
         </script>
     </head>
 
     <body>
         <div id="wrapper">
-
             <!-- Navigation -->
             <nav class="navbar navbar-default navbar-static-top"
                 role="navigation" style="margin-bottom: 0">
@@ -678,7 +1036,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">建造模拟器(IOP Simulator)<span
-                                    style="color:#FF0066">* 未完工，只做了普建HG/SMG！</span></h1>
+                                    style="color:#FF0066">* 未完工，没做资源限制！</span></h1>
                         </div>
                     </div>
                     <div class="row">
@@ -763,9 +1121,6 @@
                                                     id="Pw">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <h4>建造次数(Produce times)</h4>
-                                        </div>
                                         <div class="col-lg-3">
                                             <p><select
                                                     class="form-control"
@@ -808,10 +1163,13 @@
                                             <p>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeightH1()">6000-2000-6000-4000</button>
+                                                    onclick="setWeightH0()">低耗4163</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeightH2()">6000-6000-6000-4000</button>
+                                                    onclick="setWeightH1()">普通6264</button>
+                                                <button type="button" class="btn
+                                                    btn-default"
+                                                    onclick="setWeightH2()">高耗6664</button>
                                             </p>
                                         </div>
                                         <!--Resource-->
@@ -832,18 +1190,6 @@
                                                     value=1000
                                                     id="RwH">
                                             </div>
-                                            <p>
-                                                <select
-                                                    class="form-control"
-                                                    id="HClass">
-                                                    <option value=1>一档：人形契约x1 /
-                                                        核心x3</option>
-                                                    <option value=2>二档：人形契约x20 /
-                                                        核心x5</option>
-                                                    <option value=3>三档：人形契约x50 /
-                                                        核心x10</option>
-                                                </select>
-                                            </p>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
@@ -863,10 +1209,34 @@
                                                     id="PwH">
                                             </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <p><select
+                                                    class="form-control"
+                                                    id="NTimesH">
+                                                    <option value=1>单次建造(Single)</option>
+                                                    <option value=10>十连(x10)</option>
+                                                </select></p>
+                                            <p>
+                                                <select
+                                                    class="form-control"
+                                                    id="HClass">
+                                                    <option value=1>一档：人形契约x1
+                                                        /
+                                                        核心x3</option>
+                                                    <option value=2>二档：人形契约x20
+                                                        /
+                                                        核心x5</option>
+                                                    <option value=3>三档：人形契约x50
+                                                        /
+                                                        核心x10</option>
+                                                </select>
+                                            </p>
+                                        </div>
+
                                         <div class="col-lg-12">
                                             <p><button type="button" class="btn
                                                     btn-warning"
-                                                    onclick="addListH()">重型建造(Heavy
+                                                    onclick="addListHMulti()">重型建造(Heavy
                                                     produce)</button></p>
                                         </div>
                                     </div>
