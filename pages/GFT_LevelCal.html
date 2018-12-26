@@ -520,32 +520,38 @@ mapList.push(inputCardData("11-4E",600,120));
                                         <!--level/exp info-->
                                         <div class="col-lg-4">
                                             <h4>人形信息(T-doll info)</h4>
-                                            <p>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-default"
-                                                    onclick="setLevel1()">30
-                                                    →
-                                                    70</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-default"
-                                                    onclick="setLevel2()">70
-                                                    →
-                                                    90</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-default"
-                                                    onclick="setLevel3()">100
-                                                    →
-                                                    110</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-default"
-                                                    onclick="setLevel4()">110
-                                                    →
-                                                    115</button>
-                                            </p>
+                                            <div class="tooltip-demo">
+                                                <p>
+                                                    <button type="button"
+                                                        class="btn
+                                                        btn-default"
+                                                        onclick="setLevel1()">30
+                                                        →
+                                                        70</button>
+                                                    <button type="button"
+                                                        class="btn
+                                                        btn-default"
+                                                        onclick="setLevel2()">70
+                                                        →
+                                                        90</button>
+                                                    <button type="button"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="MODⅠ → MODⅡ"
+                                                        class="btn btn-outline
+                                                        btn-danger"
+                                                        onclick="setLevel3()">100
+                                                        → 110</button>
+                                                    <button type="button"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="MODⅡ → MODⅢ"
+                                                        class="btn btn-outline
+                                                        btn-danger"
+                                                        onclick="setLevel4()">110
+                                                        → 115</button>
+                                                </p>
+                                            </div>
                                             <div class="form-group
                                                 input-group">
                                                 <span
@@ -931,7 +937,17 @@ mapList.push(inputCardData("11-4E",600,120));
 
         <!-- Custom Theme JavaScript -->
         <script src="../dist/js/sb-admin-2.js"></script>
-
+        <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+        <script>
+                // tooltip demo
+                $('.tooltip-demo').tooltip({
+                    selector: "[data-toggle=tooltip]",
+                    container: "body"
+                })
+                // popover demo
+                $("[data-toggle=popover]")
+                    .popover()
+                </script>
     </body>
 
 </html>

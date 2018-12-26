@@ -27,7 +27,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
         <script type="text/javascript">
-        window.onload = function () {
+            window.onload = function () {
             var chart = document.getElementById("rankingChart");
             var tab = '点击 <span style="color:deepskyblue">按条件排序</span> 按钮，排序前十的结果将在这里显示';
             chart.innerHTML = tab;
@@ -74,11 +74,17 @@
             var Rw = document.getElementById('Rw'); Rw.value = 1;
             var Pw = document.getElementById('Pw'); Pw.value = 4;
         }
-        function setWeight6() {
-            var Mw = document.getElementById('Mw'); Mw.value = 6;
-            var Aw = document.getElementById('Aw'); Aw.value = 2;
-            var Rw = document.getElementById('Rw'); Rw.value = 6;
-            var Pw = document.getElementById('Pw'); Pw.value = 4;
+        function setTime1() {
+            var Tr = document.getElementById('Tr'); Tr.value = 6;
+        }
+        function setTime2() {
+            var Tr = document.getElementById('Tr'); Tr.value = 4;
+        }
+        function setTime3() {
+            var Tr = document.getElementById('Tr'); Tr.value = 1;
+        }
+        function setTime4() {
+            var Tr = document.getElementById('Tr'); Tr.value = 0.5;
         }
         function setWeightM() {
             var Mw = document.getElementById('Mw'); Mw.value = 1;
@@ -117,7 +123,7 @@
                 if (it1 === 0) {
                     validNum += 2;
                 } else {
-                    if ((logiDataEntry.itm1 === "人型契约" || logiDataEntry.itm2 === "人型契约") && it1 === 1) {
+                    if ((logiDataEntry.itm1 === "人形契约" || logiDataEntry.itm2 === "人形契约") && it1 === 1) {
                         validNum += 2;
                     } else if ((logiDataEntry.itm1 === "装备契约" || logiDataEntry.itm2 === "装备契约") && it1 === 2) {
                         validNum += 2;
@@ -133,7 +139,7 @@
                 if (it1 === 0 || it2 === 0) {
                     validNum++;
                 }
-                if ((logiDataEntry.itm1 === "人型契约") && (it1 === 1 || it2 === 1)) {
+                if ((logiDataEntry.itm1 === "人形契约") && (it1 === 1 || it2 === 1)) {
                     validNum++;
                 } else if ((logiDataEntry.itm1 === "装备契约") && (it1 === 2 || it2 === 2)) {
                     validNum++;
@@ -144,7 +150,7 @@
                 } else if ((logiDataEntry.itm1 === "采购币") && (it1 === 5 || it2 === 5)) {
                     validNum++;
                 }
-                if ((logiDataEntry.itm2 === "人型契约") && (it1 === 1 || it2 === 1)) {
+                if ((logiDataEntry.itm2 === "人形契约") && (it1 === 1 || it2 === 1)) {
                     validNum++;
                 } else if ((logiDataEntry.itm2 === "装备契约") && (it1 === 2 || it2 === 2)) {
                     validNum++;
@@ -242,51 +248,51 @@
             var it2_text = Itm2[idx2].text;
             var logiList = [];
             logiList.push(creatLogiData("0-1", 0, 174, 174, 0, "快速修复", "快速建造", 0.83));
-            logiList.push(creatLogiData("0-2", 183.3, 0, 0, 116.7, "人型契约", "—", 3));
+            logiList.push(creatLogiData("0-2", 183.3, 0, 0, 116.7, "人形契约", "—", 3));
             logiList.push(creatLogiData("0-3", 75, 75, 75, 20.8, "装备契约", "快速修复", 12));
             logiList.push(creatLogiData("0-4", 0, 50, 33.3, 31.3, "采购币", "—", 24));
             logiList.push(creatLogiData("1-1", 40, 120, 60, 0, "—", "—", 0.25));
             logiList.push(creatLogiData("1-2", 0, 80, 120, 0, "—", "—", 0.5));
             logiList.push(creatLogiData("1-3", 30, 0, 30, 10, "快速修复", "—", 1));
-            logiList.push(creatLogiData("1-4", 80, 80, 0, 0, "人型契约", "—", 2));
+            logiList.push(creatLogiData("1-4", 80, 80, 0, 0, "人形契约", "—", 2));
             logiList.push(creatLogiData("2-1", 150, 0, 0, 45, "—", "—", 0.67));
             logiList.push(creatLogiData("2-2", 40, 133.3, 53.3, 0, "快速修复", "—", 1.5));
             logiList.push(creatLogiData("2-3", 2.5, 2.5, 2.5, 57.5, "快速修复", "快速建造", 4));
-            logiList.push(creatLogiData("2-4", 0, 41.7, 100, 10, "人型契约", "—", 6));
+            logiList.push(creatLogiData("2-4", 0, 41.7, 100, 10, "人形契约", "—", 6));
             logiList.push(creatLogiData("3-1", 150, 0, 225, 0, "—", "—", 0.33));
             logiList.push(creatLogiData("3-2", 0, 160, 93.3, 40, "—", "—", 0.75));
             logiList.push(creatLogiData("3-3", 0, 200, 0, 0, "快速修复", "快速建造", 1.5));
-            logiList.push(creatLogiData("3-4", 0, 0, 60, 60, "人型契约", "装备契约", 5));
+            logiList.push(creatLogiData("3-4", 0, 0, 60, 60, "人形契约", "装备契约", 5));
             logiList.push(creatLogiData("4-1", 0, 185, 185, 0, "装备契约", "—", 1));
             logiList.push(creatLogiData("4-2", 0, 0, 0, 105, "快速建造", "—", 2));
-            logiList.push(creatLogiData("4-3", 133.3, 91.7, 0, 0, "人型契约", "快速修复", 6));
+            logiList.push(creatLogiData("4-3", 133.3, 91.7, 0, 0, "人形契约", "快速修复", 6));
             logiList.push(creatLogiData("4-4", 50, 50, 50, 18.8, "快速建造", "—", 8));
             logiList.push(creatLogiData("5-1", 0, 0, 200, 90, "—", "—", 0.5));
             logiList.push(creatLogiData("5-2", 0, 240, 120, 0, "快速修复", "—", 2.5));
             logiList.push(creatLogiData("5-3", 200, 100, 100, 0, "装备契约", "—", 4));
-            logiList.push(creatLogiData("5-4", 14.3, 0, 0, 100, "人型契约", "—", 7));
+            logiList.push(creatLogiData("5-4", 14.3, 0, 0, 100, "人形契约", "—", 7));
             logiList.push(creatLogiData("6-1", 150, 150, 0, 50, "—", "—", 2));
             logiList.push(creatLogiData("6-2", 0, 66.7, 183.3, 33.3, "快速修复", "快速建造", 3));
             logiList.push(creatLogiData("6-3", 0, 0, 40, 100, "装备契约", "—", 5));
             logiList.push(creatLogiData("6-4", 66.7, 66.7, 66.7, 0, "采购币", "—", 12));
             logiList.push(creatLogiData("7-1", 260, 0, 260, 0, "—", "—", 2.5));
-            logiList.push(creatLogiData("7-2", 0, 162.5, 0, 75, "人型契约", "快速修复", 4));
+            logiList.push(creatLogiData("7-2", 0, 162.5, 0, 75, "人形契约", "快速修复", 4));
             logiList.push(creatLogiData("7-3", 163.6, 109.1, 109.1, 0, "装备契约", "—", 5.5));
             logiList.push(creatLogiData("7-4", 31.3, 31.3, 31.3, 75, "快速建造", "—", 8));
             logiList.push(creatLogiData("8-1", 150, 150, 150, 0, "装备契约", "—", 1));
             logiList.push(creatLogiData("8-2", 0, 0, 0, 150, "快速修复", "—", 3));
             logiList.push(creatLogiData("8-3", 66.7, 133.3, 133.3, 0, "快速修复", "快速建造", 6));
-            logiList.push(creatLogiData("8-4", 166.7, 44.4, 44.4, 11.1, "人型契约", "—", 9));
+            logiList.push(creatLogiData("8-4", 166.7, 44.4, 44.4, 11.1, "人形契约", "—", 9));
             logiList.push(creatLogiData("9-1", 0, 0, 200, 100, "—", "—", 0.5));
             logiList.push(creatLogiData("9-2", 120, 0, 120, 66.7, "快速建造", "—", 1.5));
-            logiList.push(creatLogiData("9-3", 166.7, 166.7, 0, 0, "人型契约", "—", 4.5));
+            logiList.push(creatLogiData("9-3", 166.7, 166.7, 0, 0, "人形契约", "—", 4.5));
             logiList.push(creatLogiData("9-4", 71.4, 128.6, 128.6, 0, "装备契约", "—", 7));
             logiList.push(creatLogiData("10-1", 210, 300, 0, 0, "—", "—", 0.67));
-            logiList.push(creatLogiData("10-2", 0, 144, 108, 0, "人型契约", "快速建造", 1.67));
+            logiList.push(creatLogiData("10-2", 0, 144, 108, 0, "人形契约", "快速建造", 1.67));
             logiList.push(creatLogiData("10-3", 0, 90, 90, 56.3, "快速修复", "快速建造", 5.33));
             logiList.push(creatLogiData("10-4", 66, 66, 66, 33, "装备契约", "—", 10));
-            logiList.push(creatLogiData("11-1", 87.5, 262.5, 0, 0, "人型契约", "装备契约", 4));
-            logiList.push(creatLogiData("11-2", 90, 135, 135, 0, "人型契约", "—", 4));
+            logiList.push(creatLogiData("11-1", 87.5, 262.5, 0, 0, "人形契约", "装备契约", 4));
+            logiList.push(creatLogiData("11-2", 90, 135, 135, 0, "人形契约", "—", 4));
             logiList.push(creatLogiData("11-3", 0, 93.8, 187.5, 31.3, "快速修复", "—", 8));
             logiList.push(creatLogiData("11-4", 0, 165, 0, 90, "快速建造", "—", 10));
             logiList.sort(function (a, b) {
@@ -386,107 +392,112 @@
 
                     <!-- /.row -->
                     <div class="row">
-                        <form class="form-horizontal" role="form">
-                            <!--Weight-->
-                            <div class="col-lg-12">
-                                <p><span style="color:#FF0066">*排序依据：按后勤各项资源每小时获取量乘权重的总和降序排序，对什么资源需求更大可调高其权重</span></p>
-                                <p>* Sort by the sum of the calculation, which
-                                    is
-                                    the product of resource's hourly acquisition
-                                    and resource weight.</p>
+                        <!--Weight-->
+                        <div class="col-lg-12">
+                            <p>* 排序依据：后勤各项资源<span style="color:#FF0066">获取速率加权和</span>
+                                (Sorted by the sum of hourly acquisition plus
+                                weight)</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <h4>快捷配比(Ratio templates)</h4>
+                            <div class="tooltip-demo">
+                                <button type="button" class="btn btn-outline
+                                    btn-primary" onclick="setWeight1()">等比1:1:1:1</button>
+                                <button type="button" data-toggle="tooltip"
+                                    data-placement="top" title="零件获取速率是其他资源的1/3"
+                                    class="btn btn-outline btn-danger"
+                                    onclick="setWeight2()">常规1:1:1:3</button>
+                                <button type="button" class="btn
+                                    btn-default" onclick="setWeight3()">万能4:4:4:2</button>
+                                <button type="button" class="btn
+                                    btn-default" onclick="setWeight4()">步枪4:1:4:2</button>
+                                <button type="button" class="btn
+                                    btn-default" onclick="setWeight5()">机枪7:6:1:4</button>
                             </div>
-                            <div class="col-lg-4">
-                                <h4>快捷配比(Ratio templates)</h4>
-                                <p>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeight1()">等比1:1:1:1</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeight2()">常规1:1:1:3</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeight3()">万能4:4:4:2</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeight4()">步枪4:1:4:2</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeight5()">机枪7:6:1:4</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeight6()">霰弹6:2:6:4</button>
-                                </p>
-                                <h4>按类排序(Sort by resource)</h4>
-                                <p>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeightM()">人力排序(Sort
-                                        by manpower)</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeightA()">弹药排序(Sort
-                                        by ammunition)</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeightR()">口粮排序(Sort
-                                        by ration)</button>
-                                    <button type="button" class="btn
-                                        btn-default" onclick="setWeightP()">零件排序(Sort
-                                        by parts)</button>
-                                </p>
-                                <h4>必需道具(Required items)</h4>
-                                <p>
-                                    <select class="form-control" id="ItemNeed1">
-                                        <option value=0>无(Null)</option>
-                                        <option value=1>人型契约(T-doll contract)</option>
-                                        <option value=2>装备契约(Equipment contract)</option>
-                                        <option value=3>快速建造(Quick Production)</option>
-                                        <option value=4>快速修复(Quick Restoration)</option>
-                                        <option value=5>采购币(Token)</option>
-                                    </select>
-                                </p>
-                                <p>
-                                    <select class="form-control" id="ItemNeed2">
-                                        <option value=0>无(Null)</option>
-                                        <option value=1>人型契约(T-doll contract)</option>
-                                        <option value=2>装备契约(Equipment contract)</option>
-                                        <option value=3>快速建造(Quick Production)</option>
-                                        <option value=4>快速修复(Quick Restoration)</option>
-                                        <option value=5>采购币(Token)</option>
-                                    </select>
-                                </p>
-                                <p><button type="button" class="btn btn-info"
-                                        onclick="getRanking()">按条件排序(Sorting)</button></p>
-                            </div>
+                            <h4>按类排序(Sort by resource)</h4>
+                            <p>
+                                <button type="button" class="btn
+                                    btn-default" onclick="setWeightM()">人力(Manpower)</button>
+                                <button type="button" class="btn
+                                    btn-default" onclick="setWeightA()">弹药(Ammunition)</button>
+                                <button type="button" class="btn
+                                    btn-default" onclick="setWeightR()">口粮(Ration)</button>
+                                <button type="button" class="btn
+                                    btn-default" onclick="setWeightP()">零件(Parts)</button>
+                            </p>
+                            <h4>必需道具(Required items)</h4>
+                            <p>
+                                <select class="form-control" id="ItemNeed1">
+                                    <option value=0>无(Null)</option>
+                                    <option value=1>人形契约(T-doll contract)</option>
+                                    <option value=2>装备契约(Equipment contract)</option>
+                                    <option value=3>快速建造(Quick Production)</option>
+                                    <option value=4>快速修复(Quick Restoration)</option>
+                                    <option value=5>采购币(Token)</option>
+                                </select>
+                            </p>
+                            <p>
+                                <select class="form-control" id="ItemNeed2">
+                                    <option value=0>无(Null)</option>
+                                    <option value=1>人形契约(T-doll contract)</option>
+                                    <option value=2>装备契约(Equipment contract)</option>
+                                    <option value=3>快速建造(Quick Production)</option>
+                                    <option value=4>快速修复(Quick Restoration)</option>
+                                    <option value=5>采购币(Token)</option>
+                                </select>
+                            </p>
+                            <p><button type="button" class="btn btn-info"
+                                    onclick="getRanking()">按条件排序(Sorting)</button></p>
+                        </div>
 
-                            <div class="col-lg-4">
-                                <h4>资源权重(Resource weight ratio)</h4>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">人力比重(Manpower
-                                        weight)&nbsp&nbsp</span>
-                                    <input type="text" class="form-control"
-                                        placeholder="输入整数" id="Mw">
-                                </div>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">弹药比重(Ammunition
-                                        weight)</span>
-                                    <input type="text" class="form-control"
-                                        placeholder="输入整数" id="Aw">
-                                </div>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">口粮比重(Ration
-                                        weight)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                    <input type="text" class="form-control"
-                                        placeholder="输入整数" id="Rw">
-                                </div>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">零件比重(Parts
-                                        weight)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                    <input type="text" class="form-control"
-                                        placeholder="输入整数" id="Pw">
-                                </div>
-                                <h4>筛选条件(Filter condition)</h4>
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">时间不短于(Not
-                                        less than * hours)：&nbsp&nbsp</span>
-                                    <input type="text" class="form-control"
-                                        value="0" placeholder="输入数字" id="Tr">
-                                </div>
+                        <div class="col-lg-4">
+                            <h4>权重和时间(Weight and time)</h4>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">人力比重(Manpower
+                                    weight)&nbsp&nbsp</span>
+                                <input type="text" class="form-control"
+                                    placeholder="输入整数" id="Mw" value=1>
                             </div>
-
-                        </form>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">弹药比重(Ammunition
+                                    weight)</span>
+                                <input type="text" class="form-control"
+                                    placeholder="输入整数" id="Aw" value=1>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">口粮比重(Ration
+                                    weight)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                <input type="text" class="form-control"
+                                    placeholder="输入整数" id="Rw" value=1>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">零件比重(Parts
+                                    weight)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                <input type="text" class="form-control"
+                                    placeholder="输入整数" id="Pw" value=1>
+                            </div>
+                            <div class="tooltip-demo">
+                                <p>
+                                    <button type="button" class="btn btn-outline
+                                        btn-primary" onclick="setTime1()">睡眠(6h)</button>
+                                    <button type="button" class="btn
+                                        btn-default" onclick="setTime2()">偶尔(4h)</button>
+                                    <button type="button" class="btn
+                                        btn-default" onclick="setTime3()">频繁(1h)</button>
+                                    <button type="button" data-toggle="tooltip"
+                                        data-placement="top"
+                                        title="是大佬，我死了Σ(ﾟдﾟ;)"
+                                        class="btn btn-outline btn-danger"
+                                        onclick="setTime4()">秃子(0.5h)</button>
+                                </p>
+                            </div>
+                            <div class="form-group input-group">
+                                <span class="input-group-addon">时间(Time) ≥</span>
+                                <input type="text" class="form-control"
+                                    value="0" placeholder="输入数字" id="Tr">
+                                <span class="input-group-addon">小时(hours)</span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -526,6 +537,17 @@
         <!-- Custom Theme JavaScript -->
         <script src="../dist/js/sb-admin-2.js"></script>
 
+        <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+        <script>
+                // tooltip demo
+                $('.tooltip-demo').tooltip({
+                    selector: "[data-toggle=tooltip]",
+                    container: "body"
+                })
+                // popover demo
+                $("[data-toggle=popover]")
+                    .popover()
+        </script>
     </body>
 
 </html>
