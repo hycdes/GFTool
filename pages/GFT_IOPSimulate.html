@@ -138,6 +138,18 @@
             TdollInfo.posibility=parseInt(posibility)*mul_smg;
             return TdollInfo;
         }
+        function creatTdollInfo_AR(name,posibility) {
+            var TdollInfo = new Object;
+            TdollInfo.name=name;
+            TdollInfo.posibility=parseInt(posibility)*mul_ar;
+            return TdollInfo;
+        }
+        function creatTdollInfo_RF(name,posibility) {
+            var TdollInfo = new Object;
+            TdollInfo.name=name;
+            TdollInfo.posibility=parseInt(posibility)*mul_rf;
+            return TdollInfo;
+        }
         function getMul_HG(allReso){    //HG posibility decline
             if(allReso>=820 && allReso<920){
                 mul_hg=0.37;
@@ -289,85 +301,85 @@
             if(Mw+Aw+Rw+Pw >= 800){
                 getMul_AR(Mw+Aw+Rw+Pw,Aw,Rw);
                 if(starNum === 5){
-                    TdollList.push(creatTdollInfo_SMG("HK416", 180));  //rounding down 20% from 1441
-                    TdollList.push(creatTdollInfo_SMG("G11", 50));
+                    TdollList.push(creatTdollInfo_AR("HK416", 180));  //rounding down 20% from 1441
+                    TdollList.push(creatTdollInfo_AR("G11", 50));
                     if(Aw>=400 && Rw>=400){
-                        TdollList.push(creatTdollInfo_SMG("G41", 120));
-                        TdollList.push(creatTdollInfo_SMG("FAL", 100));
-                        TdollList.push(creatTdollInfo_SMG("95式 QBZ95", 100));
-                        TdollList.push(creatTdollInfo_SMG("97式 QBZ97", 100));
-                        TdollList.push(creatTdollInfo_SMG("RFB", 80));
-                        TdollList.push(creatTdollInfo_SMG("T91", 100));
-                        TdollList.push(creatTdollInfo_SMG("K2", 100));
-                        TdollList.push(creatTdollInfo_SMG("Zas M21", 190));
-                        TdollList.push(creatTdollInfo_SMG("AN-94", 50));
-                        TdollList.push(creatTdollInfo_SMG("AK-12", 50));
-                        TdollList.push(creatTdollInfo_SMG("MDR", 100));
-                        TdollList.push(creatTdollInfo_SMG("K11", 180));
-                        TdollList.push(creatTdollInfo_SMG("64式自 ", 100));
+                        TdollList.push(creatTdollInfo_AR("G41", 120));
+                        TdollList.push(creatTdollInfo_AR("FAL", 100));
+                        TdollList.push(creatTdollInfo_AR("95式 QBZ95", 100));
+                        TdollList.push(creatTdollInfo_AR("97式 QBZ97", 100));
+                        TdollList.push(creatTdollInfo_AR("RFB", 80));
+                        TdollList.push(creatTdollInfo_AR("T91", 100));
+                        TdollList.push(creatTdollInfo_AR("K2", 100));
+                        TdollList.push(creatTdollInfo_AR("Zas M21", 190));
+                        TdollList.push(creatTdollInfo_AR("AN-94", 50));
+                        TdollList.push(creatTdollInfo_AR("AK-12", 50));
+                        TdollList.push(creatTdollInfo_AR("MDR", 100));
+                        TdollList.push(creatTdollInfo_AR("K11", 180));
+                        TdollList.push(creatTdollInfo_AR("64式自 ", 100));
                     }
                 }else if(starNum === 4){
-                    TdollList.push(creatTdollInfo_SMG("AS Val", 200));    //avg rounding to 200
-                    TdollList.push(creatTdollInfo_SMG("56-1式 56-1type", 200));
-                    TdollList.push(creatTdollInfo_SMG("FAMAS", 200));
-                    TdollList.push(creatTdollInfo_SMG("9A-91", 200));
-                    TdollList.push(creatTdollInfo_SMG("XM8", 200));
-                    TdollList.push(creatTdollInfo_SMG("SAR-21", 200));
+                    TdollList.push(creatTdollInfo_AR("AS Val", 200));    //avg rounding to 200
+                    TdollList.push(creatTdollInfo_AR("56-1式 56-1type", 200));
+                    TdollList.push(creatTdollInfo_AR("FAMAS", 200));
+                    TdollList.push(creatTdollInfo_AR("9A-91", 200));
+                    TdollList.push(creatTdollInfo_AR("XM8", 200));
+                    TdollList.push(creatTdollInfo_AR("SAR-21", 200));
                     if(Mw>=400 && Aw>=400){
-                        TdollList.push(creatTdollInfo_SMG("G36", 100));
-                        TdollList.push(creatTdollInfo_SMG("TAR-21", 200));
-                        TdollList.push(creatTdollInfo_SMG("利贝罗勒 Riberyolles", 200));
+                        TdollList.push(creatTdollInfo_AR("G36", 100));
+                        TdollList.push(creatTdollInfo_AR("TAR-21", 200));
+                        TdollList.push(creatTdollInfo_AR("利贝罗勒 Riberyolles", 200));
                     }
                 }else if(starNum === 3){
-                    TdollList.push(creatTdollInfo_SMG("AK-47", 290));  //4442 base:180, 1441 base:400,avg
-                    TdollList.push(creatTdollInfo_SMG("StG44", 315));
-                    TdollList.push(creatTdollInfo_SMG("FNC", 290));
-                    TdollList.push(creatTdollInfo_SMG("OTs-12", 270));
-                    TdollList.push(creatTdollInfo_SMG("StG44", 315));
+                    TdollList.push(creatTdollInfo_AR("AK-47", 290));  //4442 base:180, 1441 base:400,avg
+                    TdollList.push(creatTdollInfo_AR("StG44", 315));
+                    TdollList.push(creatTdollInfo_AR("FNC", 290));
+                    TdollList.push(creatTdollInfo_AR("OTs-12", 270));
+                    TdollList.push(creatTdollInfo_AR("StG44", 315));
                 }else{
-                    TdollList.push(creatTdollInfo_SMG("G3", 350)); //4442 base:233,1441 base:434,avg
-                    TdollList.push(creatTdollInfo_SMG("L85A1", 300));
-                    TdollList.push(creatTdollInfo_SMG("加利尔 AR", 300));
-                    TdollList.push(creatTdollInfo_SMG("SIG-510", 300));
-                    TdollList.push(creatTdollInfo_SMG("F2000", 300));
-                    TdollList.push(creatTdollInfo_SMG("63式 63-type", 350));
+                    TdollList.push(creatTdollInfo_AR("G3", 350)); //4442 base:233,1441 base:434,avg
+                    TdollList.push(creatTdollInfo_AR("L85A1", 300));
+                    TdollList.push(creatTdollInfo_AR("加利尔 AR", 300));
+                    TdollList.push(creatTdollInfo_AR("SIG-510", 300));
+                    TdollList.push(creatTdollInfo_AR("F2000", 300));
+                    TdollList.push(creatTdollInfo_AR("63式 63-type", 350));
                 }
             }
             //RF: Mw>=300 && Rw>=300
             if(Mw >= 300 && Rw >= 300){
                 getMul_RF(Mw+Aw+Rw+Pw,Mw,Rw);
                 if(starNum === 5){
-                    TdollList.push(creatTdollInfo_SMG("WA2000", 85));  //all same rounding as ar
-                    TdollList.push(creatTdollInfo_SMG("NTW-20", 90));
-                    TdollList.push(creatTdollInfo_SMG("卡尔卡诺M1891 Carcano1891", 60));
+                    TdollList.push(creatTdollInfo_RF("WA2000", 85));  //all same rounding as ar
+                    TdollList.push(creatTdollInfo_RF("NTW-20", 90));
+                    TdollList.push(creatTdollInfo_RF("卡尔卡诺M1891 Carcano1891", 60));
                     if(Mw>=400 && Rw>=400){
-                        TdollList.push(creatTdollInfo_SMG("Kar98k", 28));
-                        TdollList.push(creatTdollInfo_SMG("李·恩菲尔德 MLEMK1", 60));
-                        TdollList.push(creatTdollInfo_SMG("M99", 28));
-                        TdollList.push(creatTdollInfo_SMG("IWS20000", 16));
-                        TdollList.push(creatTdollInfo_SMG("卡尔卡诺M91/38 Carcano1938", 14));
+                        TdollList.push(creatTdollInfo_RF("Kar98k", 28));
+                        TdollList.push(creatTdollInfo_RF("李·恩菲尔德 MLEMK1", 60));
+                        TdollList.push(creatTdollInfo_RF("M99", 28));
+                        TdollList.push(creatTdollInfo_RF("IWS20000", 16));
+                        TdollList.push(creatTdollInfo_RF("卡尔卡诺M91/38 Carcano1938", 14));
                     }
                 }else if(starNum === 4){
-                    TdollList.push(creatTdollInfo_SMG("春田 M1903", 300));
-                    TdollList.push(creatTdollInfo_SMG("莫辛-纳甘 M1891", 260));
-                    TdollList.push(creatTdollInfo_SMG("PTRD", 160));
-                    TdollList.push(creatTdollInfo_SMG("SVD", 110));
-                    TdollList.push(creatTdollInfo_SMG("T-5000", 100));
-                    TdollList.push(creatTdollInfo_SMG("SPR-A3G", 40));
-                    TdollList.push(creatTdollInfo_SMG("K31", 100));
+                    TdollList.push(creatTdollInfo_RF("春田 M1903", 300));
+                    TdollList.push(creatTdollInfo_RF("莫辛-纳甘 M1891", 260));
+                    TdollList.push(creatTdollInfo_RF("PTRD", 160));
+                    TdollList.push(creatTdollInfo_RF("SVD", 110));
+                    TdollList.push(creatTdollInfo_RF("T-5000", 100));
+                    TdollList.push(creatTdollInfo_RF("SPR-A3G", 40));
+                    TdollList.push(creatTdollInfo_RF("K31", 100));
                 }else if(starNum === 3){
-                    TdollList.push(creatTdollInfo_SMG("M1加兰德 M1", 400));
-                    TdollList.push(creatTdollInfo_SMG("M14", 370));
-                    TdollList.push(creatTdollInfo_SMG("SV-98", 300));
+                    TdollList.push(creatTdollInfo_RF("M1加兰德 M1", 400));
+                    TdollList.push(creatTdollInfo_RF("M14", 370));
+                    TdollList.push(creatTdollInfo_RF("SV-98", 300));
                     if(Mw>=400 && Aw>=400){
-                        TdollList.push(creatTdollInfo_SMG("汉阳造88式", 90));
+                        TdollList.push(creatTdollInfo_RF("汉阳造88式", 90));
                     }
                 }else{
-                    TdollList.push(creatTdollInfo_SMG("SVT-38", 500));
-                    TdollList.push(creatTdollInfo_SMG("西蒙诺夫 SKS", 500));
-                    TdollList.push(creatTdollInfo_SMG("G43", 440));
-                    TdollList.push(creatTdollInfo_SMG("FN-49", 430));
-                    TdollList.push(creatTdollInfo_SMG("BM59", 460));
+                    TdollList.push(creatTdollInfo_RF("SVT-38", 500));
+                    TdollList.push(creatTdollInfo_RF("西蒙诺夫 SKS", 500));
+                    TdollList.push(creatTdollInfo_RF("G43", 440));
+                    TdollList.push(creatTdollInfo_RF("FN-49", 430));
+                    TdollList.push(creatTdollInfo_RF("BM59", 460));
                 }
             }
             var totalPosiNum=0;
@@ -635,22 +647,22 @@
                                             <p>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight1()">430-430-430-230</button>
+                                                    onclick="setWeight1()">通用4442</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight2()">130-130-130-130</button>
+                                                    onclick="setWeight2()">HG:1111</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight3()">97-404-404-97</button>
+                                                    onclick="setWeight3()">AR:1441</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight4()">430-130-430-230</button>
+                                                    onclick="setWeight4()">RF:4142</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight5()">430-430-130-230</button>
+                                                    onclick="setWeight5()">SMG:4412</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight6()">730-630-130-430</button>
+                                                    onclick="setWeight6()">MG:7614</button>
                                             </p>
                                         </div>
                                         <!--Resource-->
