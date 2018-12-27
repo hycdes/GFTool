@@ -500,405 +500,570 @@ mapList.push(inputCardData("11-4E",600,120));
                             <h1 class="page-header">练级计算器(Levelup Calculator)</h1>
                         </div>
                     </div>
-                    <!--Setting-->
+                    <!-- /.row -->
                     <div class="row">
+                        <!--Setting-->
                         <div class="col-lg-10">
-                            <!--Basic Setting -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseOne">基础设置(Basic
-                                            setting)</a>
-                                    </h4>
+                                    设置(Setting)
                                 </div>
-                                <div id="collapseOne" class="panel-collapse
-                                    collapse in">
-                                    <div class="panel-body">
-
-                                        <!--level/exp info-->
-                                        <div class="col-lg-4">
-                                            <h4>人形信息(T-doll info)</h4>
-                                            <div class="tooltip-demo">
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a
+                                                href="#BasicSetting"
+                                                data-toggle="tab">基础设置(Basics
+                                                setting)</a>
+                                        </li>
+                                        <li><a href="#AdvancedSetting"
+                                                data-toggle="tab">高级设置(Advanced
+                                                setting)</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active"
+                                            id="BasicSetting">
+                                            <!--level/exp info-->
+                                            <div class="col-lg-4">
+                                                <h4>人形信息(T-doll
+                                                    info)</h4>
+                                                <div
+                                                    class="tooltip-demo">
+                                                    <p>
+                                                        <button
+                                                            type="button"
+                                                            class="btn
+                                                            btn-default"
+                                                            onclick="setLevel1()">30
+                                                            →
+                                                            70</button>
+                                                        <button
+                                                            type="button"
+                                                            class="btn
+                                                            btn-default"
+                                                            onclick="setLevel2()">70
+                                                            →
+                                                            90</button>
+                                                        <button
+                                                            type="button"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="MODⅠ
+                                                            → MODⅡ"
+                                                            class="btn
+                                                            btn-outline
+                                                            btn-danger"
+                                                            onclick="setLevel3()">100
+                                                            → 110</button>
+                                                        <button
+                                                            type="button"
+                                                            data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="MODⅡ
+                                                            → MODⅢ"
+                                                            class="btn
+                                                            btn-outline
+                                                            btn-danger"
+                                                            onclick="setLevel4()">110
+                                                            → 115</button>
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="form-group
+                                                    input-group">
+                                                    <span
+                                                        class="input-group-addon">当前等级(Current
+                                                        level)</span>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        id="CurLev"
+                                                        value=1>
+                                                </div>
+                                                <div
+                                                    class="form-group
+                                                    input-group">
+                                                    <span
+                                                        class="input-group-addon">目标等级(Target
+                                                        level)&nbsp&nbsp</span>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        id="TarLev"
+                                                        value=100>
+                                                </div>
+                                                <div
+                                                    class="form-group
+                                                    input-group">
+                                                    <span
+                                                        class="input-group-addon">现有经验(Current
+                                                        exp)&nbsp</span>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        id="CurExp"
+                                                        value=0>
+                                                </div>
+                                            </div>
+                                            <!--card info-->
+                                            <div class="col-lg-4">
+                                                <h4>练级信息(Leveling
+                                                    info)</h4>
+                                                <p><h5>地图选择(Map
+                                                        selection)</h5>
+                                                    <button
+                                                        type="button"
+                                                        class="btn
+                                                        btn-outline
+                                                        btn-success"
+                                                        onclick="setMap1()">0-2</button>
+                                                    <button
+                                                        type="button"
+                                                        class="btn
+                                                        btn-outline
+                                                        btn-danger"
+                                                        onclick="setMap2()">4-3E</button>
+                                                    <button
+                                                        type="button"
+                                                        class="btn
+                                                        btn-outline
+                                                        btn-primary"
+                                                        onclick="setMap3()">5-2N</button>
+                                                    <button
+                                                        type="button"
+                                                        class="btn
+                                                        btn-outline
+                                                        btn-primary"
+                                                        onclick="setMap4()">6-3N</button>
+                                                    <button
+                                                        type="button"
+                                                        class="btn
+                                                        btn-outline
+                                                        btn-primary"
+                                                        onclick="setMap5()">8-1N</button>
+                                                    <button
+                                                        type="button"
+                                                        class="btn
+                                                        btn-outline
+                                                        btn-success"
+                                                        onclick="setMap6()">11-5</button>
+                                                </p>
                                                 <p>
-                                                    <button type="button"
-                                                        class="btn
-                                                        btn-default"
-                                                        onclick="setLevel1()">30
-                                                        →
-                                                        70</button>
-                                                    <button type="button"
-                                                        class="btn
-                                                        btn-default"
-                                                        onclick="setLevel2()">70
-                                                        →
-                                                        90</button>
-                                                    <button type="button"
-                                                        data-toggle="tooltip"
-                                                        data-placement="top"
-                                                        title="MODⅠ → MODⅡ"
-                                                        class="btn btn-outline
-                                                        btn-danger"
-                                                        onclick="setLevel3()">100
-                                                        → 110</button>
-                                                    <button type="button"
-                                                        data-toggle="tooltip"
-                                                        data-placement="top"
-                                                        title="MODⅡ → MODⅢ"
-                                                        class="btn btn-outline
-                                                        btn-danger"
-                                                        onclick="setLevel4()">110
-                                                        → 115</button>
+                                                    <select
+                                                        class="form-control"
+                                                        id="MapInfo">
+                                                        <option
+                                                            value=0>0-1</option>
+                                                        <option
+                                                            value=1>0-2</option>
+                                                        <option
+                                                            value=2>0-3</option>
+                                                        <option
+                                                            value=3>0-4</option>
+                                                        <option
+                                                            value=4>1-1</option>
+                                                        <option
+                                                            value=5>1-2</option>
+                                                        <option
+                                                            value=6>1-3</option>
+                                                        <option
+                                                            value=7>1-4</option>
+                                                        <option
+                                                            value=8>1-5</option>
+                                                        <option
+                                                            value=9>1-6</option>
+                                                        <option
+                                                            value=10>1-1E</option>
+                                                        <option
+                                                            value=11>1-2E</option>
+                                                        <option
+                                                            value=12>1-3E</option>
+                                                        <option
+                                                            value=13>1-4E</option>
+                                                        <option
+                                                            value=14>1-1N</option>
+                                                        <option
+                                                            value=15>1-2N</option>
+                                                        <option
+                                                            value=16>1-3N</option>
+                                                        <option
+                                                            value=17>1-4N</option>
+                                                        <option
+                                                            value=18>2-1</option>
+                                                        <option
+                                                            value=19>2-2</option>
+                                                        <option
+                                                            value=20>2-3</option>
+                                                        <option
+                                                            value=21>2-4</option>
+                                                        <option
+                                                            value=22>2-5</option>
+                                                        <option
+                                                            value=23>2-6</option>
+                                                        <option
+                                                            value=24>2-1E</option>
+                                                        <option
+                                                            value=25>2-2E</option>
+                                                        <option
+                                                            value=26>2-3E</option>
+                                                        <option
+                                                            value=27>2-4E</option>
+                                                        <option
+                                                            value=28>2-1N</option>
+                                                        <option
+                                                            value=29>2-2N</option>
+                                                        <option
+                                                            value=30>2-3N</option>
+                                                        <option
+                                                            value=31>2-4N</option>
+                                                        <option
+                                                            value=32>3-1</option>
+                                                        <option
+                                                            value=33>3-2</option>
+                                                        <option
+                                                            value=34>3-3</option>
+                                                        <option
+                                                            value=35>3-4</option>
+                                                        <option
+                                                            value=36>3-5</option>
+                                                        <option
+                                                            value=37>3-6</option>
+                                                        <option
+                                                            value=38>3-1E</option>
+                                                        <option
+                                                            value=39>3-2E</option>
+                                                        <option
+                                                            value=40>3-3E</option>
+                                                        <option
+                                                            value=41>3-4E</option>
+                                                        <option
+                                                            value=42>3-1N</option>
+                                                        <option
+                                                            value=43>3-2N</option>
+                                                        <option
+                                                            value=44>3-3N</option>
+                                                        <option
+                                                            value=45>3-4N</option>
+                                                        <option
+                                                            value=46>4-1</option>
+                                                        <option
+                                                            value=47>4-2</option>
+                                                        <option
+                                                            value=48>4-3</option>
+                                                        <option
+                                                            value=49>4-4</option>
+                                                        <option
+                                                            value=50>4-5</option>
+                                                        <option
+                                                            value=51>4-6</option>
+                                                        <option
+                                                            value=52>4-1E</option>
+                                                        <option
+                                                            value=53>4-2E</option>
+                                                        <option
+                                                            value=54>4-3E</option>
+                                                        <option
+                                                            value=55>4-4E</option>
+                                                        <option
+                                                            value=56>4-1N</option>
+                                                        <option
+                                                            value=57>4-2N</option>
+                                                        <option
+                                                            value=58>4-3N</option>
+                                                        <option
+                                                            value=59>4-4N</option>
+                                                        <option
+                                                            value=60>5-1</option>
+                                                        <option
+                                                            value=61>5-2</option>
+                                                        <option
+                                                            value=62>5-3</option>
+                                                        <option
+                                                            value=63>5-4</option>
+                                                        <option
+                                                            value=64>5-5</option>
+                                                        <option
+                                                            value=65>5-6</option>
+                                                        <option
+                                                            value=66>5-1E</option>
+                                                        <option
+                                                            value=67>5-2E</option>
+                                                        <option
+                                                            value=68>5-3E</option>
+                                                        <option
+                                                            value=69>5-4E</option>
+                                                        <option
+                                                            value=70>5-1N</option>
+                                                        <option
+                                                            value=71>5-2N</option>
+                                                        <option
+                                                            value=72>5-3N</option>
+                                                        <option
+                                                            value=73>5-4N</option>
+                                                        <option
+                                                            value=74>6-1</option>
+                                                        <option
+                                                            value=75>6-2</option>
+                                                        <option
+                                                            value=76>6-3</option>
+                                                        <option
+                                                            value=77>6-4</option>
+                                                        <option
+                                                            value=78>6-5</option>
+                                                        <option
+                                                            value=79>6-6</option>
+                                                        <option
+                                                            value=80>6-1E</option>
+                                                        <option
+                                                            value=81>6-2E</option>
+                                                        <option
+                                                            value=82>6-3E</option>
+                                                        <option
+                                                            value=83>6-4E</option>
+                                                        <option
+                                                            value=84>6-1N</option>
+                                                        <option
+                                                            value=85>6-2N</option>
+                                                        <option
+                                                            value=86>6-3N</option>
+                                                        <option
+                                                            value=87>6-4N</option>
+                                                        <option
+                                                            value=88>7-1</option>
+                                                        <option
+                                                            value=89>7-2</option>
+                                                        <option
+                                                            value=90>7-3</option>
+                                                        <option
+                                                            value=91>7-4</option>
+                                                        <option
+                                                            value=92>7-5</option>
+                                                        <option
+                                                            value=93>7-6</option>
+                                                        <option
+                                                            value=94>7-1E</option>
+                                                        <option
+                                                            value=95>7-2E</option>
+                                                        <option
+                                                            value=96>7-3E</option>
+                                                        <option
+                                                            value=97>7-4E</option>
+                                                        <option
+                                                            value=98>7-1N</option>
+                                                        <option
+                                                            value=99>7-2N</option>
+                                                        <option
+                                                            value=100>7-3N</option>
+                                                        <option
+                                                            value=101>7-4N</option>
+                                                        <option
+                                                            value=102>8-1</option>
+                                                        <option
+                                                            value=103>8-2</option>
+                                                        <option
+                                                            value=104>8-3</option>
+                                                        <option
+                                                            value=105>8-4</option>
+                                                        <option
+                                                            value=106>8-5</option>
+                                                        <option
+                                                            value=107>8-6</option>
+                                                        <option
+                                                            value=108>8-1E</option>
+                                                        <option
+                                                            value=109>8-2E</option>
+                                                        <option
+                                                            value=110>8-3E</option>
+                                                        <option
+                                                            value=111>8-4E</option>
+                                                        <option
+                                                            value=112>8-1N</option>
+                                                        <option
+                                                            value=113>8-2N</option>
+                                                        <option
+                                                            value=114>8-3N</option>
+                                                        <option
+                                                            value=115>8-4N</option>
+                                                        <option
+                                                            value=116>9-1</option>
+                                                        <option
+                                                            value=117>9-2</option>
+                                                        <option
+                                                            value=118>9-3</option>
+                                                        <option
+                                                            value=119>9-4</option>
+                                                        <option
+                                                            value=120>9-5</option>
+                                                        <option
+                                                            value=121>9-6</option>
+                                                        <option
+                                                            value=122>9-1E</option>
+                                                        <option
+                                                            value=123>9-2E</option>
+                                                        <option
+                                                            value=124>9-3E</option>
+                                                        <option
+                                                            value=125>9-4E</option>
+                                                        <option
+                                                            value=126>10-1</option>
+                                                        <option
+                                                            value=127>10-2</option>
+                                                        <option
+                                                            value=128>10-3</option>
+                                                        <option
+                                                            value=129>10-4</option>
+                                                        <option
+                                                            value=130>10-5</option>
+                                                        <option
+                                                            value=131>10-6</option>
+                                                        <option
+                                                            value=132>10-1E</option>
+                                                        <option
+                                                            value=133>10-2E</option>
+                                                        <option
+                                                            value=134>10-3E</option>
+                                                        <option
+                                                            value=135>10-4E</option>
+                                                        <option
+                                                            value=136>11-1</option>
+                                                        <option
+                                                            value=137>11-2</option>
+                                                        <option
+                                                            value=138>11-3</option>
+                                                        <option
+                                                            value=139>11-4</option>
+                                                        <option
+                                                            value=140>11-5</option>
+                                                        <option
+                                                            value=141>11-6</option>
+                                                        <option
+                                                            value=142>11-1E</option>
+                                                        <option
+                                                            value=143>11-2E</option>
+                                                        <option
+                                                            value=144>11-3E</option>
+                                                        <option
+                                                            value=145>11-4E</option>
+                                                    </select>
+                                                </p>
+                                                <div
+                                                    class="checkbox">
+                                                    <label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="expUp">圣肝日(50%
+                                                        exp up)
+                                                    </label>
+                                                </div>
+                                                <div
+                                                    class="checkbox">
+                                                    <label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="OATH">誓约(OATH)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade"
+                                            id="AdvancedSetting">
+                                            <!--Expansion -->
+                                            <div class="col-lg-12">
+                                                <p><h4>扩编情况(Expansion)</h4>
+                                                    <label class="radio-inline">
+                                                        <input type="radio"
+                                                            name="ExpanSwitch"
+                                                            id="Expan1"
+                                                            value="option1"
+                                                            checked><span
+                                                            style="color:dodgerblue">随等级扩编(dynamic)</span>
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio"
+                                                            name="ExpanSwitch"
+                                                            id="Expan2"
+                                                            value="option2">x1
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio"
+                                                            name="ExpanSwitch"
+                                                            id="Expan3"
+                                                            value="option3">x2
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio"
+                                                            name="ExpanSwitch"
+                                                            id="Expan4"
+                                                            value="option4">x3
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio"
+                                                            name="ExpanSwitch"
+                                                            id="Expan5"
+                                                            value="option5">x4
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio"
+                                                            name="ExpanSwitch"
+                                                            id="Expan6"
+                                                            value="option5">x5
+                                                    </label>
                                                 </p>
                                             </div>
-                                            <div class="form-group
-                                                input-group">
-                                                <span
-                                                    class="input-group-addon">当前等级(Current
-                                                    level)</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    id="CurLev" value=1>
+                                            <!--Time -->
+                                            <div class="col-lg-4">
+                                                <div class="form-group
+                                                    input-group">
+                                                    <span
+                                                        class="input-group-addon">每战均摊时间(min)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入正数"
+                                                        id="TimeAvg" value=0.4>
+                                                </div>
+                                                <div class="form-group
+                                                    input-group">
+                                                    <span
+                                                        class="input-group-addon">每战弹药(Amm/battle)</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        id="AmmAvg" value=12>
+                                                </div>
+                                                <div class="form-group
+                                                    input-group">
+                                                    <span
+                                                        class="input-group-addon">每战口粮(Rat/battle)&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        id="RatAvg" value=12>
+                                                </div>
                                             </div>
-                                            <div class="form-group
-                                                input-group">
-                                                <span
-                                                    class="input-group-addon">目标等级(Target
-                                                    level)&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    id="TarLev"
-                                                    value=100>
-                                            </div>
-                                            <div class="form-group
-                                                input-group">
-                                                <span
-                                                    class="input-group-addon">现有经验(Current
-                                                    exp)&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    id="CurExp" value=0>
-                                            </div>
-                                        </div>
-                                        <!--card info-->
-                                        <div class="col-lg-4">
-                                            <h4>练级信息(Leveling info)</h4>
-                                            <p><h5>地图选择(Map selection)</h5>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-outline
-                                                    btn-success"
-                                                    onclick="setMap1()">0-2</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-outline
-                                                    btn-danger"
-                                                    onclick="setMap2()">4-3E</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-outline
-                                                    btn-primary"
-                                                    onclick="setMap3()">5-2N</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-outline
-                                                    btn-primary"
-                                                    onclick="setMap4()">6-3N</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-outline
-                                                    btn-primary"
-                                                    onclick="setMap5()">8-1N</button>
-                                                <button type="button"
-                                                    class="btn
-                                                    btn-outline
-                                                    btn-success"
-                                                    onclick="setMap6()">11-5</button>
-                                            </p>
-                                            <p>
-                                                <select
-                                                    class="form-control"
-                                                    id="MapInfo">
-                                                    <option value=0>0-1</option>
-                                                    <option value=1>0-2</option>
-                                                    <option value=2>0-3</option>
-                                                    <option value=3>0-4</option>
-                                                    <option value=4>1-1</option>
-                                                    <option value=5>1-2</option>
-                                                    <option value=6>1-3</option>
-                                                    <option value=7>1-4</option>
-                                                    <option value=8>1-5</option>
-                                                    <option value=9>1-6</option>
-                                                    <option value=10>1-1E</option>
-                                                    <option value=11>1-2E</option>
-                                                    <option value=12>1-3E</option>
-                                                    <option value=13>1-4E</option>
-                                                    <option value=14>1-1N</option>
-                                                    <option value=15>1-2N</option>
-                                                    <option value=16>1-3N</option>
-                                                    <option value=17>1-4N</option>
-                                                    <option value=18>2-1</option>
-                                                    <option value=19>2-2</option>
-                                                    <option value=20>2-3</option>
-                                                    <option value=21>2-4</option>
-                                                    <option value=22>2-5</option>
-                                                    <option value=23>2-6</option>
-                                                    <option value=24>2-1E</option>
-                                                    <option value=25>2-2E</option>
-                                                    <option value=26>2-3E</option>
-                                                    <option value=27>2-4E</option>
-                                                    <option value=28>2-1N</option>
-                                                    <option value=29>2-2N</option>
-                                                    <option value=30>2-3N</option>
-                                                    <option value=31>2-4N</option>
-                                                    <option value=32>3-1</option>
-                                                    <option value=33>3-2</option>
-                                                    <option value=34>3-3</option>
-                                                    <option value=35>3-4</option>
-                                                    <option value=36>3-5</option>
-                                                    <option value=37>3-6</option>
-                                                    <option value=38>3-1E</option>
-                                                    <option value=39>3-2E</option>
-                                                    <option value=40>3-3E</option>
-                                                    <option value=41>3-4E</option>
-                                                    <option value=42>3-1N</option>
-                                                    <option value=43>3-2N</option>
-                                                    <option value=44>3-3N</option>
-                                                    <option value=45>3-4N</option>
-                                                    <option value=46>4-1</option>
-                                                    <option value=47>4-2</option>
-                                                    <option value=48>4-3</option>
-                                                    <option value=49>4-4</option>
-                                                    <option value=50>4-5</option>
-                                                    <option value=51>4-6</option>
-                                                    <option value=52>4-1E</option>
-                                                    <option value=53>4-2E</option>
-                                                    <option value=54>4-3E</option>
-                                                    <option value=55>4-4E</option>
-                                                    <option value=56>4-1N</option>
-                                                    <option value=57>4-2N</option>
-                                                    <option value=58>4-3N</option>
-                                                    <option value=59>4-4N</option>
-                                                    <option value=60>5-1</option>
-                                                    <option value=61>5-2</option>
-                                                    <option value=62>5-3</option>
-                                                    <option value=63>5-4</option>
-                                                    <option value=64>5-5</option>
-                                                    <option value=65>5-6</option>
-                                                    <option value=66>5-1E</option>
-                                                    <option value=67>5-2E</option>
-                                                    <option value=68>5-3E</option>
-                                                    <option value=69>5-4E</option>
-                                                    <option value=70>5-1N</option>
-                                                    <option value=71>5-2N</option>
-                                                    <option value=72>5-3N</option>
-                                                    <option value=73>5-4N</option>
-                                                    <option value=74>6-1</option>
-                                                    <option value=75>6-2</option>
-                                                    <option value=76>6-3</option>
-                                                    <option value=77>6-4</option>
-                                                    <option value=78>6-5</option>
-                                                    <option value=79>6-6</option>
-                                                    <option value=80>6-1E</option>
-                                                    <option value=81>6-2E</option>
-                                                    <option value=82>6-3E</option>
-                                                    <option value=83>6-4E</option>
-                                                    <option value=84>6-1N</option>
-                                                    <option value=85>6-2N</option>
-                                                    <option value=86>6-3N</option>
-                                                    <option value=87>6-4N</option>
-                                                    <option value=88>7-1</option>
-                                                    <option value=89>7-2</option>
-                                                    <option value=90>7-3</option>
-                                                    <option value=91>7-4</option>
-                                                    <option value=92>7-5</option>
-                                                    <option value=93>7-6</option>
-                                                    <option value=94>7-1E</option>
-                                                    <option value=95>7-2E</option>
-                                                    <option value=96>7-3E</option>
-                                                    <option value=97>7-4E</option>
-                                                    <option value=98>7-1N</option>
-                                                    <option value=99>7-2N</option>
-                                                    <option value=100>7-3N</option>
-                                                    <option value=101>7-4N</option>
-                                                    <option value=102>8-1</option>
-                                                    <option value=103>8-2</option>
-                                                    <option value=104>8-3</option>
-                                                    <option value=105>8-4</option>
-                                                    <option value=106>8-5</option>
-                                                    <option value=107>8-6</option>
-                                                    <option value=108>8-1E</option>
-                                                    <option value=109>8-2E</option>
-                                                    <option value=110>8-3E</option>
-                                                    <option value=111>8-4E</option>
-                                                    <option value=112>8-1N</option>
-                                                    <option value=113>8-2N</option>
-                                                    <option value=114>8-3N</option>
-                                                    <option value=115>8-4N</option>
-                                                    <option value=116>9-1</option>
-                                                    <option value=117>9-2</option>
-                                                    <option value=118>9-3</option>
-                                                    <option value=119>9-4</option>
-                                                    <option value=120>9-5</option>
-                                                    <option value=121>9-6</option>
-                                                    <option value=122>9-1E</option>
-                                                    <option value=123>9-2E</option>
-                                                    <option value=124>9-3E</option>
-                                                    <option value=125>9-4E</option>
-                                                    <option value=126>10-1</option>
-                                                    <option value=127>10-2</option>
-                                                    <option value=128>10-3</option>
-                                                    <option value=129>10-4</option>
-                                                    <option value=130>10-5</option>
-                                                    <option value=131>10-6</option>
-                                                    <option value=132>10-1E</option>
-                                                    <option value=133>10-2E</option>
-                                                    <option value=134>10-3E</option>
-                                                    <option value=135>10-4E</option>
-                                                    <option value=136>11-1</option>
-                                                    <option value=137>11-2</option>
-                                                    <option value=138>11-3</option>
-                                                    <option value=139>11-4</option>
-                                                    <option value=140>11-5</option>
-                                                    <option value=141>11-6</option>
-                                                    <option value=142>11-1E</option>
-                                                    <option value=143>11-2E</option>
-                                                    <option value=144>11-3E</option>
-                                                    <option value=145>11-4E</option>
-                                                </select>
-                                            </p>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        id="expUp">圣肝日(50%
-                                                    exp up)
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        id="OATH">誓约(OATH)
-                                                </label>
+                                            <div class="col-lg-12">
+                                                <p><button type="button"
+                                                        class="btn
+                                                        btn-danger"
+                                                        onclick="resetAdSet()">重置高级设置(Reset
+                                                        advanced setting)</button></p>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-                            </div>
-
-                            <!--Advanced Setting -->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseTwo">高级设置(Advanced
-                                            setting)</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse
-                                    collapse">
-                                    <div class="panel-body">
-                                        <!--Expansion -->
-                                        <div class="col-lg-12">
-                                            <p><h4>扩编情况(Expansion)</h4>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="Expan1"
-                                                        value="option1"
-                                                        checked><span
-                                                        style="color:dodgerblue">随等级扩编(dynamic)</span>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="Expan2"
-                                                        value="option2">x1
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="Expan3"
-                                                        value="option3">x2
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="Expan4"
-                                                        value="option4">x3
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="Expan5"
-                                                        value="option5">x4
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="Expan6"
-                                                        value="option5">x5
-                                                </label>
-                                            </p>
-                                        </div>
-                                        <!--Time -->
-                                        <div class="col-lg-4">
-                                            <div class="form-group
-                                                input-group">
-                                                <span
-                                                    class="input-group-addon">每战均摊时间(min)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入正数"
-                                                    id="TimeAvg" value=0.4>
-                                            </div>
-                                            <div class="form-group
-                                                input-group">
-                                                <span
-                                                    class="input-group-addon">每战弹药(Amm/battle)</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    id="AmmAvg" value=12>
-                                            </div>
-                                            <div class="form-group
-                                                input-group">
-                                                <span
-                                                    class="input-group-addon">每战口粮(Rat/battle)&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    id="RatAvg" value=12>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <p><button type="button"
-                                                    class="btn
-                                                    btn-danger"
-                                                    onclick="resetAdSet()">重置高级设置(Reset
-                                                    advanced setting)</button></p>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--Button -->
-                            <div class="col-lg-10">
-                                <p><button type="button" class="btn btn-info"
-                                        onclick="getResult()">计算(Calculate)</button></p>
                             </div>
                         </div>
+                        <!--Button -->
+                        <div class="col-lg-10">
+                            <p><button type="button" class="btn btn-info"
+                                    onclick="getResult()">计算(Calculate)</button></p>
+                        </div>
                     </div>
-
 
                     <!--Result -->
                     <div class="row">
@@ -917,7 +1082,6 @@ mapList.push(inputCardData("11-4E",600,120));
                             </div>
 
                         </div>
-
                     </div>
 
                 </div>
