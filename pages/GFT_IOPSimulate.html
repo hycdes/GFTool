@@ -78,6 +78,58 @@
             RwOwn.disabled = true; RwOwn.value=10000;
             PwOwn.disabled = true; PwOwn.value=10000;
         }
+        function checkValueNormal(){
+            var MwId=document.getElementById('Mw'); var Mw=parseInt(MwId.value);
+            var AwId=document.getElementById('Aw'); var Aw=parseInt(AwId.value);
+            var RwId=document.getElementById('Rw'); var Rw=parseInt(RwId.value);
+            var PwId=document.getElementById('Pw'); var Pw=parseInt(PwId.value);
+            if(isNaN(Mw) || Mw.length===0) MwId.value=30;
+            else{
+                if(Mw<30) MwId.value=30;
+                else if(Mw>999) MwId.value=999;
+            }
+            if(isNaN(Aw) || Aw.length===0) AwId.value=30;
+            else{
+                if(Aw<30) AwId.value=30;
+                else if(Aw>999) AwId.value=999;
+            }
+            if(isNaN(Rw) || Rw.length===0) RwId.value=30;
+            else{
+                if(Rw<30) RwId.value=30;
+                else if(Rw>999) RwId.value=999;
+            }
+            if(isNaN(Pw) || Pw.length===0) PwId.value=30;
+            else{
+                if(Pw<30) PwId.value=30;
+                else if(Pw>999) PwId.value=999;
+            }
+        }
+        function checkValueHeavy(){
+            var MwHId=document.getElementById('MwH'); var MwH=parseInt(MwHId.value);
+            var AwHId=document.getElementById('AwH'); var AwH=parseInt(AwHId.value);
+            var RwHId=document.getElementById('RwH'); var RwH=parseInt(RwHId.value);
+            var PwHId=document.getElementById('PwH'); var PwH=parseInt(PwHId.value);
+            if(isNaN(MwH) || MwH.length===0) MwHId.value=1000;
+            else{
+                if(MwH<1000) MwHId.value=1000;
+                else if(MwH>9999) MwHId.value=9999;
+            }
+            if(isNaN(AwH) || AwH.length===0) AwHId.value=1000;
+            else{
+                if(AwH<1000) AwHId.value=1000;
+                else if(AwH>9999) AwHId.value=9999;
+            }
+            if(isNaN(RwH) || RwH.length===0) RwHId.value=1000;
+            else{
+                if(RwH<1000) RwHId.value=1000;
+                else if(RwH>9999) RwHId.value=9999;
+            }
+            if(isNaN(PwH) || PwH.length===0) PwHId.value=1000;
+            else{
+                if(PwH<1000) PwHId.value=1000;
+                else if(PwH>9999) PwHId.value=9999;
+            }
+        }
         function setWeight1() {
             var Mw = document.getElementById('Mw'); Mw.value = 430;
             var Aw = document.getElementById('Aw'); Aw.value = 430;
@@ -983,39 +1035,55 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">建造模拟器(IOP Simulator)<span
-                                    style="color:#FF0066">* 未完工，没做资源限制！</span></h1>
+                            <h1 class="page-header">建造模拟器(IOP Simulator)</h1>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <p><span style="color:#FF0066">*娱乐用，请以游戏内容和实际人品为准</span></p>
-                            <p>* For entertainment, please refer to the game
-                                content and actual luck.</p>
+                            <p>* <span style="color:#FF0066">娱乐用</span>，请以游戏内容和<span
+                                    style="color:#FF0066">实际人品</span>为准，重来请直接刷新</p>
+                            <p>* For <span style="color:#FF0066">entertainment
+                                    ONLY</span>, please refer to the
+                                game content and <span style="color:#FF0066">actual
+                                    luck</span>. Refresh page to
+                                restart.</p>
                         </div>
                     </div>
-                    <!--Normal-->
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseOne">人形建造-普通(Normal
-                                            T-doll produce)</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseOne" class="panel-collapse
-                                    collapse in">
-                                    <div class="panel-body">
+                    <!--Setting-->
+                    <div class="col-lg-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                建造(Produce)
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a
+                                            href="#NormalProduce"
+                                            data-toggle="tab">人形普建(Normal T-doll
+                                            produce)</a>
+                                    </li>
+                                    <li><a href="#HeavyProduce"
+                                            data-toggle="tab">人形重建(Heavy T-doll
+                                            produce)</a>
+                                    </li>
+                                    <li><a href="#ResourceLimit"
+                                            data-toggle="tab">资源限制(Resource
+                                            limitatiion)</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active"
+                                        id="NormalProduce">
                                         <!--Fast-->
                                         <div class="col-lg-12">
-                                            <h4>快捷配比(Ratio templates)</h4>
+                                            <p>&nbsp</p>
                                             <p>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight1()">通用4442</button>
+                                                    onclick="setWeight1()">通用:4442</button>
                                                 <button type="button" class="btn
                                                     btn-default"
                                                     onclick="setWeight2()">HG:1111</button>
@@ -1043,14 +1111,16 @@
                                                 <input type="text"
                                                     class="form-control"
                                                     placeholder="输入整数" value=30
-                                                    id="Mw">
+                                                    id="Mw"
+                                                    onblur="checkValueNormal()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                                                 <input type="text"
                                                     class="form-control"
                                                     placeholder="输入整数" value=30
-                                                    id="Rw">
+                                                    id="Rw"
+                                                    onblur="checkValueNormal()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -1059,14 +1129,16 @@
                                                 <input type="text"
                                                     class="form-control"
                                                     placeholder="输入整数" value=30
-                                                    id="Aw">
+                                                    id="Aw"
+                                                    onblur="checkValueNormal()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                                                 <input type="text"
                                                     class="form-control"
                                                     placeholder="输入整数" value=30
-                                                    id="Pw">
+                                                    id="Pw"
+                                                    onblur="checkValueNormal()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -1084,30 +1156,12 @@
                                                     produce)</button>
                                             </p>
                                         </div>
-
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Heavy-->
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <div class="panel panel-warning">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseTwo">人形建造-重型(Heavy
-                                            T-doll produce)</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseTwo" class="panel-collapse
-                                    collapse">
-                                    <div class="panel-body">
+                                    <div class="tab-pane fade"
+                                        id="HeavyProduce">
                                         <!--Fast-->
                                         <div class="col-lg-12">
-                                            <h4>快捷配比(Ratio templates)</h4>
+                                            <p>&nbsp</p>
                                             <p>
                                                 <button type="button" class="btn
                                                     btn-default"
@@ -1128,7 +1182,8 @@
                                                     class="form-control"
                                                     placeholder="输入整数"
                                                     value=1000
-                                                    id="MwH">
+                                                    id="MwH"
+                                                    onblur="checkValueHeavy()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
@@ -1136,7 +1191,8 @@
                                                     class="form-control"
                                                     placeholder="输入整数"
                                                     value=1000
-                                                    id="RwH">
+                                                    id="RwH"
+                                                    onblur="checkValueHeavy()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -1146,7 +1202,8 @@
                                                     class="form-control"
                                                     placeholder="输入整数"
                                                     value=1000
-                                                    id="AwH">
+                                                    id="AwH"
+                                                    onblur="checkValueHeavy()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
@@ -1154,7 +1211,8 @@
                                                     class="form-control"
                                                     placeholder="输入整数"
                                                     value=1000
-                                                    id="PwH">
+                                                    id="PwH"
+                                                    onblur="checkValueHeavy()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -1188,25 +1246,8 @@
                                                     produce)</button></p>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Resource limit-->
-                    <div class="row">
-                        <div class="col-lg-10">
-                            <div class="panel panel-danger">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseThree">资源限制(Resource
-                                            limit)</a>
-                                    </h4>
-                                </div>
-                                <div id="collapseThree" class="panel-collapse
-                                    collapse">
-                                    <div class="panel-body">
+                                    <div class="tab-pane fade"
+                                        id="ResourceLimit">
                                         <!--Resource-->
                                         <div class="col-lg-12">
                                             <div class="checkbox">
@@ -1295,6 +1336,7 @@
                                                     resource limit setting)</button></p>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
