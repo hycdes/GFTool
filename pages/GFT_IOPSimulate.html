@@ -27,6 +27,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
         <script type="text/javascript">
+        //global
         var listNum=1;
         var fiveStarNum=0;
         var mul_smg=1,mul_ar=1,mul_rf=1,mul_mg=1,mul_sg=1;
@@ -44,23 +45,18 @@
             sumchart.innerHTML = tab2;
             resochart.innerHTML = tab3;
         }
-        function releaseResoLimit(){
-            var MwOwn = document.getElementById('MwOwn');
-            var AwOwn = document.getElementById('AwOwn');
-            var RwOwn = document.getElementById('RwOwn');
-            var PwOwn = document.getElementById('PwOwn');
-            MwOwn.disabled = !(MwOwn.disabled);
-            AwOwn.disabled = !(AwOwn.disabled);
-            RwOwn.disabled = !(RwOwn.disabled);
-            PwOwn.disabled = !(PwOwn.disabled);
+        //function
+        function releaseResoLimit(){    //unlimit resource
+            var MwOwn = document.getElementById('MwOwn'); MwOwn.disabled = !(MwOwn.disabled);
+            var AwOwn = document.getElementById('AwOwn'); AwOwn.disabled = !(AwOwn.disabled);
+            var RwOwn = document.getElementById('RwOwn'); RwOwn.disabled = !(RwOwn.disabled);
+            var PwOwn = document.getElementById('PwOwn'); PwOwn.disabled = !(PwOwn.disabled);
         }
-        function releaseCoCoLimit(){
-            var ConOwn = document.getElementById('ConOwn');
-            var CoreOwn = document.getElementById('CoreOwn');
-            ConOwn.disabled = !(ConOwn.disabled);
-            CoreOwn.disabled = !(CoreOwn.disabled);
+        function releaseCoCoLimit(){    //unlimit contract&core
+            var ConOwn = document.getElementById('ConOwn'); ConOwn.disabled = !(ConOwn.disabled);
+            var CoreOwn = document.getElementById('CoreOwn'); CoreOwn.disabled = !(CoreOwn.disabled);
         }
-        function resetResoLimit(){
+        function resetResoLimit(){  //reset resource limit
             var MwOwn = document.getElementById('MwOwn');
             var AwOwn = document.getElementById('AwOwn');
             var RwOwn = document.getElementById('RwOwn');
@@ -78,7 +74,7 @@
             RwOwn.disabled = true; RwOwn.value=10000;
             PwOwn.disabled = true; PwOwn.value=10000;
         }
-        function checkValueNormal(){
+        function checkValueNormal(){    //check input of Normal-product
             var MwId=document.getElementById('Mw'); var Mw=parseInt(MwId.value);
             var AwId=document.getElementById('Aw'); var Aw=parseInt(AwId.value);
             var RwId=document.getElementById('Rw'); var Rw=parseInt(RwId.value);
@@ -104,7 +100,7 @@
                 else if(Pw>999) PwId.value=999;
             }
         }
-        function checkValueHeavy(){
+        function checkValueHeavy(){ //check input of Heavy-product
             var MwHId=document.getElementById('MwH'); var MwH=parseInt(MwHId.value);
             var AwHId=document.getElementById('AwH'); var AwH=parseInt(AwHId.value);
             var RwHId=document.getElementById('RwH'); var RwH=parseInt(RwHId.value);
@@ -130,65 +126,105 @@
                 else if(PwH>9999) PwHId.value=9999;
             }
         }
-        function setWeight1() {
+        function checkResource(typeInfo){   //Alert if resource not enough, 1=normal, 2=heavy
+            var Mw = parseInt(document.getElementById('Mw').value);
+            var Aw = parseInt(document.getElementById('Aw').value);
+            var Rw = parseInt(document.getElementById('Rw').value);
+            var Pw = parseInt(document.getElementById('Pw').value);
+            var MwH = parseInt(document.getElementById('MwH').value);
+            var AwH = parseInt(document.getElementById('AwH').value);
+            var RwH = parseInt(document.getElementById('RwH').value);
+            var PwH = parseInt(document.getElementById('PwH').value);
+            var MwOwn = parseInt(document.getElementById('MwOwn').value);
+            var AwOwn = parseInt(document.getElementById('AwOwn').value);
+            var RwOwn = parseInt(document.getElementById('RwOwn').value);
+            var PwOwn = parseInt(document.getElementById('PwOwn').value);
+            var unLimitReso = document.getElementById('unLimitReso');
+            var unLimitCoCo = document.getElementById('unLimitCoCo');
+            var ConOwn = document.getElementById('ConOwn');
+            var CoreOwn = document.getElementById('CoreOwn');
+            var HClassId=document.getElementById('HClass');
+            var buttonNormal = document.getElementById('buttonNormal');
+            var buttonHeavy = document.getElementById('buttonHeavy');
+            var ConNum, CoreNum;
+            var nextM,nextA,nextR,nextP;
+            switch(parseInt(HClassId.value)){
+                case 1: ConNum=1; CoreNum=3; break;
+                case 2: ConNum=10; CoreNum=5; break;
+                case 3: ConNum=20; CoreNum=10; break;
+                
+            }
+            if(unLimitReso.checked===false){
+                if(typeInfo===1){
+                    nextM=Mw+allM; nextA=Aw+allA; nextR=Rw+allR; nextP=Pw+allP;
+                }else{
+                    nextM=MwH+allM; nextA=AwH+allA; nextR=RwH+allR; nextP=PwH+allP;
+                }
+                if(nextM > MwOwn || nextA > AwOwn || nextR > RwOwn || nextP > PwOwn){
+                    buttonNormal.disabled=true;
+                    buttonHeavy.disabled=true;
+                    return false;
+                }
+            }
+            if(unLimitCoCo.checked===false){
+                if(typeInfo===1){
+                    if(allCon >= parseInt(ConOwn.value)){
+                        buttonNormal.disabled=true;
+                        buttonHeavy.disabled=true;
+                        return false;
+                    }
+                }else{
+                    if(allCon+ConNum > parseInt(ConOwn.value)){
+                        buttonNormal.disabled=true;
+                        buttonHeavy.disabled=true;
+                        return false;
+                    }
+                    if(allCore+CoreNum > parseInt(CoreOwn.value)){
+                        buttonNormal.disabled=true;
+                        buttonHeavy.disabled=true;
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        function setWeight(typeInfo) {  //set weight of Normal-product
             var Mw = document.getElementById('Mw'); Mw.value = 430;
             var Aw = document.getElementById('Aw'); Aw.value = 430;
             var Rw = document.getElementById('Rw'); Rw.value = 430;
             var Pw = document.getElementById('Pw'); Pw.value = 230;
+            switch(typeInfo){
+                case 1:
+                    Mw.value = 430; Aw.value = 430; Rw.value = 430; Pw.value = 230; break;
+                case 2:
+                    Mw.value = 130; Aw.value = 130; Rw.value = 130; Pw.value = 130; break;
+                case 3:
+                    Mw.value = 97; Aw.value = 404; Rw.value = 404; Pw.value = 97; break;
+                case 4:
+                    Mw.value = 430; Aw.value = 130; Rw.value = 430; Pw.value = 230; break;
+                case 5:
+                    Mw.value = 430; Aw.value = 430; Rw.value = 130; Pw.value = 230; break;
+                case 6:
+                    Mw.value = 730; Aw.value = 630; Rw.value = 130; Pw.value = 430; break;
+                case 7:
+                    Mw.value = 730; Aw.value = 630; Rw.value = 430; Pw.value = 430; break;
+                default: break;
+            }
         }
-        function setWeight2() {
-            var Mw = document.getElementById('Mw'); Mw.value = 130;
-            var Aw = document.getElementById('Aw'); Aw.value = 130;
-            var Rw = document.getElementById('Rw'); Rw.value = 130;
-            var Pw = document.getElementById('Pw'); Pw.value = 130;
-        }
-        function setWeight3() {
-            var Mw = document.getElementById('Mw'); Mw.value = 97;
-            var Aw = document.getElementById('Aw'); Aw.value = 404;
-            var Rw = document.getElementById('Rw'); Rw.value = 404;
-            var Pw = document.getElementById('Pw'); Pw.value = 97;
-        }
-        function setWeight4() {
-            var Mw = document.getElementById('Mw'); Mw.value = 430;
-            var Aw = document.getElementById('Aw'); Aw.value = 130;
-            var Rw = document.getElementById('Rw'); Rw.value = 430;
-            var Pw = document.getElementById('Pw'); Pw.value = 230;
-        }
-        function setWeight5() {
-            var Mw = document.getElementById('Mw'); Mw.value = 430;
-            var Aw = document.getElementById('Aw'); Aw.value = 430;
-            var Rw = document.getElementById('Rw'); Rw.value = 130;
-            var Pw = document.getElementById('Pw'); Pw.value = 230;
-        }
-        function setWeight6() {
-            var Mw = document.getElementById('Mw'); Mw.value = 730;
-            var Aw = document.getElementById('Aw'); Aw.value = 630;
-            var Rw = document.getElementById('Rw'); Rw.value = 130;
-            var Pw = document.getElementById('Pw'); Pw.value = 430;
-        }
-        function setWeight7() {
-            var Mw = document.getElementById('Mw'); Mw.value = 730;
-            var Aw = document.getElementById('Aw'); Aw.value = 630;
-            var Rw = document.getElementById('Rw'); Rw.value = 430;
-            var Pw = document.getElementById('Pw'); Pw.value = 430;
-        }
-        function setWeightH0() {
-            var Mw = document.getElementById('MwH'); Mw.value = 4000;
-            var Aw = document.getElementById('AwH'); Aw.value = 1000;
-            var Rw = document.getElementById('RwH'); Rw.value = 6000;
-            var Pw = document.getElementById('PwH'); Pw.value = 3000;
-        }
-        function setWeightH1() {
-            var Mw = document.getElementById('MwH'); Mw.value = 6000;
-            var Aw = document.getElementById('AwH'); Aw.value = 2000;
-            var Rw = document.getElementById('RwH'); Rw.value = 6000;
-            var Pw = document.getElementById('PwH'); Pw.value = 4000;
-        }
-        function setWeightH2() {
-            var Mw = document.getElementById('MwH'); Mw.value = 6000;
-            var Aw = document.getElementById('AwH'); Aw.value = 6000;
-            var Rw = document.getElementById('RwH'); Rw.value = 6000;
-            var Pw = document.getElementById('PwH'); Pw.value = 4000;
+        function setWeightH(typeInfo) { //set weight of Heavy-product
+            var Mw = document.getElementById('MwH');
+            var Aw = document.getElementById('AwH');
+            var Rw = document.getElementById('RwH');
+            var Pw = document.getElementById('PwH');
+            switch(typeInfo){
+                case 1:
+                    Mw.value = 4000; Aw.value = 1000; Rw.value = 6000; Pw.value = 3000; break;
+                case 2:
+                    Mw.value = 6000; Aw.value = 2000; Rw.value = 6000; Pw.value = 4000; break;
+                case 3:
+                    Mw.value = 6000; Aw.value = 6000; Rw.value = 6000; Pw.value = 4000; break;
+                default: break;
+            }
         }
         function creatTdollInfo_HG(name,posibility) {
             var TdollInfo = new Object;
@@ -381,8 +417,7 @@
                 else return 4;
             }
         }
-        //posibility*100
-        function makeTdoll(Mw,Aw,Rw,Pw,starNum){
+        function makeTdoll(Mw,Aw,Rw,Pw,starNum){    //Normal-produce T-doll, posibility*100
             if(starNum === 5) fiveStarNum++;
             var TdollInfo="<b>";
             var TdollList=[];
@@ -607,7 +642,7 @@
             TdollInfo+="</b>";
             return TdollInfo;
         }
-        function makeTdoll_Heavy(MwH,AwH,RwH,PwH,starNum){
+        function makeTdoll_Heavy(MwH,AwH,RwH,PwH,starNum){  //Heavy-produce T-doll, posibility*100
             if(starNum === 5) fiveStarNum++;
             var TdollInfo="<b>";
             var TdollList=[];
@@ -788,7 +823,7 @@
             TdollInfo+="</b>";
             return TdollInfo;
         }
-        function addList() {
+        function addList() {    //Add Normal-produce info
             var chart = document.getElementById("rankingChart");
             var sumchart=document.getElementById("sumChart");
             var resochart=document.getElementById("resoChart");
@@ -860,7 +895,7 @@
             sumchart.innerHTML = tabSum;
             resochart.innerHTML = tabReso;
         }
-        function addListH() {
+        function addListH() {   //Add Heavy-produce info
             var chart = document.getElementById("rankingChart");
             var sumchart=document.getElementById("sumChart");
             var resochart=document.getElementById("resoChart");
@@ -936,11 +971,11 @@
             sumchart.innerHTML = tabSum;
             resochart.innerHTML = tabReso;
         }
-        function showAll(){
+        function showAll(){     //Show all results
             var chart = document.getElementById("rankingChart");
             chart.innerHTML = global_list;
         }
-        function showFive(){
+        function showFive(){    //Show 5-star results
             var chart = document.getElementById("rankingChart");
             chart.innerHTML = global_5list;
         }
@@ -948,14 +983,18 @@
             var NTimes=document.getElementById('NTimes');
             var times=parseInt(NTimes.value);
             for(var i=0;i<times;i++){
-                addList();
+                if(checkResource(1)){
+                    addList();
+                }
             }
         }
         function addListHMulti(){
             var NTimesH=document.getElementById('NTimesH');
             var timesH=parseInt(NTimesH.value);
             for(var i=0;i<timesH;i++){
-                addListH();
+                if(checkResource(2)){
+                    addListH();
+                }
             }
         }
         </script>
@@ -1083,25 +1122,25 @@
                                             <p>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight1()">通用:4442</button>
+                                                    onclick="setWeight(1)">通用:4442</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight2()">HG:1111</button>
+                                                    onclick="setWeight(2)">HG:1111</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight3()">AR:1441</button>
+                                                    onclick="setWeight(3)">AR:1441</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight4()">RF:4142</button>
+                                                    onclick="setWeight(4)">RF:4142</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight5()">SMG:4412</button>
+                                                    onclick="setWeight(5)">SMG:4412</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight6()">MG:7614</button>
+                                                    onclick="setWeight(6)">MG:7614</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeight7()">MG-Plus:7644</button>
+                                                    onclick="setWeight(7)">MG-Plus:7644</button>
                                             </p>
                                         </div>
                                         <!--Resource-->
@@ -1151,7 +1190,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <p><button type="button" class="btn
-                                                    btn-info"
+                                                    btn-info" id="buttonNormal"
                                                     onclick="addListMulti()">普通建造(Normal
                                                     produce)</button>
                                             </p>
@@ -1165,13 +1204,13 @@
                                             <p>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeightH0()">低耗4163</button>
+                                                    onclick="setWeightH(1)">低耗4163</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeightH1()">普通6264</button>
+                                                    onclick="setWeightH(2)">普通6264</button>
                                                 <button type="button" class="btn
                                                     btn-default"
-                                                    onclick="setWeightH2()">高耗6664</button>
+                                                    onclick="setWeightH(3)">高耗6664</button>
                                             </p>
                                         </div>
                                         <!--Resource-->
@@ -1242,6 +1281,7 @@
                                         <div class="col-lg-12">
                                             <p><button type="button" class="btn
                                                     btn-warning"
+                                                    id="buttonHeavy"
                                                     onclick="addListHMulti()">重型建造(Heavy
                                                     produce)</button></p>
                                         </div>
@@ -1341,63 +1381,65 @@
                             </div>
                         </div>
                     </div>
-                    <!--Result-->
+
                     <div class="row">
-                        <div class="col-lg-10">
+                        <!--Result-->
+                        <div class="col-lg-10" id="resultPanel">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse"
                                             data-parent="#accordion"
-                                            href="#collapseResult">建造结果(Produce
+                                            href="#collapseResult"
+                                            id='resultPanelTitle'>建造结果(Produce
                                             results)</a>
                                     </h4>
                                 </div>
                                 <div id="collapseResult" class="panel-collapse
                                     collapse in">
                                     <div class="panel-body">
-                                        <div class="panel panel-default">
-                                            <div class="col-lg-10">
-                                                <h4>显示条目</h4>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="showAllSwitch"
-                                                        value="option1"
-                                                        onclick="showAll()"
-                                                        checked>显示全部(show
-                                                    all)
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio"
-                                                        name="ExpanSwitch"
-                                                        id="showFiveSwitch"
-                                                        value="option2"
-                                                        onclick="showFive()">显示五星人形(show
-                                                    ★★★★★)
-                                                </label>
+
+                                        <div class="col-lg-10">
+                                            <h4>显示条目</h4>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="showAllSwitch"
+                                                    value="option1"
+                                                    onclick="showAll()"
+                                                    checked>显示全部(show
+                                                all)
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio"
+                                                    name="ExpanSwitch"
+                                                    id="showFiveSwitch"
+                                                    value="option2"
+                                                    onclick="showFive()">显示五星人形(show
+                                                ★★★★★)
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <div class="panel-body">
+                                                <div
+                                                    class="table-responsive"
+                                                    id="sumChart">
+                                                </div>
                                             </div>
-                                            <div class="col-lg-10">
-                                                <div class="panel-body">
-                                                    <div
-                                                        class="table-responsive"
-                                                        id="sumChart">
-                                                    </div>
+                                            <div class="panel-body">
+                                                <div
+                                                    class="table-responsive"
+                                                    id="resoChart">
                                                 </div>
-                                                <div class="panel-body">
-                                                    <div
-                                                        class="table-responsive"
-                                                        id="resoChart">
-                                                    </div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div
-                                                        class="table-responsive"
-                                                        id="rankingChart">
-                                                    </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div
+                                                    class="table-responsive"
+                                                    id="rankingChart">
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
