@@ -88,11 +88,13 @@
             var TA = document.getElementById('TimeAvg'); TA.value = 0.4;
             var AA = document.getElementById('AmmAvg'); AA.value = 12;
             var RA = document.getElementById('RatAvg'); RA.value = 12;
+            var ExpanF1 = document.getElementById('ExpanF1'); ExpanF1.checked=true;
+            var teamExpan = document.getElementById('teamExpan'); teamExpan.value=25; teamExpan.disabled=true;
         }
         function checkError(levelUpExp){
-            var CurLev=parseInt(document.getElementById('CurLev').value);
-            var TarLev=parseInt(document.getElementById('TarLev').value);
-            var CurExp=parseInt(document.getElementById('CurExp').value);
+            var CurLevId=document.getElementById('CurLev'); var CurLev=parseInt(CurLevId.value);
+            var TarLevId=document.getElementById('TarLev'); var TarLev=parseInt(TarLevId.value);
+            var CurExpId=document.getElementById('CurExp'); var CurExp=parseInt(CurExpId.value);
             var Ep1=document.getElementById('Expan1');
             var Ep3=document.getElementById('Expan3');
             var Ep4=document.getElementById('Expan4');
@@ -101,7 +103,7 @@
             var TimeAvgId=document.getElementById('TimeAvg');
             var AmmAvgId=document.getElementById('AmmAvg');
             var RatAvgId=document.getElementById('RatAvg');
-            if(isNaN(CurLev) || isNaN(TarLev) || isNaN(CurExp) || !((CurLev>=1 && CurLev<120) && (TarLev>1 && TarLev<=120))){
+            if(isNaN(CurLevId.value) || isNaN(TarLevId.value) || isNaN(CurExpId.value) || !((CurLev>=1 && CurLev<120) && (TarLev>1 && TarLev<=120))){
                 return 1;
             }else if(CurLev >= TarLev){
                 return 2;
@@ -115,21 +117,21 @@
             return 0;
         }
         function checkErrorF(levelUpExp){
-            var CurLev=parseInt(document.getElementById('CurLevF').value);
-            var TarLev=parseInt(document.getElementById('TarLevF').value);
-            var CurExp=parseInt(document.getElementById('CurExpF').value);
+            var CurLevId=document.getElementById('CurLevF'); var CurLev=parseInt(CurLevId.value);
+            var TarLevId=document.getElementById('TarLevF'); var TarLev=parseInt(TarLevId.value);
+            var CurExpId=document.getElementById('CurExpF'); var CurExp=parseInt(CurExpId.value);
             var ExpanF1=document.getElementById('ExpanF1');
-            var teamExpan=parseInt(document.getElementById('teamExpan').value);
+            var teamExpanId=document.getElementById('teamExpan'); var teamExpan=parseInt(teamExpanId.value);
             var TimeAvgId=document.getElementById('TimeAvg');
             var AmmAvgId=document.getElementById('AmmAvg');
             var RatAvgId=document.getElementById('RatAvg');
-            if(isNaN(CurLevId.value) || isNaN(TarLevId.value) || isNaN(CurExpId.value) || !((CurLev>=1 && CurLev<120) && (TarLev>1 && TarLev<=120))){
+            if(isNaN(CurLevId.value) || isNaN(TarLevId.value) || isNaN(CurExpId.value) || !((CurLev>=1 && CurLev<100) && (TarLev>1 && TarLev<=100))){
                 return 1;
             }else if(CurLev >= TarLev){
                 return 2;
             }else if(levelUpExp[CurLev+1]-levelUpExp[CurLev] <= CurExp){
                 return 3;
-            }else if((CurLev<10 && Ep3.checked) || (CurLev<30 && Ep4.checked) || (CurLev<70 && Ep5.checked) || (CurLev<90 && Ep6.checked) || ((CurLev>=100 || TarLev>=101) && (!Ep1.checked && !Ep6.checked))){
+            }else if((!ExpanF1.checked && isNaN(teamExpanId.value)) || !(teamExpan>=5 && teamExpan<=25) || (parseFloat(teamExpanId.value)-parseInt(teamExpanId.value) != 0)){
                 return 4;
             }else if(isNaN(TimeAvgId.value) || isNaN(AmmAvgId.value) || isNaN(RatAvgId.value)){
                 return 5;
@@ -164,6 +166,33 @@
             tab += '<td>'; tab += (maxAmm.toFixed(0)+""); tab+=" ~ "; tab += (minAmm.toFixed(0)+"") ; tab += '</td>';
             tab += '<td>'; tab += (maxRat.toFixed(0)+""); tab+=" ~ "; tab += (minRat.toFixed(0)+"") ; tab += '</td>';
             tab += '<td>'; tab += (maxTime.toFixed(1)+""); tab+=" ~ "; tab += (minTime.toFixed(1)+"") ; tab += 'h</td>';
+            tab += '</tr></tbody></table>';
+            chart.innerHTML = tab;
+        }
+        function getChartF(selectMapInfo,Num,Num_book,total_EXP,fairyExp){
+            var TimeAvgId=document.getElementById('TimeAvg'); var Time=parseFloat(TimeAvgId.value)*Num/60;
+            var AmmAvgId=document.getElementById('AmmAvg'); var Amm=parseFloat(AmmAvgId.value)*Num;
+            var RatAvgId=document.getElementById('RatAvg'); var Rat=parseFloat(RatAvgId.value)*Num;
+            var chart = document.getElementById("resultChartF");
+            var tab = '<p><h4>地图信息(Map information)</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验(Total exp)</th><th>所选地图(Map selection)</th><th>战斗经验(Exp/battle)</th></tr></thead>';
+            tab += '<tbody><tr>';
+            tab += '<td>'; tab+=(total_EXP+""); tab += '</td>';
+            tab += '<td>'; tab+=(selectMapInfo.cardname); tab += '</td>';
+            tab += '<td>'; tab+=(fairyExp+""); tab += '</td>';
+            tab += '</tr></tbody></table>';
+            tab += '<p><h4>战斗次数(Number of battle)</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>次数(Number)</th><th>作战报告书(Book)</th></tr></thead>';
+            tab += '<tbody><tr>';
+            tab += '<td>'; tab+=(Num+""); tab += '</td>';
+            tab += '<td>'; tab+=(Num_book+""); tab += '</td></tr>';
+            tab += '</tr></tbody></table>';
+            tab += '<p><h4>资源消耗(Consumption)</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>弹药(Ammunition)</th><th>口粮(Ration)</th><th>时间(Time)</th></tr></thead>';
+            tab += '<tbody><tr>';
+            tab += '<td>'; tab += (Amm.toFixed(0)+""); tab += '</td>';
+            tab += '<td>'; tab += (Rat.toFixed(0)+""); tab += '</td>';
+            tab += '<td>'; tab += (Time.toFixed(1)+""); tab += 'h</td>';
             tab += '</tr></tbody></table>';
             chart.innerHTML = tab;
         }
@@ -232,6 +261,35 @@
             }
             return resultNum;
         }
+        function getNumF(levelUpExp,selectMapInfo,totalExp,expUp){
+            var ExpanF1=document.getElementById('ExpanF1');
+            var teamExpanId=document.getElementById('teamExpan'); var teamExpan=parseInt(teamExpanId.value);
+            var WeatherDevice=parseInt(document.getElementById('WeatherDevice').value);
+            var this_exp;
+            if(ExpanF1.checked) this_exp=Math.ceil(selectMapInfo.value*25*(0.05+0.015*WeatherDevice));
+            else this_exp=Math.ceil(selectMapInfo.value*teamExpan*(0.05+0.015*WeatherDevice));
+            this_exp*=expUp;
+            return Math.ceil(totalExp/this_exp);
+        }
+        function getFairyExp(selectMapInfo,expUp){
+            var ExpanF1=document.getElementById('ExpanF1');
+            var teamExpanId=document.getElementById('teamExpan'); var teamExpan=parseInt(teamExpanId.value);
+            var WeatherDevice=parseInt(document.getElementById('WeatherDevice').value);
+            var this_exp;
+            if(ExpanF1.checked) this_exp=Math.ceil(selectMapInfo.value*25*(0.05+0.015*WeatherDevice));
+            else this_exp=Math.ceil(selectMapInfo.value*teamExpan*(0.05+0.015*WeatherDevice));
+            this_exp*=expUp;
+            return this_exp;
+        }
+        function getFairyTotalExp(levelUpExp,CurLev,TarLev,CurExp){
+            var thisLevel=CurLev;
+            var totalExp=0;
+            while(thisLevel<TarLev){
+                totalExp+=levelUpExp[thisLevel+1];
+                thisLevel++;
+            }
+            return totalExp-CurExp;
+        }
         function getNumBook(levelUpExp,CurLev,TarLev,CurExp,OATHValue){
             var resultNum;
             var totalExp;
@@ -246,6 +304,8 @@
             return resultNum;
         }
         function getResult(typeInfo) {  //1=T-dool, 2=Fairy, 3=Heavy-Fire
+            var panelT=document.getElementById('panelT');
+            var panelF=document.getElementById('panelF');
             var MP = document.getElementById('MapInfo');
             var MPidx = MapInfo.selectedIndex;
             var MPval = parseInt(MP[MPidx].value);
@@ -290,6 +350,7 @@
             mapList.push(inputCardData("11-1E",560,120)); mapList.push(inputCardData("11-2E",570,120)); mapList.push(inputCardData("11-3E",580,120)); mapList.push(inputCardData("11-4E",600,120));
             switch(typeInfo){
                 case 1:     //T-doll
+                    panelT.className="active"; panelF.className="";
                     var Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book;
                     var CurLev=parseInt(document.getElementById('CurLev').value);
                     var TarLev=parseInt(document.getElementById('TarLev').value);
@@ -323,6 +384,7 @@
                     }
                     break;
                 case 2:     //Fairy
+                    panelT.className=""; panelF.className="active";
                     var Num,Num_book;
                     var CurLev=parseInt(document.getElementById('CurLevF').value);
                     var TarLev=parseInt(document.getElementById('TarLevF').value);
@@ -332,12 +394,12 @@
                     var levelUpExp=[0,0,300,600,900,1200,1500,1800,2100,2400,2700,3000,3300,3600,3900,4200,4500,4800,5100,5500,6000,6500,7100,8000,9000,10000,11000,12200,13400,14700,16000,17500,18900,20500,22200,23900,25700,27600,29500,31600,33700,35900,38200,40500,43000,45500,48200,50900,53700,56600,59600,62700,65900,69200,72600,76000,79600,83300,87000,90900,94900,99000,103100,107400,111800,116300,120900,125600,130400,135300,140400,145500,150800,156100,161600,167200,172900,178700,184700,190700,196900,203200,209600,216100,222800,229600,236500,243500,250600,257900,265300,272800,280400,288200,296100,304100,312300,320600,329000,337500,357000];
                     var errorNum=checkErrorF(levelUpExp);
                     if(errorNum===0){
-                        //getOnceExp(onceExpFull,declinelevel,currentlevel,expUp,OATHValue,Multiple)
-                        var total_EXP=levelUpExp[TarLev]-levelUpExp[CurLev]-CurExp;
+                        var total_EXP=getFairyTotalExp(levelUpExp,CurLev,TarLev,CurExp);
                         var selectMapInfo=mapList[MPval];
-                        Num=getNumF(levelUpExp,selectMapInfo,CurLev,TarLev,CurExp,expUp);
-                        Num_book=getNumBook(levelUpExp,CurLev,TarLev,CurExp,OATHValue);
-                        getChartF(selectMapInfo,Num,Num_book,total_EXP);
+                        var fairyExp=getFairyExp(selectMapInfo,expUp);
+                        Num=getNumF(levelUpExp,selectMapInfo,total_EXP,expUp);
+                        Num_book=Math.ceil(total_EXP/3000);
+                        getChartF(selectMapInfo,Num,Num_book,total_EXP,fairyExp);
                     }else{  //不合法输入（在1~100间），等级上下逆转，现有经验超标，扩编输入非法，口粮弹药时间输入非法
                         if(errorNum === 1){
                             tab = "等级或经验输入非法";
@@ -623,6 +685,9 @@
                                             <a href="#FairyLevel" data-toggle="tab">妖精练级(Fairy)</a>
                                         </li>
                                         <li>
+                                            <a href="#HeavyfireLevel" data-toggle="tab">重装部队练级(Heavy-fire)</a>
+                                        </li>
+                                        <li>
                                             <a href="#AdvancedSetting" data-toggle="tab">高级设置(Advanced setting)</a>
                                         </li>
                                     </ul>
@@ -658,15 +723,14 @@
                                             </div>
                                             <!--Button -->
                                             <div class="col-lg-10">
-                                                <p><button type="button" class="btn btn-info"
-                                                        onclick="getResult(1)">人形练级计算(T-doll leveling)</button></p>
+                                                <p><button type="button" class="btn btn-info" onclick="getResult(1)" href="#TdollResult" data-toggle="tab">人形练级计算(T-doll leveling)</button></p>
                                             </div>
                                         </div>
                                         <!--FAIRY-->
                                         <div class="tab-pane fade" id="FairyLevel">
                                             <!--level/exp info-->
                                             <div class="col-lg-4">
-                                                <h4>妖精信息(Fairy info) * 尚未完工！！！</h4>
+                                                <h4>妖精信息(Fairy info)</h4>
                                                 <div class="tooltip-demo">
                                                     <p>
                                                         <button type="button" data-toggle="tooltip" data-placement="top" title="★★" class="btn btn-outline btn-default" onclick="setLevelF(1)">1 → 20</button>
@@ -708,8 +772,14 @@
                                             </div>
                                             <!--Button -->
                                             <div class="col-lg-10">
-                                                <p><button type="button" class="btn btn-success"
-                                                        onclick="getResult(2)" disabled>妖精练级计算(Fairy leveling)</button></p>
+                                                <p><button type="button" class="btn btn-success" onclick="getResult(2)" href="#FairyResult" data-toggle="tab">妖精练级计算(Fairy leveling)</button></p>
+                                            </div>
+                                        </div>
+                                        <!--HEAVYFIRE-->
+                                        <div class="tab-pane fade" id="HeavyfireLevel">
+                                            <!--level/exp info-->
+                                            <div class="col-lg-4">
+                                                <h4>制作中……</h4>
                                             </div>
                                         </div>
                                         <!--ADVANCED-->
@@ -794,10 +864,10 @@
                                 <div class="panel-body">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs">
-                                        <li class="active">
+                                        <li id="panelT" class="active">
                                             <a href="#TdollResult" data-toggle="tab">人形练级结果(T-doll leveling results)</a>
                                         </li>
-                                        <li>
+                                        <li id="panelF" class="">
                                             <a href="#FairyResult" data-toggle="tab">妖精练级结果(Fairy leveling results)</a>
                                         </li>
                                     </ul>
