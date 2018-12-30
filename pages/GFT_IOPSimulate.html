@@ -152,7 +152,6 @@
                 case 1: ConNum=1; CoreNum=3; break;
                 case 2: ConNum=10; CoreNum=5; break;
                 case 3: ConNum=20; CoreNum=10; break;
-                
             }
             if(unLimitReso.checked===false){
                 if(typeInfo===1){
@@ -721,6 +720,8 @@
                         TdollList.push(creatTdollInfo_SMG("[SMG] 希普卡 Shipka", 120));
                     }
                 }else{
+                    TdollList.push(creatTdollInfo_SMG("[SMG] F1", 200));
+                    TdollList.push(creatTdollInfo_SMG("[SMG] Z-62", 300));
                     TdollList.push(creatTdollInfo_SMG("[SMG] MAC-10", 178));
                     TdollList.push(creatTdollInfo_SMG("[SMG] PPS-43", 99));
                     TdollList.push(creatTdollInfo_SMG("[SMG] 蝎式 VZ61", 130));
@@ -762,6 +763,7 @@
                         TdollList.push(creatTdollInfo_AR("[AR] 利贝罗勒 Riberyolles", 200));
                     }
                 }else{
+                    TdollList.push(creatTdollInfo_AR("[AR] ARX-160", 280));
                     TdollList.push(creatTdollInfo_AR("[AR] AK-47", 290));
                     TdollList.push(creatTdollInfo_AR("[AR] StG44", 315));
                     TdollList.push(creatTdollInfo_AR("[AR] FNC", 290));
@@ -782,6 +784,9 @@
                     TdollList.push(creatTdollInfo_RF("[RF] IWS20000", 16));
                     TdollList.push(creatTdollInfo_RF("[RF] 卡尔卡诺M91/38 Carcano1938", 14));
                 }else if(starNum === 4){
+                    TdollList.push(creatTdollInfo_RF("[RF] PSG-1", 200));
+                    TdollList.push(creatTdollInfo_RF("[RF] G28", 170));
+                    TdollList.push(creatTdollInfo_RF("[RF] PzB-39", 140));
                     TdollList.push(creatTdollInfo_RF("[RF] 春田 M1903", 300));
                     TdollList.push(creatTdollInfo_RF("[RF] 莫辛-纳甘 M1891", 260));
                     TdollList.push(creatTdollInfo_RF("[RF] PTRD", 160));
@@ -790,6 +795,7 @@
                     TdollList.push(creatTdollInfo_RF("[RF] SPR-A3G", 40));
                     TdollList.push(creatTdollInfo_RF("[RF] K31", 100));
                 }else{
+                    TdollList.push(creatTdollInfo_RF("[RF] Ots-44", 230));
                     TdollList.push(creatTdollInfo_RF("[RF] M1加兰德 M1", 400));
                     TdollList.push(creatTdollInfo_RF("[RF] M14", 370));
                     TdollList.push(creatTdollInfo_RF("[RF] SV-98", 300));
@@ -1097,17 +1103,8 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <p>* <span style="color:#FF0066">娱乐用</span>，请以游戏内容和<span
-                                    style="color:#FF0066">实际人品</span>为准，重来请直接刷新</p>
-                            <p>* For <span style="color:#FF0066">entertainment
-                                    ONLY</span>, please refer to the
-                                game content and <span style="color:#FF0066">actual
-                                    luck</span>. Refresh page to
-                                restart.</p>
-                            <p>* IOP建造统计网址站：<u><a
-                                        href="http://gfdb.baka.pw/statistician.html"
-                                        target="_blank"><span
-                                            style="color:#FF0066">IOP制造公司出货统计</span></a></u></p>
+                            <p>* <span style="color:#FF0066">娱乐用</span>，重来请直接<span style="color:#FF0066">刷新</span> (For <span style="color:#FF0066">entertainment ONLY</span>, <span style="color:#FF0066">refresh</span> page to restart)</p>
+                            <p>* IOP建造统计网址站：<u><a href="http://gfdb.baka.pw/statistician.html" target="_blank"><span style="color:#FF0066">IOP制造公司出货统计</span></a></u></p>
                         </div>
                     </div>
                     <!--Setting-->
@@ -1120,18 +1117,14 @@
                             <div class="panel-body">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a
-                                            href="#NormalProduce"
-                                            data-toggle="tab">人形普建(Normal T-doll
-                                            produce)</a>
+                                    <li class="active">
+                                        <a href="#NormalProduce" data-toggle="tab">人形普建(Normal T-doll produce)</a>
                                     </li>
-                                    <li><a href="#HeavyProduce"
-                                            data-toggle="tab">人形重建(Heavy T-doll
-                                            produce)</a>
+                                    <li>
+                                        <a href="#HeavyProduce" data-toggle="tab">人形重建(Heavy T-doll produce)</a>
                                     </li>
-                                    <li><a href="#ResourceLimit"
-                                            data-toggle="tab">资源限制(Resource
-                                            limitatiion)</a>
+                                    <li>
+                                        <a href="#ResourceLimit" data-toggle="tab">资源限制(Resource limitatiion)</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
