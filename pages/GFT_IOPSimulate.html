@@ -189,10 +189,10 @@
             return true;
         }
         function setWeight(typeInfo) {  //set weight of Normal-product
-            var Mw = document.getElementById('Mw'); Mw.value = 430;
-            var Aw = document.getElementById('Aw'); Aw.value = 430;
-            var Rw = document.getElementById('Rw'); Rw.value = 430;
-            var Pw = document.getElementById('Pw'); Pw.value = 230;
+            var Mw = document.getElementById('Mw');
+            var Aw = document.getElementById('Aw');
+            var Rw = document.getElementById('Rw');
+            var Pw = document.getElementById('Pw');
             switch(typeInfo){
                 case 1:
                     Mw.value = 430; Aw.value = 430; Rw.value = 430; Pw.value = 230; break;
@@ -276,7 +276,9 @@
             }
         }
         function getMul_SMG(allReso){   //SMG posibility decline
-            if(allReso>=1000){
+            if(allReso>=1800){
+                mul_smg=0.9;
+            }else if(allReso>=1000 && allReso <1800){
                 mul_smg=1;
             }else if(allReso>=600 && allReso<1000){
                 mul_smg=0.6;
@@ -396,11 +398,27 @@
             }
         }
         function makeStar(){    //Star posibility=3,10,27,60
+            var Mw = parseInt(document.getElementById('Mw').value);
+            var Aw = parseInt(document.getElementById('Aw').value);
+            var Rw = parseInt(document.getElementById('Rw').value);
+            var Pw = parseInt(document.getElementById('Pw').value);
             var starNum=Math.floor(Math.random()*100);
-            if(starNum<3) return 5;
-            else if(starNum>=3 && starNum<13) return 4;
-            else if(starNum>=13 && starNum<40) return 3;
-            else return 2;
+            if(Mw+Aw+Rw+Pw>=420){
+                if(starNum<3) return 5;
+                else if(starNum>=3 && starNum<13) return 4;
+                else if(starNum>=13 && starNum<40) return 3;
+                else return 2;
+            }else if(Mw+Aw+Rw+Pw>=200 && Mw+Aw+Rw+Pw<420){  //low resource decline: 2,8,25,65
+                if(starNum<2) return 5;
+                else if(starNum>=2 && starNum<10) return 4;
+                else if(starNum>=10 && starNum<35) return 3;
+                else return 2;
+            }else{  //low resource decline: 1,7,22,70
+                if(starNum<1) return 5;
+                else if(starNum>=1 && starNum<8) return 4;
+                else if(starNum>=8 && starNum<30) return 3;
+                else return 2;
+            }
         }
         function makeStar_Heavy(HClass){    //Star posibility=15,45,40/20,60,20/25,75,0
             var starNum=Math.floor(Math.random()*100);
@@ -534,7 +552,7 @@
                     TdollList.push(creatTdollInfo_AR("[AR] 9A-91", 200));
                     TdollList.push(creatTdollInfo_AR("[AR] XM8", 200));
                     TdollList.push(creatTdollInfo_AR("[AR] SAR-21", 200));
-                    if(Mw>=400 && Aw>=400){
+                    if(Aw>=400 && Rw>=400){
                         TdollList.push(creatTdollInfo_AR("[AR] G36", 100));
                         TdollList.push(creatTdollInfo_AR("[AR] TAR-21", 200));
                         TdollList.push(creatTdollInfo_AR("[AR] 利贝罗勒 Riberyolles", 200));
@@ -653,29 +671,29 @@
             if(MwH>=4000 && AwH>=1000 && RwH>=6000 && PwH>=3000){
                 getMul_SG(MwH+AwH+RwH+PwH);
                 if(starNum === 5){
-                    TdollList.push(creatTdollInfo_SMG("[SG] KSG", 60));
-                    TdollList.push(creatTdollInfo_SMG("[SG] AA-12", 40));
-                    TdollList.push(creatTdollInfo_SMG("[SG] FP-6", 30));
+                    TdollList.push(creatTdollInfo_SMG("[SG] KSG", 48));
                     if(MwH>=6000 && AwH>=1000 && RwH>=6000 && PwH>=4000){
-                        TdollList.push(creatTdollInfo_SMG("[SG] Saiga-12", 50));
-                        TdollList.push(creatTdollInfo_SMG("[SG] S.A.T.8", 30));
+                        TdollList.push(creatTdollInfo_SMG("[SG] AA-12", 32));
+                        TdollList.push(creatTdollInfo_SMG("[SG] FP-6", 24));
+                        TdollList.push(creatTdollInfo_SMG("[SG] Saiga-12", 40));
+                        TdollList.push(creatTdollInfo_SMG("[SG] S.A.T.8", 24));
                     }
                 }else if(starNum === 4){
-                    TdollList.push(creatTdollInfo_SMG("[SG] M590", 240));
-                    TdollList.push(creatTdollInfo_SMG("[SG] M1014", 70));
-                    TdollList.push(creatTdollInfo_SMG("[SG] SPAS-12", 200));
-                    TdollList.push(creatTdollInfo_SMG("[SG] USAS-12", 100));
+                    TdollList.push(creatTdollInfo_SMG("[SG] M590", 200));
+                    TdollList.push(creatTdollInfo_SMG("[SG] M1014", 60));
+                    TdollList.push(creatTdollInfo_SMG("[SG] SPAS-12", 160));
+                    TdollList.push(creatTdollInfo_SMG("[SG] USAS-12", 80));
                     if(MwH>=6000 && AwH>=1000 && RwH>=6000 && PwH>=4000){
-                        TdollList.push(creatTdollInfo_SMG("[SG] M37", 200));
-                        TdollList.push(creatTdollInfo_SMG("[SG] Super-Shorty", 140));
+                        TdollList.push(creatTdollInfo_SMG("[SG] M37", 180));
+                        TdollList.push(creatTdollInfo_SMG("[SG] Super-Shorty", 130));
                     }
                 }else{
-                    TdollList.push(creatTdollInfo_SMG("[SG] M1897", 300));
-                    TdollList.push(creatTdollInfo_SMG("[SG] M400", 340));
-                    TdollList.push(creatTdollInfo_SMG("[SG] KS-23", 300));
-                    TdollList.push(creatTdollInfo_SMG("[SG] NS2000", 160));
+                    TdollList.push(creatTdollInfo_SMG("[SG] M1897", 270));
+                    TdollList.push(creatTdollInfo_SMG("[SG] M400", 290));
+                    TdollList.push(creatTdollInfo_SMG("[SG] KS-23", 270));
+                    TdollList.push(creatTdollInfo_SMG("[SG] NS2000", 150));
                     if(MwH>=6000 && AwH>=1000 && RwH>=6000 && PwH>=4000){
-                        TdollList.push(creatTdollInfo_SMG("[SG] RMB93", 280));
+                        TdollList.push(creatTdollInfo_SMG("[SG] RMB93", 260));
                     }
                 }
             }
@@ -738,7 +756,7 @@
                     TdollList.push(creatTdollInfo_AR("[AR] 9A-91", 200));
                     TdollList.push(creatTdollInfo_AR("[AR] XM8", 200));
                     TdollList.push(creatTdollInfo_AR("[AR] SAR-21", 200));
-                    if(MwH>=4000 && AwH>=4000){
+                    if(AwH>=4000 && RwH>=4000){
                         TdollList.push(creatTdollInfo_AR("[AR] G36", 100));
                         TdollList.push(creatTdollInfo_AR("[AR] TAR-21", 200));
                         TdollList.push(creatTdollInfo_AR("[AR] 利贝罗勒 Riberyolles", 200));
@@ -1086,6 +1104,10 @@
                                 game content and <span style="color:#FF0066">actual
                                     luck</span>. Refresh page to
                                 restart.</p>
+                            <p>* IOP建造统计网址站：<u><a
+                                        href="http://gfdb.baka.pw/statistician.html"
+                                        target="_blank"><span
+                                            style="color:#FF0066">IOP制造公司出货统计</span></a></u></p>
                         </div>
                     </div>
                     <!--Setting-->
