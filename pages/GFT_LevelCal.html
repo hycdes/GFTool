@@ -129,7 +129,7 @@
                 return 1;
             }else if(CurLev >= TarLev){
                 return 2;
-            }else if(levelUpExp[CurLev+1]-levelUpExp[CurLev] <= CurExp){
+            }else if(levelUpExp[CurLev+1] <= CurExp){
                 return 3;
             }else if((!ExpanF1.checked && isNaN(teamExpanId.value)) || !(teamExpan>=5 && teamExpan<=25) || (parseFloat(teamExpanId.value)-parseInt(teamExpanId.value) != 0)){
                 return 4;
@@ -434,8 +434,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="index.html"><span
-                            style="color:#FF0066">少女前线工具</span> by 命运の乐章 (Girls'
-                        Frontline tools)</a>
+                            style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
                 </div>
                 <!-- NaviBar (Left) -->
                 <div class="navbar-default sidebar" role="navigation">
@@ -457,31 +456,27 @@
 
                             <!-- [NAVI]Home -->
                             <li>
-                                <a href="index.html"><i class="fa fa-home
-                                        fa-fw"></i> 主页 Home</a>
+                                <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
                             </li>
                             <!-- [NAVI]Gaming stratefy -->
                             <li>
-                                <a href="GFT_Database.html"><i class="fa
-                                        fa-book fa-fw"></i> 资料库 Database</a>
+                                <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
                             </li>
                             <!-- [NAVI]LogiRank -->
                             <li>
-                                <a href="GFT_LogiRank.html"><i class="fa
-                                        fa-briefcase fa-fw"></i> 后勤排序器 Logistics
-                                    ranking</a>
+                                <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
                             </li>
                             <!-- [NAVI]LevelCal -->
                             <li>
-                                <a href="GFT_LevelCal.html"><i class="fa
-                                        fa-upload fa-fw"></i> 练级计算器 Levelup
-                                    calculator</a>
+                                <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
                             </li>
                             <!-- [NAVI]IOPSimulate -->
                             <li>
-                                <a href="GFT_IOPSimulate.html"><i class="fa
-                                        fa-gears fa-fw"></i> 建造模拟器 IOP
-                                    simulator</a>
+                                <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
+                            </li>
+                            <!-- [NAVI]FormationCal -->
+                            <li>
+                                <a href="GFT_EchelonCal.html"><i class="fa fa-delicious fa-fw"></i> 梯队计算器 Echelon calculator</a>
                             </li>
                         </ul>
                     </div>

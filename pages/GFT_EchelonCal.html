@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>少女前线工具 by 命运の乐章</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- MetisMenu CSS -->
+        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+        <!-- Morris Charts CSS -->
+        <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+        <!-- Custom Fonts -->
+        <link href="../vendor/font-awesome/css/font-awesome.min.css"
+            rel="stylesheet" type="text/css">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        <script type="text/javascript">
+        function makeBlockData(_x,_y,damage,firerate,accuracy,critrate,evasion,armor,cooldown){
+            var block=new Object;
+            block._x=_x; block._y=_y;
+            block.damage=damage; block.firerate=firerate; block.accuracy=accuracy; block.critrate=critrate;
+            block.evasion=evasion; block.armor=armor; block.cooldown=cooldown;
+            return block;
+        }
+        function setBlockImage(blockId,imgName){
+            var block=document.getElementById(blockId);
+            var imgPath="../img/blockimg/block_"+imgName+".png";
+            block.src=imgPath;
+        }
+        </script>
+    </head>
+
+    <body>
+
+        <div id="wrapper">
+            <!-- Navigation -->
+            <nav class="navbar navbar-default navbar-static-top"
+                role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><span
+                            style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+                </div>
+                <!-- NaviBar (Left) -->
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control"
+                                        placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default"
+                                            type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+
+                            <!-- [NAVI]Home -->
+                            <li>
+                                <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
+                            </li>
+                            <!-- [NAVI]Gaming stratefy -->
+                            <li>
+                                <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
+                            </li>
+                            <!-- [NAVI]LogiRank -->
+                            <li>
+                                <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
+                            </li>
+                            <!-- [NAVI]LevelCal -->
+                            <li>
+                                <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
+                            </li>
+                            <!-- [NAVI]IOPSimulate -->
+                            <li>
+                                <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
+                            </li>
+                            <!-- [NAVI]FormationCal -->
+                            <li>
+                                <a href="GFT_EchelonCal.html"><i class="fa fa-delicious fa-fw"></i> 梯队计算器 Echelon calculator</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+
+            <!-- Main Pages -->
+            <div id="page-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">[完全没做好]梯队计算器(Echelon calculator)</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                梯队设定(Echelon setting)
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <!--Setting-->
+                                <h4>人形选择(T-doll selection)</h4>
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <p>
+                                            <select class="form-control" id="Position_1">
+                                                <option value=0>无</option>
+                                                <option value=1 selected="selected"># 1</option>
+                                                <option value=2># 2</option>
+                                                <option value=3># 3</option>
+                                                <option value=4># 4</option>
+                                                <option value=5># 5</option>
+                                                <option value=6># 6</option>
+                                                <option value=7># 7</option>
+                                                <option value=8># 8</option>
+                                                <option value=9># 9</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <p>
+                                            <select class="form-control" id="Type_1">
+                                                <option value=1>HG</option>
+                                                <option value=2>SMG</option>
+                                                <option value=3>AR</option>
+                                                <option value=4>RF</option>
+                                                <option value=5>MG</option>
+                                                <option value=6>SG</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p>
+                                            <select class="form-control" id="Tdoll_1">
+                                                <option value=0>无</option>
+                                                <option value=1># 1</option>
+                                                <option value=2># 2</option>
+                                                <option value=3># 3</option>
+                                                <option value=4># 4</option>
+                                                <option value=5># 5</option>
+                                                <option value=6># 6</option>
+                                                <option value=7># 7</option>
+                                                <option value=8># 8</option>
+                                                <option value=9># 9</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1">
+                                        <p>
+                                            <select class="form-control" id="Position_1">
+                                                <option value=0>无</option>
+                                                <option value=1 selected="selected"># 1</option>
+                                                <option value=2># 2</option>
+                                                <option value=3># 3</option>
+                                                <option value=4># 4</option>
+                                                <option value=5># 5</option>
+                                                <option value=6># 6</option>
+                                                <option value=7># 7</option>
+                                                <option value=8># 8</option>
+                                                <option value=9># 9</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <p>
+                                            <select class="form-control" id="Type_1">
+                                                <option value=1>HG</option>
+                                                <option value=2>SMG</option>
+                                                <option value=3>AR</option>
+                                                <option value=4>RF</option>
+                                                <option value=5>MG</option>
+                                                <option value=6>SG</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p>
+                                            <select class="form-control" id="Tdoll_1">
+                                                <option value=0>无</option>
+                                                <option value=1># 1</option>
+                                                <option value=2># 2</option>
+                                                <option value=3># 3</option>
+                                                <option value=4># 4</option>
+                                                <option value=5># 5</option>
+                                                <option value=6># 6</option>
+                                                <option value=7># 7</option>
+                                                <option value=8># 8</option>
+                                                <option value=9># 9</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!--T-doll images-->
+                                <div class="col-lg-12">
+                                    <img src="../img/blockimg/block_blank.png" alt="b11" id="b11"><img src="../img/blockimg/block_blank.png" alt="b12" id="b12"><img src="../img/blockimg/block_blank.png" alt="b13" id="b13">
+                                    <br>
+                                    <img src="../img/blockimg/block_blank.png" alt="b21" id="b21"><img src="../img/blockimg/block_blank.png" alt="b22" id="b22"><img src="../img/blockimg/block_blank.png" alt="b23" id="b23">
+                                    <br>
+                                    <img src="../img/blockimg/block_blank.png" alt="b31" id="b31"><img src="../img/blockimg/block_blank.png" alt="b32" id="b32"><img src="../img/blockimg/block_blank.png" alt="b33" id="b33">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+    </body>
+</html>
