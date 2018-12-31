@@ -27,6 +27,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
         <script type="text/javascript">
+        var selectHTML_selection='<option value=1507>HG★★★★★ Px4风暴</option><option value=2410>SMG★★★★★ UMP45[改]</option><option value=3409>AR★★★★★ M4 SOPMOD II[改]</option><option value=3410>3410 AR★★★★★ M4A1[改]</option><option value=3413>AR★★★★★ ST AR-15 [改]</option>';
         function makeBlockData(_x,_y,damage,firerate,accuracy,critrate,evasion,armor,cooldown){
             var block=new Object;
             block._x=_x; block._y=_y;
@@ -38,6 +39,29 @@
             var block=document.getElementById(blockId);
             var imgPath="../img/blockimg/block_"+imgName+".png";
             block.src=imgPath;
+        }
+        function checkFull(){
+            return false;
+        }
+        function disableOthers(){
+            true;
+        }
+        function createSelection(blockId){
+            var blockDivName="Tdoll_"+(blockId+"")+"_div";
+            var blockCheckName="check"+(blockId+"");
+            var blockCheckId=document.getElementById(blockCheckName);
+            var blockDivId=document.getElementById(blockDivName);
+            var tab;
+            if(blockCheckId.checked===true){
+                var selectHTML_front='<p><select class="form-control" id="Tdoll_';
+                var selectHTML_num=blockId+"";
+                var selectHTML_mid='">';
+                var selectHTML_end='</select></p>';
+                tab = selectHTML_front + selectHTML_num + selectHTML_mid + selectHTML_selection + selectHTML_end;
+            }else{
+                tab="";
+            }
+            blockDivId.innerHTML=tab;
         }
         </script>
     </head>
@@ -112,7 +136,7 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">[完全没做好]梯队计算器(Echelon calculator)</h1>
+                        <h1 class="page-header">[制作中…] 梯队计算器(Echelon calculator)</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -124,107 +148,66 @@
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <!--Setting-->
-                                <h4>人形选择(T-doll selection)</h4>
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <p>
-                                            <select class="form-control" id="Position_1">
-                                                <option value=0>无</option>
-                                                <option value=1 selected="selected"># 1</option>
-                                                <option value=2># 2</option>
-                                                <option value=3># 3</option>
-                                                <option value=4># 4</option>
-                                                <option value=5># 5</option>
-                                                <option value=6># 6</option>
-                                                <option value=7># 7</option>
-                                                <option value=8># 8</option>
-                                                <option value=9># 9</option>
-                                            </select>
-                                        </p>
+                                <h4>人形设置(T-doll setting)</h4>
+                                <div class="form-group">
+                                    <label>&nbsp</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check1" onclick="createSelection(1)">1</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check2" onclick="createSelection(2)">2</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check3" onclick="createSelection(3)">3</label>
+                                    <!--value:TSNN, T=1HG/2SMG/3AR/4RF/5MG/6SG, S=2/3/4/5, NN=00~99-->
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_1_div"></div>
                                     </div>
-                                    <div class="col-lg-1">
-                                        <p>
-                                            <select class="form-control" id="Type_1">
-                                                <option value=1>HG</option>
-                                                <option value=2>SMG</option>
-                                                <option value=3>AR</option>
-                                                <option value=4>RF</option>
-                                                <option value=5>MG</option>
-                                                <option value=6>SG</option>
-                                            </select>
-                                        </p>
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_2_div"></div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <p>
-                                            <select class="form-control" id="Tdoll_1">
-                                                <option value=0>无</option>
-                                                <option value=1># 1</option>
-                                                <option value=2># 2</option>
-                                                <option value=3># 3</option>
-                                                <option value=4># 4</option>
-                                                <option value=5># 5</option>
-                                                <option value=6># 6</option>
-                                                <option value=7># 7</option>
-                                                <option value=8># 8</option>
-                                                <option value=9># 9</option>
-                                            </select>
-                                        </p>
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_3_div"></div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-1">
-                                        <p>
-                                            <select class="form-control" id="Position_1">
-                                                <option value=0>无</option>
-                                                <option value=1 selected="selected"># 1</option>
-                                                <option value=2># 2</option>
-                                                <option value=3># 3</option>
-                                                <option value=4># 4</option>
-                                                <option value=5># 5</option>
-                                                <option value=6># 6</option>
-                                                <option value=7># 7</option>
-                                                <option value=8># 8</option>
-                                                <option value=9># 9</option>
-                                            </select>
-                                        </p>
+                                <div class="form-group">
+                                    <label>&nbsp</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check4" onclick="createSelection(4)">4</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check5" onclick="createSelection(5)">5</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check6" onclick="createSelection(6)">6</label>
+                                    <!--value:TSNN, T=1HG/2SMG/3AR/4RF/5MG/6SG, S=2/3/4/5, NN=00~99-->
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_4_div"></div>
                                     </div>
-                                    <div class="col-lg-1">
-                                        <p>
-                                            <select class="form-control" id="Type_1">
-                                                <option value=1>HG</option>
-                                                <option value=2>SMG</option>
-                                                <option value=3>AR</option>
-                                                <option value=4>RF</option>
-                                                <option value=5>MG</option>
-                                                <option value=6>SG</option>
-                                            </select>
-                                        </p>
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_5_div"></div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <p>
-                                            <select class="form-control" id="Tdoll_1">
-                                                <option value=0>无</option>
-                                                <option value=1># 1</option>
-                                                <option value=2># 2</option>
-                                                <option value=3># 3</option>
-                                                <option value=4># 4</option>
-                                                <option value=5># 5</option>
-                                                <option value=6># 6</option>
-                                                <option value=7># 7</option>
-                                                <option value=8># 8</option>
-                                                <option value=9># 9</option>
-                                            </select>
-                                        </p>
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_6_div"></div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>&nbsp</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check7" onclick="createSelection(7)">7</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check8" onclick="createSelection(8)">8</label>
+                                    <label class="checkbox-inline"><input type="checkbox" id="check9" onclick="createSelection(9)">9</label>
+                                    <!--value:TSNN, T=1HG/2SMG/3AR/4RF/5MG/6SG, S=2/3/4/5, NN=00~99-->
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_7_div"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_8_div"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4" id="Tdoll_9_div"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p><button type="button" class="btn btn-info" onclick="getResult()" disabled>获取梯队数据(Get echelon data)</button></p>
                                 </div>
 
                                 <!--T-doll images-->
                                 <div class="col-lg-12">
-                                    <img src="../img/blockimg/block_blank.png" alt="b11" id="b11"><img src="../img/blockimg/block_blank.png" alt="b12" id="b12"><img src="../img/blockimg/block_blank.png" alt="b13" id="b13">
+                                    <img src="../img/blockimg/block_ar_5_ar15.png" alt="b1" id="b1"><img src="../img/blockimg/block_hg_5_px4.png" alt="b2" id="b2"><img src="../img/blockimg/block_blank.png" alt="b3" id="b3">
                                     <br>
-                                    <img src="../img/blockimg/block_blank.png" alt="b21" id="b21"><img src="../img/blockimg/block_blank.png" alt="b22" id="b22"><img src="../img/blockimg/block_blank.png" alt="b23" id="b23">
+                                    <img src="../img/blockimg/block_ar_5_m4.png" alt="b4" id="b4"><img src="../img/blockimg/block_smg_5_ump45.png" alt="b5" id="b5"><img src="../img/blockimg/block_blank.png" alt="b6" id="b6">
                                     <br>
-                                    <img src="../img/blockimg/block_blank.png" alt="b31" id="b31"><img src="../img/blockimg/block_blank.png" alt="b32" id="b32"><img src="../img/blockimg/block_blank.png" alt="b33" id="b33">
+                                    <img src="../img/blockimg/block_ar_5_sop.png" alt="b7" id="b7"><img src="../img/blockimg/block_blank.png" alt="b8" id="b8"><img src="../img/blockimg/block_blank.png" alt="b9" id="b9">
                                 </div>
                             </div>
 
