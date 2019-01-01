@@ -276,8 +276,8 @@
             var teamExpanId=document.getElementById('teamExpan'); var teamExpan=parseInt(teamExpanId.value);
             var WeatherDevice=parseInt(document.getElementById('WeatherDevice').value);
             var this_exp;
-            if(ExpanF1.checked) this_exp=Math.ceil(selectMapInfo.value*25*(0.05+0.015*WeatherDevice));
-            else this_exp=Math.ceil(selectMapInfo.value*teamExpan*(0.05+0.015*WeatherDevice));
+            if(ExpanF1.checked) this_exp=Math.ceil(selectMapInfo.value*15*(0.05+0.015*WeatherDevice));
+            else this_exp=Math.ceil(selectMapInfo.value*(5+(teamExpan-5)/2)*(0.05+0.015*WeatherDevice));
             this_exp*=expUp;
             return this_exp;
         }
