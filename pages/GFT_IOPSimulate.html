@@ -1099,353 +1099,336 @@
                         </div>
                     </div>
                     <!--Setting-->
-                    <div class="col-lg-10">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                建造(Produce)
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs">
-                                    <li class="active">
-                                        <a href="#NormalProduce" data-toggle="tab">人形普建(Normal T-doll produce)</a>
-                                    </li>
-                                    <li>
-                                        <a href="#HeavyProduce" data-toggle="tab">人形重建(Heavy T-doll produce)</a>
-                                    </li>
-                                    <li>
-                                        <a href="#ResourceLimit" data-toggle="tab">资源限制(Resource limitatiion)</a>
-                                    </li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane fade in active"
-                                        id="NormalProduce">
-                                        <!--Fast-->
-                                        <div class="col-lg-12">
-                                            <p>&nbsp</p>
-                                            <p>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeight(1)">通用:4442</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeight(2)">HG:1111</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeight(3)">AR:1441</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeight(4)">RF:4142</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeight(5)">SMG:4412</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeight(6)">MG:7614</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeight(7)">MG-Plus:7644</button>
-                                            </p>
-                                        </div>
-                                        <!--Resource-->
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数" value=30
-                                                    id="Mw"
-                                                    onblur="checkValueNormal()">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    建造(Produce)
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a href="#NormalProduce" data-toggle="tab">人形普建(Normal T-doll produce)</a>
+                                        </li>
+                                        <li>
+                                            <a href="#HeavyProduce" data-toggle="tab">人形重建(Heavy T-doll produce)</a>
+                                        </li>
+                                        <li>
+                                            <a href="#NormalEquipment" data-toggle="tab">装备普建(Normal equipment produce)</a>
+                                        </li>
+                                        <li>
+                                            <a href="#HeavyEquipment" data-toggle="tab">装备重建(Heavy equipment produce)</a>
+                                        </li>
+                                        <li>
+                                            <a href="#ResourceLimit" data-toggle="tab">资源限制(Resource limitatiion)</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="NormalProduce">
+                                            <!--Fast-->
+                                            <div class="col-lg-12">
+                                                <p>&nbsp</p>
+                                                <p>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(1)">通用:4442</button>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(2)">HG:1111</button>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(3)">AR:1441</button>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(4)">RF:4142</button>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(5)">SMG:4412</button>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(6)">MG:7614</button>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(7)">MG-Plus:7644</button>
+                                                </p>
                                             </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数" value=30
-                                                    id="Rw"
-                                                    onblur="checkValueNormal()">
+                                            <!--Resource-->
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数" value=30
+                                                        id="Mw"
+                                                        onblur="checkValueNormal()">
+                                                </div>
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数" value=30
+                                                        id="Rw"
+                                                        onblur="checkValueNormal()">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数" value=30
-                                                    id="Aw"
-                                                    onblur="checkValueNormal()">
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">弹药(Ammunition)</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数" value=30
+                                                        id="Aw"
+                                                        onblur="checkValueNormal()">
+                                                </div>
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数" value=30
+                                                        id="Pw"
+                                                        onblur="checkValueNormal()">
+                                                </div>
                                             </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数" value=30
-                                                    id="Pw"
-                                                    onblur="checkValueNormal()">
+                                            <div class="col-lg-3">
+                                                <p><select
+                                                        class="form-control"
+                                                        id="NTimes">
+                                                        <option value=1>单次建造(Single)</option>
+                                                        <option value=10>十连(x10)</option>
+                                                    </select></p>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <p><select
-                                                    class="form-control"
-                                                    id="NTimes">
-                                                    <option value=1>单次建造(Single)</option>
-                                                    <option value=10>十连(x10)</option>
-                                                </select></p>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <p><button type="button" class="btn
-                                                    btn-info" id="buttonNormal"
-                                                    onclick="addListMulti()">普通建造(Normal
-                                                    produce)</button>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade"
-                                        id="HeavyProduce">
-                                        <!--Fast-->
-                                        <div class="col-lg-12">
-                                            <p>&nbsp</p>
-                                            <p>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeightH(1)">低耗4163</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeightH(2)">普通6264</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setWeightH(3)">高耗6664</button>
-                                            </p>
-                                        </div>
-                                        <!--Resource-->
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=1000
-                                                    id="MwH"
-                                                    onblur="checkValueHeavy()">
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=1000
-                                                    id="RwH"
-                                                    onblur="checkValueHeavy()">
+                                            <div class="col-lg-12">
+                                                <p><button type="button" class="btn
+                                                        btn-info" id="buttonNormal"
+                                                        onclick="addListMulti()">普通建造(Normal produce)</button>
+                                                </p>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=1000
-                                                    id="AwH"
-                                                    onblur="checkValueHeavy()">
+                                        <div class="tab-pane fade" id="HeavyProduce">
+                                            <!--Fast-->
+                                            <div class="col-lg-12">
+                                                <p>&nbsp</p>
+                                                <p>
+                                                    <button type="button" class="btn
+                                                        btn-default"
+                                                        onclick="setWeightH(1)">低耗4163</button>
+                                                    <button type="button" class="btn
+                                                        btn-default"
+                                                        onclick="setWeightH(2)">普通6264</button>
+                                                    <button type="button" class="btn
+                                                        btn-default"
+                                                        onclick="setWeightH(3)">高耗6664</button>
+                                                </p>
                                             </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=1000
-                                                    id="PwH"
-                                                    onblur="checkValueHeavy()">
+                                            <!--Resource-->
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=1000
+                                                        id="MwH"
+                                                        onblur="checkValueHeavy()">
+                                                </div>
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=1000
+                                                        id="RwH"
+                                                        onblur="checkValueHeavy()">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">弹药(Ammunition)</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=1000
+                                                        id="AwH"
+                                                        onblur="checkValueHeavy()">
+                                                </div>
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=1000
+                                                        id="PwH"
+                                                        onblur="checkValueHeavy()">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <p><select class="form-control" id="NTimesH">
+                                                        <option value=1>单次建造(Single)</option>
+                                                        <option value=10>十连(x10)</option>
+                                                    </select></p>
+                                                <p>
+                                                    <select class="form-control" id="HClass">
+                                                        <option value=1>一档：人形契约x1 / 核心x3</option>
+                                                        <option value=2>二档：人形契约x20 / 核心x5</option>
+                                                        <option value=3>三档：人形契约x50 / 核心x10</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+
+                                            <div class="col-lg-12">
+                                                <p><button type="button" class="btn btn-warning" id="buttonHeavy" onclick="addListHMulti()">重型建造(Heavy produce)</button></p>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <p><select
-                                                    class="form-control"
-                                                    id="NTimesH">
-                                                    <option value=1>单次建造(Single)</option>
-                                                    <option value=10>十连(x10)</option>
-                                                </select></p>
-                                            <p>
-                                                <select
-                                                    class="form-control"
-                                                    id="HClass">
-                                                    <option value=1>一档：人形契约x1
-                                                        /
-                                                        核心x3</option>
-                                                    <option value=2>二档：人形契约x20
-                                                        /
-                                                        核心x5</option>
-                                                    <option value=3>三档：人形契约x50
-                                                        /
-                                                        核心x10</option>
-                                                </select>
-                                            </p>
+                                        <div class="tab-pane fade" id="NormalEquipment">
+                                            <!--Resource-->
+                                            <h4>还没做！！！</h4>
+                                        </div>
+                                        <div class="tab-pane fade" id="HeavyEquipment">
+                                            <!--Resource-->
+                                            <h4>还没做！！！</h4>
+                                        </div>
+                                        <div class="tab-pane fade" id="ResourceLimit">
+                                            <!--Resource-->
+                                            <div class="col-lg-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="unLimitReso"
+                                                            checked
+                                                            onclick="releaseResoLimit()">无限资源(Unlimited
+                                                        resource)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=10000
+                                                        id="MwOwn" disabled>
+                                                </div>
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=10000
+                                                        id="RwOwn" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">弹药(Ammunition)</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=10000
+                                                        id="AwOwn" disabled>
+                                                </div>
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=10000
+                                                        id="PwOwn" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="unLimitCoCo"
+                                                            checked
+                                                            onclick="releaseCoCoLimit()">无限契约核心(Unlimited
+                                                        contract/core)
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">契约(Contract)</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=100
+                                                        id="ConOwn" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">核心(Core)</span>
+                                                    <input type="text"
+                                                        class="form-control"
+                                                        placeholder="输入整数"
+                                                        value=100
+                                                        id="CoreOwn" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <p><button type="button" class="btn
+                                                        btn-danger"
+                                                        onclick="resetResoLimit()">重置资源限制设置(Reset
+                                                        resource limit setting)</button></p>
+                                            </div>
                                         </div>
 
-                                        <div class="col-lg-12">
-                                            <p><button type="button" class="btn
-                                                    btn-warning"
-                                                    id="buttonHeavy"
-                                                    onclick="addListHMulti()">重型建造(Heavy
-                                                    produce)</button></p>
-                                        </div>
                                     </div>
-                                    <div class="tab-pane fade"
-                                        id="ResourceLimit">
-                                        <!--Resource-->
-                                        <div class="col-lg-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        id="unLimitReso"
-                                                        checked
-                                                        onclick="releaseResoLimit()">无限资源(Unlimited
-                                                    resource)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=10000
-                                                    id="MwOwn" disabled>
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=10000
-                                                    id="RwOwn" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=10000
-                                                    id="AwOwn" disabled>
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=10000
-                                                    id="PwOwn" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input
-                                                        type="checkbox"
-                                                        id="unLimitCoCo"
-                                                        checked
-                                                        onclick="releaseCoCoLimit()">无限契约核心(Unlimited
-                                                    contract/core)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">契约(Contract)</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=100
-                                                    id="ConOwn" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">核心(Core)</span>
-                                                <input type="text"
-                                                    class="form-control"
-                                                    placeholder="输入整数"
-                                                    value=100
-                                                    id="CoreOwn" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <p><button type="button" class="btn
-                                                    btn-danger"
-                                                    onclick="resetResoLimit()">重置资源限制设置(Reset
-                                                    resource limit setting)</button></p>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!--Result -->
                     <div class="row">
-                        <!--Result-->
-                        <div class="col-lg-10" id="resultPanel">
+                        <div class="col-lg-10">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse"
-                                            data-parent="#accordion"
-                                            href="#collapseResult"
-                                            id='resultPanelTitle'>建造结果(Produce
-                                            results)</a>
-                                    </h4>
+                                    建造结果(Produce results)
                                 </div>
-                                <div id="collapseResult" class="panel-collapse
-                                    collapse in">
-                                    <div class="panel-body">
-
-                                        <div class="col-lg-10">
-                                            <h4>显示条目</h4>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="showAllSwitch"
-                                                    value="option1"
-                                                    onclick="showAll()"
-                                                    checked>显示全部(show
-                                                all)
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio"
-                                                    name="ExpanSwitch"
-                                                    id="showFiveSwitch"
-                                                    value="option2"
-                                                    onclick="showFive()">显示五星人形(show
-                                                ★★★★★)
-                                            </label>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs">
+                                        <li id="panelT" class="active">
+                                            <a href="#TdollResult" data-toggle="tab">人形(T-doll)</a>
+                                        </li>
+                                        <li id="panelE" class="">
+                                            <a href="#EquipmentResult" data-toggle="tab">装备(Equipment)</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <!--TDOLL RESULTS-->
+                                        <div class="tab-pane fade in active" id="TdollResult">
+                                            <div class="panel-body">
+                                                <div class="col-lg-10">
+                                                    <h4>显示条目</h4>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="ExpanSwitch" id="showAllSwitch" value="option1" onclick="showAll()" checked>
+                                                        显示全部(show all)
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="ExpanSwitch" id="showFiveSwitch" value="option2" onclick="showFive()">
+                                                        显示五星人形(show ★★★★★)
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-10">
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive" id="sumChart">
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive" id="resoChart">
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive" id="rankingChart">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-10">
+                                        <!--EQUIPMENT RESULTS-->
+                                        <div class="tab-pane fade" id="EquipmentResult">
                                             <div class="panel-body">
-                                                <div
-                                                    class="table-responsive"
-                                                    id="sumChart">
-                                                </div>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div
-                                                    class="table-responsive"
-                                                    id="resoChart">
-                                                </div>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div
-                                                    class="table-responsive"
-                                                    id="rankingChart">
-                                                </div>
+                                                <h4>还没做！！！</h4>
+                                                <div class="table-responsive" id="rankingChartE"></div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

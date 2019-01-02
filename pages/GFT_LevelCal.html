@@ -100,8 +100,10 @@
             var TA = document.getElementById('TimeAvg'); TA.value = 0.4;
             var AA = document.getElementById('AmmAvg'); AA.value = 12;
             var RA = document.getElementById('RatAvg'); RA.value = 12;
+            var SN = document.getElementById('SimuNum'); SN.value = 5;
             var ExpanF1 = document.getElementById('ExpanF1'); ExpanF1.checked=true;
             var teamExpan = document.getElementById('teamExpan'); teamExpan.value=25; teamExpan.disabled=true;
+            var SimuTypeId = document.getElementById('SimuType'); SimuTypeId.value=3;
         }
         function checkError(levelUpExp){
             var CurLevId=document.getElementById('CurLev'); var CurLev=parseInt(CurLevId.value);
@@ -164,6 +166,26 @@
             return 0;
         }
         function getChart(selectMapInfo,Num_normal,Num_leader,Num_MVP,Num_leaderMVP,Num_book,total_EXP) {
+            var SimuNum=parseInt(document.getElementById('SimuNum').value);
+            var SimuType=parseInt(document.getElementById('SimuType').value);
+            var kineticNum,simuBattleNum,simuExp;
+            switch(SimuType){
+                case 1:
+                    simuExp=Math.ceil(20000/SimuNum);
+                    simuBattleNum=Math.ceil(total_EXP/(20000/SimuNum));
+                    kineticNum=1*simuBattleNum;
+                    break;
+                case 2:
+                    simuExp=Math.ceil(80000/SimuNum);
+                    simuBattleNum=Math.ceil(total_EXP/(80000/SimuNum));
+                    kineticNum=2*simuBattleNum;
+                    break;
+                case 3:
+                    simuExp=Math.ceil(240000/SimuNum);
+                    simuBattleNum=Math.ceil(total_EXP/(240000/SimuNum));
+                    kineticNum=3*simuBattleNum;
+                    break;
+            }
             var TimeAvgId=document.getElementById('TimeAvg'); var maxTime=parseFloat(TimeAvgId.value)*Num_leaderMVP/60, minTime=parseFloat(TimeAvgId.value)*Num_normal/60;
             var AmmAvgId=document.getElementById('AmmAvg'); var maxAmm=parseFloat(AmmAvgId.value)*Num_leaderMVP, minAmm=parseFloat(AmmAvgId.value)*Num_normal;
             var RatAvgId=document.getElementById('RatAvg'); var maxRat=parseFloat(RatAvgId.value)*Num_leaderMVP, minRat=parseFloat(RatAvgId.value)*Num_normal;
@@ -191,6 +213,13 @@
             tab += '<td>'; tab += (maxAmm.toFixed(0)+""); tab+=" ~ "; tab += (minAmm.toFixed(0)+"") ; tab += '</td>';
             tab += '<td>'; tab += (maxRat.toFixed(0)+""); tab+=" ~ "; tab += (minRat.toFixed(0)+"") ; tab += '</td>';
             tab += '<td>'; tab += (maxTime.toFixed(1)+""); tab+=" ~ "; tab += (minTime.toFixed(1)+"") ; tab += 'h</td>';
+            tab += '</tr></tbody></table>';
+            tab += '<p><h4>模拟战(Simulated war)</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>模拟战经验(Exp of war)</th><th>模拟战场次(Num of war)</th><th>动能消耗(Kinetic consumption)</th></tr></thead>';
+            tab += '<tbody><tr>';
+            tab += '<td>'; tab += (simuExp+""); tab += '</td>';
+            tab += '<td>'; tab += (simuBattleNum+""); tab += '</td>';
+            tab += '<td>'; tab += (kineticNum+""); tab += '</td>';
             tab += '</tr></tbody></table>';
             chart.innerHTML = tab;
         }
@@ -926,6 +955,20 @@
                                                 <div class="form-group input-group">
                                                     <span class="input-group-addon">每战口粮(Rat/battle)&nbsp&nbsp&nbsp</span>
                                                     <input type="text" class="form-control" placeholder="输入整数" id="RatAvg" value=12>
+                                                </div>
+                                            </div>
+                                            <!--Simulate -->
+                                            <div class="col-lg-4">
+                                                <p>
+                                                    <select class="form-control" id="SimuType">
+                                                        <option value=1>低级经验模拟 (20,000 Exp / 1 kinetic)</option>
+                                                        <option value=2>中级经验模拟 (80,000 Exp / 2 kinetic)</option>
+                                                        <option value=3 selected="selected">高级经验模拟 (240,000 Exp / 3 kinetic)</option>
+                                                    </select>
+                                                </p>
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">参战人数(Num of participants)</span>
+                                                    <input type="text" class="form-control" placeholder="输入整数" id="SimuNum" value=5>
                                                 </div>
                                             </div>
                                             <!--Fairy setting -->
