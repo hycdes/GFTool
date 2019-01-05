@@ -23,8 +23,8 @@
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <script type="text/javascript">
         //global
-        var listNum=1,listNumE=1;
-        var fiveStarNum=0,fiveStarNumE=0,fairyNum=0;
+        var listNum=0,listNumH=0,listNumE=0,listNumEH=0;
+        var fiveStarNum=0,fiveStarNumH=0,fiveStarNumE=0,fiveStarNumEH=0,fairyNum=0;
         var mul_smg=1,mul_ar=1,mul_rf=1,mul_mg=1,mul_sg=1;
         var allM=0,allA=0,allR=0,allP=0,allCon=0,allCore=0,allConE=0;
         var global_list,global_5list,global_listE,global_5listE,global_fairylist;
@@ -42,7 +42,7 @@
             global_fairylist = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号(Order No.)</th><th>资源(Resource)</th><th>装备(Equipment)</th></tr></thead><tbody></tbody></table>';
             var tab2 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星人形获取数(5-stars num)</th><th>五星人形获取率(5-stars ratio)</th><th>评价(Rank)</th></tr></thead><tbody></tbody></table>';
             var tab2E = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星装备/妖精获取数(5-stars/fairy num)</th><th>获取率(ratio)</th><th>评价(Rank)</th></tr></thead><tbody></tbody></table>';
-            var tab3 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>契约消耗</th><th>核心消耗</th></tr></thead><tbody></tbody></table>';
+            var tab3 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody></tbody></table>';
             chart.innerHTML = global_list;
             chartE.innerHTML = global_listE;
             sumchart.innerHTML = tab2;
@@ -830,7 +830,7 @@
             return TdollInfo;
         }
         function makeTdoll_Heavy(MwH,AwH,RwH,PwH,starNum){  //Heavy-produce T-doll, possibility*100
-            if(starNum === 5) fiveStarNum++;
+            if(starNum === 5) fiveStarNumH++;
             var TdollInfo="<b>";
             var TdollList=[];
             for(var i=0;i<starNum;i++){
@@ -1135,7 +1135,136 @@
             EquipInfo+="</b>";
             return EquipInfo;
         }
+        function makeEquipH(Mw,Aw,Rw,Pw,starNum){    //Normal-produce Equip, possibility*100, refer to 150x4
+            if(starNum === 6) fairyNum++;
+            else if(starNum === 5) fiveStarNumEH++;
+            var EquipInfo="<b>";
+            var EquipList=[];
+            if(starNum<=5){
+                for(var i=0;i<starNum;i++){
+                    EquipInfo+="★";
+                }
+            }
+            //Fairy
+            if(starNum === 6){
+                if(Mw>=2000 && Rw>=2000 && Pw>=1000){
+                    EquipList.push(creatEquipInfo("[策略妖精] 增援妖精", 100));
+                    EquipList.push(creatEquipInfo("[策略妖精] 空降妖精", 50));
+                    EquipList.push(creatEquipInfo("[策略妖精] 防御妖精", 100));
+                }
+                if(Aw>=2000 && Rw>=2000 && Pw>=1000){
+                    EquipList.push(creatEquipInfo("[策略妖精] 布雷妖精", 100));
+                    EquipList.push(creatEquipInfo("[策略妖精] 火箭妖精", 100));
+                    EquipList.push(creatEquipInfo("[策略妖精] 工事妖精", 100));
+                }
+                EquipList.push(creatEquipInfo("[策略妖精] 指挥妖精", 80));
+                EquipList.push(creatEquipInfo("[策略妖精] 搜救妖精", 80));
+                EquipList.push(creatEquipInfo("[策略妖精] 照明妖精", 100));
+                EquipList.push(creatEquipInfo("[战斗妖精] 勇士妖精", 80));
+                EquipList.push(creatEquipInfo("[战斗妖精] 暴怒妖精", 80));
+                EquipList.push(creatEquipInfo("[战斗妖精] 盾甲妖精", 100));
+                EquipList.push(creatEquipInfo("[战斗妖精] 护盾妖精", 100));
+                EquipList.push(creatEquipInfo("[战斗妖精] 嘲讽妖精", 80));
+                EquipList.push(creatEquipInfo("[战斗妖精] 狙击妖精", 100));
+                EquipList.push(creatEquipInfo("[战斗妖精] 炮击妖精", 80));
+                EquipList.push(creatEquipInfo("[战斗妖精] 空袭妖精", 80));
+            }
+            //Scope?
+            if(Aw<1000 && Pw<1000){
+                if(starNum === 5){
+                    EquipList.push(creatEquipInfo("[光瞄] VFL 6-24x56", 100));
+                    EquipList.push(creatEquipInfo("[全息] EOT 518", 100));
+                    EquipList.push(creatEquipInfo("[红点] ITI Mars", 100));
+                }else if(starNum === 4){
+                    EquipList.push(creatEquipInfo("[光瞄] PSO-1", 190));
+                    EquipList.push(creatEquipInfo("[全息] EOT 516", 190));
+                    EquipList.push(creatEquipInfo("[红点] COG-M150", 190));
+                }else if(starNum === 3){
+                    EquipList.push(creatEquipInfo("[光瞄] LRA 2-12x50", 235));
+                    EquipList.push(creatEquipInfo("[全息] EOT 512", 235));
+                    EquipList.push(creatEquipInfo("[红点] AMP-COMPM4", 235));
+                }
+            }
+            //Night & Cape?
+            if(Mw>=2000 && Pw>=1000){
+                if(starNum === 5){
+                    EquipList.push(creatEquipInfo("[披风] 热光学迷彩披风", 50));
+                    EquipList.push(creatEquipInfo("[夜视仪] PEQ-16A", 100));
+                }else if(starNum === 4){
+                    EquipList.push(creatEquipInfo("[披风] 城市迷彩披风", 109));
+                    EquipList.push(creatEquipInfo("[夜视仪] PEQ-15", 167));
+                }else if(starNum === 3){
+                    EquipList.push(creatEquipInfo("[披风] 伪装披风", 183));
+                    EquipList.push(creatEquipInfo("[夜视仪] PEQ-5", 160));
+                }
+            }
+            //Exoskeleton?
+            if(Mw>=2000 && Pw>=2000){
+                if(starNum === 5){
+                    EquipList.push(creatEquipInfo("[外骨骼T] IOP T4 外骨骼", 48));
+                    EquipList.push(creatEquipInfo("[外骨骼X] IOP X4 外骨骼", 48));
+                }else if(starNum === 4){
+                    EquipList.push(creatEquipInfo("[外骨骼T] IOP T3 外骨骼", 89));
+                    EquipList.push(creatEquipInfo("[外骨骼X] IOP X3 外骨骼", 89));
+                }else if(starNum === 3){
+                    EquipList.push(creatEquipInfo("[外骨骼T] IOP T2 外骨骼", 110));
+                    EquipList.push(creatEquipInfo("[外骨骼X] IOP X2 外骨骼", 110));
+                }
+            }
+            //Suppressor: Mw>=50
+            if(Mw>=2000){
+                if(starNum === 5) EquipList.push(creatEquipInfo("[消音器] AC4 消音器", 75));
+                else if(starNum === 4) EquipList.push(creatEquipInfo("[消音器] AC3 消音器", 129));
+                else if(starNum === 3) EquipList.push(creatEquipInfo("[消音器] AC2 消音器", 177));
+            }
+            //Ammo and box?
+            if(Aw>=2000 && Pw>=1000){
+                if(starNum === 5){
+                    EquipList.push(creatEquipInfo("[弹链] IOP极限弹链箱", 60));
+                    EquipList.push(creatEquipInfo("[高速弹] APCR高速弹", 60));
+                    EquipList.push(creatEquipInfo("[穿甲弹] Mk211高爆穿甲弹", 94));
+                    EquipList.push(creatEquipInfo("[状态弹] ILM空尖弹", 52));
+                    EquipList.push(creatEquipInfo("[霰弹] #000猎鹿弹", 55));
+                    EquipList.push(creatEquipInfo("[霰弹] SABOT独头弹", 55));
+                }else if(starNum === 4){
+                    EquipList.push(creatEquipInfo("[弹链] IOP大容量弹链箱", 125));
+                    EquipList.push(creatEquipInfo("[高速弹] JHP高速弹", 141));
+                    EquipList.push(creatEquipInfo("[穿甲弹] Mk169穿甲弹", 191));
+                    EquipList.push(creatEquipInfo("[状态弹] ILM空尖弹", 140));
+                    EquipList.push(creatEquipInfo("[霰弹] #00猎鹿弹", 132));
+                    EquipList.push(creatEquipInfo("[霰弹] WAD独头弹", 139));
+                }else if(starNum === 3){
+                    EquipList.push(creatEquipInfo("[高速弹] JSP高速弹", 253));
+                    EquipList.push(creatEquipInfo("[穿甲弹] M993穿甲弹", 338));
+                    EquipList.push(creatEquipInfo("[状态弹] ILM空尖弹", 284));
+                    EquipList.push(creatEquipInfo("[霰弹] #0猎鹿弹", 258));
+                    EquipList.push(creatEquipInfo("[霰弹] FST独头弹", 248));
+                }
+            }
+            //Armor plate and box?
+            if(Rw >= 2000 && Pw >= 1000){
+                if(starNum === 5) EquipList.push(creatEquipInfo("[防弹插板] Type3防弹插板", 113));
+                else if(starNum === 4) EquipList.push(creatEquipInfo("[防弹插板] Type2防弹插板", 288));
+                else if(starNum === 3) EquipList.push(creatEquipInfo("[防弹插板] Type1防弹插板", 149));
+            }
+            var totalPosiNum=0;
+            for(var i=0;i<EquipList.length;i++){
+                totalPosiNum += parseInt(EquipList[i].possibility);
+            }
+            var selectEquip=Math.floor(Math.random()*totalPosiNum);
+            for(var i=0;i<EquipList.length;i++){
+                selectEquip -= parseInt(EquipList[i].possibility);
+                if(selectEquip<=0){
+                    EquipInfo+=" ";
+                    EquipInfo+=EquipList[i].name;                    
+                    break;
+                }
+            }
+            EquipInfo+="</b>";
+            return EquipInfo;
+        }
         function addList() {    //Add Normal-produce info
+            listNum++;
             var chart = document.getElementById("rankingChart");
             var sumchart=document.getElementById("sumChart");
             var resochart=document.getElementById("resoChart");
@@ -1174,30 +1303,39 @@
             global_5list += '</tr></tbody></table>';
             tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星人形获取数(5-stars num)</th><th>五星人形获取率(5-stars ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
             tabSum += "<tr>";
+            var RateNormal;
+            if(listNum===listNumH) RateNormal = -1;    //Not normal-produce
+            else RateNormal=Math.ceil(100*fiveStarNum/(listNum-listNumH));
+            var RateHeavy;
+            if(listNumH===0) RateHeavy = -1;    //Not heavy-produce
+            else RateHeavy = Math.ceil(100*fiveStarNumH/listNumH);
             tabSum += "<td>"; tabSum += (listNum + ""); tabSum += "</td>";
-            tabSum += "<td>"; tabSum += (fiveStarNum+""); tabSum += "</td>";
-            tabSum += "<td>"; tabSum += (Math.ceil(100*fiveStarNum/listNum)+"%"); tabSum += "</td>";
+            tabSum += "<td>"; tabSum += (fiveStarNum+" + "); tabSum += (fiveStarNumH+""); tabSum += "</td>";
             tabSum += "<td>";
-            if(fiveStarNum/listNum>0.22){
+            if(RateNormal < 0) tabSum += "-";
+            else tabSum += (RateNormal + "%");
+            tabSum+=" / ";
+            if(RateHeavy < 0) tabSum += "-";
+            else tabSum += (RateHeavy + "%");
+            tabSum += "</td>"; tabSum += "<td>";
+            if( ( RateNormal<0 || RateNormal>10 ) && ( RateHeavy<0 || RateHeavy>30 ) ){
                 tabSum += '<span style="color:darkorange"><b>欧皇</b></span>';
-            }else if(fiveStarNum/listNum<=0.22 && fiveStarNum/listNum>0.02){
-                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
-            }else if(fiveStarNum/listNum<=0.02 && fiveStarNum/listNum>0.01){
+            }else if( ( RateNormal <= 2 && RateNormal >=0 ) && ( RateHeavy<0 || ( RateHeavy<=10 && RateHeavy>=0 ) ) ){
                 tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>';
             }else{
-                tabSum += '<b>酋长</b>';
+                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
             }
             tabSum += "</td></tr>";
             tabSum += '</tbody></table>';
-            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
+            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
             tabReso += '<td>'; tabReso += (allM+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allA+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allR+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allP+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allCon+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allConE+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allCore+""); tabReso += "</td>";
             tabReso += '</tr></tbody></table>';
-            listNum++;
             var switchA=document.getElementById('showAllSwitch');
             if(switchA.checked===true){
                 chart.innerHTML = global_list;
@@ -1208,6 +1346,7 @@
             resochart.innerHTML = tabReso;
         }
         function addListH() {   //Add Heavy-produce info
+            listNum++; listNumH++;
             var chart = document.getElementById("rankingChart");
             var sumchart=document.getElementById("sumChart");
             var resochart=document.getElementById("resoChart");
@@ -1250,30 +1389,39 @@
             global_5list += '</tr></tbody></table>';
             tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星人形获取数(5-stars num)</th><th>五星人形获取率(5-stars ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
             tabSum += "<tr>";
+            var RateNormal;
+            if(listNum===listNumH) RateNormal = -1;    //Not normal-produce
+            else RateNormal=Math.ceil(100*fiveStarNum/(listNum-listNumH));
+            var RateHeavy;
+            if(listNumH===0) RateHeavy = -1;    //Not heavy-produce
+            else RateHeavy = Math.ceil(100*fiveStarNumH/listNumH);
             tabSum += "<td>"; tabSum += (listNum + ""); tabSum += "</td>";
-            tabSum += "<td>"; tabSum += (fiveStarNum+""); tabSum += "</td>";
-            tabSum += "<td>"; tabSum += (Math.ceil(100*fiveStarNum/listNum)+"%"); tabSum += "</td>";
+            tabSum += "<td>"; tabSum += (fiveStarNum+" + "); tabSum += (fiveStarNumH+""); tabSum += "</td>";
             tabSum += "<td>";
-            if(fiveStarNum/listNum>0.22){
+            if(RateNormal < 0) tabSum += "-";
+            else tabSum += (RateNormal + "%");
+            tabSum+=" / ";
+            if(RateHeavy < 0) tabSum += "-";
+            else tabSum += (RateHeavy + "%");
+            tabSum += "</td>"; tabSum += "<td>";
+            if( ( RateNormal<0 || RateNormal>10 ) && ( RateHeavy<0 || RateHeavy>30 ) ){
                 tabSum += '<span style="color:darkorange"><b>欧皇</b></span>';
-            }else if(fiveStarNum/listNum<=0.22 && fiveStarNum/listNum>0.02){
-                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
-            }else if(fiveStarNum/listNum<=0.02 && fiveStarNum/listNum>0.01){
+            }else if( ( RateNormal <= 2 && RateNormal >=0 ) && ( RateHeavy<0 || ( RateHeavy<=10 && RateHeavy>=0 ) ) ){
                 tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>';
             }else{
-                tabSum += '<b>酋长</b>';
+                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
             }
             tabSum += "</td></tr>";
             tabSum += '</tbody></table>';
-            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
+            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
             tabReso += '<td>'; tabReso += (allM+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allA+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allR+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allP+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allCon+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allConE+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allCore+""); tabReso += "</td>";
             tabReso += '</tr></tbody></table>';
-            listNum++;
             var switchA=document.getElementById('showAllSwitch');
             if(switchA.checked===true){
                 chart.innerHTML = global_list;
@@ -1283,7 +1431,8 @@
             sumchart.innerHTML = tabSum;
             resochart.innerHTML = tabReso;
         }
-        function addListE() {    //Add Normal-produce info
+        function addListE() {    //Add Normal-produce-equip info
+            listNumE++;
             var chart = document.getElementById("rankingChartE");
             var sumchart=document.getElementById("sumChartE");
             var resochart=document.getElementById("resoChart");
@@ -1292,7 +1441,7 @@
             var MwId=document.getElementById('MwE'); var Mw=parseInt(MwId.value); allM+=Mw;
             var AwId=document.getElementById('AwE'); var Aw=parseInt(AwId.value); allA+=Aw;
             var RwId=document.getElementById('RwE'); var Rw=parseInt(RwId.value); allR+=Rw;
-            var PwId=document.getElementById('PwE'); var Pw=parseInt(PwId.value); allP+=Pw; allCon++;
+            var PwId=document.getElementById('PwE'); var Pw=parseInt(PwId.value); allP+=Pw; allConE++;
             var starNum=makeStarE();
             var Equip=makeEquip(Mw,Aw,Rw,Pw,starNum);
             //add List
@@ -1322,30 +1471,159 @@
             global_5listE += '</tr></tbody></table>';
             tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星装备/妖精获取数(5-stars/fairy num)</th><th>获取率(ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
             tabSum += "<tr>";
+            var RateNormal;
+            if(listNumE===listNumEH) RateNormal = -1;    //Not normal-produce
+            else RateNormal=Math.ceil(100*fiveStarNumE/(listNumE-listNumEH));
+            var RateHeavy;
+            if(listNumEH===0) RateHeavy = -1;    //Not heavy-produce
+            else RateHeavy = Math.ceil(100*fiveStarNumEH/listNumEH);
+            var RateFairy;
+            if(listNumEH===0) RateFairy = -1;    //Not heavy-produce
+            else RateFairy = Math.ceil(100*fairyNum/listNumEH);
             tabSum += "<td>"; tabSum += (listNumE + ""); tabSum += "</td>";
-            tabSum += "<td>"; tabSum += (fiveStarNumE+""); tabSum += "</td>";
-            tabSum += "<td>"; tabSum += (Math.ceil(100*(fiveStarNumE+fairyNum)/listNumE)+"%"); tabSum += "</td>";
+            tabSum += "<td>"; tabSum += (fiveStarNumE+" + "); tabSum += (fiveStarNumEH+" / "); tabSum += (fairyNum+" + "); tabSum += "</td>";
             tabSum += "<td>";
-            if((fiveStarNumE+fairyNum)/listNumE>0.3){
+            if(RateNormal < 0) tabSum += "-";
+            else tabSum += (RateNormal + "%");
+            tabSum+=" / ";
+            if(RateHeavy < 0) tabSum += "-";
+            else tabSum += (RateHeavy + "%");
+            tabSum+=" / ";
+            if(RateFairy < 0) tabSum += "-";
+            else tabSum += (RateFairy + "%");
+            tabSum += "</td>"; tabSum += "<td>";
+            if( ( RateNormal<0 || RateNormal>10 ) && ( RateHeavy<0 || RateHeavy>30 ) && ( RateFairy<0 || RateFairy>50 ) ){
                 tabSum += '<span style="color:darkorange"><b>欧皇</b></span>';
-            }else if((fiveStarNumE+fairyNum)/listNumE<=0.3 && (fiveStarNumE+fairyNum)/listNumE>0.05){
-                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
-            }else if((fiveStarNumE+fairyNum)/listNumE<=0.05 && (fiveStarNumE+fairyNum)/listNumE>0.04){
+            }else if( ( RateNormal <= 4 && RateNormal >=0 ) && ( RateHeavy<0 || ( RateHeavy<=7 && RateHeavy>=0 ) ) && ( RateFairy<0 || ( RateFairy<=15 && RateHeavy>=0 ) ) ){
                 tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>';
             }else{
-                tabSum += '<b>酋长</b>';
+                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
             }
             tabSum += "</td></tr>";
             tabSum += '</tbody></table>';
-            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
+            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
             tabReso += '<td>'; tabReso += (allM+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allA+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allR+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allP+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allCon+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allConE+""); tabReso += "</td>";
             tabReso += '<td>'; tabReso += (allCore+""); tabReso += "</td>";
             tabReso += '</tr></tbody></table>';
-            listNumE++;
+            var switchA=document.getElementById('showAllSwitchE');
+            var switchF=document.getElementById('showFairy');
+            if(switchA.checked===true){
+                chart.innerHTML = global_listE;
+            }
+            else if(switchF.checked===true){
+                chart.innerHTML = global_fairylist;
+            }else{
+                chart.innerHTML = global_5listE;
+            }
+            sumchart.innerHTML = tabSum;
+            resochart.innerHTML = tabReso;
+        }
+        function addListEH() {    //Add Heavy-produce-equip info
+            listNumE++; listNumEH++;
+            var chart = document.getElementById("rankingChartE");
+            var sumchart=document.getElementById("sumChartE");
+            var resochart=document.getElementById("resoChart");
+            var tabSum = sumchart.innerHTML;
+            var tabReso = resochart.innerHTML;
+            var EHClassId=document.getElementById('EHClass'); var EHClass=parseInt(EHClassId.value);
+            var MwId=document.getElementById('MwEH'); var Mw=parseInt(MwId.value); allM+=Mw;
+            var AwId=document.getElementById('AwEH'); var Aw=parseInt(AwId.value); allA+=Aw;
+            var RwId=document.getElementById('RwEH'); var Rw=parseInt(RwId.value); allR+=Rw;
+            var PwId=document.getElementById('PwEH'); var Pw=parseInt(PwId.value); allP+=Pw;
+            if(EHClass===1){
+                allConE+=1; allCore+=2;
+            }else if(EHClass===2){
+                allConE+=20; allCore+=4;
+            }else{
+                allConE+=50; allCore+=6;
+            }
+            var starNum=makeStar_HeavyE(EHClass);
+            var Equip=makeEquipH(Mw,Aw,Rw,Pw,starNum);
+            //add List
+            global_listE = global_listE.substring(0,global_listE.length-16);
+            global_listE += "<tr>";
+            global_listE += "<td>"; global_listE += (listNumE + ""); global_listE += "</td>";
+            global_listE += "<td>"; global_listE += (Mw+" "); global_listE += (Aw+" "); global_listE += (Rw+" "); global_listE += (Pw+" "); global_listE += ("Rank"+EHClass); global_listE += "</td>";
+            global_listE += "<td>";
+            global_5listE = global_5listE.substring(0,global_5listE.length-16);
+            global_5listE += "<tr>";
+            global_fairylist = global_fairylist.substring(0,global_fairylist.length-16);
+            global_fairylist += "<tr>";
+            if(starNum===6){
+                global_fairylist += "<td>"; global_fairylist += (listNumE + ""); global_fairylist += "</td>";
+                global_fairylist += "<td>"; global_fairylist += (Mw+" "); global_fairylist += (Aw+" "); global_fairylist += (Rw+" "); global_fairylist += (Pw+" "); global_fairylist += ("Rank"+EHClass); global_fairylist += "</td>";
+                var fairyName=Equip.substring(5,6);
+                if(fairyName === '战'){
+                    global_fairylist += '<td><span style="color:red">'; global_fairylist += Equip ; global_fairylist += '</span></td>';
+                    global_listE += '<span style="color:red">'; global_listE += Equip ; global_listE += '</span>';
+                }else{
+                    global_fairylist += '<td><span style="color:cornflowerblue">'; global_fairylist += Equip ; global_fairylist += '</span></td>';
+                    global_listE += '<span style="color:cornflowerblue">'; global_listE += Equip ; global_listE += '</span>';
+                }
+            }else if(starNum===5){
+                global_5listE += "<td>"; global_5listE += (listNumE + ""); global_5listE += "</td>";
+                global_5listE += "<td>"; global_5listE += (Mw+" "); global_5listE += (Aw+" "); global_5listE += (Rw+" "); global_5listE += (Pw+" "); global_5listE += ("Rank"+EHClass); global_5listE += "</td>";
+                global_5listE += '<td><span style="color:darkorange">'; global_5listE += Equip ; global_5listE += '</span></td>';
+                global_listE += '<span style="color:darkorange">'; global_listE += Equip ; global_listE += '</span>';
+            }else if(starNum===4){
+                global_listE += '<span style="color:chartreuse">'; global_listE += Equip ; global_listE += '</span>';
+            }
+            else if(starNum===3){
+                global_listE += '<span style="color:dodgerblue">'; global_listE += Equip ; global_listE += '</span>';
+            }
+            else{
+                global_listE += '<span style="color:darkseagreen">'; global_listE += Equip ; global_listE += '</span>';
+            }
+            global_listE += "</td></tr>";
+            global_listE += '</tbody></table>';
+            global_5listE += '</tr></tbody></table>';
+            global_fairylist += '</tr></tbody></table>';
+            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星装备/妖精获取数(5-stars/fairy num)</th><th>获取率(ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
+            tabSum += "<tr>";
+            var RateNormal;
+            if(listNumE===listNumEH) RateNormal = -1;    //Not normal-produce
+            else RateNormal=Math.ceil(100*fiveStarNumE/(listNumE-listNumEH));
+            var RateHeavy;
+            if(listNumEH===0) RateHeavy = -1;    //Not heavy-produce
+            else RateHeavy = Math.ceil(100*fiveStarNumEH/listNumEH);
+            var RateFairy;
+            if(listNumEH===0) RateFairy = -1;    //Not heavy-produce
+            else RateFairy = Math.ceil(100*fairyNum/listNumEH);
+            tabSum += "<td>"; tabSum += (listNumE + ""); tabSum += "</td>";
+            tabSum += "<td>"; tabSum += (fiveStarNumE+" + "); tabSum += (fiveStarNumEH+" / "); tabSum += (fairyNum+""); tabSum += "</td>";
+            tabSum += "<td>";
+            if(RateNormal < 0) tabSum += "-";
+            else tabSum += (RateNormal + "%");
+            tabSum+=" / ";
+            if(RateHeavy < 0) tabSum += "-";
+            else tabSum += (RateHeavy + "%");
+            tabSum+=" / ";
+            if(RateFairy < 0) tabSum += "-";
+            else tabSum += (RateFairy + "%");
+            tabSum += "</td>"; tabSum += "<td>";
+            if( ( RateNormal<0 || RateNormal>10 ) && ( RateHeavy<0 || RateHeavy>30 ) && ( RateFairy<0 || RateFairy>50 ) ){
+                tabSum += '<span style="color:darkorange"><b>欧皇</b></span>';
+            }else if( ( RateNormal <= 4 && RateNormal >=0 ) && ( RateHeavy<0 || ( RateHeavy<=7 && RateHeavy>=0 ) ) && ( RateFairy<0 || ( RateFairy<=15 && RateHeavy>=0 ) ) ){
+                tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>';
+            }else{
+                tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>';
+            }
+            tabSum += "</td></tr>";
+            tabSum += '</tbody></table>';
+            tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>';
+            tabReso += '<td>'; tabReso += (allM+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allA+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allR+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allP+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allCon+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allConE+""); tabReso += "</td>";
+            tabReso += '<td>'; tabReso += (allCore+""); tabReso += "</td>";
+            tabReso += '</tr></tbody></table>';
             var switchA=document.getElementById('showAllSwitchE');
             var switchF=document.getElementById('showFairy');
             if(switchA.checked===true){
@@ -1396,7 +1674,7 @@
             var panelT=document.getElementById('panelT'); var panelE=document.getElementById('panelE');
             var resultT=document.getElementById('TdollResult'); var resultE=document.getElementById('EquipmentResult');
             panelT.className="active"; panelE.className="";
-            //resultT.className="tab-pane fade in active"; resultE.className="tab-pane fade";
+            resultT.className="tab-pane fade in active"; resultE.className="tab-pane fade";
             var NTimesH=document.getElementById('NTimesH');
             var timesH=parseInt(NTimesH.value);
             for(var i=0;i<timesH;i++){
@@ -1736,7 +2014,7 @@
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
-                                                <p><button type="button" class="btn btn-danger" id="buttonHeavyE" onclick="addListEHMulti()" disabled>重型建造(Heavy produce)</button></p>
+                                                <p><button type="button" class="btn btn-danger" id="buttonHeavyE" onclick="addListEHMulti()">重型建造(Heavy produce)</button></p>
                                             </div>
                                         </div>
                                         <!--LIMITATION-->
