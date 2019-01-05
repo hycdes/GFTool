@@ -50,6 +50,16 @@
             resochart.innerHTML = tab3;
         }
         //function
+        function swapImage(imageCode){
+            panelSetting=document.getElementById('panelSetting');
+            switch(imageCode){
+                case 1: panelSetting.style="background:url(../img/Produce-tdoll-normal.png) no-repeat right 15px bottom 15px"; break;
+                case 2: panelSetting.style="background:url(../img/Produce-tdoll-heavy.png) no-repeat right 15px bottom 15px"; break;
+                case 3: panelSetting.style="background:url(../img/Produce-equip-normal.png) no-repeat right 15px bottom 15px"; break;
+                case 4: panelSetting.style="background:url(../img/Produce-equip-heavy.png) no-repeat right 15px bottom 15px"; break;
+                case 5: panelSetting.style="background:url(../img/Produce-16lab.png) no-repeat right 15px bottom 15px"; break;
+            }
+        }
         function releaseResoLimit(){    //unlimit resource
             var MwOwn = document.getElementById('MwOwn'); MwOwn.disabled = !(MwOwn.disabled);
             var AwOwn = document.getElementById('AwOwn'); AwOwn.disabled = !(AwOwn.disabled);
@@ -1495,7 +1505,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <p>* <span style="color:#FF0066">娱乐用</span>，重来请直接<span style="color:#FF0066">刷新</span> (For <span style="color:#FF0066">entertainment ONLY</span>, <span style="color:#FF0066">refresh</span> page to restart)</p>
-                            <p>* IOP建造统计网址站：<u><a href="http://gfdb.baka.pw/statistician.html" target="_blank"><span style="color:#FF0066">IOP制造公司出货统计</span></a></u></p>
+                            <p>* 数据参考：<u><a href="http://gfdb.baka.pw/statistician.html" target="_blank"><span style="color:#FF0066">IOP制造公司出货统计</span></a></u></p>
                         </div>
                     </div>
                     <!--Setting-->
@@ -1506,23 +1516,23 @@
                                     建造(Produce)
                                 </div>
                                 <!-- /.panel-heading -->
-                                <div class="panel-body">
+                                <div class="panel-body" id="panelSetting" style="background:url(../img/Produce-tdoll-normal.png) no-repeat right 15px bottom 15px">
                                     <!-- Nav tabs -->
                                     <ul class="nav nav-tabs">
                                         <li class="active">
-                                            <a href="#NormalProduce" data-toggle="tab">人形普建(Normal T-doll produce)</a>
+                                            <a href="#NormalProduce" data-toggle="tab" onclick="swapImage(1)">人形普建(Normal T-doll produce)</a>
                                         </li>
                                         <li>
-                                            <a href="#HeavyProduce" data-toggle="tab">人形重建(Heavy T-doll produce)</a>
+                                            <a href="#HeavyProduce" data-toggle="tab" onclick="swapImage(2)">人形重建(Heavy T-doll produce)</a>
                                         </li>
                                         <li>
-                                            <a href="#NormalEquipment" data-toggle="tab">装备普建(Normal equipment produce)</a>
+                                            <a href="#NormalEquipment" data-toggle="tab" onclick="swapImage(3)">装备普建(Normal equipment produce)</a>
                                         </li>
                                         <li>
-                                            <a href="#HeavyEquipment" data-toggle="tab">装备重建(Heavy equipment produce)</a>
+                                            <a href="#HeavyEquipment" data-toggle="tab" onclick="swapImage(4)">装备重建(Heavy equipment produce)</a>
                                         </li>
                                         <li>
-                                            <a href="#ResourceLimit" data-toggle="tab">资源限制(Resource limitatiion)</a>
+                                            <a href="#ResourceLimit" data-toggle="tab" onclick="swapImage(5)">资源限制(Resource limitatiion)</a>
                                         </li>
                                     </ul>
                                     <!-- Tab panes -->
@@ -1579,9 +1589,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <p><select
-                                                        class="form-control"
-                                                        id="NTimes">
+                                                <p><select class="form-control" id="NTimes">
                                                         <option value=1>单次建造(Single)</option>
                                                         <option value=10>十连(x10)</option>
                                                     </select></p>
