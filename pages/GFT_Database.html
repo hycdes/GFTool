@@ -1,374 +1,193 @@
 <!DOCTYPE html>
 <html lang="zh">
 
-    <head>
-        <style type="text/css">
-            img{ height:100%; width:100%;}
-        </style>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>少女前线-资料库 by 命运の乐章</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>少女前线-资料库 by 命运の乐章</title>
 
-        <!-- Bootstrap Core CSS -->
-        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- MetisMenu CSS -->
-        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-        <!-- Morris Charts CSS -->
-        <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-        <!-- Custom Fonts -->
-        <link href="../vendor/font-awesome/css/font-awesome.min.css"
-            rel="stylesheet" type="text/css">
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    </head>
+</head>
 
-    <body>
-        <div id="wrapper">
-            <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top"
-                role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle"
-                        data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html"><span
-                            style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
-                </div>
-                <!-- NaviBar (Left) -->
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
-                                <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control"
-                                        placeholder="Search...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default"
-                                            type="button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                                <!-- /input-group -->
-                            </li>
-
-                            <!-- [NAVI]Home -->
-                            <li>
-                                <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
-                            </li>
-                            <!-- [NAVI]Gaming stratefy -->
-                            <li>
-                                <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
-                            </li>
-                            <!-- [NAVI]LogiRank -->
-                            <li>
-                                <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
-                            </li>
-                            <!-- [NAVI]LevelCal -->
-                            <li>
-                                <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
-                            </li>
-                            <!-- [NAVI]IOPSimulate -->
-                            <li>
-                                <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
-                <!-- /.navbar-static-side -->
-            </nav>
-            <!-- Main Pages -->
-            <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">资料库(Database)</h1>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <p>* 我是新手，我想 <u><a href="https://www.bilibili.com/video/av35145448" target="_blank">快速入门(･∀･)</a></u></p>
-                            <p>* 点击标题开关折叠栏，点击图片<span style="color:#FF0066">查看原图</span>。更新于 <span style="color:#FF0066">2019.01.05</span></p>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                    <div class="row">
-                        <!--No.1-->
-                        <div class="col-lg-6">
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    建造(Produce)
-                                </div>
-                                <!-- .panel-heading -->
-                                <div class="panel-body">
-                                    <div class="panel-group">
-                                        <div class="panel panel-info">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data1-1">
-                                                        建造时间表-转载(Producing time chart-Reprint)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data1-1" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <a href="../img/img_data_1-1.jpg" target="_blank">
-                                                        <img src="../img/img_data_1-1.jpg" alt="Producing time">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-info">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse"
-                                                        href="#data1-2">建造阈值和概率(Producing threshold & possibility)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data1-2"
-                                                class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <p>普建人形阈值参考：<a href="https://tieba.baidu.com/p/5616725529?red_tag=1655095007" target="_blank">
-                                                            百度贴吧-少女前线吧-《一些建造阈值的分析和推荐》</a>
-                                                    </p>
-                                                    <p><a href="../img/img_data_1-2.png" target="_blank">
-                                                            <img src="../img/img_data_1-2.png" alt="Producing threshold">
-                                                        </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-info">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data1-3">
-                                                        建造公式推荐(Recommended recipe)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data1-3" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <a href="../img/img_data_1-3.png" target="_blank"><img src="../img/img_data_1-3.png" alt="T-doll recipe">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!--No.2-->
-                        <div class="col-lg-6">
-                            <div class="panel panel-warning">
-                                <div class="panel-heading">
-                                    强化升级(Strengthen)
-                                </div>
-                                <div class="panel-body">
-                                    <div class="panel-group">
-                                        <!-- 2-1 Cost -->
-                                        <div class="panel panel-warning">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data2-1">
-                                                        装备强化/技能升级消耗(Equip strengthen/Skill levelup cost)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data2-1" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <a href="../img/img_data_2-1.png" target="_blank">
-                                                        <img src="../img/img_data_2-1.png" alt="Strengthen cost">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 2-2 Increment -->
-                                        <div class="panel panel-warning">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data2-2">
-                                                        三改后升级提升(Leveling increment after MODⅢ)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data2-2" class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <p>数据汇总来源：<a href="https://nga.178.com/read.php?tid=15940787" target="_blank">
-                                                            NGA-16Lab研究院-《[自用型破事水]改造人形属性上涨的等级》</a>
-                                                    </p>
-                                                    <p><a href="../img/img_data_2-2.png" target="_blank">
-                                                            <img src="../img/img_data_2-2.png" alt="Strengthen value"></a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!--No.3-->
-                        <div class="col-lg-6">
-                            <div class="panel panel-danger">
-                                <div class="panel-heading">
-                                    人形和配队(T-doll and matching)
-                                </div>
-                                <!-- .panel-heading -->
-                                <div class="panel-body">
-                                    <div class="panel-group">
-                                        <div class="panel panel-danger">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data3-1">人形/妖精推荐排行-转载(T-doll/Fairy ranking-Reprint)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data3-1"
-                                                class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <a href="../img/img_data_3-1.jpg" target="_blank"><img src="../img/img_data_3-1.jpg" alt="tdollstreness">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-danger">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data3-2">AR-配队参考(AR-team sample)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data3-2"
-                                                class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <p>
-                                                        <a href="../img/img_data_3-2.png" target="_blank"><img src="../img/img_data_3-2.png" alt="teamAr">
-                                                        </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-danger">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data3-3">RF-配队参考(RF-team sample)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data3-3"
-                                                class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <p>
-                                                        <a href="../img/img_data_3-3.png" target="_blank"><img src="../img/img_data_3-3.png" alt="teamRf">
-                                                        </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-danger">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data3-4">MG-配队参考(MG-team sample)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data3-4"
-                                                class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <p>
-                                                        <a href="../img/img_data_3-4.png" target="_blank"><img src="../img/img_data_3-4.png" alt="teamMg">
-                                                        </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- .panel-body -->
-                            </div>
-                        </div>
-                        <!--No.4-->
-                        <div class="col-lg-6">
-                            <div class="panel panel-success">
-                                <div class="panel-heading">
-                                    重装部队(Heavy-fire-force)
-                                </div>
-                                <!-- .panel-heading -->
-                                <div class="panel-body">
-                                    <div class="panel-group">
-                                        <div class="panel panel-success">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data4-1">
-                                                        芯片选择(Chips selection)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data4-1"
-                                                class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <p>芯片属性参考：<a href="https://bbs.nga.cn/read.php?tid=14732027" target="_blank">
-                                                            NGA-16Lab研究院-《[抛砖引玉]当前版本下芯片数值的具体算法》</a>
-                                                    </p>
-                                                    <p>芯片培养搭配参考：<a href="https://bbs.nga.cn/read.php?tid=15110212" target="_blank">
-                                                            NGA-16Lab研究院-《[抛砖引玉]再议芯片：个人芯片培养心得总结——站在巨人的肩膀上》 </a>
-                                                    </p>
-                                                    <p><a href="../img/img_data_4-1.png" target="_blank">
-                                                            <img src="../img/img_data_4-1.png" alt="chips-value"> </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-success">
-                                            <div class="panel-heading">
-                                                <h4 class="panel-title">
-                                                    <a data-toggle="collapse" href="#data4-2">
-                                                        芯片拼接参考(Solution for reference)</a>
-                                                </h4>
-                                            </div>
-                                            <div id="data4-2"
-                                                class="panel-collapse collapse">
-                                                <div class="panel-body">
-                                                    <p><a href="../img/img_data_4-2.png" target="_blank">
-                                                            <img src="../img/img_data_4-2.png" alt="chips-value"> </a>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
             </div>
+            <!-- NaviBar (Left) -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
 
+                        <!-- [NAVI]Home -->
+                        <li>
+                            <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
+                        </li>
+                        <!-- [NAVI]Gaming stratefy -->
+                        <li>
+                            <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
+                        </li>
+                        <!-- [NAVI]LogiRank -->
+                        <li>
+                            <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
+                        </li>
+                        <!-- [NAVI]LevelCal -->
+                        <li>
+                            <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
+                        </li>
+                        <!-- [NAVI]IOPSimulate -->
+                        <li>
+                            <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">资料库(Database)</h1>
+                    </div>
+                    <!--No.1 Guide & Reference-->
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                游戏指南和参考 (Update 2019.01.06)
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#Newman" data-toggle="tab">我是新手！</a>
+                                    </li>
+                                    <li><a href="#TdollTeam" data-toggle="tab">人形/配队</a>
+                                    </li>
+                                    <li><a href="#Heavyfire" data-toggle="tab">重装部队</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="Newman">
+                                        <h4>快速上手</h4>
+                                        <p>萌新全方位教学：<u><a href="https://www.bilibili.com/video/av35145448" target="_blank">【乐章讲少前】10分钟玩懂少女前线，萌新必看！</a></u></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="TdollTeam" style="background:url(../img/DB-Echelon.png) no-repeat right top;">
+                                        <h4>人形和妖精选择</h4>
+                                        <p>人形强度榜(转载)：<u><a href="../img/img_data_3-1.jpg" target="_blank">少女前线2.0版本强力人形&妖精推荐</a></u></p>
+                                        <h4>通用配队参考</h4>
+                                        <p><img src="../img/icon-ar.png" alt="">AR队：<u><a href="../img/img_data_3-2.png" target="_blank">少女前线-AR队配队参考</a></u></p>
+                                        <p><img src="../img/icon-rf.png" alt="">RF队：<u><a href="../img/img_data_3-3.png" target="_blank">少女前线-RF队配队参考</a></u></p>
+                                        <p><img src="../img/icon-mg.png" alt="">MG队：<u><a href="../img/img_data_3-4.png" target="_blank">少女前线-MG队配队参考</a></u></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="Heavyfire" style="background:url(../img/DB-Heavyfire.png) no-repeat right top;">
+                                        <h4>芯片选择</h4>
+                                        <p>芯片选择：<u><a href="../img/img_data_4-1.png" target="_blank">重装部队芯片选择</a></u>&nbsp&nbsp<a href="https://bbs.nga.cn/read.php?tid=15110212" target="_blank"><span style="color:gray">[参考资料链接]</span></a></p>
+                                        <h4>芯片拼接</h4>
+                                        <p>快速上手参考：<u><a href="../img/img_data_4-2.png" target="_blank">最高密度芯片拼接参考</a></u></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--No.2 Data-->
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                常用数据 (Update 2019.01.06)
+                            </div>
+                            <div class="panel-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#Produce" data-toggle="tab">建造</a>
+                                    </li>
+                                    <li><a href="#Strengthen" data-toggle="tab">强化升级</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="Produce" style="background:url(../img/DB-IOP.png) no-repeat right top;">
+                                        <h4>时间表</h4>
+                                        <p>建造时间表(转载)：<u><a href="../img/img_data_1-1.jpg" target="_blank">少女前线建造时间表</a></u></p>
+                                        <h4>阈值和特化公式</h4>
+                                        <p>建造阈值和建造概率：<u><a href="../img/img_data_1-2.png" target="_blank">建造阈值和建造概率</a></u>&nbsp&nbsp<a href="https://tieba.baidu.com/p/5616725529?red_tag=1655095007" target="_blank"><span style="color:gray">[参考资料链接]</span></a></p>
+                                        <p>推荐公式：<u><a href="../img/img_data_1-3.png" target="_blank">装备人形高概率建造公式</a></u></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="Strengthen">
+                                        <h4>资源消耗</h4>
+                                        <p>强化和技能升级消耗：<u><a href="../img/img_data_2-1.png" target="_blank">装备强化和技能升级消耗</a></u></p>
+                                        <h4>属性提升</h4>
+                                        <p>三改后升级：<u><a href="../img/img_data_2-2.png" target="_blank">三改后人形升级属性提升</a></u>&nbsp&nbsp<a href="https://nga.178.com/read.php?tid=15940787" target="_blank"><span style="color:gray">[参考资料链接]</span></a></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="messages">
+                                        <h4>Messages Tab</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <!-- /#wrapper -->
 
-        <!-- jQuery -->
-        <script src="../vendor/jquery/jquery.min.js"></script>
+    </div>
+    <!-- /#wrapper -->
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
 
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-    </body>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
 
 </html>
