@@ -2240,7 +2240,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">建造模拟器(IOP Simulator)</h1>
+                        <h1 class="page-header">建造模拟器</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -2253,26 +2253,26 @@
                     <div class="col-lg-10">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                建造(Produce)
+                                建造
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body" id="panelSetting" style="background:url(../img/Produce-tdoll-normal.png) no-repeat right 15px bottom 15px">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#NormalProduce" data-toggle="tab" onclick="swapImage(1)">人形普建(T-doll/Normal)</a>
+                                        <a href="#NormalProduce" data-toggle="tab" onclick="swapImage(1)">人形普建</a>
                                     </li>
                                     <li>
-                                        <a href="#HeavyProduce" data-toggle="tab" onclick="swapImage(2)">人形重建(T-doll/Heavy)</a>
+                                        <a href="#HeavyProduce" data-toggle="tab" onclick="swapImage(2)">人形重建</a>
                                     </li>
                                     <li>
-                                        <a href="#NormalEquipment" data-toggle="tab" onclick="swapImage(3)">装备普建(Equipment/Normal)</a>
+                                        <a href="#NormalEquipment" data-toggle="tab" onclick="swapImage(3)">装备普建</a>
                                     </li>
                                     <li>
-                                        <a href="#HeavyEquipment" data-toggle="tab" onclick="swapImage(4)">装备重建(Equipment/Heavy)</a>
+                                        <a href="#HeavyEquipment" data-toggle="tab" onclick="swapImage(4)">装备重建</a>
                                     </li>
                                     <li>
-                                        <a href="#ResourceLimit" data-toggle="tab" onclick="swapImage(5)">资源限制(Limitatiion)</a>
+                                        <a href="#ResourceLimit" data-toggle="tab" onclick="swapImage(5)">资源限制</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -2294,32 +2294,32 @@
                                         <!--Resource-->
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <span class="input-group-addon">人力</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=30 id="Mw" onblur="checkValueNormal()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">口粮</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=30 id="Rw" onblur="checkValueNormal()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <span class="input-group-addon">弹药</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=30 id="Aw" onblur="checkValueNormal()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">零件</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=30 id="Pw" onblur="checkValueNormal()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <p><select class="form-control" id="NTimes">
-                                                    <option value=1>单次建造(Single)</option>
-                                                    <option value=10>十连(x10)</option>
+                                                    <option value=1>单次建造</option>
+                                                    <option value=10>十连建造</option>
                                                 </select></p>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-success" id="buttonNormal" onclick="addListMulti()">普通建造(Normal produce)</button>
+                                            <p><button type="button" class="btn btn-success" id="buttonNormal" onclick="addListMulti()">普通建造</button>
                                             </p>
                                         </div>
                                     </div>
@@ -2337,28 +2337,28 @@
                                         <!--Resource-->
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <span class="input-group-addon">人力</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=1000 id="MwH" onblur="checkValueHeavy()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">口粮</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=1000 id="RwH" onblur="checkValueHeavy()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <span class="input-group-addon">弹药</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=1000 id="AwH" onblur="checkValueHeavy()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">零件</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=1000 id="PwH" onblur="checkValueHeavy()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <p><select class="form-control" id="NTimesH">
-                                                    <option value=1>单次建造(Single)</option>
-                                                    <option value=10>十连(x10)</option>
+                                                    <option value=1>单次建造</option>
+                                                    <option value=10>十连建造</option>
                                                 </select></p>
                                             <p>
                                                 <select class="form-control" id="HClass">
@@ -2369,7 +2369,7 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-warning" id="buttonHeavy" onclick="addListHMulti()">重型建造(Heavy produce)</button></p>
+                                            <p><button type="button" class="btn btn-warning" id="buttonHeavy" onclick="addListHMulti()">重型建造</button></p>
                                         </div>
                                     </div>
                                     <!--NORMAL EQUIP-->
@@ -2384,32 +2384,32 @@
                                         <!--Resource-->
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <span class="input-group-addon">人力</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10 id="MwE" onblur="checkValueNormalE()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">口粮</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10 id="RwE" onblur="checkValueNormalE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <span class="input-group-addon">弹药</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10 id="AwE" onblur="checkValueNormalE()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">零件</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10 id="PwE" onblur="checkValueNormalE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <p><select class="form-control" id="NTimesE">
-                                                    <option value=1>单次建造(Single)</option>
-                                                    <option value=10>十连(x10)</option>
+                                                    <option value=1>单次建造</option>
+                                                    <option value=10>十连建造</option>
                                                 </select></p>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-info" id="buttonNormalE" onclick="addListEMulti()">普通建造(Normal produce)</button>
+                                            <p><button type="button" class="btn btn-info" id="buttonNormalE" onclick="addListEMulti()">普通建造</button>
                                             </p>
                                         </div>
                                     </div>
@@ -2428,28 +2428,28 @@
                                         <!--Resource-->
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <span class="input-group-addon">人力</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=500 id="MwEH" onblur="checkValueHeavyE()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">口粮</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=500 id="RwEH" onblur="checkValueHeavyE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <span class="input-group-addon">弹药</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=500 id="AwEH" onblur="checkValueHeavyE()">
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">零件</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=500 id="PwEH" onblur="checkValueHeavyE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <p><select class="form-control" id="NTimesEH">
-                                                    <option value=1>单次建造(Single)</option>
-                                                    <option value=10>十连(x10)</option>
+                                                    <option value=1>单次建造</option>
+                                                    <option value=10>十连建造</option>
                                                 </select></p>
                                             <p>
                                                 <select class="form-control" id="EHClass">
@@ -2460,7 +2460,7 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-danger" id="buttonHeavyE" onclick="addListEHMulti()">重型建造(Heavy produce)</button></p>
+                                            <p><button type="button" class="btn btn-danger" id="buttonHeavyE" onclick="addListEHMulti()">重型建造</button></p>
                                         </div>
                                     </div>
                                     <!--LIMITATION-->
@@ -2470,27 +2470,27 @@
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" id="unLimitReso" checked onclick="releaseResoLimit()">
-                                                    无限资源(Unlimited resource)
+                                                    无限资源
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">人力(Manpower)&nbsp&nbsp</span>
+                                                <span class="input-group-addon">人力余量</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10000 id="MwOwn" disabled>
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮(Ration)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">口粮余量</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10000 id="RwOwn" disabled>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药(Ammunition)</span>
+                                                <span class="input-group-addon">弹药余量</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10000 id="AwOwn" disabled>
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">零件(Parts)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                                <span class="input-group-addon">零件余量</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=10000 id="PwOwn" disabled>
                                             </div>
                                         </div>
@@ -2498,29 +2498,29 @@
                                             <div class="checkbox">
                                                 <label>
                                                     <input type="checkbox" id="unLimitCoCo" checked onclick="releaseCoCoLimit()">
-                                                    无限契约核心(Unlimited contract/core)
+                                                    无限契约核心
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">人形契约(T-doll contract)</span>
+                                                <span class="input-group-addon">人形契约</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=100 id="ConOwn" disabled>
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">装备契约(Equip contract)</span>
+                                                <span class="input-group-addon">装备契约</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=100 id="ConOwnE" disabled>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">核心(Core)</span>
+                                                <span class="input-group-addon">核心</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" value=100 id="CoreOwn" disabled>
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <p><button type="button" class="btn btn-primary" onclick="resetResoLimit()">
-                                                    重置资源限制设置(Reset resource limit setting)</button></p>
+                                                    重置资源限制</button></p>
                                         </div>
                                     </div>
 
@@ -2535,7 +2535,7 @@
                     <div class="col-lg-10">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                资源消耗(Resource consumption)
+                                资源消耗
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -2549,17 +2549,17 @@
                     <div class="col-lg-10">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                建造结果(Produce results)
+                                建造列表
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs">
                                     <li id="panelT" class="active">
-                                        <a href="#TdollResult" data-toggle="tab">人形(T-doll)</a>
+                                        <a href="#TdollResult" data-toggle="tab">人形</a>
                                     </li>
                                     <li id="panelE" class="">
-                                        <a href="#EquipmentResult" data-toggle="tab">装备(Equipment)</a>
+                                        <a href="#EquipmentResult" data-toggle="tab">装备</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -2571,7 +2571,7 @@
                                                 <label>显示条目</label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitch" id="showAllSwitch" value="option1" onclick="showAll()" checked>
-                                                    <b><span style="color:dodgerblue">全部(All)</span></b>
+                                                    <b><span style="color:dodgerblue">全部</span></b>
                                                 </label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitch" id="showFiveSwitch" value="option2" onclick="showFive()">
@@ -2595,7 +2595,7 @@
                                                 <label>显示条目</label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitchE" id="showAllSwitchE" value="option1" onclick="showAllE()" checked>
-                                                    <b><span style="color:dodgerblue">全部(All)</span></b>
+                                                    <b><span style="color:dodgerblue">全部</span></b>
                                                 </label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitchE" id="showFiveSwitchE" value="option2" onclick="showFiveE()">
@@ -2603,7 +2603,7 @@
                                                 </label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitchE" id="showFairy" value="option3" onclick="showFairy()">
-                                                    <b><span style="color:red">妖精(Fairy)</span></b>
+                                                    <b><span style="color:red">妖精</span></b>
                                                 </label>
                                             </div>
                                             <div class="col-lg-10">

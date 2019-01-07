@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh">
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>少女前线-后勤排序器 by 命运の乐章</title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>少女前线-后勤排序器 by 命运の乐章</title>
 
-        <!-- Bootstrap Core CSS -->
-        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- MetisMenu CSS -->
-        <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-        <!-- Custom CSS -->
-        <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-        <!-- Morris Charts CSS -->
-        <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-        <!-- Custom Fonts -->
-        <link href="../vendor/font-awesome/css/font-awesome.min.css"
-            rel="stylesheet" type="text/css">
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-        <script type="text/javascript">
-            window.onload = function () {
+    <script type="text/javascript">
+        window.onload = function () {
             var chart = document.getElementById("rankingChart");
             var tab = '点击 <span style="color:deepskyblue">按条件排序</span> 按钮，排序前十的结果将在这里显示';
             chart.innerHTML = tab;
         }
+
         function creatLogiData(ilevel, impw, iamm, irat, iprt, iitm1, iitm2, itime) {
             var logiData = new Object;
             logiData.level = ilevel;
@@ -44,60 +44,104 @@
             logiData.time = itime;
             return logiData;
         }
+
         function setWeight1() {
-            var Mw = document.getElementById('Mw'); Mw.value = 1;
-            var Aw = document.getElementById('Aw'); Aw.value = 1;
-            var Rw = document.getElementById('Rw'); Rw.value = 1;
-            var Pw = document.getElementById('Pw'); Pw.value = 1;
+            var Mw = document.getElementById('Mw');
+            Mw.value = 1;
+            var Aw = document.getElementById('Aw');
+            Aw.value = 1;
+            var Rw = document.getElementById('Rw');
+            Rw.value = 1;
+            var Pw = document.getElementById('Pw');
+            Pw.value = 1;
         }
+
         function setWeight2() {
-            var Mw = document.getElementById('Mw'); Mw.value = 1;
-            var Aw = document.getElementById('Aw'); Aw.value = 1;
-            var Rw = document.getElementById('Rw'); Rw.value = 1;
-            var Pw = document.getElementById('Pw'); Pw.value = 3;
+            var Mw = document.getElementById('Mw');
+            Mw.value = 1;
+            var Aw = document.getElementById('Aw');
+            Aw.value = 1;
+            var Rw = document.getElementById('Rw');
+            Rw.value = 1;
+            var Pw = document.getElementById('Pw');
+            Pw.value = 3;
         }
+
         function setWeight3() {
-            var Mw = document.getElementById('Mw'); Mw.value = 4;
-            var Aw = document.getElementById('Aw'); Aw.value = 4;
-            var Rw = document.getElementById('Rw'); Rw.value = 4;
-            var Pw = document.getElementById('Pw'); Pw.value = 2;
+            var Mw = document.getElementById('Mw');
+            Mw.value = 4;
+            var Aw = document.getElementById('Aw');
+            Aw.value = 4;
+            var Rw = document.getElementById('Rw');
+            Rw.value = 4;
+            var Pw = document.getElementById('Pw');
+            Pw.value = 2;
         }
+
         function setTime1() {
-            var Tr = document.getElementById('Tr'); Tr.value = 6;
+            var Tr = document.getElementById('Tr');
+            Tr.value = 6;
         }
+
         function setTime2() {
-            var Tr = document.getElementById('Tr'); Tr.value = 4;
+            var Tr = document.getElementById('Tr');
+            Tr.value = 4;
         }
+
         function setTime3() {
-            var Tr = document.getElementById('Tr'); Tr.value = 1;
+            var Tr = document.getElementById('Tr');
+            Tr.value = 1;
         }
+
         function setTime4() {
-            var Tr = document.getElementById('Tr'); Tr.value = 0.5;
+            var Tr = document.getElementById('Tr');
+            Tr.value = 0.5;
         }
+
         function setWeightM() {
-            var Mw = document.getElementById('Mw'); Mw.value = 1;
-            var Aw = document.getElementById('Aw'); Aw.value = 0;
-            var Rw = document.getElementById('Rw'); Rw.value = 0;
-            var Pw = document.getElementById('Pw'); Pw.value = 0;
+            var Mw = document.getElementById('Mw');
+            Mw.value = 1;
+            var Aw = document.getElementById('Aw');
+            Aw.value = 0;
+            var Rw = document.getElementById('Rw');
+            Rw.value = 0;
+            var Pw = document.getElementById('Pw');
+            Pw.value = 0;
         }
+
         function setWeightA() {
-            var Mw = document.getElementById('Mw'); Mw.value = 0;
-            var Aw = document.getElementById('Aw'); Aw.value = 1;
-            var Rw = document.getElementById('Rw'); Rw.value = 0;
-            var Pw = document.getElementById('Pw'); Pw.value = 0;
+            var Mw = document.getElementById('Mw');
+            Mw.value = 0;
+            var Aw = document.getElementById('Aw');
+            Aw.value = 1;
+            var Rw = document.getElementById('Rw');
+            Rw.value = 0;
+            var Pw = document.getElementById('Pw');
+            Pw.value = 0;
         }
+
         function setWeightR() {
-            var Mw = document.getElementById('Mw'); Mw.value = 0;
-            var Aw = document.getElementById('Aw'); Aw.value = 0;
-            var Rw = document.getElementById('Rw'); Rw.value = 1;
-            var Pw = document.getElementById('Pw'); Pw.value = 0;
+            var Mw = document.getElementById('Mw');
+            Mw.value = 0;
+            var Aw = document.getElementById('Aw');
+            Aw.value = 0;
+            var Rw = document.getElementById('Rw');
+            Rw.value = 1;
+            var Pw = document.getElementById('Pw');
+            Pw.value = 0;
         }
+
         function setWeightP() {
-            var Mw = document.getElementById('Mw'); Mw.value = 0;
-            var Aw = document.getElementById('Aw'); Aw.value = 0;
-            var Rw = document.getElementById('Rw'); Rw.value = 0;
-            var Pw = document.getElementById('Pw'); Pw.value = 1;
+            var Mw = document.getElementById('Mw');
+            Mw.value = 0;
+            var Aw = document.getElementById('Aw');
+            Aw.value = 0;
+            var Rw = document.getElementById('Rw');
+            Rw.value = 0;
+            var Pw = document.getElementById('Pw');
+            Pw.value = 1;
         }
+
         function obeyTime(TimeRequire, logiDataEntry) {
             if (logiDataEntry.time >= TimeRequire) {
                 return true;
@@ -105,6 +149,7 @@
                 return false;
             }
         }
+
         function haveItem(it1, it2, logiDataEntry) {
             var validNum = 0;
             if (it1 === it2) {
@@ -156,6 +201,7 @@
                 return false;
             }
         }
+
         function getChart(logiList, it1, it2, it1_text, it2_text, TimeRequire) {
             var allEntry = 0;
             var listNum = 48;
@@ -165,15 +211,33 @@
             for (var i = 0; i < listNum && allEntry < 10; i++) {
                 if (haveItem(it1, it2, logiList[i]) && obeyTime(TimeRequire, logiList[i])) {
                     tab += "<tr>";
-                    tab += "<td>"; tab += ((allEntry + 1) + ""); tab += "</td>";
-                    tab += "<td>"; tab += logiList[i].level; tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].mpw + ""); tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].amm + ""); tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].rat + ""); tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].prt + ""); tab += "</td>";
-                    tab += "<td>"; tab += logiList[i].itm1; tab += "</td>";
-                    tab += "<td>"; tab += logiList[i].itm2; tab += "</td>";
-                    tab += "<td>"; tab += (logiList[i].time + ""); tab += "</td>";
+                    tab += "<td>";
+                    tab += ((allEntry + 1) + "");
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += logiList[i].level;
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += (logiList[i].mpw + "");
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += (logiList[i].amm + "");
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += (logiList[i].rat + "");
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += (logiList[i].prt + "");
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += logiList[i].itm1;
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += logiList[i].itm2;
+                    tab += "</td>";
+                    tab += "<td>";
+                    tab += (logiList[i].time + "");
+                    tab += "</td>";
                     tab += "</tr>";
                     allEntry++;
                 }
@@ -219,6 +283,7 @@
             }
             chart.innerHTML = tab;
         }
+
         function getRanking() {
             var Mw = document.getElementById('Mw');
             var Aw = document.getElementById('Aw');
@@ -288,291 +353,225 @@
                 var weight2 = b.mpw * parseInt(Mw.value) + b.amm * parseInt(Aw.value) + b.rat * parseInt(Rw.value) + b.prt * parseInt(Pw.value);
                 if (weight1 > weight2) {
                     return -1;
-                }
-                else if (weight1 === weight2) {
+                } else if (weight1 === weight2) {
                     return 0;
-                }
-                else return 1;
+                } else return 1;
             });
             getChart(logiList, it1, it2, it1_text, it2_text, TimeRequire);
         }
-        </script>
-    </head>
+    </script>
+</head>
 
-    <body>
-        <div id="wrapper">
-            <!-- Navigation -->
-            <nav class="navbar navbar-default navbar-static-top"
-                role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle"
-                        data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html"><span
-                            style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
-                </div>
-                <!-- NaviBar (Left) -->
-                <div class="navbar-default sidebar" role="navigation">
-                    <div class="sidebar-nav navbar-collapse">
-                        <ul class="nav" id="side-menu">
-                            <li class="sidebar-search">
-                                <div class="input-group custom-search-form">
-                                    <input type="text" class="form-control"
-                                        placeholder="Search...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default"
-                                            type="button">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                                <!-- /input-group -->
-                            </li>
-
-                            <!-- [NAVI]Home -->
-                            <li>
-                                <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
-                            </li>
-                            <!-- [NAVI]Gaming stratefy -->
-                            <li>
-                                <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
-                            </li>
-                            <!-- [NAVI]LogiRank -->
-                            <li>
-                                <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
-                            </li>
-                            <!-- [NAVI]LevelCal -->
-                            <li>
-                                <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
-                            </li>
-                            <!-- [NAVI]IOPSimulate -->
-                            <li>
-                                <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.sidebar-collapse -->
-                </div>
-                <!-- /.navbar-static-side -->
-            </nav>
-
-            <!-- Main Pages -->
-            <div id="page-wrapper">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">后勤排序器(Logistics Rank)</h1>
-                        </div>
-                    </div>
-                    <!-- /.row -->
-                    <div class="row">
-                        <!--Weight-->
-                        <div class="col-lg-12">
-                            <p>* 排序依据：后勤各项资源<span style="color:#FF0066">获取速率加权和</span>
-                                (Sorted by the sum of hourly acquisition plus
-                                weight)</p>
-                        </div>
-                    </div>
-
-                    <!-- /.row -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    排序设置 (Rank setting)
-                                </div>
-                                <div class="panel-body" style="background:url(../img/Logi-IOP.png) no-repeat right 15px top 15px">
-                                    <div class="col-lg-3">
-                                        <h4>快捷配比(Ratio templates)</h4>
-                                        <div class="tooltip-demo">
-                                            <button type="button" class="btn
-                                                btn-outline
-                                                btn-primary"
-                                                onclick="setWeight1()">等比1:1:1:1</button>
-                                            <button type="button"
-                                                data-toggle="tooltip"
-                                                data-placement="top"
-                                                title="零件获取速率是其他资源的1/3"
-                                                class="btn btn-outline
-                                                btn-danger"
-                                                onclick="setWeight2()">常规1:1:1:3</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeight3()">赌枪4:4:4:2</button>
-                                        </div>
-                                        <h4>按类排序(Sort by resource)</h4>
-                                        <p>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeightM()">人力</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeightA()">弹药</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeightR()">口粮</button>
-                                            <button type="button" class="btn
-                                                btn-default"
-                                                onclick="setWeightP()">零件</button>
-                                        </p>
-                                        <h4>必需道具(Required items)</h4>
-                                        <p>
-                                            <select class="form-control"
-                                                id="ItemNeed1">
-                                                <option value=0>无(Null)</option>
-                                                <option value=1>人形契约(T-doll
-                                                    contract)</option>
-                                                <option value=2>装备契约(Equipment
-                                                    contract)</option>
-                                                <option value=3>快速建造(Quick
-                                                    Production)</option>
-                                                <option value=4>快速修复(Quick
-                                                    Restoration)</option>
-                                                <option value=5>采购币(Token)</option>
-                                            </select>
-                                        </p>
-                                        <p>
-                                            <select class="form-control"
-                                                id="ItemNeed2">
-                                                <option value=0>无(Null)</option>
-                                                <option value=1>人形契约(T-doll
-                                                    contract)</option>
-                                                <option value=2>装备契约(Equipment
-                                                    contract)</option>
-                                                <option value=3>快速建造(Quick
-                                                    Production)</option>
-                                                <option value=4>快速修复(Quick
-                                                    Restoration)</option>
-                                                <option value=5>采购币(Token)</option>
-                                            </select>
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">人力比重(Mp
-                                                weight)&nbsp&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" id="Mw"
-                                                value=1>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">弹药比重(Amm
-                                                weight)</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" id="Aw"
-                                                value=1>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">口粮比重(Rat
-                                                weight)&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" id="Rw"
-                                                value=1>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">零件比重(Prt
-                                                weight)&nbsp&nbsp&nbsp&nbsp</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                placeholder="输入整数" id="Pw"
-                                                value=1>
-                                        </div>
-                                        <div class="tooltip-demo">
-                                            <p>
-                                                <button type="button" class="btn
-                                                    btn-outline
-                                                    btn-primary"
-                                                    onclick="setTime1()">睡眠(6h)</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setTime2()">偶尔(4h)</button>
-                                                <button type="button" class="btn
-                                                    btn-default"
-                                                    onclick="setTime3()">频繁(1h)</button>
-                                                <button type="button"
-                                                    data-toggle="tooltip"
-                                                    data-placement="top"
-                                                    title="是大佬，我死了Σ(ﾟдﾟ;)"
-                                                    class="btn btn-outline
-                                                    btn-danger"
-                                                    onclick="setTime4()">秃子(0.5h)</button>
-                                            </p>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">时间(Time)
-                                                ≥</span>
-                                            <input type="text"
-                                                class="form-control"
-                                                value="0" placeholder="输入数字"
-                                                id="Tr">
-                                            <span class="input-group-addon">小时(hours)</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <p><button type="button" class="btn
-                                                btn-info"
-                                                onclick="getRanking()">按条件排序(Sorting)</button></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    按配比排序结果(Sort results)
-                                </div>
-                                <!-- /.panel-heading -->
-                                <div class="panel-body">
-                                    <div class="table-responsive"
-                                        id="rankingChart"></div>
-                                    <!-- /.table-responsive -->
-                                </div>
-                                <!-- /.panel-body -->
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
             </div>
+            <!-- NaviBar (Left) -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
 
+                        <!-- [NAVI]Home -->
+                        <li>
+                            <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
+                        </li>
+                        <!-- [NAVI]Gaming stratefy -->
+                        <li>
+                            <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
+                        </li>
+                        <!-- [NAVI]LogiRank -->
+                        <li>
+                            <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
+                        </li>
+                        <!-- [NAVI]LevelCal -->
+                        <li>
+                            <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
+                        </li>
+                        <!-- [NAVI]IOPSimulate -->
+                        <li>
+                            <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">后勤排序器</h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <!--Weight-->
+                    <div class="col-lg-12">
+                        <p>* 各资源获取速率<span style="color:#FF0066">乘其比重求和</span>，以此排序</p>
+                    </div>
+                </div>
+
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                排序设置
+                            </div>
+                            <div class="panel-body" style="background:url(../img/Logi-IOP.png) no-repeat right 15px top 15px">
+                                <div class="col-lg-3">
+                                    <h4>常用比例</h4>
+                                    <div class="tooltip-demo">
+                                        <button type="button" class="btn
+                                                btn-outline
+                                                btn-primary" onclick="setWeight1()">等比</button>
+                                        <button type="button" data-toggle="tooltip" data-placement="top" title="零件获取速率是其他资源的1/3" class="btn btn-outline
+                                                btn-danger" onclick="setWeight2()">零件x3</button>
+                                        <button type="button" class="btn btn-default" onclick="setWeight3()">赌枪</button>
+                                    </div>
+                                    <h4>按类排序</h4>
+                                    <p>
+                                        <button type="button" class="btn
+                                                btn-default" onclick="setWeightM()">人力</button>
+                                        <button type="button" class="btn
+                                                btn-default" onclick="setWeightA()">弹药</button>
+                                        <button type="button" class="btn
+                                                btn-default" onclick="setWeightR()">口粮</button>
+                                        <button type="button" class="btn
+                                                btn-default" onclick="setWeightP()">零件</button>
+                                    </p>
+                                    <h4>包含道具</h4>
+                                    <p>
+                                        <select class="form-control" id="ItemNeed1">
+                                            <option value=0>无要求</option>
+                                            <option value=1>人形契约</option>
+                                            <option value=2>装备契约</option>
+                                            <option value=3>快速建造</option>
+                                            <option value=4>快速修复</option>
+                                            <option value=5>采购币</option>
+                                        </select>
+                                    </p>
+                                    <p>
+                                        <select class="form-control" id="ItemNeed2">
+                                            <option value=0>无要求</option>
+                                            <option value=1>人形契约</option>
+                                            <option value=2>装备契约</option>
+                                            <option value=3>快速建造</option>
+                                            <option value=4>快速修复</option>
+                                            <option value=5>采购币</option>
+                                        </select>
+                                    </p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">人力比重</span>
+                                        <input type="text" class="form-control" placeholder="输入整数" id="Mw" value=1>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">弹药比重</span>
+                                        <input type="text" class="form-control" placeholder="输入整数" id="Aw" value=1>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">口粮比重</span>
+                                        <input type="text" class="form-control" placeholder="输入整数" id="Rw" value=1>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">零件比重</span>
+                                        <input type="text" class="form-control" placeholder="输入整数" id="Pw" value=1>
+                                    </div>
+                                    <div class="tooltip-demo">
+                                        <p>
+                                            <button type="button" class="btn btn-outline btn-primary" onclick="setTime1()">睡眠(6h)</button>
+                                            <button type="button" class="btn btn-default" onclick="setTime2()">偶尔(4h)</button>
+                                            <button type="button" class="btn btn-default" onclick="setTime3()">频繁(1h)</button>
+                                            <button type="button" data-toggle="tooltip" data-placement="top" title="是大佬，我死了Σ(ﾟдﾟ;)" class="btn btn-outline btn-danger" onclick="setTime4()">秃子(0.5h)</button>
+                                        </p>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon">时间 ≥ </span>
+                                        <input type="text" class="form-control" value="0" placeholder="输入数字" id="Tr">
+                                        <span class="input-group-addon">小时</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p><button type="button" class="btn
+                                                btn-info" onclick="getRanking()">按条件排序</button></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                排序结果
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive" id="rankingChart"></div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
-        <!-- /#wrapper -->
 
-        <!-- jQuery -->
-        <script src="../vendor/jquery/jquery.min.js"></script>
+    </div>
+    <!-- /#wrapper -->
 
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
 
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-        <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
-        <script>
-                // tooltip demo
-                $('.tooltip-demo').tooltip({
-                    selector: "[data-toggle=tooltip]",
-                    container: "body"
-                })
-                // popover demo
-                $("[data-toggle=popover]")
-                    .popover()
-        </script>
-    </body>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+</body>
 
 </html>
