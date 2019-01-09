@@ -44,106 +44,75 @@
             logiData.time = itime;
             return logiData;
         }
-
-        function setWeight1() {
+        function setWeight(weightInfo) {
             var Mw = document.getElementById('Mw');
-            Mw.value = 1;
             var Aw = document.getElementById('Aw');
-            Aw.value = 1;
             var Rw = document.getElementById('Rw');
-            Rw.value = 1;
             var Pw = document.getElementById('Pw');
-            Pw.value = 1;
+            switch (weightInfo) {
+                case 1:
+                    Mw.value = 1; Aw.value = 1; Rw.value = 1; Pw.value = 1;
+                    break;
+                case 2:
+                    Mw.value = 1; Aw.value = 1; Rw.value = 1; Pw.value = 3;
+                    break;
+                case 3:
+                    Mw.value = 4; Aw.value = 4; Rw.value = 4; Pw.value = 2;
+                    break;
+                case 4:
+                    Mw.value = 1; Aw.value = 0; Rw.value = 0; Pw.value = 0;
+                    break;
+                case 5:
+                    Mw.value = 0; Aw.value = 1; Rw.value = 0; Pw.value = 0;
+                    break;
+                case 6:
+                    Mw.value = 0; Aw.value = 0; Rw.value = 1; Pw.value = 0;
+                    break;
+                case 7:
+                    Mw.value = 0; Aw.value = 0; Rw.value = 0; Pw.value = 1;
+                    break;
+            }
         }
 
-        function setWeight2() {
-            var Mw = document.getElementById('Mw');
-            Mw.value = 1;
-            var Aw = document.getElementById('Aw');
-            Aw.value = 1;
-            var Rw = document.getElementById('Rw');
-            Rw.value = 1;
-            var Pw = document.getElementById('Pw');
-            Pw.value = 3;
-        }
-
-        function setWeight3() {
-            var Mw = document.getElementById('Mw');
-            Mw.value = 4;
-            var Aw = document.getElementById('Aw');
-            Aw.value = 4;
-            var Rw = document.getElementById('Rw');
-            Rw.value = 4;
-            var Pw = document.getElementById('Pw');
-            Pw.value = 2;
-        }
-
-        function setTime1() {
+        function setTime(timeInfo) {
             var Tr = document.getElementById('Tr');
-            Tr.value = 6;
+            var Tm = document.getElementById('Tm');
+            switch (timeInfo) {
+                case 1:
+                    Tr.value = 6; Tm.value = 12;
+                    break;
+                case 2:
+                    Tr.value = 4; Tm.value = 6;
+                    break;
+                case 3:
+                    Tr.value = 1; Tm.value = 3;
+                    break;
+                case 4:
+                    Tr.value = 0; Tm.value = 1.7;
+                    break;
+                case 5:
+                    Tr.value = 0; Tm.value = 24;
+                    break;
+            }
         }
 
-        function setTime2() {
-            var Tr = document.getElementById('Tr');
-            Tr.value = 4;
-        }
-
-        function setTime3() {
-            var Tr = document.getElementById('Tr');
-            Tr.value = 1;
-        }
-
-        function setTime4() {
-            var Tr = document.getElementById('Tr');
-            Tr.value = 0.5;
-        }
-
-        function setWeightM() {
-            var Mw = document.getElementById('Mw');
-            Mw.value = 1;
-            var Aw = document.getElementById('Aw');
-            Aw.value = 0;
-            var Rw = document.getElementById('Rw');
-            Rw.value = 0;
-            var Pw = document.getElementById('Pw');
-            Pw.value = 0;
-        }
-
-        function setWeightA() {
-            var Mw = document.getElementById('Mw');
-            Mw.value = 0;
-            var Aw = document.getElementById('Aw');
-            Aw.value = 1;
-            var Rw = document.getElementById('Rw');
-            Rw.value = 0;
-            var Pw = document.getElementById('Pw');
-            Pw.value = 0;
-        }
-
-        function setWeightR() {
-            var Mw = document.getElementById('Mw');
-            Mw.value = 0;
-            var Aw = document.getElementById('Aw');
-            Aw.value = 0;
-            var Rw = document.getElementById('Rw');
-            Rw.value = 1;
-            var Pw = document.getElementById('Pw');
-            Pw.value = 0;
-        }
-
-        function setWeightP() {
-            var Mw = document.getElementById('Mw');
-            Mw.value = 0;
-            var Aw = document.getElementById('Aw');
-            Aw.value = 0;
-            var Rw = document.getElementById('Rw');
-            Rw.value = 0;
-            var Pw = document.getElementById('Pw');
-            Pw.value = 1;
-        }
-
-        function obeyTime(TimeRequire, logiDataEntry) {
-            if (logiDataEntry.time >= TimeRequire) {
+        function obeyLimit(Tr, Tm, logiDataEntry) {
+            var MapLimit = parseFloat(document.getElementById('MapLimit').value);
+            var s1 = parseFloat((logiDataEntry.level).substr(0, 1));
+            var s2 = (logiDataEntry.level).substr(1, 1);
+            var mplmt = false;
+            if (s1 === 0) {
+                if (MapLimit >= 4.5) mplmt = true;
+            } else if (s1 === 1) {
+                if (s2 === '-') mplmt = true;
+                else {
+                    s1 = 10 + parseInt(s2);
+                    if (MapLimit >= s1) mplmt = true;
+                }
+            } else {
+                if (MapLimit >= s1) mplmt = true;
+            }
+            if (logiDataEntry.time >= Tr && logiDataEntry.time <= Tm && mplmt) {
                 return true;
             } else {
                 return false;
@@ -202,43 +171,33 @@
             }
         }
 
-        function getChart(logiList, it1, it2, it1_text, it2_text, TimeRequire) {
+        function getChart(logiList, it1, it2, it1_text, it2_text, Tr, Tm) {
             var allEntry = 0;
             var listNum = 48;
             var chart = document.getElementById("rankingChart");
             var tab = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>排行</th><th>关卡</th><th>人力/h</th><th>弹药/h</th><th>口粮/h</th><th>零件/h</th><th>道具1</th><th>道具2</th><th>时间(h)</th></tr></thead>';
             tab += '<tbody>';
             for (var i = 0; i < listNum && allEntry < 10; i++) {
-                if (haveItem(it1, it2, logiList[i]) && obeyTime(TimeRequire, logiList[i])) {
-                    tab += "<tr>";
-                    tab += "<td>";
+                if (haveItem(it1, it2, logiList[i]) && obeyLimit(Tr, Tm, logiList[i])) {
+                    tab += "<tr>"; tab += "<td>";
                     tab += ((allEntry + 1) + "");
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += logiList[i].level;
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += (logiList[i].mpw + "");
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += (logiList[i].amm + "");
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += (logiList[i].rat + "");
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += (logiList[i].prt + "");
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += logiList[i].itm1;
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += logiList[i].itm2;
-                    tab += "</td>";
-                    tab += "<td>";
+                    tab += "</td>"; tab += "<td>";
                     tab += (logiList[i].time + "");
-                    tab += "</td>";
-                    tab += "</tr>";
+                    tab += "</td>"; tab += "</tr>";
                     allEntry++;
                 }
             }
@@ -251,32 +210,32 @@
                         tab += it1_text;
                         tab += '</span> 又包含<span style="color:#FF0066"> ';
                         tab += it2_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
+                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += Tr; tab += " ~ "; tab += Tm;
                         tab += '</span> 小时的后勤条目';
                     } else {
                         tab += '没有包含 <span style="color:#FF0066">';
                         tab += it1_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
+                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += Tr; tab += " ~ "; tab += Tm;
                         tab += '</span> 小时的后勤条目';
                     }
                 } else if (it1_text === '无' && it2_text === '无') {
                     tab += '没有时间长于 <span style="color:#FF0066">';
-                    tab += TimeRequire;
+                    tab += Tr; tab += " ~ "; tab += Tm;
                     tab += '</span> 小时的后勤条目';
                 } else {
                     if (it1_text === '无') {
                         tab += '没有包含 <span style="color:#FF0066">';
                         tab += it2_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
+                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += Tr; tab += " ~ "; tab += Tm;
                         tab += '</span> 小时的后勤条目';
                     } else {
                         tab += '没有包含 <span style="color:#FF0066">';
                         tab += it1_text;
-                        tab += ' </span>并且时间长于 <span style="color:#FF0066">';
-                        tab += TimeRequire;
+                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += Tr; tab += " ~ "; tab += Tm;
                         tab += '</span> 小时的后勤条目';
                     }
                 }
@@ -289,8 +248,8 @@
             var Aw = document.getElementById('Aw');
             var Rw = document.getElementById('Rw');
             var Pw = document.getElementById('Pw');
-            var Tr = document.getElementById('Tr');
-            var TimeRequire = parseFloat(Tr.value);
+            var Tr = document.getElementById('Tr'); var Tm = document.getElementById('Tm');
+            var Tr = parseFloat(Tr.value); var Tm = parseFloat(Tm.value);
             var Itm1 = document.getElementById('ItemNeed1');
             var idx1 = Itm1.selectedIndex;
             var it1 = parseInt(Itm1[idx1].value);
@@ -357,7 +316,7 @@
                     return 0;
                 } else return 1;
             });
-            getChart(logiList, it1, it2, it1_text, it2_text, TimeRequire);
+            getChart(logiList, it1, it2, it1_text, it2_text, Tr, Tm);
         }
     </script>
 </head>
@@ -436,115 +395,161 @@
 
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-12">
+                    <!--Setting-->
+                    <div class="col-lg-8">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                排序设置
+                                设置
                             </div>
-                            <div class="panel-body" style="background:url(../img/Logi-IOP.png) no-repeat right 15px top 15px">
-                                <div class="col-lg-3">
-                                    <h4>常用比例</h4>
-                                    <div class="tooltip-demo">
-                                        <button type="button" class="btn
-                                                btn-outline
-                                                btn-primary" onclick="setWeight1()">等比</button>
-                                        <button type="button" data-toggle="tooltip" data-placement="top" title="零件获取速率是其他资源的1/3" class="btn btn-outline
-                                                btn-danger" onclick="setWeight2()">零件x3</button>
-                                        <button type="button" class="btn btn-default" onclick="setWeight3()">赌枪</button>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#Ratio" data-toggle="tab">配比</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Limitation" data-toggle="tab">限制</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <!--RATIO-->
+                                    <div class="tab-pane fade in active" id="Ratio">
+                                        <div class="col-lg-6" style="background:url(../img/Logi-token.png) no-repeat right 15px top 15px">
+                                            <h4>常用</h4>
+                                            <p>
+                                                <div class="tooltip-demo">
+                                                    <button type="button" class="btn btn-outline btn-primary" onclick="setWeight(1)">等比</button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="零件获取速率是其他资源的1/3" class="btn btn-outline btn-danger" onclick="setWeight(2)">零件x3</button>
+                                                    <button type="button" class="btn btn-default" onclick="setWeight(3)">赌枪</button>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(4)">人力</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(5)">弹药</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(6)">口粮</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(7)">零件</button>
+                                            </p>
+                                            <h4>包含道具</h4>
+                                            <p>
+                                                <select class="form-control" id="ItemNeed1">
+                                                    <option value=0>无要求</option>
+                                                    <option value=1>人形契约</option>
+                                                    <option value=2>装备契约</option>
+                                                    <option value=3>快速建造</option>
+                                                    <option value=4>快速修复</option>
+                                                    <option value=5>采购币</option>
+                                                </select>
+                                            </p>
+                                            <p>
+                                                <select class="form-control" id="ItemNeed2">
+                                                    <option value=0>无要求</option>
+                                                    <option value=1>人形契约</option>
+                                                    <option value=2>装备契约</option>
+                                                    <option value=3>快速建造</option>
+                                                    <option value=4>快速修复</option>
+                                                    <option value=5>采购币</option>
+                                                </select>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <h4>按类排序</h4>
-                                    <p>
-                                        <button type="button" class="btn
-                                                btn-default" onclick="setWeightM()">人力</button>
-                                        <button type="button" class="btn
-                                                btn-default" onclick="setWeightA()">弹药</button>
-                                        <button type="button" class="btn
-                                                btn-default" onclick="setWeightR()">口粮</button>
-                                        <button type="button" class="btn
-                                                btn-default" onclick="setWeightP()">零件</button>
-                                    </p>
-                                    <h4>包含道具</h4>
-                                    <p>
-                                        <select class="form-control" id="ItemNeed1">
-                                            <option value=0>无要求</option>
-                                            <option value=1>人形契约</option>
-                                            <option value=2>装备契约</option>
-                                            <option value=3>快速建造</option>
-                                            <option value=4>快速修复</option>
-                                            <option value=5>采购币</option>
-                                        </select>
-                                    </p>
-                                    <p>
-                                        <select class="form-control" id="ItemNeed2">
-                                            <option value=0>无要求</option>
-                                            <option value=1>人形契约</option>
-                                            <option value=2>装备契约</option>
-                                            <option value=3>快速建造</option>
-                                            <option value=4>快速修复</option>
-                                            <option value=5>采购币</option>
-                                        </select>
-                                    </p>
+                                    <div class="col-lg-6">
+                                        <h4>权重</h4>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">人力比重</span>
+                                            <input type="text" class="form-control" placeholder="输入整数" id="Mw" value=1>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">弹药比重</span>
+                                            <input type="text" class="form-control" placeholder="输入整数" id="Aw" value=1>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">口粮比重</span>
+                                            <input type="text" class="form-control" placeholder="输入整数" id="Rw" value=1>
+                                        </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">零件比重</span>
+                                            <input type="text" class="form-control" placeholder="输入整数" id="Pw" value=1>
+                                        </div>
+                                    </div>
+
                                 </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon">人力比重</span>
-                                        <input type="text" class="form-control" placeholder="输入整数" id="Mw" value=1>
+                                <!--LIMITATION-->
+                                <div class="tab-pane fade" id="Limitation">
+                                    <div class="col-lg-12">
+                                        <h4>时间区间</h4>
+                                        <div class="tooltip-demo">
+                                            <p>
+                                                <button type="button" class="btn btn-default" onclick="setTime(5)">全部</button>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="setTime(1)">6~12h</button>
+                                                <button type="button" class="btn btn-default" onclick="setTime(2)">4~6h</button>
+                                                <button type="button" class="btn btn-default" onclick="setTime(3)">1~3h</button>
+                                                <button type="button" data-toggle="tooltip" data-placement="top" title="是大佬，我死了Σ(ﾟдﾟ;)" class="btn btn-outline btn-danger" onclick="setTime(4)">0~1.7h</button>
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon">弹药比重</span>
-                                        <input type="text" class="form-control" placeholder="输入整数" id="Aw" value=1>
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">最短</span>
+                                            <input type="text" class="form-control" value="0" placeholder="输入数字" id="Tr">
+                                            <span class="input-group-addon">小时</span>
+                                        </div>
                                     </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon">口粮比重</span>
-                                        <input type="text" class="form-control" placeholder="输入整数" id="Rw" value=1>
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon">最长</span>
+                                            <input type="text" class="form-control" value="24" placeholder="输入数字" id="Tm">
+                                            <span class="input-group-addon">小时</span>
+                                        </div>
                                     </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon">零件比重</span>
-                                        <input type="text" class="form-control" placeholder="输入整数" id="Pw" value=1>
-                                    </div>
-                                    <div class="tooltip-demo">
+                                    <div class="col-lg-6">
+                                        <h4>关卡解锁</h4>
                                         <p>
-                                            <button type="button" class="btn btn-outline btn-primary" onclick="setTime1()">睡眠(6h)</button>
-                                            <button type="button" class="btn btn-default" onclick="setTime2()">偶尔(4h)</button>
-                                            <button type="button" class="btn btn-default" onclick="setTime3()">频繁(1h)</button>
-                                            <button type="button" data-toggle="tooltip" data-placement="top" title="是大佬，我死了Σ(ﾟдﾟ;)" class="btn btn-outline btn-danger" onclick="setTime4()">秃子(0.5h)</button>
+                                            <select class="form-control" id="MapLimit">
+                                                <option value=1>第一战役</option>
+                                                <option value=2>第二战役</option>
+                                                <option value=3>第三战役</option>
+                                                <option value=4>第四战役</option>
+                                                <option value=4.5>第零战役 *通关4-4E</option>
+                                                <option value=5>第五战役</option>
+                                                <option value=6>第六战役</option>
+                                                <option value=7>第七战役</option>
+                                                <option value=8>第八战役</option>
+                                                <option value=9>第九战役</option>
+                                                <option value=10>第十战役</option>
+                                                <option value=11 selected>第十一战役</option>
+                                            </select>
                                         </p>
                                     </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon">时间 ≥ </span>
-                                        <input type="text" class="form-control" value="0" placeholder="输入数字" id="Tr">
-                                        <span class="input-group-addon">小时</span>
-                                    </div>
                                 </div>
-                                <div class="col-lg-12">
-                                    <p><button type="button" class="btn
-                                                btn-info" onclick="getRanking()">按条件排序</button></p>
-                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <p><button type="button" class="btn btn-info" onclick="getRanking()">按条件排序</button></p>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                排序结果
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div class="table-responsive" id="rankingChart"></div>
-                                <!-- /.table-responsive -->
-                            </div>
-                            <!-- /.panel-body -->
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            排序结果
                         </div>
-
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive" id="rankingChart"></div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
                     </div>
 
                 </div>
 
             </div>
+
         </div>
+    </div>
 
     </div>
     <!-- /#wrapper -->
