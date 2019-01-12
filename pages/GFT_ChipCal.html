@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>少女前线-练级计算器 by 命运の乐章</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+        function chipTypeSwitch(typeInfo) {
+            var seleId = document.getElementById('ChipType');
+            if (typeInfo === 1) {
+                seleId.innerHTML = '<option value=510 selected>F-a</option><option value=511>F-b</option><option value=520>N-a</option><option value=521>N-b</option><option value=530>Y-a</option><option value=531>Y-b</option><option value=540>T</option><option value=550>W</option><option value=560>X</option>';
+            } else {
+                seleId.innerHTML = '<option value=610 selected>1</option><option value=620>2</option><option value=630>3</option><option value=641>4-a</option><option value=642>4-b</option><option value=650>5</option><option value=660>6</option><option value=670>7</option><option value=680>8</option><option value=690>9</option>';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+            </div>
+            <!-- NaviBar (Left) -->
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+
+                        <!-- [NAVI]Home -->
+                        <li>
+                            <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
+                        </li>
+                        <!-- [NAVI]Gaming stratefy -->
+                        <li>
+                            <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
+                        </li>
+                        <!-- [NAVI]LogiRank -->
+                        <li>
+                            <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
+                        </li>
+                        <!-- [NAVI]LevelCal -->
+                        <li>
+                            <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
+                        </li>
+                        <!-- [NAVI]IOPSimulate -->
+                        <li>
+                            <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
+                        </li>
+                        <!-- [NAVI]ChipCal -->
+                        <li>
+                            <a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器 Chip calculator</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">芯片计算器（没做完！）</h1>
+                    </div>
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <!--Setting-->
+                    <div class="col-lg-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                芯片选择
+                            </div>
+                            <!--card info-->
+                            <div class="panel-body">
+                                <div class="col-lg-5">
+                                    <!--chip class-->
+                                    <h4>芯片形状</h4>
+                                    <p><img src="../img/img_chipcal_sample.png" alt=""></p>
+                                    <p>
+                                        <label class="radio-inline"><input type="radio" name="TypeSwitch" id="TSwitch1" value="option1" checked onclick="chipTypeSwitch(1)"><span style="color:darkblue">五格1类</span></label>
+                                        <label class="radio-inline"><input type="radio" name="TypeSwitch" id="TSwitch2" value="option2" onclick="chipTypeSwitch(2)"><span style="color:darkred">六格</span></label>
+                                    </p>
+                                    <p>
+                                        <select class="form-control" id="ChipType">
+                                            <option value=510 selected>F-a</option>
+                                            <option value=511>F-b</option>
+                                            <option value=520>N-a</option>
+                                            <option value=521>N-b</option>
+                                            <option value=530>Y-a</option>
+                                            <option value=531>Y-b</option>
+                                            <option value=540>T</option>
+                                            <option value=550>W</option>
+                                            <option value=560>X</option>
+                                        </select>
+                                    </p>
+                                    <h4>芯片属性</h4>
+                                    <p>
+                                        <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch1" value="option1" checked onclick="chipColorSwitch(1)"><span style="color:darkblue">蓝色</span></label>
+                                        <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch2" value="option2" onclick="chipColorSwitch(2)"><span style="color:darkred">橙色</span></label>
+                                    </p>
+                                    <p>
+                                        <select class="form-control" id="ChipLevel">
+                                            <option value=0 selected>+0</option>
+                                            <option value=1>+1</option>
+                                            <option value=2>+2</option>
+                                            <option value=3>+3</option>
+                                            <option value=4>+4</option>
+                                            <option value=5>+5</option>
+                                            <option value=6>+6</option>
+                                            <option value=7>+7</option>
+                                            <option value=8>+8</option>
+                                            <option value=9>+9</option>
+                                            <option value=10>+10</option>
+                                            <option value=11>+11</option>
+                                            <option value=12>+12</option>
+                                            <option value=13>+13</option>
+                                            <option value=14>+14</option>
+                                            <option value=15>+15</option>
+                                            <option value=16>+16</option>
+                                            <option value=17>+17</option>
+                                            <option value=18>+18</option>
+                                            <option value=19>+19</option>
+                                            <option value=20>+20(max)</option>
+                                        </select>
+                                    </p>
+                                    <p>
+                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(1)">杀伤+4.4</button>
+                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(2)">破防+12.7</button>
+                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(3)">精度+7.1</button>
+                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(4)">装填+5.7</button>
+                                    </p>
+                                    <p>
+                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(1)">杀伤- 4.4</button>
+                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(2)">破防- 12.7</button>
+                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(3)">精度- 7.1</button>
+                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(4)">装填- 5.7</button>
+                                    </p>
+                                </div>
+                                <div class="col-lg-5">
+                                    <h4>芯片仓库</h4>
+                                    <div class="table-responsive" id="ChipRepo">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>编号</th>
+                                                    <th>类型</th>
+                                                    <th>属性</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td><img src="../img/img_chipcal_x.png"></td>
+                                                    <td>杀伤 9/破防 13/精度 8/装填 6</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h4>保存码(三击鼠标选择)</h4>
+                                    <div class="alert alert-success" id="SaveCode">
+                                        [点击<b>保存本次输入</b>，记录输入的数据的存储码出现于此，复制需包括中括号]
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p>
+                                        <button type="button" class="btn btn-success" onclick="addChip()">添加芯片</button>
+                                        <button type="button" class="btn btn-danger" onclick="deleteChip()">删除芯片</button>
+                                    </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p>
+                                        <button type="button" class="btn btn-warning" onclick="addChip()">计算拼接方案</button>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+</body>
+
+</html>
