@@ -26,13 +26,230 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-        function chipTypeSwitch(typeInfo) {
-            var seleId = document.getElementById('ChipType');
-            if (typeInfo === 1) {
-                seleId.innerHTML = '<option value=510 selected>F-a</option><option value=511>F-b</option><option value=520>N-a</option><option value=521>N-b</option><option value=530>Y-a</option><option value=531>Y-b</option><option value=540>T</option><option value=550>W</option><option value=560>X</option>';
-            } else {
-                seleId.innerHTML = '<option value=610 selected>1</option><option value=620>2</option><option value=630>3</option><option value=641>4-a</option><option value=642>4-b</option><option value=650>5</option><option value=660>6</option><option value=670>7</option><option value=680>8</option><option value=690>9</option>';
+        var color = 1;
+        var unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
+        var total_dmg = 0, total_dbk = 0, total_acu = 0, total_fil = 0;
+        var chipRepo_data = [];
+        var chipRepo_chart = "";
+        window.onload = function () {
+            resetPage();
+        }
+        function resetPage() {
+            color = 1; unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7; total_dmg = 0, total_dbk = 0, total_acu = 0, total_fil = 0;
+            document.getElementById('Dmg').value = 0; DbkId = document.getElementById('Dbk').value = 0; AcuId = document.getElementById('Acu').value = 0; FilId = document.getElementById('Fil').value = 0;
+            document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0;
+            changeChipType();
+            changeLevel();
+            changePreviewProperty();
+            checkValue();
+        }
+        function resetInput() {
+            total_dmg = 0, total_dbk = 0, total_acu = 0, total_fil = 0;
+            document.getElementById('Dmg').value = 0; DbkId = document.getElementById('Dbk').value = 0; AcuId = document.getElementById('Acu').value = 0; FilId = document.getElementById('Fil').value = 0;
+            checkValue();
+        }
+        function getCeilNum(floatNum, intNum) {
+            var ceilNum = parseInt(-1);
+            while (intNum >= 0) {
+                intNum -= floatNum;
+                ceilNum++;
             }
+            return ceilNum;
+        }
+        function checkValue() {
+            var addChipButtonId = document.getElementById('addChipButton');
+            var errorInfoId = document.getElementById('errorInfo');
+            var errorInfo = '<span style="color:red">ERROR:</span>';
+            var Dmg = parseInt(document.getElementById('Dmg').value);
+            var Dbk = parseInt(document.getElementById('Dbk').value);
+            var Acu = parseInt(document.getElementById('Acu').value);
+            var Fil = parseInt(document.getElementById('Fil').value);
+            var blockNum = parseInt(((document.getElementById('ChipClass').value) + "").substr(1, 1));
+            var blockNumInput = getCeilNum(unit_dmg, Dmg) + getCeilNum(unit_dbk, Dbk) + getCeilNum(unit_acu, Acu) + getCeilNum(unit_fil, Fil);
+            var situ0 = (blockNum != blockNumInput);    //out of block
+            var situ1 = (Math.ceil(unit_dmg * getCeilNum(unit_dmg, Dmg)) != Dmg) || Dmg < 0 || getCeilNum(unit_dmg, Dmg) >= blockNum;
+            var situ2 = (Math.ceil(unit_dbk * getCeilNum(unit_dbk, Dbk)) != Dbk) || Dbk < 0 || getCeilNum(unit_dbk, Dbk) >= blockNum;
+            var situ3 = (Math.ceil(unit_acu * getCeilNum(unit_acu, Acu)) != Acu) || Acu < 0 || getCeilNum(unit_acu, Acu) >= blockNum;
+            var situ4 = (Math.ceil(unit_fil * getCeilNum(unit_fil, Fil)) != Fil) || Fil < 0 || getCeilNum(unit_fil, Fil) >= blockNum;
+            if (situ0) {
+                addChipButtonId.disabled = true;
+                errorInfo += '<span style="color:red"> 总值错误 </span>';
+            }
+            if (situ1) {
+                addChipButtonId.disabled = true;
+                errorInfo += '<span style="color:red"> 杀伤值错误 </span>';
+            }
+            if (situ2) {
+                addChipButtonId.disabled = true;
+                errorInfo += '<span style="color:red"> 破防值错误 </span>';
+            }
+            if (situ3) {
+                addChipButtonId.disabled = true;
+                errorInfo += '<span style="color:red"> 精度值错误 </span>';
+            }
+            if (situ4) {
+                addChipButtonId.disabled = true;
+                errorInfo += '<span style="color:red"> 装填值错误 </span>';
+            }
+            if (!situ0 && !situ1 && !situ2 && !situ3 && !situ4) {
+                addChipButtonId.disabled = false;
+                errorInfo = '';
+            }
+            errorInfoId.innerHTML = errorInfo;
+        }
+        function addPro(typeInfo) {
+            var DmgId = document.getElementById('Dmg');
+            var DbkId = document.getElementById('Dbk');
+            var AcuId = document.getElementById('Acu');
+            var FilId = document.getElementById('Fil');
+            switch (typeInfo) {
+                case 1:
+                    total_dmg += unit_dmg; DmgId.value = Math.ceil(total_dmg); break;
+                case 2:
+                    total_dbk += unit_dbk; DbkId.value = Math.ceil(total_dbk); break;
+                case 3:
+                    total_acu += unit_acu; AcuId.value = Math.ceil(total_acu); break;
+                case 4:
+                    total_fil += unit_fil; FilId.value = Math.ceil(total_fil); break;
+            }
+            changePreviewProperty();
+            checkValue();
+        }
+        function subPro(typeInfo) {
+            var DmgId = document.getElementById('Dmg');
+            var DbkId = document.getElementById('Dbk');
+            var AcuId = document.getElementById('Acu');
+            var FilId = document.getElementById('Fil');
+            switch (typeInfo) {
+                case 1:
+                    total_dmg -= unit_dmg; DmgId.value = Math.ceil(total_dmg); break;
+                case 2:
+                    total_dbk -= unit_dbk; DbkId.value = Math.ceil(total_dbk); break;
+                case 3:
+                    total_acu -= unit_acu; AcuId.value = Math.ceil(total_acu); break;
+                case 4:
+                    total_fil -= unit_fil; FilId.value = Math.ceil(total_fil); break;
+            }
+            changePreviewProperty();
+            checkValue();
+        }
+        function makePro(typeInfo) {
+            switch (typeInfo) {
+                case 1:
+                    total_dmg = parseInt(document.getElementById('Dmg').value);
+                    break;
+                case 2:
+                    total_dbk = parseInt(document.getElementById('Dbk').value);
+                    break;
+                case 3:
+                    total_acu = parseInt(document.getElementById('Acu').value);
+                    break;
+                case 4:
+                    total_fil = parseInt(document.getElementById('Fil').value);
+                    break;
+            }
+            checkValue();
+        }
+        function changePreviewProperty() {
+            var PreviewPropertyId = document.getElementById('PreviewProperty');
+            var Dmg = document.getElementById('Dmg').value;
+            var Dbk = document.getElementById('Dbk').value;
+            var Acu = document.getElementById('Acu').value;
+            var Fil = document.getElementById('Fil').value;
+            PreviewPropertyId.innerHTML = Dmg + " / " + Dbk + " / " + Acu + " / " + Fil;
+        }
+        function changeColor(colorInfo) {
+            color = colorInfo;
+            changePrevireImg();
+        }
+        function changeChipType() {     //star + blockNum + typeNum(or null)
+            var seleId = document.getElementById('ChipType');
+            var typeInfo = parseInt((document.getElementById('ChipClass')).value);
+            switch (typeInfo) {
+                case 56:
+                    seleId.innerHTML = '<option value=1 selected>1</option><option value=2>2</option><option value=3>3</option><option value=41>4-a</option><option value=42>4-b</option><option value=5>5</option><option value=6>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option>';
+                    changeTopSample(56);
+                    break;
+                case 551:
+                    seleId.innerHTML = '<option value=11 selected>F-a</option><option value=12>F-b</option><option value=21>N-a</option><option value=22>N-b</option><option value=31>Y-a</option><option value=32>Y-b</option><option value=4>T</option><option value=5>W</option><option value=6>X</option>';
+                    changeTopSample(551);
+                    break;
+            }
+            changePrevireImg();
+            resetInput();
+        }
+        function changePrevireImg() {
+            var colorName;
+            if (color === 1) colorName = "b";
+            else colorName = "o";
+            var ChipClass = (document.getElementById('ChipClass')).value;
+            var ChipType = (document.getElementById('ChipType')).value;
+            var PreviewImgId = document.getElementById('PreviewImg');
+            var pathName = "../img/chip/" + colorName + "_" + ChipClass + "-" + ChipType + ".png";
+            PreviewImgId.src = pathName;
+            changePreviewType();
+        }
+        function changePreviewType() {
+            var PreviewTypeId = document.getElementById('PreviewType');
+            var ClassId = document.getElementById('ChipClass');
+            var ClassIdx = ClassId.selectedIndex;
+            var ClassName = ClassId[ClassIdx].text;
+            var TypeId = document.getElementById('ChipType');
+            var TypeIdx = TypeId.selectedIndex;
+            var TypeName = TypeId[TypeIdx].text;
+            PreviewTypeId.innerHTML = ClassName + " - 类型" + TypeName;
+        }
+        function changeTopSample(typeInfo) {
+            var imgId = document.getElementById('SampleImg');
+            switch (typeInfo) {
+                case 56: imgId.innerHTML = '<img src="../img/chipcal_56.png">'; break;
+                case 551: imgId.innerHTML = '<img src="../img/chipcal_551.png">'; break;
+            }
+        }
+        function getUnitValue(typeInfo) {
+            var ChipClass = parseInt((document.getElementById('ChipClass')).value);
+            var ChipLevel = parseInt((document.getElementById('ChipLevel')).value);
+            var base, density, levelMul;
+            switch (typeInfo) {
+                case 1: base = 4.4; break;
+                case 2: base = 12.7; break;
+                case 3: base = 7.1; break;
+                case 4: base = 5.7; break;
+            }
+            switch (ChipClass) {
+                case 56:
+                case 551: density = 1; break;
+            }
+            if (ChipLevel <= 10) levelMul = 1 + 0.08 * ChipLevel;
+            else levelMul = 1.8 + 0.07 * (ChipLevel - 10);
+            return base * density * levelMul;
+        }
+        function updateUnitValue(level) {
+            var AdBt1 = document.getElementById('AdBt1'); var AdBt2 = document.getElementById('AdBt2');
+            var AdBt3 = document.getElementById('AdBt3'); var AdBt4 = document.getElementById('AdBt4');
+            var SbBt1 = document.getElementById('SbBt1'); var SbBt2 = document.getElementById('SbBt2');
+            var SbBt3 = document.getElementById('SbBt3'); var SbBt4 = document.getElementById('SbBt4');
+            unit_dmg = getUnitValue(1);
+            unit_dbk = getUnitValue(2);
+            unit_acu = getUnitValue(3);
+            unit_fil = getUnitValue(4);
+            AdBt1.innerHTML = "杀伤+" + (unit_dmg.toFixed(1) + "");
+            AdBt2.innerHTML = "破防+" + (unit_dbk.toFixed(1) + "");
+            AdBt3.innerHTML = "精度+" + (unit_acu.toFixed(1) + "");
+            AdBt4.innerHTML = "装填+" + (unit_fil.toFixed(1) + "");
+            SbBt1.innerHTML = "杀伤- " + (unit_dmg.toFixed(1) + "");
+            SbBt2.innerHTML = "破防- " + (unit_dbk.toFixed(1) + "");
+            SbBt3.innerHTML = "精度- " + (unit_acu.toFixed(1) + "");
+            SbBt4.innerHTML = "装填- " + (unit_fil.toFixed(1) + "");
+        }
+        function changeLevel() {
+            var level = parseInt((document.getElementById('ChipLevel')).value);
+            var PreviewLevelId = document.getElementById('PreviewLevel');
+            var LevelId = document.getElementById('ChipLevel');
+            var LevelIdx = LevelId.selectedIndex;
+            PreviewLevelId.innerHTML = LevelId[LevelIdx].text;
+            updateUnitValue(level);
+            resetInput();
         }
     </script>
 </head>
@@ -65,7 +282,6 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-
                         <!-- [NAVI]Home -->
                         <li>
                             <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
@@ -103,6 +319,193 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">芯片计算器（没做完！）</h1>
                     </div>
+                    <div class="col-lg-10">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                芯片录入
+                            </div>
+                            <div class="panel-body" id="panelSetting">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#ChipSetting" data-toggle="tab">芯片设置</a>
+                                    </li>
+                                    <li>
+                                        <a href="#SaveLoad" data-toggle="tab">保存/读取数据</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <!--CHIPSETTING-->
+                                    <div class="tab-pane fade in active" id="ChipSetting">
+                                        <div class="col-lg-4">
+                                            <!--chip class-->
+                                            <h4>芯片属性</h4>
+                                            <div>
+                                                <p id="SampleImg"><img src="../img/chipcal_56.png"></p>
+                                            </div>
+                                            <p>
+                                                <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch1" value="b" onchange="changeColor(1)" checked><span style="color:darkblue">蓝色</span></label>
+                                                <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch2" value="o" onchange="changeColor(2)"><span style="color:darkorange">橙色</span></label>
+                                            </p>
+                                            <p>
+                                                <select class="form-control" id="ChipClass" onchange="changeChipType()">
+                                                    <option value=56 selected>★★★★★ 六格</option>
+                                                    <option value=551>★★★★★ 五格1类</option>
+                                                </select>
+                                            </p>
+                                            <p>
+                                                <select class="form-control" id="ChipType" onchange="changePrevireImg()">
+                                                    <option value=1 selected>1</option>
+                                                    <option value=2>2</option>
+                                                    <option value=3>3</option>
+                                                    <option value=41>4-a</option>
+                                                    <option value=42>4-b</option>
+                                                    <option value=5>5</option>
+                                                    <option value=6>6</option>
+                                                    <option value=7>7</option>
+                                                    <option value=8>8</option>
+                                                    <option value=9>9</option>
+                                                </select>
+                                            </p>
+                                            <p>
+                                                <select class="form-control" id="ChipLevel" onchange="changeLevel()">
+                                                    <option value=0 selected>+0</option>
+                                                    <option value=1>+1</option>
+                                                    <option value=2>+2</option>
+                                                    <option value=3>+3</option>
+                                                    <option value=4>+4</option>
+                                                    <option value=5>+5</option>
+                                                    <option value=6>+6</option>
+                                                    <option value=7>+7</option>
+                                                    <option value=8>+8</option>
+                                                    <option value=9>+9</option>
+                                                    <option value=10>+10</option>
+                                                    <option value=11>+11</option>
+                                                    <option value=12>+12</option>
+                                                    <option value=13>+13</option>
+                                                    <option value=14>+14</option>
+                                                    <option value=15>+15</option>
+                                                    <option value=16>+16</option>
+                                                    <option value=17>+17</option>
+                                                    <option value=18>+18</option>
+                                                    <option value=19>+19</option>
+                                                    <option value=20>+20(max)</option>
+                                                </select>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="addPro(1)" id="AdBt1">杀伤+4.4</button>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="addPro(2)" id="AdBt2">破防+12.7</button>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="addPro(3)" id="AdBt3">精度+7.1</button>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="addPro(4)" id="AdBt4">装填+5.7</button>
+                                            </p>
+                                            <p>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="subPro(1)" id="SbBt1">杀伤- 4.4</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="subPro(2)" id="SbBt2">破防- 12.7</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="subPro(3)" id="SbBt3">精度- 7.1</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="subPro(4)" id="SbBt4">装填- 5.7</button>
+                                            </p>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">杀伤</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" value=0 id="Dmg" onblur="makePro(1)">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">破防</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" value=0 id="Dbk" onblur="makePro(2)">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">精度</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" value=0 id="Acu" onblur="makePro(3)">
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">装填</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" value=0 id="Fil" onblur="makePro(4)">
+                                            </div>
+                                            <p><button type="button" class="btn btn-danger" onclick="resetPage()">重置芯片属性</button></p>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="col-lg-12">
+                                                <h4>芯片预览</h4>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><img id="PreviewImg" src="../img/chip/b_56-1.png"></td>
+                                                            <td id="PreviewType">★★★★★</td>
+                                                            <td id="PreviewLevel">+0</td>
+                                                            <td id="PreviewProperty">9 / 13 / 8 / 6</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <p id="errorInfo"></p>
+                                                <p><button type="button" class="btn btn-info" onclick="addChip()" id="addChipButton">将芯片添加进仓库</button></p>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <h4>芯片仓库</h4>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-group input-group">
+                                                    <span class="input-group-addon">编号</span>
+                                                    <input type="text" class="form-control" placeholder="输入整数" value=1 id="DeleteNum" onblur="checkDeleteValue()">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-9">
+                                                <p><button type="button" class="btn btn-warning" onclick="deleteChip()" id="deleteChipButton">删除该编号芯片</button></p>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive" id="ChipRepo" style='height:320px; overflow-y:scroll'>
+                                                    <table class="table table-striped table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>编号</th>
+                                                                <th>类型</th>
+                                                                <th>强化</th>
+                                                                <th>杀伤/破防/精度/装填</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>★★★★★ <img src="../img/chip/b_56-1.png"></td>
+                                                                <td>+0</td>
+                                                                <td>9 / 13 / 8 / 6</td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <p><button type="button" class="btn btn-danger" onclick="clearChipRepo()">清空芯片仓库</button></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--SAVELOAD-->
+                                    <div class="tab-pane fade" id="SaveLoad">
+                                        <div class="col-lg-6">
+                                            <h4>存档芯片仓库数据</h4>
+                                            <div class="alert alert-success" id="SaveCode">
+                                                [点击<b>获取存储码</b>，记录输入的数据的存储码出现于此，复制需包括中括号]
+                                            </div>
+                                            <p><button type="button" class="btn btn-info" onclick="getSaveCode()" disabled>获取存储码</button></p>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>读取存档</h4>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="3" placeholder="将存储码粘贴在此，仓库将复现之前的结果" id="LoadCode"></textarea>
+                                            </div>
+                                            <p><button type="button" class="btn btn-warning" onclick="loadSaveCode()" disabled>读取存储码</button></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
                 <!-- /.row -->
                 <div class="row">
@@ -110,110 +513,13 @@
                     <div class="col-lg-10">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                芯片选择
+                                拼接结果
                             </div>
                             <!--card info-->
                             <div class="panel-body">
-                                <div class="col-lg-5">
-                                    <!--chip class-->
-                                    <h4>芯片形状</h4>
-                                    <p><img src="../img/img_chipcal_sample.png" alt=""></p>
-                                    <p>
-                                        <label class="radio-inline"><input type="radio" name="TypeSwitch" id="TSwitch1" value="option1" checked onclick="chipTypeSwitch(1)"><span style="color:darkblue">五格1类</span></label>
-                                        <label class="radio-inline"><input type="radio" name="TypeSwitch" id="TSwitch2" value="option2" onclick="chipTypeSwitch(2)"><span style="color:darkred">六格</span></label>
-                                    </p>
-                                    <p>
-                                        <select class="form-control" id="ChipType">
-                                            <option value=510 selected>F-a</option>
-                                            <option value=511>F-b</option>
-                                            <option value=520>N-a</option>
-                                            <option value=521>N-b</option>
-                                            <option value=530>Y-a</option>
-                                            <option value=531>Y-b</option>
-                                            <option value=540>T</option>
-                                            <option value=550>W</option>
-                                            <option value=560>X</option>
-                                        </select>
-                                    </p>
-                                    <h4>芯片属性</h4>
-                                    <p>
-                                        <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch1" value="option1" checked onclick="chipColorSwitch(1)"><span style="color:darkblue">蓝色</span></label>
-                                        <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch2" value="option2" onclick="chipColorSwitch(2)"><span style="color:darkred">橙色</span></label>
-                                    </p>
-                                    <p>
-                                        <select class="form-control" id="ChipLevel">
-                                            <option value=0 selected>+0</option>
-                                            <option value=1>+1</option>
-                                            <option value=2>+2</option>
-                                            <option value=3>+3</option>
-                                            <option value=4>+4</option>
-                                            <option value=5>+5</option>
-                                            <option value=6>+6</option>
-                                            <option value=7>+7</option>
-                                            <option value=8>+8</option>
-                                            <option value=9>+9</option>
-                                            <option value=10>+10</option>
-                                            <option value=11>+11</option>
-                                            <option value=12>+12</option>
-                                            <option value=13>+13</option>
-                                            <option value=14>+14</option>
-                                            <option value=15>+15</option>
-                                            <option value=16>+16</option>
-                                            <option value=17>+17</option>
-                                            <option value=18>+18</option>
-                                            <option value=19>+19</option>
-                                            <option value=20>+20(max)</option>
-                                        </select>
-                                    </p>
-                                    <p>
-                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(1)">杀伤+4.4</button>
-                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(2)">破防+12.7</button>
-                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(3)">精度+7.1</button>
-                                        <button type="button" class="btn btn-outline btn-primary" onclick="addPro(4)">装填+5.7</button>
-                                    </p>
-                                    <p>
-                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(1)">杀伤- 4.4</button>
-                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(2)">破防- 12.7</button>
-                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(3)">精度- 7.1</button>
-                                        <button type="button" class="btn btn-outline btn-danger" onclick="subPro(4)">装填- 5.7</button>
-                                    </p>
-                                </div>
-                                <div class="col-lg-5">
-                                    <h4>芯片仓库</h4>
-                                    <div class="table-responsive" id="ChipRepo">
-                                        <table class="table table-striped table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>编号</th>
-                                                    <th>类型</th>
-                                                    <th>属性</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><img src="../img/img_chipcal_x.png"></td>
-                                                    <td>杀伤 9/破防 13/精度 8/装填 6</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <h4>保存码(三击鼠标选择)</h4>
-                                    <div class="alert alert-success" id="SaveCode">
-                                        [点击<b>保存本次输入</b>，记录输入的数据的存储码出现于此，复制需包括中括号]
-                                    </div>
-                                </div>
                                 <div class="col-lg-12">
                                     <p>
-                                        <button type="button" class="btn btn-success" onclick="addChip()">添加芯片</button>
-                                        <button type="button" class="btn btn-danger" onclick="deleteChip()">删除芯片</button>
-                                    </p>
-                                </div>
-                                <div class="col-lg-12">
-                                    <p>
-                                        <button type="button" class="btn btn-warning" onclick="addChip()">计算拼接方案</button>
+                                        <button type="button" class="btn btn-warning" onclick="addChip()" disabled>计算拼接方案</button>
                                     </p>
                                 </div>
                             </div>
