@@ -26,13 +26,121 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
+        var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
         var unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
         var block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
         var chipNum = 0;
-        var chipRepo_data = [];
-        var chipRepo_chart = [];
-        function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Acu, Fil, Dmg, Dbk) {
+        var chipRepo_data = [];     //Chip data
+        var chipRepo_chart = [];    //Repository information that react at repository-table
+        var deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
+        function getSaveCode() {
+            var SaveAlertId = document.getElementById('SaveAlert');
+            var code = '[' + rules[0].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + '!';
+            for (var i = 0; i < chipRepo_data.length; i++) {
+                code += (chipRepo_data[i].chipNum + ',');
+                code += (chipRepo_data[i].color + ',');
+                code += (chipRepo_data[i].classNum + ',');
+                code += (chipRepo_data[i].typeNum + ',');
+                code += (chipRepo_data[i].levelNum + ',');
+                code += (chipRepo_data[i].bAcu + ',');
+                code += (chipRepo_data[i].bFil + ',');
+                code += (chipRepo_data[i].bDmg + ',');
+                code += (chipRepo_data[i].bDbk + ',');
+                code += (chipRepo_data[i].weight + '/');
+            }
+            code += '?' + rules[1].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + ']';
+            var SaveCodeId = document.getElementById('SaveCode');
+            SaveCodeId.value = code;
+            SaveCodeId.select();
+            document.execCommand("Copy");
+            SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 存储码已复制到剪贴板</span>';
+        }
+        function simpleCheck(LoadCode) {
+            if (LoadCode[0] != '[' || LoadCode[LoadCode.length - 1] != ']') return false;
+            var rule1 = LoadCode[1], rule2 = LoadCode[LoadCode.length - 2];
+            var posi1 = [], posi2 = [];
+            for (var i = 0; i < 13; i++) {
+                if (rules[0][i] === rule1) posi1.push(i);
+                if (rules[1][i] === rule2) posi2.push(i);
+            }
+            for (var i = 0; i < posi1.length; i++) {
+                for (var j = 0; j < posi2.length; j++) {
+                    if (posi1[i] === posi2[j]) return true;
+                }
+            }
+            return false;
+        }
+        function setValue(elementNum, tempStr) {
+            switch (elementNum) {
+                case 0:
+                    chipNum = parseInt(tempStr) - 1;    //call addChip will chipNum++
+                    break;
+                case 1:
+                    color = parseInt(tempStr);
+                    break;
+                case 2:
+                    document.getElementById('ChipClass').value = parseInt(tempStr);
+                    break;
+                case 3:
+                    document.getElementById('ChipType').value = parseInt(tempStr);
+                    break;
+                case 4:
+                    document.getElementById('ChipLevel').value = parseInt(tempStr);
+                    changeChipType();
+                    break;
+                case 5:
+                    block_acu = parseInt(tempStr);
+                    break;
+                case 6:
+                    block_fil = parseInt(tempStr);
+                    break;
+                case 7:
+                    block_dmg = parseInt(tempStr);
+                    break;
+                case 8:
+                    block_dbk = parseInt(tempStr);
+                    break;
+                case 9:
+                    updateUnitValue();
+                    break;
+            }
+        }
+        function loadSaveCode() {
+            var LoadCode = document.getElementById('LoadCode').value;
+            var LoadAlertId = document.getElementById('LoadAlert');
+            if (simpleCheck(LoadCode)) {
+                document.getElementById('ChipRepoChart').innerHTML = "";
+                chipRepo_chart = []; chipRepo_data = []; deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
+                resetPage();
+                var scan = 3, elementNum = 0, tempStr = "";
+                while (LoadCode[scan] != '?') { //'?' means end of code
+                    if (LoadCode[scan] === ',') {
+                        setValue(elementNum, tempStr);
+                        elementNum++;
+                        tempStr = "";
+                    } else if (LoadCode[scan] === '/') {
+                        setValue(elementNum, tempStr);
+                        elementNum = 0;
+                        tempStr = "";
+                        addChip();
+                        resetPage();
+                    } else {    //record
+                        tempStr += LoadCode[scan];
+                    }
+                    scan++;
+                }
+                LoadAlertId.innerHTML = '';
+                document.getElementById('SaveAlert').innerHTML = "";
+                document.getElementById('panelS').className = "active";
+                document.getElementById('panelSL').className = "";
+                document.getElementById('ChipSetting').className = "tab-pane fade in active";
+                document.getElementById('SaveLoad').className = "tab-pane fade";
+            } else {
+                LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 不正确的存储码</span>';
+            }
+        }
+        function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
             var chipData = new Object;
             chipData.chipNum = chipNum;
             chipData.color = chipColor;
@@ -43,10 +151,7 @@
             chipData.bFil = blockFil;
             chipData.bDmg = blockDmg;
             chipData.bDbk = blockDbk;
-            chipData.Acu = Acu;
-            chipData.Fil = Fil;
-            chipData.Dmg = Dmg;
-            chipData.Dbk = Dbk;
+            chipData.weight = Den_Level;
             return chipData;
         }
         function creatRepo(chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
@@ -65,12 +170,11 @@
         }
         function resetPage() {
             color = 1; unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
-            block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
+            document.getElementById('CSwitch1').checked = true;
             document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0;
             changeChipType();
             changeLevel();
-            refreshPreview();
-            manageButton();
+            resetBlock();
         }
         function resetBlock() {
             block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
@@ -82,10 +186,10 @@
             var DbkId = document.getElementById('Dbk');
             var AcuId = document.getElementById('Acu');
             var FilId = document.getElementById('Fil');
-            DmgId.innerHTML = '<img src="../img/icon-dmg.png">' + Math.ceil(block_dmg * unit_dmg);
-            DbkId.innerHTML = '<img src="../img/icon-dbk.png">' + Math.ceil(block_dbk * unit_dbk);
-            AcuId.innerHTML = '<img src="../img/icon-acu.png">' + Math.ceil(block_acu * unit_acu);
-            FilId.innerHTML = '<img src="../img/icon-fil.png">' + Math.ceil(block_fil * unit_fil);
+            DmgId.innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(block_dmg * unit_dmg);
+            DbkId.innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(block_dbk * unit_dbk);
+            AcuId.innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(block_acu * unit_acu);
+            FilId.innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(block_fil * unit_fil);
         }
         function manageButton() {
             var AdBt1 = document.getElementById('AdBt1'); AdBt1.disabled = false;
@@ -247,14 +351,15 @@
             var colorName;
             if (color === 1) colorName = "b";
             else colorName = "o";
-            var ChipClass = (document.getElementById('ChipClass')).value;
-            var ChipType = (document.getElementById('ChipType')).value;
+            var ChipClass = document.getElementById('ChipClass').value;
+            var ChipType = document.getElementById('ChipType').value;
+            var ChipLevel = document.getElementById('ChipLevel').value;
             var PreviewImgId = document.getElementById('PreviewImg');
             var htmlString = '<img src="../img/chip/' + colorName + '_' + ChipClass + '-' + ChipType + '.png">';
             for (var i = 0; i < starNum; i++) {
                 Repo_p2 += '★';
             }
-            var Repo_p3 = "+" + document.getElementById('ChipLevel').value;
+            var Repo_p3 = "+" + ChipLevel;
             var Repo_Acu = Math.ceil(block_acu * unit_acu);
             var Repo_Fil = Math.ceil(block_fil * unit_fil);
             var Repo_Dmg = Math.ceil(block_dmg * unit_dmg);
@@ -270,7 +375,23 @@
             ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dbk + '</td>';
             ChartAdd += '</tr>';
             ChipRepoChartId.innerHTML += ChartAdd;
-            //creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Acu, Fil, Dmg, Dbk)
+            var Den_Level = getUnitValue(1) / 4.4;
+            chipRepo_data.push(creatChip(chipNum, color, parseInt(ChipClass), parseInt(ChipType), parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, Den_Level));
+            var DeleteSelectId = document.getElementById('DeleteSelect');
+            deleteSelectHTML.push(('<option value=' + chipNum) + ('>' + chipNum) + '</option>');
+            var selectText = '';
+            for (var i = 0; i < deleteSelectHTML.length; i++)
+                selectText += deleteSelectHTML[i];
+            DeleteSelectId.innerHTML = selectText;
+            document.getElementById('SaveButton').disabled = false;
+        }
+        function subChip(chipNum) {
+            for (var i = 0; i < chipRepo_chart.length; i++) {
+
+            }
+            //all done
+            chipNum--;
+            if (chipNum === 0) document.getElementById('SaveButton').disabled = true;
         }
     </script>
 </head>
@@ -345,12 +466,12 @@
                             <div class="panel-heading">
                                 芯片录入
                             </div>
-                            <div class="panel-body" id="panelSetting">
+                            <div class="panel-body">
                                 <ul class="nav nav-tabs">
-                                    <li class="active">
+                                    <li class="active" id="panelS">
                                         <a href="#ChipSetting" data-toggle="tab">芯片设置</a>
                                     </li>
-                                    <li>
+                                    <li id="panelSL">
                                         <a href="#SaveLoad" data-toggle="tab">保存/读取数据</a>
                                     </li>
                                 </ul>
@@ -445,12 +566,12 @@
                                                         <td id="PreviewType"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td value=0 id="Acu" style='width:200px'><img src="../img/icon-acu.png">0</td>
-                                                        <td value=0 id="Fil" style='width:200px'><img src="../img/icon-fil.png">0</td>
+                                                        <td value=0 id="Acu" style='width:200px'><img src="../img/icon-acu.png"> 0</td>
+                                                        <td value=0 id="Fil" style='width:200px'><img src="../img/icon-fil.png"> 0</td>
                                                     </tr>
                                                     <tr>
-                                                        <td value=0 id="Dmg" style='width:200px'><img src="../img/icon-dmg.png">0</td>
-                                                        <td value=0 id="Dbk" style='width:200px'><img src="../img/icon-dbk.png">0</td>
+                                                        <td value=0 id="Dmg" style='width:200px'><img src="../img/icon-dmg.png"> 0</td>
+                                                        <td value=0 id="Dbk" style='width:200px'><img src="../img/icon-dbk.png"> 0</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -463,10 +584,11 @@
                                         <div class="col-lg-8">
                                             <h4>芯片仓库</h4>
                                             <div class="col-lg-3">
-                                                <div class="form-group input-group">
-                                                    <span class="input-group-addon">编号</span>
-                                                    <input type="text" class="form-control" placeholder="输入整数" value=1 id="DeleteNum" onblur="checkDeleteValue()">
-                                                </div>
+                                                <p>
+                                                    <select class="form-control" id="DeleteSelect" onchange="manageDeleteButton()">
+                                                        <option value=0 selected>选择编号</option>
+                                                    </select>
+                                                </p>
                                             </div>
                                             <div class="col-lg-9">
                                                 <p>
@@ -500,17 +622,18 @@
                                     <div class="tab-pane fade" id="SaveLoad">
                                         <div class="col-lg-6">
                                             <h4>存档芯片仓库数据</h4>
-                                            <div class="alert alert-success" id="SaveCode">
-                                                [点击<b>获取存储码</b>，记录输入的数据的存储码出现于此，复制需包括中括号]
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">存储码</span>
+                                                <input type="text" class="form-control" placeholder="存储码将在这里显示" id="SaveCode" readonly>
                                             </div>
-                                            <p><button type="button" class="btn btn-info" onclick="getSaveCode()" disabled>获取存储码</button></p>
+                                            <p><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>复制存储码</button><b id="SaveAlert"></b></p>
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>读取存档</h4>
                                             <div class="form-group">
                                                 <textarea class="form-control" rows="3" placeholder="将存储码粘贴在此，仓库将复现之前的结果" id="LoadCode"></textarea>
                                             </div>
-                                            <p><button type="button" class="btn btn-warning" onclick="loadSaveCode()" disabled>读取存储码</button></p>
+                                            <p><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">读取存储码</button><b id="LoadAlert"></b></p>
                                         </div>
                                     </div>
                                 </div>

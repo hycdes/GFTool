@@ -516,39 +516,17 @@
             var bph;
             var TCLevel = parseInt(document.getElementById('TrainingCourse').value);
             switch (TCLevel) {
-                case 0:
-                    bph = 1;
-                    break;
-                case 1:
-                    bph = 3;
-                    break;
-                case 2:
-                    bph = 3;
-                    break;
-                case 3:
-                    bph = 5;
-                    break;
-                case 4:
-                    bph = 7;
-                    break;
-                case 5:
-                    bph = 7;
-                    break;
-                case 6:
-                    bph = 9;
-                    break;
-                case 7:
-                    bph = 11;
-                    break;
-                case 8:
-                    bph = 11;
-                    break;
-                case 9:
-                    bph = 13;
-                    break;
-                case 10:
-                    bph = 15;
-                    break;
+                case 0: bph = 1; break;
+                case 1: bph = 3; break;
+                case 2: bph = 3; break;
+                case 3: bph = 5; break;
+                case 4: bph = 7; break;
+                case 5: bph = 7; break;
+                case 6: bph = 9; break;
+                case 7: bph = 11; break;
+                case 8: bph = 11; break;
+                case 9: bph = 13; break;
+                case 10: bph = 15; break;
             }
             return Math.ceil(Num_book / bph);
         }
