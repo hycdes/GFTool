@@ -34,6 +34,34 @@
         var chipRepo_data = [];     //Chip data
         var chipRepo_chart = [];    //Repository information that react at repository-table
         var deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
+        function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
+            var chipData = new Object;
+            chipData.chipNum = chipNum;
+            chipData.color = chipColor;
+            chipData.classNum = chipClass;
+            chipData.typeNum = chipType;
+            chipData.levelNum = chipLevel;
+            chipData.bAcu = blockAcu;
+            chipData.bFil = blockFil;
+            chipData.bDmg = blockDmg;
+            chipData.bDbk = blockDbk;
+            chipData.weight = Den_Level;
+            return chipData;
+        }
+        function creatRepo(chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
+            var repoData = new Object;
+            repoData.chipNum = chipNum;
+            repoData.chipType = chipType;
+            repoData.chipLevel = chipLevel;
+            repoData.Acu = Acu;
+            repoData.Fil = Fil;
+            repoData.Dmg = Dmg;
+            repoData.Dbk = Dbk;
+            return repoData;
+        }
+        window.onload = function () {
+            resetPage();
+        }
         function getSaveCode() {
             var SaveAlertId = document.getElementById('SaveAlert');
             var code = '[' + rules[0].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + '!';
@@ -81,13 +109,14 @@
                     break;
                 case 2:
                     document.getElementById('ChipClass').value = parseInt(tempStr);
+                    changeChipType();
                     break;
                 case 3:
                     document.getElementById('ChipType').value = parseInt(tempStr);
                     break;
                 case 4:
                     document.getElementById('ChipLevel').value = parseInt(tempStr);
-                    changeChipType();
+
                     break;
                 case 5:
                     block_acu = parseInt(tempStr);
@@ -139,34 +168,6 @@
             } else {
                 LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 不正确的存储码</span>';
             }
-        }
-        function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
-            var chipData = new Object;
-            chipData.chipNum = chipNum;
-            chipData.color = chipColor;
-            chipData.classNum = chipClass;
-            chipData.typeNum = chipType;
-            chipData.levelNum = chipLevel;
-            chipData.bAcu = blockAcu;
-            chipData.bFil = blockFil;
-            chipData.bDmg = blockDmg;
-            chipData.bDbk = blockDbk;
-            chipData.weight = Den_Level;
-            return chipData;
-        }
-        function creatRepo(chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
-            var repoData = new Object;
-            repoData.chipNum = chipNum;
-            repoData.chipType = chipType;
-            repoData.chipLevel = chipLevel;
-            repoData.Acu = Acu;
-            repoData.Fil = Fil;
-            repoData.Dmg = Dmg;
-            repoData.Dbk = Dbk;
-            return repoData;
-        }
-        window.onload = function () {
-            resetPage();
         }
         function resetPage() {
             color = 1; unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
@@ -375,7 +376,7 @@
             ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dbk + '</td>';
             ChartAdd += '</tr>';
             ChipRepoChartId.innerHTML += ChartAdd;
-            var Den_Level = getUnitValue(1) / 4.4;
+            var Den_Level = (getUnitValue(1) / 4.4).toFixed(5);
             chipRepo_data.push(creatChip(chipNum, color, parseInt(ChipClass), parseInt(ChipType), parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, Den_Level));
             var DeleteSelectId = document.getElementById('DeleteSelect');
             deleteSelectHTML.push(('<option value=' + chipNum) + ('>' + chipNum) + '</option>');
@@ -394,8 +395,125 @@
             if (chipNum === 0) document.getElementById('SaveButton').disabled = true;
         }
         //ALGORITHM AREA
+        function getChipShape(classNum, typeNum) {      //return all coordinate sets including rotation
+            var chipShape = [];
+            var chipBlockNum = parseInt((classNum + "").substr(1, 1));
+            if (chipBlockNum === 6) {
+                switch (typeNum) {
+                    case 1:
+                        chipShape.push([11, 12, 21, 22, 31, 32]);
+                        chipShape.push([11, 12, 13, 21, 22, 23]);
+                        break;
+                    case 2:
+                        chipShape.push([11, 12, 13, 21, 22, 31]);
+                        chipShape.push([11, 12, 13, 22, 23, 33]);
+                        chipShape.push([13, 22, 23, 31, 32, 33]);
+                        chipShape.push([11, 21, 22, 31, 32, 33]);
+                        break;
+                    case 3:
+                        chipShape.push([11, 12, 13, 14, 22, 23]);
+                        chipShape.push([12, 21, 22, 31, 32, 42]);
+                        chipShape.push([12, 13, 21, 22, 23, 24]);
+                        chipShape.push([11, 21, 22, 31, 32, 41]);
+                        break;
+                    case 41:
+                        break;
+                    case 42:
+                        break;
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        chipShape.push([11, 21, 31, 41, 51, 61]);
+                        chipShape.push([11, 12, 13, 14, 15, 16]);
+                        break;
+                    case 8:
+                        break;
+                    case 9:
+                        break;
+                }
+            } else if (chipBlockNum === 5) {
 
-        function solveResult(metrix) {
+            }
+            return chipShape;
+        }
+        function getXShift(one_chipShape, x_max) {      //CLEAR, get shift_x_max
+            var chipBlockNum = one_chipShape.length, rightMargin = 1;
+            for (var i = 0; i < chipBlockNum; i++)
+                if (rightMargin < parseInt((one_chipShape[i] + "").substr(1, 1))) rightMargin = parseInt((one_chipShape[i] + "").substr(1, 1));
+            return x_max - rightMargin;
+        }
+        function getYShift(one_chipShape, y_max) {      //CLEAR, get shift_y_max
+            var chipBlockNum = one_chipShape.length, downMargin = 1;
+            for (var i = 0; i < chipBlockNum; i++)
+                if (downMargin < parseInt((one_chipShape[i] + "").substr(0, 1))) downMargin = parseInt((one_chipShape[i] + "").substr(0, 1));
+            return y_max - downMargin;
+        }
+        function makeShiftRank(chipNum, shift_x, shift_y, x_max, y_max, chipCoor) {     //CLEAR, get rank
+            var rank = [chipNum];
+            var len = chipCoor.length;
+            for (var i = 0; i < len; i++) chipCoor[i] += shift_x;
+            for (var i = 0; i < len; i++) chipCoor[i] += 10 * shift_y;
+            for (var i = 0; i < y_max; i++) {
+                for (var j = 0; j < x_max; j++) {
+                    rank.push(0);
+                }
+            }
+            for (var i = 0; i < len; i++) {
+                var a = parseInt(chipCoor[i] / 10), b = chipCoor[i] - 10 * a;
+                rank[(a - 1) * x_max + b] = 1;
+            }
+            return rank;
+        }
+        function isRankProper(rank, outworld) {     //CLEAR, check not out of border
+            var len = outworld.length;
+            for (var i = 0; i < len; i++) if (rank[outworld[i]] === 1) return false;
+            return true;
+        }
+        function getChipMetrix(chipData, HeavyfireType, HeavyfireStar) {        //CLEAR
+            var chipMetrix = [];        //each line length = 1 + x_max*y_max
+            var x_max, y_max;
+            var outworld;               //which iterator of rank should be 0
+            switch (HeavyfireType) {    //BGM,AGS,2B
+                case 1:
+                    if (HeavyfireStar === 5) {
+                        x_max = 6; y_max = 6;
+                        outworld = [];
+                    }
+                    break;
+                case 2:
+                    if (HeavyfireStar === 5) {
+                        x_max = 8; y_max = 8;
+                        outworld = [1, 2, 5, 6, 7, 8, 9, 14, 15, 16, 23, 24, 32, 33, 41, 42, 49, 50, 51, 56, 57, 58, 59, 60, 63, 64];
+                    }
+                    break;
+                case 3:
+                    if (HeavyfireStar === 5) {
+                        x_max = 8; y_max = 6;
+                        outworld = [1, 2, 4, 5, 7, 8, 9, 16, 33, 40, 41, 42, 44, 45, 47, 48];
+                    }
+                    break;
+            }
+            var chipShape = getChipShape(chipData.classNum, chipData.typeNum);
+            var num_shape = chipShape.length;
+            for (var it_shape = 0; it_shape < num_shape; it_shape++) {
+                var chipCoor = chipShape[it_shape];
+                var num_xshift = getXShift(chipCoor, x_max), num_yshift = getYShift(chipCoor, y_max);
+                for (var shift_y = 0; shift_y <= num_yshift; shift_y++) {
+                    for (var shift_x = 0; shift_x <= num_xshift; shift_x++) {
+                        var rank = makeShiftRank(chipData.chipNum, shift_x, shift_y, x_max, y_max, chipCoor);
+                        if (isRankProper(rank, outworld)) chipMetrix.push(rank);
+                    }
+                }
+            }
+            return chipMetrix;
+        }
+        function solveResult(chipMetrix) {      //Using Dancing links X
+            var solutionMetrix;
+            return solutionMetrix;
+        }
+        function solve() {
 
         }
     </script>
@@ -661,7 +779,12 @@
                             <div class="panel-body">
                                 <div class="col-lg-12">
                                     <p>
-                                        <button type="button" class="btn btn-warning" onclick="addChip()" disabled>计算拼接方案</button>
+                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 checked><span style="color:darkblue"><b>BGM-71</b></span></label>
+                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2><span style="color:darkorange"><b>AGS-30</b></span></label>
+                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3><span style="color:darkorange"><b>2B-14</b></span></label>
+                                    </p>
+                                    <p>
+                                        <button type="button" class="btn btn-primary" onclick="addChip()" disabled>计算拼接方案</button>
                                     </p>
                                 </div>
                             </div>
