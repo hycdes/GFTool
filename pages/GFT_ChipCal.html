@@ -78,7 +78,7 @@
                 code += (chipRepo_data[i].bFil + ',');
                 code += (chipRepo_data[i].bDmg + ',');
                 code += (chipRepo_data[i].bDbk + ',');
-                code += (chipRepo_data[i].weight + '/');
+                code += (chipRepo_data[i].weight + '&');
             }
             code += '?' + rules[1].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + ']';
             var SaveCodeId = document.getElementById('SaveCode');
@@ -130,7 +130,7 @@
                         setValue(elementNum, tempStr);
                         elementNum++;
                         tempStr = "";
-                    } else if (LoadCode[scan] === '/') {
+                    } else if (LoadCode[scan] === '&') {
                         setValue(elementNum, tempStr);
                         elementNum = 0;
                         tempStr = "";
@@ -478,6 +478,59 @@
                         break;
                 }
             } else if (chipBlockNum === 5) {
+                switch (typeNum) {
+                    case 11:
+                        chipShape.push([12, 13, 21, 22, 32]);
+                        chipShape.push([12, 21, 22, 23, 33]);
+                        chipShape.push([12, 22, 23, 31, 32]);
+                        chipShape.push([11, 21, 22, 23, 32]);
+                        break;
+                    case 12:
+                        chipShape.push([11, 12, 22, 23, 32]);
+                        chipShape.push([13, 21, 22, 23, 32]);
+                        chipShape.push([12, 21, 22, 32, 33]);
+                        chipShape.push([12, 21, 22, 23, 31]);
+                        break;
+                    case 21:
+                        chipShape.push([11, 12, 13, 23, 24]);
+                        chipShape.push([12, 22, 31, 32, 41]);
+                        chipShape.push([11, 12, 22, 23, 24]);
+                        chipShape.push([12, 21, 22, 31, 41]);
+                        break;
+                    case 22:
+                        chipShape.push([12, 13, 14, 21, 22]);
+                        chipShape.push([11, 21, 22, 32, 42]);
+                        chipShape.push([13, 14, 21, 22, 23]);
+                        chipShape.push([11, 21, 31, 32, 42]);
+                        break;
+                    case 31:
+                        chipShape.push([12, 21, 22, 32, 42]);
+                        chipShape.push([13, 21, 22, 23, 24]);
+                        chipShape.push([11, 21, 31, 32, 41]);
+                        chipShape.push([11, 12, 13, 14, 22]);
+                        break;
+                    case 32:
+                        chipShape.push([11, 21, 22, 31, 41]);
+                        chipShape.push([11, 12, 13, 14, 23]);
+                        chipShape.push([12, 22, 31, 32, 42]);
+                        chipShape.push([12, 21, 22, 23, 24]);
+                        break;
+                    case 4:
+                        chipShape.push([11, 12, 13, 22, 32]);
+                        chipShape.push([13, 21, 22, 23, 33]);
+                        chipShape.push([12, 22, 31, 32, 33]);
+                        chipShape.push([11, 21, 22, 23, 31]);
+                        break;
+                    case 5:
+                        chipShape.push([12, 13, 21, 22, 31]);
+                        chipShape.push([11, 12, 22, 23, 33]);
+                        chipShape.push([13, 22, 23, 31, 32]);
+                        chipShape.push([11, 21, 22, 32, 33]);
+                        break;
+                    case 6:
+                        chipShape.push([12, 21, 22, 23, 32]);
+                        break;
+                }
 
             }
             return chipShape;
@@ -750,7 +803,6 @@
             }
         }
         function putChip(bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
-            console.log(chipRank);
             var chipNum = chipRank[0];
             var ranklen = chipRank.length;
             for (var i = 1; i < ranklen; i++) {
@@ -1005,6 +1057,7 @@
                         </div>
                     </div>
                 </div>
+
                 <!-- /.row -->
                 <div class="row">
                     <!--Setting-->
@@ -1013,136 +1066,166 @@
                             <div class="panel-heading">
                                 拼接结果
                             </div>
-                            <!--card info-->
+                            <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="col-lg-12">
-                                    <p>
-                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
-                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
-                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
-                                    </p>
-                                    <p>
-                                        <button type="button" class="btn btn-primary" onclick="getSolution()">计算拼接方案</button><b id="NoResultText"></b>
-                                    </p>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="table-responsive" style="padding: 0px;">
-                                        <table class="table_other table-bordered table-hover" style="width: 240px;height:240px;overflow: hidden;padding: 0px;">
-                                            <tbody>
-                                                <tr id="solutionLine1">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                                <tr id="solutionLine2">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                                <tr id="solutionLine3">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                                <tr id="solutionLine4">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                                <tr id="solutionLine5">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                                <tr id="solutionLine6">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                                <tr id="solutionLine7">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_blueback"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                                <tr id="solutionLine8">
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                    <td class="td_black"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#Options" data-toggle="tab" id="panelO">选项</a>
+                                    </li>
+                                    <li>
+                                        <a href="#Results" data-toggle="tab" id="panelR">结果</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="Options">
+                                        <div class="col-lg-12">
+                                            <h4>重装部队类型</h4>
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
+                                                    <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
+                                                    <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
+                                                </p>
+                                            </div>
+                                            <h4>重装部队星级</h4>
+                                            <div class="col-lg-3">
+                                                <p>
+                                                    <select class="form-control" id="HFStar">
+                                                        <option value=5 selected>★★★★★</option>
+                                                        <option value=4>★★★★</option>
+                                                        <option value=3>★★★</option>
+                                                        <option value=2>★★</option>
+                                                        <option value=1>★</option>
+                                                    </select>
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <p><button type="button" class="btn btn-primary" onclick="getSolution()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Results">
+                                        <div class="col-lg-6">
+                                            <h4>拼接解</h4>
+                                            <div class="table-responsive">
+                                                <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
+                                                    <tbody>
+                                                        <tr id="solutionLine1">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                        <tr id="solutionLine2">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                        <tr id="solutionLine3">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                        <tr id="solutionLine4">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                        <tr id="solutionLine5">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                        <tr id="solutionLine6">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                        <tr id="solutionLine7">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_blueback"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                        <tr id="solutionLine8">
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                            <td class="td_black"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
 
-    </div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
-    <script>
-        // tooltip demo
-        $('.tooltip-demo').tooltip({
-            selector: "[data-toggle=tooltip]",
-            container: "body"
-        })
-        // popover demo
-        $("[data-toggle=popover]")
-            .popover()
-    </script>
+        </div>
+        <!-- /#wrapper -->
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+        <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+        <script>
+            // tooltip demo
+            $('.tooltip-demo').tooltip({
+                selector: "[data-toggle=tooltip]",
+                container: "body"
+            })
+            // popover demo
+            $("[data-toggle=popover]")
+                .popover()
+        </script>
 </body>
 
 </html>
