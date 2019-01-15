@@ -8,24 +8,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>少女前线-芯片计算器 by 命运の乐章</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <style>
+        .table_other{padding: 0px;text-align: center}
+        .td_blueback{width:30px;height:30px;background:#606DA0;}
+        .td_orangeback{width:30px;height:30px;background:#CE6B49;}
+        .td_black{width:30px;height:30px;background:url("../img/chip/bg_black.png");}
+        .td_b1{width:30px;height:30px;background:dodgerblue;}
+        .td_b2{width:30px;height:30px;background:deepskyblue;}
+        .td_b3{width:30px;height:30px;background:forestgreen;}
+        .td_b4{width:30px;height:30px;background:limegreen;}
+        .td_b5{width:30px;height:30px;background:mediumorchid;}
+        .td_b6{width:30px;height:30px;background:darkmagenta;}
+        .td_b7{width:30px;height:30px;background:mediumvioletred;}
+    </style>
     <script type="text/javascript">
+        var CLXValid = 0;
         var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
         var unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
@@ -62,6 +64,7 @@
         window.onload = function () {
             resetPage();
         }
+        function getBlockNum(classNum) { return parseInt((classNum + "").substr(1, 1)); }
         function getSaveCode() {
             var SaveAlertId = document.getElementById('SaveAlert');
             var code = '[' + rules[0].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + '!';
@@ -101,38 +104,17 @@
         }
         function setValue(elementNum, tempStr) {
             switch (elementNum) {
-                case 0:
-                    chipNum = parseInt(tempStr) - 1;    //call addChip will chipNum++
-                    break;
-                case 1:
-                    color = parseInt(tempStr);
-                    break;
-                case 2:
-                    document.getElementById('ChipClass').value = parseInt(tempStr);
-                    changeChipType();
-                    break;
-                case 3:
-                    document.getElementById('ChipType').value = parseInt(tempStr);
-                    break;
-                case 4:
-                    document.getElementById('ChipLevel').value = parseInt(tempStr);
-
-                    break;
-                case 5:
-                    block_acu = parseInt(tempStr);
-                    break;
-                case 6:
-                    block_fil = parseInt(tempStr);
-                    break;
-                case 7:
-                    block_dmg = parseInt(tempStr);
-                    break;
-                case 8:
-                    block_dbk = parseInt(tempStr);
-                    break;
-                case 9:
-                    updateUnitValue();
-                    break;
+                case 0: chipNum = parseInt(tempStr) - 1; break;
+                case 1: color = parseInt(tempStr); break;
+                case 2: document.getElementById('ChipClass').value = parseInt(tempStr);
+                    changeChipType(); break;
+                case 3: document.getElementById('ChipType').value = parseInt(tempStr); break;
+                case 4: document.getElementById('ChipLevel').value = parseInt(tempStr); break;
+                case 5: block_acu = parseInt(tempStr); break;
+                case 6: block_fil = parseInt(tempStr); break;
+                case 7: block_dmg = parseInt(tempStr); break;
+                case 8: block_dbk = parseInt(tempStr); break;
+                case 9: updateUnitValue(); break;
             }
         }
         function loadSaveCode() {
@@ -386,6 +368,48 @@
             DeleteSelectId.innerHTML = selectText;
             document.getElementById('SaveButton').disabled = false;
         }
+        function chartBack(typeInfo) {
+            var line1 = document.getElementById('solutionLine1');
+            var line2 = document.getElementById('solutionLine2');
+            var line3 = document.getElementById('solutionLine3');
+            var line4 = document.getElementById('solutionLine4');
+            var line5 = document.getElementById('solutionLine5');
+            var line6 = document.getElementById('solutionLine6');
+            var line7 = document.getElementById('solutionLine7');
+            var line8 = document.getElementById('solutionLine8');
+            switch (typeInfo) {
+                case 1:
+                    line1.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
+                    line2.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
+                    line3.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
+                    line4.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
+                    line5.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
+                    line6.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
+                    line7.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
+                    line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
+                    break;
+                case 2:
+                    line1.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
+                    line2.innerHTML = '<td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
+                    line3.innerHTML = '<td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>';
+                    line4.innerHTML = '<td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td>';
+                    line5.innerHTML = '<td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td>';
+                    line6.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td>';
+                    line7.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td>';
+                    line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>';
+                    break;
+                case 3:
+                    line1.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
+                    line2.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>';
+                    line3.innerHTML = '<td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td>';
+                    line4.innerHTML = '<td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td>';
+                    line5.innerHTML = '<td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td>';
+                    line6.innerHTML = '<td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td>';
+                    line7.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>';
+                    line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
+                    break;
+            }
+        }
         function subChip(chipNum) {
             for (var i = 0; i < chipRepo_chart.length; i++) {
 
@@ -397,7 +421,7 @@
         //ALGORITHM AREA
         function getChipShape(classNum, typeNum) {      //return all coordinate sets including rotation
             var chipShape = [];
-            var chipBlockNum = parseInt((classNum + "").substr(1, 1));
+            var chipBlockNum = getBlockNum(classNum);
             if (chipBlockNum === 6) {
                 switch (typeNum) {
                     case 1:
@@ -417,20 +441,40 @@
                         chipShape.push([11, 21, 22, 31, 32, 41]);
                         break;
                     case 41:
+                        chipShape.push([11, 12, 13, 22, 23, 24]);
+                        chipShape.push([12, 21, 22, 31, 32, 41]);
                         break;
                     case 42:
+                        chipShape.push([12, 13, 14, 21, 22, 23]);
+                        chipShape.push([11, 21, 22, 31, 32, 42]);
                         break;
                     case 5:
+                        chipShape.push([11, 12, 22, 23, 31, 32]);
+                        chipShape.push([11, 13, 21, 22, 23, 32]);
+                        chipShape.push([12, 13, 21, 22, 32, 33]);
+                        chipShape.push([12, 21, 22, 23, 31, 33]);
                         break;
                     case 6:
+                        chipShape.push([12, 21, 22, 23, 32, 42]);
+                        chipShape.push([13, 21, 22, 23, 24, 33]);
+                        chipShape.push([12, 22, 31, 32, 33, 42]);
+                        chipShape.push([12, 21, 22, 23, 24, 32]);
                         break;
                     case 7:
                         chipShape.push([11, 21, 31, 41, 51, 61]);
                         chipShape.push([11, 12, 13, 14, 15, 16]);
                         break;
                     case 8:
+                        chipShape.push([11, 12, 13, 14, 21, 24]);
+                        chipShape.push([11, 12, 22, 32, 41, 42]);
+                        chipShape.push([11, 14, 21, 22, 23, 24]);
+                        chipShape.push([11, 12, 21, 31, 41, 42]);
                         break;
                     case 9:
+                        chipShape.push([11, 12, 21, 22, 23, 32]);
+                        chipShape.push([12, 13, 21, 22, 23, 32]);
+                        chipShape.push([12, 21, 22, 23, 32, 33]);
+                        chipShape.push([12, 21, 22, 23, 31, 32]);
                         break;
                 }
             } else if (chipBlockNum === 5) {
@@ -453,15 +497,10 @@
         function makeShiftRank(chipNum, shift_x, shift_y, x_max, y_max, chipCoor) {     //CLEAR, get rank
             var rank = [chipNum];
             var len = chipCoor.length;
-            for (var i = 0; i < len; i++) chipCoor[i] += shift_x;
-            for (var i = 0; i < len; i++) chipCoor[i] += 10 * shift_y;
-            for (var i = 0; i < y_max; i++) {
-                for (var j = 0; j < x_max; j++) {
-                    rank.push(0);
-                }
-            }
+            for (var i = 0; i < y_max; i++) for (var j = 0; j < x_max; j++) rank.push(0);
             for (var i = 0; i < len; i++) {
-                var a = parseInt(chipCoor[i] / 10), b = chipCoor[i] - 10 * a;
+                var chCo = chipCoor[i] + shift_x + 10 * shift_y;
+                var a = parseInt(chCo / 10), b = chCo - 10 * a;
                 rank[(a - 1) * x_max + b] = 1;
             }
             return rank;
@@ -471,7 +510,7 @@
             for (var i = 0; i < len; i++) if (rank[outworld[i]] === 1) return false;
             return true;
         }
-        function getChipMetrix(chipData, HeavyfireType, HeavyfireStar) {        //CLEAR
+        function getChipMetrix(chipData, HeavyfireType, HeavyfireStar) {        //CLEAR, return chip metrix describe all possible rotation & position
             var chipMetrix = [];        //each line length = 1 + x_max*y_max
             var x_max, y_max;
             var outworld;               //which iterator of rank should be 0
@@ -497,7 +536,7 @@
             }
             var chipShape = getChipShape(chipData.classNum, chipData.typeNum);
             var num_shape = chipShape.length;
-            for (var it_shape = 0; it_shape < num_shape; it_shape++) {
+            for (var it_shape = 0; it_shape < num_shape; it_shape++) {      //get all shape metrix
                 var chipCoor = chipShape[it_shape];
                 var num_xshift = getXShift(chipCoor, x_max), num_yshift = getYShift(chipCoor, y_max);
                 for (var shift_y = 0; shift_y <= num_yshift; shift_y++) {
@@ -509,12 +548,214 @@
             }
             return chipMetrix;
         }
-        function solveResult(chipMetrix) {      //Using Dancing links X
-            var solutionMetrix;
+        function getChipSetMetrix(chipDataSet, HeavyfireType, HeavyfireStar) {  //CLEAR, combine all chip's total_metrix in a chipDataSet
+            var chipMetrix = [], len = chipDataSet.length;
+            for (var i = 0; i < len; i++) {
+                var chipSingleMetrix = getChipMetrix(chipDataSet[i], HeavyfireType, HeavyfireStar);
+                chipMetrix = chipMetrix.concat(chipSingleMetrix);
+            }
+            return chipMetrix;
+        }
+        function allOneMetrix(metrix) {
+            var rowNum = metrix.length, colNum = metrix[0].length;
+            for (var i = 0; i < rowNum; i++) {
+                for (var j = 0; j < colNum; j++) if (metrix[i][j] === 0) return false;
+            }
+            return true;
+        }
+        function allOneRank(rank) {
+            var ranklen = rank.length;
+            for (var i = 0; i < ranklen; i++) if (rank[i] === 0) return false;
+            return true;
+        }
+        function notIn(num, rank) {
+            var ranklen = rank.length;
+            for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false;
+            return true;
+        }
+        function CLX(chipMetrix) {  //DANCING LINKS X
+            var solutionMetrix = [];    //save ranks
+            var metrixStack = [], itStack = [];
+            //initialize
+            var currentMetrix = chipMetrix, currentIt = 0, currentRank = currentMetrix[0];
+            var solutionRecorder = [], currentRecorder = [], recorderStack = [];
+            var init_ranknum = chipMetrix.length;
+            for (var i = 0; i < init_ranknum; i++) currentRecorder.push(i); //original index of placement
+            //CLX
+            while (!allOneMetrix(currentMetrix) && !allOneRank(currentRank)) {
+                var ranknum = currentMetrix.length;
+                var specialID = currentRank[0];
+                var ranklen = currentRank.length;
+                var disable_row = [], disable_col = [];
+                for (var i = 0; i < ranknum; i++) {
+                    if (currentMetrix[i][0] === specialID) disable_row.push(i);   //disable all same chip placement
+                }
+                for (var i = 1; i < ranklen; i++) {
+                    if (currentRank[i] === 1) disable_col.push(i);      //find target column
+                }
+                var dclen = disable_col.length;
+                for (var i = 0; i < dclen; i++) {               //find column if select 1
+                    for (var j = 0; j < ranknum; j++) {         //from top to bottom
+                        if (currentMetrix[j][disable_col[i]] === 1) {
+                            disable_row.push(j);
+                        }
+                    }
+                }
+                //make new metrix and new recorder
+                var newMetrix = [];
+                var newRecorder = [];
+                for (var i = 0; i < ranknum; i++) {
+                    if (notIn(i, disable_row)) {
+                        newRecorder.push(currentRecorder[i]);
+                        var newRank = [];
+                        for (var j = 0; j < ranklen; j++) {
+                            if (notIn(j, disable_col)) newRank.push(currentMetrix[i][j]);
+                        }
+                        if (newRank.length > 0) newMetrix.push(newRank);
+                        else break;
+                    }
+                }
+                if (newMetrix.length > 0) {         //not empty, go on and update
+                    solutionRecorder.push(currentRecorder[currentIt]);
+                    metrixStack.push(currentMetrix);
+                    recorderStack.push(currentRecorder);
+                    itStack.push(currentIt);
+                    currentMetrix = newMetrix;
+                    currentRecorder = newRecorder;
+                    currentIt = 0;
+                    currentRank = currentMetrix[currentIt];
+                } else {                           //is empty, backtrack
+                    while (true) {
+                        if (metrixStack.length === 0) return solutionMetrix;
+                        solutionRecorder.pop();
+                        currentMetrix = metrixStack.pop();
+                        currentRecorder = recorderStack.pop();
+                        currentIt = itStack.pop() + 1;
+                        //console.log("it=", currentIt, "; mtxLen=", currentMetrix.length);
+                        if (currentIt < currentMetrix.length) break;
+                    }
+                    currentRank = currentMetrix[currentIt];
+                }
+            }
+            //result output
+            solutionRecorder.push(currentRecorder[currentIt]);
+            var solutionlen = solutionRecorder.length;
+            for (var i = 0; i < solutionlen; i++) solutionMetrix.push(chipMetrix[solutionRecorder[i]]);
             return solutionMetrix;
         }
-        function solve() {
-
+        function solveResult(combination, HeavyfireType, HeavyfireStar) {      //Give a combination, get solution result, empty means no solution, using Dancing links X
+            var solution = [], chipDataSet = [];
+            var comlen = combination.length;
+            for (var i = 0; i < comlen; i++) chipDataSet.push(chipRepo_data[combination[i] - 1]);   //chipNum-1 is chipIndex
+            var chipMetrix = getChipSetMetrix(chipDataSet, HeavyfireType, HeavyfireStar);
+            var solution = CLX(chipMetrix);
+            return solution;
+        }
+        function getSolution() {        //output best result
+            var solutionSet = [], solutionScore = [];
+            var HeavyfireStar = 5, HeavyfireType;
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            var combinationSet = [];    //possible combination chipNum set
+            switch (HeavyfireType) {
+                case 1:
+                    var chipNumList_five = [], chipNumList_six = [];
+                    for (var i = 0; i < chipNum; i++) {
+                        if (getBlockNum(chipRepo_data[i].classNum) === 6) chipNumList_six.push(chipRepo_data[i].chipNum);   //CAUTION: chipNum here, iterator=num-1
+                        else if (getBlockNum(chipRepo_data[i].classNum) === 5) chipNumList_five.push(chipRepo_data[i].chipNum);
+                    }
+                    var possibleCom;
+                    var num_five = chipNumList_five.length, num_six = chipNumList_six.length;
+                    for (var p0 = 0; p0 < num_six; p0++) {         //6+555555
+                        for (var p1 = 0; p1 < num_five; p1++) {
+                            for (var p2 = p1 + 1; p2 < num_five; p2++) {
+                                for (var p3 = p2 + 1; p3 < num_five; p3++) {
+                                    for (var p4 = p3 + 1; p4 < num_five; p4++) {
+                                        for (var p5 = p4 + 1; p5 < num_five; p5++) {
+                                            for (var p6 = p5 + 1; p6 < num_five; p6++) {
+                                                possibleCom = [chipNumList_six[p0], chipNumList_five[p1], chipNumList_five[p2], chipNumList_five[p3], chipNumList_five[p4], chipNumList_five[p5], chipNumList_five[p6]];
+                                                combinationSet.push(possibleCom);   //CAUTION: chipNum here, iterator=num-1
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (var p0 = 0; p0 < num_six; p0++) {     //666666
+                        for (var p1 = p0 + 1; p1 < num_six; p1++) {
+                            for (var p2 = p1 + 1; p2 < num_six; p2++) {
+                                for (var p3 = p2 + 1; p3 < num_six; p3++) {
+                                    for (var p4 = p3 + 1; p4 < num_six; p4++) {
+                                        for (var p5 = p4 + 1; p5 < num_six; p5++) {
+                                            possibleCom = [chipNumList_six[p0], chipNumList_six[p1], chipNumList_six[p2], chipNumList_six[p3], chipNumList_six[p4], chipNumList_six[p5]];
+                                            combinationSet.push(possibleCom);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
+            var combinationNum = combinationSet.length;
+            //try all possible combination of chips using CLX to solve
+            for (var i = 0; i < combinationNum; i++) {
+                var tempSolution = solveResult(combinationSet[i], HeavyfireType, HeavyfireStar);
+                if (tempSolution.length != 0) {     //valid solution
+                    solutionSet.push(tempSolution);
+                    //☆☆☆☆☆ 注意这里测试才break的 ☆☆☆☆☆
+                    break;
+                    //solutionScore.push(makeScore(tempSolution));
+                }
+            }
+            if (solutionSet.length > 0) {
+                showSolution(solutionSet[0], HeavyfireType, HeavyfireStar);
+            } else {
+                var NoResultTextId = document.getElementById('NoResultText');
+                NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>';
+            }
+        }
+        function makeScore(solution) {
+            var score;
+            return score;
+        }
+        function showSolution(solution, HeavyfireType, HeavyfireStar) {
+            var line1 = document.getElementById('solutionLine1');
+            var line2 = document.getElementById('solutionLine2');
+            var line3 = document.getElementById('solutionLine3');
+            var line4 = document.getElementById('solutionLine4');
+            var line5 = document.getElementById('solutionLine5');
+            var line6 = document.getElementById('solutionLine6');
+            var line7 = document.getElementById('solutionLine7');
+            var line8 = document.getElementById('solutionLine8');
+            var lineSet = [line1, line2, line3, line4, line5, line6, line7, line8];
+            var htmlSet = [];
+            for (var i = 0; i < 8; i++) htmlSet.push(['<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>']);
+            switch (HeavyfireType) {
+                case 1:
+                    var soluChipNum = solution.length;
+                    for (var i = 0; i < soluChipNum; i++) {
+                        putChip(1, 1, 6, i, solution[i], htmlSet);
+                    }
+                    break;
+            }
+            for (var i = 0; i < 8; i++) {
+                var htmlText = '';
+                for (var j = 0; j < 8; j++) {
+                    htmlText += htmlSet[i][j];
+                }
+                lineSet[i].innerHTML = htmlText;
+            }
+        }
+        function putChip(bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
+            console.log(chipRank);
+            var chipNum = chipRank[0];
+            var ranklen = chipRank.length;
+            for (var i = 1; i < ranklen; i++) {
+                if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - 6 * parseInt((i - 1) / 6) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + chipNum + '</td>';
+            }
         }
     </script>
 </head>
@@ -720,7 +961,7 @@
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
-                                                <div class="table-responsive" id="ChipRepo" style='height:500px; overflow-y:scroll'>
+                                                <div class="table-responsive" style='height:500px; overflow-y:scroll'>
                                                     <table class="table table-striped table-bordered table-hover">
                                                         <thead>
                                                             <tr>
@@ -763,9 +1004,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
                 <!-- /.row -->
                 <div class="row">
@@ -779,13 +1017,101 @@
                             <div class="panel-body">
                                 <div class="col-lg-12">
                                     <p>
-                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 checked><span style="color:darkblue"><b>BGM-71</b></span></label>
-                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2><span style="color:darkorange"><b>AGS-30</b></span></label>
-                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3><span style="color:darkorange"><b>2B-14</b></span></label>
+                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
+                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
+                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
                                     </p>
                                     <p>
-                                        <button type="button" class="btn btn-primary" onclick="addChip()" disabled>计算拼接方案</button>
+                                        <button type="button" class="btn btn-primary" onclick="getSolution()">计算拼接方案</button><b id="NoResultText"></b>
                                     </p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="table-responsive" style="padding: 0px;">
+                                        <table class="table_other table-bordered table-hover" style="width: 240px;height:240px;overflow: hidden;padding: 0px;">
+                                            <tbody>
+                                                <tr id="solutionLine1">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                                <tr id="solutionLine2">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                                <tr id="solutionLine3">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                                <tr id="solutionLine4">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                                <tr id="solutionLine5">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                                <tr id="solutionLine6">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                                <tr id="solutionLine7">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_blueback"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                                <tr id="solutionLine8">
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                    <td class="td_black"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 
