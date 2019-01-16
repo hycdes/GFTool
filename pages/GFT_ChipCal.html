@@ -20,15 +20,15 @@
         .td_black{width:30px;height:30px;background:url("../img/chip/bg_black.png");}
         .td_b1{width:30px;height:30px;background:dodgerblue;}
         .td_b2{width:30px;height:30px;background:deepskyblue;}
-        .td_b3{width:30px;height:30px;background:forestgreen;}
+        .td_b3{width:30px;height:30px;background:greenyellow;}
         .td_b4{width:30px;height:30px;background:limegreen;}
-        .td_b5{width:30px;height:30px;background:mediumorchid;}
-        .td_b6{width:30px;height:30px;background:darkmagenta;}
+        .td_b5{width:30px;height:30px;background:orange;}
+        .td_b6{width:30px;height:30px;background:#FF0066;}
         .td_b7{width:30px;height:30px;background:mediumvioletred;}
     </style>
     <script type="text/javascript">
-        var globaltime_0 = 0, globaltime_1 = 0, globaltime_2 = 0, globaltime_3 = 0, globaltime_4 = 0;
-        var CLXValid = 0;
+        var globaltime_0 = 0, globaltime_1 = 0, globaltime_2 = 0, globaltime_3 = 0, globaltime_4 = 0; //测试时间专用
+        var solutionSet = [], solutionScore = [];
         var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
         var unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
@@ -744,7 +744,7 @@
             return solution;
         }
         function getSolution() {        //output best result
-            var solutionSet = [], solutionScore = [];
+            solutionSet = [], solutionScore = [];
             var HeavyfireStar = 5, HeavyfireType;
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
             else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
@@ -808,20 +808,34 @@
                     break;
             }
             var combinationNum = combinationSet.length;
-            for (var i = 0; i < combinationNum; i++) {
+            var testLimit = 100;
+            if (combinationNum < testLimit) testLimit = combinationNum;
+            for (var i = 0; i < testLimit; i++) {
                 var tempSolution = solveResult(combinationSet[i], HeavyfireType, HeavyfireStar);
                 if (tempSolution.length != 0) {     //valid solution
                     solutionSet.push(tempSolution);
-                    //☆☆☆☆☆ 注意这里测试才break的 ☆☆☆☆☆
-                    break;
-                    //solutionScore.push(makeScore(tempSolution));
+                    //这还没写：solutionScore.push(makeScore(tempSolution));
                 }
             }
+            document.getElementById('globalconsole').innerHTML += "执行DLX总时间：" + globaltime_0 + "ms\n";
             if (solutionSet.length > 0) {
+                var soluNum = solutionSet.length;
                 showSolution(solutionSet[0], HeavyfireType, HeavyfireStar);
+                var panelO = document.getElementById('panelO'); panelO.className = '';
+                var panelR = document.getElementById('panelR'); panelR.className = 'active';
+                var Options = document.getElementById('Options'); Options.className = 'tab-pane fade';
+                var Results = document.getElementById('Results'); Results.className = 'tab-pane fade in active';
+                var ResultType = document.getElementById('ResultType');
+                var RTText = '<option value=0 selected>方案 1</option>';
+                for (var i = 1; i < soluNum; i++) {
+                    RTText += '<option value=' + i + '>方案 ' + (i + 1) + '</option>';
+                }
+                ResultType.innerHTML = RTText;
             } else {
                 var NoResultTextId = document.getElementById('NoResultText');
                 NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>';
+                var ResultType = document.getElementById('ResultType');
+                var RTText = '<option value=1 selected>方案1</option>';
             }
         }
         function makeScore(solution) {
@@ -855,7 +869,6 @@
                 }
                 lineSet[i].innerHTML = htmlText;
             }
-            document.getElementById('globalconsole').innerHTML += "执行DLX总时间：" + globaltime_0 + "ms\n";
         }
         function putChip(bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
             var chipNum = chipRank[0];
@@ -863,6 +876,14 @@
             for (var i = 1; i < ranklen; i++) {
                 if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - 6 * parseInt((i - 1) / 6) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + chipNum + '</td>';
             }
+        }
+        function changeResult() {
+            var HeavyfireStar = 5, HeavyfireType;
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            var ResultTypeV = parseInt(document.getElementById('ResultType').value);
+            showSolution(solutionSet[ResultTypeV], HeavyfireType, HeavyfireStar);
         }
     </script>
 </head>
@@ -1124,47 +1145,46 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
+                                <div class="col-lg-12">
+                                    <h4>重装部队类型(目前只写了BGM的组合值，其它无效)</h4>
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
+                                            <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
+                                            <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
+                                        </p>
+                                    </div>
+                                    <h4>重装部队星级（还没写低星的边界形状）</h4>
+                                    <div class="col-lg-3">
+                                        <p>
+                                            <select class="form-control" id="HFStar" disabled>
+                                                <option value=5 selected>★★★★★</option>
+                                                <option value=4>★★★★</option>
+                                                <option value=3>★★★</option>
+                                                <option value=2>★★</option>
+                                                <option value=1>★</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p><button type="button" class="btn btn-primary" onclick="getSolution()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                    </div>
+                                </div>
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs">
-                                    <li class="active">
-                                        <a href="#Options" data-toggle="tab" id="panelO">选项</a>
+                                    <li class="active" id="panelR">
+                                        <a href="#Results" data-toggle="tab">结果</a>
                                     </li>
-                                    <li>
-                                        <a href="#Results" data-toggle="tab" id="panelR">结果</a>
+                                    <li id="panelO">
+                                        <a href="#Options" data-toggle="tab">其他东西（没想好呢）</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div class="tab-pane fade in active" id="Options">
-                                        <div class="col-lg-12">
-                                            <h4>重装部队类型</h4>
-                                            <div class="col-lg-12">
-                                                <p>
-                                                    <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
-                                                    <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
-                                                    <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
-                                                </p>
-                                            </div>
-                                            <h4>重装部队星级</h4>
-                                            <div class="col-lg-3">
-                                                <p>
-                                                    <select class="form-control" id="HFStar">
-                                                        <option value=5 selected>★★★★★</option>
-                                                        <option value=4>★★★★</option>
-                                                        <option value=3>★★★</option>
-                                                        <option value=2>★★</option>
-                                                        <option value=1>★</option>
-                                                    </select>
-                                                </p>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <p><button type="button" class="btn btn-primary" onclick="getSolution()">计算拼接方案</button><b id="NoResultText"></b></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="Results">
-                                        <div class="col-lg-6">
-                                            <h4>拼接解</h4>
+                                    <div class="tab-pane fade in active" id="Results">
+                                        <div class="col-lg-4">
+                                            <h4>拼接解(优化算法中)</h4>
+                                            <h5>算法没优化完，目前只算前100种组合</h5>
                                             <div class="table-responsive">
                                                 <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
                                                     <tbody>
@@ -1252,12 +1272,38 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <h4>总属性</h4>
+                                            <table class="table table-bordered table-hover" style='width:400px'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td value=0 id="AcuResult" style='width:200px'><img src="../img/icon-acu.png"> 还不能显示</td>
+                                                        <td value=0 id="FilResult" style='width:200px'><img src="../img/icon-fil.png"> 还不能显示</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td value=0 id="DmgResult" style='width:200px'><img src="../img/icon-dmg.png"> 还不能显示</td>
+                                                        <td value=0 id="DbkResult" style='width:200px'><img src="../img/icon-dbk.png"> 还不能显示</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <h4>方案选择</h4>
+                                            <p>
+                                                <select class="form-control" id="ResultType" style="width: 240px" onchange="changeResult()">
+                                                </select>
+                                            </p>
                                             <div class="form-group">
-                                                <h4>执行信息（测试）</h4>
+                                                <h4>执行信息（测试中使用）</h4>
                                                 <textarea class="form-control" rows="6" placeholder="执行信息" id="globalconsole"></textarea>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="Options">
+                                        <h1>啥都没呢！</h1>
+                                        <h1>啥都没呢！</h1>
+                                        <h1>啥都没呢！</h1>
+                                        <h1>啥都没呢！</h1>
                                     </div>
                                 </div>
 
