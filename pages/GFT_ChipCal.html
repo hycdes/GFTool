@@ -27,6 +27,7 @@
         .td_b7{width:30px;height:30px;background:mediumvioletred;}
     </style>
     <script type="text/javascript">
+        var globaltime_0 = 0, globaltime_1 = 0, globaltime_2 = 0, globaltime_3 = 0, globaltime_4 = 0;
         var CLXValid = 0;
         var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
@@ -603,106 +604,127 @@
             return chipMetrix;
         }
         function getChipSetMetrix(chipDataSet, HeavyfireType, HeavyfireStar) {  //CLEAR, combine all chip's total_metrix in a chipDataSet
-            //TEST ONLY
-            var td1 = new Date();
-            //TEST ONLY
             var chipMetrix = [], len = chipDataSet.length;
             for (var i = 0; i < len; i++) {
                 var chipSingleMetrix = getChipMetrix(chipDataSet[i], HeavyfireType, HeavyfireStar);
-                chipMetrix = chipMetrix.concat(chipSingleMetrix);
+                chipMetrix.push(chipSingleMetrix);
             }
-            //TEST ONLY
-            var td2 = new Date();
-            document.getElementById('globalconsole').innerHTML += "生成放置矩阵：" + countMS(td1, td2) + "ms\n";
-            //TEST ONLY
             return chipMetrix;
         }
-        function allOneMetrix(metrix) {
-            var rowNum = metrix.length, colNum = metrix[0].length;
-            for (var i = 0; i < rowNum; i++) {
-                for (var j = 0; j < colNum; j++) if (metrix[i][j] === 0) return false;
-            }
-            return true;
-        }
-        function allOneRank(rank) {
+        function allOneRank(rank, disable_colStack, init_chipNum, counting) {
             var ranklen = rank.length;
-            for (var i = 0; i < ranklen; i++) if (rank[i] === 0) return false;
-            return true;
+            var boolSet = [], isIn = false;
+            for (var c = 0; c < init_chipNum - 1; c++) {
+                for (var i = 0; i < ranklen; i++) {
+                    if (rank[i] === 0 && notIn(i, disable_colStack[c])) boolSet.push(false);
+                    else boolSet.push(true);
+                }
+            }
+            //if (counting === 6) console.log("d_col[1]=", disable_colStack[1]);
+            for (var c = 0; c < init_chipNum - 1; c++) isIn = (isIn || boolSet[c]);
+            return isIn;
         }
         function notIn(num, rank) {
             var ranklen = rank.length;
             for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false;
             return true;
         }
-        function CLX(chipMetrix) {  //DANCING LINKS X
-            var solutionMetrix = [];    //save ranks
-            var metrixStack = [], itStack = [];
+        function CLX(chipMetrix) {  //DANCING LINKS X，第一次优化
+            var solutionCubic = [];    //save ranks
+            var metrixStack = [];
+            var init_chipNum = chipMetrix.length;
+            var counting = 0; //当前选择芯片类
             //initialize
-            var currentMetrix = chipMetrix, currentIt = 0, currentRank = currentMetrix[0];
-            var solutionRecorder = [], currentRecorder = [], recorderStack = [];
-            var init_ranknum = chipMetrix.length;
-            for (var i = 0; i < init_ranknum; i++) currentRecorder.push(i); //original index of placement
+            var disable_colStack = []; //记录废弃列
+            for (var i = 0; i < init_chipNum; i++) disable_colStack.push([]);
+            var currentMetrix = [];
+            for (var i = 0; i < init_chipNum; i++) currentMetrix.push(chipMetrix[i]);
+            var currentIt = []; for (var i = 0; i < init_chipNum; i++) currentIt.push(0); //currentIt共init_chipNum位，存放每个芯片被选时所处矩阵的光标
+            var currentChipPlace = currentMetrix[0];
+            var chipID = []; for (var i = 0; i < init_chipNum; i++) chipID.push(chipMetrix[i][0][0]);
+            var solutionIdx = [];
+            var currentRecorder = [], recorderStack = [];
+            for (var i = 0; i < init_chipNum; i++) {//currentRecorder放置chipMetrix中的角标index
+                var tempIdx = [], rankNum = chipMetrix[i].length;
+                for (var j = 0; j < rankNum; j++) tempIdx.push(j);
+                currentRecorder.push(tempIdx);
+            }
+            var currentRank = currentMetrix[counting][currentIt[counting]];//选择行是最后一个放好芯片的放置模式，c芯片的第it[c]行
+            counting++;
             //CLX
-            while (!allOneMetrix(currentMetrix) && !allOneRank(currentRank)) {
-                var ranknum = currentMetrix.length;
-                var specialID = currentRank[0];
+            while (!(counting === init_chipNum && allOneRank(currentRank, disable_colStack, init_chipNum, counting))) {   //最后一片且allOne跳出
                 var ranklen = currentRank.length;
-                var disable_row = [], disable_col = [];
-                for (var i = 0; i < ranknum; i++) {
-                    if (currentMetrix[i][0] === specialID) disable_row.push(i);   //disable all same chip placement
-                }
-                for (var i = 1; i < ranklen; i++) {
-                    if (currentRank[i] === 1) disable_col.push(i);      //find target column
-                }
-                var dclen = disable_col.length;
-                for (var i = 0; i < dclen; i++) {               //find column if select 1
-                    for (var j = 0; j < ranknum; j++) {         //from top to bottom
-                        if (currentMetrix[j][disable_col[i]] === 1) {
-                            disable_row.push(j);
+                var disable_row = []; for (var i = 0; i < init_chipNum; i++) disable_row.push([]); //初始化每个芯片的废弃行[]
+                var disable_col = [];
+                if (counting < init_chipNum) {
+                    for (var i = 1; i < ranklen; i++) if (currentRank[i] === 1) disable_col.push(i); //找1列，跳过编号列
+                    var dclen = disable_col.length;
+                    for (var c = counting; c < init_chipNum; c++) { //每个芯片（counting直接跳过放置芯片）
+                        var rankNum = currentMetrix[c].length;
+                        for (var i = 0; i < rankNum; i++) { //每行
+                            for (var j = 0; j < dclen; j++) { //每个废弃列
+                                if (currentMetrix[c][i][disable_col[j]] === 1) {
+                                    disable_row[c].push(i);
+                                }
+                            }
                         }
                     }
                 }
                 //make new metrix and new recorder
                 var newMetrix = [];
                 var newRecorder = [];
-                for (var i = 0; i < ranknum; i++) {
-                    if (notIn(i, disable_row)) {
-                        newRecorder.push(currentRecorder[i]);
-                        var newRank = [];
-                        for (var j = 0; j < ranklen; j++) {
-                            if (notIn(j, disable_col)) newRank.push(currentMetrix[i][j]);
+                if (counting < init_chipNum) {
+                    for (var c = 0; c < init_chipNum; c++) {
+                        if (c < counting) {
+                            newMetrix.push([]); //已选择是的芯片组为行
+                            newRecorder.push([]);
+                        } else {
+                            newMetrix.push([]);
+                            var tempIdx = [];
+                            var rankNum = currentMetrix[c].length;
+                            for (var i = 0; i < rankNum; i++) {
+                                if (notIn(i, disable_row[c])) { //存储不在废弃行的行
+                                    tempIdx.push(currentRecorder[c][i]);
+                                    newMetrix[c].push(currentMetrix[c][i]);
+                                }
+                            }
+                            newRecorder.push(tempIdx);
                         }
-                        if (newRank.length > 0) newMetrix.push(newRank);
-                        else break;
                     }
                 }
-                if (newMetrix.length > 0) {         //not empty, go on and update
-                    solutionRecorder.push(currentRecorder[currentIt]);
+                if (counting < init_chipNum && newMetrix[counting].length > 0) { //下一个芯片依旧可选，则继续
+                    var dclen = disable_col.length;
+                    disable_colStack[counting - 1] = disable_col;
+                    solutionIdx.push(currentRecorder[counting - 1][currentIt[counting - 1]]); //记录本次选取
                     metrixStack.push(currentMetrix);
                     recorderStack.push(currentRecorder);
-                    itStack.push(currentIt);
                     currentMetrix = newMetrix;
                     currentRecorder = newRecorder;
-                    currentIt = 0;
-                    currentRank = currentMetrix[currentIt];
-                } else {                           //is empty, backtrack
+                    currentRank = currentMetrix[counting][currentIt[counting]];
+                    counting++;
+                } else { //下一组空，回溯到能选或者直接判定无解
                     while (true) {
-                        if (metrixStack.length === 0) return solutionMetrix;
-                        solutionRecorder.pop();
-                        currentMetrix = metrixStack.pop();
-                        currentRecorder = recorderStack.pop();
-                        currentIt = itStack.pop() + 1;
-                        //console.log("it=", currentIt, "; mtxLen=", currentMetrix.length);
-                        if (currentIt < currentMetrix.length) break;
+                        if (currentIt[counting - 1] < currentMetrix[counting - 1].length - 1) { //能往后选，则往后一行并退出
+                            currentIt[counting - 1]++;
+                            break;
+                        } else { //否则回溯
+                            if (metrixStack.length === 0) return solutionCubic; //无法回溯则返回空矩阵
+                            //能回溯的话
+                            solutionIdx.pop();
+                            disable_colStack[counting - 1] = [];
+                            currentMetrix = metrixStack.pop();
+                            currentRecorder = recorderStack.pop();
+                            currentIt[counting - 1] = 0;
+                            counting--;
+                        }
                     }
-                    currentRank = currentMetrix[currentIt];
                 }
+                currentRank = currentMetrix[counting - 1][currentIt[counting - 1]];
             }
-            //result output
-            solutionRecorder.push(currentRecorder[currentIt]);
-            var solutionlen = solutionRecorder.length;
-            for (var i = 0; i < solutionlen; i++) solutionMetrix.push(chipMetrix[solutionRecorder[i]]);
-            return solutionMetrix;
+            //结果输出
+            solutionIdx.push(currentRecorder[counting - 1][currentIt[counting - 1]]); //记录本次选取
+            for (var i = 0; i < init_chipNum; i++) solutionCubic.push(chipMetrix[i][solutionIdx[i]]);
+            return solutionCubic;
         }
         function solveResult(combination, HeavyfireType, HeavyfireStar) {      //Give a combination, get solution result, empty means no solution, using Dancing links X
             var solution = [], chipDataSet = [];
@@ -717,7 +739,7 @@
 
             //TEST ONLY
             var td2 = new Date();
-            document.getElementById('globalconsole').innerHTML += "DLX执行：" + countMS(td1, td2) + "ms\n";
+            globaltime_0 += countMS(td1, td2);
             //TEST ONLY
             return solution;
         }
@@ -833,6 +855,7 @@
                 }
                 lineSet[i].innerHTML = htmlText;
             }
+            document.getElementById('globalconsole').innerHTML += "执行DLX总时间：" + globaltime_0 + "ms\n";
         }
         function putChip(bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
             var chipNum = chipRank[0];
