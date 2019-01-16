@@ -22,27 +22,10 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <script type="text/javascript">
         //global
-        var listNum = 0,
-            listNumH = 0,
-            listNumE = 0,
-            listNumEH = 0;
-        var fiveStarNum = 0,
-            fiveStarNumH = 0,
-            fiveStarNumE = 0,
-            fiveStarNumEH = 0,
-            fairyNum = 0;
-        var mul_smg = 1,
-            mul_ar = 1,
-            mul_rf = 1,
-            mul_mg = 1,
-            mul_sg = 1;
-        var allM = 0,
-            allA = 0,
-            allR = 0,
-            allP = 0,
-            allCon = 0,
-            allCore = 0,
-            allConE = 0;
+        var listNum = 0, listNumH = 0, listNumE = 0, listNumEH = 0;
+        var fiveStarNum = 0, fiveStarNumH = 0, fiveStarNumE = 0, fiveStarNumEH = 0, fairyNum = 0;
+        var mul_smg = 1, mul_ar = 1, mul_rf = 1, mul_mg = 1, mul_sg = 1;
+        var allM = 0, allA = 0, allR = 0, allP = 0, allCon = 0, allCore = 0, allConE = 0;
         var global_list, global_5list, global_listE, global_5listE, global_fairylist;
         //init
         window.onload = function () {
@@ -51,13 +34,13 @@
             var sumchart = document.getElementById("sumChart");
             var sumchartE = document.getElementById("sumChartE");
             var resochart = document.getElementById("resoChart");
-            global_list = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号(Order No.)</th><th>资源(Resource)</th><th>人形(T-doll)</th></tr></thead><tbody></tbody></table>';
-            global_5list = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号(Order No.)</th><th>资源(Resource)</th><th>人形(T-doll)</th></tr></thead><tbody></tbody></table>';
-            global_listE = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号(Order No.)</th><th>资源(Resource)</th><th>装备(Equipment)</th></tr></thead><tbody></tbody></table>';
-            global_5listE = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号(Order No.)</th><th>资源(Resource)</th><th>装备(Equipment)</th></tr></thead><tbody></tbody></table>';
-            global_fairylist = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号(Order No.)</th><th>资源(Resource)</th><th>装备(Equipment)</th></tr></thead><tbody></tbody></table>';
-            var tab2 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星人形获取数(5-stars num)</th><th>五星人形获取率(5-stars ratio)</th><th>评价(Rank)</th></tr></thead><tbody></tbody></table>';
-            var tab2E = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星装备/妖精获取数(5-stars/fairy num)</th><th>获取率(ratio)</th><th>评价(Rank)</th></tr></thead><tbody></tbody></table>';
+            global_list = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>人形</th></tr></thead><tbody></tbody></table>';
+            global_5list = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>人形</th></tr></thead><tbody></tbody></table>';
+            global_listE = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>装备</th></tr></thead><tbody></tbody></table>';
+            global_5listE = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>装备</th></tr></thead><tbody></tbody></table>';
+            global_fairylist = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>装备</th></tr></thead><tbody></tbody></table>';
+            var tab2 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody></tbody></table>';
+            var tab2E = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星装备/妖精获取数</th><th>获取率</th><th>评价</th></tr></thead><tbody></tbody></table>';
             var tab3 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody></tbody></table>';
             chart.innerHTML = global_list;
             chartE.innerHTML = global_listE;
@@ -295,57 +278,33 @@
             var nextM, nextA, nextR, nextP;
             switch (parseInt(HClassId.value)) {
                 case 1:
-                    ConNum = 1;
-                    CoreNum = 3;
-                    break;
+                    ConNum = 1; CoreNum = 3; break;
                 case 2:
-                    ConNum = 20;
-                    CoreNum = 5;
-                    break;
+                    ConNum = 20; CoreNum = 5; break;
                 case 3:
-                    ConNum = 50;
-                    CoreNum = 10;
-                    break;
+                    ConNum = 50; CoreNum = 10; break;
             }
             switch (parseInt(EHClassId.value)) {
                 case 1:
-                    ConNumE = 1;
-                    CoreNumE = 2;
-                    break;
+                    ConNumE = 1; CoreNumE = 2; break;
                 case 2:
-                    ConNumE = 20;
-                    CoreNumE = 4;
-                    break;
+                    ConNumE = 20; CoreNumE = 4; break;
                 case 3:
-                    ConNumE = 50;
-                    CoreNumE = 6;
-                    break;
+                    ConNumE = 50; CoreNumE = 6; break;
             }
             if (unLimitReso.checked === false) { //if reso not enough
                 switch (typeInfo) {
                     case 1:
-                        nextM = Mw + allM;
-                        nextA = Aw + allA;
-                        nextR = Rw + allR;
-                        nextP = Pw + allP;
+                        nextM = Mw + allM; nextA = Aw + allA; nextR = Rw + allR; nextP = Pw + allP;
                         break;
                     case 2:
-                        nextM = MwH + allM;
-                        nextA = AwH + allA;
-                        nextR = RwH + allR;
-                        nextP = PwH + allP;
+                        nextM = MwH + allM; nextA = AwH + allA; nextR = RwH + allR; nextP = PwH + allP;
                         break;
                     case 3:
-                        nextM = MwE + allM;
-                        nextA = AwE + allA;
-                        nextR = RwE + allR;
-                        nextP = PwE + allP;
+                        nextM = MwE + allM; nextA = AwE + allA; nextR = RwE + allR; nextP = PwE + allP;
                         break;
                     case 4:
-                        nextM = MwEH + allM;
-                        nextA = AwEH + allA;
-                        nextR = RwEH + allR;
-                        nextP = PwEH + allP;
+                        nextM = MwEH + allM; nextA = AwEH + allA; nextR = RwEH + allR; nextP = PwEH + allP;
                         break;
                 }
                 if (nextM > MwOwn || nextA > AwOwn || nextR > RwOwn || nextP > PwOwn) { //freeze button
@@ -399,46 +358,25 @@
             var Pw = document.getElementById('Pw');
             switch (typeInfo) {
                 case 1:
-                    Mw.value = 430;
-                    Aw.value = 430;
-                    Rw.value = 430;
-                    Pw.value = 230;
+                    Mw.value = 430; Aw.value = 430; Rw.value = 430; Pw.value = 230;
                     break;
                 case 2:
-                    Mw.value = 130;
-                    Aw.value = 130;
-                    Rw.value = 130;
-                    Pw.value = 130;
+                    Mw.value = 130; Aw.value = 130; Rw.value = 130; Pw.value = 130;
                     break;
                 case 3:
-                    Mw.value = 97;
-                    Aw.value = 404;
-                    Rw.value = 404;
-                    Pw.value = 97;
+                    Mw.value = 97; Aw.value = 404; Rw.value = 404; Pw.value = 97;
                     break;
                 case 4:
-                    Mw.value = 430;
-                    Aw.value = 130;
-                    Rw.value = 430;
-                    Pw.value = 230;
+                    Mw.value = 430; Aw.value = 130; Rw.value = 430; Pw.value = 230;
                     break;
                 case 5:
-                    Mw.value = 430;
-                    Aw.value = 430;
-                    Rw.value = 130;
-                    Pw.value = 230;
+                    Mw.value = 430; Aw.value = 430; Rw.value = 130; Pw.value = 230;
                     break;
                 case 6:
-                    Mw.value = 730;
-                    Aw.value = 630;
-                    Rw.value = 130;
-                    Pw.value = 430;
+                    Mw.value = 730; Aw.value = 630; Rw.value = 130; Pw.value = 430;
                     break;
                 case 7:
-                    Mw.value = 730;
-                    Aw.value = 630;
-                    Rw.value = 430;
-                    Pw.value = 430;
+                    Mw.value = 730; Aw.value = 630; Rw.value = 430; Pw.value = 430;
                     break;
                 default:
                     break;
@@ -452,22 +390,13 @@
             var Pw = document.getElementById('PwH');
             switch (typeInfo) {
                 case 1:
-                    Mw.value = 4000;
-                    Aw.value = 1000;
-                    Rw.value = 6000;
-                    Pw.value = 3000;
+                    Mw.value = 4000; Aw.value = 1000; Rw.value = 6000; Pw.value = 3000;
                     break;
                 case 2:
-                    Mw.value = 6000;
-                    Aw.value = 2000;
-                    Rw.value = 6000;
-                    Pw.value = 4000;
+                    Mw.value = 6000; Aw.value = 2000; Rw.value = 6000; Pw.value = 4000;
                     break;
                 case 3:
-                    Mw.value = 6000;
-                    Aw.value = 6000;
-                    Rw.value = 6000;
-                    Pw.value = 4000;
+                    Mw.value = 6000; Aw.value = 6000; Rw.value = 6000; Pw.value = 4000;
                     break;
                 default:
                     break;
@@ -481,16 +410,10 @@
             var Pw = document.getElementById('PwE');
             switch (typeInfo) {
                 case 1:
-                    Mw.value = 150;
-                    Aw.value = 150;
-                    Rw.value = 150;
-                    Pw.value = 150;
+                    Mw.value = 150; Aw.value = 150; Rw.value = 150; Pw.value = 150;
                     break;
                 case 2:
-                    Mw.value = 151;
-                    Aw.value = 151;
-                    Rw.value = 151;
-                    Pw.value = 151;
+                    Mw.value = 151; Aw.value = 151; Rw.value = 151; Pw.value = 151;
                     break;
                 default:
                     break;
@@ -504,28 +427,16 @@
             var Pw = document.getElementById('PwEH');
             switch (typeInfo) {
                 case 1:
-                    Mw.value = 500;
-                    Aw.value = 500;
-                    Rw.value = 500;
-                    Pw.value = 500;
+                    Mw.value = 500; Aw.value = 500; Rw.value = 500; Pw.value = 500;
                     break;
                 case 2:
-                    Mw.value = 2000;
-                    Aw.value = 500;
-                    Rw.value = 2000;
-                    Pw.value = 1000;
+                    Mw.value = 2000; Aw.value = 500; Rw.value = 2000; Pw.value = 1000;
                     break;
                 case 3:
-                    Mw.value = 500;
-                    Aw.value = 2000;
-                    Rw.value = 2000;
-                    Pw.value = 1000;
+                    Mw.value = 500; Aw.value = 2000; Rw.value = 2000; Pw.value = 1000;
                     break;
                 case 4:
-                    Mw.value = 2000;
-                    Aw.value = 2000;
-                    Rw.value = 2000;
-                    Pw.value = 2000;
+                    Mw.value = 2000; Aw.value = 2000; Rw.value = 2000; Pw.value = 2000;
                     break;
                 default:
                     break;
@@ -1540,7 +1451,7 @@
             global_list += "</td></tr>";
             global_list += '</tbody></table>';
             global_5list += '</tr></tbody></table>';
-            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星人形获取数(5-stars num)</th><th>五星人形获取率(5-stars ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
+            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>';
             tabSum += "<tr>";
             var RateNormal;
             if (listNum === listNumH) RateNormal = -1; //Not normal-produce
@@ -1684,7 +1595,7 @@
             global_list += "</td></tr>";
             global_list += '</tbody></table>';
             global_5list += '</tr></tbody></table>';
-            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星人形获取数(5-stars num)</th><th>五星人形获取率(5-stars ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
+            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>';
             tabSum += "<tr>";
             var RateNormal;
             if (listNum === listNumH) RateNormal = -1; //Not normal-produce
@@ -1818,7 +1729,7 @@
             global_listE += "</td></tr>";
             global_listE += '</tbody></table>';
             global_5listE += '</tr></tbody></table>';
-            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星装备/妖精获取数(5-stars/fairy num)</th><th>获取率(ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
+            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星装备/妖精获取数</th><th>获取率</th><th>评价</th></tr></thead><tbody>';
             tabSum += "<tr>";
             var RateNormal;
             if (listNumE === listNumEH) RateNormal = -1; //Not normal-produce
@@ -2006,7 +1917,7 @@
             global_listE += '</tbody></table>';
             global_5listE += '</tr></tbody></table>';
             global_fairylist += '</tr></tbody></table>';
-            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数(Order sum)</th><th>五星装备/妖精获取数(5-stars/fairy num)</th><th>获取率(ratio)</th><th>评价(Rank)</th></tr></thead><tbody>';
+            tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星装备/妖精获取数</th><th>获取率</th><th>评价</th></tr></thead><tbody>';
             tabSum += "<tr>";
             var RateNormal;
             if (listNumE === listNumEH) RateNormal = -1; //Not normal-produce
@@ -2571,7 +2482,7 @@
                                     <!--TDOLL RESULTS-->
                                     <div class="tab-pane fade in active" id="TdollResult">
                                         <div class="panel-body">
-                                            <div class="col-lg-10">
+                                            <div class="col-lg-12">
                                                 <label>显示条目</label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitch" id="showAllSwitch" value="option1" onclick="showAll()" checked>
@@ -2582,12 +2493,12 @@
                                                     <b><span style="color:darkorange">★★★★★</span></b>
                                                 </label>
                                             </div>
-                                            <div class="col-lg-10">
+                                            <div class="col-lg-12">
                                                 <div class="panel-body">
                                                     <div class="table-responsive" id="sumChart"></div>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <div class="table-responsive" id="rankingChart"></div>
+                                                    <div class="table-responsive" id="rankingChart" style='height:500px; overflow-y:scroll'></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2595,7 +2506,7 @@
                                     <!--EQUIPMENT RESULTS-->
                                     <div class="tab-pane fade" id="EquipmentResult">
                                         <div class="panel-body">
-                                            <div class="col-lg-10">
+                                            <div class="col-lg-12">
                                                 <label>显示条目</label>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitchE" id="showAllSwitchE" value="option1" onclick="showAllE()" checked>
@@ -2610,12 +2521,12 @@
                                                     <b><span style="color:red">妖精</span></b>
                                                 </label>
                                             </div>
-                                            <div class="col-lg-10">
+                                            <div class="col-lg-12">
                                                 <div class="panel-body">
                                                     <div class="table-responsive" id="sumChartE"></div>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <div class="table-responsive" id="rankingChartE"></div>
+                                                    <div class="table-responsive" id="rankingChartE" style='height:500px; overflow-y:scroll'></div>
                                                 </div>
                                             </div>
 

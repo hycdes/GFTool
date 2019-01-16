@@ -368,6 +368,14 @@
             DeleteSelectId.innerHTML = selectText;
             document.getElementById('SaveButton').disabled = false;
         }
+        function subChip(chipNum) {     //to be do
+            for (var i = 0; i < chipRepo_chart.length; i++) {
+
+            }
+            //all done
+            chipNum--;
+            if (chipNum === 0) document.getElementById('SaveButton').disabled = true;
+        }
         function chartBack(typeInfo) {
             var line1 = document.getElementById('solutionLine1');
             var line2 = document.getElementById('solutionLine2');
@@ -410,14 +418,7 @@
                     break;
             }
         }
-        function subChip(chipNum) {
-            for (var i = 0; i < chipRepo_chart.length; i++) {
-
-            }
-            //all done
-            chipNum--;
-            if (chipNum === 0) document.getElementById('SaveButton').disabled = true;
-        }
+        function countMS(td1, td2) { return ((60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
         //ALGORITHM AREA
         function getChipShape(classNum, typeNum) {      //return all coordinate sets including rotation
             var chipShape = [];
@@ -602,11 +603,18 @@
             return chipMetrix;
         }
         function getChipSetMetrix(chipDataSet, HeavyfireType, HeavyfireStar) {  //CLEAR, combine all chip's total_metrix in a chipDataSet
+            //TEST ONLY
+            var td1 = new Date();
+            //TEST ONLY
             var chipMetrix = [], len = chipDataSet.length;
             for (var i = 0; i < len; i++) {
                 var chipSingleMetrix = getChipMetrix(chipDataSet[i], HeavyfireType, HeavyfireStar);
                 chipMetrix = chipMetrix.concat(chipSingleMetrix);
             }
+            //TEST ONLY
+            var td2 = new Date();
+            document.getElementById('globalconsole').innerHTML += "生成放置矩阵：" + countMS(td1, td2) + "ms\n";
+            //TEST ONLY
             return chipMetrix;
         }
         function allOneMetrix(metrix) {
@@ -701,7 +709,16 @@
             var comlen = combination.length;
             for (var i = 0; i < comlen; i++) chipDataSet.push(chipRepo_data[combination[i] - 1]);   //chipNum-1 is chipIndex
             var chipMetrix = getChipSetMetrix(chipDataSet, HeavyfireType, HeavyfireStar);
+            //TEST ONLY
+            var td1 = new Date();
+            //TEST ONLY
+
             var solution = CLX(chipMetrix);
+
+            //TEST ONLY
+            var td2 = new Date();
+            document.getElementById('globalconsole').innerHTML += "DLX执行：" + countMS(td1, td2) + "ms\n";
+            //TEST ONLY
             return solution;
         }
         function getSolution() {        //output best result
@@ -750,10 +767,25 @@
                             }
                         }
                     }
+                    for (var p0 = 0; p0 < num_six; p0++) {         //6+555555
+                        for (var p1 = 0; p1 < num_five; p1++) {
+                            for (var p2 = p1 + 1; p2 < num_five; p2++) {
+                                for (var p3 = p2 + 1; p3 < num_five; p3++) {
+                                    for (var p4 = p3 + 1; p4 < num_five; p4++) {
+                                        for (var p5 = p4 + 1; p5 < num_five; p5++) {
+                                            for (var p6 = p5 + 1; p6 < num_five; p6++) {
+                                                possibleCom = [chipNumList_six[p0], chipNumList_five[p1], chipNumList_five[p2], chipNumList_five[p3], chipNumList_five[p4], chipNumList_five[p5], chipNumList_five[p6]];
+                                                combinationSet.push(possibleCom);   //CAUTION: chipNum here, iterator=num-1
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
             }
             var combinationNum = combinationSet.length;
-            //try all possible combination of chips using CLX to solve
             for (var i = 0; i < combinationNum; i++) {
                 var tempSolution = solveResult(combinationSet[i], HeavyfireType, HeavyfireStar);
                 if (tempSolution.length != 0) {     //valid solution
@@ -875,7 +907,8 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">芯片计算器（没做完！）</h1>
+                        <h1 class="page-header">芯片计算器</h1>
+                        <h4>未完工，持续优化扩充中~</h4>
                     </div>
                     <div class="col-lg-12">
                         <div class="panel panel-default">
@@ -1194,6 +1227,12 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <h4>执行信息（测试）</h4>
+                                                <textarea class="form-control" rows="6" placeholder="执行信息" id="globalconsole"></textarea>
                                             </div>
                                         </div>
                                     </div>
