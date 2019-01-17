@@ -1090,8 +1090,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">芯片计算器</h1>
-                        <h4>未完工，持续优化扩充中~</h4>
+                        <div class="tooltip-demo">
+                            <h1 class="page-header">芯片计算器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="可将输入的芯片自动填满重装回路 目前仍在制作中" class="btn btn-outline btn-default">?</button></h1>
+                        </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="panel panel-default">
@@ -1293,7 +1294,7 @@
                                             <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
                                         </p>
                                     </div>
-                                    <h4>重装部队星级（还没写低星的边界形状）</h4>
+                                    <h4>重装部队星级</h4>
                                     <div class="col-lg-3">
                                         <p>
                                             <select class="form-control" id="HFStar" disabled>
@@ -1315,14 +1316,14 @@
                                         <a href="#Results" data-toggle="tab">结果</a>
                                     </li>
                                     <li id="panelO">
-                                        <a href="#Options" data-toggle="tab">其他东西（没想好呢）</a>
+                                        <a href="#Options" data-toggle="tab">（未开发区域）</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="Results">
                                         <div class="col-lg-4">
-                                            <h4>拼接解(优化算法2.0)</h4>
+                                            <h4>拼接解(优化算法v2.0)</h4>
                                             <div class="table-responsive">
                                                 <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
                                                     <tbody>
@@ -1412,18 +1413,22 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <h4>总属性</h4>
-                                            <table class="table table-bordered table-hover" style='width:400px'>
+                                            <table class="table table-bordered table-hover" style='width:300px'>
                                                 <tbody>
                                                     <tr>
-                                                        <td value=0 id="AcuResult" style='width:200px'><img src="../img/icon-acu.png"> 还不能显示</td>
-                                                        <td value=0 id="FilResult" style='width:200px'><img src="../img/icon-fil.png"> 还不能显示</td>
+                                                        <td value=0 id="AcuResult" style='width:150px'><img src="../img/icon-acu.png"> 属性改版暂无</td>
+                                                        <td value=0 id="FilResult" style='width:150px'><img src="../img/icon-fil.png"> 属性改版暂无</td>
                                                     </tr>
                                                     <tr>
-                                                        <td value=0 id="DmgResult" style='width:200px'><img src="../img/icon-dmg.png"> 还不能显示</td>
-                                                        <td value=0 id="DbkResult" style='width:200px'><img src="../img/icon-dbk.png"> 还不能显示</td>
+                                                        <td value=0 id="DmgResult" style='width:150px'><img src="../img/icon-dmg.png"> 属性改版暂无</td>
+                                                        <td value=0 id="DbkResult" style='width:150px'><img src="../img/icon-dbk.png"> 属性改版暂无</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                            <div class="form-group">
+                                                <h4>方案分析</h4>
+                                                <textarea class="form-control" rows="3" placeholder="当前方案的问题（未开发）" id="problemconsole" readonly></textarea>
+                                            </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <h4>方案选择</h4>
@@ -1432,15 +1437,12 @@
                                                 </select>
                                             </p>
                                             <div class="form-group">
-                                                <h4>执行信息（测试中使用）</h4>
+                                                <h4>执行信息（调试用）</h4>
                                                 <textarea class="form-control" rows="6" placeholder="执行信息" id="globalconsole"></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="Options">
-                                        <h1>啥都没呢！</h1>
-                                        <h1>啥都没呢！</h1>
-                                        <h1>啥都没呢！</h1>
                                         <h1>啥都没呢！</h1>
                                     </div>
                                 </div>

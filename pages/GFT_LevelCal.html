@@ -8,23 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>少女前线-练级计算器 by 命运の乐章</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script type="text/javascript">
         var levelUpExp_Tdoll = [0, 0, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500, 5500, 6600, 7800, 9100, 10500, 12000, 13600, 15300, 17100, 19000, 21000, 23100, 25300, 27600, 30000, 32500, 35100, 37900, 41000, 44400, 48600, 53200, 58200, 63600, 69400, 75700, 82400, 89600, 97300, 105500, 114300, 123600, 133500, 144000, 155100, 166900, 179400, 192500, 206400, 221000, 236400, 252500, 269400, 287200, 305800, 325300, 345700, 367000, 389300, 412600, 436900, 462200, 488500, 515900, 544400, 574000, 604800, 636800, 670000, 704400, 749500, 796300, 844900, 895300, 947500, 1001500, 1057400, 1115300, 1175100, 1236900, 1300800, 1366800, 1434900, 1505200, 1577800, 1652600, 1729700, 1809200, 1891100, 1975400, 2088000, 2204100, 2323600, 2446700, 2573400, 2703800, 2837900, 2975800, 3117600, 3263300, 3363300, 3483300, 3623300, 3783300, 3963300, 4163300, 4383300, 4623300, 4903300, 5263300, 5743300, 6383300, 7283300, 8483300, 10083300, 12283300, 15283300, 19283300, 24283300, 30283300];
         var levelUpExp_Fairy = [0, 0, 300, 600, 900, 1200, 1500, 1800, 2100, 2400, 2700, 3000, 3300, 3600, 3900, 4200, 4500, 4800, 5100, 5500, 6000, 6500, 7100, 8000, 9000, 10000, 11000, 12200, 13400, 14700, 16000, 17500, 18900, 20500, 22200, 23900, 25700, 27600, 29500, 31600, 33700, 35900, 38200, 40500, 43000, 45500, 48200, 50900, 53700, 56600, 59600, 62700, 65900, 69200, 72600, 76000, 79600, 83300, 87000, 90900, 94900, 99000, 103100, 107400, 111800, 116300, 120900, 125600, 130400, 135300, 140400, 145500, 150800, 156100, 161600, 167200, 172900, 178700, 184700, 190700, 196900, 203200, 209600, 216100, 222800, 229600, 236500, 243500, 250600, 257900, 265300, 272800, 280400, 288200, 296100, 304100, 312300, 320600, 329000, 337500, 357000];
@@ -63,23 +51,17 @@
             var MP = document.getElementById('MapInfo');
             switch (mapInfo) {
                 case 1:
-                    MP.value = 1;
-                    break; //0-2
+                    MP.value = 1; break; //0-2
                 case 2:
-                    MP.value = 54;
-                    break; //4-3E
+                    MP.value = 54; break; //4-3E
                 case 3:
-                    MP.value = 71;
-                    break; //5-2N
+                    MP.value = 71; break; //5-2N
                 case 4:
-                    MP.value = 86;
-                    break; //6-3N
+                    MP.value = 86; break; //6-3N
                 case 5:
-                    MP.value = 112;
-                    break; //8-1N
+                    MP.value = 112; break; //8-1N
                 case 6:
-                    MP.value = 140;
-                    break; //11-5
+                    MP.value = 140; break; //11-5
             }
         }
 
@@ -88,21 +70,13 @@
             var TL = document.getElementById('TarLev');
             switch (levelInfo) {
                 case 1:
-                    CL.value = 30;
-                    TL.value = 70;
-                    break;
+                    CL.value = 30; TL.value = 70; break;
                 case 2:
-                    CL.value = 70;
-                    TL.value = 90;
-                    break;
+                    CL.value = 70; TL.value = 90; break;
                 case 3:
-                    CL.value = 100;
-                    TL.value = 110;
-                    break;
+                    CL.value = 100; TL.value = 110; break;
                 case 4:
-                    CL.value = 110;
-                    TL.value = 115;
-                    break;
+                    CL.value = 110; TL.value = 115; break;
             }
         }
 
@@ -111,21 +85,13 @@
             var TLF = document.getElementById('TarLevF');
             switch (levelInfo) {
                 case 1:
-                    CLF.value = 1;
-                    TLF.value = 20;
-                    break;
+                    CLF.value = 1; TLF.value = 20; break;
                 case 2:
-                    CLF.value = 20;
-                    TLF.value = 40;
-                    break;
+                    CLF.value = 20; TLF.value = 40; break;
                 case 3:
-                    CLF.value = 40;
-                    TLF.value = 70;
-                    break;
+                    CLF.value = 40; TLF.value = 70; break;
                 case 4:
-                    CLF.value = 70;
-                    TLF.value = 100;
-                    break;
+                    CLF.value = 70; TLF.value = 100; break;
             }
         }
 
@@ -134,17 +100,11 @@
             var TLH = document.getElementById('TarLevH');
             switch (levelInfo) {
                 case 1:
-                    CLH.value = 1;
-                    TLH.value = 40;
-                    break;
+                    CLH.value = 1; TLH.value = 40; break;
                 case 2:
-                    CLH.value = 1;
-                    TLH.value = 60;
-                    break;
+                    CLH.value = 1; TLH.value = 60; break;
                 case 3:
-                    CLH.value = 40;
-                    TLH.value = 60;
-                    break;
+                    CLH.value = 40; TLH.value = 60; break;
             }
         }
 
@@ -856,7 +816,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">练级计算器</h1>
+                        <div class="tooltip-demo">
+                            <h1 class="page-header">练级计算器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="计算升级需要各种战斗场次" class="btn btn-outline btn-default">?</button></h1>
+                        </div>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -1059,15 +1021,13 @@
                                     <div class="tab-pane fade in active" id="TdollLevel">
                                         <!--level/exp info-->
                                         <div class="col-lg-4">
-                                            <h4>人形信息</h4>
-                                            <div class="tooltip-demo">
-                                                <p>
-                                                    <button type="button" class="btn btn-default" onclick="setLevel(1)">30 → 70</button>
-                                                    <button type="button" class="btn btn-default" onclick="setLevel(2)">70 → 90</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="MODⅠ → MODⅡ" class="btn btn-outline btn-danger" onclick="setLevel(3)">100 → 110</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="MODⅡ → MODⅢ" class="btn btn-outline btn-danger" onclick="setLevel(4)">110 → 115</button>
-                                                </p>
-                                            </div>
+                                            <h4>人形等级经验</h4>
+                                            <p>
+                                                <button type="button" class="btn btn-default" onclick="setLevel(1)">30 → 70</button>
+                                                <button type="button" class="btn btn-default" onclick="setLevel(2)">70 → 90</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="setLevel(3)">MODⅡ</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="setLevel(4)">MODⅢ</button>
+                                            </p>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">当前等级</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" id="CurLev" value=1>
@@ -1090,31 +1050,29 @@
                                     <div class="tab-pane fade" id="FairyLevel">
                                         <!--level/exp info-->
                                         <div class="col-lg-4">
-                                            <h4>妖精信息</h4>
-                                            <div class="tooltip-demo">
-                                                <p>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="★★" class="btn btn-outline btn-default" onclick="setLevelF(1)">1 → 20</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="★★★" class="btn btn-outline btn-primary" onclick="setLevelF(2)">20 → 40</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="★★★★" class="btn btn-outline btn-success" onclick="setLevelF(3)">40 → 70</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="★★★★★" class="btn btn-outline btn-warning" onclick="setLevelF(4)">70 → 100</button>
-                                                </p>
-                                                <!--weather-device level-->
-                                                <p>
-                                                    <select class="form-control" id="WeatherDevice">
-                                                        <option value=0>Lv.0 空白的天气系统 (5%)</option>
-                                                        <option value=1>Lv.1 乌云天气系统 (6.5%)</option>
-                                                        <option value=2>Lv.2 乌云天气系统 (8%)</option>
-                                                        <option value=3>Lv.3 乌云天气系统 (9.5%)</option>
-                                                        <option value=4>Lv.4 乌云天气系统 (11%)</option>
-                                                        <option value=5>Lv.5 乌云天气系统 (12.5%)</option>
-                                                        <option value=6>Lv.6 暗月天气系统 (14%)</option>
-                                                        <option value=7>Lv.7 暗月天气系统 (15.5%)</option>
-                                                        <option value=8>Lv.8 暗月天气系统 (17%)</option>
-                                                        <option value=9>Lv.9 暗月天气系统 (18.5%)</option>
-                                                        <option value=10 selected="selected">Lv.10 双月天气系统 (20%)</option>
-                                                    </select>
-                                                </p>
-                                            </div>
+                                            <h4>妖精等级经验</h4>
+                                            <p>
+                                                <button type="button" class="btn btn-outline btn-default" onclick="setLevelF(1)">1 → 20</button>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="setLevelF(2)">20 → 40</button>
+                                                <button type="button" class="btn btn-outline btn-success" onclick="setLevelF(3)">40 → 70</button>
+                                                <button type="button" class="btn btn-outline btn-warning" onclick="setLevelF(4)">70 → 100</button>
+                                            </p>
+                                            <!--weather-device level-->
+                                            <p>
+                                                <select class="form-control" id="WeatherDevice">
+                                                    <option value=0>Lv.0 空白的天气系统 (5%)</option>
+                                                    <option value=1>Lv.1 乌云天气系统 (6.5%)</option>
+                                                    <option value=2>Lv.2 乌云天气系统 (8%)</option>
+                                                    <option value=3>Lv.3 乌云天气系统 (9.5%)</option>
+                                                    <option value=4>Lv.4 乌云天气系统 (11%)</option>
+                                                    <option value=5>Lv.5 乌云天气系统 (12.5%)</option>
+                                                    <option value=6>Lv.6 暗月天气系统 (14%)</option>
+                                                    <option value=7>Lv.7 暗月天气系统 (15.5%)</option>
+                                                    <option value=8>Lv.8 暗月天气系统 (17%)</option>
+                                                    <option value=9>Lv.9 暗月天气系统 (18.5%)</option>
+                                                    <option value=10 selected="selected">Lv.10 双月天气系统 (20%)</option>
+                                                </select>
+                                            </p>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">当前等级</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" id="CurLevF" value=1 onblur="correctInput(20)">
@@ -1137,30 +1095,28 @@
                                     <div class="tab-pane fade" id="HeavyfireLevel">
                                         <!--level/exp info-->
                                         <div class="col-lg-4">
-                                            <h4>重装部队信息</h4>
-                                            <div class="tooltip-demo">
-                                                <p>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="★★★ 芯片" class="btn btn-outline btn-success" onclick="setLevelH(1)">1 → 40</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="★★★★★ 芯片" class="btn btn-outline btn-warning" onclick="setLevelH(2)">1 → 60</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="★★★★★ 芯片" class="btn btn-outline btn-warning" onclick="setLevelH(3)">40 → 60</button>
-                                                </p>
-                                                <!--training-course level-->
-                                                <p>
-                                                    <select class="form-control" id="TrainingCourse">
-                                                        <option value=0>Lv.0 简单的训练场 (1本/h)</option>
-                                                        <option value=1>Lv.1 简单的训练场 (3本/h)</option>
-                                                        <option value=2>Lv.2 简单的训练场 (3本/h)</option>
-                                                        <option value=3>Lv.3 小规模训练场 (5本/h)</option>
-                                                        <option value=4>Lv.4 小规模训练场 (7本/h)</option>
-                                                        <option value=5>Lv.5 小规模训练场 (7本/h)</option>
-                                                        <option value=6>Lv.6 中等规模训练场 (9本/h)</option>
-                                                        <option value=7>Lv.7 中等规模训练场 (11本/h)</option>
-                                                        <option value=8>Lv.8 中等规模训练场 (11本/h)</option>
-                                                        <option value=9>Lv.9 中等规模训练场 (13本/h)</option>
-                                                        <option value=10 selected="selected">Lv.10 综合室内训练场 (15本/h)</option>
-                                                    </select>
-                                                </p>
-                                            </div>
+                                            <h4>重装部队等级经验</h4>
+                                            <p>
+                                                <button type="button" class="btn btn-outline btn-success" onclick="setLevelH(1)">1 → 40</button>
+                                                <button type="button" class="btn btn-outline btn-warning" onclick="setLevelH(2)">1 → 60</button>
+                                                <button type="button" class="btn btn-outline btn-warning" onclick="setLevelH(3)">40 → 60</button>
+                                            </p>
+                                            <!--training-course level-->
+                                            <p>
+                                                <select class="form-control" id="TrainingCourse">
+                                                    <option value=0>Lv.0 简单的训练场 (1本/h)</option>
+                                                    <option value=1>Lv.1 简单的训练场 (3本/h)</option>
+                                                    <option value=2>Lv.2 简单的训练场 (3本/h)</option>
+                                                    <option value=3>Lv.3 小规模训练场 (5本/h)</option>
+                                                    <option value=4>Lv.4 小规模训练场 (7本/h)</option>
+                                                    <option value=5>Lv.5 小规模训练场 (7本/h)</option>
+                                                    <option value=6>Lv.6 中等规模训练场 (9本/h)</option>
+                                                    <option value=7>Lv.7 中等规模训练场 (11本/h)</option>
+                                                    <option value=8>Lv.8 中等规模训练场 (11本/h)</option>
+                                                    <option value=9>Lv.9 中等规模训练场 (13本/h)</option>
+                                                    <option value=10 selected="selected">Lv.10 综合室内训练场 (15本/h)</option>
+                                                </select>
+                                            </p>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">当前等级</span>
                                                 <input type="text" class="form-control" placeholder="输入整数" id="CurLevH" value=1>
@@ -1183,7 +1139,7 @@
                                     <div class="tab-pane fade" id="AdvancedSetting">
                                         <!--Expansion -->
                                         <div class="col-lg-12">
-                                            <h4>经验获取和资源开销</h4>
+                                            <h4>战斗相关</h4>
                                             <p>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitch" id="Expan1" value="option1" checked><span style="color:dodgerblue">随等级扩编</span>
@@ -1236,7 +1192,7 @@
                                         </div>
                                         <!--Fairy setting -->
                                         <div class="col-lg-12">
-                                            <h4>妖精练级经验</h4>
+                                            <h4>妖精相关</h4>
                                             <p>
                                                 <label class="radio-inline">
                                                     <input type="radio" name="ExpanSwitchF" id="ExpanF1" value="option1" onclick="freeTeamExpan()" checked><span style="color:dodgerblue">全员五扩/队长MVP</span>

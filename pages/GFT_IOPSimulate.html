@@ -2155,12 +2155,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">建造模拟器</h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p>* <span style="color:#FF0066">纯娱乐</span>，重来请<span style="color:#FF0066">刷新</span>，数据参考：<u><a href="http://gfdb.baka.pw/statistician.html" target="_blank"><span style="color:dodgerblue">IOP制造公司出货统计</span></a></u></p>
+                        <div class="tooltip-demo">
+                            <h1 class="page-header">建造模拟器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="数据参考自IOP公司制造统计网站 格里芬魔术真实复刻" class="btn btn-outline btn-default">?</button></h1>
+                        </div>
                     </div>
                 </div>
                 <!--Setting-->
@@ -2434,8 +2431,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-primary" onclick="resetResoLimit()">
-                                                    重置资源限制</button></p>
+                                            <p>
+                                                <button type="button" class="btn btn-primary" onclick="resetResoLimit()">重置资源限制</button>
+                                            </p>
                                         </div>
                                     </div>
 
@@ -2498,7 +2496,7 @@
                                                     <div class="table-responsive" id="sumChart"></div>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <div class="table-responsive" id="rankingChart" style='height:500px; overflow-y:scroll'></div>
+                                                    <div class="table-responsive" id="rankingChart" style='height:400px; overflow-y:scroll'></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2555,7 +2553,17 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
 </body>
 
 </html>

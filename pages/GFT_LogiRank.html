@@ -8,30 +8,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>少女前线-后勤排序器 by 命运の乐章</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     <script type="text/javascript">
         window.onload = function () {
             var chart = document.getElementById("rankingChart");
             var tab = '点击 <span style="color:deepskyblue">按条件排序</span> 按钮，排序前十的结果将在这里显示';
             chart.innerHTML = tab;
         }
-
         function creatLogiData(ilevel, impw, iamm, irat, iprt, iitm1, iitm2, itime) {
             var logiData = new Object;
             logiData.level = ilevel;
@@ -66,7 +53,6 @@
                     Mw.value = 0; Aw.value = 0; Rw.value = 0; Pw.value = 1; break;
             }
         }
-
         function setTime(timeInfo) {
             var Tr = document.getElementById('Tr');
             var Tm = document.getElementById('Tm');
@@ -83,7 +69,6 @@
                     Tr.value = 0; Tm.value = 24; break;
             }
         }
-
         function obeyLimit(Tr, Tm, logiDataEntry) {
             var MapLimit = parseFloat(document.getElementById('MapLimit').value);
             var s1 = parseFloat((logiDataEntry.level).substr(0, 1));
@@ -106,7 +91,6 @@
                 return false;
             }
         }
-
         function haveItem(it1, it2, logiDataEntry) {
             var validNum = 0;
             if (it1 === it2) {
@@ -152,11 +136,8 @@
                     validNum++;
                 }
             }
-            if (validNum === 2) {
-                return true;
-            } else {
-                return false;
-            }
+            if (validNum === 2) return true;
+            else return false;
         }
 
         function getChart(logiList, it1, it2, it1_text, it2_text, Tr, Tm) {
@@ -374,18 +355,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">后勤排序器</h1>
+                        <div class="tooltip-demo">
+                            <h1 class="page-header">后勤排序器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="各资源获取速率乘其权重求和排序 所缺的资源可将权重调大" class="btn btn-outline btn-default">?</button></h1>
+                        </div>
                     </div>
                 </div>
-                <!-- /.row -->
-                <div class="row">
-                    <!--Weight-->
-                    <div class="col-lg-12">
-                        <p>* 各资源获取速率<span style="color:#FF0066">乘其比重求和</span>，以此排序</p>
-                    </div>
-                </div>
-
-                <!-- /.row -->
                 <div class="row">
                     <!--Setting-->
                     <div class="col-lg-8">
@@ -411,10 +385,9 @@
                                         <div class="col-lg-6" style="background:url(../img/Logi-token.png) no-repeat right 15px top 15px">
                                             <h4>常用</h4>
                                             <p>
-                                                <div class="tooltip-demo">
-                                                    <button type="button" class="btn btn-outline btn-primary" onclick="setWeight(1)">等比</button>
-                                                    <button type="button" data-toggle="tooltip" data-placement="top" title="零件获取速率是其他资源的1/3" class="btn btn-outline btn-danger" onclick="setWeight(2)">零件x3</button>
-                                                    <button type="button" class="btn btn-default" onclick="setWeight(3)">赌枪</button>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="setWeight(2)">零件x3</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="setWeight(1)">等比</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(3)">赌枪</button>
                                             </p>
                                             <p>
                                                 <button type="button" class="btn btn-default" onclick="setWeight(4)">人力</button>
@@ -444,120 +417,108 @@
                                                 </select>
                                             </p>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <h4>权重</h4>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">人力权重</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" id="Mw" value=1>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">弹药权重</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" id="Aw" value=1>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">口粮权重</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" id="Rw" value=1>
+                                            </div>
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">零件权重</span>
+                                                <input type="text" class="form-control" placeholder="输入整数" id="Pw" value=3>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <h4>权重</h4>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">人力比重</span>
-                                            <input type="text" class="form-control" placeholder="输入整数" id="Mw" value=1>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">弹药比重</span>
-                                            <input type="text" class="form-control" placeholder="输入整数" id="Aw" value=1>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">口粮比重</span>
-                                            <input type="text" class="form-control" placeholder="输入整数" id="Rw" value=1>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">零件比重</span>
-                                            <input type="text" class="form-control" placeholder="输入整数" id="Pw" value=1>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!--LIMITATION-->
-                                <div class="tab-pane fade" id="Limitation">
-                                    <div class="col-lg-12">
-                                        <h4>时间区间</h4>
-                                        <div class="tooltip-demo">
+                                    <!--LIMITATION-->
+                                    <div class="tab-pane fade" id="Limitation">
+                                        <div class="col-lg-12">
+                                            <h4>时间区间</h4>
                                             <p>
                                                 <button type="button" class="btn btn-default" onclick="setTime(5)">全部</button>
                                                 <button type="button" class="btn btn-outline btn-primary" onclick="setTime(1)">6~12h</button>
                                                 <button type="button" class="btn btn-default" onclick="setTime(2)">4~6h</button>
                                                 <button type="button" class="btn btn-default" onclick="setTime(3)">1~3h</button>
-                                                <button type="button" data-toggle="tooltip" data-placement="top" title="是大佬，我死了Σ(ﾟдﾟ;)" class="btn btn-outline btn-danger" onclick="setTime(4)">0~1.7h</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="setTime(4)">0~1.7h</button>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">最短</span>
+                                                <input type="text" class="form-control" value="0" placeholder="输入数字" id="Tr">
+                                                <span class="input-group-addon">小时</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group input-group">
+                                                <span class="input-group-addon">最长</span>
+                                                <input type="text" class="form-control" value="24" placeholder="输入数字" id="Tm">
+                                                <span class="input-group-addon">小时</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>关卡解锁</h4>
+                                            <p>
+                                                <select class="form-control" id="MapLimit">
+                                                    <option value=1>第一战役</option>
+                                                    <option value=2>第二战役</option>
+                                                    <option value=3>第三战役</option>
+                                                    <option value=4>第四战役</option>
+                                                    <option value=4.5>第零战役 (通关4-4E)</option>
+                                                    <option value=5>第五战役</option>
+                                                    <option value=6>第六战役</option>
+                                                    <option value=7>第七战役</option>
+                                                    <option value=8>第八战役</option>
+                                                    <option value=9>第九战役</option>
+                                                    <option value=10>第十战役</option>
+                                                    <option value=11 selected>第十一战役</option>
+                                                </select>
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">最短</span>
-                                            <input type="text" class="form-control" value="0" placeholder="输入数字" id="Tr">
-                                            <span class="input-group-addon">小时</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">最长</span>
-                                            <input type="text" class="form-control" value="24" placeholder="输入数字" id="Tm">
-                                            <span class="input-group-addon">小时</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <h4>关卡解锁</h4>
-                                        <p>
-                                            <select class="form-control" id="MapLimit">
-                                                <option value=1>第一战役</option>
-                                                <option value=2>第二战役</option>
-                                                <option value=3>第三战役</option>
-                                                <option value=4>第四战役</option>
-                                                <option value=4.5>第零战役 *通关4-4E</option>
-                                                <option value=5>第五战役</option>
-                                                <option value=6>第六战役</option>
-                                                <option value=7>第七战役</option>
-                                                <option value=8>第八战役</option>
-                                                <option value=9>第九战役</option>
-                                                <option value=10>第十战役</option>
-                                                <option value=11 selected>第十一战役</option>
-                                            </select>
-                                        </p>
+                                    <div class="col-lg-12">
+                                        <p><button type="button" class="btn btn-info" onclick="getRanking()">按条件排序</button></p>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <p><button type="button" class="btn btn-info" onclick="getRanking()">按条件排序</button></p>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            排序结果
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                排序结果
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="table-responsive" id="rankingChart"></div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive" id="rankingChart"></div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     </div>
-
-    </div>
     <!-- /#wrapper -->
-
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-
     <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
     <script>
         // tooltip demo
