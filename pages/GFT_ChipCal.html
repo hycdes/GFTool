@@ -24,7 +24,7 @@
         .td_b4{width:30px;height:30px;background:limegreen;}
         .td_b5{width:30px;height:30px;background:orange;}
         .td_b6{width:30px;height:30px;background:#FF0066;}
-        .td_b7{width:30px;height:30px;background:mediumvioletred;}
+        .td_b7{width:30px;height:30px;background:fuchsia;}
     </style>
     <script type="text/javascript">
         var globaltime_0 = 0, globaltime_1 = 0, globaltime_2 = 0, globaltime_3 = 0, globaltime_4 = 0; //测试时间专用
@@ -35,6 +35,8 @@
         var block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
         var chipNum = 0;
         var chipRepo_data = [];     //Chip data
+        var chipRepo_shape_5 = [];   //For make shape only
+        var chipRepo_shape_6 = [];   //For make shape only
         var chipRepo_chart = [];    //Repository information that react at repository-table
         var deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
         function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
@@ -62,6 +64,25 @@
             repoData.Dbk = Dbk;
             return repoData;
         }
+        chipRepo_shape_5.push(creatChip('Fa', 1, 551, 11, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('Fb', 1, 551, 12, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('Na', 1, 551, 21, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('Nb', 1, 551, 22, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('Ya', 1, 551, 31, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('Yb', 1, 551, 32, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('T', 1, 551, 4, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('W', 1, 551, 5, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('X', 1, 551, 6, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_6.push(creatChip('1', 1, 56, 1, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('2', 1, 56, 2, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('3', 1, 56, 3, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('4a', 1, 56, 41, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('4b', 1, 56, 42, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5', 1, 56, 5, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('6', 1, 56, 6, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('7', 1, 56, 7, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('8', 1, 56, 8, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('9', 1, 56, 9, 0, 1, 1, 1, 3, 1));
         window.onload = function () {
             resetPage();
         }
@@ -565,51 +586,47 @@
             for (var i = 0; i < len; i++) if (rank[outworld[i]] === 1) return false;
             return true;
         }
-        function getChipMetrix(chipData, HeavyfireType, HeavyfireStar) {        //CLEAR, return chip metrix describe all possible rotation & position
-            var chipMetrix = [];        //each line length = 1 + x_max*y_max
-            var x_max, y_max;
-            var outworld;               //which iterator of rank should be 0
-            switch (HeavyfireType) {    //BGM,AGS,2B
-                case 1:
-                    if (HeavyfireStar === 5) {
-                        x_max = 6; y_max = 6;
-                        outworld = [];
-                    }
-                    break;
-                case 2:
-                    if (HeavyfireStar === 5) {
-                        x_max = 8; y_max = 8;
-                        outworld = [1, 2, 5, 6, 7, 8, 9, 14, 15, 16, 23, 24, 32, 33, 41, 42, 49, 50, 51, 56, 57, 58, 59, 60, 63, 64];
-                    }
-                    break;
-                case 3:
-                    if (HeavyfireStar === 5) {
-                        x_max = 8; y_max = 6;
-                        outworld = [1, 2, 4, 5, 7, 8, 9, 16, 33, 40, 41, 42, 44, 45, 47, 48];
-                    }
-                    break;
-            }
-            var chipShape = getChipShape(chipData.classNum, chipData.typeNum);
-            var num_shape = chipShape.length;
-            for (var it_shape = 0; it_shape < num_shape; it_shape++) {      //get all shape metrix
-                var chipCoor = chipShape[it_shape];
-                var num_xshift = getXShift(chipCoor, x_max), num_yshift = getYShift(chipCoor, y_max);
-                for (var shift_y = 0; shift_y <= num_yshift; shift_y++) {
-                    for (var shift_x = 0; shift_x <= num_xshift; shift_x++) {
-                        var rank = makeShiftRank(chipData.chipNum, shift_x, shift_y, x_max, y_max, chipCoor);
-                        if (isRankProper(rank, outworld)) chipMetrix.push(rank);
+        function getShapeMetrix(chipDataSet, HeavyfireType, HeavyfireStar) {
+            var shapeMetrix = [], len = chipDataSet.length;
+            for (var i = 0; i < len; i++) {
+                var singleShape = [];        //each line length = 1 + x_max*y_max
+                var x_max, y_max;
+                var outworld;               //which iterator of rank should be 0
+                switch (HeavyfireType) {    //BGM,AGS,2B
+                    case 1:
+                        if (HeavyfireStar === 5) {
+                            x_max = 6; y_max = 6;
+                            outworld = [];
+                        }
+                        break;
+                    case 2:
+                        if (HeavyfireStar === 5) {
+                            x_max = 8; y_max = 8;
+                            outworld = [1, 2, 5, 6, 7, 8, 9, 14, 15, 16, 23, 24, 32, 33, 41, 42, 49, 50, 51, 56, 57, 58, 59, 60, 63, 64];
+                        }
+                        break;
+                    case 3:
+                        if (HeavyfireStar === 5) {
+                            x_max = 8; y_max = 6;
+                            outworld = [1, 2, 4, 5, 7, 8, 9, 16, 33, 40, 41, 42, 44, 45, 47, 48];
+                        }
+                        break;
+                }
+                var chipShape = getChipShape(chipDataSet[i].classNum, chipDataSet[i].typeNum); //形状坐标矩阵
+                var num_shape = chipShape.length;
+                for (var it_shape = 0; it_shape < num_shape; it_shape++) { //对所有旋转情况
+                    var chipCoor = chipShape[it_shape]; //获取该角度坐标
+                    var num_xshift = getXShift(chipCoor, x_max), num_yshift = getYShift(chipCoor, y_max); //获取x,y可能位移上限
+                    for (var shift_y = 0; shift_y <= num_yshift; shift_y++) {
+                        for (var shift_x = 0; shift_x <= num_xshift; shift_x++) {
+                            var rank = makeShiftRank(chipDataSet[i].chipNum, shift_x, shift_y, x_max, y_max, chipCoor);
+                            if (isRankProper(rank, outworld)) singleShape.push(rank);
+                        }
                     }
                 }
+                shapeMetrix.push(singleShape);
             }
-            return chipMetrix;
-        }
-        function getChipSetMetrix(chipDataSet, HeavyfireType, HeavyfireStar) {  //CLEAR, combine all chip's total_metrix in a chipDataSet
-            var chipMetrix = [], len = chipDataSet.length;
-            for (var i = 0; i < len; i++) {
-                var chipSingleMetrix = getChipMetrix(chipDataSet[i], HeavyfireType, HeavyfireStar);
-                chipMetrix.push(chipSingleMetrix);
-            }
-            return chipMetrix;
+            return shapeMetrix;
         }
         function allOneRank(rank, disable_colStack, init_chipNum, counting) {
             var ranklen = rank.length;
@@ -620,7 +637,6 @@
                     else boolSet.push(true);
                 }
             }
-            //if (counting === 6) console.log("d_col[1]=", disable_colStack[1]);
             for (var c = 0; c < init_chipNum - 1; c++) isIn = (isIn || boolSet[c]);
             return isIn;
         }
@@ -629,7 +645,7 @@
             for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false;
             return true;
         }
-        function CLX(chipMetrix) {  //DANCING LINKS X，第一次优化
+        function DLX(chipMetrix) {  //DANCING LINKS X，第一次优化
             var solutionCubic = [];    //save ranks
             var metrixStack = [];
             var init_chipNum = chipMetrix.length;
@@ -651,7 +667,7 @@
             }
             var currentRank = currentMetrix[counting][currentIt[counting]];//选择行是最后一个放好芯片的放置模式，c芯片的第it[c]行
             counting++;
-            //CLX
+            //DLX
             while (!(counting === init_chipNum && allOneRank(currentRank, disable_colStack, init_chipNum, counting))) {   //最后一片且allOne跳出
                 var ranklen = currentRank.length;
                 var disable_row = []; for (var i = 0; i < init_chipNum; i++) disable_row.push([]); //初始化每个芯片的废弃行[]
@@ -726,21 +742,29 @@
             for (var i = 0; i < init_chipNum; i++) solutionCubic.push(chipMetrix[i][solutionIdx[i]]);
             return solutionCubic;
         }
-        function solveResult(combination, HeavyfireType, HeavyfireStar) {      //Give a combination, get solution result, empty means no solution, using Dancing links X
+        function getResult(combination, strategyInfo, HeavyfireType, HeavyfireStar) {      //改良后定型
             var solution = [], chipDataSet = [];
-            var comlen = combination.length;
-            for (var i = 0; i < comlen; i++) chipDataSet.push(chipRepo_data[combination[i] - 1]);   //chipNum-1 is chipIndex
-            var chipMetrix = getChipSetMetrix(chipDataSet, HeavyfireType, HeavyfireStar);
-            //TEST ONLY
-            var td1 = new Date();
-            //TEST ONLY
-
-            var solution = CLX(chipMetrix);
-
-            //TEST ONLY
-            var td2 = new Date();
-            globaltime_0 += countMS(td1, td2);
-            //TEST ONLY
+            if (!strategyInfo[1]) {
+                for (var i = 0; i < 10; i++) {
+                    for (var j = 0; j < combination[i]; j++) {
+                        chipDataSet.push(chipRepo_shape_6[i]);
+                    }
+                }
+            }
+            if (strategyInfo[0] && strategyInfo[1]) {
+                for (var i = 0; i < 10; i++) {
+                    for (var j = 0; j < combination[i]; j++) {
+                        chipDataSet.push(chipRepo_shape_6[i]);
+                    }
+                }
+                for (var i = 10; i < 19; i++) {
+                    for (var j = 0; j < combination[i]; j++) {
+                        chipDataSet.push(chipRepo_shape_5[i - 10]);
+                    }
+                }
+            }
+            var chipMetrix = getShapeMetrix(chipDataSet, HeavyfireType, HeavyfireStar);
+            var solution = DLX(chipMetrix);
             return solution;
         }
         function getSolution() {        //output best result
@@ -749,75 +773,85 @@
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
             else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
             else HeavyfireType = 3;
-            var combinationSet = [];    //possible combination chipNum set
+            var possibleSet = [], strategyInfo = [];
+            var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]];
+            var chipShape_6 = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]];
+            var chipStat_5 = 0, chipStat_6 = 0;
+            for (var i = 0; i < chipNum; i++) {
+                if (getBlockNum(chipRepo_data[i].classNum) === 5) {
+                    switch (chipRepo_data[i].typeNum) {
+                        case 11: chipShape_5[0][1]++; break;
+                        case 12: chipShape_5[1][1]++; break;
+                        case 21: chipShape_5[2][1]++; break;
+                        case 22: chipShape_5[3][1]++; break;
+                        case 31: chipShape_5[4][1]++; break;
+                        case 32: chipShape_5[5][1]++; break;
+                        case 4: chipShape_5[6][1]++; break;
+                        case 5: chipShape_5[7][1]++; break;
+                        case 6: chipShape_5[8][1]++; break;
+                    }
+                    chipStat_5++;
+                }
+                else if (getBlockNum(chipRepo_data[i].classNum) === 6) {
+                    switch (chipRepo_data[i].typeNum) {
+                        case 1: chipShape_6[0][1]++; break;
+                        case 2: chipShape_6[1][1]++; break;
+                        case 3: chipShape_6[2][1]++; break;
+                        case 41: chipShape_6[3][1]++; break;
+                        case 42: chipShape_6[4][1]++; break;
+                        case 5: chipShape_6[5][1]++; break;
+                        case 6: chipShape_6[6][1]++; break;
+                        case 7: chipShape_6[7][1]++; break;
+                        case 8: chipShape_6[8][1]++; break;
+                        case 9: chipShape_6[9][1]++; break;
+                    }
+                    chipStat_6++;
+                }
+            }
             switch (HeavyfireType) {
                 case 1:
-                    var chipNumList_five = [], chipNumList_six = [];
-                    for (var i = 0; i < chipNum; i++) {
-                        if (getBlockNum(chipRepo_data[i].classNum) === 6) chipNumList_six.push(chipRepo_data[i].chipNum);   //CAUTION: chipNum here, iterator=num-1
-                        else if (getBlockNum(chipRepo_data[i].classNum) === 5) chipNumList_five.push(chipRepo_data[i].chipNum);
+                    if (chipStat_6 >= 6) {
+                        possibleSet.push(getCombination(6, 0, chipShape_6, chipShape_5));
+                        strategyInfo.push([true, false]);
+                        document.getElementById('globalconsole').innerHTML += "BGM-71的666666芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
-                    var possibleCom;
-                    var num_five = chipNumList_five.length, num_six = chipNumList_six.length;
-                    for (var p0 = 0; p0 < num_six; p0++) {         //6+555555
-                        for (var p1 = 0; p1 < num_five; p1++) {
-                            for (var p2 = p1 + 1; p2 < num_five; p2++) {
-                                for (var p3 = p2 + 1; p3 < num_five; p3++) {
-                                    for (var p4 = p3 + 1; p4 < num_five; p4++) {
-                                        for (var p5 = p4 + 1; p5 < num_five; p5++) {
-                                            for (var p6 = p5 + 1; p6 < num_five; p6++) {
-                                                possibleCom = [chipNumList_six[p0], chipNumList_five[p1], chipNumList_five[p2], chipNumList_five[p3], chipNumList_five[p4], chipNumList_five[p5], chipNumList_five[p6]];
-                                                combinationSet.push(possibleCom);   //CAUTION: chipNum here, iterator=num-1
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    if (chipStat_6 >= 1 && chipStat_5 >= 6) {
+                        possibleSet.push(getCombination(1, 6, chipShape_6, chipShape_5));
+                        strategyInfo.push([true, true]);
+                        document.getElementById('globalconsole').innerHTML += "BGM-71的6555555芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
-                    for (var p0 = 0; p0 < num_six; p0++) {     //666666
-                        for (var p1 = p0 + 1; p1 < num_six; p1++) {
-                            for (var p2 = p1 + 1; p2 < num_six; p2++) {
-                                for (var p3 = p2 + 1; p3 < num_six; p3++) {
-                                    for (var p4 = p3 + 1; p4 < num_six; p4++) {
-                                        for (var p5 = p4 + 1; p5 < num_six; p5++) {
-                                            possibleCom = [chipNumList_six[p0], chipNumList_six[p1], chipNumList_six[p2], chipNumList_six[p3], chipNumList_six[p4], chipNumList_six[p5]];
-                                            combinationSet.push(possibleCom);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    break;
+                case 2:
+                    if (chipStat_6 >= 3 && chipStat_5 >= 4) {
+                        possibleSet.push(getCombination(3, 4, chipShape_6, chipShape_5));
+                        strategyInfo.push([true, true]);
+                        document.getElementById('globalconsole').innerHTML += "AGS-30的6665555芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
-                    for (var p0 = 0; p0 < num_six; p0++) {         //6+555555
-                        for (var p1 = 0; p1 < num_five; p1++) {
-                            for (var p2 = p1 + 1; p2 < num_five; p2++) {
-                                for (var p3 = p2 + 1; p3 < num_five; p3++) {
-                                    for (var p4 = p3 + 1; p4 < num_five; p4++) {
-                                        for (var p5 = p4 + 1; p5 < num_five; p5++) {
-                                            for (var p6 = p5 + 1; p6 < num_five; p6++) {
-                                                possibleCom = [chipNumList_six[p0], chipNumList_five[p1], chipNumList_five[p2], chipNumList_five[p3], chipNumList_five[p4], chipNumList_five[p5], chipNumList_five[p6]];
-                                                combinationSet.push(possibleCom);   //CAUTION: chipNum here, iterator=num-1
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    break;
+                case 3:
+                    if (chipStat_6 >= 2 && chipStat_5 >= 4) {
+                        possibleSet.push(getCombination(2, 4, chipShape_6, chipShape_5));
+                        strategyInfo.push([true, true]);
+                        document.getElementById('globalconsole').innerHTML += "2B-14的665555芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
                     break;
             }
-            var combinationNum = combinationSet.length;
-            var testLimit = 100;
-            if (combinationNum < testLimit) testLimit = combinationNum;
-            for (var i = 0; i < testLimit; i++) {
-                var tempSolution = solveResult(combinationSet[i], HeavyfireType, HeavyfireStar);
-                if (tempSolution.length != 0) {     //valid solution
-                    solutionSet.push(tempSolution);
-                    //这还没写：solutionScore.push(makeScore(tempSolution));
+            var totalStrategyNum = strategyInfo.length;
+            var td1 = new Date();
+            for (var i = 0; i < totalStrategyNum; i++) {
+                var possibleNum = possibleSet[i].length;
+                var testLimit = 100;
+                if (possibleNum < testLimit) testLimit = possibleNum;
+                for (var j = 0; j < testLimit; j++) {
+                    var tempSolution = getResult(possibleSet[i][j], strategyInfo[i], HeavyfireType, HeavyfireStar);
+                    if (tempSolution.length != 0) {
+                        solutionSet.push(tempSolution);
+                    }
                 }
             }
-            document.getElementById('globalconsole').innerHTML += "执行DLX总时间：" + globaltime_0 + "ms\n";
+            var td2 = new Date();
+            globaltime_1 += countMS(td1, td2);
+            document.getElementById('globalconsole').innerHTML += "拼出形状解总时间：" + globaltime_1 + "ms\n";
             if (solutionSet.length > 0) {
                 var soluNum = solutionSet.length;
                 showSolution(solutionSet[0], HeavyfireType, HeavyfireStar);
@@ -837,6 +871,99 @@
                 var ResultType = document.getElementById('ResultType');
                 var RTText = '<option value=1 selected>方案1</option>';
             }
+        }
+        function getCombination_sub(blockNum, limitNum, limitSet) {
+            var possibleSet = [], pickNum = [];
+            var typeLimit;
+            switch (blockNum) {
+                case 6:
+                    pickNum = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]];
+                    typeLimit = 10;
+                    break;
+                case 5:
+                    pickNum = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]];
+                    typeLimit = 9;
+                    break;
+            }
+            var deleteIt = 0, pickNumTotal = 0, pickIt = 0;
+            var selectEnd = false;
+            while (!selectEnd) {
+                if (pickNum[pickIt][1] < limitSet[pickIt][1]) { //能取则取
+                    pickNum[pickIt][1]++;
+                    pickNumTotal++;
+                } else {
+                    if (pickIt + 1 < typeLimit) pickIt++; //向后
+                    else { //不能向后
+                        while (true) { //直到找到一个之前可删的位置
+                            deleteIt--;
+                            if (deleteIt === -1) { //找到头都没有
+                                selectEnd = true;
+                                break;
+                            }
+                            if (pickNum[deleteIt][1] > 0) { //能找到
+                                pickNum[deleteIt][1]--;
+                                pickNumTotal -= (1 + pickNum[pickIt][1]);
+                                pickNum[pickIt][1] = 0;
+                                pickIt = deleteIt + 1;
+                                break;
+                            } //否则继续往前找，期间必然全0
+                        }
+                    }
+                }
+                if (pickNumTotal === limitNum) { //找到解
+                    var cbnt = [];
+                    for (var i = 0; i < typeLimit; i++) {
+                        cbnt.push(pickNum[i][1]);
+                    }
+                    possibleSet.push(cbnt);
+                    deleteIt = pickIt;
+                    if (pickIt + 1 < typeLimit) { //可以继续，当前位-1，继续向后扫描
+                        pickNum[deleteIt][1]--;
+                        pickNumTotal--;
+                        pickIt++;
+                    } else { //不能向后
+                        while (true) { //直到找到一个之前可删的位置
+                            deleteIt--;
+                            if (deleteIt === -1) { //找到头都没有
+                                selectEnd = true;
+                                break;
+                            }
+                            if (pickNum[deleteIt][1] > 0) { //能找到
+                                pickNum[deleteIt][1]--;
+                                pickNumTotal -= (1 + pickNum[pickIt][1]);
+                                pickNum[pickIt][1] = 0;
+                                pickIt = deleteIt + 1;
+                                break;
+                            } //否则继续往前找，期间必然全0
+                        }
+                    }
+                }
+            }
+            return possibleSet;
+        }
+        function getCombination(num_6, num_5, chipShape_6, chipShape_5) {
+            var possibleSet = [];
+            if (num_6 > 0) {
+                possibleSet = getCombination_sub(6, num_6, chipShape_6);
+            }
+            if (num_5 > 0) {
+                var len_6 = possibleSet.length;
+                if (len_6 === 0) {
+                    possibleSet = getCombination_sub(5, num_5, chipShape_5);
+                } else {
+                    var possibleSet_65 = [];
+                    var possibleSet_5 = getCombination_sub(5, num_5, chipShape_5);
+                    var len_5 = possibleSet_5.length;
+                    for (var it_6 = 0; it_6 < len_6; it_6++) {
+                        for (var it_5 = 0; it_5 < len_5; it_5++) {
+                            var rank_65 = possibleSet[it_6].concat(possibleSet_5[it_5]);
+                            possibleSet_65.push(rank_65);
+                        }
+                    }
+                    possibleSet = possibleSet_65;
+                }
+            }
+            return possibleSet;
         }
         function makeScore(solution) {
             var score;
@@ -861,6 +988,18 @@
                         putChip(1, 1, 6, i, solution[i], htmlSet);
                     }
                     break;
+                case 2:
+                    var soluChipNum = solution.length;
+                    for (var i = 0; i < soluChipNum; i++) {
+                        putChip(0, 0, 8, i, solution[i], htmlSet);
+                    }
+                    break;
+                case 3:
+                    var soluChipNum = solution.length;
+                    for (var i = 0; i < soluChipNum; i++) {
+                        putChip(0, 1, 8, i, solution[i], htmlSet);
+                    }
+                    break;
             }
             for (var i = 0; i < 8; i++) {
                 var htmlText = '';
@@ -874,7 +1013,7 @@
             var chipNum = chipRank[0];
             var ranklen = chipRank.length;
             for (var i = 1; i < ranklen; i++) {
-                if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - 6 * parseInt((i - 1) / 6) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + chipNum + '</td>';
+                if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - border_x * parseInt((i - 1) / border_x) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + chipNum + '</td>';
             }
         }
         function changeResult() {
@@ -1184,7 +1323,6 @@
                                     <div class="tab-pane fade in active" id="Results">
                                         <div class="col-lg-4">
                                             <h4>拼接解(优化算法中)</h4>
-                                            <h5>算法没优化完，目前只算前100种组合</h5>
                                             <div class="table-responsive">
                                                 <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
                                                     <tbody>
