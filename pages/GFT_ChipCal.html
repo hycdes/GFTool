@@ -28,7 +28,7 @@
     </style>
     <script type="text/javascript">
         var globaltime_0 = 0, globaltime_1 = 0, globaltime_2 = 0, globaltime_3 = 0, globaltime_4 = 0; //测试时间专用
-        var solutionSet = [], solutionScore = [];
+        var solutionSet = [], solutionScore = [], chipComSet = [];
         var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
         var block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
@@ -64,25 +64,25 @@
             repoData.Dbk = Dbk;
             return repoData;
         }
-        chipRepo_shape_5.push(creatChip('Fa', 1, 551, 11, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('Fb', 1, 551, 12, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('Na', 1, 551, 21, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('Nb', 1, 551, 22, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('Ya', 1, 551, 31, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('Yb', 1, 551, 32, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('T', 1, 551, 4, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('W', 1, 551, 5, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('X', 1, 551, 6, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_6.push(creatChip('1', 1, 56, 1, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('2', 1, 56, 2, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('3', 1, 56, 3, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('4a', 1, 56, 41, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('4b', 1, 56, 42, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5', 1, 56, 5, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('6', 1, 56, 6, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('7', 1, 56, 7, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('8', 1, 56, 8, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('9', 1, 56, 9, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 11, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 12, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 21, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 22, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 31, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 32, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 4, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 5, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip(' ', 1, 551, 6, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 1, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 2, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 3, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 41, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 42, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 5, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 6, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 7, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 8, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip(' ', 1, 56, 9, 0, 1, 1, 1, 3, 1));
         window.onload = function () {
             resetPage();
         }
@@ -793,6 +793,7 @@
         }
         function getSolution() { //计算拼接
             solutionSet = [], solutionScore = []; //全局变量初始化
+            chipComSet = [];
             var HeavyfireStar = 5;
             var HeavyfireType = 1;
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
@@ -866,7 +867,10 @@
                 }
             }
             if (solutionSet.length > 0) {
+                //EDITHERE
                 var soluNum = solutionSet.length;
+                //make select element
+
                 showSolution(solutionSet[0], HeavyfireType, HeavyfireStar);
                 var panelO = document.getElementById('panelO'); panelO.className = '';
                 var panelR = document.getElementById('panelR'); panelR.className = 'active';
@@ -1051,8 +1055,6 @@
             else HeavyfireType = 3;
             var ResultTypeV = parseInt(document.getElementById('ResultType').value);
             showSolution(solutionSet[ResultTypeV], HeavyfireType, HeavyfireStar);
-            //change chip select
-            var ;
         }
     </script>
 </head>
