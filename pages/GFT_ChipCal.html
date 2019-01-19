@@ -31,8 +31,8 @@
         var solutionSet = [], solutionScore = [];
         var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
-        var unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
         var block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
+        var mul_property = 1;
         var chipNum = 0;
         var chipRepo_data = [];     //Chip data
         var chipRepo_shape_5 = [];   //For make shape only
@@ -86,8 +86,8 @@
         window.onload = function () {
             resetPage();
         }
-        function getBlockNum(classNum) { return parseInt((classNum + "").substr(1, 1)); }
-        function getSaveCode() {
+        function getBlockNum(classNum) { return parseInt((classNum + "").substr(1, 1)); } //从classNum翻译blockNum
+        function getSaveCode() { //获取存储码
             var SaveAlertId = document.getElementById('SaveAlert');
             var code = '[' + rules[0].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + '!';
             for (var i = 0; i < chipRepo_data.length; i++) {
@@ -109,7 +109,7 @@
             document.execCommand("Copy");
             SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 存储码已复制到剪贴板</span>';
         }
-        function simpleCheck(LoadCode) {
+        function simpleCheck(LoadCode) { //简单检查存储码
             if (LoadCode[0] != '[' || LoadCode[LoadCode.length - 1] != ']') return false;
             var rule1 = LoadCode[1], rule2 = LoadCode[LoadCode.length - 2];
             var posi1 = [], posi2 = [];
@@ -124,7 +124,7 @@
             }
             return false;
         }
-        function setValue(elementNum, tempStr) {
+        function setValue(elementNum, tempStr) { //从存储码里取值
             switch (elementNum) {
                 case 0: chipNum = parseInt(tempStr) - 1; break;
                 case 1: color = parseInt(tempStr); break;
@@ -136,10 +136,10 @@
                 case 6: block_fil = parseInt(tempStr); break;
                 case 7: block_dmg = parseInt(tempStr); break;
                 case 8: block_dbk = parseInt(tempStr); break;
-                case 9: updateUnitValue(); break;
+                case 9: break;
             }
         }
-        function loadSaveCode() {
+        function loadSaveCode() { //读档
             var LoadCode = document.getElementById('LoadCode').value;
             var LoadAlertId = document.getElementById('LoadAlert');
             if (simpleCheck(LoadCode)) {
@@ -156,7 +156,7 @@
                         setValue(elementNum, tempStr);
                         elementNum = 0;
                         tempStr = "";
-                        addChip();
+                        changeRepo(1);
                         resetPage();
                     } else {    //record
                         tempStr += LoadCode[scan];
@@ -174,7 +174,8 @@
             }
         }
         function resetPage() {
-            color = 1; unit_dmg = 4.4, unit_dbk = 12.7, unit_acu = 7.1, unit_fil = 5.7;
+            color = 1;
+            mul_property = 1;
             document.getElementById('CSwitch1').checked = true;
             document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0;
             changeChipType();
@@ -186,17 +187,25 @@
             refreshPreview();
             manageButton();
         }
-        function refreshPreview() {
+        function refreshPreview() { //刷新芯片预览
             var DmgId = document.getElementById('Dmg');
             var DbkId = document.getElementById('Dbk');
             var AcuId = document.getElementById('Acu');
             var FilId = document.getElementById('Fil');
-            DmgId.innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(block_dmg * unit_dmg);
-            DbkId.innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(block_dbk * unit_dbk);
-            AcuId.innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(block_acu * unit_acu);
-            FilId.innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(block_fil * unit_fil);
+            var AdTx1 = document.getElementById('AdTx1');
+            var AdTx2 = document.getElementById('AdTx2');
+            var AdTx3 = document.getElementById('AdTx3');
+            var AdTx4 = document.getElementById('AdTx4');
+            DmgId.innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4));
+            DbkId.innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7));
+            AcuId.innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1));
+            FilId.innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7));
+            AdTx1.innerHTML = block_dmg;
+            AdTx2.innerHTML = block_dbk;
+            AdTx3.innerHTML = block_acu;
+            AdTx4.innerHTML = block_fil;
         }
-        function manageButton() {
+        function manageButton() { //锁与释放加减按钮
             var AdBt1 = document.getElementById('AdBt1'); AdBt1.disabled = false;
             var AdBt2 = document.getElementById('AdBt2'); AdBt2.disabled = false;
             var AdBt3 = document.getElementById('AdBt3'); AdBt3.disabled = false;
@@ -228,7 +237,12 @@
             if (block_fil === 0) SbBt4.disabled = true;
             if (block_dmg + block_dbk + block_acu + block_fil === blockNum) addChipButtonId.disabled = false;
         }
-        function addPro(typeInfo) {
+        function manageDeleteButton() {
+            var DeleteSelectId = document.getElementById('DeleteSelect');
+            if (parseInt(DeleteSelectId.value) > 0) document.getElementById('deleteChipButton').disabled = false;
+            else document.getElementById('deleteChipButton').disabled = true;
+        }
+        function addBlock(typeInfo) { //增加格数
             switch (typeInfo) {
                 case 1: block_dmg++; break;
                 case 2: block_dbk++; break;
@@ -238,7 +252,7 @@
             refreshPreview();
             manageButton();
         }
-        function subPro(typeInfo) {
+        function subBlock(typeInfo) { //减少格数
             var DmgId = document.getElementById('Dmg');
             var DbkId = document.getElementById('Dbk');
             var AcuId = document.getElementById('Acu');
@@ -269,7 +283,6 @@
                     changeTopSample(551);
                     break;
             }
-            updateUnitValue();
             changePrevireImg();
             resetBlock();
         }
@@ -301,102 +314,113 @@
                 case 551: imgId.innerHTML = '<img src="../img/chipcal_551.png">'; break;
             }
         }
-        function getUnitValue(typeInfo) {
-            var ChipClass = parseInt((document.getElementById('ChipClass')).value);
-            var ChipLevel = parseInt((document.getElementById('ChipLevel')).value);
-            var base, density, levelMul;
-            switch (typeInfo) {
-                case 1: base = 4.4; break;
-                case 2: base = 12.7; break;
-                case 3: base = 7.1; break;
-                case 4: base = 5.7; break;
-            }
-            switch (ChipClass) {
-                case 56:
-                case 551: density = 1; break;
-            }
-            if (ChipLevel <= 10) levelMul = 1 + 0.08 * ChipLevel;
-            else levelMul = 1.8 + 0.07 * (ChipLevel - 10);
-            return base * density * levelMul;
-        }
-        function updateUnitValue() {       //call when change ChipType and ChipClass
-            var AdBt1 = document.getElementById('AdBt1'); var AdBt2 = document.getElementById('AdBt2');
-            var AdBt3 = document.getElementById('AdBt3'); var AdBt4 = document.getElementById('AdBt4');
-            var SbBt1 = document.getElementById('SbBt1'); var SbBt2 = document.getElementById('SbBt2');
-            var SbBt3 = document.getElementById('SbBt3'); var SbBt4 = document.getElementById('SbBt4');
-            unit_dmg = getUnitValue(1);
-            unit_dbk = getUnitValue(2);
-            unit_acu = getUnitValue(3);
-            unit_fil = getUnitValue(4);
-            AdBt1.innerHTML = "+" + (unit_dmg.toFixed(1) + "");
-            AdBt2.innerHTML = "+" + (unit_dbk.toFixed(1) + "");
-            AdBt3.innerHTML = "+" + (unit_acu.toFixed(1) + "");
-            AdBt4.innerHTML = "+" + (unit_fil.toFixed(1) + "");
-            SbBt1.innerHTML = "- " + (unit_dmg.toFixed(1) + "");
-            SbBt2.innerHTML = "- " + (unit_dbk.toFixed(1) + "");
-            SbBt3.innerHTML = "- " + (unit_acu.toFixed(1) + "");
-            SbBt4.innerHTML = "- " + (unit_fil.toFixed(1) + "");
-        }
         function changeLevel() {
             var level = parseInt((document.getElementById('ChipLevel')).value);
             var PreviewLevelId = document.getElementById('PreviewLevel');
             var LevelId = document.getElementById('ChipLevel');
             var LevelIdx = LevelId.selectedIndex;
             PreviewLevelId.innerHTML = LevelId[LevelIdx].text;
-            updateUnitValue();
+            if (level <= 10) mul_property = 1 + 0.08 * level;
+            else mul_property = 1.8 + 0.07 * (level - 10);
             refreshPreview();
         }
-        function addChip() {
-            chipNum++;
+        function changeRepo(typeInfo) { //刷新仓库显示，1=添加，2=删除某个，3=清空
             var ChipRepoChartId = document.getElementById('ChipRepoChart');
-            var starNum = parseInt(((document.getElementById('ChipClass').value) + "").substr(0, 1));
-            var ChartAdd = "";
-            var Repo_p1 = chipNum + "";
-            var Repo_p2 = "";
-            var colorName;
-            if (color === 1) colorName = "b";
-            else colorName = "o";
-            var ChipClass = document.getElementById('ChipClass').value;
-            var ChipType = document.getElementById('ChipType').value;
-            var ChipLevel = document.getElementById('ChipLevel').value;
-            var PreviewImgId = document.getElementById('PreviewImg');
-            var htmlString = '<img src="../img/chip/' + colorName + '_' + ChipClass + '-' + ChipType + '.png">';
-            for (var i = 0; i < starNum; i++) {
-                Repo_p2 += '★';
-            }
-            var Repo_p3 = "+" + ChipLevel;
-            var Repo_Acu = Math.ceil(block_acu * unit_acu);
-            var Repo_Fil = Math.ceil(block_fil * unit_fil);
-            var Repo_Dmg = Math.ceil(block_dmg * unit_dmg);
-            var Repo_Dbk = Math.ceil(block_dbk * unit_dbk);
-            chipRepo_chart.push(creatRepo(Repo_p1, Repo_p2, Repo_p3, Repo_Acu, Repo_Fil, Repo_Dmg, Repo_Dbk));
-            ChartAdd += '<tr>';
-            ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipNum + '</td>';
-            ChartAdd += '<td>' + htmlString + " " + chipRepo_chart[chipNum - 1].chipType + '</td>';
-            ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipLevel + '</td>';
-            ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Acu + '</td>';
-            ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Fil + '</td>';
-            ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dmg + '</td>';
-            ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dbk + '</td>';
-            ChartAdd += '</tr>';
-            ChipRepoChartId.innerHTML += ChartAdd;
-            var Den_Level = (getUnitValue(1) / 4.4).toFixed(5);
-            chipRepo_data.push(creatChip(chipNum, color, parseInt(ChipClass), parseInt(ChipType), parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, Den_Level));
             var DeleteSelectId = document.getElementById('DeleteSelect');
-            deleteSelectHTML.push(('<option value=' + chipNum) + ('>' + chipNum) + '</option>');
-            var selectText = '';
-            for (var i = 0; i < deleteSelectHTML.length; i++)
-                selectText += deleteSelectHTML[i];
-            DeleteSelectId.innerHTML = selectText;
-            document.getElementById('SaveButton').disabled = false;
-        }
-        function subChip(chipNum) {     //to be do
-            for (var i = 0; i < chipRepo_chart.length; i++) {
-
+            switch (typeInfo) {
+                case 1:
+                    chipNum++;
+                    var ChipClass = document.getElementById('ChipClass').value;
+                    var ChipType = document.getElementById('ChipType').value;
+                    var ChipLevel = document.getElementById('ChipLevel').value;
+                    var colorName;
+                    if (color === 1) colorName = "b";
+                    else colorName = "o";
+                    var Repo_p1 = chipNum + "";
+                    var Repo_p2 = "";
+                    var Repo_p3 = "+" + ChipLevel;
+                    var starNum = parseInt(((document.getElementById('ChipClass').value) + "").substr(0, 1));
+                    for (var i = 0; i < starNum; i++) Repo_p2 += '★';
+                    var Repo_Acu = Math.ceil(mul_property * Math.ceil(block_acu * 7.1));
+                    var Repo_Fil = Math.ceil(mul_property * Math.ceil(block_fil * 5.7));
+                    var Repo_Dmg = Math.ceil(mul_property * Math.ceil(block_dmg * 4.4));
+                    var Repo_Dbk = Math.ceil(mul_property * Math.ceil(block_dbk * 12.7));
+                    chipRepo_chart.push(creatRepo(Repo_p1, Repo_p2, Repo_p3, Repo_Acu, Repo_Fil, Repo_Dmg, Repo_Dbk));
+                    var htmlString = '<img src="../img/chip/' + colorName + '_' + ChipClass + '-' + ChipType + '.png">';
+                    var ChartAdd = "";
+                    ChartAdd += '<tr>';
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipNum + '</td>';
+                    ChartAdd += '<td>' + htmlString + " " + chipRepo_chart[chipNum - 1].chipType + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipLevel + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Acu + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Fil + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dmg + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dbk + '</td>';
+                    ChartAdd += '</tr>';
+                    ChipRepoChartId.innerHTML += ChartAdd;
+                    var Den_Level = 1; //目前暂时没用
+                    chipRepo_data.push(creatChip(chipNum, color, parseInt(ChipClass), parseInt(ChipType), parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, Den_Level));
+                    deleteSelectHTML.push(('<option value=' + chipNum) + ('>' + chipNum) + '</option>');
+                    var selectText = '';
+                    for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i];
+                    DeleteSelectId.innerHTML = selectText;
+                    document.getElementById('deleteChipButton').disabled = true;
+                    break;
+                case 2:
+                    var deleteNum = parseInt(document.getElementById("DeleteSelect").value);
+                    for (var i = 0; i < chipNum; i++) {
+                        if (i + 1 > deleteNum) {
+                            chipRepo_data[i].chipNum--;
+                            chipRepo_chart[i].chipNum--;
+                        }
+                    }
+                    chipRepo_data.splice(deleteNum - 1, 1);
+                    chipRepo_chart.splice(deleteNum - 1, 1);
+                    chipNum--;
+                    ChipRepoChartId.innerHTML = ""; //CLEAR chart
+                    deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
+                    for (var i = 0; i < chipNum; i++) {
+                        var ChartAdd = "";
+                        var colorName;
+                        if (color === 1) colorName = "b";
+                        else colorName = "o";
+                        var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[i].classNum + '-' + chipRepo_data[i].typeNum + '.png">';
+                        ChartAdd += '<tr>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].chipNum + '</td>';
+                        ChartAdd += '<td>' + htmlString + " " + chipRepo_chart[i].chipType + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].chipLevel + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Acu + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Fil + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Dmg + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Dbk + '</td>';
+                        ChartAdd += '</tr>';
+                        ChipRepoChartId.innerHTML += ChartAdd;
+                        deleteSelectHTML.push(('<option value=' + chipRepo_chart[i].chipNum) + ('>' + chipRepo_chart[i].chipNum) + '</option>');
+                    }
+                    var selectText = '';
+                    for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i];
+                    DeleteSelectId.innerHTML = selectText;
+                    document.getElementById('deleteChipButton').disabled = true;
+                    break;
+                case 3:
+                    chipRepo_data = [];
+                    chipRepo_chart = [];
+                    chipNum = 0;
+                    ChipRepoChartId.innerHTML = ""; //CLEAR chart
+                    deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
+                    DeleteSelectId.innerHTML = deleteSelectHTML[0];
+                    break;
             }
-            //all done
-            chipNum--;
-            if (chipNum === 0) document.getElementById('SaveButton').disabled = true;
+            if (chipNum > 0) {
+                document.getElementById('SaveButton').disabled = false;
+                document.getElementById('clearChipButton').disabled = false;
+            }
+            else {
+                document.getElementById('SaveButton').disabled = true;
+                document.getElementById('deleteChipButton').disabled = true;
+                document.getElementById('clearChipButton').disabled = true;
+            }
+
         }
         function chartBack(typeInfo) {
             var line1 = document.getElementById('solutionLine1');
@@ -767,9 +791,10 @@
             var solution = DLX(chipMetrix);
             return solution;
         }
-        function getSolution() {        //output best result
-            solutionSet = [], solutionScore = [];
-            var HeavyfireStar = 5, HeavyfireType;
+        function getSolution() { //计算拼接
+            solutionSet = [], solutionScore = []; //全局变量初始化
+            var HeavyfireStar = 5;
+            var HeavyfireType = 1;
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
             else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
             else HeavyfireType = 3;
@@ -813,45 +838,33 @@
                     if (chipStat_6 >= 6) {
                         possibleSet.push(getCombination(6, 0, chipShape_6, chipShape_5));
                         strategyInfo.push([true, false]);
-                        document.getElementById('globalconsole').innerHTML += "BGM-71的666666芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
                     if (chipStat_6 >= 1 && chipStat_5 >= 6) {
                         possibleSet.push(getCombination(1, 6, chipShape_6, chipShape_5));
                         strategyInfo.push([true, true]);
-                        document.getElementById('globalconsole').innerHTML += "BGM-71的6555555芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
                     break;
                 case 2:
                     if (chipStat_6 >= 3 && chipStat_5 >= 4) {
                         possibleSet.push(getCombination(3, 4, chipShape_6, chipShape_5));
                         strategyInfo.push([true, true]);
-                        document.getElementById('globalconsole').innerHTML += "AGS-30的6665555芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
                     break;
                 case 3:
                     if (chipStat_6 >= 2 && chipStat_5 >= 4) {
                         possibleSet.push(getCombination(2, 4, chipShape_6, chipShape_5));
                         strategyInfo.push([true, true]);
-                        document.getElementById('globalconsole').innerHTML += "2B-14的665555芯片组合可能性有：" + possibleSet[possibleSet.length - 1].length + "种\n";
                     }
                     break;
             }
-            var totalStrategyNum = strategyInfo.length;
-            var td1 = new Date();
-            for (var i = 0; i < totalStrategyNum; i++) {
-                var possibleNum = possibleSet[i].length;
-                var testLimit = 100;
-                if (possibleNum < testLimit) testLimit = possibleNum;
-                for (var j = 0; j < testLimit; j++) {
-                    var tempSolution = getResult(possibleSet[i][j], strategyInfo[i], HeavyfireType, HeavyfireStar);
-                    if (tempSolution.length != 0) {
-                        solutionSet.push(tempSolution);
-                    }
+            var strategyNum = strategyInfo.length;
+            for (var num_stg = 0; num_stg < strategyNum; num_stg++) {
+                var shapeNum = possibleSet[num_stg].length;
+                for (var num_shp = 0; num_shp < shapeNum; num_shp++) {
+                    var tempSolution = getResult(possibleSet[num_stg][num_shp], strategyInfo[num_stg], HeavyfireType, HeavyfireStar);
+                    if (tempSolution.length != 0) solutionSet.push(tempSolution);
                 }
             }
-            var td2 = new Date();
-            globaltime_1 += countMS(td1, td2);
-            document.getElementById('globalconsole').innerHTML += "拼出形状解总时间：" + globaltime_1 + "ms\n";
             if (solutionSet.length > 0) {
                 var soluNum = solutionSet.length;
                 showSolution(solutionSet[0], HeavyfireType, HeavyfireStar);
@@ -865,6 +878,8 @@
                     RTText += '<option value=' + i + '>方案 ' + (i + 1) + '</option>';
                 }
                 ResultType.innerHTML = RTText;
+                var NoResultTextId = document.getElementById('NoResultText');
+                NoResultTextId.innerHTML = '';
             } else {
                 var NoResultTextId = document.getElementById('NoResultText');
                 NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>';
@@ -872,7 +887,20 @@
                 var RTText = '<option value=1 selected>方案1</option>';
             }
         }
-        function getCombination_sub(blockNum, limitNum, limitSet) {
+        function updatePercentBar(proID, processNum, totalProcessNum) {
+            var Process_Text_Dmg = document.getElementById('Process_Text_Dmg');
+            var Process_Bar_Dmg = document.getElementById('Process_Bar_Dmg');
+            var Process_Text_Dbk = document.getElementById('Process_Text_Dbk');
+            var Process_Bar_Dbk = document.getElementById('Process_Bar_Dbk');
+            var Process_Text_Acu = document.getElementById('Process_Text_Acu');
+            var Process_Bar_Acu = document.getElementById('Process_Bar_Acu');
+            var Process_Text_Fil = document.getElementById('Process_Text_Fil');
+            var Process_Bar_Fil = document.getElementById('Process_Bar_Fil');
+            var percent_Dmg;
+            Process_Text_Dmg.innerHTML = percent_Dmg + "%";
+            Process_Bar_Dmg.style = "width:" + percent_Dmg + "%";
+        }
+        function getCombination_sub(blockNum, limitNum, limitSet) { //给出可行的组合种类
             var possibleSet = [], pickNum = [];
             var typeLimit;
             switch (blockNum) {
@@ -1023,6 +1051,8 @@
             else HeavyfireType = 3;
             var ResultTypeV = parseInt(document.getElementById('ResultType').value);
             showSolution(solutionSet[ResultTypeV], HeavyfireType, HeavyfireStar);
+            //change chip select
+            var ;
         }
     </script>
 </head>
@@ -1171,22 +1201,26 @@
                                                 <tbody>
                                                     <tr>
                                                         <td style='width:200px'><img src="../img/icon-acu.png">
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addPro(3)" id="AdBt3">+7.1</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subPro(3)" id="SbBt3">- 7.1</button>
+                                                            <lable>精度：<span style="color:dodgerblue" id="AdTx3">0</span>格</lable>
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(3)" id="AdBt3">&nbsp+&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(3)" id="SbBt3">&nbsp-&nbsp&nbsp</button>
                                                         </td>
                                                         <td style='width:200px'><img src="../img/icon-fil.png">
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addPro(4)" id="AdBt4">+5.7</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subPro(4)" id="SbBt4">- 5.7</button>
+                                                            <lable>装填：<span style="color:dodgerblue" id="AdTx4">0</span>格</lable>
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(4)" id="AdBt4">&nbsp+&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(4)" id="SbBt4">&nbsp-&nbsp&nbsp</button>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td style='width:200px'><img src="../img/icon-dmg.png">
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addPro(1)" id="AdBt1">+4.4</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subPro(1)" id="SbBt1">- 4.4</button>
+                                                            <lable>杀伤：<span style="color:dodgerblue" id="AdTx1">0</span>格</lable>
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(1)" id="AdBt1">&nbsp+&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(1)" id="SbBt1">&nbsp-&nbsp&nbsp</button>
                                                         </td>
                                                         <td style='width:200px'><img src="../img/icon-dbk.png">
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addPro(2)" id="AdBt2">+12.7</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subPro(2)" id="SbBt2">- 12.7</button>
+                                                            <lable>破防：<span style="color:dodgerblue" id="AdTx2">0</span>格</lable>
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(2)" id="AdBt2">&nbsp+&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(2)" id="SbBt2">&nbsp-&nbsp&nbsp</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -1210,7 +1244,7 @@
                                             </table>
                                             <p id="errorInfo"></p>
                                             <p>
-                                                <button type="button" class="btn btn-info" onclick="addChip()" id="addChipButton">将芯片添加进仓库</button>
+                                                <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton">将芯片添加进仓库</button>
                                                 <button type="button" class="btn btn-danger" onclick="resetPage()">重置芯片属性</button>
                                             </p>
                                         </div>
@@ -1225,8 +1259,8 @@
                                             </div>
                                             <div class="col-lg-9">
                                                 <p>
-                                                    <button type="button" class="btn btn-warning" onclick="deleteChip()" id="deleteChipButton" disabled>删除该编号芯片</button>
-                                                    <button type="button" class="btn btn-danger" onclick="clearChipRepo()" disabled>清空芯片仓库</button>
+                                                    <button type="button" class="btn btn-warning" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该编号芯片</button>
+                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空芯片仓库</button>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
@@ -1411,34 +1445,59 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
-                                            <h4>总属性</h4>
-                                            <table class="table table-bordered table-hover" style='width:300px'>
-                                                <tbody>
-                                                    <tr>
-                                                        <td value=0 id="AcuResult" style='width:150px'><img src="../img/icon-acu.png"> 属性改版暂无</td>
-                                                        <td value=0 id="FilResult" style='width:150px'><img src="../img/icon-fil.png"> 属性改版暂无</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td value=0 id="DmgResult" style='width:150px'><img src="../img/icon-dmg.png"> 属性改版暂无</td>
-                                                        <td value=0 id="DbkResult" style='width:150px'><img src="../img/icon-dbk.png"> 属性改版暂无</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="form-group">
-                                                <h4>方案分析</h4>
-                                                <textarea class="form-control" rows="3" placeholder="当前方案的问题（未开发）" id="problemconsole" readonly></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-8">
                                             <h4>方案选择</h4>
                                             <p>
                                                 <select class="form-control" id="ResultType" style="width: 240px" onchange="changeResult()">
                                                 </select>
                                             </p>
                                             <div class="form-group">
-                                                <h4>执行信息（调试用）</h4>
-                                                <textarea class="form-control" rows="6" placeholder="执行信息" id="globalconsole"></textarea>
+                                                <h4>总属性</h4>
+                                                <div style="width:300px; background:url(../img/icon-dmg.png) no-repeat left top;">
+                                                    <p>
+                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dmg">0/190</strong>
+                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DmgAlert"></span></b>
+                                                    </p>
+                                                    <div class="progress progress-striped active">
+                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="Process_Bar_Dmg">
+                                                            <span class="sr-only">进度条</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="width:300px; background:url(../img/icon-dbk.png) no-repeat left top;">
+                                                    <p>
+                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dbk">0/329</strong>
+                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DbkAlert"></span></b>
+                                                    </p>
+                                                    <div class="progress progress-striped active">
+                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 30%" id="Process_Bar_Dbk">
+                                                            <span class="sr-only">进度条</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="width:300px; background:url(../img/icon-acu.png) no-repeat left top;">
+                                                    <p>
+                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Acu">0/191</strong>
+                                                        <b><span class="pull-right text-muted" style="color:orangered" id="AcuAlert"></span></b>
+                                                    </p>
+                                                    <div class="progress progress-striped active">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="Process_Bar_Acu">
+                                                            <span class="sr-only">进度条</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div style="width:300px; background:url(../img/icon-fil.png) no-repeat left top;">
+                                                    <p>
+                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/49</strong>
+                                                        <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
+                                                    </p>
+                                                    <div class="progress progress-striped active">
+                                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="Process_Bar_Fil">
+                                                            <span class="sr-only">进度条</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
