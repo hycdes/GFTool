@@ -8,23 +8,30 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>少女前线-资料库 by 命运の乐章</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script>
+        function playGIF(imgType, imgNum) {
+            var playArea = document.getElementById('GIFArea');
+            if (imgType === 1) {
+                if (imgNum === 1) playArea.innerHTML = '<img src="../img/GIF/0-2_1.gif" alt="">';
+                if (imgNum === 2) playArea.innerHTML = '<img src="../img/GIF/0-2_2.gif" alt="">';
+            }
+            if (imgType === 2) {
+                if (imgNum === 1) playArea.innerHTML = '<img src="../img/GIF/8-1n_1.gif" alt="">';
+                if (imgNum === 2) playArea.innerHTML = '<img src="../img/GIF/8-1n_2.gif" alt="">';
+                if (imgNum === 3) playArea.innerHTML = '<img src="../img/GIF/8-1n_3.gif" alt="">';
+            }
+            if (imgType === 3) {
+                if (imgNum === 1) playArea.innerHTML = '<img src="../img/GIF/11-5_1.gif" alt="">';
+                if (imgNum === 2) playArea.innerHTML = '<img src="../img/GIF/11-5_2.gif" alt="">';
+                if (imgNum === 3) playArea.innerHTML = '<img src="../img/GIF/11-5_3.gif" alt="">';
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -97,7 +104,7 @@
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                指南和参考 (更新于 2019.01.12)
+                                指南和参考 (更新于 2019.01.21)
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -108,6 +115,8 @@
                                     <li><a href="#TdollTeam" data-toggle="tab">人形/配队</a>
                                     </li>
                                     <li><a href="#Heavyfire" data-toggle="tab">重装部队</a>
+                                    </li>
+                                    <li><a href="#Usefulmap" data-toggle="tab">刷图教程</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -131,6 +140,33 @@
                                         <p>芯片选择：<u><a href="../img/img_data_4-1.png" target="_blank">重装部队芯片选择</a></u>&nbsp&nbsp<a href="https://bbs.nga.cn/read.php?tid=15110212" target="_blank"><span style="color:gray">[参考资料链接]</span></a></p>
                                         <h4>芯片拼接</h4>
                                         <p>快速上手参考：<u><a href="../img/img_data_4-2.png" target="_blank">最高密度芯片拼接参考</a></u></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="Usefulmap" style="background:url(../img/Produce-16lab.png) no-repeat right bottom;">
+                                        <h5>&nbsp</h5>
+                                        <table class="table table-bordered table-hover" style="width: 560px; height:315px; text-align: center">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="GIFArea">GIF预览区<br>按下对应地图按钮，动态图将在此显示<br>手机请注意流量</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h4>0-2 教程</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(1,1)">放置和补给</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(1,2)">战斗阵形</button>
+                                        </p>
+                                        <h4>8-1N 教程</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(2,1)">放置和补给</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(2,2)">战斗阵形</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(2,3)">快速切换队伍</button>
+                                        </p>
+                                        <h4>11-5 教程</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(3,1)">放置和补给</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(3,2)">战斗阵形-黑雷</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(3,3)">战斗阵形</button>
+                                        </p>
                                     </div>
                                 </div>
                             </div>

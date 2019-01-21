@@ -681,7 +681,6 @@
             for (var i = 0; i < init_chipNum; i++) currentMetrix.push(chipMetrix[i]);
             var currentIt = []; for (var i = 0; i < init_chipNum; i++) currentIt.push(0); //currentIt共init_chipNum位，存放每个芯片被选时所处矩阵的光标
             var currentChipPlace = currentMetrix[0];
-            var chipID = []; for (var i = 0; i < init_chipNum; i++) chipID.push(chipMetrix[i][0][0]);
             var solutionIdx = [];
             var currentRecorder = [], recorderStack = [];
             for (var i = 0; i < init_chipNum; i++) {//currentRecorder放置chipMetrix中的角标index
@@ -740,7 +739,6 @@
                     recorderStack.push(currentRecorder);
                     currentMetrix = newMetrix;
                     currentRecorder = newRecorder;
-                    currentRank = currentMetrix[counting][currentIt[counting]];
                     counting++;
                 } else { //下一组空，回溯到能选或者直接判定无解
                     while (true) {
@@ -859,6 +857,7 @@
                     break;
             }
             var strategyNum = strategyInfo.length;
+            var td1 = new Date();
             for (var num_stg = 0; num_stg < strategyNum; num_stg++) {
                 var shapeNum = possibleSet[num_stg].length;
                 for (var num_shp = 0; num_shp < shapeNum; num_shp++) {
@@ -866,6 +865,9 @@
                     if (tempSolution.length != 0) solutionSet.push(tempSolution);
                 }
             }
+            var td2 = new Date();
+            globaltime_1 += countMS(td1, td2);
+
             if (solutionSet.length > 0) {
                 //EDITHERE
                 var soluNum = solutionSet.length;
