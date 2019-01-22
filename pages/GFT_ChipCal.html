@@ -476,6 +476,10 @@
             var line8 = document.getElementById('solutionLine8');
             switch (typeInfo) {
                 case 1:
+                    Process_Text_Dmg.innerHTML = "0/190";
+                    Process_Text_Dbk.innerHTML = "0/329";
+                    Process_Text_Acu.innerHTML = "0/191";
+                    Process_Text_Fil.innerHTML = "0/49";
                     line1.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
                     line2.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
                     line3.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">';
@@ -486,6 +490,10 @@
                     line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
                     break;
                 case 2:
+                    Process_Text_Dmg.innerHTML = "0/106";
+                    Process_Text_Dbk.innerHTML = "0/130";
+                    Process_Text_Acu.innerHTML = "0/120";
+                    Process_Text_Fil.innerHTML = "0/233";
                     line1.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
                     line2.innerHTML = '<td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
                     line3.innerHTML = '<td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>';
@@ -496,6 +504,10 @@
                     line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>';
                     break;
                 case 3:
+                    Process_Text_Dmg.innerHTML = "0/227";
+                    Process_Text_Dbk.innerHTML = "0/58";
+                    Process_Text_Acu.innerHTML = "0/90";
+                    Process_Text_Fil.innerHTML = "0/107";
                     line1.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>';
                     line2.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>';
                     line3.innerHTML = '<td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td>';
@@ -1355,6 +1367,20 @@
             changeLevel();
             manageButton();
         }
+        function sortSolution(sortType) {
+            var SolutionSelect = document.getElementById('SolutionSelect');
+            var SSText = '';
+            var solulen = solutionSet.length;
+            SolutionSelect.disabled = false;
+            for (var i = 0; i < solulen; i++) {
+                SSText += '<option value=' + i + '>编号 ';
+                var c_num = solutionSet[i].length;
+                for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + " ");
+                SSText += '</option>';
+            }
+            SolutionSelect.innerHTML = SSText;
+            showAnalyze();
+        }
     </script>
 </head>
 
@@ -1680,7 +1706,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="Results">
                                         <div class="col-lg-4">
-                                            <h4>图解 (算法v3.0)</h4>
+                                            <h4>图解 (DLX for ChipCal v3.0)</h4>
                                             <h5 id="timeText"></h5>
                                             <div class="table-responsive">
                                                 <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
@@ -1822,15 +1848,14 @@
                                         <div class="col-lg-8">
                                             <h4>排序基准</h4>
                                             <p>
-                                                <button type="button" class="btn btn-outline btn-danger" onclick="" id="SortButton_Block" disabled>最高总属性</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="" id="SortButton_AllPro" disabled>最高总属性</button>
                                                 <button type="button" class="btn btn-outline btn-warning" onclick="" id="SortButton_Block" disabled>最多有效格数</button>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Block" disabled>最高总属性</button>
                                             </p>
                                             <p>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Block" disabled>火力</button>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Block" disabled>破防</button>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Block" disabled>精度</button>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Block" disabled>装填</button>
+                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Dmg" disabled>杀伤</button>
+                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Dbk" disabled>破防</button>
+                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Acu" disabled>精度</button>
+                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Fil" disabled>装填</button>
                                             </p>
                                             <h4>方案选择</h4>
                                             <table class="table table-bordered table-hover" style='width:400px'>
