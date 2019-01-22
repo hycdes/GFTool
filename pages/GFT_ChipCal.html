@@ -28,7 +28,7 @@
     </style>
     <script type="text/javascript">
         var globaltime_1 = 0;
-        var solutionSet = [], solutionScore = [], chipComSet = [];
+        var topologySet = [], solutionSet = [], solutionScore = [], topologyNum = 0;
         var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
         var block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
@@ -37,20 +37,20 @@
         var chipRepo_data = [];     //Chip data
         var chipRepo_shape_5 = [];   //For make shape only
         var chipRepo_shape_6 = [];   //For make shape only
-        var chipRepo_chart = [];    //Repository information that react at repository-table
+        var chipRepo_chart = [];    //Repository information that display at repository-table
         var deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
         function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
             var chipData = new Object;
-            chipData.chipNum = chipNum;
-            chipData.color = chipColor;
-            chipData.classNum = chipClass;
-            chipData.typeNum = chipType;
-            chipData.levelNum = chipLevel;
-            chipData.bAcu = blockAcu;
-            chipData.bFil = blockFil;
-            chipData.bDmg = blockDmg;
-            chipData.bDbk = blockDbk;
-            chipData.weight = Den_Level;
+            chipData.chipNum = chipNum; //chip number
+            chipData.color = chipColor; //color
+            chipData.classNum = chipClass; //56 or 551
+            chipData.typeNum = chipType; //shape
+            chipData.levelNum = chipLevel; //strengthen level
+            chipData.bAcu = blockAcu; //acuracy block num
+            chipData.bFil = blockFil; //filling block num
+            chipData.bDmg = blockDmg; //damage block num
+            chipData.bDbk = blockDbk; //defence-breaking block num
+            chipData.weight = Den_Level; //density*level
             return chipData;
         }
         function creatRepo(chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
@@ -64,27 +64,121 @@
             repoData.Dbk = Dbk;
             return repoData;
         }
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 11, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 12, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 21, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 22, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 31, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 32, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 4, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 5, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip(' ', 1, 551, 6, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 1, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 2, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 3, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 41, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 42, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 5, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 6, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 7, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 8, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip(' ', 1, 56, 9, 0, 1, 1, 1, 3, 1));
-        window.onload = function () {
-            resetPage();
+        chipRepo_shape_5.push(creatChip('55111', 1, 551, 11, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('55112', 1, 551, 12, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('55121', 1, 551, 21, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('55122', 1, 551, 22, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('55131', 1, 551, 31, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('55132', 1, 551, 32, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('5514', 1, 551, 4, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('5515', 1, 551, 5, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_5.push(creatChip('5516', 1, 551, 6, 0, 1, 1, 1, 2, 1));
+        chipRepo_shape_6.push(creatChip('5601', 1, 56, 1, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5602', 1, 56, 2, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5603', 1, 56, 3, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('56041', 1, 56, 41, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('56042', 1, 56, 42, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5605', 1, 56, 5, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5606', 1, 56, 6, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5607', 1, 56, 7, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5608', 1, 56, 8, 0, 1, 1, 1, 3, 1));
+        chipRepo_shape_6.push(creatChip('5609', 1, 56, 9, 0, 1, 1, 1, 3, 1));
+        window.onload = function () { resetPage(); }
+        function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
+            var ChipRepoChartId = document.getElementById('ChipRepoChart')
+            var DeleteSelectId = document.getElementById('DeleteSelect')
+            switch (typeInfo) {
+                case 1:
+                    chipNum++
+                    var ChipClass = document.getElementById('ChipClass').value
+                    var ChipType = document.getElementById('ChipType').value
+                    var ChipLevel = document.getElementById('ChipLevel').value
+                    var colorName
+                    if (color === 1) colorName = 'b'
+                    else colorName = 'o'
+                    var Repo_p1 = chipNum + ''
+                    var Repo_p2 = ''
+                    var Repo_p3 = '+' + ChipLevel
+                    var starNum = parseInt(((document.getElementById('ChipClass').value) + '').substr(0, 1))
+                    for (var i = 0; i < starNum; i++) Repo_p2 += '★'
+                    var Repo_Acu = Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
+                    var Repo_Fil = Math.ceil(mul_property * Math.ceil(block_fil * 5.7))
+                    var Repo_Dmg = Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
+                    var Repo_Dbk = Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
+                    chipRepo_chart.push(creatRepo(Repo_p1, Repo_p2, Repo_p3, Repo_Acu, Repo_Fil, Repo_Dmg, Repo_Dbk))
+                    var htmlString = '<img src="../img/chip/' + colorName + '_' + ChipClass + '-' + ChipType + '.png">'
+                    var ChartAdd = ''
+                    ChartAdd += '<tr>'
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipNum + '</td>'
+                    ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[chipNum - 1].chipType + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipLevel + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Acu + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Fil + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dmg + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dbk + '</td>'
+                    ChartAdd += '</tr>'
+                    ChipRepoChartId.innerHTML += ChartAdd
+                    var Den_Level = 1; // 目前暂时没用
+                    chipRepo_data.push(creatChip(chipNum, color, parseInt(ChipClass), parseInt(ChipType), parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, Den_Level))
+                    deleteSelectHTML.push(('<option value=' + chipNum) + ('>' + chipNum) + '</option>')
+                    var selectText = ''
+                    for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i]
+                    DeleteSelectId.innerHTML = selectText
+                    document.getElementById('deleteChipButton').disabled = true
+                    break
+                case 2:
+                    var deleteNum = parseInt(document.getElementById('DeleteSelect').value);
+                    for (var i = 0; i < chipNum; i++) {
+                        if (i + 1 > deleteNum) {
+                            chipRepo_data[i].chipNum--;
+                            chipRepo_chart[i].chipNum--;
+                        }
+                    }
+                    chipRepo_data.splice(deleteNum - 1, 1);
+                    chipRepo_chart.splice(deleteNum - 1, 1);
+                    chipNum--;
+                    ChipRepoChartId.innerHTML = ''; // CLEAR chart
+                    deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
+                    for (var i = 0; i < chipNum; i++) {
+                        var ChartAdd = '';
+                        var colorName;
+                        if (color === 1) colorName = 'b';
+                        else colorName = 'o';
+                        var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[i].classNum + '-' + chipRepo_data[i].typeNum + '.png">';
+                        ChartAdd += '<tr>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].chipNum + '</td>';
+                        ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[i].chipType + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].chipLevel + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Acu + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Fil + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Dmg + '</td>';
+                        ChartAdd += '<td>' + chipRepo_chart[i].Dbk + '</td>';
+                        ChartAdd += '</tr>';
+                        ChipRepoChartId.innerHTML += ChartAdd;
+                        deleteSelectHTML.push(('<option value=' + chipRepo_chart[i].chipNum) + ('>' + chipRepo_chart[i].chipNum) + '</option>');
+                    }
+                    var selectText = '';
+                    for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i];
+                    DeleteSelectId.innerHTML = selectText;
+                    document.getElementById('deleteChipButton').disabled = true;
+                    break;
+                case 3:
+                    chipRepo_data = []
+                    chipRepo_chart = []
+                    chipNum = 0
+                    ChipRepoChartId.innerHTML = '' // CLEAR chart
+                    deleteSelectHTML = ['<option value=0 selected>选择编号</option>']
+                    DeleteSelectId.innerHTML = deleteSelectHTML[0]
+                    break
+            }
+            if (chipNum > 0) {
+                document.getElementById('SaveButton').disabled = false
+                document.getElementById('clearChipButton').disabled = false
+            } else {
+                document.getElementById('SaveButton').disabled = true
+                document.getElementById('deleteChipButton').disabled = true
+                document.getElementById('clearChipButton').disabled = true
+            }
         }
         function getBlockNum(classNum) { return parseInt((classNum + "").substr(1, 1)); } //从classNum翻译blockNum
         function getSaveCode() { //获取存储码
@@ -173,90 +267,26 @@
                 LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 不正确的存储码</span>';
             }
         }
-        function resetPage() {
-            color = 1;
-            mul_property = 1;
-            document.getElementById('CSwitch1').checked = true;
-            document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0;
-            changeChipType();
-            changeLevel();
-            resetBlock();
-        }
-        function resetBlock() {
-            block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
-            refreshPreview();
-            manageButton();
-        }
-        function refreshPreview() { //刷新芯片预览
-            var DmgId = document.getElementById('Dmg');
-            var DbkId = document.getElementById('Dbk');
-            var AcuId = document.getElementById('Acu');
-            var FilId = document.getElementById('Fil');
-            var AdTx1 = document.getElementById('AdTx1');
-            var AdTx2 = document.getElementById('AdTx2');
-            var AdTx3 = document.getElementById('AdTx3');
-            var AdTx4 = document.getElementById('AdTx4');
-            DmgId.innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4));
-            DbkId.innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7));
-            AcuId.innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1));
-            FilId.innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7));
-            AdTx1.innerHTML = block_dmg;
-            AdTx2.innerHTML = block_dbk;
-            AdTx3.innerHTML = block_acu;
-            AdTx4.innerHTML = block_fil;
-        }
-        function manageButton() { //锁与释放加减按钮
-            var AdBt1 = document.getElementById('AdBt1'); AdBt1.disabled = false;
-            var AdBt2 = document.getElementById('AdBt2'); AdBt2.disabled = false;
-            var AdBt3 = document.getElementById('AdBt3'); AdBt3.disabled = false;
-            var AdBt4 = document.getElementById('AdBt4'); AdBt4.disabled = false;
-            var SbBt1 = document.getElementById('SbBt1'); SbBt1.disabled = false;
-            var SbBt2 = document.getElementById('SbBt2'); SbBt2.disabled = false;
-            var SbBt3 = document.getElementById('SbBt3'); SbBt3.disabled = false;
-            var SbBt4 = document.getElementById('SbBt4'); SbBt4.disabled = false;
-            var addChipButtonId = document.getElementById('addChipButton'); addChipButtonId.disabled = true;
-            var blockNum = parseInt(((document.getElementById('ChipClass').value) + "").substr(1, 1));
-            if (block_dmg + block_dbk + block_acu + block_fil >= blockNum) {
-                AdBt1.disabled = true; AdBt2.disabled = true; AdBt3.disabled = true; AdBt4.disabled = true;
-            } else {
-                if (blockNum >= 5) {
-                    if (block_dmg === blockNum - 1) AdBt1.disabled = true;
-                    if (block_dbk === blockNum - 1) AdBt2.disabled = true;
-                    if (block_acu === blockNum - 1) AdBt3.disabled = true;
-                    if (block_fil === blockNum - 1) AdBt4.disabled = true;
-                } else {
-                    if (block_dmg === blockNum) AdBt1.disabled = true;
-                    if (block_dbk === blockNum) AdBt2.disabled = true;
-                    if (block_acu === blockNum) AdBt3.disabled = true;
-                    if (block_fil === blockNum) AdBt4.disabled = true;
-                }
-            }
-            if (block_dmg === 0) SbBt1.disabled = true;
-            if (block_dbk === 0) SbBt2.disabled = true;
-            if (block_acu === 0) SbBt3.disabled = true;
-            if (block_fil === 0) SbBt4.disabled = true;
-            if (block_dmg + block_dbk + block_acu + block_fil === blockNum) addChipButtonId.disabled = false;
-        }
         function manageDeleteButton() {
-            var DeleteSelectId = document.getElementById('DeleteSelect');
-            if (parseInt(DeleteSelectId.value) > 0) document.getElementById('deleteChipButton').disabled = false;
-            else document.getElementById('deleteChipButton').disabled = true;
+            var DeleteSelectId = document.getElementById('DeleteSelect')
+            if (parseInt(DeleteSelectId.value) > 0) document.getElementById('deleteChipButton').disabled = false
+            else document.getElementById('deleteChipButton').disabled = true
         }
-        function addBlock(typeInfo) { //增加格数
+        function addBlock(typeInfo) { // 增加格数
             switch (typeInfo) {
                 case 1: block_dmg++; break;
                 case 2: block_dbk++; break;
                 case 3: block_acu++; break;
                 case 4: block_fil++; break;
             }
-            refreshPreview();
-            manageButton();
+            refreshPreview()
+            manageButton()
         }
-        function subBlock(typeInfo) { //减少格数
-            var DmgId = document.getElementById('Dmg');
-            var DbkId = document.getElementById('Dbk');
-            var AcuId = document.getElementById('Acu');
-            var FilId = document.getElementById('Fil');
+        function subBlock(typeInfo) { // 减少格数
+            var DmgId = document.getElementById('Dmg')
+            var DbkId = document.getElementById('Dbk')
+            var AcuId = document.getElementById('Acu')
+            var FilId = document.getElementById('Fil')
             switch (typeInfo) {
                 case 1: block_dmg--; break;
                 case 2: block_dbk--; break;
@@ -270,42 +300,44 @@
             color = colorInfo;
             changePrevireImg();
         }
-        function changeChipType() {     //star + blockNum + typeNum(or null)
-            var seleId = document.getElementById('ChipType');
-            var typeInfo = parseInt((document.getElementById('ChipClass')).value);
+        function changeChipType() { // star + blockNum + typeNum(or null)
+            var seleId = document.getElementById('ChipType')
+            var typeInfo = parseInt((document.getElementById('ChipClass')).value)
             switch (typeInfo) {
                 case 56:
-                    seleId.innerHTML = '<option value=1 selected>1</option><option value=2>2</option><option value=3>3</option><option value=41>4-a</option><option value=42>4-b</option><option value=5>5</option><option value=6>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option>';
+                    seleId.innerHTML = '<option value=1 selected>1</option><option value=2>2</option><option value=3>3</option><option value=41>4-a</option><option value=42>4-b</option><option value=5>5</option><option value=6>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option>'
                     changeTopSample(56);
                     break;
                 case 551:
-                    seleId.innerHTML = '<option value=11 selected>F-a</option><option value=12>F-b</option><option value=21>N-a</option><option value=22>N-b</option><option value=31>Y-a</option><option value=32>Y-b</option><option value=4>T</option><option value=5>W</option><option value=6>X</option>';
+                    seleId.innerHTML = '<option value=11 selected>F-a</option><option value=12>F-b</option><option value=21>N-a</option><option value=22>N-b</option><option value=31>Y-a</option><option value=32>Y-b</option><option value=4>T</option><option value=5>W</option><option value=6>X</option>'
                     changeTopSample(551);
                     break;
             }
-            changePrevireImg();
-            resetBlock();
+            changePrevireImg()
+            resetBlock()
+            manageButton();
         }
         function changePrevireImg() {
-            var colorName;
-            if (color === 1) colorName = "b";
-            else colorName = "o";
-            var ChipClass = (document.getElementById('ChipClass')).value;
-            var ChipType = (document.getElementById('ChipType')).value;
-            var PreviewImgId = document.getElementById('PreviewImg');
-            var pathName = "../img/chip/" + colorName + "_" + ChipClass + "-" + ChipType + ".png";
-            PreviewImgId.src = pathName;
-            changePreviewType();
+            var colorName
+            if (color === 1) colorName = 'b'
+            else colorName = 'o'
+            var ChipClass = (document.getElementById('ChipClass')).value
+            var ChipType = (document.getElementById('ChipType')).value
+            var PreviewImgId = document.getElementById('PreviewImg')
+            var pathName = '../img/chip/' + colorName + '_' + ChipClass + '-' + ChipType + '.png'
+            PreviewImgId.src = pathName
+            changePreviewType()
+            manageButton();
         }
         function changePreviewType() {
-            var PreviewTypeId = document.getElementById('PreviewType');
-            var ClassId = document.getElementById('ChipClass');
-            var ClassIdx = ClassId.selectedIndex;
-            var ClassName = ClassId[ClassIdx].text;
-            var TypeId = document.getElementById('ChipType');
-            var TypeIdx = TypeId.selectedIndex;
-            var TypeName = TypeId[TypeIdx].text;
-            PreviewTypeId.innerHTML = ClassName + " - 类型" + TypeName;
+            var PreviewTypeId = document.getElementById('PreviewType')
+            var ClassId = document.getElementById('ChipClass')
+            var ClassIdx = ClassId.selectedIndex
+            var ClassName = ClassId[ClassIdx].text
+            var TypeId = document.getElementById('ChipType')
+            var TypeIdx = TypeId.selectedIndex
+            var TypeName = TypeId[TypeIdx].text
+            PreviewTypeId.innerHTML = ClassName + ' - 类型' + TypeName
         }
         function changeTopSample(typeInfo) {
             var imgId = document.getElementById('SampleImg');
@@ -315,112 +347,123 @@
             }
         }
         function changeLevel() {
-            var level = parseInt((document.getElementById('ChipLevel')).value);
-            var PreviewLevelId = document.getElementById('PreviewLevel');
-            var LevelId = document.getElementById('ChipLevel');
-            var LevelIdx = LevelId.selectedIndex;
-            PreviewLevelId.innerHTML = LevelId[LevelIdx].text;
-            if (level <= 10) mul_property = 1 + 0.08 * level;
-            else mul_property = 1.8 + 0.07 * (level - 10);
-            refreshPreview();
+            var level = parseInt((document.getElementById('ChipLevel')).value)
+            var PreviewLevelId = document.getElementById('PreviewLevel')
+            var LevelId = document.getElementById('ChipLevel')
+            var LevelIdx = LevelId.selectedIndex
+            PreviewLevelId.innerHTML = LevelId[LevelIdx].text
+            if (level <= 10) mul_property = 1 + 0.08 * level
+            else mul_property = 1.8 + 0.07 * (level - 10)
+            refreshPreview()
+            manageButton();
         }
-        function changeRepo(typeInfo) { //刷新仓库显示，1=添加，2=删除某个，3=清空
-            var ChipRepoChartId = document.getElementById('ChipRepoChart');
-            var DeleteSelectId = document.getElementById('DeleteSelect');
-            switch (typeInfo) {
-                case 1:
-                    chipNum++;
-                    var ChipClass = document.getElementById('ChipClass').value;
-                    var ChipType = document.getElementById('ChipType').value;
-                    var ChipLevel = document.getElementById('ChipLevel').value;
-                    var colorName;
-                    if (color === 1) colorName = "b";
-                    else colorName = "o";
-                    var Repo_p1 = chipNum + "";
-                    var Repo_p2 = "";
-                    var Repo_p3 = "+" + ChipLevel;
-                    var starNum = parseInt(((document.getElementById('ChipClass').value) + "").substr(0, 1));
-                    for (var i = 0; i < starNum; i++) Repo_p2 += '★';
-                    var Repo_Acu = Math.ceil(mul_property * Math.ceil(block_acu * 7.1));
-                    var Repo_Fil = Math.ceil(mul_property * Math.ceil(block_fil * 5.7));
-                    var Repo_Dmg = Math.ceil(mul_property * Math.ceil(block_dmg * 4.4));
-                    var Repo_Dbk = Math.ceil(mul_property * Math.ceil(block_dbk * 12.7));
-                    chipRepo_chart.push(creatRepo(Repo_p1, Repo_p2, Repo_p3, Repo_Acu, Repo_Fil, Repo_Dmg, Repo_Dbk));
-                    var htmlString = '<img src="../img/chip/' + colorName + '_' + ChipClass + '-' + ChipType + '.png">';
-                    var ChartAdd = "";
-                    ChartAdd += '<tr>';
-                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipNum + '</td>';
-                    ChartAdd += '<td>' + htmlString + " " + chipRepo_chart[chipNum - 1].chipType + '</td>';
-                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].chipLevel + '</td>';
-                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Acu + '</td>';
-                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Fil + '</td>';
-                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dmg + '</td>';
-                    ChartAdd += '<td>' + chipRepo_chart[chipNum - 1].Dbk + '</td>';
-                    ChartAdd += '</tr>';
-                    ChipRepoChartId.innerHTML += ChartAdd;
-                    var Den_Level = 1; //目前暂时没用
-                    chipRepo_data.push(creatChip(chipNum, color, parseInt(ChipClass), parseInt(ChipType), parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, Den_Level));
-                    deleteSelectHTML.push(('<option value=' + chipNum) + ('>' + chipNum) + '</option>');
-                    var selectText = '';
-                    for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i];
-                    DeleteSelectId.innerHTML = selectText;
-                    document.getElementById('deleteChipButton').disabled = true;
-                    break;
-                case 2:
-                    var deleteNum = parseInt(document.getElementById("DeleteSelect").value);
-                    for (var i = 0; i < chipNum; i++) {
-                        if (i + 1 > deleteNum) {
-                            chipRepo_data[i].chipNum--;
-                            chipRepo_chart[i].chipNum--;
-                        }
-                    }
-                    chipRepo_data.splice(deleteNum - 1, 1);
-                    chipRepo_chart.splice(deleteNum - 1, 1);
-                    chipNum--;
-                    ChipRepoChartId.innerHTML = ""; //CLEAR chart
-                    deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
-                    for (var i = 0; i < chipNum; i++) {
-                        var ChartAdd = "";
-                        var colorName;
-                        if (color === 1) colorName = "b";
-                        else colorName = "o";
-                        var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[i].classNum + '-' + chipRepo_data[i].typeNum + '.png">';
-                        ChartAdd += '<tr>';
-                        ChartAdd += '<td>' + chipRepo_chart[i].chipNum + '</td>';
-                        ChartAdd += '<td>' + htmlString + " " + chipRepo_chart[i].chipType + '</td>';
-                        ChartAdd += '<td>' + chipRepo_chart[i].chipLevel + '</td>';
-                        ChartAdd += '<td>' + chipRepo_chart[i].Acu + '</td>';
-                        ChartAdd += '<td>' + chipRepo_chart[i].Fil + '</td>';
-                        ChartAdd += '<td>' + chipRepo_chart[i].Dmg + '</td>';
-                        ChartAdd += '<td>' + chipRepo_chart[i].Dbk + '</td>';
-                        ChartAdd += '</tr>';
-                        ChipRepoChartId.innerHTML += ChartAdd;
-                        deleteSelectHTML.push(('<option value=' + chipRepo_chart[i].chipNum) + ('>' + chipRepo_chart[i].chipNum) + '</option>');
-                    }
-                    var selectText = '';
-                    for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i];
-                    DeleteSelectId.innerHTML = selectText;
-                    document.getElementById('deleteChipButton').disabled = true;
-                    break;
-                case 3:
-                    chipRepo_data = [];
-                    chipRepo_chart = [];
-                    chipNum = 0;
-                    ChipRepoChartId.innerHTML = ""; //CLEAR chart
-                    deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
-                    DeleteSelectId.innerHTML = deleteSelectHTML[0];
-                    break;
+        function resetPage() {
+            color = 1
+            mul_property = 1
+            document.getElementById('CSwitch1').checked = true
+            document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0
+            changeChipType()
+            changeLevel()
+            resetBlock()
+        }
+        function resetBlock() {
+            block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0
+            refreshPreview()
+            manageButton()
+        }
+        function refreshPreview() { // 刷新芯片预览
+            var DmgId = document.getElementById('Dmg')
+            var DbkId = document.getElementById('Dbk')
+            var AcuId = document.getElementById('Acu')
+            var FilId = document.getElementById('Fil')
+            var AdTx1 = document.getElementById('AdTx1')
+            var AdTx2 = document.getElementById('AdTx2')
+            var AdTx3 = document.getElementById('AdTx3')
+            var AdTx4 = document.getElementById('AdTx4')
+            DmgId.innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
+            DbkId.innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
+            AcuId.innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
+            FilId.innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7))
+            AdTx1.innerHTML = block_dmg
+            AdTx2.innerHTML = block_dbk
+            AdTx3.innerHTML = block_acu
+            AdTx4.innerHTML = block_fil
+        }
+        function manageButton() { // 锁与释放加减按钮
+            var AdBt1 = document.getElementById('AdBt1'); AdBt1.disabled = false
+            var AdBt2 = document.getElementById('AdBt2'); AdBt2.disabled = false
+            var AdBt3 = document.getElementById('AdBt3'); AdBt3.disabled = false
+            var AdBt4 = document.getElementById('AdBt4'); AdBt4.disabled = false
+            var SbBt1 = document.getElementById('SbBt1'); SbBt1.disabled = false
+            var SbBt2 = document.getElementById('SbBt2'); SbBt2.disabled = false
+            var SbBt3 = document.getElementById('SbBt3'); SbBt3.disabled = false
+            var SbBt4 = document.getElementById('SbBt4'); SbBt4.disabled = false
+            var AdBl = document.getElementById('AdBl'); AdBl.disabled = true;
+            var SbBl = document.getElementById('SbBl'); SbBl.disabled = true;
+            var AdSp = document.getElementById('AdSp'); AdSp.disabled = true;
+            var SbSp = document.getElementById('SbSp'); SbSp.disabled = true;
+            var AdLv = document.getElementById('AdLv'); AdLv.disabled = true;
+            var SbLv = document.getElementById('SbLv'); SbLv.disabled = true;
+            if (parseInt(document.getElementById('ChipClass').value) === 56) {
+                AdBl.disabled = false;
+                SbBl.disabled = true;
+                if (parseInt(document.getElementById('ChipType').value) === 1) {
+                    AdSp.disabled = false;
+                    SbSp.disabled = true;
+                } else if (parseInt(document.getElementById('ChipType').value) === 9) {
+                    AdSp.disabled = true;
+                    SbSp.disabled = false;
+                } else {
+                    AdSp.disabled = false;
+                    SbSp.disabled = false;
+                }
+            } else {
+                AdBl.disabled = true;
+                SbBl.disabled = false;
+                if (parseInt(document.getElementById('ChipType').value) === 11) {
+                    AdSp.disabled = false;
+                    SbSp.disabled = true;
+                } else if (parseInt(document.getElementById('ChipType').value) === 6) {
+                    AdSp.disabled = true;
+                    SbSp.disabled = false;
+                } else {
+                    AdSp.disabled = false;
+                    SbSp.disabled = false;
+                }
             }
-            if (chipNum > 0) {
-                document.getElementById('SaveButton').disabled = false;
-                document.getElementById('clearChipButton').disabled = false;
+            if (parseInt(document.getElementById('ChipLevel').value) === 0) {
+                AdLv.disabled = false;
+                SbLv.disabled = true;
+            } else if (parseInt(document.getElementById('ChipLevel').value) === 20) {
+                AdLv.disabled = true;
+                SbLv.disabled = false;
+            } else {
+                AdLv.disabled = false;
+                SbLv.disabled = false;
             }
-            else {
-                document.getElementById('SaveButton').disabled = true;
-                document.getElementById('deleteChipButton').disabled = true;
-                document.getElementById('clearChipButton').disabled = true;
+            var addChipButtonId = document.getElementById('addChipButton')
+            addChipButtonId.disabled = true
+            var blockNum = parseInt(((document.getElementById('ChipClass').value) + '').substr(1, 1))
+            if (block_dmg + block_dbk + block_acu + block_fil >= blockNum) {
+                AdBt1.disabled = true; AdBt2.disabled = true; AdBt3.disabled = true; AdBt4.disabled = true
+            } else {
+                if (blockNum >= 5) {
+                    if (block_dmg === blockNum - 1) AdBt1.disabled = true
+                    if (block_dbk === blockNum - 1) AdBt2.disabled = true
+                    if (block_acu === blockNum - 1) AdBt3.disabled = true
+                    if (block_fil === blockNum - 1) AdBt4.disabled = true
+                } else {
+                    if (block_dmg === blockNum) AdBt1.disabled = true
+                    if (block_dbk === blockNum) AdBt2.disabled = true
+                    if (block_acu === blockNum) AdBt3.disabled = true
+                    if (block_fil === blockNum) AdBt4.disabled = true
+                }
             }
-
+            if (block_dmg === 0) SbBt1.disabled = true
+            if (block_dbk === 0) SbBt2.disabled = true
+            if (block_acu === 0) SbBt3.disabled = true
+            if (block_fil === 0) SbBt4.disabled = true
+            if (block_dmg + block_dbk + block_acu + block_fil === blockNum) addChipButtonId.disabled = false
         }
         function chartBack(typeInfo) {
             var line1 = document.getElementById('solutionLine1');
@@ -808,9 +851,8 @@
             var solution = DLX(chipMetrix, HeavyfireType, HeavyfireStar);
             return solution;
         }
-        function getSolution() { //计算拼接
-            solutionSet = [], solutionScore = []; //全局变量初始化
-            chipComSet = [];
+        function getTopology() { //计算拼接
+            topologySet = [], solutionScore = [], solutionSet = [];//全局变量初始化
             var HeavyfireStar = 5;
             var HeavyfireType = 1;
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
@@ -881,46 +923,36 @@
                 var shapeNum = possibleSet[num_stg].length;
                 for (var num_shp = 0; num_shp < shapeNum; num_shp++) {
                     var tempSolution = getResult(possibleSet[num_stg][num_shp], strategyInfo[num_stg], HeavyfireType, HeavyfireStar);
-                    if (tempSolution.length != 0) solutionSet.push(tempSolution);
+                    if (tempSolution.length != 0) topologySet.push(tempSolution);
                 }
             }
             var td2 = new Date();
             globaltime_1 += countMS(td1, td2);
-            console.log("all time=", globaltime_1)
-            if (solutionSet.length > 0) {
-                var soluNum = solutionSet.length;
-                showSolution(solutionSet[0], HeavyfireType, HeavyfireStar);
+            document.getElementById('timeText').innerHTML = "总时间" + (globaltime_1 / 1000).toFixed(2) + "s";
+            if (topologySet.length > 0) { //get topology result
+                var soluNum = topologySet.length;
                 var panelO = document.getElementById('panelO'); panelO.className = '';
                 var panelR = document.getElementById('panelR'); panelR.className = 'active';
                 var Options = document.getElementById('Options'); Options.className = 'tab-pane fade';
                 var Results = document.getElementById('Results'); Results.className = 'tab-pane fade in active';
-                var ResultType = document.getElementById('ResultType');
+                var TopologySelect = document.getElementById('TopologySelect');
+                TopologySelect.disabled = false;
                 var RTText = '<option value=0 selected>图解 1</option>';
                 for (var i = 1; i < soluNum; i++) {
                     RTText += '<option value=' + i + '>图解 ' + (i + 1) + '</option>';
                 }
-                ResultType.innerHTML = RTText;
+                TopologySelect.innerHTML = RTText;
                 var NoResultTextId = document.getElementById('NoResultText');
                 NoResultTextId.innerHTML = '';
+                topologyNum = 0;
+                showSolution();
             } else {
                 var NoResultTextId = document.getElementById('NoResultText');
                 NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>';
-                var ResultType = document.getElementById('ResultType');
-                var RTText = '<option value=1 selected>方案1</option>';
+                var TopologySelect = document.getElementById('TopologySelect');
+                TopologySelect.disabled = true;
+                var RTText = '<option value=1 selected>图解编号</option>';
             }
-        }
-        function updatePercentBar(proID, processNum, totalProcessNum) {
-            var Process_Text_Dmg = document.getElementById('Process_Text_Dmg');
-            var Process_Bar_Dmg = document.getElementById('Process_Bar_Dmg');
-            var Process_Text_Dbk = document.getElementById('Process_Text_Dbk');
-            var Process_Bar_Dbk = document.getElementById('Process_Bar_Dbk');
-            var Process_Text_Acu = document.getElementById('Process_Text_Acu');
-            var Process_Bar_Acu = document.getElementById('Process_Bar_Acu');
-            var Process_Text_Fil = document.getElementById('Process_Text_Fil');
-            var Process_Bar_Fil = document.getElementById('Process_Bar_Fil');
-            var percent_Dmg;
-            Process_Text_Dmg.innerHTML = percent_Dmg + "%";
-            Process_Bar_Dmg.style = "width:" + percent_Dmg + "%";
         }
         function getCombination_sub(blockNum, limitNum, limitSet) { //给出可行的组合种类
             var possibleSet = [], pickNum = [];
@@ -1015,11 +1047,7 @@
             }
             return possibleSet;
         }
-        function makeScore(solution) {
-            var score;
-            return score;
-        }
-        function showSolution(solution, HeavyfireType, HeavyfireStar) {
+        function showTopology(solution, HeavyfireType, HeavyfireStar) {
             var line1 = document.getElementById('solutionLine1');
             var line2 = document.getElementById('solutionLine2');
             var line3 = document.getElementById('solutionLine3');
@@ -1063,16 +1091,269 @@
             var chipNum = chipRank[0];
             var ranklen = chipRank.length;
             for (var i = 1; i < ranklen; i++) {
-                if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - border_x * parseInt((i - 1) / border_x) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + chipNum + '</td>';
+                if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - border_x * parseInt((i - 1) / border_x) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + '</td>';
             }
         }
-        function changeResult() {
+        function changeTopology(actionId) {
             var HeavyfireStar = 5, HeavyfireType;
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
             else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
             else HeavyfireType = 3;
-            var ResultTypeV = parseInt(document.getElementById('ResultType').value);
-            showSolution(solutionSet[ResultTypeV], HeavyfireType, HeavyfireStar);
+            if (actionId === 0) topologyNum = parseInt(document.getElementById('TopologySelect').value);
+            if (actionId === 1) topologyNum++;
+            if (actionId === 2) topologyNum--;
+            document.getElementById('TopologySelect').value = topologyNum;
+            showSolution();
+        }
+        function changeAnalyze(actionId) {
+            var HeavyfireStar = 5, HeavyfireType;
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            var SolutionSelect = document.getElementById('SolutionSelect');
+            var SSV = parseInt(SolutionSelect.value);
+            if (actionId === 1) SSV++;
+            if (actionId === 2) SSV--;
+            SolutionSelect.value = SSV;
+            showAnalyze();
+        }
+        function showAnalyze() {
+            var HeavyfireType;
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            var HeavyfireStar = 5;
+            var SSNum = parseInt(document.getElementById('SolutionSelect').value);
+            showTopology(topologySet[topologyNum], HeavyfireType, HeavyfireStar);
+            var ChipComboChart = document.getElementById('ChipComboChart');
+            ChipComboChart.innerHTML = '';
+            var c_num = solutionSet[SSNum].length;
+            for (var c = 0; c < c_num; c++) {
+                var colorName;
+                if (chipRepo_data[solutionSet[SSNum][c] - 1].color === 1) colorName = 'b';
+                else colorName = 'o';
+                var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[solutionSet[SSNum][c] - 1].classNum + '-' + chipRepo_data[solutionSet[SSNum][c] - 1].typeNum + '.png">';
+                var ChartAdd = '';
+                ChartAdd += '<tr>';
+                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipNum + '</td>';
+                ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipType + '</td>';
+                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipLevel + '</td>';
+                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Acu + '</td>';
+                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Fil + '</td>';
+                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg + '</td>';
+                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk + '</td>';
+                ChartAdd += '</tr>';
+                ChipComboChart.innerHTML += ChartAdd;
+            }
+            var AdTp = document.getElementById('AdTp');
+            var SbTp = document.getElementById('SbTp');
+            var AdCo = document.getElementById('AdCo');
+            var SbCo = document.getElementById('SbCo');
+            var topoV = parseInt(document.getElementById('TopologySelect').value);
+            var combV = parseInt(document.getElementById('SolutionSelect').value);
+            if (topoV === 0) SbTp.disabled = true;
+            else SbTp.disabled = false;
+            if (topoV === topologySet.length - 1) AdTp.disabled = true;
+            else AdTp.disabled = false;
+            if (combV === 0) SbCo.disabled = true;
+            else SbCo.disabled = false;
+            if (combV === solutionSet.length - 1) AdCo.disabled = true;
+            else AdCo.disabled = false;
+            var Process_Text_Dmg = document.getElementById('Process_Text_Dmg');
+            var Process_Text_Dbk = document.getElementById('Process_Text_Dbk');
+            var Process_Text_Acu = document.getElementById('Process_Text_Acu');
+            var Process_Text_Fil = document.getElementById('Process_Text_Fil');
+            var DmgAlert = document.getElementById('DmgAlert');
+            var DbkAlert = document.getElementById('DbkAlert');
+            var AcuAlert = document.getElementById('AcuAlert');
+            var FilAlert = document.getElementById('FilAlert');
+            var Process_Bar_Dmg = document.getElementById('Process_Bar_Dmg');
+            var Process_Bar_Dbk = document.getElementById('Process_Bar_Dbk');
+            var Process_Bar_Acu = document.getElementById('Process_Bar_Acu');
+            var Process_Bar_Fil = document.getElementById('Process_Bar_Fil');
+            var dmg = 0, dbk = 0, acu = 0, fil = 0;
+            var dmg_max = 0, dkb_max = 0, acu_max = 0, fil_max = 0;
+
+            for (var c = 0; c < c_num; c++) {
+                dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg;
+                dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk;
+                acu += chipRepo_chart[solutionSet[SSNum][c] - 1].Acu;
+                fil += chipRepo_chart[solutionSet[SSNum][c] - 1].Fil;
+            }
+            if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 49; }
+            else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
+            else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+            if (dmg > dmg_max) {
+                Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg + '</span>' + '/' + dmg_max;
+                DmgAlert.innerHTML = "* 杀伤溢出";
+                Process_Bar_Dmg.style = "width:100%";
+            }
+            else {
+                Process_Text_Dmg.innerHTML = dmg + '/' + dmg_max;
+                DmgAlert.innerHTML = "";
+                Process_Bar_Dmg.style = ("width:" + (dmg / dmg_max).toFixed(2) * 100 + "%");
+            }
+            if (dbk > dbk_max) {
+                Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk + '</span>' + '/' + dbk_max;
+                DbkAlert.innerHTML = "* 破防溢出";
+                Process_Bar_Dbk.style = "width:100%";
+            }
+            else {
+                Process_Text_Dbk.innerHTML = dbk + '/' + dbk_max;
+                DbkAlert.innerHTML = "";
+                Process_Bar_Dbk.style = ("width:" + (dbk / dbk_max).toFixed(2) * 100 + "%");
+            }
+            if (acu > acu_max) {
+                Process_Text_Acu.innerHTML = '<span style="color:red">' + acu + '</span>' + '/' + acu_max;
+                AcuAlert.innerHTML = "* 精度溢出";
+                Process_Bar_Acu.style = "width:100%";
+            }
+            else {
+                Process_Text_Acu.innerHTML = acu + '/' + acu_max;
+                AcuAlert.innerHTML = "";
+                Process_Bar_Acu.style = ("width:" + (acu / acu_max).toFixed(2) * 100 + "%");
+            }
+            if (fil > fil_max) {
+                Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max;
+                FilAlert.innerHTML = "* 装填溢出";
+                Process_Bar_Fil.style = "width:100%";
+            }
+            else {
+                Process_Text_Fil.innerHTML = fil + '/' + fil_max;
+                FilAlert.innerHTML = "";
+                Process_Bar_Fil.style = ("width:" + (fil / fil_max).toFixed(2) * 100 + "%");
+            }
+        }
+        function showSolution() {
+            solutionSet = getSolution(topologySet[topologyNum]);
+            var SolutionSelect = document.getElementById('SolutionSelect');
+            var SSText = '';
+            var solulen = solutionSet.length;
+            SolutionSelect.disabled = false;
+            for (var i = 0; i < solulen; i++) {
+                SSText += '<option value=' + i + '>编号 ';
+                var c_num = solutionSet[i].length;
+                for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + " ");
+                SSText += '</option>';
+            }
+            SolutionSelect.innerHTML = SSText;
+            showAnalyze();
+        }
+        function getSolution(topology) {
+            var tempChipRepo = []; //待选芯片数据的二维数组
+            var topolen = topology.length;
+            var type = [], typeNum = [], totalType = 0;
+            var pickIdx = []; //二维数组，存放芯片选取组合的索引
+            var chanegeIdx = 0;
+            var solution = []; //二维数组，存放芯片选取组合的编号
+            for (var i = 0; i < topolen; i++) { //记录芯片形状和对应数量
+                var chipCode = parseInt(topology[i][0]);
+                if (notIn(chipCode, type)) {
+                    totalType++;
+                    type.push(chipCode);
+                    typeNum.push(1);
+                } else {
+                    for (var c = 0; c < totalType; c++) if (chipCode === type[c]) typeNum[c]++;
+                }
+            }
+            for (var t = 0; t < totalType; t++) {
+                tempChipRepo.push(searchChipSet(type[t])); //把对应芯片全备份
+                pickIdx.push([]);
+                for (var n = 0; n < typeNum[t]; n++) pickIdx[t].push(n); //初始化选取
+            }
+            var solutionRank_init = [];
+            for (var t = 0; t < totalType; t++) {
+                for (var n = 0; n < typeNum[t]; n++) {
+                    solutionRank_init.push(tempChipRepo[t][pickIdx[t][n]].chipNum);
+                }
+            }
+            solution.push(solutionRank_init);
+            changeIdx = totalType - 1; //从最后一类开始变
+            while (changeIdx > -1) {
+                var changeCom = changeCombination(pickIdx[changeIdx], tempChipRepo[changeIdx].length);
+                if (changeCom.length > 0) { //有新的解
+                    pickIdx[changeIdx] = changeCom;
+                    var solutionRank = [];
+                    for (var t = 0; t < totalType; t++) {
+                        for (var n = 0; n < typeNum[t]; n++) {
+                            solutionRank.push(tempChipRepo[t][pickIdx[t][n]].chipNum);
+                        }
+                    }
+                    solution.push(solutionRank);
+                    changeIdx = totalType - 1;
+                } else {
+                    pickIdx[changeIdx] = [];
+                    for (var n = 0; n < typeNum[changeIdx]; n++) pickIdx[changeIdx].push(n); //初始化选取
+                    changeIdx--;
+                }
+            }
+            return solution;
+        }
+        function changeCombination(rank, pickLimit) {
+            var currentCombination = rank;
+            var cuComlen = currentCombination.length;
+            var isCompact = true;
+            for (var i = cuComlen - 1; i > 0; i--) {
+                if (currentCombination[i] - currentCombination[i - 1] != 1) {
+                    isCompact = false;
+                    break;
+                }
+            }
+            if (isCompact && (currentCombination[cuComlen - 1] === pickLimit - 1)) return []; //紧凑且触底
+            else {
+                var changeIdx = cuComlen - 1;
+                while (true) {
+                    if (currentCombination[changeIdx] < pickLimit - 1) {
+                        currentCombination[changeIdx]++;
+                        return currentCombination;
+                    } else {
+                        for (var i = changeIdx; i > 0; i--) {
+                            if (currentCombination[i] - currentCombination[i - 1] != 1) {
+                                changeIdx = i - 1;
+                                currentCombination[changeIdx]++;
+                                break;
+                            }
+                        }
+                        while (changeIdx < cuComlen - 1) {
+                            changeIdx++;
+                            currentCombination[changeIdx] = currentCombination[changeIdx - 1] + 1;
+                        }
+                        return currentCombination;
+                    }
+                }
+            }
+        }
+        function searchChipSet(chipCode) {
+            var chipString = chipCode + "";
+            var tempChipSet = [];
+            var class_num, type_num;
+            if (chipString.substr(0, 3) === '551') class_num = 551;
+            else class_num = 56;
+            type_num = parseInt(chipString.substr(3));
+            for (var i = 0; i < chipNum; i++) if (chipRepo_data[i].classNum === class_num && chipRepo_data[i].typeNum === type_num) tempChipSet.push(chipRepo_data[i]);
+            return tempChipSet;
+        }
+        function changeBlock(actionInfo) {
+            var ChipClass = document.getElementById('ChipClass');
+            if (actionInfo === 1) ChipClass.value = 551;
+            else ChipClass.value = 56;
+            changeChipType();
+            manageButton();
+        }
+        function changeShape(actionInfo) {
+            var ChipType = document.getElementById('ChipType');
+            var ChipIdx = ChipType.selectedIndex;
+            if (actionInfo === 1) ChipType.value = ChipType[parseInt(ChipIdx) + 1].value;
+            else ChipType.value = ChipType[parseInt(ChipIdx) - 1].value;
+            changePrevireImg();
+            manageButton();
+        }
+        function editLevel(actionInfo) {
+            var ChipLevel = document.getElementById('ChipLevel');
+            if (actionInfo === 1) ChipLevel.value = parseInt(ChipLevel.value) + 1;
+            else ChipLevel.value = parseInt(ChipLevel.value) - 1;
+            changeLevel();
+            manageButton();
         }
     </script>
 </head>
@@ -1168,77 +1449,102 @@
                                             <div>
                                                 <p id="SampleImg"><img src="../img/chipcal_56.png"></p>
                                             </div>
-                                            <p>
-                                                <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch1" value="b" onchange="changeColor(1)" checked><span style="color:darkblue">蓝色</span></label>
-                                                <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch2" value="o" onchange="changeColor(2)"><span style="color:darkorange">橙色</span></label>
-                                            </p>
-                                            <p>
-                                                <select class="form-control" id="ChipClass" onchange="changeChipType()">
-                                                    <option value=56 selected>★★★★★ 六格</option>
-                                                    <option value=551>★★★★★ 五格1类</option>
-                                                </select>
-                                            </p>
-                                            <p>
-                                                <select class="form-control" id="ChipType" onchange="changePrevireImg()">
-                                                    <option value=1 selected>1</option>
-                                                    <option value=2>2</option>
-                                                    <option value=3>3</option>
-                                                    <option value=41>4-a</option>
-                                                    <option value=42>4-b</option>
-                                                    <option value=5>5</option>
-                                                    <option value=6>6</option>
-                                                    <option value=7>7</option>
-                                                    <option value=8>8</option>
-                                                    <option value=9>9</option>
-                                                </select>
-                                            </p>
-                                            <p>
-                                                <select class="form-control" id="ChipLevel" onchange="changeLevel()">
-                                                    <option value=0 selected>+0</option>
-                                                    <option value=1>+1</option>
-                                                    <option value=2>+2</option>
-                                                    <option value=3>+3</option>
-                                                    <option value=4>+4</option>
-                                                    <option value=5>+5</option>
-                                                    <option value=6>+6</option>
-                                                    <option value=7>+7</option>
-                                                    <option value=8>+8</option>
-                                                    <option value=9>+9</option>
-                                                    <option value=10>+10</option>
-                                                    <option value=11>+11</option>
-                                                    <option value=12>+12</option>
-                                                    <option value=13>+13</option>
-                                                    <option value=14>+14</option>
-                                                    <option value=15>+15</option>
-                                                    <option value=16>+16</option>
-                                                    <option value=17>+17</option>
-                                                    <option value=18>+18</option>
-                                                    <option value=19>+19</option>
-                                                    <option value=20>+20(max)</option>
-                                                </select>
-                                            </p>
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
-                                                        <td style='width:200px'><img src="../img/icon-acu.png">
-                                                            <lable>精度：<span style="color:dodgerblue" id="AdTx3">0</span>格</lable>
+                                                        <td>颜色</td>
+                                                        <td>
+                                                            <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch1" value="b" onchange="changeColor(1)" checked><span style="color:darkblue">蓝色</span></label>
+                                                            <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch2" value="o" onchange="changeColor(2)"><span style="color:darkorange">橙色</span></label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>格数
+                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeBlock(2)" id="SbBl" disabled>&lt</button>
+                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeBlock(1)" id="AdBl">&gt</button>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control input-sm" id="ChipClass" onchange="changeChipType()">
+                                                                <option value=56 selected>★★★★★ 六格</option>
+                                                                <option value=551>★★★★★ 五格1类</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>形状
+                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeShape(2)" id="SbSp" disabled>&lt</button>
+                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeShape(1)" id="AdSp">&gt</button>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control input-sm" id="ChipType" onchange="changePrevireImg()">
+                                                                <option value=1 selected>1</option>
+                                                                <option value=2>2</option>
+                                                                <option value=3>3</option>
+                                                                <option value=41>4-a</option>
+                                                                <option value=42>4-b</option>
+                                                                <option value=5>5</option>
+                                                                <option value=6>6</option>
+                                                                <option value=7>7</option>
+                                                                <option value=8>8</option>
+                                                                <option value=9>9</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>强化
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="editLevel(1)" id="AdLv">+</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="editLevel(2)" id="SbLv" disabled>-&nbsp</button>
+                                                        </td>
+                                                        <td>
+                                                            <select class="form-control input-sm" id="ChipLevel" onchange="changeLevel()">
+                                                                <option value=0 selected>+0</option>
+                                                                <option value=1>+1</option>
+                                                                <option value=2>+2</option>
+                                                                <option value=3>+3</option>
+                                                                <option value=4>+4</option>
+                                                                <option value=5>+5</option>
+                                                                <option value=6>+6</option>
+                                                                <option value=7>+7</option>
+                                                                <option value=8>+8</option>
+                                                                <option value=9>+9</option>
+                                                                <option value=10>+10</option>
+                                                                <option value=11>+11</option>
+                                                                <option value=12>+12</option>
+                                                                <option value=13>+13</option>
+                                                                <option value=14>+14</option>
+                                                                <option value=15>+15</option>
+                                                                <option value=16>+16</option>
+                                                                <option value=17>+17</option>
+                                                                <option value=18>+18</option>
+                                                                <option value=19>+19</option>
+                                                                <option value=20>+20(max)</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-bordered table-hover">
+                                                <tbody>
+                                                    <tr>
+                                                        <td><img src="../img/icon-acu.png">
+                                                            <lable>精度<span style="color:dodgerblue" id="AdTx3">0</span>格</lable>
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(3)" id="AdBt3">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(3)" id="SbBt3">&nbsp-&nbsp&nbsp</button>
                                                         </td>
-                                                        <td style='width:200px'><img src="../img/icon-fil.png">
-                                                            <lable>装填：<span style="color:dodgerblue" id="AdTx4">0</span>格</lable>
+                                                        <td><img src="../img/icon-fil.png">
+                                                            <lable>装填<span style="color:dodgerblue" id="AdTx4">0</span>格</lable>
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(4)" id="AdBt4">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(4)" id="SbBt4">&nbsp-&nbsp&nbsp</button>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style='width:200px'><img src="../img/icon-dmg.png">
-                                                            <lable>杀伤：<span style="color:dodgerblue" id="AdTx1">0</span>格</lable>
+                                                        <td><img src="../img/icon-dmg.png">
+                                                            <lable>杀伤<span style="color:dodgerblue" id="AdTx1">0</span>格</lable>
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(1)" id="AdBt1">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(1)" id="SbBt1">&nbsp-&nbsp&nbsp</button>
                                                         </td>
-                                                        <td style='width:200px'><img src="../img/icon-dbk.png">
-                                                            <lable>破防：<span style="color:dodgerblue" id="AdTx2">0</span>格</lable>
+                                                        <td><img src="../img/icon-dbk.png">
+                                                            <lable>破防<span style="color:dodgerblue" id="AdTx2">0</span>格</lable>
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(2)" id="AdBt2">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(2)" id="SbBt2">&nbsp-&nbsp&nbsp</button>
                                                         </td>
@@ -1347,11 +1653,8 @@
                                             <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
                                             <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
                                         </p>
-                                    </div>
-                                    <h4>重装部队星级</h4>
-                                    <div class="col-lg-3">
                                         <p>
-                                            <select class="form-control" id="HFStar" disabled>
+                                            <select class="form-control" id="HFStar" style="width:200px" disabled>
                                                 <option value=5 selected>★★★★★</option>
                                                 <option value=4>★★★★</option>
                                                 <option value=3>★★★</option>
@@ -1361,7 +1664,7 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p><button type="button" class="btn btn-primary" onclick="getSolution()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                        <p><button type="button" class="btn btn-primary" onclick="getTopology()">计算拼接方案</button><b id="NoResultText"></b></p>
                                     </div>
                                 </div>
                                 <!-- Nav tabs -->
@@ -1377,7 +1680,8 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="Results">
                                         <div class="col-lg-4">
-                                            <h4>拼接解(优化算法v2.0)</h4>
+                                            <h4>图解 (算法v3.0)</h4>
+                                            <h5 id="timeText"></h5>
                                             <div class="table-responsive">
                                                 <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
                                                     <tbody>
@@ -1464,60 +1768,101 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <p>
+                                                <table class="table table-bordered" style='width:220px'>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div style="width:220px; background:url(../img/icon-dmg.png) no-repeat left top;">
+                                                                    <p>
+                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dmg">0/190</strong>
+                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DmgAlert"></span></b>
+                                                                    </p>
+                                                                    <div class="progress progress-striped active">
+                                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dmg">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:220px; background:url(../img/icon-dbk.png) no-repeat left top;">
+                                                                    <p>
+                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dbk">0/329</strong>
+                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DbkAlert"></span></b>
+                                                                    </p>
+                                                                    <div class="progress progress-striped active">
+                                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dbk">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:220px; background:url(../img/icon-acu.png) no-repeat left top;">
+                                                                    <p>
+                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Acu">0/191</strong>
+                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="AcuAlert"></span></b>
+                                                                    </p>
+                                                                    <div class="progress progress-striped active">
+                                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Acu">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="width:220px; background:url(../img/icon-fil.png) no-repeat left top;">
+                                                                    <p>
+                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/49</strong>
+                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
+                                                                    </p>
+                                                                    <div class="progress progress-striped active">
+                                                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Fil">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </p>
                                         </div>
                                         <div class="col-lg-8">
                                             <h4>方案选择</h4>
-                                            <p>
-                                                <select class="form-control" id="ResultType" style="width: 240px" onchange="changeResult()">
-                                                </select>
-                                            </p>
-                                            <div class="form-group">
-                                                <h4>总属性</h4>
-                                                <div style="width:300px; background:url(../img/icon-dmg.png) no-repeat left top;">
-                                                    <p>
-                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dmg">0/190</strong>
-                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DmgAlert"></span></b>
-                                                    </p>
-                                                    <div class="progress progress-striped active">
-                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="Process_Bar_Dmg">
-                                                            <span class="sr-only">进度条</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div style="width:300px; background:url(../img/icon-dbk.png) no-repeat left top;">
-                                                    <p>
-                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dbk">0/329</strong>
-                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DbkAlert"></span></b>
-                                                    </p>
-                                                    <div class="progress progress-striped active">
-                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 30%" id="Process_Bar_Dbk">
-                                                            <span class="sr-only">进度条</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div style="width:300px; background:url(../img/icon-acu.png) no-repeat left top;">
-                                                    <p>
-                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Acu">0/191</strong>
-                                                        <b><span class="pull-right text-muted" style="color:orangered" id="AcuAlert"></span></b>
-                                                    </p>
-                                                    <div class="progress progress-striped active">
-                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="Process_Bar_Acu">
-                                                            <span class="sr-only">进度条</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div style="width:300px; background:url(../img/icon-fil.png) no-repeat left top;">
-                                                    <p>
-                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/49</strong>
-                                                        <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
-                                                    </p>
-                                                    <div class="progress progress-striped active">
-                                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 40%" id="Process_Bar_Fil">
-                                                            <span class="sr-only">进度条</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
+                                            <table class="table table-bordered table-hover" style='width:400px'>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style='width:130px'>图解
+                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeTopology(2)" id="SbTp" disabled> &lt </button>
+                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeTopology(1)" id="AdTp" disabled> &gt </button>
+                                                        </td>
+                                                        <td style='width:200px'>
+                                                            <select class="form-control input-sm" id="TopologySelect" style="width: 240px" onchange="changeTopology(0)" disabled>
+                                                                <option value=-1>图解编号</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style='width:130px'>组合
+                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeAnalyze(2)" id="SbCo" disabled> &lt </button>
+                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeAnalyze(1)" id="AdCo" disabled> &gt </button>
+                                                        </td>
+                                                        <td style='width:200px'>
+                                                            <select class="form-control input-sm" id="SolutionSelect" style="width: 240px" onchange="showAnalyze()" disabled>
+                                                                <option value=-1>芯片组合</option>
+                                                            </select>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>编号</th>
+                                                            <th>类型</th>
+                                                            <th>强化</th>
+                                                            <th><img src="../img/icon-acu.png"></th>
+                                                            <th><img src="../img/icon-fil.png"></th>
+                                                            <th><img src="../img/icon-dmg.png"></th>
+                                                            <th><img src="../img/icon-dbk.png"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="ChipComboChart">
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
