@@ -250,6 +250,7 @@
                         setValue(elementNum, tempStr);
                         elementNum = 0;
                         tempStr = "";
+                        changeLevel();
                         changeRepo(1);
                         resetPage();
                     } else {    //record
@@ -942,6 +943,12 @@
             globaltime_1 += countMS(td1, td2);
             document.getElementById('timeText').innerHTML = "总时间" + (globaltime_1 / 1000).toFixed(2) + "s";
             if (topologySet.length > 0) { //get topology result
+                document.getElementById('SortButton_AllPro').disabled = false;
+                document.getElementById('SortButton_Block').disabled = false;
+                document.getElementById('SortButton_Dmg').disabled = false;
+                document.getElementById('SortButton_Dbk').disabled = false;
+                document.getElementById('SortButton_Acu').disabled = false;
+                document.getElementById('SortButton_Fil').disabled = false;
                 var soluNum = topologySet.length;
                 var panelO = document.getElementById('panelO'); panelO.className = '';
                 var panelR = document.getElementById('panelR'); panelR.className = 'active';
@@ -1140,6 +1147,7 @@
             var ChipComboChart = document.getElementById('ChipComboChart');
             ChipComboChart.innerHTML = '';
             var c_num = solutionSet[SSNum].length;
+            var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
             for (var c = 0; c < c_num; c++) {
                 var colorName;
                 if (chipRepo_data[solutionSet[SSNum][c] - 1].color === 1) colorName = 'b';
@@ -1184,8 +1192,6 @@
             var Process_Bar_Acu = document.getElementById('Process_Bar_Acu');
             var Process_Bar_Fil = document.getElementById('Process_Bar_Fil');
             var dmg = 0, dbk = 0, acu = 0, fil = 0;
-            var dmg_max = 0, dkb_max = 0, acu_max = 0, fil_max = 0;
-
             for (var c = 0; c < c_num; c++) {
                 dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg;
                 dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk;
@@ -1238,18 +1244,8 @@
         }
         function showSolution() {
             solutionSet = getSolution(topologySet[topologyNum]);
-            var SolutionSelect = document.getElementById('SolutionSelect');
-            var SSText = '';
-            var solulen = solutionSet.length;
             SolutionSelect.disabled = false;
-            for (var i = 0; i < solulen; i++) {
-                SSText += '<option value=' + i + '>编号 ';
-                var c_num = solutionSet[i].length;
-                for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + " ");
-                SSText += '</option>';
-            }
-            SolutionSelect.innerHTML = SSText;
-            showAnalyze();
+            sortSolution(1);
         }
         function getSolution(topology) {
             var tempChipRepo = []; //待选芯片数据的二维数组
@@ -1363,14 +1359,159 @@
         function editLevel(actionInfo) {
             var ChipLevel = document.getElementById('ChipLevel');
             if (actionInfo === 1) ChipLevel.value = parseInt(ChipLevel.value) + 1;
-            else ChipLevel.value = parseInt(ChipLevel.value) - 1;
+            else if (actionInfo === 2) ChipLevel.value = parseInt(ChipLevel.value) - 1;
+            else if (actionInfo === 3) ChipLevel.value = 20;
             changeLevel();
             manageButton();
         }
         function sortSolution(sortType) {
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
+            var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0;
+            if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 49; dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
+            else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
+            else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
             var SolutionSelect = document.getElementById('SolutionSelect');
             var SSText = '';
             var solulen = solutionSet.length;
+            switch (sortType) {
+                case 1: //All property
+                    document.getElementById('SortInfo').innerHTML = '按 <b>有效总属性</b> 排序';
+                    for (var a = 0; a < solulen; a++) {
+                        for (var b = a + 1; b < solulen; b++) {
+                            var value_a = 0, value_b = 0;
+                            var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0;
+                            var looplen = solutionSet[0].length;
+                            for (var n = 0; n < looplen; n++) {
+                                dmg_a += chipRepo_chart[solutionSet[a][n] - 1].Dmg; dmg_b += chipRepo_chart[solutionSet[b][n] - 1].Dmg;
+                                dbk_a += chipRepo_chart[solutionSet[a][n] - 1].Dbk; dbk_b += chipRepo_chart[solutionSet[b][n] - 1].Dbk;
+                                acu_a += chipRepo_chart[solutionSet[a][n] - 1].Acu; acu_b += chipRepo_chart[solutionSet[b][n] - 1].Acu;
+                                fil_a += chipRepo_chart[solutionSet[a][n] - 1].Fil; fil_b += chipRepo_chart[solutionSet[b][n] - 1].Fil;
+                            }
+                            if (dmg_a > dmg_max) dmg_a = dmg_max; if (dmg_b > dmg_max) dmg_b = dmg_max;
+                            if (dbk_a > dbk_max) dbk_a = dbk_max; if (dbk_b > dbk_max) dbk_b = dbk_max;
+                            if (acu_a > acu_max) acu_a = acu_max; if (acu_b > acu_max) acu_b = acu_max;
+                            if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max;
+                            value_a = (dmg_a / dmg_max) + (dbk_a / dbk_max) + (acu_a / acu_max) + (fil_a / fil_max);
+                            value_b = (dmg_b / dmg_max) + (dbk_b / dbk_max) + (acu_b / acu_max) + (fil_b / fil_max);
+                            if (value_b > value_a) {
+                                var temp = solutionSet[a];
+                                solutionSet[a] = solutionSet[b];
+                                solutionSet[b] = temp;
+                            }
+                        }
+                    }
+                    break;
+                case 2: //All blockNum
+                    document.getElementById('SortInfo').innerHTML = '按 <b>有效格数</b> 排序';
+                    for (var a = 0; a < solulen; a++) {
+                        for (var b = a + 1; b < solulen; b++) {
+                            var value_a = 0, value_b = 0;
+                            var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0;
+                            var looplen = solutionSet[0].length;
+                            for (var n = 0; n < looplen; n++) {
+                                dmg_a += chipRepo_data[solutionSet[a][n] - 1].bDmg; dmg_b += chipRepo_data[solutionSet[b][n] - 1].bDmg;
+                                dbk_a += chipRepo_data[solutionSet[a][n] - 1].bDbk; dbk_b += chipRepo_data[solutionSet[b][n] - 1].bDbk;
+                                acu_a += chipRepo_data[solutionSet[a][n] - 1].bAcu; acu_b += chipRepo_data[solutionSet[b][n] - 1].bAcu;
+                                fil_a += chipRepo_data[solutionSet[a][n] - 1].bFil; fil_b += chipRepo_data[solutionSet[b][n] - 1].bFil;
+                            }
+                            if (dmg_a > dmgblo_max) dmg_a = dmgblo_max; if (dmg_b > dmgblo_max) dmg_b = dmgblo_max;
+                            if (dbk_a > dbkblo_max) dbk_a = dbkblo_max; if (dbk_b > dbkblo_max) dbk_b = dbkblo_max;
+                            if (acu_a > acublo_max) acu_a = acublo_max; if (acu_b > acublo_max) acu_b = acublo_max;
+                            if (fil_a > filblo_max) fil_a = filblo_max; if (fil_b > filblo_max) fil_b = filblo_max;
+                            value_a = dmg_a + dbk_a + acu_a + fil_a;
+                            value_b = dmg_b + dbk_b + acu_b + fil_b;
+                            if (value_b > value_a) {
+                                var temp = solutionSet[a];
+                                solutionSet[a] = solutionSet[b];
+                                solutionSet[b] = temp;
+                            }
+                        }
+                    }
+                    break;
+                case 3: //Dmg
+                    document.getElementById('SortInfo').innerHTML = '按 <b>杀伤</b> 排序';
+                    for (var a = 0; a < solulen; a++) {
+                        for (var b = a + 1; b < solulen; b++) {
+                            var value_a = 0, value_b = 0;
+                            var dmg_a = 0, dmg_b = 0;
+                            var looplen = solutionSet[0].length;
+                            for (var n = 0; n < looplen; n++) {
+                                dmg_a += chipRepo_chart[solutionSet[a][n] - 1].Dmg; dmg_b += chipRepo_chart[solutionSet[b][n] - 1].Dmg;
+                            }
+                            if (dmg_a > dmg_max) dmg_a = dmg_max; if (dmg_b > dmg_max) dmg_b = dmg_max;
+                            value_a = dmg_a; value_b = dmg_b;
+                            if (value_b > value_a) {
+                                var temp = solutionSet[a];
+                                solutionSet[a] = solutionSet[b];
+                                solutionSet[b] = temp;
+                            }
+                        }
+                    }
+                    break;
+                case 4: //Dbk
+                    document.getElementById('SortInfo').innerHTML = '按 <b>破防</b> 排序';
+                    for (var a = 0; a < solulen; a++) {
+                        for (var b = a + 1; b < solulen; b++) {
+                            var value_a = 0, value_b = 0;
+                            var dbk_a = 0, dbk_b = 0;
+                            var looplen = solutionSet[0].length;
+                            for (var n = 0; n < looplen; n++) {
+                                dbk_a += chipRepo_chart[solutionSet[a][n] - 1].Dbk; dbk_b += chipRepo_chart[solutionSet[b][n] - 1].Dbk;
+                            }
+                            if (dbk_a > dbk_max) dbk_a = dbk_max; if (dbk_b > dbk_max) dbk_b = dbk_max;
+                            value_a = dbk_a; value_b = dbk_b;
+                            if (value_b > value_a) {
+                                var temp = solutionSet[a];
+                                solutionSet[a] = solutionSet[b];
+                                solutionSet[b] = temp;
+                            }
+                        }
+                    }
+                    break;
+                case 5: //Acu
+                    document.getElementById('SortInfo').innerHTML = '按 <b>精度</b> 排序';
+                    for (var a = 0; a < solulen; a++) {
+                        for (var b = a + 1; b < solulen; b++) {
+                            var value_a = 0, value_b = 0;
+                            var acu_a = 0, acu_b = 0;
+                            var looplen = solutionSet[0].length;
+                            for (var n = 0; n < looplen; n++) {
+                                acu_a += chipRepo_chart[solutionSet[a][n] - 1].Acu; acu_b += chipRepo_chart[solutionSet[b][n] - 1].Acu;
+                            }
+                            if (acu_a > acu_max) acu_a = acu_max; if (acu_b > acu_max) acu_b = acu_max;
+                            value_a = acu_a; value_b = acu_b;
+                            if (value_b > value_a) {
+                                var temp = solutionSet[a];
+                                solutionSet[a] = solutionSet[b];
+                                solutionSet[b] = temp;
+                            }
+                        }
+                    }
+                    break;
+                case 6: //Fil
+                    document.getElementById('SortInfo').innerHTML = '按 <b>装填</b> 排序';
+                    for (var a = 0; a < solulen; a++) {
+                        for (var b = a + 1; b < solulen; b++) {
+                            var value_a = 0, value_b = 0;
+                            var fil_a = 0, fil_b = 0;
+                            var looplen = solutionSet[0].length;
+                            for (var n = 0; n < looplen; n++) {
+                                fil_a += chipRepo_chart[solutionSet[a][n] - 1].Fil; fil_b += chipRepo_chart[solutionSet[b][n] - 1].Fil;
+                            }
+                            if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max;
+                            value_a = fil_a; value_b = fil_b;
+                            if (value_b > value_a) {
+                                var temp = solutionSet[a];
+                                solutionSet[a] = solutionSet[b];
+                                solutionSet[b] = temp;
+                            }
+                        }
+                    }
+                    break;
+            }
             SolutionSelect.disabled = false;
             for (var i = 0; i < solulen; i++) {
                 SSText += '<option value=' + i + '>编号 ';
@@ -1520,6 +1661,7 @@
                                                         <td>强化
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="editLevel(1)" id="AdLv">+</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="editLevel(2)" id="SbLv" disabled>-&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-success" onclick="editLevel(3)" id="MaxLv">max</button>
                                                         </td>
                                                         <td>
                                                             <select class="form-control input-sm" id="ChipLevel" onchange="changeLevel()">
@@ -1848,16 +1990,17 @@
                                         <div class="col-lg-8">
                                             <h4>排序基准</h4>
                                             <p>
-                                                <button type="button" class="btn btn-outline btn-danger" onclick="" id="SortButton_AllPro" disabled>最高总属性</button>
-                                                <button type="button" class="btn btn-outline btn-warning" onclick="" id="SortButton_Block" disabled>最多有效格数</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="sortSolution(1)" id="SortButton_AllPro" disabled>最高总属性</button>
+                                                <button type="button" class="btn btn-outline btn-warning" onclick="sortSolution(2)" id="SortButton_Block" disabled>最多有效格数</button>
                                             </p>
                                             <p>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Dmg" disabled>杀伤</button>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Dbk" disabled>破防</button>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Acu" disabled>精度</button>
-                                                <button type="button" class="btn btn-default" onclick="" id="SortButton_Fil" disabled>装填</button>
+                                                <button type="button" class="btn btn-default" onclick="sortSolution(3)" id="SortButton_Dmg" disabled>杀伤</button>
+                                                <button type="button" class="btn btn-default" onclick="sortSolution(4)" id="SortButton_Dbk" disabled>破防</button>
+                                                <button type="button" class="btn btn-default" onclick="sortSolution(5)" id="SortButton_Acu" disabled>精度</button>
+                                                <button type="button" class="btn btn-default" onclick="sortSolution(6)" id="SortButton_Fil" disabled>装填</button>
                                             </p>
                                             <h4>方案选择</h4>
+                                            <h5 id="SortInfo"></h5>
                                             <table class="table table-bordered table-hover" style='width:400px'>
                                                 <tbody>
                                                     <tr>
