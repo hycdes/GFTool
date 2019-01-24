@@ -38,7 +38,7 @@
         var chipRepo_shape_5 = [];   //For make shape only
         var chipRepo_shape_6 = [];   //For make shape only
         var chipRepo_chart = [];    //Repository information that display at repository-table
-        var analyze_switch = 1; //1:total valid property, -1:total valid blocknum
+        var analyze_switch = 1, ranking_switch = 1; //show_percentage[1=validProperty,-1=validBlocknum] rank_result_by[1~6]
         var deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
         function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
             var chipData = new Object;
@@ -1305,7 +1305,7 @@
         function showSolution() {
             solutionSet = getSolution(topologySet[topologyNum]);
             SolutionSelect.disabled = false;
-            sortSolution(1);
+            sortSolution(ranking_switch);
         }
         function getSolution(topology) {
             var tempChipRepo = []; //待选芯片数据的二维数组
@@ -1425,6 +1425,9 @@
             manageButton();
         }
         function sortSolution(sortType) {
+            ranking_switch = parseInt(sortType);
+            if (sortType === 1) analyze_switch = 1;
+            else if (sortType === 2) analyze_switch = -1;
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
             else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
             else HeavyfireType = 3;
@@ -1436,9 +1439,9 @@
             var SolutionSelect = document.getElementById('SolutionSelect');
             var SSText = '';
             var solulen = solutionSet.length;
-            switch (sortType) {
+            switch (ranking_switch) {
                 case 1: //All property
-                    document.getElementById('SortInfo').innerHTML = '按 <b>有效总属性</b> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效总属性</b></span> 排序';
                     for (var a = 0; a < solulen; a++) {
                         for (var b = a + 1; b < solulen; b++) {
                             var value_a = 0, value_b = 0;
@@ -1465,7 +1468,7 @@
                     }
                     break;
                 case 2: //All blockNum
-                    document.getElementById('SortInfo').innerHTML = '按 <b>有效格数</b> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效格数</b></span> 排序';
                     for (var a = 0; a < solulen; a++) {
                         for (var b = a + 1; b < solulen; b++) {
                             var value_a = 0, value_b = 0;
@@ -1492,7 +1495,7 @@
                     }
                     break;
                 case 3: //Dmg
-                    document.getElementById('SortInfo').innerHTML = '按 <b>杀伤</b> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>杀伤</b></span> 排序';
                     for (var a = 0; a < solulen; a++) {
                         for (var b = a + 1; b < solulen; b++) {
                             var value_a = 0, value_b = 0;
@@ -1512,7 +1515,7 @@
                     }
                     break;
                 case 4: //Dbk
-                    document.getElementById('SortInfo').innerHTML = '按 <b>破防</b> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>破防</b></span> 排序';
                     for (var a = 0; a < solulen; a++) {
                         for (var b = a + 1; b < solulen; b++) {
                             var value_a = 0, value_b = 0;
@@ -1532,7 +1535,7 @@
                     }
                     break;
                 case 5: //Acu
-                    document.getElementById('SortInfo').innerHTML = '按 <b>精度</b> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>精度</b></span> 排序';
                     for (var a = 0; a < solulen; a++) {
                         for (var b = a + 1; b < solulen; b++) {
                             var value_a = 0, value_b = 0;
@@ -1552,7 +1555,7 @@
                     }
                     break;
                 case 6: //Fil
-                    document.getElementById('SortInfo').innerHTML = '按 <b>装填</b> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>装填</b></span> 排序';
                     for (var a = 0; a < solulen; a++) {
                         for (var b = a + 1; b < solulen; b++) {
                             var value_a = 0, value_b = 0;
@@ -2057,10 +2060,10 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-8">
-                                            <h4>排序基准</h4>
+                                            <h4>组合的排序基准</h4>
                                             <p>
                                                 <button type="button" class="btn btn-outline btn-danger" onclick="sortSolution(1)" id="SortButton_AllPro" disabled>最高总属性</button>
-                                                <button type="button" class="btn btn-outline btn-warning" onclick="sortSolution(2)" id="SortButton_Block" disabled>最多有效格数</button>
+                                                <button type="button" class="btn btn-outline btn-warning" onclick="sortSolution(2)" id="SortButton_Block" disabled>最多有效格</button>
                                             </p>
                                             <p>
                                                 <button type="button" class="btn btn-default" onclick="sortSolution(3)" id="SortButton_Dmg" disabled>杀伤</button>
