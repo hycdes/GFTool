@@ -38,6 +38,7 @@
         var chipRepo_shape_5 = [];   //For make shape only
         var chipRepo_shape_6 = [];   //For make shape only
         var chipRepo_chart = [];    //Repository information that display at repository-table
+        var analyze_switch = 1; //1:total valid property, -1:total valid blocknum
         var deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
         function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
             var chipData = new Object;
@@ -1143,11 +1144,13 @@
             else HeavyfireType = 3;
             var HeavyfireStar = 5;
             var SSNum = parseInt(document.getElementById('SolutionSelect').value);
+            var c_num = solutionSet[SSNum].length;
+            document.getElementById('AnalyzeSwitch').disabled = false;
+            //show topology image
             showTopology(topologySet[topologyNum], HeavyfireType, HeavyfireStar);
+            //show pick chips in chart
             var ChipComboChart = document.getElementById('ChipComboChart');
             ChipComboChart.innerHTML = '';
-            var c_num = solutionSet[SSNum].length;
-            var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
             for (var c = 0; c < c_num; c++) {
                 var colorName;
                 if (chipRepo_data[solutionSet[SSNum][c] - 1].color === 1) colorName = 'b';
@@ -1165,6 +1168,7 @@
                 ChartAdd += '</tr>';
                 ChipComboChart.innerHTML += ChartAdd;
             }
+            //enable and disable topology & solution switch
             var AdTp = document.getElementById('AdTp');
             var SbTp = document.getElementById('SbTp');
             var AdCo = document.getElementById('AdCo');
@@ -1179,6 +1183,7 @@
             else SbCo.disabled = false;
             if (combV === solutionSet.length - 1) AdCo.disabled = true;
             else AdCo.disabled = false;
+            //show percentage of property or blocknum
             var Process_Text_Dmg = document.getElementById('Process_Text_Dmg');
             var Process_Text_Dbk = document.getElementById('Process_Text_Dbk');
             var Process_Text_Acu = document.getElementById('Process_Text_Acu');
@@ -1191,55 +1196,110 @@
             var Process_Bar_Dbk = document.getElementById('Process_Bar_Dbk');
             var Process_Bar_Acu = document.getElementById('Process_Bar_Acu');
             var Process_Bar_Fil = document.getElementById('Process_Bar_Fil');
-            var dmg = 0, dbk = 0, acu = 0, fil = 0;
-            for (var c = 0; c < c_num; c++) {
-                dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg;
-                dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk;
-                acu += chipRepo_chart[solutionSet[SSNum][c] - 1].Acu;
-                fil += chipRepo_chart[solutionSet[SSNum][c] - 1].Fil;
-            }
-            if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 49; }
-            else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
-            else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
-            if (dmg > dmg_max) {
-                Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg + '</span>' + '/' + dmg_max;
-                DmgAlert.innerHTML = "* 杀伤溢出";
-                Process_Bar_Dmg.style = "width:100%";
-            }
-            else {
-                Process_Text_Dmg.innerHTML = dmg + '/' + dmg_max;
-                DmgAlert.innerHTML = "";
-                Process_Bar_Dmg.style = ("width:" + (dmg / dmg_max).toFixed(2) * 100 + "%");
-            }
-            if (dbk > dbk_max) {
-                Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk + '</span>' + '/' + dbk_max;
-                DbkAlert.innerHTML = "* 破防溢出";
-                Process_Bar_Dbk.style = "width:100%";
-            }
-            else {
-                Process_Text_Dbk.innerHTML = dbk + '/' + dbk_max;
-                DbkAlert.innerHTML = "";
-                Process_Bar_Dbk.style = ("width:" + (dbk / dbk_max).toFixed(2) * 100 + "%");
-            }
-            if (acu > acu_max) {
-                Process_Text_Acu.innerHTML = '<span style="color:red">' + acu + '</span>' + '/' + acu_max;
-                AcuAlert.innerHTML = "* 精度溢出";
-                Process_Bar_Acu.style = "width:100%";
-            }
-            else {
-                Process_Text_Acu.innerHTML = acu + '/' + acu_max;
-                AcuAlert.innerHTML = "";
-                Process_Bar_Acu.style = ("width:" + (acu / acu_max).toFixed(2) * 100 + "%");
-            }
-            if (fil > fil_max) {
-                Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max;
-                FilAlert.innerHTML = "* 装填溢出";
-                Process_Bar_Fil.style = "width:100%";
-            }
-            else {
-                Process_Text_Fil.innerHTML = fil + '/' + fil_max;
-                FilAlert.innerHTML = "";
-                Process_Bar_Fil.style = ("width:" + (fil / fil_max).toFixed(2) * 100 + "%");
+            if (analyze_switch === 1) {
+                document.getElementById('AnalyzeSwitch').innerHTML = '显示有效格数';
+                document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-success';
+                var dmg = 0, dbk = 0, acu = 0, fil = 0;
+                var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
+                if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 49; }
+                else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
+                else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+                for (var c = 0; c < c_num; c++) {
+                    dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg;
+                    dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk;
+                    acu += chipRepo_chart[solutionSet[SSNum][c] - 1].Acu;
+                    fil += chipRepo_chart[solutionSet[SSNum][c] - 1].Fil;
+                }
+                if (dmg > dmg_max) {
+                    Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg + '</span>' + '/' + dmg_max;
+                    DmgAlert.innerHTML = "* 杀伤溢出";
+                    Process_Bar_Dmg.style = "width:100%";
+                }
+                else {
+                    Process_Text_Dmg.innerHTML = dmg + '/' + dmg_max;
+                    DmgAlert.innerHTML = "";
+                    Process_Bar_Dmg.style = ("width:" + (dmg / dmg_max).toFixed(2) * 100 + "%");
+                }
+                if (dbk > dbk_max) {
+                    Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk + '</span>' + '/' + dbk_max;
+                    DbkAlert.innerHTML = "* 破防溢出";
+                    Process_Bar_Dbk.style = "width:100%";
+                }
+                else {
+                    Process_Text_Dbk.innerHTML = dbk + '/' + dbk_max;
+                    DbkAlert.innerHTML = "";
+                    Process_Bar_Dbk.style = ("width:" + (dbk / dbk_max).toFixed(2) * 100 + "%");
+                }
+                if (acu > acu_max) {
+                    Process_Text_Acu.innerHTML = '<span style="color:red">' + acu + '</span>' + '/' + acu_max;
+                    AcuAlert.innerHTML = "* 精度溢出";
+                    Process_Bar_Acu.style = "width:100%";
+                }
+                else {
+                    Process_Text_Acu.innerHTML = acu + '/' + acu_max;
+                    AcuAlert.innerHTML = "";
+                    Process_Bar_Acu.style = ("width:" + (acu / acu_max).toFixed(2) * 100 + "%");
+                }
+                if (fil > fil_max) {
+                    Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max;
+                    FilAlert.innerHTML = "* 装填溢出";
+                    Process_Bar_Fil.style = "width:100%";
+                }
+                else {
+                    Process_Text_Fil.innerHTML = fil + '/' + fil_max;
+                    FilAlert.innerHTML = "";
+                    Process_Bar_Fil.style = ("width:" + (fil / fil_max).toFixed(2) * 100 + "%");
+                }
+            } else if (analyze_switch === -1) {
+                document.getElementById('AnalyzeSwitch').innerHTML = '显示有效属性';
+                document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-warning';
+                var dmg_blo = 0, dbk_blo = 0, acu_blo = 0, fil_blo = 0;
+                var dmg_blomax = 0, dbk_blomax = 0, acu_blomax = 0, fil_blomax = 0;
+                if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
+                else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
+                else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
+                for (var c = 0; c < c_num; c++) {
+                    dmg_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDmg;
+                    dbk_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDbk;
+                    acu_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bAcu;
+                    fil_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bFil;
+                }
+                if (dmg_blo > dmg_blomax) {
+                    Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg_blo + '</span>' + '/' + dmg_blomax;
+                    DmgAlert.innerHTML = "* 杀伤溢出";
+                    Process_Bar_Dmg.style = "width:100%";
+                } else {
+                    Process_Text_Dmg.innerHTML = dmg_blo + '/' + dmg_blomax;
+                    DmgAlert.innerHTML = "";
+                    Process_Bar_Dmg.style = ("width:" + (dmg_blo / dmg_blomax).toFixed(2) * 100 + "%");
+                }
+                if (dbk_blo > dbk_blomax) {
+                    Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk_blo + '</span>' + '/' + dbk_blomax;
+                    DbkAlert.innerHTML = "* 破防溢出";
+                    Process_Bar_Dbk.style = "width:100%";
+                } else {
+                    Process_Text_Dbk.innerHTML = dbk_blo + '/' + dbk_blomax;
+                    DbkAlert.innerHTML = "";
+                    Process_Bar_Dbk.style = ("width:" + (dbk_blo / dbk_blomax).toFixed(2) * 100 + "%");
+                }
+                if (acu_blo > acu_blomax) {
+                    Process_Text_Acu.innerHTML = '<span style="color:red">' + acu_blo + '</span>' + '/' + acu_blomax;
+                    AcuAlert.innerHTML = "* 精度溢出";
+                    Process_Bar_Acu.style = "width:100%";
+                } else {
+                    Process_Text_Acu.innerHTML = acu_blo + '/' + acu_blomax;
+                    AcuAlert.innerHTML = "";
+                    Process_Bar_Acu.style = ("width:" + (acu_blo / acu_blomax).toFixed(2) * 100 + "%");
+                }
+                if (fil_blo > fil_blomax) {
+                    Process_Text_Fil.innerHTML = '<span style="color:red">' + fil_blo + '</span>' + '/' + fil_blomax;
+                    FilAlert.innerHTML = "* 装填溢出";
+                    Process_Bar_Fil.style = "width:100%";
+                } else {
+                    Process_Text_Fil.innerHTML = fil_blo + '/' + fil_blomax;
+                    FilAlert.innerHTML = "";
+                    Process_Bar_Fil.style = ("width:" + (fil_blo / fil_blomax).toFixed(2) * 100 + "%");
+                }
             }
         }
         function showSolution() {
@@ -1520,6 +1580,10 @@
                 SSText += '</option>';
             }
             SolutionSelect.innerHTML = SSText;
+            showAnalyze();
+        }
+        function switchAnalyze() {
+            analyze_switch *= -1;
             showAnalyze();
         }
     </script>
@@ -1939,6 +2003,11 @@
                                             <p>
                                                 <table class="table table-bordered" style='width:220px'>
                                                     <tbody>
+                                                        <tr>
+                                                            <td style='text-align: center'>
+                                                                <button type="button" class="btn btn-outline btn-success" id="AnalyzeSwitch" onclick="switchAnalyze()" disabled>切换为格数</button>
+                                                            </td>
+                                                        </tr>
                                                         <tr>
                                                             <td>
                                                                 <div style="width:220px; background:url(../img/icon-dmg.png) no-repeat left top;">
