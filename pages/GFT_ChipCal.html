@@ -26,9 +26,12 @@
         .td_b6{width:30px;height:30px;background:#FF0066;}
         .td_b7{width:30px;height:30px;background:fuchsia;}
     </style>
-    <script type="text/javascript">
-        var globaltime_1 = 0;
-        var topologySet = [], solutionSet = [], solutionScore = [], topologyNum = 0;
+    <script>
+        var globaltime = [0, 0, 0, 0];
+        var topologySet = [], solutionSet = [], topologyNum = 0;
+        var topologyLib_BGM_1 = [], topologyLibRefer_BGM_1 = [];
+        var topologyLib_BGM_2 = [], topologyLibRefer_BGM_2 = [];
+        var topologyLib_2B14 = [], topologyLibRefer_2B14 = [];
         var rules = ["InfinityFrost", "FatalChapters"];
         var color = 1;
         var block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
@@ -65,26 +68,27 @@
             repoData.Dbk = Dbk;
             return repoData;
         }
-        chipRepo_shape_5.push(creatChip('55111', 1, 551, 11, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('55112', 1, 551, 12, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('55121', 1, 551, 21, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('55122', 1, 551, 22, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('55131', 1, 551, 31, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('55132', 1, 551, 32, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('5514', 1, 551, 4, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('5515', 1, 551, 5, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_5.push(creatChip('5516', 1, 551, 6, 0, 1, 1, 1, 2, 1));
-        chipRepo_shape_6.push(creatChip('5601', 1, 56, 1, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5602', 1, 56, 2, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5603', 1, 56, 3, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('56041', 1, 56, 41, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('56042', 1, 56, 42, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5605', 1, 56, 5, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5606', 1, 56, 6, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5607', 1, 56, 7, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5608', 1, 56, 8, 0, 1, 1, 1, 3, 1));
-        chipRepo_shape_6.push(creatChip('5609', 1, 56, 9, 0, 1, 1, 1, 3, 1));
-        window.onload = function () { resetPage(); }
+        function loadScript(url) {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            document.body.appendChild(script);
+        }
+        window.onload = function () {
+            resetPage();
+            loadScript('../js/topology.js');
+        }
+        function isSameString(str1, str2) {
+            var len1 = str1.length;
+            var len2 = str2.length;
+            if (len1 != len2) return false;
+            else {
+                for (var i = 0; i < len1; i++) {
+                    if (str1[i] != str2[i]) return false;
+                }
+            }
+            return true;
+        }
         function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
             var ChipRepoChartId = document.getElementById('ChipRepoChart')
             var DeleteSelectId = document.getElementById('DeleteSelect')
@@ -865,8 +869,10 @@
             var solution = DLX(chipMetrix, HeavyfireType, HeavyfireStar);
             return solution;
         }
-        function getTopology() { //计算拼接
-            topologySet = [], solutionScore = [], solutionSet = [];//全局变量初始化
+        function getTopology() { //计算图解,EDITTT
+            globaltime[0] = 0;
+            var td1 = new Date();
+            topologySet = [], solutionSet = [];//全局变量初始化
             var HeavyfireStar = 5;
             var HeavyfireType = 1;
             if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
@@ -931,18 +937,59 @@
                     }
                     break;
             }
+            var TopoCode = document.getElementById('TopoCode');
+            var TopoCodeText = '';
+            var ReferCodeText = '';
             var strategyNum = strategyInfo.length;
-            var td1 = new Date();
+            //get topology
             for (var num_stg = 0; num_stg < strategyNum; num_stg++) {
                 var shapeNum = possibleSet[num_stg].length;
                 for (var num_shp = 0; num_shp < shapeNum; num_shp++) {
-                    var tempSolution = getResult(possibleSet[num_stg][num_shp], strategyInfo[num_stg], HeavyfireType, HeavyfireStar);
-                    if (tempSolution.length != 0) topologySet.push(tempSolution);
+                    //test
+                    if (HeavyfireType === 1 && possibleSet[num_stg][num_shp].length === 10) {
+                        var searchCode = '';
+                        var liblen = topologyLibRefer_BGM_1.length;
+                        for (var i = 0; i < 10; i++) searchCode += possibleSet[num_stg][num_shp][i];
+                        for (var i = 0; i < liblen; i++) {
+                            if (isSameString(searchCode, topologyLibRefer_BGM_1[i])) topologySet.push(topologyLib_BGM_1[i]);
+                        }
+                    } else if (HeavyfireType === 1 && possibleSet[num_stg][num_shp].length === 19) {
+                        var searchCode = '';
+                        var liblen = topologyLibRefer_BGM_2.length;
+                        for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
+                        for (var i = 0; i < liblen; i++) {
+                            if (isSameString(searchCode, topologyLibRefer_BGM_2[i])) topologySet.push(topologyLib_BGM_2[i]);
+                        }
+                    } else if (HeavyfireType === 3) {
+                        var searchCode = '';
+                        var liblen = topologyLibRefer_2B14.length;
+                        for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
+                        for (var i = 0; i < liblen; i++) {
+                            if (isSameString(searchCode, topologyLibRefer_2B14[i])) topologySet.push(topologyLib_2B14[i]);
+                        }
+                    } else {
+                        var tempSolution = getResult(possibleSet[num_stg][num_shp], strategyInfo[num_stg], HeavyfireType, HeavyfireStar);
+                        if (tempSolution.length != 0) {
+                            topologySet.push(tempSolution);
+                            //outputcode-
+                            TopoCodeText += 'topologyLib_BGM_2.push([';
+                            var tSlen = tempSolution.length;
+                            for (var i = 0; i < tSlen - 1; i++) {
+                                TopoCodeText += '[' + tempSolution[i] + '],';
+                            }
+                            TopoCodeText += '[' + tempSolution[tSlen - 1] + ']])\n'
+                            ReferCodeText += 'topologyLibRefer_BGM_2.push("';
+                            var splen = possibleSet[num_stg][num_shp].length;
+                            for (var i = 0; i < splen; i++) {
+                                ReferCodeText += possibleSet[num_stg][num_shp][i] + '';
+                            }
+                            ReferCodeText += '")\n'
+                            //outputcode+
+                        }
+                    }
                 }
             }
-            var td2 = new Date();
-            globaltime_1 += countMS(td1, td2);
-            document.getElementById('timeText').innerHTML = "总时间" + (globaltime_1 / 1000).toFixed(2) + "s";
+            TopoCode.innerHTML = (TopoCodeText + ReferCodeText);
             if (topologySet.length > 0) { //get topology result
                 document.getElementById('SortButton_AllPro').disabled = false;
                 document.getElementById('SortButton_Block').disabled = false;
@@ -973,6 +1020,9 @@
                 TopologySelect.disabled = true;
                 var RTText = '<option value=1 selected>图解编号</option>';
             }
+            var td2 = new Date();
+            globaltime[0] += countMS(td1, td2);
+            document.getElementById('timeText').innerHTML = "总时间" + (globaltime[0] / 1000).toFixed(2) + "s";
         }
         function getCombination_sub(blockNum, limitNum, limitSet) { //给出可行的组合种类
             var possibleSet = [], pickNum = [];
@@ -1908,14 +1958,14 @@
                                         <a href="#Results" data-toggle="tab">结果</a>
                                     </li>
                                     <li id="panelO">
-                                        <a href="#Options" data-toggle="tab">（未开发区域）</a>
+                                        <a href="#Options" data-toggle="tab">图解信息(Debug only)</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="Results">
                                         <div class="col-lg-4">
-                                            <h4>图解 (DLX for ChipCal v3.0)</h4>
+                                            <h4>图解 (DLX for ChipCal v4.0)</h4>
                                             <h5 id="timeText"></h5>
                                             <div class="table-responsive">
                                                 <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
@@ -2119,7 +2169,9 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="Options">
-                                        <h1>啥都没呢！</h1>
+                                        <div class="form-group">
+                                            <textarea class="form-control" rows="10" placeholder="TopoCode" id="TopoCode"></textarea>
+                                        </div>
                                     </div>
                                 </div>
 
