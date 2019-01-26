@@ -1357,7 +1357,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">芯片计算器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="可将输入的芯片自动填满重装回路 目前仍在制作中" class="btn btn-outline btn-default">?</button></h1>
+                            <h1 class="page-header">芯片计算器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="可将输入的芯片自动填满重装回路 目前仍在优化中" class="btn btn-outline btn-default">?</button></h1>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -1487,7 +1487,9 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <h4>芯片预览</h4>
+                                            <div class="tooltip-demo">
+                                                <h4>芯片预览 <button type="button" data-toggle="tooltip" data-placement="bottom" title="对应属性 = 向上取整[基础值x格数] 精度7.1 装填5.7 杀伤4.4 破防12.7" class="btn btn-outline btn-default">?</button></h4>
+                                            </div>
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
@@ -1575,7 +1577,7 @@
                 <div class="row">
                     <!--Setting-->
                     <div class="col-lg-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" style="background:url(../img/CC-Heavyfire.png) no-repeat right 20px top 50px;">
                             <div class="panel-heading">
                                 拼接结果
                             </div>
@@ -1609,7 +1611,7 @@
                                         <a href="#Results" data-toggle="tab">结果</a>
                                     </li>
                                     <li id="panelO">
-                                        <a href="#Options" data-toggle="tab">图解信息(Debug only)</a>
+                                        <a href="#Options" data-toggle="tab">好孩子别点(Debug only)</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -1761,10 +1763,12 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-8">
-                                            <h4>组合的排序基准</h4>
+                                            <div class="tooltip-demo">
+                                                <h4>组合的排序基准 <button type="button" data-toggle="tooltip" data-placement="bottom" title="芯片并非全部满强请选择“有效格” 按所选条件从高到低排序组合" class="btn btn-outline btn-default">?</button></h4>
+                                            </div>
                                             <p>
-                                                <button type="button" class="btn btn-outline btn-danger" onclick="sortSolution(1)" id="SortButton_AllPro" disabled>最高总属性</button>
-                                                <button type="button" class="btn btn-outline btn-warning" onclick="sortSolution(2)" id="SortButton_Block" disabled>最多有效格</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="sortSolution(1)" id="SortButton_AllPro" disabled>有效总属性</button>
+                                                <button type="button" class="btn btn-outline btn-warning" onclick="sortSolution(2)" id="SortButton_Block" disabled>有效格</button>
                                             </p>
                                             <p>
                                                 <button type="button" class="btn btn-default" onclick="sortSolution(3)" id="SortButton_Dmg" disabled>杀伤</button>
@@ -1820,8 +1824,11 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="Options">
-                                        <div class="form-group">
-                                            <textarea class="form-control" rows="10" placeholder="TopoCode" id="TopoCode"></textarea>
+                                        <h4>拓扑码输出（开发者专用好孩子别点）</h4>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="10" placeholder="Console holder, input command" id="TopoCode"></textarea>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
