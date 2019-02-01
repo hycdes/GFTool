@@ -186,6 +186,37 @@
                 document.getElementById('clearChipButton').disabled = true
             }
         }
+        function maxAllChip() {
+            var ChipRepoChartId = document.getElementById('ChipRepoChart');
+            ChipRepoChartId.innerHTML = '';
+            for (var c = 0; c < chipNum; c++) {
+                if (chipRepo_data[c].levelNum < 20) {
+                    chipRepo_data[c].levelNum = 20;
+                    chipRepo_chart[c].chipLevel = '+20';
+                    chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1));
+                    chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7));
+                    chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 4.4));
+                    chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7));
+                }
+            }
+            for (var c = 0; c < chipNum; c++) {
+                var colorName;
+                if (chipRepo_data[c].color === 1) colorName = 'b';
+                else colorName = 'o';
+                var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[c].classNum + '-' + chipRepo_data[c].typeNum + '.png">'
+                var ChartAdd = ''
+                ChartAdd += '<tr>'
+                ChartAdd += '<td>' + chipRepo_chart[c].chipNum + '</td>'
+                ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[c].chipType + '</td>'
+                ChartAdd += '<td>' + chipRepo_chart[c].chipLevel + '</td>'
+                ChartAdd += '<td>' + chipRepo_chart[c].Acu + '</td>'
+                ChartAdd += '<td>' + chipRepo_chart[c].Fil + '</td>'
+                ChartAdd += '<td>' + chipRepo_chart[c].Dmg + '</td>'
+                ChartAdd += '<td>' + chipRepo_chart[c].Dbk + '</td>'
+                ChartAdd += '</tr>'
+                ChipRepoChartId.innerHTML += ChartAdd;
+            }
+        }
         function getBlockNum(classNum) { return parseInt((classNum + "").substr(1, 1)); } //从classNum翻译blockNum
         function getSaveCode() { //获取存储码
             var SaveAlertId = document.getElementById('SaveAlert');
@@ -354,57 +385,57 @@
             }
         }
         function changeLevel() {
-            var level = parseInt((document.getElementById('ChipLevel')).value)
-            var PreviewLevelId = document.getElementById('PreviewLevel')
-            var LevelId = document.getElementById('ChipLevel')
-            var LevelIdx = LevelId.selectedIndex
-            PreviewLevelId.innerHTML = LevelId[LevelIdx].text
-            if (level <= 10) mul_property = 1 + 0.08 * level
-            else mul_property = 1.8 + 0.07 * (level - 10)
-            refreshPreview()
+            var level = parseInt((document.getElementById('ChipLevel')).value);
+            var PreviewLevelId = document.getElementById('PreviewLevel');
+            var LevelId = document.getElementById('ChipLevel');
+            var LevelIdx = LevelId.selectedIndex;
+            PreviewLevelId.innerHTML = LevelId[LevelIdx].text;
+            if (level <= 10) mul_property = 1 + 0.08 * level;
+            else mul_property = 1.8 + 0.07 * (level - 10);
+            refreshPreview();
             manageButton();
         }
         function resetPage() {
-            color = 1
-            mul_property = 1
-            document.getElementById('CSwitch1').checked = true
-            document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0
-            changeChipType()
-            changeLevel()
-            resetBlock()
+            color = 1;
+            mul_property = 1;
+            document.getElementById('CSwitch1').checked = true;
+            document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0;
+            changeChipType();
+            changeLevel();
+            resetBlock();
         }
         function resetBlock() {
-            block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0
-            refreshPreview()
-            manageButton()
+            block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
+            refreshPreview();
+            manageButton();
         }
         function refreshPreview() {
-            var DmgId = document.getElementById('Dmg')
-            var DbkId = document.getElementById('Dbk')
-            var AcuId = document.getElementById('Acu')
-            var FilId = document.getElementById('Fil')
-            var AdTx1 = document.getElementById('AdTx1')
-            var AdTx2 = document.getElementById('AdTx2')
-            var AdTx3 = document.getElementById('AdTx3')
-            var AdTx4 = document.getElementById('AdTx4')
-            DmgId.innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
-            DbkId.innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
-            AcuId.innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
-            FilId.innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7))
-            AdTx1.innerHTML = block_dmg
-            AdTx2.innerHTML = block_dbk
-            AdTx3.innerHTML = block_acu
-            AdTx4.innerHTML = block_fil
+            var DmgId = document.getElementById('Dmg');
+            var DbkId = document.getElementById('Dbk');
+            var AcuId = document.getElementById('Acu');
+            var FilId = document.getElementById('Fil');
+            var AdTx1 = document.getElementById('AdTx1');
+            var AdTx2 = document.getElementById('AdTx2');
+            var AdTx3 = document.getElementById('AdTx3');
+            var AdTx4 = document.getElementById('AdTx4');
+            DmgId.innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4));
+            DbkId.innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7));
+            AcuId.innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1));
+            FilId.innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7));
+            AdTx1.innerHTML = block_dmg;
+            AdTx2.innerHTML = block_dbk;
+            AdTx3.innerHTML = block_acu;
+            AdTx4.innerHTML = block_fil;
         }
         function manageButton() {
-            var AdBt1 = document.getElementById('AdBt1'); AdBt1.disabled = false
-            var AdBt2 = document.getElementById('AdBt2'); AdBt2.disabled = false
-            var AdBt3 = document.getElementById('AdBt3'); AdBt3.disabled = false
-            var AdBt4 = document.getElementById('AdBt4'); AdBt4.disabled = false
-            var SbBt1 = document.getElementById('SbBt1'); SbBt1.disabled = false
-            var SbBt2 = document.getElementById('SbBt2'); SbBt2.disabled = false
-            var SbBt3 = document.getElementById('SbBt3'); SbBt3.disabled = false
-            var SbBt4 = document.getElementById('SbBt4'); SbBt4.disabled = false
+            var AdBt1 = document.getElementById('AdBt1'); AdBt1.disabled = false;
+            var AdBt2 = document.getElementById('AdBt2'); AdBt2.disabled = false;
+            var AdBt3 = document.getElementById('AdBt3'); AdBt3.disabled = false;
+            var AdBt4 = document.getElementById('AdBt4'); AdBt4.disabled = false;
+            var SbBt1 = document.getElementById('SbBt1'); SbBt1.disabled = false;
+            var SbBt2 = document.getElementById('SbBt2'); SbBt2.disabled = false;
+            var SbBt3 = document.getElementById('SbBt3'); SbBt3.disabled = false;
+            var SbBt4 = document.getElementById('SbBt4'); SbBt4.disabled = false;
             var AdBl = document.getElementById('AdBl'); AdBl.disabled = true;
             var SbBl = document.getElementById('SbBl'); SbBl.disabled = true;
             var AdSp = document.getElementById('AdSp'); AdSp.disabled = true;
@@ -1525,6 +1556,11 @@
                                                 <p>
                                                     <button type="button" class="btn btn-warning" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该编号芯片</button>
                                                     <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空芯片仓库</button>
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <p>
+                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton">全部满强化</button>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
