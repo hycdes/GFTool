@@ -8,26 +8,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>少女前线-建造模拟器 by 命运の乐章</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- MetisMenu CSS -->
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-    <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-    <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <script type="text/javascript">
-        //global
         var listNum = 0, listNumH = 0, listNumE = 0, listNumEH = 0;
         var fiveStarNum = 0, fiveStarNumH = 0, fiveStarNumE = 0, fiveStarNumEH = 0, fairyNum = 0;
         var mul_smg = 1, mul_ar = 1, mul_rf = 1, mul_mg = 1, mul_sg = 1;
         var allM = 0, allA = 0, allR = 0, allP = 0, allCon = 0, allCore = 0, allConE = 0;
         var global_list, global_5list, global_listE, global_5listE, global_fairylist;
-        //init
         window.onload = function () {
             var chart = document.getElementById("rankingChart");
             var chartE = document.getElementById("rankingChartE");
@@ -102,20 +93,13 @@
             var unLimitCoCo = document.getElementById('unLimitCoCo');
             unLimitReso.checked = true;
             unLimitCoCo.checked = true;
-            ConOwn.disabled = true;
-            ConOwn.value = 100;
-            ConOwnE.disabled = true;
-            ConOwnE.value = 100;
-            CoreOwn.disabled = true;
-            CoreOwn.value = 100;
-            MwOwn.disabled = true;
-            MwOwn.value = 10000;
-            AwOwn.disabled = true;
-            AwOwn.value = 10000;
-            RwOwn.disabled = true;
-            RwOwn.value = 10000;
-            PwOwn.disabled = true;
-            PwOwn.value = 10000;
+            ConOwn.disabled = true; ConOwn.value = 100;
+            ConOwnE.disabled = true; ConOwnE.value = 100;
+            CoreOwn.disabled = true; CoreOwn.value = 100;
+            MwOwn.disabled = true; MwOwn.value = 10000;
+            AwOwn.disabled = true; AwOwn.value = 10000;
+            RwOwn.disabled = true; RwOwn.value = 10000;
+            PwOwn.disabled = true; PwOwn.value = 10000;
         }
 
         function checkValueNormal() { //check input of Normal-product
@@ -867,7 +851,7 @@
                         TdollList.push(creatTdollInfo_RF("[RF] Kar98k", 28));
                         TdollList.push(creatTdollInfo_RF("[RF] 李·恩菲尔德 MLEMK1", 60));
                         TdollList.push(creatTdollInfo_RF("[RF] M99", 28));
-                        TdollList.push(creatTdollInfo_RF("[RF] IWS20000", 16));
+                        TdollList.push(creatTdollInfo_RF("[RF] IWS2000", 16));
                         TdollList.push(creatTdollInfo_RF("[RF] 卡尔卡诺M91/38 Carcano1938", 14));
                     }
                 } else if (starNum === 4) {
@@ -1067,7 +1051,7 @@
                     TdollList.push(creatTdollInfo_RF("[RF] Kar98k", 28));
                     TdollList.push(creatTdollInfo_RF("[RF] 李·恩菲尔德 MLEMK1", 60));
                     TdollList.push(creatTdollInfo_RF("[RF] M99", 28));
-                    TdollList.push(creatTdollInfo_RF("[RF] IWS20000", 16));
+                    TdollList.push(creatTdollInfo_RF("[RF] IWS2000", 16));
                     TdollList.push(creatTdollInfo_RF("[RF] 卡尔卡诺M91/38 Carcano1938", 14));
                 } else if (starNum === 4) {
                     TdollList.push(creatTdollInfo_RF("[RF] PSG-1", 200));
@@ -1267,7 +1251,7 @@
             if (starNum === 6) {
                 if (Mw >= 2000 && Rw >= 2000 && Pw >= 1000) {
                     EquipList.push(creatEquipInfo("[策略妖精] 增援妖精", 100));
-                    EquipList.push(creatEquipInfo("[策略妖精] 空降妖精", 50));
+                    EquipList.push(creatEquipInfo("[策略妖精] 空降妖精", 100));
                     EquipList.push(creatEquipInfo("[策略妖精] 防御妖精", 100));
                 }
                 if (Aw >= 2000 && Rw >= 2000 && Pw >= 1000) {
@@ -1275,17 +1259,17 @@
                     EquipList.push(creatEquipInfo("[策略妖精] 火箭妖精", 100));
                     EquipList.push(creatEquipInfo("[策略妖精] 工事妖精", 100));
                 }
-                EquipList.push(creatEquipInfo("[策略妖精] 指挥妖精", 80));
-                EquipList.push(creatEquipInfo("[策略妖精] 搜救妖精", 80));
+                EquipList.push(creatEquipInfo("[策略妖精] 指挥妖精", 100));
+                EquipList.push(creatEquipInfo("[策略妖精] 搜救妖精", 100));
                 EquipList.push(creatEquipInfo("[策略妖精] 照明妖精", 100));
-                EquipList.push(creatEquipInfo("[战斗妖精] 勇士妖精", 80));
-                EquipList.push(creatEquipInfo("[战斗妖精] 暴怒妖精", 80));
+                EquipList.push(creatEquipInfo("[战斗妖精] 勇士妖精", 100));
+                EquipList.push(creatEquipInfo("[战斗妖精] 暴怒妖精", 100));
                 EquipList.push(creatEquipInfo("[战斗妖精] 盾甲妖精", 100));
                 EquipList.push(creatEquipInfo("[战斗妖精] 护盾妖精", 100));
-                EquipList.push(creatEquipInfo("[战斗妖精] 嘲讽妖精", 80));
+                EquipList.push(creatEquipInfo("[战斗妖精] 嘲讽妖精", 100));
                 EquipList.push(creatEquipInfo("[战斗妖精] 狙击妖精", 100));
-                EquipList.push(creatEquipInfo("[战斗妖精] 炮击妖精", 80));
-                EquipList.push(creatEquipInfo("[战斗妖精] 空袭妖精", 80));
+                EquipList.push(creatEquipInfo("[战斗妖精] 炮击妖精", 100));
+                EquipList.push(creatEquipInfo("[战斗妖精] 空袭妖精", 100));
             }
             //Scope?
             if (Aw < 1000 && Pw < 1000) {
