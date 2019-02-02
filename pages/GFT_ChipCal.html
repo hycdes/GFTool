@@ -651,7 +651,9 @@
                         var liblen = topologyLibRefer_BGM_2.length;
                         for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
                         for (var i = 0; i < liblen; i++) {
-                            if (isSameString(searchCode, topologyLibRefer_BGM_2[i])) topologySet.push(topologyLib_BGM_2[i]);
+                            if (isSameString(searchCode, topologyLibRefer_BGM_2[i])) {
+                                topologySet.push(topologyLib_BGM_2[i]);
+                            }
                         }
                     } else if (HeavyfireType === 2) {
                         var searchCode = '';

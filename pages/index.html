@@ -13,6 +13,15 @@
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script>
+        function getValue() {
+            var NumMax = parseInt(document.getElementById('NumMax').value);
+            var randomNum = Math.floor(Math.random() * NumMax);
+            var textShow = document.getElementById('RanResult').innerHTML;
+            textShow += randomNum + '\n';
+            document.getElementById('RanResult').innerHTML = textShow;
+        }
+    </script>
 </head>
 
 <body>
@@ -183,6 +192,29 @@
                                         <p><b>少女前线全剧情解说-相关BGM歌单</b>：<u><a href="https://music.163.com/playlist?id=2551379155&userid=505710148" target="_blank"><span style="color:#FF0066">网易云音乐链接</span></a></u></p>
                                         <p><b>NGA-16Lab研究院</b>：<u><a href="https://bbs.nga.cn/thread.php?fid=-547859" target="_blank"><span style="color:#FF0066">NGA-16Lab链接线路</span></a></u></p>
                                     </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                随机数生成器（2月19日抽奖用）
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">随机数上限</span>
+                                    <input type="text" class="form-control" placeholder="输入整数" id="NumMax" value=10>
+                                </div>
+                                <p>
+                                    <button type="button" class="btn btn-default" onclick="getValue()">生成随机数</button>
+                                </p>
+                                <h5>随机结果</h5>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="6" placeholder="随机结果" id="RanResult" readonly></textarea>
                                 </div>
                             </div>
 
