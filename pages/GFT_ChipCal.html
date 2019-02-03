@@ -598,9 +598,6 @@
                 }
             }
             validSet = searchValid(chipShape_6, chipShape_5);
-            var TopoCode = document.getElementById('TopoCode');
-            var TopoCodeText = '';
-            var ReferCodeText = '';
             var allTopoNum = validSet.length;
             //get topology
             for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
@@ -610,7 +607,6 @@
                 } else if (HeavyfireType === 2) topologySet.push(topologyLib_AGS[validSet[num_topo]]);
                 else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]]);
             }
-            TopoCode.innerHTML = (TopoCodeText + ReferCodeText);
             if (topologySet.length > 0) { //get topology result
                 document.getElementById('SortButton_AllPro').disabled = false;
                 document.getElementById('SortButton_Block').disabled = false;
