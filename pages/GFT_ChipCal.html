@@ -29,6 +29,7 @@
     <script>
         var globaltime = [0, 0, 0, 0]; //global timer, for test and all result counting
         var topologySet = [], solutionSet = [], topologyNum = 0;
+        var resultBuffer = [], resultRefer = []; //for buffer result for ranking
         var topologyLib_BGM_1 = [], topologyLibRefer_BGM_1 = [];
         var topologyLib_BGM_2 = [], topologyLibRefer_BGM_2 = [];
         var topologyLib_AGS = [], topologyLibRefer_AGS = [];
@@ -78,17 +79,6 @@
         window.onload = function () {
             resetPage();
             loadScript('../js/topology.js');
-        }
-        function isSameString(str1, str2) {
-            var len1 = str1.length;
-            var len2 = str2.length;
-            if (len1 != len2) return false;
-            else {
-                for (var i = 0; i < len1; i++) {
-                    if (str1[i] != str2[i]) return false;
-                }
-            }
-            return true;
         }
         function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
             var ChipRepoChartId = document.getElementById('ChipRepoChart')
@@ -563,7 +553,7 @@
             for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false;
             return true;
         }
-        function getTopology_ver2() { //计算图解优化版
+        function getTopology() {
             globaltime[0] = 0;
             var td1 = new Date();
             topologySet = [], solutionSet = [];
@@ -615,16 +605,10 @@
             //get topology
             for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
                 if (HeavyfireType === 1) {
-                    if (validSet[num_topo] < topologyLibRefer_BGM_1.length) {
-                        topologySet.push(topologyLib_BGM_1[validSet[num_topo]]);
-                    } else {
-                        topologySet.push(topologyLib_BGM_2[validSet[num_topo] - topologyLibRefer_BGM_1.length]);
-                    }
-                } else if (HeavyfireType === 2) {
-                    topologySet.push(topologyLib_AGS[validSet[num_topo]]);
-                } else if (HeavyfireType === 3) {
-                    topologySet.push(topologyLib_2B14[validSet[num_topo]]);
-                }
+                    if (validSet[num_topo] < topologyLibRefer_BGM_1.length) topologySet.push(topologyLib_BGM_1[validSet[num_topo]]);
+                    else topologySet.push(topologyLib_BGM_2[validSet[num_topo] - topologyLibRefer_BGM_1.length]);
+                } else if (HeavyfireType === 2) topologySet.push(topologyLib_AGS[validSet[num_topo]]);
+                else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]]);
             }
             TopoCode.innerHTML = (TopoCodeText + ReferCodeText);
             if (topologySet.length > 0) { //get topology result
@@ -660,222 +644,6 @@
             var td2 = new Date();
             globaltime[0] += countMS(td1, td2);
             document.getElementById('timeText').innerHTML = "总时间" + (globaltime[0] / 1000).toFixed(2) + "s";
-        }
-        function getTopology() { //计算图解,EDITTT
-            globaltime[0] = 0;
-            var td1 = new Date();
-            topologySet = [], solutionSet = [];//全局变量初始化
-            var HeavyfireStar = 5;
-            var HeavyfireType = 1;
-            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
-            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
-            else HeavyfireType = 3;
-            var possibleSet = [], strategyInfo = [];
-            var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]];
-            var chipShape_6 = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]];
-            var chipStat_5 = 0, chipStat_6 = 0;
-            for (var i = 0; i < chipNum; i++) {
-                if (getBlockNum(chipRepo_data[i].classNum) === 5) {
-                    switch (chipRepo_data[i].typeNum) {
-                        case 11: chipShape_5[0][1]++; break;
-                        case 12: chipShape_5[1][1]++; break;
-                        case 21: chipShape_5[2][1]++; break;
-                        case 22: chipShape_5[3][1]++; break;
-                        case 31: chipShape_5[4][1]++; break;
-                        case 32: chipShape_5[5][1]++; break;
-                        case 4: chipShape_5[6][1]++; break;
-                        case 5: chipShape_5[7][1]++; break;
-                        case 6: chipShape_5[8][1]++; break;
-                    }
-                    chipStat_5++;
-                }
-                else if (getBlockNum(chipRepo_data[i].classNum) === 6) {
-                    switch (chipRepo_data[i].typeNum) {
-                        case 1: chipShape_6[0][1]++; break;
-                        case 2: chipShape_6[1][1]++; break;
-                        case 3: chipShape_6[2][1]++; break;
-                        case 41: chipShape_6[3][1]++; break;
-                        case 42: chipShape_6[4][1]++; break;
-                        case 5: chipShape_6[5][1]++; break;
-                        case 6: chipShape_6[6][1]++; break;
-                        case 7: chipShape_6[7][1]++; break;
-                        case 8: chipShape_6[8][1]++; break;
-                        case 9: chipShape_6[9][1]++; break;
-                    }
-                    chipStat_6++;
-                }
-            }
-            switch (HeavyfireType) {
-                case 1:
-                    if (chipStat_6 >= 6) {
-                        possibleSet.push(getCombination(6, 0, chipShape_6, chipShape_5));
-                        strategyInfo.push([true, false]);
-                    }
-                    if (chipStat_6 >= 1 && chipStat_5 >= 6) {
-                        possibleSet.push(getCombination(1, 6, chipShape_6, chipShape_5));
-                        strategyInfo.push([true, true]);
-                    }
-                    break;
-                case 2:
-                    if (chipStat_6 >= 3 && chipStat_5 >= 4) {
-                        possibleSet.push(getCombination(3, 4, chipShape_6, chipShape_5));
-                        strategyInfo.push([true, true]);
-                    }
-                    break;
-                case 3:
-                    if (chipStat_6 >= 2 && chipStat_5 >= 4) {
-                        possibleSet.push(getCombination(2, 4, chipShape_6, chipShape_5));
-                        strategyInfo.push([true, true]);
-                    }
-                    break;
-            }
-            var TopoCode = document.getElementById('TopoCode');
-            var TopoCodeText = '';
-            var ReferCodeText = '';
-            var strategyNum = strategyInfo.length;
-            //get topology
-            for (var num_stg = 0; num_stg < strategyNum; num_stg++) {
-                var shapeNum = possibleSet[num_stg].length;
-                for (var num_shp = 0; num_shp < shapeNum; num_shp++) {
-                    if (HeavyfireType === 1) {
-                        var searchCode = '';
-                        if (possibleSet[num_stg][num_shp].length === 10) {
-                            var liblen = topologyLibRefer_BGM_1.length;
-                            for (var i = 0; i < 10; i++) searchCode += possibleSet[num_stg][num_shp][i];
-                            for (var i = 0; i < liblen; i++) {
-                                if (isSameString(searchCode, topologyLibRefer_BGM_1[i])) topologySet.push(topologyLib_BGM_1[i]);
-                            }
-                        } else {
-                            var liblen = topologyLibRefer_BGM_2.length;
-                            for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
-                            for (var i = 0; i < liblen; i++) {
-                                if (isSameString(searchCode, topologyLibRefer_BGM_2[i])) {
-                                    topologySet.push(topologyLib_BGM_2[i]);
-                                }
-                            }
-                        }
-                    } else if (HeavyfireType === 2) {
-                        var searchCode = '';
-                        var liblen = topologyLibRefer_AGS.length;
-                        for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
-                        for (var i = 0; i < liblen; i++) {
-                            if (isSameString(searchCode, topologyLibRefer_AGS[i])) topologySet.push(topologyLib_AGS[i]);
-                        }
-                    }
-                    else if (HeavyfireType === 3) {
-                        var searchCode = '';
-                        var liblen = topologyLibRefer_2B14.length;
-                        for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
-                        for (var i = 0; i < liblen; i++) {
-                            if (isSameString(searchCode, topologyLibRefer_2B14[i])) topologySet.push(topologyLib_2B14[i]);
-                        }
-                    }
-                }
-            }
-            TopoCode.innerHTML = (TopoCodeText + ReferCodeText);
-            if (topologySet.length > 0) { //get topology result
-                document.getElementById('SortButton_AllPro').disabled = false;
-                document.getElementById('SortButton_Block').disabled = false;
-                document.getElementById('SortButton_Dmg').disabled = false;
-                document.getElementById('SortButton_Dbk').disabled = false;
-                document.getElementById('SortButton_Acu').disabled = false;
-                document.getElementById('SortButton_Fil').disabled = false;
-                var soluNum = topologySet.length;
-                var panelO = document.getElementById('panelO'); panelO.className = '';
-                var panelR = document.getElementById('panelR'); panelR.className = 'active';
-                var Options = document.getElementById('Options'); Options.className = 'tab-pane fade';
-                var Results = document.getElementById('Results'); Results.className = 'tab-pane fade in active';
-                var TopologySelect = document.getElementById('TopologySelect');
-                TopologySelect.disabled = false;
-                var RTText = '<option value=0 selected>图解 1</option>';
-                for (var i = 1; i < soluNum; i++) {
-                    RTText += '<option value=' + i + '>图解 ' + (i + 1) + '</option>';
-                }
-                TopologySelect.innerHTML = RTText;
-                var NoResultTextId = document.getElementById('NoResultText');
-                NoResultTextId.innerHTML = '';
-                topologyNum = 0;
-                showSolution();
-            } else {
-                var NoResultTextId = document.getElementById('NoResultText');
-                NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>';
-                var TopologySelect = document.getElementById('TopologySelect');
-                TopologySelect.disabled = true;
-                var RTText = '<option value=1 selected>图解编号</option>';
-            }
-            var td2 = new Date();
-            globaltime[0] += countMS(td1, td2);
-            document.getElementById('timeText').innerHTML = "总时间" + (globaltime[0] / 1000).toFixed(2) + "s";
-        }
-        function getCombination_sub(blockNum, limitNum, limitSet) { //给出可行的组合种类
-            var possibleSet = [], pickNum = [];
-            var typeLimit;
-            switch (blockNum) {
-                case 6:
-                    pickNum = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]];
-                    typeLimit = 10;
-                    break;
-                case 5:
-                    pickNum = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]];
-                    typeLimit = 9;
-                    break;
-            }
-            var deleteIt = 0, pickNumTotal = 0, pickIt = 0;
-            var selectEnd = false;
-            while (!selectEnd) {
-                if (pickNum[pickIt][1] < limitSet[pickIt][1]) { //能取则取
-                    pickNum[pickIt][1]++;
-                    pickNumTotal++;
-                } else {
-                    if (pickIt + 1 < typeLimit) pickIt++; //向后
-                    else { //不能向后
-                        while (true) { //直到找到一个之前可删的位置
-                            deleteIt--;
-                            if (deleteIt === -1) { //找到头都没有
-                                selectEnd = true;
-                                break;
-                            }
-                            if (pickNum[deleteIt][1] > 0) { //能找到
-                                pickNum[deleteIt][1]--;
-                                pickNumTotal -= (1 + pickNum[pickIt][1]);
-                                pickNum[pickIt][1] = 0;
-                                pickIt = deleteIt + 1;
-                                break;
-                            } //否则继续往前找，期间必然全0
-                        }
-                    }
-                }
-                if (pickNumTotal === limitNum) { //找到解
-                    var cbnt = [];
-                    for (var i = 0; i < typeLimit; i++) {
-                        cbnt.push(pickNum[i][1]);
-                    }
-                    possibleSet.push(cbnt);
-                    if (typeLimit === 9) console.log(cbnt);
-                    deleteIt = pickIt;
-                    if (pickIt + 1 < typeLimit) { //可以继续，当前位-1，继续向后扫描
-                        pickNum[deleteIt][1]--;
-                        pickNumTotal--;
-                        pickIt++;
-                    } else { //不能向后
-                        while (true) { //直到找到一个之前可删的位置
-                            deleteIt--;
-                            if (deleteIt === -1) { //找到头都没有
-                                selectEnd = true;
-                                break;
-                            }
-                            if (pickNum[deleteIt][1] > 0) { //能找到
-                                pickNum[deleteIt][1]--;
-                                pickNumTotal -= (1 + pickNum[pickIt][1]);
-                                pickNum[pickIt][1] = 0;
-                                pickIt = deleteIt + 1;
-                                break;
-                            } //否则继续往前找，期间必然全0
-                        }
-                    }
-                }
-            }
-            return possibleSet;
         }
         function isPossible(chipShape_65, chipRefer, border) {
             for (var i = 0; i < border; i++) if (parseInt(chipRefer[i]) > chipShape_65[i][1]) return false;
@@ -913,28 +681,6 @@
                 }
             }
             return validSet;
-        }
-        function getCombination(num_6, num_5, chipShape_6, chipShape_5) {
-            var possibleSet = [];
-            if (num_6 > 0) {
-                possibleSet = getCombination_sub(6, num_6, chipShape_6);
-            }
-            if (num_5 > 0) {
-                var len_6 = possibleSet.length;
-                if (len_6 > 0) {
-                    var possibleSet_65 = [];
-                    var possibleSet_5 = getCombination_sub(5, num_5, chipShape_5);
-                    var len_5 = possibleSet_5.length;
-                    for (var it_6 = 0; it_6 < len_6; it_6++) {
-                        for (var it_5 = 0; it_5 < len_5; it_5++) {
-                            var rank_65 = possibleSet[it_6].concat(possibleSet_5[it_5]);
-                            possibleSet_65.push(rank_65);
-                        }
-                    }
-                    return possibleSet_65;
-                }
-            }
-            return possibleSet;
         }
         function showTopology(solution, HeavyfireType, HeavyfireStar) {
             var line1 = document.getElementById('solutionLine1');
@@ -1070,7 +816,7 @@
                 document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-success';
                 var dmg = 0, dbk = 0, acu = 0, fil = 0;
                 var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
-                if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 49; }
+                if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
                 else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
                 else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
                 for (var c = 0; c < c_num; c++) {
@@ -1175,6 +921,15 @@
             solutionSet = getSolution(topologySet[topologyNum]);
             SolutionSelect.disabled = false;
             sortSolution(ranking_switch);
+            //new
+            // var newResult = getResult(topologySet[topologyNum]);
+            // if (newResult.length != 0) resultBuffer.push(newResult);
+        }
+        function getResult(topology) {
+            var newResult = [];
+            var resultlen = resultRefer.length;
+            for (var i = 0; i < resultlen; i++) if (topologyNum === resultRefer[i]) return newResult; //check if buffered
+            var solutionSet = getSolution(topology);
         }
         function getSolution(topology) {
             var tempChipRepo = []; //待选芯片数据的二维数组
@@ -1302,7 +1057,7 @@
             else HeavyfireType = 3;
             var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
             var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0;
-            if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 49; dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
+            if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
             else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
             else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
             var SolutionSelect = document.getElementById('SolutionSelect');
@@ -1775,7 +1530,7 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p><button type="button" class="btn btn-primary" onclick="getTopology_ver2()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                        <p><button type="button" class="btn btn-primary" onclick="getTopology()">计算拼接方案</button><b id="NoResultText"></b></p>
                                     </div>
                                 </div>
                                 <!-- Nav tabs -->
@@ -1784,7 +1539,7 @@
                                         <a href="#Results" data-toggle="tab">结果</a>
                                     </li>
                                     <li id="panelO">
-                                        <a href="#Options" data-toggle="tab">好孩子别点(Debug only)</a>
+                                        <a href="#Options" data-toggle="tab">高级选项</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -1921,7 +1676,7 @@
                                                                 </div>
                                                                 <div style="width:220px; background:url(../img/icon-fil.png) no-repeat left top;">
                                                                     <p>
-                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/49</strong>
+                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/46</strong>
                                                                         <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
                                                                     </p>
                                                                     <div class="progress progress-striped active">
@@ -1997,11 +1752,21 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="Options">
-                                        <h4>拓扑码输出（开发者专用好孩子别点）</h4>
+                                        <h4>高级设置</h4>
                                         <div class="col-lg-12">
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="10" placeholder="Console holder, input command" id="TopoCode"></textarea>
-                                            </div>
+                                            <h5>* 未完成</h5>
+                                            <table class="table table-bordered table-hover" style="width:400px">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>允许最大溢出格数</td>
+                                                        <td>
+                                                            <div class="form-group">
+                                                                <input class="form-control" placeholder="输入整数" value='∞' id="MaxOverflowValue" disabled>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
