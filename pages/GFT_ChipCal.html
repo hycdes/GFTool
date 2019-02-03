@@ -563,6 +563,104 @@
             for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false;
             return true;
         }
+        function getTopology_ver2() { //计算图解优化版
+            globaltime[0] = 0;
+            var td1 = new Date();
+            topologySet = [], solutionSet = [];
+            var HeavyfireStar = 5;
+            var HeavyfireType = 1;
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            var validSet;
+            var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]];
+            var chipShape_6 = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]];
+            var chipStat_5 = 0, chipStat_6 = 0;
+            for (var i = 0; i < chipNum; i++) {
+                if (getBlockNum(chipRepo_data[i].classNum) === 5) {
+                    switch (chipRepo_data[i].typeNum) {
+                        case 11: chipShape_5[0][1]++; break;
+                        case 12: chipShape_5[1][1]++; break;
+                        case 21: chipShape_5[2][1]++; break;
+                        case 22: chipShape_5[3][1]++; break;
+                        case 31: chipShape_5[4][1]++; break;
+                        case 32: chipShape_5[5][1]++; break;
+                        case 4: chipShape_5[6][1]++; break;
+                        case 5: chipShape_5[7][1]++; break;
+                        case 6: chipShape_5[8][1]++; break;
+                    }
+                    chipStat_5++;
+                }
+                else if (getBlockNum(chipRepo_data[i].classNum) === 6) {
+                    switch (chipRepo_data[i].typeNum) {
+                        case 1: chipShape_6[0][1]++; break;
+                        case 2: chipShape_6[1][1]++; break;
+                        case 3: chipShape_6[2][1]++; break;
+                        case 41: chipShape_6[3][1]++; break;
+                        case 42: chipShape_6[4][1]++; break;
+                        case 5: chipShape_6[5][1]++; break;
+                        case 6: chipShape_6[6][1]++; break;
+                        case 7: chipShape_6[7][1]++; break;
+                        case 8: chipShape_6[8][1]++; break;
+                        case 9: chipShape_6[9][1]++; break;
+                    }
+                    chipStat_6++;
+                }
+            }
+            validSet = searchValid(chipShape_6, chipShape_5);
+            var TopoCode = document.getElementById('TopoCode');
+            var TopoCodeText = '';
+            var ReferCodeText = '';
+            var allTopoNum = validSet.length;
+            //get topology
+            for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
+                if (HeavyfireType === 1) {
+                    if (validSet[num_topo] < topologyLibRefer_BGM_1.length) {
+                        topologySet.push(topologyLib_BGM_1[validSet[num_topo]]);
+                    } else {
+                        topologySet.push(topologyLib_BGM_2[validSet[num_topo] - topologyLibRefer_BGM_1.length]);
+                    }
+                } else if (HeavyfireType === 2) {
+                    topologySet.push(topologyLib_AGS[validSet[num_topo]]);
+                } else if (HeavyfireType === 3) {
+                    topologySet.push(topologyLib_2B14[validSet[num_topo]]);
+                }
+            }
+            TopoCode.innerHTML = (TopoCodeText + ReferCodeText);
+            if (topologySet.length > 0) { //get topology result
+                document.getElementById('SortButton_AllPro').disabled = false;
+                document.getElementById('SortButton_Block').disabled = false;
+                document.getElementById('SortButton_Dmg').disabled = false;
+                document.getElementById('SortButton_Dbk').disabled = false;
+                document.getElementById('SortButton_Acu').disabled = false;
+                document.getElementById('SortButton_Fil').disabled = false;
+                var soluNum = topologySet.length;
+                var panelO = document.getElementById('panelO'); panelO.className = '';
+                var panelR = document.getElementById('panelR'); panelR.className = 'active';
+                var Options = document.getElementById('Options'); Options.className = 'tab-pane fade';
+                var Results = document.getElementById('Results'); Results.className = 'tab-pane fade in active';
+                var TopologySelect = document.getElementById('TopologySelect');
+                TopologySelect.disabled = false;
+                var RTText = '<option value=0 selected>图解 1</option>';
+                for (var i = 1; i < soluNum; i++) {
+                    RTText += '<option value=' + i + '>图解 ' + (i + 1) + '</option>';
+                }
+                TopologySelect.innerHTML = RTText;
+                var NoResultTextId = document.getElementById('NoResultText');
+                NoResultTextId.innerHTML = '';
+                topologyNum = 0;
+                showSolution();
+            } else {
+                var NoResultTextId = document.getElementById('NoResultText');
+                NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>';
+                var TopologySelect = document.getElementById('TopologySelect');
+                TopologySelect.disabled = true;
+                var RTText = '<option value=1 selected>图解编号</option>';
+            }
+            var td2 = new Date();
+            globaltime[0] += countMS(td1, td2);
+            document.getElementById('timeText').innerHTML = "总时间" + (globaltime[0] / 1000).toFixed(2) + "s";
+        }
         function getTopology() { //计算图解,EDITTT
             globaltime[0] = 0;
             var td1 = new Date();
@@ -639,20 +737,21 @@
             for (var num_stg = 0; num_stg < strategyNum; num_stg++) {
                 var shapeNum = possibleSet[num_stg].length;
                 for (var num_shp = 0; num_shp < shapeNum; num_shp++) {
-                    if (HeavyfireType === 1 && possibleSet[num_stg][num_shp].length === 10) {
+                    if (HeavyfireType === 1) {
                         var searchCode = '';
-                        var liblen = topologyLibRefer_BGM_1.length;
-                        for (var i = 0; i < 10; i++) searchCode += possibleSet[num_stg][num_shp][i];
-                        for (var i = 0; i < liblen; i++) {
-                            if (isSameString(searchCode, topologyLibRefer_BGM_1[i])) topologySet.push(topologyLib_BGM_1[i]);
-                        }
-                    } else if (HeavyfireType === 1 && possibleSet[num_stg][num_shp].length === 19) {
-                        var searchCode = '';
-                        var liblen = topologyLibRefer_BGM_2.length;
-                        for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
-                        for (var i = 0; i < liblen; i++) {
-                            if (isSameString(searchCode, topologyLibRefer_BGM_2[i])) {
-                                topologySet.push(topologyLib_BGM_2[i]);
+                        if (possibleSet[num_stg][num_shp].length === 10) {
+                            var liblen = topologyLibRefer_BGM_1.length;
+                            for (var i = 0; i < 10; i++) searchCode += possibleSet[num_stg][num_shp][i];
+                            for (var i = 0; i < liblen; i++) {
+                                if (isSameString(searchCode, topologyLibRefer_BGM_1[i])) topologySet.push(topologyLib_BGM_1[i]);
+                            }
+                        } else {
+                            var liblen = topologyLibRefer_BGM_2.length;
+                            for (var i = 0; i < 19; i++) searchCode += possibleSet[num_stg][num_shp][i];
+                            for (var i = 0; i < liblen; i++) {
+                                if (isSameString(searchCode, topologyLibRefer_BGM_2[i])) {
+                                    topologySet.push(topologyLib_BGM_2[i]);
+                                }
                             }
                         }
                     } else if (HeavyfireType === 2) {
@@ -752,6 +851,7 @@
                         cbnt.push(pickNum[i][1]);
                     }
                     possibleSet.push(cbnt);
+                    if (typeLimit === 9) console.log(cbnt);
                     deleteIt = pickIt;
                     if (pickIt + 1 < typeLimit) { //可以继续，当前位-1，继续向后扫描
                         pickNum[deleteIt][1]--;
@@ -777,6 +877,43 @@
             }
             return possibleSet;
         }
+        function isPossible(chipShape_65, chipRefer, border) {
+            for (var i = 0; i < border; i++) if (parseInt(chipRefer[i]) > chipShape_65[i][1]) return false;
+            return true;
+        }
+        function searchValid(chipShape_6, chipShape_5) {
+            var chipShape_65 = chipShape_6.concat(chipShape_5);
+            var validSet = [];
+            var HeavyfireType = 1, searchlen, searchlen_ex;
+            if (document.getElementById('HFSwitch1').checked === true) {
+                HeavyfireType = 1;
+                searchlen = topologyLibRefer_BGM_1.length;
+                searchlen_ex = topologyLibRefer_BGM_2.length;
+            } else if (document.getElementById('HFSwitch2').checked === true) {
+                HeavyfireType = 2;
+                searchlen = topologyLibRefer_AGS.length;
+            } else {
+                HeavyfireType = 3;
+                searchlen = topologyLibRefer_2B14.length;
+            }
+            if (HeavyfireType === 1) {
+                for (var i = 0; i < searchlen; i++) {
+                    if (isPossible(chipShape_65, topologyLibRefer_BGM_1[i], 10)) validSet.push(i);
+                }
+                for (var i = 0; i < searchlen_ex; i++) {
+                    if (isPossible(chipShape_65, topologyLibRefer_BGM_2[i], 19)) validSet.push(i + searchlen);
+                }
+            } else if (HeavyfireType === 2) {
+                for (var i = 0; i < searchlen; i++) {
+                    if (isPossible(chipShape_65, topologyLibRefer_AGS[i], 19)) validSet.push(i);
+                }
+            } else if (HeavyfireType === 3) {
+                for (var i = 0; i < searchlen; i++) {
+                    if (isPossible(chipShape_65, topologyLibRefer_2B14[i], 19)) validSet.push(i);
+                }
+            }
+            return validSet;
+        }
         function getCombination(num_6, num_5, chipShape_6, chipShape_5) {
             var possibleSet = [];
             if (num_6 > 0) {
@@ -784,9 +921,7 @@
             }
             if (num_5 > 0) {
                 var len_6 = possibleSet.length;
-                if (len_6 === 0) {
-                    possibleSet = getCombination_sub(5, num_5, chipShape_5);
-                } else {
+                if (len_6 > 0) {
                     var possibleSet_65 = [];
                     var possibleSet_5 = getCombination_sub(5, num_5, chipShape_5);
                     var len_5 = possibleSet_5.length;
@@ -796,7 +931,7 @@
                             possibleSet_65.push(rank_65);
                         }
                     }
-                    possibleSet = possibleSet_65;
+                    return possibleSet_65;
                 }
             }
             return possibleSet;
@@ -1640,7 +1775,7 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p><button type="button" class="btn btn-primary" onclick="getTopology()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                        <p><button type="button" class="btn btn-primary" onclick="getTopology_ver2()">计算拼接方案</button><b id="NoResultText"></b></p>
                                     </div>
                                 </div>
                                 <!-- Nav tabs -->
