@@ -187,34 +187,41 @@
             }
         }
         function maxAllChip() {
-            var ChipRepoChartId = document.getElementById('ChipRepoChart');
-            ChipRepoChartId.innerHTML = '';
-            for (var c = 0; c < chipNum; c++) {
-                if (chipRepo_data[c].levelNum < 20) {
-                    chipRepo_data[c].levelNum = 20;
-                    chipRepo_chart[c].chipLevel = '+20';
-                    chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1));
-                    chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7));
-                    chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 4.4));
-                    chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7));
+            if (switch_maxall === false) {
+                switch_maxall = true;
+                document.getElementById('alert_maxall').innerHTML = ' * 再按一次确认全部满强化';
+            } else {
+                switch_maxall = false;
+                document.getElementById('alert_maxall').innerHTML = '';
+                var ChipRepoChartId = document.getElementById('ChipRepoChart');
+                ChipRepoChartId.innerHTML = '';
+                for (var c = 0; c < chipNum; c++) {
+                    if (chipRepo_data[c].levelNum < 20) {
+                        chipRepo_data[c].levelNum = 20;
+                        chipRepo_chart[c].chipLevel = '+20';
+                        chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1));
+                        chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7));
+                        chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 4.4));
+                        chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7));
+                    }
                 }
-            }
-            for (var c = 0; c < chipNum; c++) {
-                var colorName;
-                if (chipRepo_data[c].color === 1) colorName = 'b';
-                else colorName = 'o';
-                var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[c].classNum + '-' + chipRepo_data[c].typeNum + '.png">'
-                var ChartAdd = ''
-                ChartAdd += '<tr>'
-                ChartAdd += '<td>' + chipRepo_chart[c].chipNum + '</td>'
-                ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[c].chipType + '</td>'
-                ChartAdd += '<td>' + chipRepo_chart[c].chipLevel + '</td>'
-                ChartAdd += '<td>' + chipRepo_chart[c].Acu + '</td>'
-                ChartAdd += '<td>' + chipRepo_chart[c].Fil + '</td>'
-                ChartAdd += '<td>' + chipRepo_chart[c].Dmg + '</td>'
-                ChartAdd += '<td>' + chipRepo_chart[c].Dbk + '</td>'
-                ChartAdd += '</tr>'
-                ChipRepoChartId.innerHTML += ChartAdd;
+                for (var c = 0; c < chipNum; c++) {
+                    var colorName;
+                    if (chipRepo_data[c].color === 1) colorName = 'b';
+                    else colorName = 'o';
+                    var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[c].classNum + '-' + chipRepo_data[c].typeNum + '.png">'
+                    var ChartAdd = ''
+                    ChartAdd += '<tr>'
+                    ChartAdd += '<td>' + chipRepo_chart[c].chipNum + '</td>'
+                    ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[c].chipType + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[c].chipLevel + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[c].Acu + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[c].Fil + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[c].Dmg + '</td>'
+                    ChartAdd += '<td>' + chipRepo_chart[c].Dbk + '</td>'
+                    ChartAdd += '</tr>'
+                    ChipRepoChartId.innerHTML += ChartAdd;
+                }
             }
         }
         function getBlockNum(classNum) { return parseInt((classNum + "").substr(1, 1)); } //从classNum翻译blockNum
@@ -1054,6 +1061,58 @@
             changeLevel();
             manageButton();
         }
+        function compare_sumpro(solu_a, solu_b) {
+            var value_a = 0, value_b = 0;
+            var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0;
+            var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
+            var HeavyfireType = 1;
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
+            else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
+            else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+            var looplen = solu_a.length;
+            for (var n = 0; n < looplen; n++) {
+                dmg_a += chipRepo_chart[solu_a[n] - 1].Dmg; dmg_b += chipRepo_chart[solu_b[n] - 1].Dmg;
+                dbk_a += chipRepo_chart[solu_a[n] - 1].Dbk; dbk_b += chipRepo_chart[solu_b[n] - 1].Dbk;
+                acu_a += chipRepo_chart[solu_a[n] - 1].Acu; acu_b += chipRepo_chart[solu_b[n] - 1].Acu;
+                fil_a += chipRepo_chart[solu_a[n] - 1].Fil; fil_b += chipRepo_chart[solu_b[n] - 1].Fil;
+            }
+            if (dmg_a > dmg_max) dmg_a = dmg_max; if (dmg_b > dmg_max) dmg_b = dmg_max;
+            if (dbk_a > dbk_max) dbk_a = dbk_max; if (dbk_b > dbk_max) dbk_b = dbk_max;
+            if (acu_a > acu_max) acu_a = acu_max; if (acu_b > acu_max) acu_b = acu_max;
+            if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max;
+            value_a = (dmg_a / dmg_max) + (dbk_a / dbk_max) + (acu_a / acu_max) + (fil_a / fil_max);
+            value_b = (dmg_b / dmg_max) + (dbk_b / dbk_max) + (acu_b / acu_max) + (fil_b / fil_max);
+            return value_b - value_a;
+        }
+        function compare_sumblo(solu_a, solu_b) {
+            var value_a = 0, value_b = 0;
+            var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0;
+            var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0;
+            var HeavyfireType = 1;
+            if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1;
+            else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
+            else HeavyfireType = 3;
+            if (HeavyfireType === 1) { dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
+            else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
+            else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
+            var looplen = solu_a.length;
+            for (var n = 0; n < looplen; n++) {
+                dmg_a += chipRepo_data[solu_a[n] - 1].bDmg; dmg_b += chipRepo_data[solu_b[n] - 1].bDmg;
+                dbk_a += chipRepo_data[solu_a[n] - 1].bDbk; dbk_b += chipRepo_data[solu_b[n] - 1].bDbk;
+                acu_a += chipRepo_data[solu_a[n] - 1].bAcu; acu_b += chipRepo_data[solu_b[n] - 1].bAcu;
+                fil_a += chipRepo_data[solu_a[n] - 1].bFil; fil_b += chipRepo_data[solu_b[n] - 1].bFil;
+            }
+            if (dmg_a > dmgblo_max) dmg_a = dmgblo_max; if (dmg_b > dmgblo_max) dmg_b = dmgblo_max;
+            if (dbk_a > dbkblo_max) dbk_a = dbkblo_max; if (dbk_b > dbkblo_max) dbk_b = dbkblo_max;
+            if (acu_a > acublo_max) acu_a = acublo_max; if (acu_b > acublo_max) acu_b = acublo_max;
+            if (fil_a > filblo_max) fil_a = filblo_max; if (fil_b > filblo_max) fil_b = filblo_max;
+            value_a = dmg_a + dbk_a + acu_a + fil_a;
+            value_b = dmg_b + dbk_b + acu_b + fil_b;
+            return value_b - value_a;
+        }
         function sortSolution(sortType) {
             ranking_switch = parseInt(sortType);
             if (sortType === 1) analyze_switch = 1;
@@ -1072,57 +1131,11 @@
             switch (ranking_switch) {
                 case 1: //All property
                     document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效总属性</b></span> 排序';
-                    for (var a = 0; a < solulen; a++) {
-                        for (var b = a + 1; b < solulen; b++) {
-                            var value_a = 0, value_b = 0;
-                            var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0;
-                            var looplen = solutionSet[0].length;
-                            for (var n = 0; n < looplen; n++) {
-                                dmg_a += chipRepo_chart[solutionSet[a][n] - 1].Dmg; dmg_b += chipRepo_chart[solutionSet[b][n] - 1].Dmg;
-                                dbk_a += chipRepo_chart[solutionSet[a][n] - 1].Dbk; dbk_b += chipRepo_chart[solutionSet[b][n] - 1].Dbk;
-                                acu_a += chipRepo_chart[solutionSet[a][n] - 1].Acu; acu_b += chipRepo_chart[solutionSet[b][n] - 1].Acu;
-                                fil_a += chipRepo_chart[solutionSet[a][n] - 1].Fil; fil_b += chipRepo_chart[solutionSet[b][n] - 1].Fil;
-                            }
-                            if (dmg_a > dmg_max) dmg_a = dmg_max; if (dmg_b > dmg_max) dmg_b = dmg_max;
-                            if (dbk_a > dbk_max) dbk_a = dbk_max; if (dbk_b > dbk_max) dbk_b = dbk_max;
-                            if (acu_a > acu_max) acu_a = acu_max; if (acu_b > acu_max) acu_b = acu_max;
-                            if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max;
-                            value_a = (dmg_a / dmg_max) + (dbk_a / dbk_max) + (acu_a / acu_max) + (fil_a / fil_max);
-                            value_b = (dmg_b / dmg_max) + (dbk_b / dbk_max) + (acu_b / acu_max) + (fil_b / fil_max);
-                            if (value_b > value_a) {
-                                var temp = solutionSet[a];
-                                solutionSet[a] = solutionSet[b];
-                                solutionSet[b] = temp;
-                            }
-                        }
-                    }
+                    solutionSet.sort(compare_sumpro);
                     break;
                 case 2: //All blockNum
                     document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效格数</b></span> 排序';
-                    for (var a = 0; a < solulen; a++) {
-                        for (var b = a + 1; b < solulen; b++) {
-                            var value_a = 0, value_b = 0;
-                            var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0;
-                            var looplen = solutionSet[0].length;
-                            for (var n = 0; n < looplen; n++) {
-                                dmg_a += chipRepo_data[solutionSet[a][n] - 1].bDmg; dmg_b += chipRepo_data[solutionSet[b][n] - 1].bDmg;
-                                dbk_a += chipRepo_data[solutionSet[a][n] - 1].bDbk; dbk_b += chipRepo_data[solutionSet[b][n] - 1].bDbk;
-                                acu_a += chipRepo_data[solutionSet[a][n] - 1].bAcu; acu_b += chipRepo_data[solutionSet[b][n] - 1].bAcu;
-                                fil_a += chipRepo_data[solutionSet[a][n] - 1].bFil; fil_b += chipRepo_data[solutionSet[b][n] - 1].bFil;
-                            }
-                            if (dmg_a > dmgblo_max) dmg_a = dmgblo_max; if (dmg_b > dmgblo_max) dmg_b = dmgblo_max;
-                            if (dbk_a > dbkblo_max) dbk_a = dbkblo_max; if (dbk_b > dbkblo_max) dbk_b = dbkblo_max;
-                            if (acu_a > acublo_max) acu_a = acublo_max; if (acu_b > acublo_max) acu_b = acublo_max;
-                            if (fil_a > filblo_max) fil_a = filblo_max; if (fil_b > filblo_max) fil_b = filblo_max;
-                            value_a = dmg_a + dbk_a + acu_a + fil_a;
-                            value_b = dmg_b + dbk_b + acu_b + fil_b;
-                            if (value_b > value_a) {
-                                var temp = solutionSet[a];
-                                solutionSet[a] = solutionSet[b];
-                                solutionSet[b] = temp;
-                            }
-                        }
-                    }
+                    solutionSet.sort(compare_sumblo);
                     break;
                 case 3: //Dmg
                     document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>杀伤</b></span> 排序';
@@ -1458,7 +1471,7 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <p>
-                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强化</button>
+                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强化</button><span style="color:#FF0066"><b id="alert_maxall"></b></span>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
