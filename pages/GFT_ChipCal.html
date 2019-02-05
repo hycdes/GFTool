@@ -1371,6 +1371,60 @@
                     document.getElementById('ignore_acublomax').disabled = true;
                     document.getElementById('ignore_filblomax').disabled = true;
                     break;
+                case 3:
+                    document.getElementById('ignore_dmg').checked = false;
+                    document.getElementById('ignore_dbk').checked = false;
+                    document.getElementById('ignore_acu').checked = false;
+                    document.getElementById('ignore_fil').checked = false;
+                    document.getElementById('ignore_dmgblo').checked = true;
+                    document.getElementById('ignore_dbkblo').checked = true;
+                    document.getElementById('ignore_acublo').checked = true;
+                    document.getElementById('ignore_filblo').checked = true;
+                    document.getElementById('ignore_dmgmax').disabled = true;
+                    document.getElementById('ignore_dbkmax').disabled = true;
+                    document.getElementById('ignore_acumax').disabled = true;
+                    document.getElementById('ignore_filmax').disabled = true;
+                    document.getElementById('ignore_dmgblomax').disabled = false; document.getElementById('ignore_dmgblomax').value = 1;
+                    document.getElementById('ignore_dbkblomax').disabled = false; document.getElementById('ignore_dbkblomax').value = 1;
+                    document.getElementById('ignore_acublomax').disabled = false; document.getElementById('ignore_acublomax').value = 1;
+                    document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 1;
+                    break;
+                case 4:
+                    document.getElementById('ignore_dmg').checked = false;
+                    document.getElementById('ignore_dbk').checked = false;
+                    document.getElementById('ignore_acu').checked = false;
+                    document.getElementById('ignore_fil').checked = false;
+                    document.getElementById('ignore_dmgblo').checked = true;
+                    document.getElementById('ignore_dbkblo').checked = true;
+                    document.getElementById('ignore_acublo').checked = true;
+                    document.getElementById('ignore_filblo').checked = true;
+                    document.getElementById('ignore_dmgmax').disabled = true;
+                    document.getElementById('ignore_dbkmax').disabled = true;
+                    document.getElementById('ignore_acumax').disabled = true;
+                    document.getElementById('ignore_filmax').disabled = true;
+                    document.getElementById('ignore_dmgblomax').disabled = false; document.getElementById('ignore_dmgblomax').value = 2;
+                    document.getElementById('ignore_dbkblomax').disabled = false; document.getElementById('ignore_dbkblomax').value = 2;
+                    document.getElementById('ignore_acublomax').disabled = false; document.getElementById('ignore_acublomax').value = 2;
+                    document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 2;
+                    break;
+                case 5:
+                    document.getElementById('ignore_dmg').checked = false;
+                    document.getElementById('ignore_dbk').checked = false;
+                    document.getElementById('ignore_acu').checked = false;
+                    document.getElementById('ignore_fil').checked = false;
+                    document.getElementById('ignore_dmgblo').checked = true;
+                    document.getElementById('ignore_dbkblo').checked = true;
+                    document.getElementById('ignore_acublo').checked = true;
+                    document.getElementById('ignore_filblo').checked = true;
+                    document.getElementById('ignore_dmgmax').disabled = true;
+                    document.getElementById('ignore_dbkmax').disabled = true;
+                    document.getElementById('ignore_acumax').disabled = true;
+                    document.getElementById('ignore_filmax').disabled = true;
+                    document.getElementById('ignore_dmgblomax').disabled = false; document.getElementById('ignore_dmgblomax').value = 0;
+                    document.getElementById('ignore_dbkblomax').disabled = false; document.getElementById('ignore_dbkblomax').value = 1;
+                    document.getElementById('ignore_acublomax').disabled = false; document.getElementById('ignore_acublomax').value = 1;
+                    document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 0;
+                    break;
             }
         }
     </script>
@@ -1706,6 +1760,11 @@
                                                     <p>
                                                         <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">全选</button>
                                                         <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">全不选</button>
+                                                    </p>
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(3)" id="">BGM-71</button>
+                                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(4)" id="">AGS-30</button>
+                                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(5)" id="">2B-14</button>
                                                     </p>
                                                     <table class="table table-bordered table-hover" style="width:240px">
                                                         <tbody>
