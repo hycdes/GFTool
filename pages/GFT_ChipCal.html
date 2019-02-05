@@ -30,6 +30,7 @@
         var globaltime = [0, 0, 0, 0]; //global timer, for test and all result counting
         var switch_clear = false, switch_maxall = false;
         var topologySet = [], solutionSet = [], topologyNum = 0;
+        var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
         var resultBuffer = [], resultRefer = []; //for buffer result for ranking
         var topologyLib_BGM_1 = [], topologyLibRefer_BGM_1 = [];
         var topologyLib_BGM_2 = [], topologyLibRefer_BGM_2 = [];
@@ -625,17 +626,7 @@
                 else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]]);
             }
             if (topologySet.length > 0) { //get topology result
-                document.getElementById('SortButton_AllPro').disabled = false;
-                document.getElementById('SortButton_Block').disabled = false;
-                document.getElementById('SortButton_Dmg').disabled = false;
-                document.getElementById('SortButton_Dbk').disabled = false;
-                document.getElementById('SortButton_Acu').disabled = false;
-                document.getElementById('SortButton_Fil').disabled = false;
                 var soluNum = topologySet.length;
-                var panelO = document.getElementById('panelO'); panelO.className = '';
-                var panelR = document.getElementById('panelR'); panelR.className = 'active';
-                var Options = document.getElementById('Options'); Options.className = 'tab-pane fade';
-                var Results = document.getElementById('Results'); Results.className = 'tab-pane fade in active';
                 var TopologySelect = document.getElementById('TopologySelect');
                 TopologySelect.disabled = false;
                 var RTText = '<option value=0 selected>图解 1</option>';
@@ -771,47 +762,12 @@
             else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2;
             else HeavyfireType = 3;
             var HeavyfireStar = 5;
-            var SSNum = parseInt(document.getElementById('SolutionSelect').value);
-            var c_num = solutionSet[SSNum].length;
-            document.getElementById('AnalyzeSwitch').disabled = false;
-            //show topology image
-            showTopology(topologySet[topologyNum], HeavyfireType, HeavyfireStar);
-            //show pick chips in chart
-            var ChipComboChart = document.getElementById('ChipComboChart');
-            ChipComboChart.innerHTML = '';
-            for (var c = 0; c < c_num; c++) {
-                var colorName;
-                if (chipRepo_data[solutionSet[SSNum][c] - 1].color === 1) colorName = 'b';
-                else colorName = 'o';
-                var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[solutionSet[SSNum][c] - 1].classNum + '-' + chipRepo_data[solutionSet[SSNum][c] - 1].typeNum + '.png">';
-                var ChartAdd = '';
-                ChartAdd += '<tr>';
-                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipNum + '</td>';
-                ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipType + '</td>';
-                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipLevel + '</td>';
-                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Acu + '</td>';
-                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Fil + '</td>';
-                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg + '</td>';
-                ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk + '</td>';
-                ChartAdd += '</tr>';
-                ChipComboChart.innerHTML += ChartAdd;
-            }
-            //enable and disable topology & solution switch
             var AdTp = document.getElementById('AdTp');
             var SbTp = document.getElementById('SbTp');
             var AdCo = document.getElementById('AdCo');
             var SbCo = document.getElementById('SbCo');
             var topoV = parseInt(document.getElementById('TopologySelect').value);
             var combV = parseInt(document.getElementById('SolutionSelect').value);
-            if (topoV === 0) SbTp.disabled = true;
-            else SbTp.disabled = false;
-            if (topoV === topologySet.length - 1) AdTp.disabled = true;
-            else AdTp.disabled = false;
-            if (combV === 0) SbCo.disabled = true;
-            else SbCo.disabled = false;
-            if (combV === solutionSet.length - 1) AdCo.disabled = true;
-            else AdCo.disabled = false;
-            //show percentage of property or blocknum
             var Process_Text_Dmg = document.getElementById('Process_Text_Dmg');
             var Process_Text_Dbk = document.getElementById('Process_Text_Dbk');
             var Process_Text_Acu = document.getElementById('Process_Text_Acu');
@@ -824,109 +780,210 @@
             var Process_Bar_Dbk = document.getElementById('Process_Bar_Dbk');
             var Process_Bar_Acu = document.getElementById('Process_Bar_Acu');
             var Process_Bar_Fil = document.getElementById('Process_Bar_Fil');
-            if (analyze_switch === 1) {
-                document.getElementById('AnalyzeSwitch').innerHTML = '显示有效格数';
-                document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-success';
-                var dmg = 0, dbk = 0, acu = 0, fil = 0;
-                var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
-                if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
-                else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
-                else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+            if (solutionSet.length > 0) {
+                document.getElementById('SortButton_AllPro').disabled = false;
+                document.getElementById('SortButton_Block').disabled = false;
+                document.getElementById('SortButton_Dmg').disabled = false;
+                document.getElementById('SortButton_Dbk').disabled = false;
+                document.getElementById('SortButton_Acu').disabled = false;
+                document.getElementById('SortButton_Fil').disabled = false;
+                var SSNum = parseInt(document.getElementById('SolutionSelect').value);
+                var c_num = solutionSet[SSNum].length;
+                document.getElementById('AnalyzeSwitch').disabled = false;
+                //show topology image
+                showTopology(topologySet[topologyNum], HeavyfireType, HeavyfireStar);
+                //show pick chips in chart
+                var ChipComboChart = document.getElementById('ChipComboChart');
+                ChipComboChart.innerHTML = '';
                 for (var c = 0; c < c_num; c++) {
-                    dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg;
-                    dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk;
-                    acu += chipRepo_chart[solutionSet[SSNum][c] - 1].Acu;
-                    fil += chipRepo_chart[solutionSet[SSNum][c] - 1].Fil;
+                    var colorName;
+                    if (chipRepo_data[solutionSet[SSNum][c] - 1].color === 1) colorName = 'b';
+                    else colorName = 'o';
+                    var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[solutionSet[SSNum][c] - 1].classNum + '-' + chipRepo_data[solutionSet[SSNum][c] - 1].typeNum + '.png">';
+                    var ChartAdd = '';
+                    ChartAdd += '<tr>';
+                    ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipNum + '</td>';
+                    ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipType + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipLevel + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Acu + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Fil + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg + '</td>';
+                    ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk + '</td>';
+                    ChartAdd += '</tr>';
+                    ChipComboChart.innerHTML += ChartAdd;
                 }
-                if (dmg > dmg_max) {
-                    Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg + '</span>' + '/' + dmg_max;
-                    DmgAlert.innerHTML = "* 杀伤溢出";
-                    Process_Bar_Dmg.style = "width:100%";
+                //enable and disable topology & solution switch
+                if (topoV === 0) SbTp.disabled = true;
+                else SbTp.disabled = false;
+                if (topoV === topologySet.length - 1) AdTp.disabled = true;
+                else AdTp.disabled = false;
+                if (combV === 0) SbCo.disabled = true;
+                else SbCo.disabled = false;
+                if (combV === solutionSet.length - 1) AdCo.disabled = true;
+                else AdCo.disabled = false;
+                //show percentage of property or blocknum
+                if (analyze_switch === 1) {
+                    document.getElementById('AnalyzeSwitch').innerHTML = '显示有效格数';
+                    document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-success';
+                    var dmg = 0, dbk = 0, acu = 0, fil = 0;
+                    var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
+                    if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
+                    else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
+                    else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+                    for (var c = 0; c < c_num; c++) {
+                        dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg;
+                        dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk;
+                        acu += chipRepo_chart[solutionSet[SSNum][c] - 1].Acu;
+                        fil += chipRepo_chart[solutionSet[SSNum][c] - 1].Fil;
+                    }
+                    if (dmg > dmg_max) {
+                        Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg + '</span>' + '/' + dmg_max;
+                        DmgAlert.innerHTML = "* 杀伤溢出";
+                        Process_Bar_Dmg.style = "width:100%";
+                    }
+                    else {
+                        Process_Text_Dmg.innerHTML = dmg + '/' + dmg_max;
+                        DmgAlert.innerHTML = "";
+                        Process_Bar_Dmg.style = ("width:" + (dmg / dmg_max).toFixed(2) * 100 + "%");
+                    }
+                    if (dbk > dbk_max) {
+                        Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk + '</span>' + '/' + dbk_max;
+                        DbkAlert.innerHTML = "* 破防溢出";
+                        Process_Bar_Dbk.style = "width:100%";
+                    }
+                    else {
+                        Process_Text_Dbk.innerHTML = dbk + '/' + dbk_max;
+                        DbkAlert.innerHTML = "";
+                        Process_Bar_Dbk.style = ("width:" + (dbk / dbk_max).toFixed(2) * 100 + "%");
+                    }
+                    if (acu > acu_max) {
+                        Process_Text_Acu.innerHTML = '<span style="color:red">' + acu + '</span>' + '/' + acu_max;
+                        AcuAlert.innerHTML = "* 精度溢出";
+                        Process_Bar_Acu.style = "width:100%";
+                    }
+                    else {
+                        Process_Text_Acu.innerHTML = acu + '/' + acu_max;
+                        AcuAlert.innerHTML = "";
+                        Process_Bar_Acu.style = ("width:" + (acu / acu_max).toFixed(2) * 100 + "%");
+                    }
+                    if (fil > fil_max) {
+                        Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max;
+                        FilAlert.innerHTML = "* 装填溢出";
+                        Process_Bar_Fil.style = "width:100%";
+                    }
+                    else {
+                        Process_Text_Fil.innerHTML = fil + '/' + fil_max;
+                        FilAlert.innerHTML = "";
+                        Process_Bar_Fil.style = ("width:" + (fil / fil_max).toFixed(2) * 100 + "%");
+                    }
+                } else if (analyze_switch === -1) {
+                    document.getElementById('AnalyzeSwitch').innerHTML = '显示有效属性';
+                    document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-warning';
+                    var dmg_blo = 0, dbk_blo = 0, acu_blo = 0, fil_blo = 0;
+                    var dmg_blomax = 0, dbk_blomax = 0, acu_blomax = 0, fil_blomax = 0;
+                    if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
+                    else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
+                    else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
+                    for (var c = 0; c < c_num; c++) {
+                        dmg_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDmg;
+                        dbk_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDbk;
+                        acu_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bAcu;
+                        fil_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bFil;
+                    }
+                    if (dmg_blo > dmg_blomax) {
+                        Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg_blo + '</span>' + '/' + dmg_blomax;
+                        DmgAlert.innerHTML = "* 杀伤溢出";
+                        Process_Bar_Dmg.style = "width:100%";
+                    } else {
+                        Process_Text_Dmg.innerHTML = dmg_blo + '/' + dmg_blomax;
+                        DmgAlert.innerHTML = "";
+                        Process_Bar_Dmg.style = ("width:" + (dmg_blo / dmg_blomax).toFixed(2) * 100 + "%");
+                    }
+                    if (dbk_blo > dbk_blomax) {
+                        Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk_blo + '</span>' + '/' + dbk_blomax;
+                        DbkAlert.innerHTML = "* 破防溢出";
+                        Process_Bar_Dbk.style = "width:100%";
+                    } else {
+                        Process_Text_Dbk.innerHTML = dbk_blo + '/' + dbk_blomax;
+                        DbkAlert.innerHTML = "";
+                        Process_Bar_Dbk.style = ("width:" + (dbk_blo / dbk_blomax).toFixed(2) * 100 + "%");
+                    }
+                    if (acu_blo > acu_blomax) {
+                        Process_Text_Acu.innerHTML = '<span style="color:red">' + acu_blo + '</span>' + '/' + acu_blomax;
+                        AcuAlert.innerHTML = "* 精度溢出";
+                        Process_Bar_Acu.style = "width:100%";
+                    } else {
+                        Process_Text_Acu.innerHTML = acu_blo + '/' + acu_blomax;
+                        AcuAlert.innerHTML = "";
+                        Process_Bar_Acu.style = ("width:" + (acu_blo / acu_blomax).toFixed(2) * 100 + "%");
+                    }
+                    if (fil_blo > fil_blomax) {
+                        Process_Text_Fil.innerHTML = '<span style="color:red">' + fil_blo + '</span>' + '/' + fil_blomax;
+                        FilAlert.innerHTML = "* 装填溢出";
+                        Process_Bar_Fil.style = "width:100%";
+                    } else {
+                        Process_Text_Fil.innerHTML = fil_blo + '/' + fil_blomax;
+                        FilAlert.innerHTML = "";
+                        Process_Bar_Fil.style = ("width:" + (fil_blo / fil_blomax).toFixed(2) * 100 + "%");
+                    }
                 }
-                else {
-                    Process_Text_Dmg.innerHTML = dmg + '/' + dmg_max;
+            } else {
+                document.getElementById('SortButton_AllPro').disabled = true;
+                document.getElementById('SortButton_Block').disabled = true;
+                document.getElementById('SortButton_Dmg').disabled = true;
+                document.getElementById('SortButton_Dbk').disabled = true;
+                document.getElementById('SortButton_Acu').disabled = true;
+                document.getElementById('SortButton_Fil').disabled = true;
+                //show topology(no result) image
+                showTopology(topology_noresult, HeavyfireType, HeavyfireStar);
+                //show pick chips in chart
+                var ChipComboChart = document.getElementById('ChipComboChart').innerHTML = '';
+                //enable and disable topology & solution switch
+                if (topoV === 0) SbTp.disabled = true;
+                else SbTp.disabled = false;
+                if (topoV === topologySet.length - 1) AdTp.disabled = true;
+                else AdTp.disabled = false;
+                SbCo.disabled = true;
+                AdCo.disabled = true;
+                //show percentage of property or blocknum
+                if (analyze_switch === 1) {
+                    document.getElementById('AnalyzeSwitch').innerHTML = '显示有效格数';
+                    document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-success';
+                    var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0;
+                    if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
+                    else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
+                    else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+                    Process_Text_Dmg.innerHTML = 0 + '/' + dmg_max;
                     DmgAlert.innerHTML = "";
-                    Process_Bar_Dmg.style = ("width:" + (dmg / dmg_max).toFixed(2) * 100 + "%");
-                }
-                if (dbk > dbk_max) {
-                    Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk + '</span>' + '/' + dbk_max;
-                    DbkAlert.innerHTML = "* 破防溢出";
-                    Process_Bar_Dbk.style = "width:100%";
-                }
-                else {
-                    Process_Text_Dbk.innerHTML = dbk + '/' + dbk_max;
+                    Process_Bar_Dmg.style = ("width:0%");
+                    Process_Text_Dbk.innerHTML = 0 + '/' + dbk_max;
                     DbkAlert.innerHTML = "";
-                    Process_Bar_Dbk.style = ("width:" + (dbk / dbk_max).toFixed(2) * 100 + "%");
-                }
-                if (acu > acu_max) {
-                    Process_Text_Acu.innerHTML = '<span style="color:red">' + acu + '</span>' + '/' + acu_max;
-                    AcuAlert.innerHTML = "* 精度溢出";
-                    Process_Bar_Acu.style = "width:100%";
-                }
-                else {
-                    Process_Text_Acu.innerHTML = acu + '/' + acu_max;
+                    Process_Bar_Dbk.style = ("width:0%");
+                    Process_Text_Acu.innerHTML = 0 + '/' + acu_max;
                     AcuAlert.innerHTML = "";
-                    Process_Bar_Acu.style = ("width:" + (acu / acu_max).toFixed(2) * 100 + "%");
-                }
-                if (fil > fil_max) {
-                    Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max;
-                    FilAlert.innerHTML = "* 装填溢出";
-                    Process_Bar_Fil.style = "width:100%";
-                }
-                else {
-                    Process_Text_Fil.innerHTML = fil + '/' + fil_max;
+                    Process_Bar_Acu.style = ("width:0%");
+                    Process_Text_Fil.innerHTML = 0 + '/' + fil_max;
                     FilAlert.innerHTML = "";
-                    Process_Bar_Fil.style = ("width:" + (fil / fil_max).toFixed(2) * 100 + "%");
-                }
-            } else if (analyze_switch === -1) {
-                document.getElementById('AnalyzeSwitch').innerHTML = '显示有效属性';
-                document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-warning';
-                var dmg_blo = 0, dbk_blo = 0, acu_blo = 0, fil_blo = 0;
-                var dmg_blomax = 0, dbk_blomax = 0, acu_blomax = 0, fil_blomax = 0;
-                if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
-                else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
-                else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
-                for (var c = 0; c < c_num; c++) {
-                    dmg_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDmg;
-                    dbk_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDbk;
-                    acu_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bAcu;
-                    fil_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bFil;
-                }
-                if (dmg_blo > dmg_blomax) {
-                    Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg_blo + '</span>' + '/' + dmg_blomax;
-                    DmgAlert.innerHTML = "* 杀伤溢出";
-                    Process_Bar_Dmg.style = "width:100%";
-                } else {
-                    Process_Text_Dmg.innerHTML = dmg_blo + '/' + dmg_blomax;
+                    Process_Bar_Fil.style = ("width:0%");
+                } else if (analyze_switch === -1) {
+                    document.getElementById('AnalyzeSwitch').innerHTML = '显示有效属性';
+                    document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-warning';
+                    var dmg_blomax = 0, dbk_blomax = 0, acu_blomax = 0, fil_blomax = 0;
+                    if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
+                    else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
+                    else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
+                    Process_Text_Dmg.innerHTML = 0 + '/' + dmg_blomax;
                     DmgAlert.innerHTML = "";
-                    Process_Bar_Dmg.style = ("width:" + (dmg_blo / dmg_blomax).toFixed(2) * 100 + "%");
-                }
-                if (dbk_blo > dbk_blomax) {
-                    Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk_blo + '</span>' + '/' + dbk_blomax;
-                    DbkAlert.innerHTML = "* 破防溢出";
-                    Process_Bar_Dbk.style = "width:100%";
-                } else {
-                    Process_Text_Dbk.innerHTML = dbk_blo + '/' + dbk_blomax;
+                    Process_Bar_Dmg.style = ("width:0%");
+                    Process_Text_Dbk.innerHTML = 0 + '/' + dbk_blomax;
                     DbkAlert.innerHTML = "";
-                    Process_Bar_Dbk.style = ("width:" + (dbk_blo / dbk_blomax).toFixed(2) * 100 + "%");
-                }
-                if (acu_blo > acu_blomax) {
-                    Process_Text_Acu.innerHTML = '<span style="color:red">' + acu_blo + '</span>' + '/' + acu_blomax;
-                    AcuAlert.innerHTML = "* 精度溢出";
-                    Process_Bar_Acu.style = "width:100%";
-                } else {
-                    Process_Text_Acu.innerHTML = acu_blo + '/' + acu_blomax;
+                    Process_Bar_Dbk.style = ("width:0%");
+                    Process_Text_Acu.innerHTML = 0 + '/' + acu_blomax;
                     AcuAlert.innerHTML = "";
-                    Process_Bar_Acu.style = ("width:" + (acu_blo / acu_blomax).toFixed(2) * 100 + "%");
-                }
-                if (fil_blo > fil_blomax) {
-                    Process_Text_Fil.innerHTML = '<span style="color:red">' + fil_blo + '</span>' + '/' + fil_blomax;
-                    FilAlert.innerHTML = "* 装填溢出";
-                    Process_Bar_Fil.style = "width:100%";
-                } else {
-                    Process_Text_Fil.innerHTML = fil_blo + '/' + fil_blomax;
+                    Process_Bar_Acu.style = ("width:0%");
+                    Process_Text_Fil.innerHTML = 0 + '/' + fil_blomax;
                     FilAlert.innerHTML = "";
-                    Process_Bar_Fil.style = ("width:" + (fil_blo / fil_blomax).toFixed(2) * 100 + "%");
+                    Process_Bar_Fil.style = ("width:0%");
                 }
             }
         }
@@ -934,15 +991,6 @@
             solutionSet = getSolution(topologySet[topologyNum]);
             SolutionSelect.disabled = false;
             sortSolution(ranking_switch);
-            //new
-            // var newResult = getResult(topologySet[topologyNum]);
-            // if (newResult.length != 0) resultBuffer.push(newResult);
-        }
-        function getResult(topology) {
-            var newResult = [];
-            var resultlen = resultRefer.length;
-            for (var i = 0; i < resultlen; i++) if (topologyNum === resultRefer[i]) return newResult; //check if buffered
-            var solutionSet = getSolution(topology);
         }
         function getSolution(topology) {
             var tempChipRepo = []; //待选芯片数据的二维数组
@@ -1157,6 +1205,62 @@
             if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max;
             return fil_b - fil_a;
         }
+        function ignoreSolution(dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max) {
+            var solution_filtered = [];
+            var ignore_dmg = parseInt(document.getElementById('ignore_dmgmax').value);
+            var ignore_dbk = parseInt(document.getElementById('ignore_dbkmax').value);
+            var ignore_acu = parseInt(document.getElementById('ignore_acumax').value);
+            var ignore_fil = parseInt(document.getElementById('ignore_filmax').value);
+            var ignore_dmgblo = parseInt(document.getElementById('ignore_dmgblomax').value);
+            var ignore_dbkblo = parseInt(document.getElementById('ignore_dbkblomax').value);
+            var ignore_acublo = parseInt(document.getElementById('ignore_acublomax').value);
+            var ignore_filblo = parseInt(document.getElementById('ignore_filblomax').value);
+            var solulen = solutionSet.length, combinelen = solutionSet[0].length;
+            for (var i = 0; i < solulen; i++) {
+                if (document.getElementById('ignore_dmg').checked) {
+                    var dmg = 0;
+                    for (var n = 0; n < combinelen; n++) dmg += chipRepo_chart[solutionSet[i][n] - 1].Dmg;
+                    if (dmg > dmg_max + ignore_dmg) continue;
+                }
+                if (document.getElementById('ignore_dbk').checked) {
+                    var dbk = 0;
+                    for (var n = 0; n < combinelen; n++) dbk += chipRepo_chart[solutionSet[i][n] - 1].Dbk;
+                    if (dbk > dbk_max + ignore_dbk) continue;
+                }
+                if (document.getElementById('ignore_acu').checked) {
+                    var acu = 0;
+                    for (var n = 0; n < combinelen; n++) acu += chipRepo_chart[solutionSet[i][n] - 1].Acu;
+                    if (acu > acu_max + ignore_acu) continue;
+                }
+                if (document.getElementById('ignore_fil').checked) {
+                    var fil = 0;
+                    for (var n = 0; n < combinelen; n++) fil += chipRepo_chart[solutionSet[i][n] - 1].Fil;
+                    if (fil > fil_max + ignore_fil) continue;
+                }
+                if (document.getElementById('ignore_dmgblo').checked) {
+                    var dmg_blo = 0;
+                    for (var n = 0; n < combinelen; n++) dmg += chipRepo_data[solutionSet[i][n] - 1].bDmg;
+                    if (dmg_blo > dmgblo_max + ignore_dmgblo) continue;
+                }
+                if (document.getElementById('ignore_dbkblo').checked) {
+                    var dbk_blo = 0;
+                    for (var n = 0; n < combinelen; n++) dbk += chipRepo_data[solutionSet[i][n] - 1].bDbk;
+                    if (dbk_blo > dbkblo_max + ignore_dbkblo) continue;
+                }
+                if (document.getElementById('ignore_acublo').checked) {
+                    var acu_blo = 0;
+                    for (var n = 0; n < combinelen; n++) acu += chipRepo_data[solutionSet[i][n] - 1].bAcu;
+                    if (acu_blo > acublo_max + ignore_acublo) continue;
+                }
+                if (document.getElementById('ignore_filblo').checked) {
+                    var fil_blo = 0;
+                    for (var n = 0; n < combinelen; n++) fil += chipRepo_data[solutionSet[i][n] - 1].bFil;
+                    if (fil_blo > filblo_max + ignore_filblo) continue;
+                }
+                solution_filtered.push(solutionSet[i]);
+            }
+            return solution_filtered;
+        }
         function sortSolution(sortType) {
             ranking_switch = parseInt(sortType);
             if (sortType === 1) analyze_switch = 1;
@@ -1171,6 +1275,7 @@
             else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
             var SolutionSelect = document.getElementById('SolutionSelect');
             var SSText = '';
+            solutionSet = ignoreSolution(dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max);
             var solulen = solutionSet.length;
             switch (ranking_switch) {
                 case 1: //All property
@@ -1199,11 +1304,15 @@
                     break;
             }
             SolutionSelect.disabled = false;
-            for (var i = 0; i < solulen; i++) {
-                SSText += '<option value=' + i + '>编号 ';
-                var c_num = solutionSet[i].length;
-                for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + " ");
-                SSText += '</option>';
+            if (solulen > 0) {
+                for (var i = 0; i < solulen; i++) {
+                    SSText += '<option value=' + i + '>编号 ';
+                    var c_num = solutionSet[i].length;
+                    for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + " ");
+                    SSText += '</option>';
+                }
+            } else {
+                SSText = '<option value=-1>无合适方案</option>';
             }
             SolutionSelect.innerHTML = SSText;
             showAnalyze();
@@ -1211,6 +1320,58 @@
         function switchAnalyze() {
             analyze_switch *= -1;
             showAnalyze();
+        }
+        function setIgnore(typeInfo) {
+            switch (typeInfo) {
+                case 1: document.getElementById('ignore_dmgmax').disabled = !(document.getElementById('ignore_dmgmax').disabled); break;
+                case 2: document.getElementById('ignore_dbkmax').disabled = !(document.getElementById('ignore_dbkmax').disabled); break;
+                case 3: document.getElementById('ignore_acumax').disabled = !(document.getElementById('ignore_acumax').disabled); break;
+                case 4: document.getElementById('ignore_filmax').disabled = !(document.getElementById('ignore_filmax').disabled); break;
+                case 5: document.getElementById('ignore_dmgblomax').disabled = !(document.getElementById('ignore_dmgblomax').disabled); break;
+                case 6: document.getElementById('ignore_dbkblomax').disabled = !(document.getElementById('ignore_dbkblomax').disabled); break;
+                case 7: document.getElementById('ignore_acublomax').disabled = !(document.getElementById('ignore_acublomax').disabled); break;
+                case 8: document.getElementById('ignore_filblomax').disabled = !(document.getElementById('ignore_filblomax').disabled); break;
+            }
+        }
+        function allIgnore(typeInfo) {
+            switch (typeInfo) {
+                case 1:
+                    document.getElementById('ignore_dmg').checked = true;
+                    document.getElementById('ignore_dbk').checked = true;
+                    document.getElementById('ignore_acu').checked = true;
+                    document.getElementById('ignore_fil').checked = true;
+                    document.getElementById('ignore_dmgblo').checked = true;
+                    document.getElementById('ignore_dbkblo').checked = true;
+                    document.getElementById('ignore_acublo').checked = true;
+                    document.getElementById('ignore_filblo').checked = true;
+                    document.getElementById('ignore_dmgmax').disabled = false;
+                    document.getElementById('ignore_dbkmax').disabled = false;
+                    document.getElementById('ignore_acumax').disabled = false;
+                    document.getElementById('ignore_filmax').disabled = false;
+                    document.getElementById('ignore_dmgblomax').disabled = false;
+                    document.getElementById('ignore_dbkblomax').disabled = false;
+                    document.getElementById('ignore_acublomax').disabled = false;
+                    document.getElementById('ignore_filblomax').disabled = false;
+                    break;
+                case 2:
+                    document.getElementById('ignore_dmg').checked = false;
+                    document.getElementById('ignore_dbk').checked = false;
+                    document.getElementById('ignore_acu').checked = false;
+                    document.getElementById('ignore_fil').checked = false;
+                    document.getElementById('ignore_dmgblo').checked = false;
+                    document.getElementById('ignore_dbkblo').checked = false;
+                    document.getElementById('ignore_acublo').checked = false;
+                    document.getElementById('ignore_filblo').checked = false;
+                    document.getElementById('ignore_dmgmax').disabled = true;
+                    document.getElementById('ignore_dbkmax').disabled = true;
+                    document.getElementById('ignore_acumax').disabled = true;
+                    document.getElementById('ignore_filmax').disabled = true;
+                    document.getElementById('ignore_dmgblomax').disabled = true;
+                    document.getElementById('ignore_dbkblomax').disabled = true;
+                    document.getElementById('ignore_acublomax').disabled = true;
+                    document.getElementById('ignore_filblomax').disabled = true;
+                    break;
+            }
         }
     </script>
 </head>
@@ -1510,251 +1671,288 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="col-lg-12">
-                                    <h4>重装部队类型</h4>
-                                    <div class="col-lg-12">
-                                        <p>
-                                            <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
-                                            <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
-                                            <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <p><button type="button" class="btn btn-primary" onclick="getTopology()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                <div class="col-lg-6">
+                                    <div class="panel-body">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active" id="panelS">
+                                                <a href="#SortOption_basic" data-toggle="tab">基本设置</a>
+                                            </li>
+                                            <li id="panelSL">
+                                                <a href="#SortOption_advanced" data-toggle="tab">高级设置</a>
+                                            </li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                            <!--CHIPSETTING-->
+                                            <div class="tab-pane fade in active" id="SortOption_basic">
+                                                <h4>重装部队类型</h4>
+                                                <div class="col-lg-12">
+                                                    <p>
+                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
+                                                    </p>
+                                                    <div class="checkbox">
+                                                        <label><input type="checkbox" value="" disabled>直接跳转至最优方案 (未完成)</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--SAVELOAD-->
+                                            <div class="tab-pane fade" id="SortOption_advanced">
+                                                <div class="tooltip-demo">
+                                                    <h4>筛选溢出结果 <button type="button" data-toggle="tooltip" data-placement="bottom" title="以下值溢出超过设定值则放弃" class="btn btn-outline btn-default">?</button></h4>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">全选</button>
+                                                        <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">全不选</button>
+                                                    </p>
+                                                    <table class="table table-bordered table-hover" style="width:240px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> 杀伤值</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgmax" value=0 disabled></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> 破防值</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkmax" value=0 disabled></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> 精度值</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acumax" value=0 disabled></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> 装填值</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filmax" value=0 disabled></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> 杀伤格数</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgblomax" value=0 disabled></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> 破防格数</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkblomax" value=0 disabled></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> 精度格数</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acublomax" value=0 disabled></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> 装填格数</label></td>
+                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filblomax" value=0 disabled></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs">
-                                    <li class="active" id="panelR">
-                                        <a href="#Results" data-toggle="tab">结果</a>
-                                    </li>
-                                    <li id="panelO">
-                                        <a href="#Options" data-toggle="tab">高级选项</a>
-                                    </li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane fade in active" id="Results">
-                                        <div class="col-lg-4">
-                                            <h4>图解 (Algorithm v4.0)</h4>
-                                            <h5 id="timeText"></h5>
-                                            <div class="table-responsive">
-                                                <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
-                                                    <tbody>
-                                                        <tr id="solutionLine1">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                        <tr id="solutionLine2">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                        <tr id="solutionLine3">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                        <tr id="solutionLine4">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                        <tr id="solutionLine5">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                        <tr id="solutionLine6">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                        <tr id="solutionLine7">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_blueback"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                        <tr id="solutionLine8">
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                            <td class="td_black"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <p>
-                                                <table class="table table-bordered" style='width:220px'>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style='text-align: center'>
-                                                                <button type="button" class="btn btn-outline btn-success" id="AnalyzeSwitch" onclick="switchAnalyze()" disabled>切换为格数</button>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div style="width:220px; background:url(../img/icon-dmg.png) no-repeat left top;">
-                                                                    <p>
-                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dmg">0/190</strong>
-                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DmgAlert"></span></b>
-                                                                    </p>
-                                                                    <div class="progress progress-striped active">
-                                                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dmg">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div style="width:220px; background:url(../img/icon-dbk.png) no-repeat left top;">
-                                                                    <p>
-                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dbk">0/329</strong>
-                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="DbkAlert"></span></b>
-                                                                    </p>
-                                                                    <div class="progress progress-striped active">
-                                                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dbk">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div style="width:220px; background:url(../img/icon-acu.png) no-repeat left top;">
-                                                                    <p>
-                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Acu">0/191</strong>
-                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="AcuAlert"></span></b>
-                                                                    </p>
-                                                                    <div class="progress progress-striped active">
-                                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Acu">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div style="width:220px; background:url(../img/icon-fil.png) no-repeat left top;">
-                                                                    <p>
-                                                                        <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/46</strong>
-                                                                        <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
-                                                                    </p>
-                                                                    <div class="progress progress-striped active">
-                                                                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Fil">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </p>
+                                <div class="col-lg-12">
+                                    <p><button type="button" class="btn btn-primary" onclick="getTopology()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4">
+                                        <h4>图解 (ChipCal_hycdes ver 5.0)</h4>
+                                        <h5 id="timeText"></h5>
+                                        <div class="table-responsive">
+                                            <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
+                                                <tbody>
+                                                    <tr id="solutionLine1">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                    <tr id="solutionLine2">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                    <tr id="solutionLine3">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                    <tr id="solutionLine4">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                    <tr id="solutionLine5">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                    <tr id="solutionLine6">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                    <tr id="solutionLine7">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_blueback"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                    <tr id="solutionLine8">
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                        <td class="td_black"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <div class="tooltip-demo">
-                                                <h4>组合的排序基准 <button type="button" data-toggle="tooltip" data-placement="bottom" title="芯片并非全部满强请选择“有效格” 按所选条件从高到低排序组合" class="btn btn-outline btn-default">?</button></h4>
-                                            </div>
-                                            <p>
-                                                <button type="button" class="btn btn-outline btn-danger" onclick="sortSolution(1)" id="SortButton_AllPro" disabled>有效总属性</button>
-                                                <button type="button" class="btn btn-outline btn-warning" onclick="sortSolution(2)" id="SortButton_Block" disabled>有效格</button>
-                                            </p>
-                                            <p>
-                                                <button type="button" class="btn btn-default" onclick="sortSolution(3)" id="SortButton_Dmg" disabled>杀伤</button>
-                                                <button type="button" class="btn btn-default" onclick="sortSolution(4)" id="SortButton_Dbk" disabled>破防</button>
-                                                <button type="button" class="btn btn-default" onclick="sortSolution(5)" id="SortButton_Acu" disabled>精度</button>
-                                                <button type="button" class="btn btn-default" onclick="sortSolution(6)" id="SortButton_Fil" disabled>装填</button>
-                                            </p>
-                                            <h4>方案选择</h4>
-                                            <h5 id="SortInfo"></h5>
-                                            <table class="table table-bordered table-hover" style='width:400px'>
+                                        <p>
+                                            <table class="table table-bordered" style='width:220px'>
                                                 <tbody>
                                                     <tr>
-                                                        <td style='width:130px'>图解
-                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeTopology(2)" id="SbTp" disabled> &lt </button>
-                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeTopology(1)" id="AdTp" disabled> &gt </button>
-                                                        </td>
-                                                        <td style='width:200px'>
-                                                            <select class="form-control input-sm" id="TopologySelect" style="width: 240px" onchange="changeTopology(0)" disabled>
-                                                                <option value=-1>图解编号</option>
-                                                            </select>
+                                                        <td style='text-align: center'>
+                                                            <button type="button" class="btn btn-outline btn-success" id="AnalyzeSwitch" onclick="switchAnalyze()" disabled>切换为格数</button>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style='width:130px'>组合
-                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeAnalyze(2)" id="SbCo" disabled> &lt </button>
-                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeAnalyze(1)" id="AdCo" disabled> &gt </button>
-                                                        </td>
-                                                        <td style='width:200px'>
-                                                            <select class="form-control input-sm" id="SolutionSelect" style="width: 240px" onchange="showAnalyze()" disabled>
-                                                                <option value=-1>芯片组合</option>
-                                                            </select>
+                                                        <td>
+                                                            <div style="width:220px; background:url(../img/icon-dmg.png) no-repeat left top;">
+                                                                <p>
+                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dmg">0/190</strong>
+                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="DmgAlert"></span></b>
+                                                                </p>
+                                                                <div class="progress progress-striped active">
+                                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dmg">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div style="width:220px; background:url(../img/icon-dbk.png) no-repeat left top;">
+                                                                <p>
+                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dbk">0/329</strong>
+                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="DbkAlert"></span></b>
+                                                                </p>
+                                                                <div class="progress progress-striped active">
+                                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dbk">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div style="width:220px; background:url(../img/icon-acu.png) no-repeat left top;">
+                                                                <p>
+                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Acu">0/191</strong>
+                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="AcuAlert"></span></b>
+                                                                </p>
+                                                                <div class="progress progress-striped active">
+                                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Acu">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div style="width:220px; background:url(../img/icon-fil.png) no-repeat left top;">
+                                                                <p>
+                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/46</strong>
+                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
+                                                                </p>
+                                                                <div class="progress progress-striped active">
+                                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Fil">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered table-hover">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>编号</th>
-                                                            <th>类型</th>
-                                                            <th>强化</th>
-                                                            <th><img src="../img/icon-acu.png"></th>
-                                                            <th><img src="../img/icon-fil.png"></th>
-                                                            <th><img src="../img/icon-dmg.png"></th>
-                                                            <th><img src="../img/icon-dbk.png"></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="ChipComboChart">
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
+                                        </p>
                                     </div>
-                                    <div class="tab-pane fade" id="Options">
-                                        <h4>高级设置</h4>
-                                        <div class="col-lg-12">
-                                            <h5>* 未完成</h5>
-                                            <table class="table table-bordered table-hover" style="width:400px">
-                                                <tbody>
+                                    <div class="col-lg-8">
+                                        <div class="tooltip-demo">
+                                            <h4>组合的排序基准 <button type="button" data-toggle="tooltip" data-placement="bottom" title="芯片并非全部满强请选择“有效格” 按所选条件从高到低排序组合" class="btn btn-outline btn-default">?</button></h4>
+                                        </div>
+                                        <p>
+                                            <button type="button" class="btn btn-outline btn-danger" onclick="sortSolution(1)" id="SortButton_AllPro" disabled>有效总属性</button>
+                                            <button type="button" class="btn btn-outline btn-warning" onclick="sortSolution(2)" id="SortButton_Block" disabled>有效格</button>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="sortSolution(3)" id="SortButton_Dmg" disabled>杀伤</button>
+                                            <button type="button" class="btn btn-default" onclick="sortSolution(4)" id="SortButton_Dbk" disabled>破防</button>
+                                            <button type="button" class="btn btn-default" onclick="sortSolution(5)" id="SortButton_Acu" disabled>精度</button>
+                                            <button type="button" class="btn btn-default" onclick="sortSolution(6)" id="SortButton_Fil" disabled>装填</button>
+                                        </p>
+                                        <h4>方案选择</h4>
+                                        <h5 id="SortInfo"></h5>
+                                        <table class="table table-bordered table-hover" style='width:400px'>
+                                            <tbody>
+                                                <tr>
+                                                    <td style='width:130px'>图解
+                                                        <button type="button" class="btn btn-outline btn-success" onclick="changeTopology(2)" id="SbTp" disabled> &lt </button>
+                                                        <button type="button" class="btn btn-outline btn-warning" onclick="changeTopology(1)" id="AdTp" disabled> &gt </button>
+                                                    </td>
+                                                    <td style='width:200px'>
+                                                        <select class="form-control input-sm" id="TopologySelect" style="width: 240px" onchange="changeTopology(0)" disabled>
+                                                            <option value=-1>图解编号</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style='width:130px'>组合
+                                                        <button type="button" class="btn btn-outline btn-success" onclick="changeAnalyze(2)" id="SbCo" disabled> &lt </button>
+                                                        <button type="button" class="btn btn-outline btn-warning" onclick="changeAnalyze(1)" id="AdCo" disabled> &gt </button>
+                                                    </td>
+                                                    <td style='width:200px'>
+                                                        <select class="form-control input-sm" id="SolutionSelect" style="width: 240px" onchange="showAnalyze()" disabled>
+                                                            <option value=-1>芯片组合</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
                                                     <tr>
-                                                        <td>允许最大溢出格数</td>
-                                                        <td>
-                                                            <div class="form-group">
-                                                                <input class="form-control" placeholder="输入整数" value='∞' id="MaxOverflowValue" disabled>
-                                                            </div>
-                                                        </td>
+                                                        <th>编号</th>
+                                                        <th>类型</th>
+                                                        <th>强化</th>
+                                                        <th><img src="../img/icon-acu.png"></th>
+                                                        <th><img src="../img/icon-fil.png"></th>
+                                                        <th><img src="../img/icon-dmg.png"></th>
+                                                        <th><img src="../img/icon-dbk.png"></th>
                                                     </tr>
+                                                </thead>
+                                                <tbody id="ChipComboChart">
                                                 </tbody>
                                             </table>
                                         </div>
