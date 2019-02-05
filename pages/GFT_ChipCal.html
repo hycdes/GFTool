@@ -1174,27 +1174,27 @@
             var solulen = solutionSet.length;
             switch (ranking_switch) {
                 case 1: //All property
-                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效总属性</b></span> 排序' + '，图解 ' + topologyNum + ' 有 ' + solutionSet.length + ' 种有效组合';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效总属性</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合';
                     solutionSet.sort(compare_sumpro);
                     break;
                 case 2: //All blockNum
-                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效格数</b></span> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效格数</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合';
                     solutionSet.sort(compare_sumblo);
                     break;
                 case 3: //Dmg
-                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>杀伤</b></span> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>杀伤</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合';
                     solutionSet.sort(compare_dmg);
                     break;
                 case 4: //Dbk
-                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>破防</b></span> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>破防</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合';
                     solutionSet.sort(compare_dbk);
                     break;
                 case 5: //Acu
-                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>精度</b></span> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>精度</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合';
                     solutionSet.sort(compare_acu);
                     break;
                 case 6: //Fil
-                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>装填</b></span> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>装填</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合';
                     solutionSet.sort(compare_fil);
                     break;
             }
