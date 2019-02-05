@@ -28,6 +28,7 @@
     </style>
     <script>
         var globaltime = [0, 0, 0, 0]; //global timer, for test and all result counting
+        var switch_clear = false, switch_maxall = false;
         var topologySet = [], solutionSet = [], topologyNum = 0;
         var resultBuffer = [], resultRefer = []; //for buffer result for ranking
         var topologyLib_BGM_1 = [], topologyLibRefer_BGM_1 = [];
@@ -159,21 +160,30 @@
                     document.getElementById('deleteChipButton').disabled = true;
                     break;
                 case 3:
-                    chipRepo_data = []
-                    chipRepo_chart = []
-                    chipNum = 0
-                    ChipRepoChartId.innerHTML = '' // CLEAR chart
-                    deleteSelectHTML = ['<option value=0 selected>选择编号</option>']
-                    DeleteSelectId.innerHTML = deleteSelectHTML[0]
-                    break
+                    if (switch_clear === false) {
+                        switch_clear = true;
+                        document.getElementById('alert_clear').innerHTML = ' * 再按一次确认清空芯片仓库';
+                    } else {
+                        switch_clear = false;
+                        document.getElementById('alert_clear').innerHTML = '';
+                        chipRepo_data = [];
+                        chipRepo_chart = [];
+                        chipNum = 0;
+                        ChipRepoChartId.innerHTML = ''; // CLEAR chart
+                        deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
+                        DeleteSelectId.innerHTML = deleteSelectHTML[0];
+                        break;
+                    }
             }
             if (chipNum > 0) {
                 document.getElementById('SaveButton').disabled = false
                 document.getElementById('clearChipButton').disabled = false
+                document.getElementById('maxAllButton').disabled = false
             } else {
                 document.getElementById('SaveButton').disabled = true
                 document.getElementById('deleteChipButton').disabled = true
                 document.getElementById('clearChipButton').disabled = true
+                document.getElementById('maxAllButton').disabled = true
             }
         }
         function maxAllChip() {
@@ -1443,12 +1453,12 @@
                                             <div class="col-lg-9">
                                                 <p>
                                                     <button type="button" class="btn btn-warning" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该编号芯片</button>
-                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空芯片仓库</button>
+                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空芯片仓库</button><span style="color:#FF0066"><b id="alert_clear"></b></span>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
                                                 <p>
-                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton">全部满强化</button>
+                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强化</button>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
@@ -1514,15 +1524,6 @@
                                             <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
                                             <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
                                             <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
-                                        </p>
-                                        <p>
-                                            <select class="form-control" id="HFStar" style="width:200px" disabled>
-                                                <option value=5 selected>★★★★★</option>
-                                                <option value=4>★★★★</option>
-                                                <option value=3>★★★</option>
-                                                <option value=2>★★</option>
-                                                <option value=1>★</option>
-                                            </select>
                                         </p>
                                     </div>
                                     <div class="col-lg-12">
