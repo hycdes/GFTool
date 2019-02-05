@@ -1113,6 +1113,50 @@
             value_b = dmg_b + dbk_b + acu_b + fil_b;
             return value_b - value_a;
         }
+        function compare_dmg(solu_a, solu_b) {
+            var dmg_a = 0, dmg_b = 0, dmg_max = 0, looplen = solu_a.length;
+            if (document.getElementById('HFSwitch1').checked === true) dmg_max = 190;
+            else if (document.getElementById('HFSwitch2').checked === true) dmg_max = 106;
+            else dmg_max = 227;
+            for (var n = 0; n < looplen; n++) {
+                dmg_a += chipRepo_chart[solu_a[n] - 1].Dmg; dmg_b += chipRepo_chart[solu_b[n] - 1].Dmg;
+            }
+            if (dmg_a > dmg_max) dmg_a = dmg_max; if (dmg_b > dmg_max) dmg_b = dmg_max;
+            return dmg_b - dmg_a;
+        }
+        function compare_dbk(solu_a, solu_b) {
+            var dbk_a = 0, dbk_b = 0, dbk_max = 0, looplen = solu_a.length;
+            if (document.getElementById('HFSwitch1').checked === true) dbk_max = 329;
+            else if (document.getElementById('HFSwitch2').checked === true) dbk_max = 130;
+            else dbk_max = 58;
+            for (var n = 0; n < looplen; n++) {
+                dbk_a += chipRepo_chart[solu_a[n] - 1].Dbk; dbk_b += chipRepo_chart[solu_b[n] - 1].Dbk;
+            }
+            if (dbk_a > dbk_max) dbk_a = dbk_max; if (dbk_b > dbk_max) dbk_b = dbk_max;
+            return dbk_b - dbk_a;
+        }
+        function compare_acu(solu_a, solu_b) {
+            var acu_a = 0, acu_b = 0, acu_max = 0, looplen = solu_a.length;
+            if (document.getElementById('HFSwitch1').checked === true) acu_max = 191;
+            else if (document.getElementById('HFSwitch2').checked === true) acu_max = 120;
+            else acu_max = 90;
+            for (var n = 0; n < looplen; n++) {
+                acu_a += chipRepo_chart[solu_a[n] - 1].Acu; acu_b += chipRepo_chart[solu_b[n] - 1].Acu;
+            }
+            if (acu_a > acu_max) acu_a = acu_max; if (acu_b > acu_max) acu_b = acu_max;
+            return acu_b - acu_a;
+        }
+        function compare_fil(solu_a, solu_b) {
+            var fil_a = 0, fil_b = 0, fil_max = 0, looplen = solu_a.length;
+            if (document.getElementById('HFSwitch1').checked === true) fil_max = 46;
+            else if (document.getElementById('HFSwitch2').checked === true) fil_max = 233;
+            else fil_max = 107;
+            for (var n = 0; n < looplen; n++) {
+                fil_a += chipRepo_chart[solu_a[n] - 1].Fil; fil_b += chipRepo_chart[solu_b[n] - 1].Fil;
+            }
+            if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max;
+            return fil_b - fil_a;
+        }
         function sortSolution(sortType) {
             ranking_switch = parseInt(sortType);
             if (sortType === 1) analyze_switch = 1;
@@ -1130,7 +1174,7 @@
             var solulen = solutionSet.length;
             switch (ranking_switch) {
                 case 1: //All property
-                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效总属性</b></span> 排序';
+                    document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效总属性</b></span> 排序' + '，图解 ' + topologyNum + ' 有 ' + solutionSet.length + ' 种有效组合';
                     solutionSet.sort(compare_sumpro);
                     break;
                 case 2: //All blockNum
@@ -1139,83 +1183,19 @@
                     break;
                 case 3: //Dmg
                     document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>杀伤</b></span> 排序';
-                    for (var a = 0; a < solulen; a++) {
-                        for (var b = a + 1; b < solulen; b++) {
-                            var value_a = 0, value_b = 0;
-                            var dmg_a = 0, dmg_b = 0;
-                            var looplen = solutionSet[0].length;
-                            for (var n = 0; n < looplen; n++) {
-                                dmg_a += chipRepo_chart[solutionSet[a][n] - 1].Dmg; dmg_b += chipRepo_chart[solutionSet[b][n] - 1].Dmg;
-                            }
-                            if (dmg_a > dmg_max) dmg_a = dmg_max; if (dmg_b > dmg_max) dmg_b = dmg_max;
-                            value_a = dmg_a; value_b = dmg_b;
-                            if (value_b > value_a) {
-                                var temp = solutionSet[a];
-                                solutionSet[a] = solutionSet[b];
-                                solutionSet[b] = temp;
-                            }
-                        }
-                    }
+                    solutionSet.sort(compare_dmg);
                     break;
                 case 4: //Dbk
                     document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>破防</b></span> 排序';
-                    for (var a = 0; a < solulen; a++) {
-                        for (var b = a + 1; b < solulen; b++) {
-                            var value_a = 0, value_b = 0;
-                            var dbk_a = 0, dbk_b = 0;
-                            var looplen = solutionSet[0].length;
-                            for (var n = 0; n < looplen; n++) {
-                                dbk_a += chipRepo_chart[solutionSet[a][n] - 1].Dbk; dbk_b += chipRepo_chart[solutionSet[b][n] - 1].Dbk;
-                            }
-                            if (dbk_a > dbk_max) dbk_a = dbk_max; if (dbk_b > dbk_max) dbk_b = dbk_max;
-                            value_a = dbk_a; value_b = dbk_b;
-                            if (value_b > value_a) {
-                                var temp = solutionSet[a];
-                                solutionSet[a] = solutionSet[b];
-                                solutionSet[b] = temp;
-                            }
-                        }
-                    }
+                    solutionSet.sort(compare_dbk);
                     break;
                 case 5: //Acu
                     document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>精度</b></span> 排序';
-                    for (var a = 0; a < solulen; a++) {
-                        for (var b = a + 1; b < solulen; b++) {
-                            var value_a = 0, value_b = 0;
-                            var acu_a = 0, acu_b = 0;
-                            var looplen = solutionSet[0].length;
-                            for (var n = 0; n < looplen; n++) {
-                                acu_a += chipRepo_chart[solutionSet[a][n] - 1].Acu; acu_b += chipRepo_chart[solutionSet[b][n] - 1].Acu;
-                            }
-                            if (acu_a > acu_max) acu_a = acu_max; if (acu_b > acu_max) acu_b = acu_max;
-                            value_a = acu_a; value_b = acu_b;
-                            if (value_b > value_a) {
-                                var temp = solutionSet[a];
-                                solutionSet[a] = solutionSet[b];
-                                solutionSet[b] = temp;
-                            }
-                        }
-                    }
+                    solutionSet.sort(compare_acu);
                     break;
                 case 6: //Fil
                     document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>装填</b></span> 排序';
-                    for (var a = 0; a < solulen; a++) {
-                        for (var b = a + 1; b < solulen; b++) {
-                            var value_a = 0, value_b = 0;
-                            var fil_a = 0, fil_b = 0;
-                            var looplen = solutionSet[0].length;
-                            for (var n = 0; n < looplen; n++) {
-                                fil_a += chipRepo_chart[solutionSet[a][n] - 1].Fil; fil_b += chipRepo_chart[solutionSet[b][n] - 1].Fil;
-                            }
-                            if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max;
-                            value_a = fil_a; value_b = fil_b;
-                            if (value_b > value_a) {
-                                var temp = solutionSet[a];
-                                solutionSet[a] = solutionSet[b];
-                                solutionSet[b] = temp;
-                            }
-                        }
-                    }
+                    solutionSet.sort(compare_fil);
                     break;
             }
             SolutionSelect.disabled = false;
