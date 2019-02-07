@@ -29,22 +29,17 @@
     <script>
         var globaltime = [0, 0, 0, 0]; //global timer, for test and all result counting
         var switch_clear = false, switch_maxall = false;
+        var filter_switch = false;
         var topologySet = [], solutionSet = [], topologyNum = 0;
         var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        var resultBuffer = [], resultRefer = []; //for buffer result for ranking
-        var topologyLib_BGM_1 = [], topologyLibRefer_BGM_1 = [];
-        var topologyLib_BGM_2 = [], topologyLibRefer_BGM_2 = [];
-        var topologyLib_AGS = [], topologyLibRefer_AGS = [];
-        var topologyLib_2B14 = [], topologyLibRefer_2B14 = [];
+        var buffer_topo = [], buffer_solu = [], buffer_num = 10; //for buffer result for ranking
+        var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [];
+        var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [];
         var rules = ["InfinityFrost", "FatalChapters"];
-        var color = 1;
-        var block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0;
-        var mul_property = 1;
+        var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1;
         var chipNum = 0;
-        var chipRepo_data = [];     //Chip data
-        var chipRepo_shape_5 = [];   //For make shape only
-        var chipRepo_shape_6 = [];   //For make shape only
-        var chipRepo_chart = [];    //Repository information that display at repository-table
+        var chipRepo_data = [], chipRepo_chart = []; //Chip data; Repository information that display at repository-table
+        var chipRepo_shape_5 = [], chipRepo_shape_6 = []; //For make shape only
         var analyze_switch = 1, ranking_switch = 1; //show_percentage[1=validProperty,-1=validBlocknum] rank_result_by[1~6]
         var deleteSelectHTML = ['<option value=0 selected>选择编号</option>'];
         function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
@@ -351,7 +346,7 @@
             var typeInfo = parseInt((document.getElementById('ChipClass')).value)
             switch (typeInfo) {
                 case 56:
-                    seleId.innerHTML = '<option value=1 selected>1</option><option value=2>2</option><option value=3>3</option><option value=41>4-a</option><option value=42>4-b</option><option value=5>5</option><option value=6>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option>'
+                    seleId.innerHTML = '<option value=9 selected>9</option><option value=8>8</option><option value=7>7</option><option value=6>6</option><option value=5>5</option><option value=42>4-b</option><option value=41>4-a</option><option value=3>3</option><option value=2>2</option><option value=1>1</option>'
                     changeTopSample(56);
                     break;
                 case 551:
@@ -404,11 +399,9 @@
             manageButton();
         }
         function resetPage() {
-            color = 1;
             mul_property = 1;
             document.getElementById('CSwitch1').checked = true;
-            document.getElementById('ChipClass').value = 56; document.getElementById('ChipLevel').value = 0;
-            changeChipType();
+            document.getElementById('ChipLevel').value = 0;
             changeLevel();
             resetBlock();
         }
@@ -454,11 +447,11 @@
                 AdBl.disabled = false;
                 SbBl.disabled = true;
                 if (parseInt(document.getElementById('ChipType').value) === 1) {
-                    AdSp.disabled = false;
-                    SbSp.disabled = true;
-                } else if (parseInt(document.getElementById('ChipType').value) === 9) {
                     AdSp.disabled = true;
                     SbSp.disabled = false;
+                } else if (parseInt(document.getElementById('ChipType').value) === 9) {
+                    AdSp.disabled = false;
+                    SbSp.disabled = true;
                 } else {
                     AdSp.disabled = false;
                     SbSp.disabled = false;
@@ -625,19 +618,67 @@
                 } else if (HeavyfireType === 2) topologySet.push(topologyLib_AGS[validSet[num_topo]]);
                 else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]]);
             }
-            if (topologySet.length > 0) { //get topology result
-                var soluNum = topologySet.length;
-                var TopologySelect = document.getElementById('TopologySelect');
-                TopologySelect.disabled = false;
-                var RTText = '<option value=0 selected>图解 1</option>';
-                for (var i = 1; i < soluNum; i++) {
-                    RTText += '<option value=' + i + '>图解 ' + (i + 1) + '</option>';
+            if (topologySet.length > 0) {
+                if (filter_switch) { //show sort
+                    buffer_solu = [];
+                    buffer_num = parseInt(document.getElementById('best_num').value);
+                    document.getElementById('TopologySelect').disabled = true;
+                    document.getElementById('TopologySelect').innerHTML = '<option value=0 selected>在下面选择方案</option>';
+                    var topoNum = topologySet.length;
+                    for (var t = 0; t < topoNum; t++) {
+                        solutionSet = getSolution(topologySet[t]);
+                        sortSolution(ranking_switch);
+                        if (solutionSet.length > 0) buffer_solu.push((solutionSet[0]).concat(t));
+                    }
+                    switch (ranking_switch) {
+                        case 1: buffer_solu.sort(compare_sumpro); break;
+                        case 2: buffer_solu.sort(compare_sumblo); break;
+                        case 3: buffer_solu.sort(compare_dmg); break;
+                        case 4: buffer_solu.sort(compare_dbk); break;
+                        case 5: buffer_solu.sort(compare_acu); break;
+                        case 6: buffer_solu.sort(compare_fil); break;
+                    }
+                    if (buffer_solu.length > buffer_num) {
+                        var buffer_solu_cut = [];
+                        for (var i = 0; i < buffer_num; i++) buffer_solu_cut.push(buffer_solu[i]);
+                        buffer_solu = buffer_solu_cut;
+                    }
+                    var bufferlen = buffer_solu.length;
+                    var solutionSet_filter = [];
+                    for (var i = 0; i < bufferlen; i++) {
+                        buffer_topo.push(topologySet[buffer_solu[i].pop()]);
+                        solutionSet_filter.push(buffer_solu[i]);
+                    }
+                    solutionSet = solutionSet_filter;
+                    var SSText = '';
+                    if (bufferlen > 0) {
+                        for (var i = 0; i < bufferlen; i++) {
+                            SSText += '<option value=' + i + '>编号 ';
+                            var c_num = solutionSet[i].length;
+                            for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + " ");
+                            SSText += '</option>';
+                        }
+                    } else {
+                        SSText = '<option value=-1>无合适方案</option>';
+                    }
+                    document.getElementById('SortInfo').innerHTML = ''
+                    SolutionSelect.innerHTML = SSText;
+                    showAnalyze();
+                    SolutionSelect.disabled = false;
+                } else { //show all
+                    var soluNum = topologySet.length;
+                    var TopologySelect = document.getElementById('TopologySelect');
+                    TopologySelect.disabled = false;
+                    var RTText = '<option value=0 selected>图解 1</option>';
+                    for (var i = 1; i < soluNum; i++) {
+                        RTText += '<option value=' + i + '>图解 ' + (i + 1) + '</option>';
+                    }
+                    TopologySelect.innerHTML = RTText;
+                    var NoResultTextId = document.getElementById('NoResultText');
+                    NoResultTextId.innerHTML = '';
+                    topologyNum = 0;
+                    showSolution();
                 }
-                TopologySelect.innerHTML = RTText;
-                var NoResultTextId = document.getElementById('NoResultText');
-                NoResultTextId.innerHTML = '';
-                topologyNum = 0;
-                showSolution();
             } else {
                 var NoResultTextId = document.getElementById('NoResultText');
                 NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>';
@@ -791,7 +832,8 @@
                 var c_num = solutionSet[SSNum].length;
                 document.getElementById('AnalyzeSwitch').disabled = false;
                 //show topology image
-                showTopology(topologySet[topologyNum], HeavyfireType, HeavyfireStar);
+                if (filter_switch) showTopology(buffer_topo[SSNum], HeavyfireType, HeavyfireStar);
+                else showTopology(topologySet[topologyNum], HeavyfireType, HeavyfireStar);
                 //show pick chips in chart
                 var ChipComboChart = document.getElementById('ChipComboChart');
                 ChipComboChart.innerHTML = '';
@@ -991,6 +1033,7 @@
             solutionSet = getSolution(topologySet[topologyNum]);
             SolutionSelect.disabled = false;
             sortSolution(ranking_switch);
+            showAnalyze();
         }
         function getSolution(topology) {
             var tempChipRepo = []; //待选芯片数据的二维数组
@@ -1121,6 +1164,7 @@
             else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
             else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
             var looplen = solu_a.length;
+            if (filter_switch) looplen--;
             for (var n = 0; n < looplen; n++) {
                 dmg_a += chipRepo_chart[solu_a[n] - 1].Dmg; dmg_b += chipRepo_chart[solu_b[n] - 1].Dmg;
                 dbk_a += chipRepo_chart[solu_a[n] - 1].Dbk; dbk_b += chipRepo_chart[solu_b[n] - 1].Dbk;
@@ -1147,6 +1191,7 @@
             else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
             else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
             var looplen = solu_a.length;
+            if (filter_switch) looplen--;
             for (var n = 0; n < looplen; n++) {
                 dmg_a += chipRepo_data[solu_a[n] - 1].bDmg; dmg_b += chipRepo_data[solu_b[n] - 1].bDmg;
                 dbk_a += chipRepo_data[solu_a[n] - 1].bDbk; dbk_b += chipRepo_data[solu_b[n] - 1].bDbk;
@@ -1166,6 +1211,7 @@
             if (document.getElementById('HFSwitch1').checked === true) dmg_max = 190;
             else if (document.getElementById('HFSwitch2').checked === true) dmg_max = 106;
             else dmg_max = 227;
+            if (filter_switch) looplen--;
             for (var n = 0; n < looplen; n++) {
                 dmg_a += chipRepo_chart[solu_a[n] - 1].Dmg; dmg_b += chipRepo_chart[solu_b[n] - 1].Dmg;
             }
@@ -1177,6 +1223,7 @@
             if (document.getElementById('HFSwitch1').checked === true) dbk_max = 329;
             else if (document.getElementById('HFSwitch2').checked === true) dbk_max = 130;
             else dbk_max = 58;
+            if (filter_switch) looplen--;
             for (var n = 0; n < looplen; n++) {
                 dbk_a += chipRepo_chart[solu_a[n] - 1].Dbk; dbk_b += chipRepo_chart[solu_b[n] - 1].Dbk;
             }
@@ -1188,6 +1235,7 @@
             if (document.getElementById('HFSwitch1').checked === true) acu_max = 191;
             else if (document.getElementById('HFSwitch2').checked === true) acu_max = 120;
             else acu_max = 90;
+            if (filter_switch) looplen--;
             for (var n = 0; n < looplen; n++) {
                 acu_a += chipRepo_chart[solu_a[n] - 1].Acu; acu_b += chipRepo_chart[solu_b[n] - 1].Acu;
             }
@@ -1199,6 +1247,7 @@
             if (document.getElementById('HFSwitch1').checked === true) fil_max = 46;
             else if (document.getElementById('HFSwitch2').checked === true) fil_max = 233;
             else fil_max = 107;
+            if (filter_switch) looplen--;
             for (var n = 0; n < looplen; n++) {
                 fil_a += chipRepo_chart[solu_a[n] - 1].Fil; fil_b += chipRepo_chart[solu_b[n] - 1].Fil;
             }
@@ -1315,12 +1364,8 @@
                 SSText = '<option value=-1>无合适方案</option>';
             }
             SolutionSelect.innerHTML = SSText;
-            showAnalyze();
         }
-        function switchAnalyze() {
-            analyze_switch *= -1;
-            showAnalyze();
-        }
+        function switchAnalyze() { analyze_switch *= -1; showAnalyze(); }
         function setIgnore(typeInfo) {
             switch (typeInfo) {
                 case 1: document.getElementById('ignore_dmgmax').disabled = !(document.getElementById('ignore_dmgmax').disabled); break;
@@ -1426,6 +1471,24 @@
                     document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 0;
                     break;
             }
+        }
+        function setBest(typeInfo) {
+            if (typeInfo === 1) {
+                filter_switch = false;
+                document.getElementById('best_num').disabled = true;
+                document.getElementById('best_alert').innerHTML = ' *会显示所有可行的图解和组合，约数秒';
+            }
+            else {
+                filter_switch = true;
+                document.getElementById('best_num').disabled = false;
+                document.getElementById('best_alert').innerHTML = ' *算出所有可行解并输出排行前几的方案，约数秒至数分钟';
+            }
+        }
+        function setBestSort(typeInfo) { ranking_switch = typeInfo; }
+        function setBestNum() {
+            var best_num = document.getElementById('best_num');
+            if ((best_num.value).length === 0) best_num.value = 10;
+            if (isNaN(parseInt(best_num.value))) best_num.value = 10;
         }
     </script>
 </head>
@@ -1549,16 +1612,16 @@
                                                         </td>
                                                         <td>
                                                             <select class="form-control input-sm" id="ChipType" onchange="changePrevireImg()">
-                                                                <option value=1 selected>1</option>
-                                                                <option value=2>2</option>
-                                                                <option value=3>3</option>
-                                                                <option value=41>4-a</option>
-                                                                <option value=42>4-b</option>
-                                                                <option value=5>5</option>
-                                                                <option value=6>6</option>
-                                                                <option value=7>7</option>
+                                                                <option value=9 selected>9</option>
                                                                 <option value=8>8</option>
-                                                                <option value=9>9</option>
+                                                                <option value=7>7</option>
+                                                                <option value=6>6</option>
+                                                                <option value=5>5</option>
+                                                                <option value=42>4-b</option>
+                                                                <option value=41>4-a</option>
+                                                                <option value=3>3</option>
+                                                                <option value=2>2</option>
+                                                                <option value=1>1</option>
                                                             </select>
                                                         </td>
                                                     </tr>
@@ -1732,7 +1795,7 @@
                                                 <a href="#SortOption_basic" data-toggle="tab">基本设置</a>
                                             </li>
                                             <li id="panelSL">
-                                                <a href="#SortOption_advanced" data-toggle="tab">高级设置</a>
+                                                <a href="#SortOption_advanced" data-toggle="tab">筛选设置</a>
                                             </li>
                                         </ul>
                                         <!-- Tab panes -->
@@ -1746,9 +1809,26 @@
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
                                                     </p>
-                                                    <div class="checkbox">
-                                                        <label><input type="checkbox" value="" disabled>直接跳转至最优方案 (未完成)</label>
+                                                </div>
+                                                <h4>显示设置</h4>
+                                                <div class="col-lg-12">
+                                                    <p>
+                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>显示全部方案</label>
+                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">挑选最优解</span></label>
+                                                        <h5 id="best_alert"> *会显示所有可行的图解和组合，约数秒</h5>
+                                                    </p>
+                                                    <div class="form-group input-group">
+                                                        <span class="input-group-addon">挑选个数</span>
+                                                        <input type="text" class="form-control input-sm" placeholder="输入整数" id="best_num" value=10 style="width:150px" onblur="setBestNum()" disabled>
                                                     </div>
+                                                    <p id="best_sort">
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(1)" checked>最高有效总值</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(2)">最高有效格数</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(3)">最高杀伤</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(4)">最高破防</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(5)">最高精度</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(6)">最高装填</label>
+                                                    </p>
                                                 </div>
                                             </div>
                                             <!--SAVELOAD-->
