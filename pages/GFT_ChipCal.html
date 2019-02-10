@@ -14,17 +14,70 @@
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <style>
-        .table_other{padding: 0px;text-align: center}
-        .td_blueback{width:30px;height:30px;background:#606DA0;}
-        .td_orangeback{width:30px;height:30px;background:#CE6B49;}
-        .td_black{width:30px;height:30px;background:url("../img/chip/bg_black.png");}
-        .td_b1{width:30px;height:30px;background:dodgerblue;}
-        .td_b2{width:30px;height:30px;background:deepskyblue;}
-        .td_b3{width:30px;height:30px;background:greenyellow;}
-        .td_b4{width:30px;height:30px;background:limegreen;}
-        .td_b5{width:30px;height:30px;background:orange;}
-        .td_b6{width:30px;height:30px;background:#FF0066;}
-        .td_b7{width:30px;height:30px;background:fuchsia;}
+        .table_other {
+            padding: 0px;
+            text-align: center
+        }
+
+        .td_blueback {
+            width: 30px;
+            height: 30px;
+            background: #606DA0;
+        }
+
+        .td_orangeback {
+            width: 30px;
+            height: 30px;
+            background: #CE6B49;
+        }
+
+        .td_black {
+            width: 30px;
+            height: 30px;
+            background: url("../img/chip/bg_black.png");
+        }
+
+        .td_b1 {
+            width: 30px;
+            height: 30px;
+            background: dodgerblue;
+        }
+
+        .td_b2 {
+            width: 30px;
+            height: 30px;
+            background: deepskyblue;
+        }
+
+        .td_b3 {
+            width: 30px;
+            height: 30px;
+            background: greenyellow;
+        }
+
+        .td_b4 {
+            width: 30px;
+            height: 30px;
+            background: limegreen;
+        }
+
+        .td_b5 {
+            width: 30px;
+            height: 30px;
+            background: orange;
+        }
+
+        .td_b6 {
+            width: 30px;
+            height: 30px;
+            background: #FF0066;
+        }
+
+        .td_b7 {
+            width: 30px;
+            height: 30px;
+            background: fuchsia;
+        }
     </style>
     <script>
         var globaltime = [0, 0, 0, 0]; //global timer, for test and all result counting
@@ -1811,24 +1864,14 @@
                                                     </p>
                                                 </div>
                                                 <h4>显示设置</h4>
+                                                <h5>“选取最优解”目前维护中……</h5>
                                                 <div class="col-lg-12">
                                                     <p>
                                                         <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>显示全部方案</label>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">挑选最优解</span></label>
+
                                                         <h5 id="best_alert"> *会显示所有可行的图解和组合，约数秒</h5>
                                                     </p>
-                                                    <div class="form-group input-group">
-                                                        <span class="input-group-addon">挑选个数</span>
-                                                        <input type="text" class="form-control input-sm" placeholder="输入整数" id="best_num" value=10 style="width:150px" onblur="setBestNum()" disabled>
-                                                    </div>
-                                                    <p id="best_sort">
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(1)" checked>最高有效总值</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(2)">最高有效格数</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(3)">最高杀伤</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(4)">最高破防</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(5)">最高精度</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(6)">最高装填</label>
-                                                    </p>
+
                                                 </div>
                                             </div>
                                             <!--SAVELOAD-->
