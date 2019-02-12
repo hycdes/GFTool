@@ -51,15 +51,9 @@ window.onload = function () {
 }
 function mergeCell (table1, startRow, endRow, col) {
   var tb = document.getElementById(table1)
-  if (!tb || !tb.rows || tb.rows.length <= 0) {
-    return
-  }
-  if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) {
-    return
-  }
-  if (endRow == 0) {
-    endRow = tb.rows.length - 1
-  }
+  if (!tb || !tb.rows || tb.rows.length <= 0) return
+  if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
+  if (endRow == 0) endRow = tb.rows.length - 1
   for (var i = startRow; i < endRow; i++) {
     tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col])
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
@@ -1357,6 +1351,10 @@ function ignoreSolution (dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_
     solution_filtered.push(solutionSet[i])
   }
   return solution_filtered
+}
+function changeRankingSwitch (sortType) {
+  sortSolution(sortType)
+  showAnalyze()
 }
 function sortSolution (sortType) {
   ranking_switch = parseInt(sortType)
