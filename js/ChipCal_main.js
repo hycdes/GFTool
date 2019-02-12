@@ -744,7 +744,7 @@ function putChip (bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
     if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - border_x * parseInt((i - 1) / border_x) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + '</td>'
   }
 }
-function changeTopology (actionId) {
+function flogy (actionId) {
   if (actionId === 0) topologyNum = parseInt(document.getElementById('TopologySelect').value)
   if (actionId === 1) topologyNum++
   if (actionId === 2) topologyNum--
@@ -783,18 +783,27 @@ function showAnalyze () {
   var Process_Bar_Acu = document.getElementById('Process_Bar_Acu')
   var Process_Bar_Fil = document.getElementById('Process_Bar_Fil')
   if (solutionSet.length > 0) {
-    document.getElementById('SortButton_AllPro').disabled = false
-    document.getElementById('SortButton_Block').disabled = false
-    document.getElementById('SortButton_Dmg').disabled = false
-    document.getElementById('SortButton_Dbk').disabled = false
-    document.getElementById('SortButton_Acu').disabled = false
-    document.getElementById('SortButton_Fil').disabled = false
     var SSNum = parseInt(document.getElementById('SolutionSelect').value)
     var c_num = solutionSet[SSNum].length
     document.getElementById('AnalyzeSwitch').disabled = false
     // show topology image
-    if (filter_switch) showTopology(buffer_topo[SSNum], HeavyfireType)
-    else showTopology(topologySet[topologyNum], HeavyfireType)
+    if (filter_switch) {
+      document.getElementById('SortButton_AllPro').disabled = true
+      document.getElementById('SortButton_Block').disabled = true
+      document.getElementById('SortButton_Dmg').disabled = true
+      document.getElementById('SortButton_Dbk').disabled = true
+      document.getElementById('SortButton_Acu').disabled = true
+      document.getElementById('SortButton_Fil').disabled = true
+      showTopology(buffer_topo[SSNum], HeavyfireType)
+    }else {
+      document.getElementById('SortButton_AllPro').disabled = false
+      document.getElementById('SortButton_Block').disabled = false
+      document.getElementById('SortButton_Dmg').disabled = false
+      document.getElementById('SortButton_Dbk').disabled = false
+      document.getElementById('SortButton_Acu').disabled = false
+      document.getElementById('SortButton_Fil').disabled = false
+      showTopology(topologySet[topologyNum], HeavyfireType)
+    }
     // show pick chips in chart
     var ChipComboChart = document.getElementById('ChipComboChart')
     ChipComboChart.innerHTML = ''
@@ -805,7 +814,15 @@ function showAnalyze () {
       var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[solutionSet[SSNum][c] - 1].classNum + '-' + chipRepo_data[solutionSet[SSNum][c] - 1].typeNum + '.png">'
       var ChartAdd = ''
       ChartAdd += '<tr>'
-      ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipNum + '</td>'
+      ChartAdd += '<td>'
+      if (c === 0) ChartAdd += '<span style="color:dodgerblue">▇ </span>'
+      else if (c === 1) ChartAdd += '<span style="color:deepskyblue">▇ </span>'
+      else if (c === 2) ChartAdd += '<span style="color:greenyellow">▇ </span>'
+      else if (c === 3) ChartAdd += '<span style="color:limegreen">▇ </span>'
+      else if (c === 4) ChartAdd += '<span style="color:orange">▇ </span>'
+      else if (c === 5) ChartAdd += '<span style="color:#FF0066">▇ </span>'
+      else if (c === 6) ChartAdd += '<span style="color:fuchsia">▇ </span>'
+      ChartAdd += chipRepo_chart[solutionSet[SSNum][c] - 1].chipNum + '</td>'
       ChartAdd += '<td>' + htmlString + ' ' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipType + '</td>'
       ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].chipLevel + '</td>'
       ChartAdd += '<td>' + chipRepo_chart[solutionSet[SSNum][c] - 1].Acu + '</td>'
