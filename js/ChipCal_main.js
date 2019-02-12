@@ -7,7 +7,7 @@ var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for
 var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = []
 var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = []
 var rules = ['InfinityFrost', 'FatalChapters']
-var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1
+var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1, block_class = 56, block_shape = 9
 var chipNum = 0
 var chipRepo_data = [], chipRepo_chart = []; // Chip data; Repository information that display at repository-table
 var chipRepo_shape_5 = [], chipRepo_shape_6 = [] // For make shape only
@@ -45,8 +45,25 @@ function loadScript (url) {
   document.body.appendChild(script)
 }
 window.onload = function () {
+  mergeCell('ImgChart_preview', 0, 0, 0)
   resetPage()
   loadScript('../js/topology.js')
+}
+function mergeCell (table1, startRow, endRow, col) {
+  var tb = document.getElementById(table1)
+  if (!tb || !tb.rows || tb.rows.length <= 0) {
+    return
+  }
+  if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) {
+    return
+  }
+  if (endRow == 0) {
+    endRow = tb.rows.length - 1
+  }
+  for (var i = startRow; i < endRow; i++) {
+    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col])
+    tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
+  }
 }
 function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
   var ChipRepoChartId = document.getElementById('ChipRepoChart')
@@ -54,10 +71,8 @@ function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
   switch (typeInfo) {
     case 1:
       chipNum++
-      var ChipClass = document.getElementById('ChipClass').value
-      var ChipType = document.getElementById('ChipType').value
       var ChipLevel = document.getElementById('ChipLevel').value
-      var newChipData = creatChip(chipNum, color, parseInt(ChipClass), parseInt(ChipType), parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, 1)
+      var newChipData = creatChip(chipNum, color, block_class, block_shape, parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, 1)
       chipRepo_data.push(newChipData)
       repo_addChart(newChipData)
       break
@@ -161,6 +176,13 @@ function maxAllChip () {
       ChipRepoChartId.innerHTML += ChartAdd
     }
   }
+}
+function changeTopology (actionId) {
+  if (actionId === 0) topologyNum = parseInt(document.getElementById('TopologySelect').value)
+  if (actionId === 1) topologyNum++
+  if (actionId === 2) topologyNum--
+  document.getElementById('TopologySelect').value = topologyNum
+  showSolution()
 }
 function getSaveCode () { // 获取存储码
   var SaveAlertId = document.getElementById('SaveAlert')
@@ -342,14 +364,35 @@ function changeProperty (command) { // for change color/chipClass/chipShape
   } else if (command === 'color_o') { // color=orange
     color = 2
   } else if (command === 'class') { // chipClass, 56=block_6, 551=block_5_type1
-    var seleId = document.getElementById('ChipType')
-    var chipClass = parseInt((document.getElementById('ChipClass')).value)
-    if (chipClass === 56) {
-      seleId.innerHTML = '<option value=9 selected>9</option><option value=8>8</option><option value=7>7</option><option value=6>6</option><option value=5>5</option><option value=42>4-b</option><option value=41>4-a</option><option value=3>3</option><option value=2>2</option><option value=1>1</option>'
-      document.getElementById('SampleImg').innerHTML = '<img src="../img/chipcal_56.png">'
-    } else if (chipClass === 551) {
-      seleId.innerHTML = '<option value=11 selected>F-a</option><option value=12>F-b</option><option value=21>N-a</option><option value=22>N-b</option><option value=31>Y-a</option><option value=32>Y-b</option><option value=4>T</option><option value=5>W</option><option value=6>X</option>'
-      document.getElementById('SampleImg').innerHTML = '<img src="../img/chipcal_551.png">'
+    var SL1 = document.getElementById('ShapeLine1')
+    var SL2 = document.getElementById('ShapeLine2')
+    var SL1_html = '', SL2_html = ''
+    if (block_class === 56) {
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-9.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-9")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-8.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-8")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-7.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-7")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-6.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-6")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-5.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-5")' + "'" + '></td>'
+      SL1.innerHTML = SL1_html
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-41.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-41")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-42.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-42")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-3.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-3")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-2.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-2")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-1.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-1")' + "'" + '></td>'
+      SL2.innerHTML = SL2_html
+    } else if (block_class === 551) {
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-12.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-12")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-11.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-11")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-4.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-4")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-6.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-6")' + "'" + '></td>'
+      SL1_html += '<td style="width:50px"></td>'
+      SL1.innerHTML = SL1_html
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-31.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-31")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-32.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-32")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-21.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-21")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-22.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-22")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-5.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-5")' + "'" + '></td>'
+      SL2.innerHTML = SL2_html
     }
     resetBlock()
   } else if (command === 'level') {
@@ -360,25 +403,94 @@ function changeProperty (command) { // for change color/chipClass/chipShape
   refreshPreview()
   manageButton()
 }
+function changeBigImg (command) { // change preview and change property
+  var imgid = document.getElementById('bigsample')
+  var imgsrc = imgid.src
+  if (command === 'left' || command === 'right') {
+    var angleString = '', cutlength = 0
+    for (var i = imgsrc.length - 5; i > 0; i--) {
+      if (imgsrc[i] === '-') {
+        cutlength = i + 1
+        break
+      }
+      else angleString = imgsrc[i] + angleString
+    }
+    var angle = parseInt(angleString)
+    if (command === 'left') angle -= 90
+    else angle += 90
+    if (angle >= 360) angle = 0
+    else if (angle < 0) angle = 270
+    imgid.src = imgsrc.substr(0, cutlength) + (angle + '') + '.png'
+  } else if (command === 'blue' || command === 'orange') {
+    var cutlength = 0, cutleftidx = 0
+    for (var i = imgsrc.length - 1; i > 0; i--) {
+      if (imgsrc[i] === '/') {
+        cutlength = i + 1
+        cutleftidx = i + 2
+        break
+      }
+    }
+    if (command === 'blue') {
+      imgid.src = imgsrc.substr(0, cutlength) + 'b' + imgsrc.substr(cutleftidx)
+      document.getElementById('bigsample_blue').src = '../img/chip/bigsample/blue-select.png'
+      document.getElementById('bigsample_orange').src = '../img/chip/bigsample/orange-noselect.png'
+      changeProperty('color_b')
+    } else if (command === 'orange') {
+      imgid.src = imgsrc.substr(0, cutlength) + 'o' + imgsrc.substr(cutleftidx)
+      document.getElementById('bigsample_blue').src = '../img/chip/bigsample/blue-noselect.png'
+      document.getElementById('bigsample_orange').src = '../img/chip/bigsample/orange-select.png'
+      changeProperty('color_o')
+    }
+  } else if (command === 'addblo' || command === 'subblo') {
+    if (command === 'addblo') {
+      document.getElementById('AddBloBtn').src = '../img/chip/bigsample/add-block-dis.png'
+      document.getElementById('SubBloBtn').src = '../img/chip/bigsample/sub-block.png'
+      document.getElementById('AddBloBtn').style = 'cursor:default'
+      document.getElementById('SubBloBtn').style = 'cursor:pointer'
+      block_class = 56
+      if (color === 1) imgid.src = '../img/chip/bigsample/b_56-9-0.png'
+      else if (color === 2) imgid.src = '../img/chip/bigsample/o_56-9-0.png'
+      changeProperty('class')
+    } else {
+      document.getElementById('AddBloBtn').src = '../img/chip/bigsample/add-block.png'
+      document.getElementById('SubBloBtn').src = '../img/chip/bigsample/sub-block-dis.png'
+      document.getElementById('AddBloBtn').style = 'cursor:pointer'
+      document.getElementById('SubBloBtn').style = 'cursor:default'
+      block_class = 551
+      if (color === 1) imgid.src = '../img/chip/bigsample/b_551-12-0.png'
+      else if (color === 2) imgid.src = '../img/chip/bigsample/o_551-12-0.png'
+      changeProperty('class')
+    }
+  } else if (command === '6-1' || command === '6-2' || command === '6-3' || command === '6-41' || command === '6-42' || command === '6-5' || command === '6-6' || command === '6-7' || command === '6-8' || command === '6-9') {
+    var colorStr = 'b'
+    if (color === 2) colorStr = 'o'
+    if (command === '6-1') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-1-0.png'
+    else if (command === '6-2') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-2-0.png'
+    else if (command === '6-3') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-3-0.png'
+    else if (command === '6-41') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-41-0.png'
+    else if (command === '6-42') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-42-0.png'
+    else if (command === '6-5') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-5-0.png'
+    else if (command === '6-6') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-6-0.png'
+    else if (command === '6-7') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-7-0.png'
+    else if (command === '6-8') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-8-0.png'
+    else if (command === '6-9') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-9-0.png'
+    block_shape = parseInt(command.substr(2))
+  } else if (command === '5-11' || command === '5-12' || command === '5-21' || command === '5-22' || command === '5-31' || command === '5-32' || command === '5-4' || command === '5-5' || command === '5-6') {
+    var colorStr = 'b'
+    if (color === 2) colorStr = 'o'
+    if (command === '5-11') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-11-0.png'
+    else if (command === '5-12') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-12-0.png'
+    else if (command === '5-21') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-21-0.png'
+    else if (command === '5-22') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-22-0.png'
+    else if (command === '5-31') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-31-0.png'
+    else if (command === '5-32') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-32-0.png'
+    else if (command === '5-4') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-4-0.png'
+    else if (command === '5-5') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-5-0.png'
+    else if (command === '5-6') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-6-0.png'
+    block_shape = parseInt(command.substr(2))
+  }
+}
 function refreshPreview () {
-  var colorName
-  if (color === 1) colorName = 'b'
-  else colorName = 'o'
-  var ChipClass = (document.getElementById('ChipClass')).value
-  var ChipType = (document.getElementById('ChipType')).value
-  document.getElementById('PreviewImg').src = '../img/chip/' + colorName + '_' + ChipClass + '-' + ChipType + '.png'
-  var PreviewLevelId = document.getElementById('PreviewLevel')
-  var LevelId = document.getElementById('ChipLevel')
-  var LevelIdx = LevelId.selectedIndex
-  PreviewLevelId.innerHTML = LevelId[LevelIdx].text
-  var PreviewTypeId = document.getElementById('PreviewType')
-  var ClassId = document.getElementById('ChipClass')
-  var ClassIdx = ClassId.selectedIndex
-  var ClassName = ClassId[ClassIdx].text
-  var TypeId = document.getElementById('ChipType')
-  var TypeIdx = TypeId.selectedIndex
-  var TypeName = TypeId[TypeIdx].text
-  PreviewTypeId.innerHTML = ClassName + ' - 类型' + TypeName
   document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
   document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
   document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
@@ -391,7 +503,7 @@ function refreshPreview () {
 }
 function resetPage () {
   mul_property = 1
-  document.getElementById('CSwitch1').checked = true
+  changeBigImg('blue')
   document.getElementById('ChipLevel').value = 0
   refreshPreview()
   resetBlock()
@@ -410,10 +522,6 @@ function manageButton () {
   var SbBt2 = document.getElementById('SbBt2')
   var SbBt3 = document.getElementById('SbBt3')
   var SbBt4 = document.getElementById('SbBt4')
-  var AdBl = document.getElementById('AdBl')
-  var SbBl = document.getElementById('SbBl')
-  var AdSp = document.getElementById('AdSp')
-  var SbSp = document.getElementById('SbSp')
   var AdLv = document.getElementById('AdLv')
   var SbLv = document.getElementById('SbLv')
   AdBt1.disabled = false
@@ -424,39 +532,8 @@ function manageButton () {
   SbBt2.disabled = false
   SbBt3.disabled = false
   SbBt4.disabled = false
-  AdBl.disabled = true
-  SbBl.disabled = true
-  AdSp.disabled = true
-  SbSp.disabled = true
   AdLv.disabled = true
   SbLv.disabled = true
-  if (parseInt(document.getElementById('ChipClass').value) === 56) {
-    AdBl.disabled = false
-    SbBl.disabled = true
-    if (parseInt(document.getElementById('ChipType').value) === 1) {
-      AdSp.disabled = true
-      SbSp.disabled = false
-    } else if (parseInt(document.getElementById('ChipType').value) === 9) {
-      AdSp.disabled = false
-      SbSp.disabled = true
-    } else {
-      AdSp.disabled = false
-      SbSp.disabled = false
-    }
-  } else {
-    AdBl.disabled = true
-    SbBl.disabled = false
-    if (parseInt(document.getElementById('ChipType').value) === 11) {
-      AdSp.disabled = false
-      SbSp.disabled = true
-    } else if (parseInt(document.getElementById('ChipType').value) === 6) {
-      AdSp.disabled = true
-      SbSp.disabled = false
-    } else {
-      AdSp.disabled = false
-      SbSp.disabled = false
-    }
-  }
   if (parseInt(document.getElementById('ChipLevel').value) === 0) {
     AdLv.disabled = false
     SbLv.disabled = true
@@ -469,27 +546,21 @@ function manageButton () {
   }
   var addChipButtonId = document.getElementById('addChipButton')
   addChipButtonId.disabled = true
-  var blockNum = parseInt(((document.getElementById('ChipClass').value) + '').substr(1, 1))
-  if (block_dmg + block_dbk + block_acu + block_fil >= blockNum) {
+  var bn = 6
+  if (block_class === 551) bn = 5
+  if (block_dmg + block_dbk + block_acu + block_fil >= bn) {
     AdBt1.disabled = true; AdBt2.disabled = true; AdBt3.disabled = true; AdBt4.disabled = true
   } else {
-    if (blockNum >= 5) {
-      if (block_dmg === blockNum - 1) AdBt1.disabled = true
-      if (block_dbk === blockNum - 1) AdBt2.disabled = true
-      if (block_acu === blockNum - 1) AdBt3.disabled = true
-      if (block_fil === blockNum - 1) AdBt4.disabled = true
-    } else {
-      if (block_dmg === blockNum) AdBt1.disabled = true
-      if (block_dbk === blockNum) AdBt2.disabled = true
-      if (block_acu === blockNum) AdBt3.disabled = true
-      if (block_fil === blockNum) AdBt4.disabled = true
-    }
+    if (block_dmg === bn - 1) AdBt1.disabled = true
+    if (block_dbk === bn - 1) AdBt2.disabled = true
+    if (block_acu === bn - 1) AdBt3.disabled = true
+    if (block_fil === bn - 1) AdBt4.disabled = true
   }
   if (block_dmg === 0) SbBt1.disabled = true
   if (block_dbk === 0) SbBt2.disabled = true
   if (block_acu === 0) SbBt3.disabled = true
   if (block_fil === 0) SbBt4.disabled = true
-  if (block_dmg + block_dbk + block_acu + block_fil === blockNum) addChipButtonId.disabled = false
+  if (block_dmg + block_dbk + block_acu + block_fil === bn) addChipButtonId.disabled = false
 }
 function chartBack (typeInfo) {
   var line1 = document.getElementById('solutionLine1')
@@ -1102,21 +1173,6 @@ function searchChipSet (chipCode) {
   type_num = parseInt(chipString.substr(3))
   for (var i = 0; i < chipNum; i++) if (chipRepo_data[i].classNum === class_num && chipRepo_data[i].typeNum === type_num) tempChipSet.push(chipRepo_data[i])
   return tempChipSet
-}
-function changeBlock (actionInfo) {
-  var ChipClass = document.getElementById('ChipClass')
-  if (actionInfo === 1) ChipClass.value = 551
-  else if (actionInfo === 2) ChipClass.value = 56
-  changeProperty('class')
-  manageButton()
-}
-function changeShape (actionInfo) {
-  var ChipType = document.getElementById('ChipType')
-  var ChipIdx = ChipType.selectedIndex
-  if (actionInfo === 1) ChipType.value = ChipType[parseInt(ChipIdx) + 1].value
-  else ChipType.value = ChipType[parseInt(ChipIdx) - 1].value
-  refreshPreview()
-  manageButton()
 }
 function editLevel (actionInfo) {
   var ChipLevel = document.getElementById('ChipLevel')

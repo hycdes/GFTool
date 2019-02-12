@@ -159,58 +159,47 @@
                                     <!--CHIPSETTING-->
                                     <div class="tab-pane fade in active" id="ChipSetting">
                                         <div class="col-lg-4">
-                                            <!--chip class-->
-                                            <h4>芯片属性</h4>
-                                            <div>
-                                                <p id="SampleImg"><img src="../img/chipcal_56.png"></p>
+                                            <h4>形状和颜色</h4>
+                                            <table class="table-bordered" style="width:250px; height:100px;overflow:hidden" id="ImgChart_preview">
+                                                <tbody>
+                                                    <tr style="height:50px">
+                                                        <td style="width:100px"><img src="../img/chip/bigsample/b_56-9-0.png" id="bigsample"></td>
+                                                        <td style="width:50px"><img src="../img/chip/bigsample/add-block-dis.png" style="cursor:default" onclick='changeBigImg("addblo")' id="AddBloBtn"></td>
+                                                        <td style="width:50px"><img src="../img/chip/bigsample/turn-left.png" style="cursor:pointer" onclick='changeBigImg("left")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/bigsample/blue-select.png" style="cursor:pointer" onclick="changeBigImg('blue')" id="bigsample_blue"></td>
+                                                    </tr>
+                                                    <tr style="height:50px">
+                                                        <td style="width:100px"></td>
+                                                        <td style="width:50px"><img src="../img/chip/bigsample/sub-block.png" style="cursor:pointer" onclick='changeBigImg("subblo")' id="SubBloBtn"></td>
+                                                        <td style="width:50px"><img src="../img/chip/bigsample/turn-right.png" style="cursor:pointer" onclick='changeBigImg("right")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/bigsample/orange-noselect.png" style="cursor:pointer" onclick="changeBigImg('orange')" id="bigsample_orange"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table-bordered" style="width:250px; height:100px;overflow:hidden">
+                                                <tbody>
+                                                    <tr style="height:50px" id="ShapeLine1">
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-9.png" style="cursor:pointer" onclick='changeBigImg("6-9")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-8.png" style="cursor:pointer" onclick='changeBigImg("6-8")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-7.png" style="cursor:pointer" onclick='changeBigImg("6-7")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-6.png" style="cursor:pointer" onclick='changeBigImg("6-6")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-5.png" style="cursor:pointer" onclick='changeBigImg("6-5")'></td>
+                                                    </tr>
+                                                    <tr style="height:50px" id="ShapeLine2">
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-41.png" style="cursor:pointer" onclick='changeBigImg("6-41")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-42.png" style="cursor:pointer" onclick='changeBigImg("6-42")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-3.png" style="cursor:pointer" onclick='changeBigImg("6-3")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-2.png" style="cursor:pointer" onclick='changeBigImg("6-2")'></td>
+                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-1.png" style="cursor:pointer" onclick='changeBigImg("6-1")'></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="tooltip-demo">
+                                                <h4>强化和格数 <button type="button" data-toggle="tooltip" data-placement="bottom" title="对应属性 = 向上取整[基础值x格数] 精度7.1 装填5.7 杀伤4.4 破防12.7" class="btn btn-outline btn-default">?</button></h4>
                                             </div>
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
-                                                        <td>颜色</td>
-                                                        <td>
-                                                            <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch1" value="b" onchange="changeProperty('color_b')" checked><span style="color:darkblue">蓝色</span></label>
-                                                            <label class="radio-inline"><input type="radio" name="ColorSwitch" id="CSwitch2" value="o" onchange="changeProperty('color_o')"><span style="color:darkorange">橙色</span></label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>格数
-                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeBlock(2)" id="SbBl" disabled>&lt</button>
-                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeBlock(1)" id="AdBl">&gt</button>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm" id="ChipClass" onchange="changeProperty('class')">
-                                                                <option value=56 selected>★★★★★ 六格</option>
-                                                                <option value=551>★★★★★ 五格1类</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>形状
-                                                            <button type="button" class="btn btn-outline btn-success" onclick="changeShape(2)" id="SbSp" disabled>&lt</button>
-                                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeShape(1)" id="AdSp">&gt</button>
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-control input-sm" id="ChipType" onchange="changePreview()">
-                                                                <option value=9 selected>9</option>
-                                                                <option value=8>8</option>
-                                                                <option value=7>7</option>
-                                                                <option value=6>6</option>
-                                                                <option value=5>5</option>
-                                                                <option value=42>4-b</option>
-                                                                <option value=41>4-a</option>
-                                                                <option value=3>3</option>
-                                                                <option value=2>2</option>
-                                                                <option value=1>1</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>强化
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="editLevel(1)" id="AdLv">+</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="editLevel(2)" id="SbLv" disabled>-&nbsp</button>
-                                                            <button type="button" class="btn btn-outline btn-success" onclick="editLevel(3)" id="MaxLv">max</button>
-                                                        </td>
                                                         <td>
                                                             <select class="form-control input-sm" id="ChipLevel" onchange="changeProperty('level')">
                                                                 <option value=0 selected>+0</option>
@@ -236,53 +225,47 @@
                                                                 <option value=20>+20(max)</option>
                                                             </select>
                                                         </td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="editLevel(1)" id="AdLv">+</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="editLevel(2)" id="SbLv" disabled>-&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-success" onclick="editLevel(3)" id="MaxLv">max</button>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
-                                                        <td><img src="../img/icon-acu.png">
-                                                            <lable>精度<span style="color:dodgerblue" id="AdTx3">0</span>格</lable>
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(3)" id="AdBt3">&nbsp+&nbsp</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(3)" id="SbBt3">&nbsp-&nbsp&nbsp</button>
-                                                        </td>
-                                                        <td><img src="../img/icon-fil.png">
-                                                            <lable>装填<span style="color:dodgerblue" id="AdTx4">0</span>格</lable>
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(4)" id="AdBt4">&nbsp+&nbsp</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(4)" id="SbBt4">&nbsp-&nbsp&nbsp</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><img src="../img/icon-dmg.png">
-                                                            <lable>杀伤<span style="color:dodgerblue" id="AdTx1">0</span>格</lable>
+                                                        <td value=0 id="Dmg" style='width:30%'><img src="../img/icon-dmg.png"> 0</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx1">0</span>格</td>
+                                                        <td style="width:40%">
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(1)" id="AdBt1">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(1)" id="SbBt1">&nbsp-&nbsp&nbsp</button>
                                                         </td>
-                                                        <td><img src="../img/icon-dbk.png">
-                                                            <lable>破防<span style="color:dodgerblue" id="AdTx2">0</span>格</lable>
+                                                    </tr>
+                                                    <tr>
+                                                        <td value=0 id="Dbk" style='width:30%'><img src="../img/icon-dbk.png"> 0</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx2">0</span>格</td>
+                                                        <td style="width:40%">
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(2)" id="AdBt2">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(2)" id="SbBt2">&nbsp-&nbsp&nbsp</button>
                                                         </td>
                                                     </tr>
-                                                </tbody>
-                                            </table>
-                                            <div class="tooltip-demo">
-                                                <h4>芯片预览 <button type="button" data-toggle="tooltip" data-placement="bottom" title="对应属性 = 向上取整[基础值x格数] 精度7.1 装填5.7 杀伤4.4 破防12.7" class="btn btn-outline btn-default">?</button></h4>
-                                            </div>
-                                            <table class="table table-bordered table-hover">
-                                                <tbody>
                                                     <tr>
-                                                        <td id="PreviewImgHTML"><img id="PreviewImg" src=""> <b id="PreviewLevel"></b></td>
-                                                        <td id="PreviewType"></td>
+                                                        <td value=0 id="Acu" style="width:30%"><img src="../img/icon-acu.png"> 0</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx3">0</span>格</td>
+                                                        <td style="width:40%">
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(3)" id="AdBt3">&nbsp+&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(3)" id="SbBt3">&nbsp-&nbsp&nbsp</button>
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <td value=0 id="Acu" style='width:200px'><img src="../img/icon-acu.png"> 0</td>
-                                                        <td value=0 id="Fil" style='width:200px'><img src="../img/icon-fil.png"> 0</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td value=0 id="Dmg" style='width:200px'><img src="../img/icon-dmg.png"> 0</td>
-                                                        <td value=0 id="Dbk" style='width:200px'><img src="../img/icon-dbk.png"> 0</td>
+                                                        <td value=0 id="Fil" style='width:30%'><img src="../img/icon-fil.png"> 0</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx4">0</span>格</td>
+                                                        <td style="width:40%">
+                                                            <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(4)" id="AdBt4">&nbsp+&nbsp</button>
+                                                            <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(4)" id="SbBt4">&nbsp-&nbsp&nbsp</button>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
