@@ -898,9 +898,9 @@ function showAnalyze () {
       ChipComboChart.innerHTML += ChartAdd
     }
     // enable and disable topology & solution switch
-    if (topoV === 0) SbTp.disabled = true
+    if (topoV === 0 || filter_switch) SbTp.disabled = true
     else SbTp.disabled = false
-    if (topoV === topologySet.length - 1) AdTp.disabled = true
+    if (topoV === topologySet.length - 1 || filter_switch) AdTp.disabled = true
     else AdTp.disabled = false
     if (combV === 0) SbCo.disabled = true
     else SbCo.disabled = false
