@@ -664,7 +664,7 @@ function getTopology () {
   }
   if (topologySet.length > 0) {
     if (filter_switch) { // show sort
-      buffer_solu = []
+      buffer_solu = [], buffer_topo = []
       buffer_num = parseInt(document.getElementById('best_num').value)
       document.getElementById('TopologySelect').disabled = true
       document.getElementById('TopologySelect').innerHTML = '<option value=0 selected>下面是最优的数个方案</option>'
