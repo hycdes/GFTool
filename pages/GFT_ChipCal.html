@@ -200,7 +200,7 @@
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
-                                                        <td>
+                                                        <td style="width:30%">
                                                             <select class="form-control input-sm" id="ChipLevel" onchange="changeProperty('level')">
                                                                 <option value=0 selected>+0</option>
                                                                 <option value=1>+1</option>
@@ -225,10 +225,12 @@
                                                                 <option value=20>+20(max)</option>
                                                             </select>
                                                         </td>
-                                                        <td>
+                                                        <td style="width:70%">
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="editLevel(1)" id="AdLv">+</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="editLevel(2)" id="SbLv" disabled>-&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-success" onclick="editLevel(3)" id="MaxLv">max</button>
+                                                            <button type="button" class="btn btn-outline btn-warning" onclick="editLevel(4)" id="TenLv">Lv10</button>
+                                                            <button type="button" class="btn btn-outline btn-warning" onclick="editLevel(5)" id="MinLv">Lv0</button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -296,19 +298,23 @@
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
-                                                <div class="table-responsive" style='height:500px; overflow-y:scroll'>
+                                                <div class="table-responsive">
                                                     <table class="table table-striped table-bordered table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>编号</th>
-                                                                <th>类型</th>
-                                                                <th>强化</th>
-                                                                <th><img src="../img/icon-acu.png"></th>
-                                                                <th><img src="../img/icon-fil.png"></th>
-                                                                <th><img src="../img/icon-dmg.png"></th>
-                                                                <th><img src="../img/icon-dbk.png"></th>
+                                                                <th style="width:13%">编号</th>
+                                                                <th style="width:22%">类型</th>
+                                                                <th style="width:13%">强化</th>
+                                                                <th style="width:13%"><img src="../img/icon-acu.png"></th>
+                                                                <th style="width:13%"><img src="../img/icon-fil.png"></th>
+                                                                <th style="width:13%"><img src="../img/icon-dmg.png"></th>
+                                                                <th style="width:13%"><img src="../img/icon-dbk.png"></th>
                                                             </tr>
                                                         </thead>
+                                                    </table>
+                                                </div>
+                                                <div class="table-responsive" style='height:400px; overflow-y:scroll'>
+                                                    <table class="table table-striped table-bordered table-hover">
                                                         <tbody id="ChipRepoChart">
                                                         </tbody>
                                                     </table>
