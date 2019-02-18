@@ -497,7 +497,6 @@ function refreshPreview () {
 }
 function resetPage () {
   mul_property = 1
-  changeBigImg('blue')
   document.getElementById('ChipLevel').value = 0
   refreshPreview()
   resetBlock()
