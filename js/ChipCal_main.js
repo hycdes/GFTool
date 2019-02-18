@@ -1,5 +1,5 @@
 var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
-var switch_clear = false, switch_maxall = false
+var switch_clear = false, switch_maxall = false, switch_blueall = false, switch_orangeall = false
 var filter_switch = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -126,14 +126,20 @@ function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
     document.getElementById('SaveButton').disabled = false
     document.getElementById('clearChipButton').disabled = false
     document.getElementById('maxAllButton').disabled = false
+    document.getElementById('blueAllButton').disabled = false
+    document.getElementById('orangeAllButton').disabled = false
   } else {
     document.getElementById('SaveButton').disabled = true
     document.getElementById('deleteChipButton').disabled = true
     document.getElementById('clearChipButton').disabled = true
     document.getElementById('maxAllButton').disabled = true
+    document.getElementById('blueAllButton').disabled = true
+    document.getElementById('orangeAllButton').disabled = true
   }
 }
 function maxAllChip () {
+  switch_blueall = false
+  switch_orangeall = false
   if (switch_maxall === false) {
     switch_maxall = true
     document.getElementById('alert_maxall').innerHTML = ' * 再按一次确认全部满强化'
@@ -168,6 +174,52 @@ function maxAllChip () {
       ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Dbk + '</td>'
       ChartAdd += '</tr>'
       ChipRepoChartId.innerHTML += ChartAdd
+    }
+  }
+}
+function blueAllChip () {
+  switch_maxall = false
+  switch_orangeall = false
+  if (switch_blueall === false) {
+    switch_blueall = true
+    document.getElementById('alert_maxall').innerHTML = ' * 再按一次确认只保留【蓝色】芯片'
+  } else {
+    switch_blueall = false
+    document.getElementById('alert_maxall').innerHTML = ''
+    var ChipRepoChartId = document.getElementById('ChipRepoChart')
+    ChipRepoChartId.innerHTML = ''
+    var c = chipNum - 1
+    while (c >= 0) {
+      if (chipRepo_data[c].color === 2) {
+        document.getElementById('DeleteSelect').value = c + 1
+        changeRepo(2)
+        c = chipNum - 1
+      } else {
+        c--
+      }
+    }
+  }
+}
+function orangeAllChip () {
+  switch_maxall = false
+  switch_blueall = false
+  if (switch_orangeall === false) {
+    switch_orangeall = true
+    document.getElementById('alert_maxall').innerHTML = ' * 再按一次确认只保留【橙色】芯片'
+  } else {
+    switch_orangeall = false
+    document.getElementById('alert_maxall').innerHTML = ''
+    var ChipRepoChartId = document.getElementById('ChipRepoChart')
+    ChipRepoChartId.innerHTML = ''
+    var c = chipNum - 1
+    while (c >= 0) {
+      if (chipRepo_data[c].color === 1) {
+        document.getElementById('DeleteSelect').value = c + 1
+        changeRepo(2)
+        c = chipNum - 1
+      } else {
+        c--
+      }
     }
   }
 }
@@ -263,11 +315,15 @@ function repo_addChart (chipData) {
     document.getElementById('SaveButton').disabled = false
     document.getElementById('clearChipButton').disabled = false
     document.getElementById('maxAllButton').disabled = false
+    document.getElementById('blueAllButton').disabled = false
+    document.getElementById('orangeAllButton').disabled = false
   } else {
     document.getElementById('SaveButton').disabled = true
     document.getElementById('deleteChipButton').disabled = true
     document.getElementById('clearChipButton').disabled = true
     document.getElementById('maxAllButton').disabled = true
+    document.getElementById('blueAllButton').disabled = true
+    document.getElementById('orangeAllButton').disabled = true
   }
 }
 function simpleCheck (LoadCode) { // 简单检查存储码
@@ -1539,11 +1595,11 @@ function setBest (typeInfo) {
   if (typeInfo === 1) {
     filter_switch = false
     document.getElementById('best_num').disabled = true
-    document.getElementById('best_alert').innerHTML = ' *会显示所有可行的图解和组合，约数秒'
+    document.getElementById('best_alert').innerHTML = ' 【全部方案】给出所有可行图解，及每种图解的所有可能和组合(速度很快)'
   }else {
     filter_switch = true
     document.getElementById('best_num').disabled = false
-    document.getElementById('best_alert').innerHTML = ' *算出所有可行解并输出排行前几的方案，约数秒至数分钟'
+    document.getElementById('best_alert').innerHTML = ' 【最优方案】输出最优的数个的方案(约数分钟不等)'
   }
 }
 function setBestSort (typeInfo) { ranking_switch = typeInfo; }

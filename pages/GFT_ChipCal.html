@@ -288,13 +288,16 @@
                                             </div>
                                             <div class="col-lg-9">
                                                 <p>
-                                                    <button type="button" class="btn btn-warning" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该编号芯片</button>
-                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空芯片仓库</button><span style="color:#FF0066"><b id="alert_clear"></b></span>
+                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该编号</button>
+                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空仓库</button><span style="color:#FF0066"><b id="alert_clear"></b></span>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
                                                 <p>
-                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强化</button><span style="color:#FF0066"><b id="alert_maxall"></b></span>
+                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强化</button>
+                                                    <button type="button" class="btn btn-primary" onclick="blueAllChip()" id="blueAllButton" disabled>只留蓝色</button>
+                                                    <button type="button" class="btn btn-warning" onclick="orangeAllChip()" id="orangeAllButton" disabled>只留橙色</button>
+                                                    <span style="color:#FF0066"><b id="alert_maxall"></b></span>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
@@ -321,7 +324,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <!--SAVELOAD-->
                                     <div class="tab-pane fade" id="SaveLoad">
@@ -378,12 +380,12 @@
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
                                                     </p>
                                                 </div>
-                                                <h4>显示设置</h4>
+                                                <h4>求解设置</h4>
                                                 <div class="col-lg-12">
+                                                    <h5 id="best_alert"> 【全部方案】给出所有可行图解的所有可能和组合(速度很快)</h5>
                                                     <p>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>显示全部方案</label>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">挑选最优解</span></label>
-                                                        <h5 id="best_alert"> *会显示所有可行的图解和组合，约数秒</h5>
+                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>全部方案</label>
+                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">最优解</span></label>
                                                     </p>
                                                     <div class="form-group input-group">
                                                         <span class="input-group-addon">挑选个数</span>
@@ -605,7 +607,7 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="tooltip-demo">
-                                            <h4>组合的排序基准 <button type="button" data-toggle="tooltip" data-placement="bottom" title="芯片并非全部满强请选择“有效格” 按所选条件从高到低排序组合" class="btn btn-outline btn-default">?</button></h4>
+                                            <h4>该图解下组合的排序基准 <button type="button" data-toggle="tooltip" data-placement="bottom" title="将所属同一图解的组合按条件排序 仅用于【全部方案】" class="btn btn-outline btn-default">?</button></h4>
                                         </div>
                                         <p>
                                             <button type="button" class="btn btn-outline btn-danger" onclick="changeRankingSwitch(1)" id="SortButton_AllPro" disabled>有效总属性</button>
