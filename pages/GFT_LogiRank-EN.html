@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>少女前线-后勤排序器 by 命运の乐章</title>
+    <title>Girls' Frontline Tools-Logistics ranking by FatalChapter</title>
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -16,7 +16,7 @@
     <script type="text/javascript">
         window.onload = function () {
             var chart = document.getElementById("rankingChart");
-            var tab = '点击 <span style="color:deepskyblue">按条件排序</span> 按钮，排序前十的结果将在这里显示';
+            var tab = 'Press <span style="color:deepskyblue">Ranking with setting</span> button, top 10 logi entries show here';
             chart.innerHTML = tab;
         }
         function creatLogiData(ilevel, impw, iamm, irat, iprt, iitm1, iitm2, itime) {
@@ -97,15 +97,15 @@
                 if (it1 === 0) {
                     validNum += 2;
                 } else {
-                    if ((logiDataEntry.itm1 === "人形契约" || logiDataEntry.itm2 === "人形契约") && it1 === 1) {
+                    if ((logiDataEntry.itm1 === "T-doll contract" || logiDataEntry.itm2 === "T-doll contract") && it1 === 1) {
                         validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "装备契约" || logiDataEntry.itm2 === "装备契约") && it1 === 2) {
+                    } else if ((logiDataEntry.itm1 === "Equipment contract" || logiDataEntry.itm2 === "Equipment contract") && it1 === 2) {
                         validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "快速建造" || logiDataEntry.itm2 === "快速建造") && it1 === 3) {
+                    } else if ((logiDataEntry.itm1 === "Quick production" || logiDataEntry.itm2 === "Quick production") && it1 === 3) {
                         validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "快速修复" || logiDataEntry.itm2 === "快速修复") && it1 === 4) {
+                    } else if ((logiDataEntry.itm1 === "Quick restoration" || logiDataEntry.itm2 === "Quick restoration") && it1 === 4) {
                         validNum += 2;
-                    } else if ((logiDataEntry.itm1 === "采购币" || logiDataEntry.itm2 === "采购币") && it1 === 5) {
+                    } else if ((logiDataEntry.itm1 === "Token" || logiDataEntry.itm2 === "Token") && it1 === 5) {
                         validNum += 2;
                     }
                 }
@@ -113,26 +113,26 @@
                 if (it1 === 0 || it2 === 0) {
                     validNum++;
                 }
-                if ((logiDataEntry.itm1 === "人形契约") && (it1 === 1 || it2 === 1)) {
+                if ((logiDataEntry.itm1 === "T-doll contract") && (it1 === 1 || it2 === 1)) {
                     validNum++;
-                } else if ((logiDataEntry.itm1 === "装备契约") && (it1 === 2 || it2 === 2)) {
+                } else if ((logiDataEntry.itm1 === "Equipment contract") && (it1 === 2 || it2 === 2)) {
                     validNum++;
-                } else if ((logiDataEntry.itm1 === "快速建造") && (it1 === 3 || it2 === 3)) {
+                } else if ((logiDataEntry.itm1 === "Quick production") && (it1 === 3 || it2 === 3)) {
                     validNum++;
-                } else if ((logiDataEntry.itm1 === "快速修复") && (it1 === 4 || it2 === 4)) {
+                } else if ((logiDataEntry.itm1 === "Quick restoration") && (it1 === 4 || it2 === 4)) {
                     validNum++;
-                } else if ((logiDataEntry.itm1 === "采购币") && (it1 === 5 || it2 === 5)) {
+                } else if ((logiDataEntry.itm1 === "Token") && (it1 === 5 || it2 === 5)) {
                     validNum++;
                 }
-                if ((logiDataEntry.itm2 === "人形契约") && (it1 === 1 || it2 === 1)) {
+                if ((logiDataEntry.itm2 === "T-doll contract") && (it1 === 1 || it2 === 1)) {
                     validNum++;
-                } else if ((logiDataEntry.itm2 === "装备契约") && (it1 === 2 || it2 === 2)) {
+                } else if ((logiDataEntry.itm2 === "Equipment contract") && (it1 === 2 || it2 === 2)) {
                     validNum++;
-                } else if ((logiDataEntry.itm2 === "快速建造") && (it1 === 3 || it2 === 3)) {
+                } else if ((logiDataEntry.itm2 === "Quick production") && (it1 === 3 || it2 === 3)) {
                     validNum++;
-                } else if ((logiDataEntry.itm2 === "快速修复") && (it1 === 4 || it2 === 4)) {
+                } else if ((logiDataEntry.itm2 === "Quick restoration") && (it1 === 4 || it2 === 4)) {
                     validNum++;
-                } else if ((logiDataEntry.itm2 === "采购币") && (it1 === 5 || it2 === 5)) {
+                } else if ((logiDataEntry.itm2 === "Token") && (it1 === 5 || it2 === 5)) {
                     validNum++;
                 }
             }
@@ -144,7 +144,7 @@
             var allEntry = 0;
             var listNum = 48;
             var chart = document.getElementById("rankingChart");
-            var tab = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>排行</th><th>关卡</th><th>人力/h</th><th>弹药/h</th><th>口粮/h</th><th>零件/h</th><th>道具1</th><th>道具2</th><th>时间(h)</th></tr></thead>';
+            var tab = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>No.</th><th>Chapter No.</th><th>Manpower/h</th><th>Ammunition/h</th><th>Ration/h</th><th>Parts/h</th><th>Item1</th><th>Item2</th><th>Time(h)</th></tr></thead>';
             tab += '<tbody>';
             for (var i = 0; i < listNum && allEntry < 10; i++) {
                 if (haveItem(it1, it2, logiList[i]) && obeyLimit(Tr, Tm, logiList[i])) {
@@ -173,39 +173,39 @@
             tab += '</tbody></table>';
             if (allEntry === 0) {
                 tab = "";
-                if (it1_text != '无' && it2_text != '无') {
+                if (it1_text != 'Null' && it2_text != 'Null') {
                     if (it1_text != it2_text) {
-                        tab += '没有既包含 <span style="color:#FF0066">';
+                        tab += 'No entry with both <span style="color:#FF0066">';
                         tab += it1_text;
-                        tab += '</span> 又包含<span style="color:#FF0066"> ';
+                        tab += '</span> and<span style="color:#FF0066"> ';
                         tab += it2_text;
-                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += ' </span>with time limitation at <span style="color:#FF0066">';
                         tab += Tr; tab += " ~ "; tab += Tm;
-                        tab += '</span> 小时的后勤条目';
+                        tab += '</span> hours';
                     } else {
-                        tab += '没有包含 <span style="color:#FF0066">';
+                        tab += 'No entry with <span style="color:#FF0066">';
                         tab += it1_text;
-                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += ' </span>with time limitation at <span style="color:#FF0066">';
                         tab += Tr; tab += " ~ "; tab += Tm;
-                        tab += '</span> 小时的后勤条目';
+                        tab += '</span> hours';
                     }
-                } else if (it1_text === '无' && it2_text === '无') {
-                    tab += '没有时间长于 <span style="color:#FF0066">';
+                } else if (it1_text === 'Null' && it2_text === 'Null') {
+                    tab += 'No entry with time limitation at <span style="color:#FF0066">';
                     tab += Tr; tab += " ~ "; tab += Tm;
-                    tab += '</span> 小时的后勤条目';
+                    tab += '</span> hours';
                 } else {
-                    if (it1_text === '无') {
-                        tab += '没有包含 <span style="color:#FF0066">';
+                    if (it1_text === 'Null') {
+                        tab += 'No entry with <span style="color:#FF0066">';
                         tab += it2_text;
-                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += ' </span>with time limitation at <span style="color:#FF0066">';
                         tab += Tr; tab += " ~ "; tab += Tm;
-                        tab += '</span> 小时的后勤条目';
+                        tab += '</span> hours';
                     } else {
-                        tab += '没有包含 <span style="color:#FF0066">';
+                        tab += 'No entry with <span style="color:#FF0066">';
                         tab += it1_text;
-                        tab += ' </span>并且时间在 <span style="color:#FF0066">';
+                        tab += ' </span>with time limitation at <span style="color:#FF0066">';
                         tab += Tr; tab += " ~ "; tab += Tm;
-                        tab += '</span> 小时的后勤条目';
+                        tab += '</span> hours';
                     }
                 }
             }
@@ -228,54 +228,54 @@
             var it2 = parseInt(Itm2[idx2].value);
             var it2_text = Itm2[idx2].text;
             var logiList = [];
-            logiList.push(creatLogiData("0-1", 0, 174, 174, 0, "快速修复", "快速建造", 0.83));
-            logiList.push(creatLogiData("0-2", 183.3, 0, 0, 116.7, "人形契约", "—", 3));
-            logiList.push(creatLogiData("0-3", 75, 75, 75, 20.8, "装备契约", "快速修复", 12));
-            logiList.push(creatLogiData("0-4", 0, 50, 33.3, 31.3, "采购币", "—", 24));
+            logiList.push(creatLogiData("0-1", 0, 174, 174, 0, "Quick restoration", "Quick production", 0.83));
+            logiList.push(creatLogiData("0-2", 183.3, 0, 0, 116.7, "T-doll contract", "—", 3));
+            logiList.push(creatLogiData("0-3", 75, 75, 75, 20.8, "Equipment contract", "Quick restoration", 12));
+            logiList.push(creatLogiData("0-4", 0, 50, 33.3, 31.3, "Token", "—", 24));
             logiList.push(creatLogiData("1-1", 40, 120, 60, 0, "—", "—", 0.25));
             logiList.push(creatLogiData("1-2", 0, 80, 120, 0, "—", "—", 0.5));
-            logiList.push(creatLogiData("1-3", 30, 0, 30, 10, "快速修复", "—", 1));
-            logiList.push(creatLogiData("1-4", 80, 80, 0, 0, "人形契约", "—", 2));
+            logiList.push(creatLogiData("1-3", 30, 0, 30, 10, "Quick restoration", "—", 1));
+            logiList.push(creatLogiData("1-4", 80, 80, 0, 0, "T-doll contract", "—", 2));
             logiList.push(creatLogiData("2-1", 150, 0, 0, 45, "—", "—", 0.67));
-            logiList.push(creatLogiData("2-2", 40, 133.3, 53.3, 0, "快速修复", "—", 1.5));
-            logiList.push(creatLogiData("2-3", 2.5, 2.5, 2.5, 57.5, "快速修复", "快速建造", 4));
-            logiList.push(creatLogiData("2-4", 0, 41.7, 100, 10, "人形契约", "—", 6));
+            logiList.push(creatLogiData("2-2", 40, 133.3, 53.3, 0, "Quick restoration", "—", 1.5));
+            logiList.push(creatLogiData("2-3", 2.5, 2.5, 2.5, 57.5, "Quick restoration", "Quick production", 4));
+            logiList.push(creatLogiData("2-4", 0, 41.7, 100, 10, "T-doll contract", "—", 6));
             logiList.push(creatLogiData("3-1", 150, 0, 225, 0, "—", "—", 0.33));
             logiList.push(creatLogiData("3-2", 0, 160, 93.3, 40, "—", "—", 0.75));
-            logiList.push(creatLogiData("3-3", 0, 200, 0, 0, "快速修复", "快速建造", 1.5));
-            logiList.push(creatLogiData("3-4", 0, 0, 60, 60, "人形契约", "装备契约", 5));
-            logiList.push(creatLogiData("4-1", 0, 185, 185, 0, "装备契约", "—", 1));
-            logiList.push(creatLogiData("4-2", 0, 0, 0, 105, "快速建造", "—", 2));
-            logiList.push(creatLogiData("4-3", 133.3, 91.7, 0, 0, "人形契约", "快速修复", 6));
-            logiList.push(creatLogiData("4-4", 50, 50, 50, 18.8, "快速建造", "—", 8));
+            logiList.push(creatLogiData("3-3", 0, 200, 0, 0, "Quick restoration", "Quick production", 1.5));
+            logiList.push(creatLogiData("3-4", 0, 0, 60, 60, "T-doll contract", "Equipment contract", 5));
+            logiList.push(creatLogiData("4-1", 0, 185, 185, 0, "Equipment contract", "—", 1));
+            logiList.push(creatLogiData("4-2", 0, 0, 0, 105, "Quick production", "—", 2));
+            logiList.push(creatLogiData("4-3", 133.3, 91.7, 0, 0, "T-doll contract", "Quick restoration", 6));
+            logiList.push(creatLogiData("4-4", 50, 50, 50, 18.8, "Quick production", "—", 8));
             logiList.push(creatLogiData("5-1", 0, 0, 200, 90, "—", "—", 0.5));
-            logiList.push(creatLogiData("5-2", 0, 240, 120, 0, "快速修复", "—", 2.5));
-            logiList.push(creatLogiData("5-3", 200, 100, 100, 0, "装备契约", "—", 4));
-            logiList.push(creatLogiData("5-4", 14.3, 0, 0, 100, "人形契约", "—", 7));
+            logiList.push(creatLogiData("5-2", 0, 240, 120, 0, "Quick restoration", "—", 2.5));
+            logiList.push(creatLogiData("5-3", 200, 100, 100, 0, "Equipment contract", "—", 4));
+            logiList.push(creatLogiData("5-4", 14.3, 0, 0, 100, "T-doll contract", "—", 7));
             logiList.push(creatLogiData("6-1", 150, 150, 0, 50, "—", "—", 2));
-            logiList.push(creatLogiData("6-2", 0, 66.7, 183.3, 33.3, "快速修复", "快速建造", 3));
-            logiList.push(creatLogiData("6-3", 0, 0, 40, 100, "装备契约", "—", 5));
-            logiList.push(creatLogiData("6-4", 66.7, 66.7, 66.7, 0, "采购币", "—", 12));
+            logiList.push(creatLogiData("6-2", 0, 66.7, 183.3, 33.3, "Quick restoration", "Quick production", 3));
+            logiList.push(creatLogiData("6-3", 0, 0, 40, 100, "Equipment contract", "—", 5));
+            logiList.push(creatLogiData("6-4", 66.7, 66.7, 66.7, 0, "Token", "—", 12));
             logiList.push(creatLogiData("7-1", 260, 0, 260, 0, "—", "—", 2.5));
-            logiList.push(creatLogiData("7-2", 0, 162.5, 0, 75, "人形契约", "快速修复", 4));
-            logiList.push(creatLogiData("7-3", 163.6, 109.1, 109.1, 0, "装备契约", "—", 5.5));
-            logiList.push(creatLogiData("7-4", 31.3, 31.3, 31.3, 75, "快速建造", "—", 8));
-            logiList.push(creatLogiData("8-1", 150, 150, 150, 0, "装备契约", "—", 1));
-            logiList.push(creatLogiData("8-2", 0, 0, 0, 150, "快速修复", "—", 3));
-            logiList.push(creatLogiData("8-3", 66.7, 133.3, 133.3, 0, "快速修复", "快速建造", 6));
-            logiList.push(creatLogiData("8-4", 166.7, 44.4, 44.4, 11.1, "人形契约", "—", 9));
+            logiList.push(creatLogiData("7-2", 0, 162.5, 0, 75, "T-doll contract", "Quick restoration", 4));
+            logiList.push(creatLogiData("7-3", 163.6, 109.1, 109.1, 0, "Equipment contract", "—", 5.5));
+            logiList.push(creatLogiData("7-4", 31.3, 31.3, 31.3, 75, "Quick production", "—", 8));
+            logiList.push(creatLogiData("8-1", 150, 150, 150, 0, "Equipment contract", "—", 1));
+            logiList.push(creatLogiData("8-2", 0, 0, 0, 150, "Quick restoration", "—", 3));
+            logiList.push(creatLogiData("8-3", 66.7, 133.3, 133.3, 0, "Quick restoration", "Quick production", 6));
+            logiList.push(creatLogiData("8-4", 166.7, 44.4, 44.4, 11.1, "T-doll contract", "—", 9));
             logiList.push(creatLogiData("9-1", 0, 0, 200, 100, "—", "—", 0.5));
-            logiList.push(creatLogiData("9-2", 120, 0, 120, 66.7, "快速建造", "—", 1.5));
-            logiList.push(creatLogiData("9-3", 166.7, 166.7, 0, 0, "人形契约", "—", 4.5));
-            logiList.push(creatLogiData("9-4", 71.4, 128.6, 128.6, 0, "装备契约", "—", 7));
+            logiList.push(creatLogiData("9-2", 120, 0, 120, 66.7, "Quick production", "—", 1.5));
+            logiList.push(creatLogiData("9-3", 166.7, 166.7, 0, 0, "T-doll contract", "—", 4.5));
+            logiList.push(creatLogiData("9-4", 71.4, 128.6, 128.6, 0, "Equipment contract", "—", 7));
             logiList.push(creatLogiData("10-1", 210, 300, 0, 0, "—", "—", 0.67));
-            logiList.push(creatLogiData("10-2", 0, 144, 108, 0, "人形契约", "快速建造", 1.67));
-            logiList.push(creatLogiData("10-3", 0, 90, 90, 56.3, "快速修复", "快速建造", 5.33));
-            logiList.push(creatLogiData("10-4", 66, 66, 66, 33, "装备契约", "—", 10));
-            logiList.push(creatLogiData("11-1", 87.5, 262.5, 0, 0, "人形契约", "装备契约", 4));
-            logiList.push(creatLogiData("11-2", 90, 135, 135, 0, "人形契约", "—", 4));
-            logiList.push(creatLogiData("11-3", 0, 93.8, 187.5, 31.3, "快速修复", "—", 8));
-            logiList.push(creatLogiData("11-4", 0, 165, 0, 90, "快速建造", "—", 10));
+            logiList.push(creatLogiData("10-2", 0, 144, 108, 0, "T-doll contract", "Quick production", 1.67));
+            logiList.push(creatLogiData("10-3", 0, 90, 90, 56.3, "Quick restoration", "Quick production", 5.33));
+            logiList.push(creatLogiData("10-4", 66, 66, 66, 33, "Equipment contract", "—", 10));
+            logiList.push(creatLogiData("11-1", 87.5, 262.5, 0, 0, "T-doll contract", "Equipment contract", 4));
+            logiList.push(creatLogiData("11-2", 90, 135, 135, 0, "T-doll contract", "—", 4));
+            logiList.push(creatLogiData("11-3", 0, 93.8, 187.5, 31.3, "Quick restoration", "—", 8));
+            logiList.push(creatLogiData("11-4", 0, 165, 0, 90, "Quick production", "—", 10));
             logiList.sort(function (a, b) {
                 var weight1 = a.mpw * parseInt(Mw.value) + a.amm * parseInt(Aw.value) + a.rat * parseInt(Rw.value) + a.prt * parseInt(Pw.value);
                 var weight2 = b.mpw * parseInt(Mw.value) + b.amm * parseInt(Aw.value) + b.rat * parseInt(Rw.value) + b.prt * parseInt(Pw.value);
@@ -305,7 +305,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">Girls' Frontline Tools</span> by FatalChapter</a>
             </div>
             <!-- NaviBar (Left) -->
             <div class="navbar-default sidebar" role="navigation">
@@ -325,27 +325,27 @@
 
                         <!-- [NAVI]Home -->
                         <li>
-                            <a href="index.html"><i class="fa fa-home fa-fw"></i> 主页 Home</a>
+                            <a href="index.html"><i class="fa fa-home fa-fw"></i> Home</a>
                         </li>
                         <!-- [NAVI]Gaming stratefy -->
                         <li>
-                            <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库 Database</a>
+                            <a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> Database</a>
                         </li>
                         <!-- [NAVI]LogiRank -->
                         <li>
-                            <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器 Logistics ranking</a>
+                            <a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> Logistics ranking</a>
                         </li>
                         <!-- [NAVI]LevelCal -->
                         <li>
-                            <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器 Levelup calculator</a>
+                            <a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> Levelup calculator</a>
                         </li>
                         <!-- [NAVI]IOPSimulate -->
                         <li>
-                            <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器 IOP simulator</a>
+                            <a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> IOP simulator</a>
                         </li>
                         <!-- [NAVI]ChipCal -->
                         <li>
-                            <a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器 Chip calculator</a>
+                            <a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> Chip calculator</a>
                         </li>
                     </ul>
                 </div>
@@ -360,7 +360,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">后勤排序器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button> <button type="button" data-toggle="tooltip" data-placement="bottom" title="各资源获取速率乘其权重求和排序 所缺的资源可将权重调大" class="btn btn-outline btn-default">?</button></h1>
+                            <h1 class="page-header">Logistics ranking <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button> <button type="button" data-toggle="tooltip" data-placement="bottom" title="Ranking logi entry with the sum of all resources per hour plus its weight" class="btn btn-outline btn-default">?</button></h1>
                         </div>
                     </div>
                 </div>
@@ -369,17 +369,17 @@
                     <div class="col-lg-8">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                设置
+                                Setting
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#Ratio" data-toggle="tab">配比</a>
+                                        <a href="#Ratio" data-toggle="tab">Ratio</a>
                                     </li>
                                     <li>
-                                        <a href="#Limitation" data-toggle="tab">限制</a>
+                                        <a href="#Limitation" data-toggle="tab">Limitation</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -387,66 +387,66 @@
                                     <!--RATIO-->
                                     <div class="tab-pane fade in active" id="Ratio">
                                         <div class="col-lg-6" style="background:url(../img/Logi-token.png) no-repeat right 15px top 15px">
-                                            <h4>常用</h4>
+                                            <h4>Common</h4>
                                             <p>
-                                                <button type="button" class="btn btn-outline btn-primary" onclick="setWeight(2)">零件x3</button>
-                                                <button type="button" class="btn btn-outline btn-danger" onclick="setWeight(1)">等比</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(3)">赌枪</button>
+                                                <button type="button" class="btn btn-outline btn-primary" onclick="setWeight(2)">Partsx3</button>
+                                                <button type="button" class="btn btn-outline btn-danger" onclick="setWeight(1)">Equal</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(3)">T-doll</button>
                                             </p>
                                             <p>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(4)">人力</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(5)">弹药</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(6)">口粮</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(7)">零件</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(4)">Manpower</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(5)">Ammunition</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(6)">Ration</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeight(7)">Parts</button>
                                             </p>
-                                            <h4>包含道具</h4>
+                                            <h4>Required items</h4>
                                             <p>
                                                 <select class="form-control" id="ItemNeed1">
-                                                    <option value=0>无要求</option>
-                                                    <option value=1>人形契约</option>
-                                                    <option value=2>装备契约</option>
-                                                    <option value=3>快速建造</option>
-                                                    <option value=4>快速修复</option>
-                                                    <option value=5>采购币</option>
+                                                    <option value=0>Null</option>
+                                                    <option value=1>T-doll contract</option>
+                                                    <option value=2>Equipment contract</option>
+                                                    <option value=3>Quick production</option>
+                                                    <option value=4>Quick restoration</option>
+                                                    <option value=5>Token</option>
                                                 </select>
                                             </p>
                                             <p>
                                                 <select class="form-control" id="ItemNeed2">
-                                                    <option value=0>无要求</option>
-                                                    <option value=1>人形契约</option>
-                                                    <option value=2>装备契约</option>
-                                                    <option value=3>快速建造</option>
-                                                    <option value=4>快速修复</option>
-                                                    <option value=5>采购币</option>
+                                                    <option value=0>Null</option>
+                                                    <option value=1>T-doll contract</option>
+                                                    <option value=2>Equipment contract</option>
+                                                    <option value=3>Quick production</option>
+                                                    <option value=4>Quick restoration</option>
+                                                    <option value=5>Token</option>
                                                 </select>
                                             </p>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>权重</h4>
+                                            <h4>Ratio</h4>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">人力权重</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="Mw" value=1>
+                                                <span class="input-group-addon">Mpw Ratio </span>
+                                                <input type="text" class="form-control" placeholder="Enter an integer" id="Mw" value=1>
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药权重</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="Aw" value=1>
+                                                <span class="input-group-addon">Amm Ratio</span>
+                                                <input type="text" class="form-control" placeholder="Enter an integer" id="Aw" value=1>
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮权重</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="Rw" value=1>
+                                                <span class="input-group-addon">Rat Ratio&nbsp&nbsp&nbsp</span>
+                                                <input type="text" class="form-control" placeholder="Enter an integer" id="Rw" value=1>
                                             </div>
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">零件权重</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="Pw" value=3>
+                                                <span class="input-group-addon">Pts Ratio&nbsp&nbsp&nbsp</span>
+                                                <input type="text" class="form-control" placeholder="Enter an integer" id="Pw" value=3>
                                             </div>
                                         </div>
                                     </div>
                                     <!--LIMITATION-->
                                     <div class="tab-pane fade" id="Limitation">
                                         <div class="col-lg-12">
-                                            <h4>时间区间</h4>
+                                            <h4>Time limitation</h4>
                                             <p>
-                                                <button type="button" class="btn btn-default" onclick="setTime(5)">全部</button>
+                                                <button type="button" class="btn btn-default" onclick="setTime(5)">All</button>
                                                 <button type="button" class="btn btn-outline btn-primary" onclick="setTime(1)">6~12h</button>
                                                 <button type="button" class="btn btn-default" onclick="setTime(2)">4~6h</button>
                                                 <button type="button" class="btn btn-default" onclick="setTime(3)">1~3h</button>
@@ -455,40 +455,40 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">最短</span>
-                                                <input type="text" class="form-control" value="0" placeholder="输入数字" id="Tr">
-                                                <span class="input-group-addon">小时</span>
+                                                <span class="input-group-addon">Min</span>
+                                                <input type="text" class="form-control" value="0" placeholder="Enter an number" id="Tr">
+                                                <span class="input-group-addon">h</span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group input-group">
-                                                <span class="input-group-addon">最长</span>
-                                                <input type="text" class="form-control" value="24" placeholder="输入数字" id="Tm">
-                                                <span class="input-group-addon">小时</span>
+                                                <span class="input-group-addon">Max</span>
+                                                <input type="text" class="form-control" value="24" placeholder="Enter an number" id="Tm">
+                                                <span class="input-group-addon">h</span>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>关卡解锁</h4>
+                                            <h4>Unlock chapter</h4>
                                             <p>
                                                 <select class="form-control" id="MapLimit">
-                                                    <option value=1>第一战役</option>
-                                                    <option value=2>第二战役</option>
-                                                    <option value=3>第三战役</option>
-                                                    <option value=4>第四战役</option>
-                                                    <option value=4.5>第零战役 (通关4-4E)</option>
-                                                    <option value=5>第五战役</option>
-                                                    <option value=6>第六战役</option>
-                                                    <option value=7>第七战役</option>
-                                                    <option value=8>第八战役</option>
-                                                    <option value=9>第九战役</option>
-                                                    <option value=10>第十战役</option>
-                                                    <option value=11 selected>第十一战役</option>
+                                                    <option value=1>Chapter 1</option>
+                                                    <option value=2>Chapter 2</option>
+                                                    <option value=3>Chapter 3</option>
+                                                    <option value=4>Chapter 4</option>
+                                                    <option value=4.5>Chapter 0 (finish 4-4E)</option>
+                                                    <option value=5>Chapter 5</option>
+                                                    <option value=6>Chapter 6</option>
+                                                    <option value=7>Chapter 7</option>
+                                                    <option value=8>Chapter 8</option>
+                                                    <option value=9>Chapter 9</option>
+                                                    <option value=10>Chapter 10</option>
+                                                    <option value=11 selected>Chapter 11</option>
                                                 </select>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <p><button type="button" class="btn btn-info" onclick="getRanking()">按条件排序</button></p>
+                                        <p><button type="button" class="btn btn-info" onclick="getRanking()">Ranking with setting</button></p>
                                     </div>
                                 </div>
 
@@ -500,7 +500,7 @@
                     <div class="col-lg-8">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                排序结果
+                                Ranking results
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
