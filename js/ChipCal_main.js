@@ -198,6 +198,9 @@ function blueAllChip () {
         c--
       }
     }
+    changeRepo(1)
+    document.getElementById('DeleteSelect').value = chipNum
+    changeRepo(2)
   }
 }
 function orangeAllChip () {
@@ -221,6 +224,9 @@ function orangeAllChip () {
         c--
       }
     }
+    changeRepo(1)
+    document.getElementById('DeleteSelect').value = chipNum
+    changeRepo(2)
   }
 }
 function changeTopology (actionId) {

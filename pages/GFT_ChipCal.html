@@ -141,7 +141,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" style="background:url(../img/CC-Heavyfire.png) no-repeat right 50px top 120px;">
                             <div class="panel-heading">
                                 芯片录入
                             </div>
@@ -329,16 +329,15 @@
                                     <div class="tab-pane fade" id="SaveLoad">
                                         <div class="col-lg-6">
                                             <h4>存档芯片仓库数据</h4>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">存储码</span>
-                                                <input type="text" class="form-control" placeholder="存储码将在这里显示" id="SaveCode" readonly>
+                                            <div class="form-group">
+                                                <textarea class="form-control" rows="7" placeholder="存储码将在这里显示" id="SaveCode" style="width:70%" readonly></textarea>
                                             </div>
                                             <p><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>复制存储码</button><b id="SaveAlert"></b></p>
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>读取存档</h4>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="3" placeholder="将存储码粘贴在此，仓库将复现之前的结果" id="LoadCode"></textarea>
+                                                <textarea class="form-control" rows="7" placeholder="将存储码粘贴在此，仓库将复现之前的结果" id="LoadCode" style="width:70%"></textarea>
                                             </div>
                                             <p><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">读取存储码</button><b id="LoadAlert"></b></p>
                                         </div>
@@ -353,7 +352,7 @@
                 <div class="row">
                     <!--Setting-->
                     <div class="col-lg-12">
-                        <div class="panel panel-default" style="background:url(../img/CC-Heavyfire.png) no-repeat right 20px top 50px;">
+                        <div class="panel panel-default" style="background:url(../img/CC-WAVE.png) no-repeat right 100px top 100px;">
                             <div class="panel-heading">
                                 拼接结果
                             </div>
