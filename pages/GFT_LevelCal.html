@@ -255,8 +255,8 @@
             var maxRat = parseFloat(RatAvgId.value) * Num_leaderMVP,
                 minRat = parseFloat(RatAvgId.value) * Num_normal;
             var chart = document.getElementById("resultChart");
-            var tab = '<p><h4>地图信息(Map information)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验(Total exp)</th><th>所选地图(Map selection)</th><th>战斗经验(Exp/battle)</th><th>衰减等级(Decline level)</th></tr></thead>';
+            var tab = '<p><h4>地图信息</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验</th><th>所选地图</th><th>战斗经验</th><th>衰减等级</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (total_EXP + "");
@@ -271,8 +271,8 @@
             tab += (selectMapInfo.declinelevel + "");
             tab += '</td>';
             tab += '</tr></tbody></table>';
-            tab += '<p><h4>战斗次数(Number of battle)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>队员(Member)</th><th>队长(Leader)</th><th>MVP</th><th>队长MVP(Leader+MVP)</th><th>作战报告书(Book)</th></tr></thead>';
+            tab += '<p><h4>战斗次数</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>队员</th><th>队长</th><th>MVP</th><th>队长MVP</th><th>作战报告书</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (Num_normal + "");
@@ -290,8 +290,8 @@
             tab += (Num_book + "");
             tab += '</td></tr>';
             tab += '</tr></tbody></table>';
-            tab += '<p><h4>资源消耗(Consumption)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>弹药(Ammunition)</th><th>口粮(Ration)</th><th>时间(Time)</th></tr></thead>';
+            tab += '<p><h4>资源消耗</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>弹药</th><th>口粮</th><th>耗时</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (maxAmm.toFixed(0) + "");
@@ -309,8 +309,8 @@
             tab += (minTime.toFixed(1) + "");
             tab += 'h</td>';
             tab += '</tr></tbody></table>';
-            tab += '<p><h4>模拟战(Simulated war)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>模拟战经验(Exp of war)</th><th>模拟战场次(Num of war)</th><th>动能消耗(Kinetic consumption)</th></tr></thead>';
+            tab += '<p><h4>模拟战</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>模拟战经验</th><th>模拟战场次</th><th>动能消耗</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (simuExp + "");
@@ -333,8 +333,8 @@
             var RatAvgId = document.getElementById('RatAvg');
             var Rat = parseFloat(RatAvgId.value) * Num;
             var chart = document.getElementById("resultChartF");
-            var tab = '<p><h4>地图信息(Map information)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验(Total exp)</th><th>所选地图(Map selection)</th><th>战斗经验(Exp/battle)</th></tr></thead>';
+            var tab = '<p><h4>地图信息</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验</th><th>所选地图</th><th>战斗经验</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (total_EXP + "");
@@ -346,8 +346,8 @@
             tab += (fairyExp + "");
             tab += '</td>';
             tab += '</tr></tbody></table>';
-            tab += '<p><h4>战斗次数(Number of battle)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>次数(Number)</th><th>作战报告书(Book)</th></tr></thead>';
+            tab += '<p><h4>战斗次数</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>次数</th><th>作战报告书</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (Num + "");
@@ -356,8 +356,8 @@
             tab += (Num_book + "");
             tab += '</td></tr>';
             tab += '</tr></tbody></table>';
-            tab += '<p><h4>资源消耗(Consumption)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>弹药(Ammunition)</th><th>口粮(Ration)</th><th>时间(Time)</th></tr></thead>';
+            tab += '<p><h4>资源消耗</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>弹药</th><th>口粮</th><th>耗时</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (Amm.toFixed(0) + "");
@@ -374,8 +374,8 @@
 
         function getChartH(trainTime, Num_book, total_EXP) {
             var chart = document.getElementById("resultChartH");
-            var tab = '<p><h4>练级信息(Leveling information)</h4></p>';
-            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验(Total exp)</th><th>作战报告书(Book)</th><th>训练时间(Training time)</th></tr></thead>';
+            var tab = '<p><h4>训练信息</h4></p>';
+            tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验</th><th>特种作战报告书</th><th>训练时间</th></tr></thead>';
             tab += '<tbody><tr>';
             tab += '<td>';
             tab += (total_EXP + "");
@@ -993,8 +993,8 @@
                                         </select>
                                     </p>
                                     <div class="checkbox">
-                                        <label> <input type="checkbox" id="expUp">圣肝日(+50% exp)&nbsp&nbsp&nbsp</label>
-                                        <label> <input type="checkbox" id="OATH">誓约</label>
+                                        <label> <input type="checkbox" id="expUp">圣肝日(exp x1.5)&nbsp&nbsp&nbsp</label>
+                                        <label> <input type="checkbox" id="OATH">誓约(心智升级exp x2)</label>
                                     </div>
                                 </div>
                             </div>
