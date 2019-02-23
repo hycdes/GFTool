@@ -1614,3 +1614,4 @@ function setBestNum () {
   if ((best_num.value).length === 0) best_num.value = 10
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
+function getHelp () { window.open('../img/CC-tutorial.png'); }
