@@ -1369,8 +1369,10 @@ function ignoreSolution (dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_
   var ignore_dbkblo = parseInt(document.getElementById('ignore_dbkblomax').value)
   var ignore_acublo = parseInt(document.getElementById('ignore_acublomax').value)
   var ignore_filblo = parseInt(document.getElementById('ignore_filblomax').value)
-  var solulen = solutionSet.length, combinelen = solutionSet[0].length
+  var solulen = solutionSet.length
   for (var i = 0; i < solulen; i++) {
+    var combinelen = solutionSet[i].length
+    if (ranking_switch) combinelen--
     if (document.getElementById('ignore_dmg').checked) {
       var dmg = 0
       for (var n = 0; n < combinelen; n++) dmg += chipRepo_chart[solutionSet[i][n] - 1].Dmg
@@ -1393,22 +1395,22 @@ function ignoreSolution (dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_
     }
     if (document.getElementById('ignore_dmgblo').checked) {
       var dmg_blo = 0
-      for (var n = 0; n < combinelen; n++) dmg += chipRepo_data[solutionSet[i][n] - 1].bDmg
+      for (var n = 0; n < combinelen; n++) dmg_blo += chipRepo_data[solutionSet[i][n] - 1].bDmg
       if (dmg_blo > dmgblo_max + ignore_dmgblo) continue
     }
     if (document.getElementById('ignore_dbkblo').checked) {
       var dbk_blo = 0
-      for (var n = 0; n < combinelen; n++) dbk += chipRepo_data[solutionSet[i][n] - 1].bDbk
+      for (var n = 0; n < combinelen; n++) dbk_blo += chipRepo_data[solutionSet[i][n] - 1].bDbk
       if (dbk_blo > dbkblo_max + ignore_dbkblo) continue
     }
     if (document.getElementById('ignore_acublo').checked) {
       var acu_blo = 0
-      for (var n = 0; n < combinelen; n++) acu += chipRepo_data[solutionSet[i][n] - 1].bAcu
+      for (var n = 0; n < combinelen; n++) acu_blo += chipRepo_data[solutionSet[i][n] - 1].bAcu
       if (acu_blo > acublo_max + ignore_acublo) continue
     }
     if (document.getElementById('ignore_filblo').checked) {
       var fil_blo = 0
-      for (var n = 0; n < combinelen; n++) fil += chipRepo_data[solutionSet[i][n] - 1].bFil
+      for (var n = 0; n < combinelen; n++) fil_blo += chipRepo_data[solutionSet[i][n] - 1].bFil
       if (fil_blo > filblo_max + ignore_filblo) continue
     }
     solution_filtered.push(solutionSet[i])
