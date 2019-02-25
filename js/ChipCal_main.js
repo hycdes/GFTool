@@ -259,6 +259,7 @@ function getSaveCode () { // 获取存储码
   SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 存储码已复制到剪贴板</span>'
 }
 function repo_addChart (chipData) {
+  console.log(chipData)
   // Add chipRepo_chart
   var stren_parameter = 1
   if (chipData.levelNum <= 10) stren_parameter = 1 + 0.08 * chipData.levelNum
@@ -348,7 +349,7 @@ function simpleCheck (LoadCode) { // 简单检查存储码
   return false
 }
 function setValue (elementNum, tempStr) { // get value from savecode
-  if (elementNum === 0) return parseInt(tempStr)
+  if (elementNum === 0) return chipNum + 1
   else if (elementNum === 1) return parseInt(tempStr)
   else if (elementNum === 2) return parseInt(tempStr)
   else if (elementNum === 3) return parseInt(tempStr)
@@ -359,6 +360,7 @@ function setValue (elementNum, tempStr) { // get value from savecode
   else if (elementNum === 8) return parseInt(tempStr)
 }
 function loadSaveCode () { // load save
+  chipNum = 0
   chipRepo_chart = [], chipRepo_data = [] // reset repository
   var LoadCode = document.getElementById('LoadCode').value
   var LoadAlertId = document.getElementById('LoadAlert')
@@ -504,15 +506,17 @@ function changeBigImg (command) { // change preview and change property
       document.getElementById('AddBloBtn').style = 'cursor:default'
       document.getElementById('SubBloBtn').style = 'cursor:pointer'
       block_class = 56
+      block_shape = 9
       if (color === 1) imgid.src = '../img/chip/bigsample/b_56-9-0.png'
       else if (color === 2) imgid.src = '../img/chip/bigsample/o_56-9-0.png'
       changeProperty('class')
-    } else {
+    } else if (command === 'subblo') {
       document.getElementById('AddBloBtn').src = '../img/chip/bigsample/add-block.png'
       document.getElementById('SubBloBtn').src = '../img/chip/bigsample/sub-block-dis.png'
       document.getElementById('AddBloBtn').style = 'cursor:pointer'
       document.getElementById('SubBloBtn').style = 'cursor:default'
       block_class = 551
+      block_shape = 12
       if (color === 1) imgid.src = '../img/chip/bigsample/b_551-12-0.png'
       else if (color === 2) imgid.src = '../img/chip/bigsample/o_551-12-0.png'
       changeProperty('class')
