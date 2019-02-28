@@ -19,6 +19,12 @@
             text-align: center
         }
 
+        .td_pickgun {
+            background-color: black;
+            width: 70px;
+            height: 36px;
+        }
+
         body {
             margin: 0px;
             padding: 0px;
@@ -109,30 +115,17 @@
                                     </div>
                                     <div class="col-lg-7">
                                         <h4>人形设置</h4>
-                                        <table class="table table-bordered table-hover" style="width:400px">
+                                        <table class="table table-bordered table-hover" style="width:420px">
                                             <tbody>
-                                                <tr>
-                                                    <td style="width:50%">
-                                                        <select class="form-control input-sm" onchange="">
-                                                            <option value=5 selected>★★★★★</option>
-                                                            <option value=4>★★★★</option>
-                                                            <option value=3>★★★</option>
-                                                            <option value=2>★★</option>
-                                                            <option value=1>★</option>
-                                                        </select>
-                                                    </td>
-                                                    <td style="width:50%">
-                                                        <select class="form-control input-sm" onchange="">
-                                                            <option value=1 selected>HG</option>
-                                                            <option value=2>SMG</option>
-                                                            <option value=3>AR</option>
-                                                            <option value=4>RF</option>
-                                                            <option value=5>MG</option>
-                                                            <option value=6>SG</option>
-                                                        </select>
-                                                    </td>
-                                                    <h5>还有其他设置，但我觉得还是改成芯片计算器那种按按钮的好</h5>
+                                                <tr style="height:36px">
+                                                    <td class="td_pickgun"><img id="icon-hg" src="../img/echelon/icon-hg-pick.png" style="cursor:pointer" onclick='pickGunType(1)'></td>
+                                                    <td class="td_pickgun"><img id="icon-ar" src="../img/echelon/icon-ar.png" style="cursor:pointer" onclick='pickGunType(2)'></td>
+                                                    <td class="td_pickgun"><img id="icon-smg" src="../img/echelon/icon-smg.png" style="cursor:pointer" onclick='pickGunType(3)'></td>
+                                                    <td class="td_pickgun"><img id="icon-rf" src="../img/echelon/icon-rf.png" style="cursor:pointer" onclick='pickGunType(4)'></td>
+                                                    <td class="td_pickgun"><img id="icon-mg" src="../img/echelon/icon-mg.png" style="cursor:pointer" onclick='pickGunType(5)'></td>
+                                                    <td class="td_pickgun"><img id="icon-sg" src="../img/echelon/icon-sg.png" style="cursor:pointer" onclick='pickGunType(6)'></td>
                                                 </tr>
+
                                             </tbody>
                                         </table>
                                         <h4>时间</h4>
@@ -164,7 +157,7 @@
 
                     <script type="text/javascript" src="../js/flotr2.min.js"></script>
                     <script type="text/javascript">
-                        var switch_swap = false, num_pickblock = -1
+                        var switch_swap = false, num_pickblock = -1, set_guntype = 1;
                         var global_damage = [];
                         function createTdoll(ID, Affect, Skill, Property, Equip) {
                             var TdollInfo = {}
@@ -201,6 +194,24 @@
                                     document.getElementById(img_name).src = "../img/echelon/select-no.png"
                                 }
                             }
+                        }
+                        function pickGunType(num) {
+                            var iconName = 'icon-', lasticonName = 'icon-';
+                            if (num === 1) iconName += 'hg'
+                            else if (num === 2) iconName += 'ar'
+                            else if (num === 3) iconName += 'smg'
+                            else if (num === 4) iconName += 'rf'
+                            else if (num === 5) iconName += 'mg'
+                            else if (num === 6) iconName += 'sg'
+                            if (set_guntype === 1) lasticonName += 'hg'
+                            else if (set_guntype === 2) lasticonName += 'ar'
+                            else if (set_guntype === 3) lasticonName += 'smg'
+                            else if (set_guntype === 4) lasticonName += 'rf'
+                            else if (set_guntype === 5) lasticonName += 'mg'
+                            else if (set_guntype === 6) lasticonName += 'sg'
+                            document.getElementById(lasticonName).src = '../img/echelon/' + lasticonName + '.png'
+                            document.getElementById(iconName).src = '../img/echelon/' + iconName + '-pick.png'
+                            set_guntype = num;
                         }
 
                         function formater_DPS(e) { return "时间=" + e.x + "s, 输出=" + e.y }
