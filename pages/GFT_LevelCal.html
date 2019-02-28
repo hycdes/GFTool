@@ -108,26 +108,6 @@
             }
         }
 
-        function resetAdSet() {
-            var ES = document.getElementById('Expan1');
-            ES.checked = true;
-            var TA = document.getElementById('TimeAvg');
-            TA.value = 0.4;
-            var AA = document.getElementById('AmmAvg');
-            AA.value = 12;
-            var RA = document.getElementById('RatAvg');
-            RA.value = 12;
-            var SN = document.getElementById('SimuNum');
-            SN.value = 5;
-            var ExpanF1 = document.getElementById('ExpanF1');
-            ExpanF1.checked = true;
-            var teamExpan = document.getElementById('teamExpan');
-            teamExpan.value = 25;
-            teamExpan.disabled = true;
-            var SimuTypeId = document.getElementById('SimuType');
-            SimuTypeId.value = 3;
-        }
-
         function checkError(levelUpExp) {
             var CurLevId = document.getElementById('CurLev');
             var CurLev = parseInt(CurLevId.value);
@@ -1011,16 +991,13 @@
                                     <li>
                                         <a href="#HeavyfireLevel" data-toggle="tab">重装部队练级</a>
                                     </li>
-                                    <li>
-                                        <a href="#AdvancedSetting" data-toggle="tab">高级设置</a>
-                                    </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <!--TDOLL-->
                                     <div class="tab-pane fade in active" id="TdollLevel">
                                         <!--level/exp info-->
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <h4>人形等级经验</h4>
                                             <p>
                                                 <button type="button" class="btn btn-default" onclick="setLevel(1)">30 → 70</button>
@@ -1041,37 +1018,89 @@
                                                 <input type="text" class="form-control" placeholder="输入整数" id="CurExp" value=0>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <h4>细节设置</h4>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" href="#colla-tdoll">扩编和消耗</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="colla-tdoll" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <p>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitch" id="Expan1" value="option1" checked><span style="color:dodgerblue">随等级扩编</span>
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitch" id="Expan2" value="option2">x1
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitch" id="Expan3" value="option3">x2
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitch" id="Expan4" value="option4">x3
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitch" id="Expan5" value="option5">x4
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitch" id="Expan6" value="option5">x5
+                                                            </label>
+                                                        </p>
+                                                        <div class="form-group input-group">
+                                                            <span class="input-group-addon">每战均摊时间(min)</span>
+                                                            <input type="text" class="form-control" placeholder="输入正数" id="TimeAvg" value=0.4 onblur="correctInput(41)">
+                                                        </div>
+                                                        <div class="form-group input-group">
+                                                            <span class="input-group-addon">每战弹药</span>
+                                                            <input type="text" class="form-control" placeholder="输入整数" id="AmmAvg" value=12 onblur="correctInput(42)">
+                                                        </div>
+                                                        <div class="form-group input-group">
+                                                            <span class="input-group-addon">每战口粮</span>
+                                                            <input type="text" class="form-control" placeholder="输入整数" id="RatAvg" value=12 onblur="correctInput(43)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" href="#colla-tdoll-simu">模拟战设定</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="colla-tdoll-simu" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <p>
+                                                            <select class="form-control" id="SimuType">
+                                                                <option value=1>低级经验模拟 (20,000 / 1 动能)</option>
+                                                                <option value=2>中级经验模拟 (80,000 / 2 动能)</option>
+                                                                <option value=3 selected="selected">高级经验模拟 (240,000 / 3 动能)</option>
+                                                            </select>
+                                                        </p>
+                                                        <div class="form-group input-group">
+                                                            <span class="input-group-addon">参战人数</span>
+                                                            <input type="text" class="form-control" placeholder="输入整数" id="SimuNum" value=5 onblur="correctInput(44)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!--Button -->
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-12">
                                             <p><button type="button" class="btn btn-info" onclick="getResult(1)" href="#TdollResult" data-toggle="tab">人形练级计算</button></p>
                                         </div>
                                     </div>
                                     <!--FAIRY-->
                                     <div class="tab-pane fade" id="FairyLevel">
                                         <!--level/exp info-->
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <h4>妖精等级经验</h4>
                                             <p>
                                                 <button type="button" class="btn btn-outline btn-default" onclick="setLevelF(1)">1 → 20</button>
                                                 <button type="button" class="btn btn-outline btn-primary" onclick="setLevelF(2)">20 → 40</button>
                                                 <button type="button" class="btn btn-outline btn-success" onclick="setLevelF(3)">40 → 70</button>
                                                 <button type="button" class="btn btn-outline btn-warning" onclick="setLevelF(4)">70 → 100</button>
-                                            </p>
-                                            <!--weather-device level-->
-                                            <p>
-                                                <select class="form-control" id="WeatherDevice">
-                                                    <option value=0>Lv.0 空白的天气系统 (5%)</option>
-                                                    <option value=1>Lv.1 乌云天气系统 (6.5%)</option>
-                                                    <option value=2>Lv.2 乌云天气系统 (8%)</option>
-                                                    <option value=3>Lv.3 乌云天气系统 (9.5%)</option>
-                                                    <option value=4>Lv.4 乌云天气系统 (11%)</option>
-                                                    <option value=5>Lv.5 乌云天气系统 (12.5%)</option>
-                                                    <option value=6>Lv.6 暗月天气系统 (14%)</option>
-                                                    <option value=7>Lv.7 暗月天气系统 (15.5%)</option>
-                                                    <option value=8>Lv.8 暗月天气系统 (17%)</option>
-                                                    <option value=9>Lv.9 暗月天气系统 (18.5%)</option>
-                                                    <option value=10 selected="selected">Lv.10 双月天气系统 (20%)</option>
-                                                </select>
                                             </p>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">当前等级</span>
@@ -1086,8 +1115,50 @@
                                                 <input type="text" class="form-control" placeholder="输入整数" id="CurExpF" value=0 onblur="correctInput(20)">
                                             </div>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <h4>细节设置</h4>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" href="#colla-fairy">设施和经验</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="colla-fairy" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <p>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitchF" id="ExpanF1" value="option1" onclick="freeTeamExpan()" checked><span style="color:dodgerblue">全员五扩/队长MVP</span>
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="ExpanSwitchF" id="ExpanF2" value="option2" onclick="freeTeamExpan()">指定经验
+                                                            </label>
+                                                        </p>
+                                                        <div class="form-group input-group">
+                                                            <span class="input-group-addon">单次战斗经验值</span>
+                                                            <input type="text" class="form-control" placeholder="输入整数" id="teamExpan" value=1635 onblur="correctInput(45)" disabled>
+                                                        </div>
+                                                        <!--weather-device level-->
+                                                        <p>
+                                                            <select class="form-control" id="WeatherDevice">
+                                                                <option value=0>Lv.0 空白的天气系统 (5%)</option>
+                                                                <option value=1>Lv.1 乌云天气系统 (6.5%)</option>
+                                                                <option value=2>Lv.2 乌云天气系统 (8%)</option>
+                                                                <option value=3>Lv.3 乌云天气系统 (9.5%)</option>
+                                                                <option value=4>Lv.4 乌云天气系统 (11%)</option>
+                                                                <option value=5>Lv.5 乌云天气系统 (12.5%)</option>
+                                                                <option value=6>Lv.6 暗月天气系统 (14%)</option>
+                                                                <option value=7>Lv.7 暗月天气系统 (15.5%)</option>
+                                                                <option value=8>Lv.8 暗月天气系统 (17%)</option>
+                                                                <option value=9>Lv.9 暗月天气系统 (18.5%)</option>
+                                                                <option value=10 selected="selected">Lv.10 双月天气系统 (20%)</option>
+                                                            </select>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <!--Button -->
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-12">
                                             <p><button type="button" class="btn btn-success" onclick="getResult(2)" href="#FairyResult" data-toggle="tab">妖精练级计算</button></p>
                                         </div>
                                     </div>
@@ -1133,85 +1204,6 @@
                                         <!--Button -->
                                         <div class="col-lg-10">
                                             <p><button type="button" class="btn btn-warning" onclick="getResult(3)" href="#HeavyfireResult" data-toggle="tab">重装练级计算</button></p>
-                                        </div>
-                                    </div>
-                                    <!--ADVANCED-->
-                                    <div class="tab-pane fade" id="AdvancedSetting">
-                                        <!--Expansion -->
-                                        <div class="col-lg-12">
-                                            <h4>战斗相关</h4>
-                                            <p>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="Expan1" value="option1" checked><span style="color:dodgerblue">随等级扩编</span>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="Expan2" value="option2">x1
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="Expan3" value="option3">x2
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="Expan4" value="option4">x3
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="Expan5" value="option5">x4
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="Expan6" value="option5">x5
-                                                </label>
-                                            </p>
-                                        </div>
-                                        <!--Time/reso -->
-                                        <div class="col-lg-4">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">每战均摊时间(min)</span>
-                                                <input type="text" class="form-control" placeholder="输入正数" id="TimeAvg" value=0.4 onblur="correctInput(41)">
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">每战弹药</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="AmmAvg" value=12 onblur="correctInput(42)">
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">每战口粮</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="RatAvg" value=12 onblur="correctInput(43)">
-                                            </div>
-                                        </div>
-                                        <!--Simulate -->
-                                        <div class="col-lg-4">
-                                            <p>
-                                                <select class="form-control" id="SimuType">
-                                                    <option value=1>低级经验模拟 (20,000 / 1 动能)</option>
-                                                    <option value=2>中级经验模拟 (80,000 / 2 动能)</option>
-                                                    <option value=3 selected="selected">高级经验模拟 (240,000 / 3 动能)</option>
-                                                </select>
-                                            </p>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">参战人数</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="SimuNum" value=5 onblur="correctInput(44)">
-                                            </div>
-                                        </div>
-                                        <!--Fairy setting -->
-                                        <div class="col-lg-12">
-                                            <h4>妖精相关</h4>
-                                            <p>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitchF" id="ExpanF1" value="option1" onclick="freeTeamExpan()" checked><span style="color:dodgerblue">全员五扩/队长MVP</span>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitchF" id="ExpanF2" value="option2" onclick="freeTeamExpan()">指定经验
-                                                </label>
-                                            </p>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">单次战斗经验值</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" id="teamExpan" value=1635 onblur="correctInput(45)" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <p>
-                                                <button type="button" class="btn btn-danger" onclick="resetAdSet()">重置高级设置</button>
-                                            </p>
                                         </div>
                                     </div>
                                 </div>
