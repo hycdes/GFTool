@@ -14,6 +14,11 @@
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <style type="text/css">
+        .table_other {
+            padding: 0px;
+            text-align: center
+        }
+
         body {
             margin: 0px;
             padding: 0px;
@@ -22,7 +27,7 @@
         #container {
             width: 600px;
             height: 384px;
-            margin: 8px auto;
+            margin: left;
         }
     </style>
 </head>
@@ -69,42 +74,162 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">阵形模拟器(本页面目前隐藏)</h1>
+                        <h1 class="page-header">阵形模拟器 (施工中)</h1>
                     </div>
-                    <div class="col-lg-6">
-                        <div id="container"></div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default" style="background:url(../img/GK.png) no-repeat right 100px top 100px;">
+                                <div class="panel-heading">
+                                    梯队设置
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-lg-5">
+                                        <h4>梯队预览</h4>
+                                        <div class="table-responsive">
+                                            <table class="table_other" style="width:360px; height:360px; overflow:hidden">
+                                                <tbody>
+                                                    <tr>
+                                                        <td id="blockimg_1" style="width:120px;height:120px;background:url(../img/echelon/1057.png)"><img id="img_1" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(1)'></td>
+                                                        <td id="blockimg_2" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_2" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(2)'></td>
+                                                        <td id="blockimg_3" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_3" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(3)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="blockimg_4" style="width:120px;height:120px;background:url(../img/echelon/1055.png)"><img id="img_4" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(4)'></td>
+                                                        <td id="blockimg_5" style="width:120px;height:120px;background:url(../img/echelon/1103.png)"><img id="img_5" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(5)'></td>
+                                                        <td id="blockimg_6" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_6" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(6)'></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="blockimg_7" style="width:120px;height:120px;background:url(../img/echelon/1056.png)"><img id="img_7" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(7)'></td>
+                                                        <td id="blockimg_8" style="width:120px;height:120px;background:url(../img/echelon/242.png)"><img id="img_8" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(8)'></td>
+                                                        <td id="blockimg_9" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_9" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(9)'></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <h4>人形设置</h4>
+                                        <table class="table table-bordered table-hover" style="width:400px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:50%">
+                                                        <select class="form-control input-sm" onchange="">
+                                                            <option value=5 selected>★★★★★</option>
+                                                            <option value=4>★★★★</option>
+                                                            <option value=3>★★★</option>
+                                                            <option value=2>★★</option>
+                                                            <option value=1>★</option>
+                                                        </select>
+                                                    </td>
+                                                    <td style="width:50%">
+                                                        <select class="form-control input-sm" onchange="">
+                                                            <option value=1 selected>HG</option>
+                                                            <option value=2>SMG</option>
+                                                            <option value=3>AR</option>
+                                                            <option value=4>RF</option>
+                                                            <option value=5>MG</option>
+                                                            <option value=6>SG</option>
+                                                        </select>
+                                                    </td>
+                                                    <h5>还有其他设置，但我觉得还是改成芯片计算器那种按按钮的好</h5>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h4>时间</h4>
+                                        <div class="form-group input-group" style="width:300px">
+                                            <span class="input-group-addon">战斗时间</span>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_battle" value=10>
+                                            <span class="input-group-addon">秒</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default" style="background:url(../img/Produce-16lab.png) no-repeat right 100px top 100px;">
+                                <div class="panel-heading">
+                                    结果
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-lg-6">
+                                        <h4>输出曲线</h4>
+                                        <div id="container"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <script type="text/javascript" src="../js/flotr2.min.js"></script>
                     <script type="text/javascript">
-                        function createTdoll(ID) {
+                        var switch_swap = false, num_pickblock = -1
+                        var global_damage = [];
+                        function createTdoll(ID, Affect, Skill, Property, Equip) {
                             var TdollInfo = {}
-                            TdollInfo.ID = ID;
+                            TdollInfo.ID = ID
+                            TdollInfo.Affect = Affect
+                            TdollInfo.Skill = Skill
+                            TdollInfo.Property = Property
+                            TdollInfo.Equip = Equip
                         }
-                        var container = document.getElementById('container')
-                        var sample1 = document.getElementById('sample1')
-                        var start = (new Date).getTime()
-                        var data, graph, offset, i
+                        function createAffect(self_blocknum, affect_blocknum, affect_validtype, affect_type1, affect_type2, affect_value1, affect_value2) {
+                            var Affect = {}
+                            //blocknum = 1~9
+                            Affect.self_blocknum = self_blocknum
+                            Affect.affect_blocknum = affect_blocknum
+                            Affect.affect_validtype = affect_validtype
+                            //type = dmg, rof, acu, eva, crit, critdmg, cld, arm
+                            Affect.affect_type1 = affect_type1
+                            Affect.affect_value1 = affect_value1
+                            Affect.affect_type2 = affect_type2
+                            Affect.affect_value2 = affect_value2
+                        }
+                        function pickBlock(num) {
+                            for (var i = 1; i <= 9; i++) {
+                                var img_name = 'img_' + i
+                                if (i === num) {
+                                    if (num_pickblock === num) {
+                                        num_pickblock = -1
+                                        document.getElementById(img_name).src = "../img/echelon/select-no.png"
+                                    } else {
+                                        num_pickblock = num
+                                        document.getElementById(img_name).src = "../img/echelon/select.png"
+                                    }
+                                } else {
+                                    document.getElementById(img_name).src = "../img/echelon/select-no.png"
+                                }
+                            }
+                        }
 
-
-                        function animate() {
-                            data1 = [], data2 = []
+                        function formater_DPS(e) { return "时间=" + e.x + "s, 输出=" + e.y }
+                        function makeGraph() {
+                            var graph, container = document.getElementById('container')
+                            var data1 = [], data2 = []
                             for (var i = 0; i <= 100; i += 1) {
                                 data1.push([i, 0.1 * i])
                                 data2.push([i, 0.07 * i])
                             }
-                            // Draw Graph
-                            graph = Flotr.draw(container, [data1, data2], {
-                                colors: ['#6699FF', '#FF6666'],
-                                xaxis: { title: "时间" },
-                                yaxis: { title: "伤害", max: 10, min: 0 },
-                                mouse: { track: true, trackAll: true, relative: true },
-                                points: { show: false },
-                                lines: { show: true }
-                            });
-
+                            graph = Flotr.draw(container, [
+                                { data: data1, label: 'M4A1 MOD' },
+                                { data: data2, label: 'ST AR-15 MOD' }
+                            ], {
+                                    colors: ['#6699FF', '#FF6666'],
+                                    xaxis: { title: "时间" },
+                                    yaxis: { title: "伤害", max: 10, min: 0 },
+                                    mouse: { track: true, trackAll: true, relative: true, trackFormatter: formater_DPS },
+                                    points: { show: false },
+                                    HtmlText: false,
+                                    lines: { show: true },
+                                    legend: {
+                                        position: 'nw',
+                                        backgroundColor: '#FFFFFF'
+                                    }
+                                });
                         }
                         window.onload = function () {
-                            animate();
+                            makeGraph();
                         }
 
                     </script>
