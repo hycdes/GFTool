@@ -1,3 +1,17 @@
+// global variations for input ui
+var shapeSet = []
+var switch_swap = false
+var num_pickblock = -1, num_pickequip = -1
+var set_guntype = 1, num_star = 5, affection = 'love'
+
+// global variations for calculation
+var time = 10, num_tdoll = 0
+var list_tdoll = [] // 战术人形列表，存放二元组[position, TdollInfo]
+var fairy = createFairy(['null'], [0])
+var global_damage = []
+var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map
+var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9]
+
 // inital
 function mergeCell (table1, startRow, endRow, col) {
   var tb = document.getElementById(table1)
@@ -9,15 +23,19 @@ function mergeCell (table1, startRow, endRow, col) {
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
   }
 }
+function loadScript (url) {
+  var script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.src = url
+  document.body.appendChild(script)
+}
 window.onload = function () {
+  loadScript('../js/Echelon_blockshape.js')
+  loadScript('../js/Echelon_skill.js')
+  loadScript('../js/Echelon_UI.js')
   mergeCell('table_property', 0, 2, 0)
   makeGraph()
 }
-
-// global variations for calculation
-var time = 10, num_tdoll = 0, list_tdoll = []
-var fairy = createFairy(['null'], [0])
-var global_damage = []
 
 function createTdoll (ID, Affect, Skill, Property, Equip) {
   var TdollInfo = {}
@@ -26,52 +44,44 @@ function createTdoll (ID, Affect, Skill, Property, Equip) {
   TdollInfo.Skill = Skill
   TdollInfo.Property = Property
   TdollInfo.Equip = Equip
+  return TdollInfo
 }
-function createAffect (list_affectArea, affect_target, list_affectType, list_affectValue) {
+function createAffect (str_affectArea, target, list_affectType, list_affectValue) {
   var Affect = {}
-  // blocknum = l,r,u,d...
-  Affect.affect_blocknum = list_affectArea
-  // target = all, hg, ar, smg, rf, mg, sg
-  Affect.affect_target = affect_target
-  // type = dmg, rof, acu, eva, crit, cld, arm
-  Affect.affect_type = list_affectType
-  Affect.affect_value = list_affectValue
+  Affect.area = str_affectArea // area = l/r/u/d/
+  Affect.target = target // target = all, hg, ar, smg, rf, mg, sg
+  Affect.affect_type = list_affectType // type = [dmg, rof, acu, eva, crit, cld, arm]
+  Affect.affect_value = list_affectValue // list of value
+  return Affect
 }
-function createSkill_property (list_property, list_rate, list_target, duration, init_cld, cld) {
-  var Skill = {}
-  Skill.property = list_property
-  Skill.rate = list_rate
-  // target = self, all, list_block
-  Skill.target = list_target
-  Skill.duration = duration
-  Skill.init_cld = init_cld
-  Skill.cld = cld
-}
+
 function createProperty (hp, eva, arm, dmg, rof, acu, crit, critdmg, ap, cs, ff) {
   var Property = {}
-  // health point, evasion, armor, damage, rate_of_fire, accuracy, crit_rate, crit_damage, armor_penetrate, clip_size, force_field
-  Property.hp = hp
-  Property.eva = eva
-  Property.arm = arm //
-  Property.dmg = dmg //
-  Property.rof = rof //
-  Property.acu = acu
-  Property.crit = crit //
-  Property.critdmg = critdmg //
-  Property.ap = ap //
-  Property.cs = cs
-  Property.ff = ff //
+  Property.hp = hp // health_point
+  Property.eva = eva // evasion
+  Property.arm = arm // armor
+  Property.dmg = dmg // damage
+  Property.rof = rof // rate_of_fire
+  Property.acu = acu // accuracy
+  Property.crit = crit // crit_rate
+  Property.critdmg = critdmg // crit_damage
+  Property.ap = ap // armor_penetrate
+  Property.cs = cs // clip_size
+  Property.ff = ff // force_field
+  return Property
 }
 function createEquip (list_proprety, list_value) {
   var Equip = {}
   Equip.property = list_proprety
   Equip.value = list_value
+  return Equip
 }
 function createFairy (ID, list_property, list_value) {
   var Fairy = {}
   Fairy.ID = ID
   Fairy.property = list_property
   Fairy.value = list_value
+  return Fairy
 }
 
 function formater_DPS (e) { return '时间=' + e.x + 's, 输出=' + e.y }
@@ -105,6 +115,8 @@ function add_Tdoll () {
 }
 
 // MAIN, get result
+
+// var sample_python_skill = createSkill_special_4()
 function getDPS () {
   time = parseFloat(document.getElementById('time_battle').value)
   var list_pro_base = []
@@ -115,66 +127,82 @@ function getDPS () {
   }
 }
 
-// global variations for input ui
-var switch_swap = false, num_pickblock = -1, set_guntype = 1, num_star = 5
-// functions for input UI
-function pickBlock (num) {
-  for (var i = 1; i <= 9; i++) {
-    var img_name = 'img_' + i
-    if (i === num) {
-      if (num_pickblock === num) {
-        num_pickblock = -1
-        document.getElementById(img_name).src = '../img/echelon/select-no.png'
+function getBlockAffect () {
+  for (var i = 0; i < num_tdoll; i++) {
+    var num_stand = list_tdoll[i][0]
+    var str_position = (list_tdoll[i][1].Affect).area, len_str = str_position.length
+    var target = list_tdoll[i][1].Affect.target // 有效枪种
+    var list_affectType = list_tdoll[i][1].Affect.affect_type // 影响属性类型
+    var list_affectValue = list_tdoll[i][1].Affect.affect_value // 影响值
+    var str_temp = '', num_tempblo = num_stand
+    var max_up = Math.floor(num_stand / 3)
+    var max_left = num_stand - 3 * max_up
+    var max_down = 2 - max_up
+    var max_right = 2 - max_left
+    for (var n = 0; n < len_str; n++) {
+      if (str_position[n] != '/') {
+        str_temp += str_position[n]
       } else {
-        num_pickblock = num
-        document.getElementById(img_name).src = '../img/echelon/select.png'
+        var bol_legal = true
+        for (var c = 0; c < str_temp.length; c++) {
+          if (str_temp[c] === 'u') {
+            if (max_up > 0) num_tempblo -= 3
+            else {
+              bol_legal = false
+              break
+            }
+          } else if (str_temp[c] === 'd') {
+            if (max_down > 0) num_tempblo += 3
+            else {
+              bol_legal = false
+              break
+            }
+          } else if (str_temp[c] === 'l') {
+            if (max_left > 0) num_tempblo -= 1
+            else {
+              bol_legal = false
+              break
+            }
+          } else if (str_temp[c] === 'r') {
+            if (max_right > 0) num_tempblo += 1
+            else {
+              bol_legal = false
+              break
+            }
+          }
+        }
+        if (!bol_legal) {
+          str_temp = ''
+          num_tempblo = num_stand
+          continue
+        }
+        str_temp = ''
+        if (num_tempblo >= 0 && num_tempblo <= 8) { // 如果格子在0~8范围内，更新格子上的影响值
+          for (var pn = 0; pn < list_affectType.length; pn++) { // 将所有影响属性加上去
+            if (blockSet[num_tempblo].get(target + list_affectType[pn]) === undefined) {
+              blockSet[num_tempblo].set(target + list_affectType[pn], list_affectValue[pn])
+            } else {
+              var value_new = blockSet[num_tempblo].get(target + list_affectType[pn]) + list_affectValue[pn]
+              blockSet[num_tempblo].set(target + list_affectType[pn], value_new)
+            }
+          }
+        }
+        num_tempblo = num_stand
       }
-    } else {
-      document.getElementById(img_name).src = '../img/echelon/select-no.png'
     }
   }
 }
-function pickGunType (num) {
-  var iconName = 'icon-', lasticonName = 'icon-'
-  if (num === 1) iconName += 'hg'
-  else if (num === 2) iconName += 'ar'
-  else if (num === 3) iconName += 'smg'
-  else if (num === 4) iconName += 'rf'
-  else if (num === 5) iconName += 'mg'
-  else if (num === 6) iconName += 'sg'
-  if (set_guntype === 1) lasticonName += 'hg'
-  else if (set_guntype === 2) lasticonName += 'ar'
-  else if (set_guntype === 3) lasticonName += 'smg'
-  else if (set_guntype === 4) lasticonName += 'rf'
-  else if (set_guntype === 5) lasticonName += 'mg'
-  else if (set_guntype === 6) lasticonName += 'sg'
-  document.getElementById(lasticonName).src = '../img/echelon/' + lasticonName + '.png'
-  document.getElementById(iconName).src = '../img/echelon/' + iconName + '-pick.png'
-  set_guntype = num
-}
-function changeStar (num) {
-  if (num === 1 && num_star < 5) {
-    num_star++
-  } else if (num === 2 && num_star > 2) {
-    num_star--
-  }
-  document.getElementById('icon-star').src = '../img/echelon/icon-' + num_star + 'star.png'
-  document.getElementById('icon-addstar').src = '../img/echelon/icon-add.png'
-  document.getElementById('icon-substar').src = '../img/echelon/icon-sub.png'
-  document.getElementById('icon-addstar').style = 'cursor: pointer'
-  document.getElementById('icon-addstar').style = 'cursor: pointer'
-  if (num_star === 5) {
-    document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
-    document.getElementById('icon-addstar').style = 'cursor: default'
-  }
-  if (num_star === 2) {
-    document.getElementById('icon-substar').src = '../img/echelon/icon-sub-disable.png'
-    document.getElementById('icon-substar').style = 'cursor: default'
-  }
-}
-function changeSelectItems () {
-}
-function changeSelection () {
-  var ID = parseInt(document.getElementById('select-tdoll').value)
-  var path_img = '../img/echelon/' + ID + '.png'
+
+function test () {
+  // SAMPLE
+  var sample_python_affect = createAffect(shapeSet[8], 'all', ['dmg', 'crit'], [0.3, 0.2])
+  var sample_mk23_affect = createAffect(shapeSet[3], 'all', ['dmg'], [0.36])
+  var sample_tdoll = [3, createTdoll(4, sample_python_affect, [], [], [])]
+  var sample_tdoll2 = [4, createTdoll(99, sample_mk23_affect, [], [], [])]
+  list_tdoll.push(sample_tdoll)
+  list_tdoll.push(sample_tdoll2)
+  num_tdoll = 2
+  getBlockAffect()
+  console.log(blockSet)
+// SAMPLE
 }

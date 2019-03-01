@@ -36,6 +36,11 @@
             height: 40px;
         }
 
+        .td_equip {
+            width: 76px;
+            height: 70px;
+        }
+
         body {
             margin: 0px;
             padding: 0px;
@@ -130,7 +135,7 @@
                                         <h4>人形信息</h4>
                                         <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
                                             <tr>
-                                                <td class="td_info"><img id="img_display" src="../img/echelon/4.png"></td>
+                                                <td class="td_info" style="background: url(../img/echelon/4.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
                                                 <td class="td_info">蟒蛇</td>
                                             </tr>
                                             <tr>
@@ -146,20 +151,20 @@
                                                 <td class="td_info">弹量 ∞</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">伤害 40</td>
+                                                <td class="td_info">伤害 40+15+2</td>
                                                 <td class="td_info">射速 49</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">命中 81</td>
-                                                <td class="td_info">回避 82</td>
+                                                <td class="td_info">命中 81+5</td>
+                                                <td class="td_info">回避 82+30+5</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">暴击率 40%</td>
-                                                <td class="td_info">暴击伤害 150%</td>
+                                                <td class="td_info">暴击 40+20%</td>
+                                                <td class="td_info">暴伤 150%</td>
                                             </tr>
                                             <tr>
                                                 <td class="td_info">护甲 0</td>
-                                                <td class="td_info">穿甲 15</td>
+                                                <td class="td_info">穿甲 15-7</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -211,6 +216,33 @@
                                             </tbody>
                                         </table>
                                         <h4>装备</h4>
+                                        <table class="table_other table-bordered table-hover" style="width:228px">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td_equip"><img id="icon-equip1" src="../img/echelon/equip/icon-AC4.png" style="cursor: pointer" onclick='selectEquip(1)'></td>
+                                                    <td class="td_equip"><img id="icon-equip2" src="../img/echelon/equip/icon-ILM.png" style="cursor: pointer" onclick='selectEquip(2)'></td>
+                                                    <td class="td_equip"><img id="icon-equip3" src="../img/echelon/equip/icon-X.png" style="cursor: pointer" onclick='selectEquip(3)'></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover" style="width:228px">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select class="form-control input-sm" id="select_equip" onchange="changeEquip()" disabled>
+                                                            <option value=0 selected>选择装备才能编辑</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <label><span style="color:deeppink">&nbsp</span></label>
+                                        <p>
+                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll">添加人形</button>
+                                            <button type="button" class="btn btn-danger" onclick="addTdoll()" id="button_addTdoll" disabled>删除人形</button>
+                                            <button type="button" class="btn btn-primary" onclick="test()" id="button_addTdoll">try</button>
+                                        </p>
                                     </div>
 
                                 </div>
