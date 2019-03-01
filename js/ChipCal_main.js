@@ -259,7 +259,6 @@ function getSaveCode () { // 获取存储码
   SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 存储码已复制到剪贴板</span>'
 }
 function repo_addChart (chipData) {
-  console.log(chipData)
   // Add chipRepo_chart
   var stren_parameter = 1
   if (chipData.levelNum <= 10) stren_parameter = 1 + 0.08 * chipData.levelNum

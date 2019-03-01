@@ -20,9 +20,20 @@
         }
 
         .td_pickgun {
+            padding: 0px;
             background-color: black;
             width: 70px;
             height: 36px;
+        }
+
+        .td_starbutton {
+            width: 40px;
+            height: 40px;
+        }
+
+        .td_info {
+            width: 120px;
+            height: 40px;
         }
 
         body {
@@ -36,6 +47,7 @@
             margin: left;
         }
     </style>
+    <script type="text/javascript" src="../js/Echelon_main.js"></script>
 </head>
 
 <body>
@@ -84,13 +96,13 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="panel panel-default" style="background:url(../img/GK.png) no-repeat right 100px top 100px;">
+                            <div class="panel panel-default">
                                 <div class="panel-heading">
                                     梯队设置
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-5">
-                                        <h4>梯队预览</h4>
+                                        <h4>梯队预览(点选格子进行增删)</h4>
                                         <div class="table-responsive">
                                             <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                                 <tbody>
@@ -113,28 +125,94 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-lg-7">
-                                        <h4>人形设置</h4>
-                                        <table class="table table-bordered table-hover" style="width:420px">
+                                    <!--INFO-->
+                                    <div class="col-lg-3">
+                                        <h4>人形信息</h4>
+                                        <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
+                                            <tr>
+                                                <td class="td_info"><img id="img_display" src="../img/echelon/4.png"></td>
+                                                <td class="td_info">蟒蛇</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_info"></td>
+                                                <td class="td_info"># 4</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_info"></td>
+                                                <td class="td_info">★★★★★ HG</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_info">生命 350</td>
+                                                <td class="td_info">弹量 ∞</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_info">伤害 40</td>
+                                                <td class="td_info">射速 49</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_info">命中 81</td>
+                                                <td class="td_info">回避 82</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_info">暴击率 40%</td>
+                                                <td class="td_info">暴击伤害 150%</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td_info">护甲 0</td>
+                                                <td class="td_info">穿甲 15</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <!--SETTING-->
+                                    <div class="col-lg-4">
+                                        <h4>人形</h4>
+                                        <table class="table_other table-bordered table-hover" style="width:210px">
                                             <tbody>
-                                                <tr style="height:36px">
+                                                <tr>
                                                     <td class="td_pickgun"><img id="icon-hg" src="../img/echelon/icon-hg-pick.png" style="cursor:pointer" onclick='pickGunType(1)'></td>
                                                     <td class="td_pickgun"><img id="icon-ar" src="../img/echelon/icon-ar.png" style="cursor:pointer" onclick='pickGunType(2)'></td>
                                                     <td class="td_pickgun"><img id="icon-smg" src="../img/echelon/icon-smg.png" style="cursor:pointer" onclick='pickGunType(3)'></td>
+                                                </tr>
+                                                <tr>
                                                     <td class="td_pickgun"><img id="icon-rf" src="../img/echelon/icon-rf.png" style="cursor:pointer" onclick='pickGunType(4)'></td>
                                                     <td class="td_pickgun"><img id="icon-mg" src="../img/echelon/icon-mg.png" style="cursor:pointer" onclick='pickGunType(5)'></td>
                                                     <td class="td_pickgun"><img id="icon-sg" src="../img/echelon/icon-sg.png" style="cursor:pointer" onclick='pickGunType(6)'></td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
-                                        <h4>时间</h4>
-                                        <div class="form-group input-group" style="width:300px">
-                                            <span class="input-group-addon">战斗时间</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_battle" value=10>
-                                            <span class="input-group-addon">秒</span>
-                                        </div>
+                                        <table class="table_other table-bordered table-hover" style="width:210px">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="td_starbutton"><img id="icon-addstar" src="../img/echelon/icon-add-disable.png" style="cursor: default" onclick='changeStar(1)'></td>
+                                                    <td class="td_starbutton"><img id="icon-substar" src="../img/echelon/icon-sub.png" style="cursor: pointer" onclick='changeStar(2)'></td>
+                                                    <td><img id="icon-star" src="../img/echelon/icon-5star.png"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover" style="width:210px">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <select class="form-control input-sm" id="select_tdoll" onchange="changeSelection()">
+                                                            <option value=4 selected>蟒蛇</option>
+                                                            <option value=96>灰熊Mk V</option>
+                                                            <option value=97>M950A</option>
+                                                            <option value=114>维尔德Mk Ⅱ</option>
+                                                            <option value=126>NZ75</option>
+                                                            <option value=142>Five-seveN</option>
+                                                            <option value=166>CZ75</option>
+                                                            <option value=183>竞争者</option>
+                                                            <option value=233>Px4 风暴</option>
+                                                            <option value=242>P22</option>
+                                                            <option value=250>HS2000</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h4>装备</h4>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -146,6 +224,12 @@
                                     结果
                                 </div>
                                 <div class="panel-body">
+                                    <h4>时间</h4>
+                                    <div class="form-group input-group" style="width:300px">
+                                        <span class="input-group-addon">战斗时间</span>
+                                        <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_battle" value=10>
+                                        <span class="input-group-addon">秒</span>
+                                    </div>
                                     <div class="col-lg-6">
                                         <h4>输出曲线</h4>
                                         <div id="container"></div>
@@ -155,100 +239,11 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript" src="../js/flotr2.min.js"></script>
-                    <script type="text/javascript">
-                        var switch_swap = false, num_pickblock = -1, set_guntype = 1;
-                        var global_damage = [];
-                        function createTdoll(ID, Affect, Skill, Property, Equip) {
-                            var TdollInfo = {}
-                            TdollInfo.ID = ID
-                            TdollInfo.Affect = Affect
-                            TdollInfo.Skill = Skill
-                            TdollInfo.Property = Property
-                            TdollInfo.Equip = Equip
-                        }
-                        function createAffect(self_blocknum, affect_blocknum, affect_validtype, affect_type1, affect_type2, affect_value1, affect_value2) {
-                            var Affect = {}
-                            //blocknum = 1~9
-                            Affect.self_blocknum = self_blocknum
-                            Affect.affect_blocknum = affect_blocknum
-                            Affect.affect_validtype = affect_validtype
-                            //type = dmg, rof, acu, eva, crit, critdmg, cld, arm
-                            Affect.affect_type1 = affect_type1
-                            Affect.affect_value1 = affect_value1
-                            Affect.affect_type2 = affect_type2
-                            Affect.affect_value2 = affect_value2
-                        }
-                        function pickBlock(num) {
-                            for (var i = 1; i <= 9; i++) {
-                                var img_name = 'img_' + i
-                                if (i === num) {
-                                    if (num_pickblock === num) {
-                                        num_pickblock = -1
-                                        document.getElementById(img_name).src = "../img/echelon/select-no.png"
-                                    } else {
-                                        num_pickblock = num
-                                        document.getElementById(img_name).src = "../img/echelon/select.png"
-                                    }
-                                } else {
-                                    document.getElementById(img_name).src = "../img/echelon/select-no.png"
-                                }
-                            }
-                        }
-                        function pickGunType(num) {
-                            var iconName = 'icon-', lasticonName = 'icon-';
-                            if (num === 1) iconName += 'hg'
-                            else if (num === 2) iconName += 'ar'
-                            else if (num === 3) iconName += 'smg'
-                            else if (num === 4) iconName += 'rf'
-                            else if (num === 5) iconName += 'mg'
-                            else if (num === 6) iconName += 'sg'
-                            if (set_guntype === 1) lasticonName += 'hg'
-                            else if (set_guntype === 2) lasticonName += 'ar'
-                            else if (set_guntype === 3) lasticonName += 'smg'
-                            else if (set_guntype === 4) lasticonName += 'rf'
-                            else if (set_guntype === 5) lasticonName += 'mg'
-                            else if (set_guntype === 6) lasticonName += 'sg'
-                            document.getElementById(lasticonName).src = '../img/echelon/' + lasticonName + '.png'
-                            document.getElementById(iconName).src = '../img/echelon/' + iconName + '-pick.png'
-                            set_guntype = num;
-                        }
-
-                        function formater_DPS(e) { return "时间=" + e.x + "s, 输出=" + e.y }
-                        function makeGraph() {
-                            var graph, container = document.getElementById('container')
-                            var data1 = [], data2 = []
-                            for (var i = 0; i <= 100; i += 1) {
-                                data1.push([i, 0.1 * i])
-                                data2.push([i, 0.07 * i])
-                            }
-                            graph = Flotr.draw(container, [
-                                { data: data1, label: 'M4A1 MOD' },
-                                { data: data2, label: 'ST AR-15 MOD' }
-                            ], {
-                                    colors: ['#6699FF', '#FF6666'],
-                                    xaxis: { title: "时间" },
-                                    yaxis: { title: "伤害", max: 10, min: 0 },
-                                    mouse: { track: true, trackAll: true, relative: true, trackFormatter: formater_DPS },
-                                    points: { show: false },
-                                    HtmlText: false,
-                                    lines: { show: true },
-                                    legend: {
-                                        position: 'nw',
-                                        backgroundColor: '#FFFFFF'
-                                    }
-                                });
-                        }
-                        window.onload = function () {
-                            makeGraph();
-                        }
-
-                    </script>
                 </div>
 
             </div>
         </div>
-
+        <script src="../js/flotr2.min.js"></script>
     </div>
     <!-- /#wrapper -->
 
