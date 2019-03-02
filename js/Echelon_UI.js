@@ -276,11 +276,14 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     var e_ap = lib_property_equip.get(set_equip1).ap + lib_property_equip.get(set_equip2).ap + lib_property_equip.get(set_equip3).ap
     if (e_dmg > 0) document.getElementById('info_dmg').innerHTML = '伤害 ' + property_display.dmg + '+' + e_dmg
     else document.getElementById('info_dmg').innerHTML = '伤害 ' + property_display.dmg
-    if (e_rof > 0)document.getElementById('info_rof').innerHTML = '射速 ' + property_display.rof + '+' + e_rof
+    if (e_rof > 0) document.getElementById('info_rof').innerHTML = '射速 ' + property_display.rof + '+' + e_rof
+    else if (e_rof < 0) document.getElementById('info_rof').innerHTML = '射速 ' + property_display.rof + e_rof
     else document.getElementById('info_rof').innerHTML = '射速 ' + property_display.rof
-    if (e_acu > 0)document.getElementById('info_acu').innerHTML = '命中 ' + property_display.acu + '+' + e_acu
+    if (e_acu > 0) document.getElementById('info_acu').innerHTML = '命中 ' + property_display.acu + '+' + e_acu
+    else if (e_acu < 0) document.getElementById('info_acu').innerHTML = '命中 ' + property_display.acu + e_acu
     else document.getElementById('info_acu').innerHTML = '命中 ' + property_display.acu
-    if (e_eva > 0)document.getElementById('info_eva').innerHTML = '闪避 ' + property_display.eva + '+' + e_eva
+    if (e_eva > 0) document.getElementById('info_eva').innerHTML = '闪避 ' + property_display.eva + '+' + e_eva
+    else if (e_eva < 0) document.getElementById('info_eva').innerHTML = '闪避 ' + property_display.eva + e_eva
     else document.getElementById('info_eva').innerHTML = '闪避 ' + property_display.eva
     if (e_crit > 0) document.getElementById('info_crit').innerHTML = '暴击 ' + parseInt(property_display.crit * 100) + '+' + parseInt(e_crit * 100) + '%'
     else document.getElementById('info_crit').innerHTML = '暴击 ' + parseInt(property_display.crit * 100) + '%'
@@ -289,6 +292,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     if (e_arm > 0) document.getElementById('info_arm').innerHTML = '护甲 ' + property_display.arm + '+' + e_arm
     else document.getElementById('info_arm').innerHTML = '护甲 ' + property_display.arm
     if (e_ap > 0) document.getElementById('info_ap').innerHTML = '穿甲 ' + '15' + '+' + e_ap
+    else if (e_ap < 0) document.getElementById('info_ap').innerHTML = '穿甲 ' + '15' + e_ap
     else document.getElementById('info_ap').innerHTML = '穿甲 ' + '15'
   }
 }
