@@ -275,6 +275,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     var e_arm = lib_property_equip.get(set_equip1).arm + lib_property_equip.get(set_equip2).arm + lib_property_equip.get(set_equip3).arm
     var e_ap = lib_property_equip.get(set_equip1).ap + lib_property_equip.get(set_equip2).ap + lib_property_equip.get(set_equip3).ap
     if (e_dmg > 0) document.getElementById('info_dmg').innerHTML = '伤害 ' + property_display.dmg + '+' + e_dmg
+    else if (e_dmg < 0) document.getElementById('info_dmg').innerHTML = '伤害 ' + property_display.dmg + e_dmg
     else document.getElementById('info_dmg').innerHTML = '伤害 ' + property_display.dmg
     if (e_rof > 0) document.getElementById('info_rof').innerHTML = '射速 ' + property_display.rof + '+' + e_rof
     else if (e_rof < 0) document.getElementById('info_rof').innerHTML = '射速 ' + property_display.rof + e_rof
