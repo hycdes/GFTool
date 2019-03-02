@@ -1,10 +1,16 @@
 // global variations for input ui
-var shapeSet = []
-var switch_swap = false
-var num_pickblock = -1, num_pickequip = -1
-var set_guntype = 1, num_star = 5, affection = 'love'
+var switch_swap = false, switch_operate = false, switch_equip = false
+var num_pickblock = -1, num_pickequip = -1, num_pickequip = -1
+var set_guntype = 1
+var set_equip1 = 0, set_equip2 = 0, set_equip3 = 0
+var num_star = 5, affection = 'love'
+var select_tdoll
+var select_equip
 
 // global variations for calculation
+var shapeSet = []
+var lib_property = new Map // 人形属性库，存放 < 编号 , 人形属性 >
+var lib_property_equip = new Map // 装备属性库，存放 < 代号 , 装备属性 >
 var time = 10, num_tdoll = 0
 var list_tdoll = [] // 战术人形列表，存放二元组[position, TdollInfo]
 var fairy = createFairy(['null'], [0])
@@ -30,9 +36,10 @@ function loadScript (url) {
   document.body.appendChild(script)
 }
 window.onload = function () {
-  loadScript('../js/Echelon_blockshape.js')
+  loadScript('../js/Echelon_property.js')
   loadScript('../js/Echelon_skill.js')
   loadScript('../js/Echelon_UI.js')
+  loadScript('../js/Echelon_select.js')
   mergeCell('table_property', 0, 2, 0)
   makeGraph()
 }
@@ -54,8 +61,7 @@ function createAffect (str_affectArea, target, list_affectType, list_affectValue
   Affect.affect_value = list_affectValue // list of value
   return Affect
 }
-
-function createProperty (hp, eva, arm, dmg, rof, acu, crit, critdmg, ap, cs, ff) {
+function createProperty (dmg, acu, eva, rof, arm, hp, crit, cs) { // need to add at function: ap, critdmg, ff
   var Property = {}
   Property.hp = hp // health_point
   Property.eva = eva // evasion
@@ -64,10 +70,20 @@ function createProperty (hp, eva, arm, dmg, rof, acu, crit, critdmg, ap, cs, ff)
   Property.rof = rof // rate_of_fire
   Property.acu = acu // accuracy
   Property.crit = crit // crit_rate
-  Property.critdmg = critdmg // crit_damage
-  Property.ap = ap // armor_penetrate
   Property.cs = cs // clip_size
-  Property.ff = ff // force_field
+  return Property
+}
+function createProperty_equip (dmg, acu, eva, rof, arm, crit, critdmg, cs, ap) {
+  var Property = {}
+  Property.dmg = dmg
+  Property.acu = acu
+  Property.eva = eva
+  Property.rof = rof
+  Property.arm = arm
+  Property.crit = crit
+  Property.critdmg = critdmg
+  Property.cs = cs
+  Property.ap = ap
   return Property
 }
 function createEquip (list_proprety, list_value) {
@@ -205,4 +221,8 @@ function test () {
   getBlockAffect()
   console.log(blockSet)
 // SAMPLE
+}
+function test2 () {
+  console.log('num_pickblock=', num_pickblock)
+  console.log('num_pickequip=', num_pickequip)
 }

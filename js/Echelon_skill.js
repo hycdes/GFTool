@@ -8,3 +8,5 @@ function createSkill_property (list_property, list_rate, list_target, duration, 
   Skill.init_cld = init_cld
   Skill.cld = cld
 }
+function createSkill_special_4 () {
+}

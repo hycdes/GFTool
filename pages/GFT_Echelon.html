@@ -112,19 +112,19 @@
                                             <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                                 <tbody>
                                                     <tr>
-                                                        <td id="blockimg_1" style="width:120px;height:120px;background:url(../img/echelon/1057.png)"><img id="img_1" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(1)'></td>
-                                                        <td id="blockimg_2" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_2" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(2)'></td>
-                                                        <td id="blockimg_3" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_3" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(3)'></td>
+                                                        <td id="blockimg_1" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_1" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(1)'></td>
+                                                        <td id="blockimg_2" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_2" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(2)'></td>
+                                                        <td id="blockimg_3" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_3" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(3)'></td>
                                                     </tr>
                                                     <tr>
-                                                        <td id="blockimg_4" style="width:120px;height:120px;background:url(../img/echelon/1055.png)"><img id="img_4" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(4)'></td>
-                                                        <td id="blockimg_5" style="width:120px;height:120px;background:url(../img/echelon/1103.png)"><img id="img_5" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(5)'></td>
-                                                        <td id="blockimg_6" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_6" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(6)'></td>
+                                                        <td id="blockimg_4" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_4" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(4)'></td>
+                                                        <td id="blockimg_5" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_5" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(5)'></td>
+                                                        <td id="blockimg_6" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_6" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(6)'></td>
                                                     </tr>
                                                     <tr>
-                                                        <td id="blockimg_7" style="width:120px;height:120px;background:url(../img/echelon/1056.png)"><img id="img_7" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(7)'></td>
-                                                        <td id="blockimg_8" style="width:120px;height:120px;background:url(../img/echelon/242.png)"><img id="img_8" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(8)'></td>
-                                                        <td id="blockimg_9" style="width:120px;height:120px;background:url(../img/echelon/block_empty.png)"><img id="img_9" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(9)'></td>
+                                                        <td id="blockimg_7" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_7" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(7)'></td>
+                                                        <td id="blockimg_8" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_8" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(8)'></td>
+                                                        <td id="blockimg_9" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_9" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(9)'></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -135,36 +135,36 @@
                                         <h4>人形信息</h4>
                                         <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
                                             <tr>
-                                                <td class="td_info" style="background: url(../img/echelon/4.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
-                                                <td class="td_info">蟒蛇</td>
+                                                <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
+                                                <td class="td_info" id='info_name'>请选择一个人形</td>
                                             </tr>
                                             <tr>
                                                 <td class="td_info"></td>
-                                                <td class="td_info"># 4</td>
+                                                <td class="td_info" id='info_num'># -</td>
                                             </tr>
                                             <tr>
                                                 <td class="td_info"></td>
-                                                <td class="td_info">★★★★★ HG</td>
+                                                <td class="td_info" id='info_type'>-</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">生命 350</td>
-                                                <td class="td_info">弹量 ∞</td>
+                                                <td class="td_info" id='info_hp'>生命 -</td>
+                                                <td class="td_info" id='info_cs'>弹量 -</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">伤害 40+15+2</td>
-                                                <td class="td_info">射速 49</td>
+                                                <td class="td_info" id='info_dmg'>伤害 -</td>
+                                                <td class="td_info" id='info_rof'>射速 -</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">命中 81+5</td>
-                                                <td class="td_info">回避 82+30+5</td>
+                                                <td class="td_info" id='info_acu'>命中 -</td>
+                                                <td class="td_info" id='info_eva'>回避 -</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">暴击 40+20%</td>
-                                                <td class="td_info">暴伤 150%</td>
+                                                <td class="td_info" id='info_crit'>暴击 -</td>
+                                                <td class="td_info" id='info_critdmg'>暴伤 -</td>
                                             </tr>
                                             <tr>
-                                                <td class="td_info">护甲 0</td>
-                                                <td class="td_info">穿甲 15-7</td>
+                                                <td class="td_info" id='info_arm'>护甲 -</td>
+                                                <td class="td_info" id='info_ap'>穿甲 -</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -174,14 +174,14 @@
                                         <table class="table_other table-bordered table-hover" style="width:210px">
                                             <tbody>
                                                 <tr>
-                                                    <td class="td_pickgun"><img id="icon-hg" src="../img/echelon/icon-hg-pick.png" style="cursor:pointer" onclick='pickGunType(1)'></td>
-                                                    <td class="td_pickgun"><img id="icon-ar" src="../img/echelon/icon-ar.png" style="cursor:pointer" onclick='pickGunType(2)'></td>
-                                                    <td class="td_pickgun"><img id="icon-smg" src="../img/echelon/icon-smg.png" style="cursor:pointer" onclick='pickGunType(3)'></td>
+                                                    <td class="td_pickgun"><img id="icon-hg" src="../img/echelon/icon-hg-disable.png" style="cursor:default" onclick=''></td>
+                                                    <td class="td_pickgun"><img id="icon-ar" src="../img/echelon/icon-ar-disable.png" style="cursor:default" onclick=''></td>
+                                                    <td class="td_pickgun"><img id="icon-smg" src="../img/echelon/icon-smg-disable.png" style="cursor:default" onclick=''></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="td_pickgun"><img id="icon-rf" src="../img/echelon/icon-rf.png" style="cursor:pointer" onclick='pickGunType(4)'></td>
-                                                    <td class="td_pickgun"><img id="icon-mg" src="../img/echelon/icon-mg.png" style="cursor:pointer" onclick='pickGunType(5)'></td>
-                                                    <td class="td_pickgun"><img id="icon-sg" src="../img/echelon/icon-sg.png" style="cursor:pointer" onclick='pickGunType(6)'></td>
+                                                    <td class="td_pickgun"><img id="icon-rf" src="../img/echelon/icon-rf-disable.png" style="cursor:default" onclick=''></td>
+                                                    <td class="td_pickgun"><img id="icon-mg" src="../img/echelon/icon-mg-disable.png" style="cursor:default" onclick=''></td>
+                                                    <td class="td_pickgun"><img id="icon-sg" src="../img/echelon/icon-sg-disable.png" style="cursor:default" onclick=''></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -189,7 +189,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="td_starbutton"><img id="icon-addstar" src="../img/echelon/icon-add-disable.png" style="cursor: default" onclick='changeStar(1)'></td>
-                                                    <td class="td_starbutton"><img id="icon-substar" src="../img/echelon/icon-sub.png" style="cursor: pointer" onclick='changeStar(2)'></td>
+                                                    <td class="td_starbutton"><img id="icon-substar" src="../img/echelon/icon-sub-disable.png" style="cursor: default" onclick='changeStar(2)'></td>
                                                     <td><img id="icon-star" src="../img/echelon/icon-5star.png"></td>
                                                 </tr>
                                             </tbody>
@@ -198,18 +198,8 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <select class="form-control input-sm" id="select_tdoll" onchange="changeSelection()">
-                                                            <option value=4 selected>蟒蛇</option>
-                                                            <option value=96>灰熊Mk V</option>
-                                                            <option value=97>M950A</option>
-                                                            <option value=114>维尔德Mk Ⅱ</option>
-                                                            <option value=126>NZ75</option>
-                                                            <option value=142>Five-seveN</option>
-                                                            <option value=166>CZ75</option>
-                                                            <option value=183>竞争者</option>
-                                                            <option value=233>Px4 风暴</option>
-                                                            <option value=242>P22</option>
-                                                            <option value=250>HS2000</option>
+                                                        <select class="form-control input-sm" id="select_tdoll" onchange="changePreview(1)" disabled>
+                                                            <option value=0 selected>请点选一个格点</option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -219,9 +209,9 @@
                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                             <tbody>
                                                 <tr>
-                                                    <td class="td_equip"><img id="icon-equip1" src="../img/echelon/equip/icon-AC4.png" style="cursor: pointer" onclick='selectEquip(1)'></td>
-                                                    <td class="td_equip"><img id="icon-equip2" src="../img/echelon/equip/icon-ILM.png" style="cursor: pointer" onclick='selectEquip(2)'></td>
-                                                    <td class="td_equip"><img id="icon-equip3" src="../img/echelon/equip/icon-X.png" style="cursor: pointer" onclick='selectEquip(3)'></td>
+                                                    <td class="td_equip" id='img_e1'><img id="icon-equip1" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
+                                                    <td class="td_equip" id='img_e2'><img id="icon-equip2" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
+                                                    <td class="td_equip" id='img_e3'><img id="icon-equip3" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
                                                 </tr>
 
                                             </tbody>
@@ -230,8 +220,8 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <select class="form-control input-sm" id="select_equip" onchange="changeEquip()" disabled>
-                                                            <option value=0 selected>选择装备才能编辑</option>
+                                                        <select class="form-control input-sm" id="select_equip" onchange="changePreview()" disabled>
+                                                            <option value=-1 selected>请点选一个装备栏</option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -239,9 +229,10 @@
                                         </table>
                                         <label><span style="color:deeppink">&nbsp</span></label>
                                         <p>
-                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll">添加人形</button>
-                                            <button type="button" class="btn btn-danger" onclick="addTdoll()" id="button_addTdoll" disabled>删除人形</button>
+                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形(目前无效)</button>
+                                            <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>删除人形</button>
                                             <button type="button" class="btn btn-primary" onclick="test()" id="button_addTdoll">try</button>
+                                            <button type="button" class="btn btn-primary" onclick="test2()" id="button_addTdoll">see_global</button>
                                         </p>
                                     </div>
 
@@ -262,7 +253,7 @@
                                         <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_battle" value=10>
                                         <span class="input-group-addon">秒</span>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6" style="overflow: hidden">
                                         <h4>输出曲线</h4>
                                         <div id="container"></div>
                                     </div>
