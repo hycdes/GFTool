@@ -2,7 +2,7 @@
 var switch_swap = false, switch_operate = false, switch_equip = false
 var num_pickblock = -1, num_pickequip = -1, num_pickequip = -1
 var set_guntype = 1
-var set_equip1 = 0, set_equip2 = 0, set_equip3 = 0
+var set_equip = [0, 0, 0]
 var num_star = 5, affection = 'love'
 var select_tdoll
 var select_equip
