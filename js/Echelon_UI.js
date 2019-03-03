@@ -300,7 +300,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     else if (e_ap < 0) document.getElementById('info_ap').innerHTML = '穿甲 <span style="color:orangered">' + '15' + e_ap + '</span>'
     else document.getElementById('info_ap').innerHTML = '穿甲 <span style="color:green">' + '15' + '</span>'
     // readStatus需要保存当前状态，添加人形会把buffer_last填入buffer_table
-    buffer_last = [set_guntype, num_star, ID, set_equip, affection]
+    buffer_last = [set_guntype, num_star, ID, set_equip, affection, e_affection]
   }
 }
 function readStatus () { // 读取已有人形之前的全局环境
@@ -323,10 +323,10 @@ function addTdoll () { // 添加战术人形
   var new_affect = lib_affect.get(ID)
   var new_skill = lib_skill.get(ID)
   var new_property = lib_property.get(ID)
-  var new_equip = [lib_property_equip.get(set_equip[0]), lib_property_equip.get(set_equip[1]), lib_property_equip.get(set_equip[2])]
+  var new_equip = [lib_property_equip.get(set_equip[0]), lib_property_equip.get(set_equip[1]), lib_property_equip.get(set_equip[2]), buffer_last[5]]
   var new_stand = num_pickblock - 1
   // 数据添加
-  list_tdoll[new_stand][1] = createTdoll(ID, new_affect, new_skill, new_property, new_equip)
+  list_tdoll[new_stand][1] = createTdoll(ID, set_guntype, new_affect, new_skill, new_property, new_equip)
   // 前台更新
   document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
   manageUI('pick-block')

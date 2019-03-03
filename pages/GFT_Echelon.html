@@ -97,7 +97,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">阵形模拟器(G41/Grizzly/M950A完整数据)</h1>
+                        <h1 class="page-header">阵形模拟器(Comming soon!)</h1>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -245,20 +245,45 @@
                                     结果
                                 </div>
                                 <div class="panel-body">
-                                    <h4>时间</h4>
-                                    <div class="form-group input-group" style="width:300px">
-                                        <span class="input-group-addon">战斗时间</span>
-                                        <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_battle" value=10>
-                                        <span class="input-group-addon">秒</span>
+                                    <div class="col-lg-3">
+                                        <h4>全局设定</h4>
+                                        <p>
+                                            <label class="radio-inline"><input type="radio" name="switch_sun" id="switch_daytime" value=1 onclick="" checked><span style="color:darkorange"><b>昼战</b></span></label>
+                                            <label class="radio-inline"><input type="radio" name="switch_sun" id="switch_nighttime" value=2 onclick=""><span style="color:darkblue"><b>夜战</b></span></label>
+                                        </p>
+                                        <div class="form-group input-group" style="width:300px">
+                                            <span class="input-group-addon">接敌时间</span>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                            <span class="input-group-addon">秒</span>
+                                        </div>
+                                        <div class="form-group input-group" style="width:300px">
+                                            <span class="input-group-addon">战斗时间</span>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_battle" value=10>
+                                            <span class="input-group-addon">秒</span>
+                                        </div>
+                                        <h4>敌人设定</h4>
+                                        <div class="form-group input-group" style="width:300px">
+                                            <span class="input-group-addon">闪避</span>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                        </div>
+                                        <div class="form-group input-group" style="width:300px">
+                                            <span class="input-group-addon">护甲</span>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                        </div>
+                                        <div class="form-group input-group" style="width:300px">
+                                            <span class="input-group-addon">编制</span>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                        </div>
+                                        <h4>调试用</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="test(1)" id="button_addTdoll">console_blockaffect</button>
+                                            <button type="button" class="btn btn-default" onclick="test(2)" id="button_addTdoll">console_list_tdoll</button>
+                                            <button type="button" class="btn btn-default" onclick="test(3)" id="button_addTdoll">console_get_base</button>
+                                        </p>
                                     </div>
-                                    <div class="col-lg-6" style="overflow: hidden">
+                                    <div class="col-lg-9" style="overflow: scroll">
                                         <h4>输出曲线</h4>
                                         <div id="container"></div>
-                                    </div>
-                                    <div class='col-lg-6'>
-                                        <h4>测试区</h4>
-                                        <button type="button" class="btn btn-default" onclick="test(1)" id="button_addTdoll">console_blockaffect</button>
-                                        <button type="button" class="btn btn-default" onclick="test(2)" id="button_addTdoll">console_list_tdoll</button>
                                     </div>
                                 </div>
                             </div>
