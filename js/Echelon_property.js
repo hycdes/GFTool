@@ -1,3 +1,37 @@
+function createAffect (str_affectArea, target, list_affectType, list_affectValue) {
+  var Affect = {}
+  Affect.area = str_affectArea // area = l/r/u/d/
+  Affect.target = target // target = all, hg, ar, smg, rf, mg, sg
+  Affect.affect_type = list_affectType // type = [dmg, rof, acu, eva, crit, cld, arm]
+  Affect.affect_value = list_affectValue // list of value
+  return Affect
+}
+function createProperty (dmg, acu, eva, rof, arm, hp, crit, cs) { // need to add at function: ap, critdmg, ff
+  var Property = {}
+  Property.hp = hp // health_point
+  Property.eva = eva // evasion
+  Property.arm = arm // armor
+  Property.dmg = dmg // damage
+  Property.rof = rof // rate_of_fire
+  Property.acu = acu // accuracy
+  Property.crit = crit // crit_rate
+  Property.cs = cs // clip_size
+  return Property
+}
+function createProperty_equip (dmg, acu, eva, rof, arm, crit, critdmg, cs, ap) {
+  var Property = {}
+  Property.dmg = dmg
+  Property.acu = acu
+  Property.eva = eva
+  Property.rof = rof
+  Property.arm = arm
+  Property.crit = crit
+  Property.critdmg = critdmg
+  Property.cs = cs
+  Property.ap = ap
+  return Property
+}
+
 // blockshape
 shapeSet.push('u/d/l/r/') // #0 可乐类，=╬=
 shapeSet.push('lu/ru/ld/rd/') // #1 绿毛类，X
@@ -12,7 +46,7 @@ shapeSet.push('lu/u/r/ld/d/') // #9 灰熊类
 shapeSet.push('lu/u/ld/d/') // #10 斧王cz75类，コ
 shapeSet.push('u/ru/l/r/d/rd/') // #11 nz75
 shapeSet.push('u/ru/r/d/rd/') // #12 维尔德、ro635
-shapeSet.push('lu/u/l/ld/d/') // #13 59式
+shapeSet.push('lu/u/l/ld/d/') // #13 59式、M4A1
 shapeSet.push('ru/l/r/rd/') // #14 PSM
 shapeSet.push('lu/u/ru/ld/d/rd/') // #15 P7
 shapeSet.push('l/ld/d/ldd/') // #16 风暴Px4
@@ -35,7 +69,7 @@ shapeSet.push('l/ld/ldd/') // #31 JS9、X95
 
 shapeSet.push('ru/rd/') // #32 G41
 shapeSet.push('r/') // #33 G11、NTW、WA2000
-shapeSet.push('ru/r/rd/') // #34 ots14
+shapeSet.push('ru/r/rd/') // #34 FAL、闪电、AR15、狗子
 shapeSet.push('u/') // #35 As Val
 shapeSet.push('d/') // #36 AK-47
 shapeSet.push('r/rd/') // #37 G36
@@ -50,6 +84,52 @@ shapeSet.push('r/rr/') // #44 DSR-50
 shapeSet.push('d/rd/') // #45 T5000
 shapeSet.push('uu/u/') // #46 卡姐
 shapeSet.push('d/dd/') // #47 卡妹
+
+shapeSet.push('rr/') // #48 BAR、老王：最右1格
+shapeSet.push('rr/rrdd/') // #49 m60
+shapeSet.push('rr/rrd/') // #50 pineapple
+shapeSet.push('rruu/') // #51 m1919a4
+shapeSet.push('rruu/rr/') // #52 dp28
+shapeSet.push('rru/rrd/') // #53 mg5
+shapeSet.push('rru/rr/') // #54 pk
+shapeSet.push('rrdd/') // #55 mg42
+shapeSet.push('rru/rr/rrd/') // #56 Negev
+shapeSet.push('rr/rrd/rrdd/') // #57 pkp
+shapeSet.push('rruu/rru/') // #58 type80
+shapeSet.push('rruu/rru/rr/') // #59 type88
+
+shapeSet.push('ll/') // #60 m1887：最左1格
+shapeSet.push('llu/ll/lld/') // #61 S.A.T.8
+shapeSet.push('llu/lld/') // #62 ksg!
+shapeSet.push('lluu/ll/') // #63 m590
+shapeSet.push('ll/lldd/') // #64 m500
+shapeSet.push('llu/ll/') // #65 AA-12、M870：最左及其上
+shapeSet.push('ll/lld/') // #66 m1897：最左及其下
+shapeSet.push('lldd/') // #67 ks23
+shapeSet.push('lluu/') // #68 rmb93
+shapeSet.push('ll/lld/lldd/') // #69 FP-6
+
+// lib_affect
+lib_affect.set(1, createAffect(shapeSet[0], 'all', ['dmg', 'acu'], [0.24, 0.5]))
+lib_affect.set(2, createAffect(shapeSet[0], 'all', ['rof', 'acu'], [0.2, 0.5]))
+lib_affect.set(3, createAffect(shapeSet[2], 'all', ['dmg', 'eva'], [0.2, 0.2]))
+lib_affect.set(4, createAffect(shapeSet[8], 'all', ['dmg', 'crit'], [0.3, 0.2])) // python
+lib_affect.set(5, createAffect(shapeSet[4], 'all', ['dmg', 'crit'], [0.32, 0.16]))
+
+lib_affect.set(62, createAffect(shapeSet[32], 'smg', ['acu', 'eva'], [0.50, 0.15])) // G41
+lib_affect.set(96, createAffect(shapeSet[9], 'all', ['dmg', 'eva'], [0.30, 0.20])) // 灰熊
+lib_affect.set(97, createAffect(shapeSet[1], 'all', ['rof', 'acu'], [0.30, 0.50])) // M950A
+
+lib_affect.set(99, createAffect(shapeSet[3], 'all', ['dmg'], [0.36])) // Mk23
+
+lib_affect.set(1001, createAffect(shapeSet[0], 'all', ['dmg', 'acu'], [0.24, 0.6]))
+lib_affect.set(1002, createAffect(shapeSet[0], 'all', ['rof', 'acu'], [0.24, 0.5]))
+lib_affect.set(1005, createAffect(shapeSet[4], 'all', ['dmg', 'crit'], [0.36, 0.2]))
+
+lib_affect.set(1055, createAffect(shapeSet[13], 'ar', ['dmg', 'crit'], [0.2, 0.32]))
+lib_affect.set(1056, createAffect(shapeSet[34], 'smg', ['acu', 'eva'], [0.5, 0.15]))
+lib_affect.set(1057, createAffect(shapeSet[34], 'smg', ['rof', 'eva'], [0.1, 0.15]))
+lib_affect.set(1064, createAffect(shapeSet[37], 'smg', ['dmg', 'rof'], [0.3, 0.15]))
 
 // T-doll property
 // dmg, acu, eva, rof, arm, hp, crit, cs
@@ -397,6 +477,7 @@ lib_property.set(1089, createProperty(97, 34, 29, 103, 0, 890, 0.05, 8))
 lib_property.set(1091, createProperty(31, 57, 80, 60, 0, 340, 0.2, -1))
 lib_property.set(1093, createProperty(27, 16, 92, 75, 0, 770, 0.05, -1))
 lib_property.set(1094, createProperty(28, 12, 70, 93, 0, 905, 0.05, -1))
+lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1))
 
 // Equipment property
 // dmg, acu, eva, rof, arm, crit, critdmg, cs, ap

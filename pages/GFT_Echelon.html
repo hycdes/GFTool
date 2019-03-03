@@ -97,7 +97,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">阵形模拟器 (施工中！完全不能用哦~)</h1>
+                        <h1 class="page-header">阵形模拟器(G41/Grizzly/M950A完整数据)</h1>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -168,7 +168,6 @@
                                             </tr>
                                         </table>
                                     </div>
-                                    <span style="color:greenyellow"></span>
                                     <!--SETTING-->
                                     <div class="col-lg-4">
                                         <h4>人形</h4>
@@ -189,8 +188,8 @@
                                         <table class="table_other table-bordered table-hover" style="width:210px">
                                             <tbody>
                                                 <tr>
-                                                    <td class="td_starbutton"><img id="icon-addstar" src="../img/echelon/icon-add-disable.png" style="cursor: default" onclick='changeStar(1)'></td>
-                                                    <td class="td_starbutton"><img id="icon-substar" src="../img/echelon/icon-sub-disable.png" style="cursor: default" onclick='changeStar(2)'></td>
+                                                    <td class="td_starbutton"><img id="icon-addstar" src="../img/echelon/icon-add-disable.png" style="cursor: default" onclick='changeStar("add")'></td>
+                                                    <td class="td_starbutton"><img id="icon-substar" src="../img/echelon/icon-sub-disable.png" style="cursor: default" onclick='changeStar("sub")'></td>
                                                     <td><img id="icon-star" src="../img/echelon/icon-5star.png"></td>
                                                 </tr>
                                             </tbody>
@@ -230,10 +229,8 @@
                                         </table>
                                         <label><span style="color:deeppink">&nbsp</span></label>
                                         <p>
-                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形(目前无效)</button>
+                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形</button>
                                             <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>删除人形</button>
-                                            <button type="button" class="btn btn-primary" onclick="test()" id="button_addTdoll">try</button>
-                                            <button type="button" class="btn btn-primary" onclick="test2()" id="button_addTdoll">see_global</button>
                                         </p>
                                     </div>
 
@@ -257,6 +254,11 @@
                                     <div class="col-lg-6" style="overflow: hidden">
                                         <h4>输出曲线</h4>
                                         <div id="container"></div>
+                                    </div>
+                                    <div class='col-lg-6'>
+                                        <h4>测试区</h4>
+                                        <button type="button" class="btn btn-default" onclick="test(1)" id="button_addTdoll">console_blockaffect</button>
+                                        <button type="button" class="btn btn-default" onclick="test(2)" id="button_addTdoll">console_list_tdoll</button>
                                     </div>
                                 </div>
                             </div>

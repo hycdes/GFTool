@@ -82,7 +82,21 @@ function changeSelectItems () {
     }
   } else if (set_guntype === 4) { // RF
     if (num_star === 5) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=46 selected>No.46 Kar98k</option>'
+      str_items += '<option value=48>No.48 WA2000</option>'
+      str_items += '<option value=50>No.50 李-恩菲尔德</option>'
+      str_items += '<option value=53>No.53 NTW-20</option>'
+      str_items += '<option value=128>No.128 M99</option>'
+      str_items += '<option value=148>No.148 IWS2000</option>'
+      str_items += '<option value=179>No.179 DSR-50</option>'
+      str_items += '<option value=192>No.192 JS05</option>'
+      str_items += '<option value=197>No.197 卡尔卡诺M1891</option>'
+      str_items += '<option value=198>No.198 卡尔卡诺M91/38</option>'
+      str_items += '<option value=204>No.204 芭莉斯塔</option>'
+      str_items += '<option value=211>No.211 SRS</option>'
+      str_items += '<option value=222>No.222 TAC-50</option>'
+      str_items += '<option value=231>No.231 M82A1</option>'
+      str_items += '<option value=1039>No.39 [MOD] 莫辛-纳甘</option>'
     } else if (num_star === 4) {
       str_items += '<option  value=-1 selected>还没做！</option>'
     } else if (num_star === 3) {
@@ -92,7 +106,14 @@ function changeSelectItems () {
     }
   } else if (set_guntype === 5) { // MG
     if (num_star === 5) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=109 selected>No.109 MG5</option>'
+      str_items += '<option value=112>No.112 内格夫</option>'
+      str_items += '<option value=125>No.125 MG4</option>'
+      str_items += '<option value=173>No.173 PKP</option>'
+      str_items += '<option value=208>No.208 HK21</option>'
+      str_items += '<option value=238>No.238 88式</option>'
+      str_items += '<option value=253>No.253 刘易斯</option>'
+      str_items += '<option value=1075>No.75 [MOD] M1918</option>'
     } else if (num_star === 4) {
       str_items += '<option  value=-1 selected>还没做！</option>'
     } else if (num_star === 3) {
