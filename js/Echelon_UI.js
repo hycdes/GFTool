@@ -208,7 +208,11 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     else document.getElementById('img_e' + num_pickequip).style = 'background: url(../img/echelon/equip/' + ID_equip + '.png)'
     set_equip[num_pickequip - 1] = ID_equip
   }
+  // 刷新人物和装备显示
   document.getElementById('img_display').style = 'background: url(../img/echelon/' + ID + '.png)'
+  document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
+  document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
+  document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
   if (ID <= 0) { // 没选中
     document.getElementById('info_name').innerHTML = '请点选一个<b><span style="color: red">九宫格</span></b>'
     document.getElementById('info_num').innerHTML = '# -'
@@ -272,7 +276,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     if (e_dmg > 0 && e_dmg != 2.01) str_dmg += '<span style="color:green">' + property_display.dmg + '+' + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     else if (e_dmg < 0) str_dmg += '<span style="color:orangered">' + property_display.dmg + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     else if (e_dmg === 2.01) str_dmg += '<span style="color:blue">(' + property_display.dmg + '<span style="color:hotpink">+' + e_affection.dmg + '</span>' + ')x3' + '</span>'
-    else str_dmg += '<span style="color:green">' + property_display.dmg + '</span>'
+    else str_dmg += '<span style="color:green">' + property_display.dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     document.getElementById('info_dmg').innerHTML = str_dmg
     // rof
     if (e_rof > 0) document.getElementById('info_rof').innerHTML = '射速 <span style="color:green">' + property_display.rof + '+' + e_rof + '</span>'
