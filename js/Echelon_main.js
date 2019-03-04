@@ -7,7 +7,7 @@ var num_star = 5, affection = 'love'
 var select_tdoll
 var select_equip
 
-// global variations for calculation
+// global variations for prepare
 var shapeSet = [] // 影响格形状库
 var buffer_table = new Map // 已放置人形的全局变量信息buffer
 var buffer_last
@@ -17,12 +17,21 @@ var lib_property_equip = new Map // 装备属性库，存放 < 装备编号, Pro
 var lib_describe = new Map // 描述库，存放 < 技能名, 描述 >
 var lib_skill = new Map // 技能库，存放 < 人形编号, list_Skill>
 var list_tdoll = [[0, null], [1, null], [2, null], [3, null], [4, null], [5, null], [6, null], [7, null], [8, null]] // 战术人形列表，存放二元组[position, TdollInfo]
-var time = 10
+var time = 10, init_time = 0
 var num_tdoll = 0
 var fairy = createFairy(['null'], [0])
 var global_damage = []
 var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map
 var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9]
+
+// global variations for main-calculation
+var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_time> ]>
+var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, countdown_time> ] >，攻击也是个技能
+var Set_Base = new Map // 当前属性，当Status改变时更新
+var Set_Command = new Map // 命令，存放命令，< num_stand, command >，command = standby, freefire, skill_mf, skill_all...
+var Set_Special = new Map // 特殊变量表
+var Set_Data = new Map // 输出数据
+var enemy_arm = 0, enemy_eva = 0, enemy_form = 1
 
 // inital
 function mergeCell (table1, startRow, endRow, col) {
@@ -47,13 +56,13 @@ window.onload = function () {
   loadScript('../js/Echelon_UI.js')
   loadScript('../js/Echelon_select.js')
   mergeCell('table_property', 0, 2, 0)
-  makeGraph()
 }
 
-function createTdoll (ID, Type, Affect, Skill, Property, Equip) {
+function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) {
   var TdollInfo = {}
   TdollInfo.ID = ID
   TdollInfo.Type = Type
+  TdollInfo.Name = Name
   TdollInfo.Affect = Affect
   TdollInfo.Skill = Skill
   TdollInfo.Property = Property
@@ -67,33 +76,6 @@ function createFairy (ID, list_property, list_value) {
   Fairy.property = list_property
   Fairy.value = list_value
   return Fairy
-}
-
-function formater_DPS (e) { return '时间=' + e.x + 's, 输出=' + e.y }
-function makeGraph () {
-  var container = document.getElementById('container')
-  var data1 = [], data2 = []
-  for (var i = 0; i <= 100; i += 1) {
-    data1.push([i, 0.1 * i])
-    data2.push([i, 0.07 * i])
-  }
-  graph = Flotr.draw(container, [
-    { data: data1, label: 'M4A1 MOD' },
-    { data: data2, label: 'ST AR-15 MOD' }
-  ], {
-    colors: ['#6699FF', '#FF6666'],
-    xaxis: { title: '时间' },
-    yaxis: { title: '伤害', max: 10, min: 0 },
-    mouse: { track: true, trackAll: true, relative: true, trackFormatter: formater_DPS },
-    points: { show: false },
-    HtmlText: false,
-    grid: { verticalLines: false },
-    lines: { show: true },
-    legend: {
-      position: 'nw',
-      backgroundColor: '#FFFFFF'
-    }
-  })
 }
 
 // 计算影响格
@@ -142,24 +124,142 @@ function getBlockAffect () {
   }
 }
 
-// MAIN, get result
-// var sample_python_skill = createSkill_special_4()
+// MAIN, 攻击优先于所有
 function getDPS () {
-  time = parseFloat(document.getElementById('time_battle').value)
-  var Set_Status = new Map
-  var Set_Skill = new Map
-  var Set_Base = new Map
+  // 清空之前数据
+  Set_Status.clear()
+  Set_Skill.clear()
+  Set_Base.clear()
+  Set_Command.clear()
+  Set_Special.clear()
+  Set_Data.clear()
+  reset_special()
+  var end_of_standby = false
+  time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
+  init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
+  // 计算出战属性，初始化数据
   for (var i = 0; i < 9; i++) {
+    Set_Data.set(i, [[0, 0]])
     if (list_tdoll[i][1] != null) {
       Set_Base.set(i, getBaseProperty(i))
     }
   }
-  console.log(Set_Base)
-  // battle computing
-  for (var t = 0; t < 30 * time; t++) {
-    // main
+  // 载入敌人属性
+  enemy_arm = parseInt(document.getElementById('enemy_arm').value)
+  enemy_eva = parseInt(document.getElementById('enemy_eva').value)
+  // 初始化Command
+  if (init_time > 0) {
+    for (var i = 0; i < 9; i++) {
+      if (list_tdoll[i][1] != null) Set_Command.set(i, 'standby')
+    }
+  } else {
+    end_of_standby = true
+    for (var i = 0; i < 9; i++) {
+      if (list_tdoll[i][1] != null) Set_Command.set(i, 'freefire')
+    }
+  }
+  // 载入技能
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      var list_Skill = []
+      list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
+      for (var v_skill of list_tdoll[i][1].Skill) {
+        list_Skill.push([v_skill, 30 * (v_skill.init_cld)]) // 载入技能表
+      }
+      Set_Skill.set(i, list_Skill)
+    }
+  }
+  // 载入特殊变量
+
+  // 载入初始状态（妖精天赋和全局设定）
+  // 并更新属性
+
+  // 主函数
+  for (var t = 0; t < time; t++) {
+    // 接敌
+    if (init_time > 0) {
+      init_time--
+      reactAllSkill('standby', t)
+    }
+    // 开战
+    else if (init_time === 0) {
+      if (!end_of_standby) { // 解锁所有人command
+        end_of_standby = true
+        for (var i = 0; i < 9; i++) {
+          if (list_tdoll[i][1] != null) Set_Command.set(i, 'freefire')
+        }
+      }
+      reactAllSkill('freefire', t)
+    }
+  }
+  // 绘图
+  var y_max = 0
+  var str_label = ['', '', '', '', '', '', '', '', '', '']
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      var len_data = (Set_Data.get(i)).length
+      for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
+      if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
+      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name
+    }
+  }
+  makeGraph(y_max, str_label)
+}
+
+// 处理所有技能
+function reactAllSkill (command, current_time) {
+  if (command === 'standby') { // 等待接敌
+    for (var [k, v] of Set_Skill) {
+      for (var s_t of v) {
+        if (s_t[1] > 0) s_t[1]--
+      }
+    }
+    for (var [k, v] of Set_Status) {
+      var len_status = v.length
+      for (var s = 0; s < len_status; s++) {
+        var s_t = v[s]
+        if (s_t[1] > 0) s_t[1]-- // 状态持续减少
+        else if (s_t[1] === 0) {
+          refreshBaseProperty(k, s_t[0]) // 更新属性
+          v.splice(s, 1) // 状态结束
+        }
+      // -1则一直存在
+      }
+    }
+  } else if (command === 'freefire') {
+    for (var [k, v] of Set_Skill) {
+      for (var s_t of v) {
+        if (s_t[1] > 0) s_t[1]-- // 冷却中
+        else if (s_t[1] === 0) { // 激活
+          react(s_t, k, current_time)
+        }
+      }
+    }
   }
 }
+
+// 执行技能，包括重置冷却、产生效果，以及添加数据
+function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, createSkill (init_cld, cld, duration, Describe)
+  var skillname = (s_t[0].Describe).name // Describe -> name, special_paremeters
+  if (skillname === 'attack') {
+    var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
+    Set_Data.get(stand_num).push([current_time, lastData])
+    var current_Info = (Set_Base.get(stand_num)).Info
+    if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
+      var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
+      var final_crit = 1
+      if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+      final_dmg = Math.ceil(final_dmg * final_crit)
+      Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
+      s_t[1] = current_Info.get('shootframe')
+    }
+  }
+}
+
+function refreshBaseProperty (num, status) { // 刷新属性，状态是 < pro_type, value > 二元组
+  true
+}
+
 function getBaseProperty (num) {
   var Area = [false, false, false, false, false, false, false, false, false] // 影响格范围
   var Info = new Map // 全部信息，包括最终出战全属性和枪种
@@ -187,7 +287,7 @@ function getBaseProperty (num) {
       num_tempblo = num
     }
   }
-  // INFO: type, hp, dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, ff
+  // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾, shootframe射击帧
   var full_property = [
     list_tdoll[num][1].Type,
     (list_tdoll[num][1].Property).hp,
@@ -200,6 +300,7 @@ function getBaseProperty (num) {
     (list_tdoll[num][1].Property).cs + (list_tdoll[num][1].Equip)[0].cs + (list_tdoll[num][1].Equip)[1].cs + (list_tdoll[num][1].Equip)[2].cs + (list_tdoll[num][1].Equip)[3].cs,
     1.5 + (list_tdoll[num][1].Equip)[0].critdmg + (list_tdoll[num][1].Equip)[1].critdmg + (list_tdoll[num][1].Equip)[2].critdmg + (list_tdoll[num][1].Equip)[3].critdmg,
     15 + (list_tdoll[num][1].Equip)[0].ap + (list_tdoll[num][1].Equip)[1].ap + (list_tdoll[num][1].Equip)[2].ap + (list_tdoll[num][1].Equip)[3].ap,
+    0,
     0
   ]
   Info.set('type', full_property[0]); Info.set('hp', full_property[1])
@@ -235,7 +336,22 @@ function getBaseProperty (num) {
   if (blockSet[num].get('allcrit') != undefined)  mul[5] += blockSet[num].get('allcrit')
   full_property[7] *= mul[5]
   Info.set('crit', full_property[7])
-  Info.set('cs', full_property[8]); Info.set('critdmg', full_property[9]); Info.set('ap', full_property[10]); Info.set('ff', full_property[11])
+  Info.set('cs', full_property[8]); Info.set('critdmg', full_property[9]); Info.set('ap', full_property[10]); Info.set('ff', full_property[11]); Info.set('shield', full_property[12])
+  var shootframe = 100
+  if (str_tn == 'hg' || str_tn == 'ar' || str_tn == 'smg' || str_tn == 'rf') {
+    var base_rof = Info.get('rof')
+    if (base_rof >= 120) shootframe = 12
+    else if (base_rof <= 15) shootframe = 100
+    else shootframe = Math.floor(1500 / base_rof)
+  } else if (str_tn === 'mg') {
+    shootframe = 10 // 以后写11帧判断
+  } else if (str_tn === 'sg') {
+    var base_rof = Info.get('rof')
+    if (base_rof >= 60) shootframe = 25
+    else if (base_rof <= 15) shootframe = 100
+    else shootframe = Math.floor(1500 / base_rof)
+  }
+  Info.set('shootframe', shootframe)
   return createBase(Area, Info)
 }
 
@@ -246,9 +362,41 @@ function createBase (Area, Info) {
   return Base
 }
 
+function formater_DPS (e) { return '时间=' + e.x + 's, 输出=' + e.y }
+function makeGraph (y_max, str_label) {
+  var container = document.getElementById('container')
+  graph = Flotr.draw(container, [
+    { data: Set_Data.get(0), label: str_label[0]},
+    { data: Set_Data.get(1), label: str_label[1]},
+    { data: Set_Data.get(2), label: str_label[2]},
+    { data: Set_Data.get(3), label: str_label[3]},
+    { data: Set_Data.get(4), label: str_label[4]},
+    { data: Set_Data.get(5), label: str_label[5]},
+    { data: Set_Data.get(6), label: str_label[6]},
+    { data: Set_Data.get(7), label: str_label[7]},
+    { data: Set_Data.get(8), label: str_label[8]},
+    { data: Set_Data.get(9), label: str_label[9]}
+  ], {
+    colors: ['#FF0000', '#FF6666', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000'],
+    xaxis: { title: '时间' },
+    yaxis: { title: '伤害', max: y_max, min: 0 },
+    mouse: { track: true, relative: true, trackFormatter: formater_DPS },
+    points: { show: false },
+    HtmlText: false,
+    grid: { verticalLines: false },
+    legend: {
+      position: 'nw',
+      backgroundColor: '#FFFFFF'
+    }
+  })
+}
+
 function test (num) {
   if (num === 1) console.log(blockSet)
   else if (num === 2) console.log(list_tdoll)
-  else if (num === 3) getDPS()
+  else if (num === 3) console.log(Set_Data)
+  else if (num === -1) {
+    getDPS()
+  }
 // SAMPLE
 }

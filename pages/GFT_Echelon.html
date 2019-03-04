@@ -47,7 +47,6 @@
         }
 
         #container {
-            width: 600px;
             height: 384px;
             margin: left;
         }
@@ -97,7 +96,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">阵形模拟器(Comming soon!)</h1>
+                        <h1 class="page-header">阵形模拟器(即将面世)</h1>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -107,7 +106,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-5">
-                                        <h4>梯队预览</h4>
+                                        <h4>梯队预览<span style="color:red" id="alert_display"></span></h4>
                                         <div class="table-responsive">
                                             <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                                 <tbody>
@@ -249,11 +248,11 @@
                                         <h4>全局设定</h4>
                                         <p>
                                             <label class="radio-inline"><input type="radio" name="switch_sun" id="switch_daytime" value=1 onclick="" checked><span style="color:darkorange"><b>昼战</b></span></label>
-                                            <label class="radio-inline"><input type="radio" name="switch_sun" id="switch_nighttime" value=2 onclick=""><span style="color:darkblue"><b>夜战</b></span></label>
+                                            <label class="radio-inline"><input type="radio" name="switch_sun" id="switch_nighttime" value=2 onclick=""><span style="color:darkblue"><b>夜战（没做）</b></span></label>
                                         </p>
                                         <div class="form-group input-group" style="width:300px">
                                             <span class="input-group-addon">接敌时间</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_init" value=0>
                                             <span class="input-group-addon">秒</span>
                                         </div>
                                         <div class="form-group input-group" style="width:300px">
@@ -264,26 +263,29 @@
                                         <h4>敌人设定</h4>
                                         <div class="form-group input-group" style="width:300px">
                                             <span class="input-group-addon">闪避</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id='enemy_eva' value=0>
                                         </div>
                                         <div class="form-group input-group" style="width:300px">
                                             <span class="input-group-addon">护甲</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id='enemy_arm' value=0>
                                         </div>
                                         <div class="form-group input-group" style="width:300px">
-                                            <span class="input-group-addon">编制</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" value=0>
+                                            <span class="input-group-addon">编制（没做）</span>
+                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id='enemy_form' value=1>
                                         </div>
+                                        <p>
+                                            <button type="button" class="btn btn-primary" onclick="getDPS()">计算结果</button>
+                                        </p>
                                         <h4>调试用</h4>
                                         <p>
-                                            <button type="button" class="btn btn-default" onclick="test(1)" id="button_addTdoll">console_blockaffect</button>
-                                            <button type="button" class="btn btn-default" onclick="test(2)" id="button_addTdoll">console_list_tdoll</button>
-                                            <button type="button" class="btn btn-default" onclick="test(3)" id="button_addTdoll">console_get_base</button>
+                                            <button type="button" class="btn btn-default" onclick="test(1)">console_blockaffect</button>
+                                            <button type="button" class="btn btn-default" onclick="test(2)">console_list_tdoll</button>
+                                            <button type="button" class="btn btn-default" onclick="test(3)">console_data</button>
                                         </p>
                                     </div>
-                                    <div class="col-lg-9" style="overflow: scroll">
-                                        <h4>输出曲线</h4>
-                                        <div id="container"></div>
+                                    <div class="col-lg-9">
+                                        <h4>输出曲线 <button type="button" class="btn btn-default" onclick="setWidth(300)">300px</button> <button type="button" class="btn btn-default" onclick="setWidth(700)">700px</button> <button type="button" class="btn btn-default" onclick="setWidth(1100)">1100px</button></h4>
+                                        <div id="container" style="width: 700px; overflow: scroll"></div>
                                     </div>
                                 </div>
                             </div>

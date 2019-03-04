@@ -35,6 +35,7 @@ function pickEquip (num) { // 选定装备格子，管理全局变量num_pickequ
 }
 
 function manageUI () { // 管理图标变化，不涉及后台数值
+  document.getElementById('alert_display').innerHTML = ''
   var command = arguments['0']
   if (command === 'pick-block') {
     for (var i = 1; i <= 9; i++) document.getElementById('img_' + i).src = '../img/echelon/select-no.png'
@@ -321,6 +322,17 @@ function readStatus () { // 读取已有人形之前的全局环境
   changeAffection('read')
 }
 function addTdoll () { // 添加战术人形
+  // Name
+  var selectID = document.getElementById('select_tdoll')
+  var selectIdx = selectID.selectedIndex
+  var selectTxt = selectID[selectIdx].text
+  var str_name = ''
+  for (var i = 0; i < selectTxt.length; i++) {
+    if (selectTxt[i] === ' ') {
+      str_name = selectTxt.substr(i + 1)
+      break
+    }
+  }
   // ID, Affect, Skill, Property, Equip
   buffer_table.set(num_pickblock, buffer_last)
   var ID = parseInt(document.getElementById('select_tdoll').value)
@@ -330,15 +342,25 @@ function addTdoll () { // 添加战术人形
   var new_equip = [lib_property_equip.get(set_equip[0]), lib_property_equip.get(set_equip[1]), lib_property_equip.get(set_equip[2]), buffer_last[5]]
   var new_stand = num_pickblock - 1
   // 数据添加
-  list_tdoll[new_stand][1] = createTdoll(ID, set_guntype, new_affect, new_skill, new_property, new_equip)
-  // 前台更新
-  document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
-  manageUI('pick-block')
-  // 计算影响格
-  getBlockAffect()
+  var this_is_python = false
+  if (list_tdoll[num_pickblock - 1][1] != null) {
+    if (list_tdoll[num_pickblock - 1][1].ID === 4) this_is_python = true
+  }
+  if (!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) {
+    document.getElementById('alert_display').innerHTML = ' *不能添加两个蟒蛇'
+  } else {
+    list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
+    if (ID === 4) Set_Special.set('can_add_python', false)
+    // 前台更新
+    document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
+    manageUI('pick-block')
+    // 计算影响格
+    getBlockAffect()
+  }
 }
 function deleteTdoll () { // 删除战术人形
   // 数据删除
+  if (list_tdoll[num_pickblock - 1][1].ID === 4) Set_Special.set('can_add_python', true)
   buffer_table.delete(num_pickblock)
   list_tdoll[num_pickblock - 1][1] = null
   // 前台更新
@@ -347,4 +369,7 @@ function deleteTdoll () { // 删除战术人形
   pickBlock(-1)
   // 计算影响格
   getBlockAffect()
+}
+function setWidth (len) {
+  document.getElementById('container').style = 'width: ' + len + 'px; overflow: scroll'
 }
