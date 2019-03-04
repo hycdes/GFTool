@@ -193,6 +193,7 @@ function getDPS () {
     }
   }
   // 绘图
+  var x_max = Math.ceil(time / 30)
   var y_max = 0
   var str_label = ['', '', '', '', '', '', '', '', '', '']
   for (var i = 0; i < 9; i++) {
@@ -203,7 +204,7 @@ function getDPS () {
       str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name
     }
   }
-  makeGraph(y_max, str_label)
+  makeGraph(x_max, y_max, str_label)
 }
 
 // 处理所有技能
@@ -363,7 +364,7 @@ function createBase (Area, Info) {
 }
 
 function formater_DPS (e) { return '时间=' + e.x + 's, 输出=' + e.y }
-function makeGraph (y_max, str_label) {
+function makeGraph (x_max, y_max, str_label) {
   var container = document.getElementById('container')
   graph = Flotr.draw(container, [
     { data: Set_Data.get(0), label: str_label[0]},
@@ -378,7 +379,7 @@ function makeGraph (y_max, str_label) {
     { data: Set_Data.get(9), label: str_label[9]}
   ], {
     colors: ['#FF0000', '#FF6666', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000'],
-    xaxis: { title: '时间' },
+    xaxis: { title: '时间',max: x_max, min: 0 },
     yaxis: { title: '伤害', max: y_max, min: 0 },
     mouse: { track: true, relative: true, trackFormatter: formater_DPS },
     points: { show: false },
