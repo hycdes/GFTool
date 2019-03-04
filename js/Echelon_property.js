@@ -280,6 +280,7 @@ lib_property.set(50, createProperty(135, 78, 40, 36, 0, 400, 0.4, -1))
 lib_property.set(53, createProperty(165, 75, 29, 30, 0, 465, 0.4, -1))
 lib_property.set(197, createProperty(138, 85, 42, 34, 0, 400, 0.4, -1))
 lib_property.set(198, createProperty(146, 90, 44, 34, 0, 365, 0.4, -1))
+lib_property.set(257, createProperty(145, 96, 31, 34, 0, 440, 0.4, -1))
 
 // RF-4
 lib_property.set(36, createProperty(128, 72, 40, 32, 0, 420, 0.4, -1))

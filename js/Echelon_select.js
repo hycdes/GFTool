@@ -96,6 +96,7 @@ function changeSelectItems () {
       str_items += '<option value=211>No.211 SRS</option>'
       str_items += '<option value=222>No.222 TAC-50</option>'
       str_items += '<option value=231>No.231 M82A1</option>'
+      str_items += '<option value=257>No.257 M200</option>'
       str_items += '<option value=1039>No.39 [MOD] 莫辛-纳甘</option>'
     } else if (num_star === 4) {
       str_items += '<option  value=-1 selected>还没做！</option>'
