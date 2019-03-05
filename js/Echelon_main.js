@@ -17,16 +17,15 @@ var lib_property_equip = new Map // 装备属性库，存放 < 装备编号, Pro
 var lib_describe = new Map // 描述库，存放 < 技能名, 描述 >
 var lib_skill = new Map // 技能库，存放 < 人形编号, list_Skill>
 var list_tdoll = [[0, null], [1, null], [2, null], [3, null], [4, null], [5, null], [6, null], [7, null], [8, null]] // 战术人形列表，存放二元组[position, TdollInfo]
-var time = 10, init_time = 0
-var num_tdoll = 0
+var time = 100, init_time = 0
 var fairy = createFairy(['null'], [0])
 var global_damage = []
 var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map
 var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9]
 
 // global variations for main-calculation
-var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_time> ]>
-var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, countdown_time> ] >，攻击也是个技能
+var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_frame> ]>，Status=[type,value(>1)]
+var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, frame> ] >，攻击也是个技能
 var Set_Base = new Map // 当前属性，当Status改变时更新
 var Set_Command = new Map // 命令，存放命令，< num_stand, command >，command = standby, freefire, skill_mf, skill_all...
 var Set_Special = new Map // 特殊变量表
@@ -134,6 +133,9 @@ function getDPS () {
   Set_Special.clear()
   Set_Data.clear()
   reset_special()
+  for (var i = -1; i < 9; i++) {
+    Set_Status.set(i, [])
+  }
   var end_of_standby = false
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
@@ -207,24 +209,12 @@ function getDPS () {
   makeGraph(x_max, y_max, str_label)
 }
 
-// 处理所有技能
+// 处理所有技能，并更新所有状态
 function reactAllSkill (command, current_time) {
   if (command === 'standby') { // 等待接敌
     for (var [k, v] of Set_Skill) {
       for (var s_t of v) {
-        if (s_t[1] > 0) s_t[1]--
-      }
-    }
-    for (var [k, v] of Set_Status) {
-      var len_status = v.length
-      for (var s = 0; s < len_status; s++) {
-        var s_t = v[s]
-        if (s_t[1] > 0) s_t[1]-- // 状态持续减少
-        else if (s_t[1] === 0) {
-          refreshBaseProperty(k, s_t[0]) // 更新属性
-          v.splice(s, 1) // 状态结束
-        }
-      // -1则一直存在
+        if (s_t[1] > 0) s_t[1]-- // 走冷却时间
       }
     }
   } else if (command === 'freefire') {
@@ -237,12 +227,26 @@ function reactAllSkill (command, current_time) {
       }
     }
   }
+  for (var [k, v] of Set_Status) { // 状态消逝，k = stand_num, v = [ [ [type, value(>1)] ,left_frame ] ... ] 的数组
+    var len_status = v.length
+    for (var s = 0; s < len_status; s++) {
+      var s_t = v[s]
+      if (s_t[1] > 0) s_t[1]-- // 状态持续减少
+      else if (s_t[1] === 0) {
+        console.log('k=', k)
+        refreshBaseProperty(k, s_t, 'lost') // 更新属性
+        v.splice(s, 1) // 状态结束
+        len_status = v.length; s = 0 // 重置长度和迭代器再次检查
+      }
+    // -1则一直存在
+    }
+  }
 }
 
 // 执行技能，包括重置冷却、产生效果，以及添加数据
 function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, createSkill (init_cld, cld, duration, Describe)
   var skillname = (s_t[0].Describe).name // Describe -> name, special_paremeters
-  if (skillname === 'attack') {
+  if (skillname === 'attack') { // 普通攻击
     var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
     Set_Data.get(stand_num).push([current_time, lastData])
     var current_Info = (Set_Base.get(stand_num)).Info
@@ -252,13 +256,81 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
       final_dmg = Math.ceil(final_dmg * final_crit)
       Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
-      s_t[1] = current_Info.get('shootframe')
+    }
+    s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'))
+  }
+  else if (skillname === 'property') { // 属性增益类
+    var list_target = (s_t[0].Describe).list_target
+    var len_list_target = list_target.length
+    var list_value = []
+    for (var i = 0; i < len_list_target; i++) {
+      if (list_target[i].substr(0, 3) === 'blo') { // 影响格上
+        //
+      } else if (list_target[i].substr(0, 3) === 'col') { // 列数上
+        //
+      } else {
+        if (list_target[i] === 'all' || list_target[i] === 'self') { // 号令类all、专注类self
+          var list_pro = ((s_t[0].Describe).list_pro)[i].split('/')
+          var list_value = ((s_t[0].Describe).list_value)[i].split('/')
+          var len = list_pro.length
+          for (var p = 0; p < len; p++) {
+            changeStatus(stand_num, list_target[i], list_pro[p], list_value[p], s_t[0].duration)
+            console.log('standnum in react', stand_num)
+          }
+        }
+      }
+    }
+    if (s_t[0].duration > 0) {
+      s_t[1] = (s_t[0].cld * 30)
+      console.log('buffer')
+    } else if (s_t[0].duration === 0) { // 非持续类
+      s_t[1] = -1
+    }else if (s_t[0].duration === -1) { // 无限持续
+      s_t[1] = -1
     }
   }
 }
 
-function refreshBaseProperty (num, status) { // 刷新属性，状态是 < pro_type, value > 二元组
-  true
+function changeStatus (stand_num, target, type, value, duration) { // 注意检查python
+  var frame = 30 * duration
+  if (target === 'all') { // 号令类
+    if (!Set_Special.get('can_add_python')) { // 有蟒蛇，需要触发被动
+      //
+    }
+    var new_status = [[type, 1 + parseFloat(value)], frame]
+    var list_status = Set_Status.get(-1)
+    list_status.push(new_status)
+    Set_Status.set(-1, list_status)
+    refreshBaseProperty(-1, new_status, 'get')
+  } else if (target === 'self') { // 专注类
+    var new_status = [[type, 1 + parseFloat(value)], frame]
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
+    refreshBaseProperty(stand_num, new_status, 'get')
+  }
+}
+
+function refreshBaseProperty (stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体
+  // status = [ [ type, value(>1) ], frame ]
+  if (stand_num === -1) { // 全体属性变化
+    console.log('all')
+    for (var i = 0; i < 9; i++) {
+      if (Set_Base.get(i) != undefined) {
+        var this_info = (Set_Base.get(i)).Info
+        var new_property = (this_info).get(status[0][0])
+        if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
+        else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
+        this_info.set(status[0][0], new_property)
+      }
+    }
+  } else { // 某一人属性变化
+    var this_info = (Set_Base.get(stand_num)).Info
+    var new_property = (this_info).get(status[0][0])
+    if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
+    else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
+    this_info.set(status[0][0], new_property)
+  }
 }
 
 function getBaseProperty (num) {
@@ -288,7 +360,7 @@ function getBaseProperty (num) {
       num_tempblo = num
     }
   }
-  // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾, shootframe射击帧
+  // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾
   var full_property = [
     list_tdoll[num][1].Type,
     (list_tdoll[num][1].Property).hp,
@@ -338,22 +410,30 @@ function getBaseProperty (num) {
   full_property[7] *= mul[5]
   Info.set('crit', full_property[7])
   Info.set('cs', full_property[8]); Info.set('critdmg', full_property[9]); Info.set('ap', full_property[10]); Info.set('ff', full_property[11]); Info.set('shield', full_property[12])
+  return createBase(Area, Info)
+}
+
+function rof_to_frame (num_tn, base_rof) {
+  var str_tn = ''
+  if (num_tn === 1) str_tn = 'hg'
+  else if (num_tn === 2) str_tn = 'ar'
+  else if (num_tn === 3) str_tn = 'smg'
+  else if (num_tn === 4) str_tn = 'rf'
+  else if (num_tn === 5) str_tn = 'mg'
+  else if (num_tn === 6) str_tn = 'sg'
   var shootframe = 100
   if (str_tn == 'hg' || str_tn == 'ar' || str_tn == 'smg' || str_tn == 'rf') {
-    var base_rof = Info.get('rof')
     if (base_rof >= 120) shootframe = 12
     else if (base_rof <= 15) shootframe = 100
     else shootframe = Math.floor(1500 / base_rof)
   } else if (str_tn === 'mg') {
     shootframe = 10 // 以后写11帧判断
   } else if (str_tn === 'sg') {
-    var base_rof = Info.get('rof')
     if (base_rof >= 60) shootframe = 25
     else if (base_rof <= 15) shootframe = 100
     else shootframe = Math.floor(1500 / base_rof)
   }
-  Info.set('shootframe', shootframe)
-  return createBase(Area, Info)
+  return shootframe
 }
 
 function createBase (Area, Info) {

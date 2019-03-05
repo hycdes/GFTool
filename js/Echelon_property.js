@@ -118,16 +118,6 @@ shapeSet.push('lluu/') // #68 rmb93
 shapeSet.push('ll/lld/lldd/') // #69 FP-6
 
 // lib_affect
-lib_affect.set(1, createAffect(shapeSet[0], 'all', ['dmg', 'acu'], [0.24, 0.5]))
-lib_affect.set(2, createAffect(shapeSet[0], 'all', ['rof', 'acu'], [0.2, 0.5]))
-lib_affect.set(3, createAffect(shapeSet[2], 'all', ['dmg', 'eva'], [0.2, 0.2]))
-
-lib_affect.set(5, createAffect(shapeSet[4], 'all', ['dmg', 'crit'], [0.32, 0.16]))
-
-lib_affect.set(62, createAffect(shapeSet[32], 'smg', ['acu', 'eva'], [0.50, 0.15])) // G41
-
-lib_affect.set(99, createAffect(shapeSet[3], 'all', ['dmg'], [0.36])) // Mk23
-
 lib_affect.set(4, createAffect(shapeSet[8], 'all', ['dmg', 'crit'], [0.3, 0.2])) // python
 lib_affect.set(96, createAffect(shapeSet[9], 'all', ['dmg', 'eva'], [0.30, 0.20])) // 灰熊
 lib_affect.set(97, createAffect(shapeSet[1], 'all', ['rof', 'acu'], [0.30, 0.50])) // M950A
@@ -141,12 +131,22 @@ lib_affect.set(242, createAffect(shapeSet[18], 'all', ['dmg/acu/'], [0.3, 0.5]))
 lib_affect.set(250, createAffect(shapeSet[19], 'all', ['rof/eva/'], [0.3, 0.2])) // cz75
 lib_affect.set(1001, createAffect(shapeSet[0], 'all', ['dmg', 'acu'], [0.24, 0.6])) // Colt-mod
 
+lib_affect.set(1, createAffect(shapeSet[0], 'all', ['dmg', 'acu'], [0.24, 0.5]))
+lib_affect.set(99, createAffect(shapeSet[3], 'all', ['dmg'], [0.36])) // Mk23
 lib_affect.set(1002, createAffect(shapeSet[0], 'all', ['rof', 'acu'], [0.24, 0.5]))
 lib_affect.set(1005, createAffect(shapeSet[4], 'all', ['dmg', 'crit'], [0.36, 0.2]))
 
+lib_affect.set(3, createAffect(shapeSet[2], 'all', ['dmg', 'eva'], [0.2, 0.2]))
+
+lib_affect.set(2, createAffect(shapeSet[0], 'all', ['rof', 'acu'], [0.2, 0.5]))
+lib_affect.set(5, createAffect(shapeSet[4], 'all', ['dmg', 'crit'], [0.32, 0.16]))
+
+lib_affect.set(62, createAffect(shapeSet[32], 'smg', ['acu', 'eva'], [0.50, 0.15])) // G41
 lib_affect.set(1055, createAffect(shapeSet[13], 'ar', ['dmg', 'crit'], [0.2, 0.32]))
 lib_affect.set(1056, createAffect(shapeSet[34], 'smg', ['acu', 'eva'], [0.5, 0.15]))
 lib_affect.set(1057, createAffect(shapeSet[34], 'smg', ['rof', 'eva'], [0.1, 0.15]))
+
+
 lib_affect.set(1064, createAffect(shapeSet[37], 'smg', ['dmg', 'rof'], [0.3, 0.15]))
 
 // T-doll property
