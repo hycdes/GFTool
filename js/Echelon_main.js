@@ -186,6 +186,14 @@ function getResult (multiple) {
   makeGraph(x_max, y_max, str_label)
 }
 
+function isProperty (str) {
+  var isPro = false
+  if (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield') {
+    isPro = true
+  }
+  return isPro
+}
+
 // MAIN, 攻击优先于所有
 function getDPS () {
   // 清空之前数据
@@ -202,16 +210,18 @@ function getDPS () {
   var end_of_standby = false
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
-  // 计算出战属性，初始化数据
+  // 初始化数据
   for (var i = 0; i < 9; i++) {
-    Set_Data.set(i, [[0, 0]])
+    Set_Data.set(i, [[0, 0]]) // 输出数据初始化
     if (list_tdoll[i][1] != null) {
-      Set_Base.set(i, getBaseProperty(i))
+      Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
+      Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
     }
   }
   // 载入敌人属性
   enemy_arm = parseInt(document.getElementById('enemy_arm').value)
   enemy_eva = parseInt(document.getElementById('enemy_eva').value)
+  enemy_form = parseInt(document.getElementById('enemy_form').value)
   // 初始化Command
   if (init_time > 0) {
     for (var i = 0; i < 9; i++) {
@@ -283,9 +293,11 @@ function reactAllSkill (command, current_time) {
       var s_t = v[s]
       if (s_t[1] > 0) s_t[1]-- // 状态持续减少
       else if (s_t[1] === 0) {
-        refreshBaseProperty(k, s_t, 'lost') // 更新属性
+        if (isProperty(s_t[0][0]))  endStatus(k, s_t, 'lost') // 更新属性
+        else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
+        else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
         v.splice(s, 1) // 状态结束
-        len_status = v.length; s = 0 // 重置长度和迭代器再次检查
+        len_status = v.length; s-- // 检查下一个
       }
     // -1则一直存在
     }
@@ -296,18 +308,22 @@ function reactAllSkill (command, current_time) {
 function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, createSkill (init_cld, cld, duration, Describe)
   var skillname = (s_t[0].Describe).name // Describe -> name, special_paremeters
   if (skillname === 'attack') { // 普通攻击
-    var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
-    Set_Data.get(stand_num).push([current_time, lastData])
-    var current_Info = (Set_Base.get(stand_num)).Info
-    if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
-      var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
-      var final_crit = 1
-      if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
-      final_dmg = Math.ceil(final_dmg * final_crit)
-      final_dmg *= 5 // 扩编
-      Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
-    } else {
+    var fire_status = Set_Special.get('attack_permission_' + stand_num)
+    if (fire_status.substr(0, 4) === 'fire') {
+      var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
       Set_Data.get(stand_num).push([current_time, lastData])
+      var current_Info = (Set_Base.get(stand_num)).Info
+      if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
+        var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
+        var final_crit = 1
+        if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+        final_dmg = Math.ceil(final_dmg * final_crit)
+        if (fire_status.substr(5) === 'all') final_dmg *= 5 // 全员攻击
+        else if (fire_status.substr(5) === 'four') final_dmg *= 4 // 一人释放技能
+        Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
+      } else {
+        Set_Data.get(stand_num).push([current_time, lastData])
+      }
     }
     s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof')) - 1
   }
@@ -340,9 +356,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       s_t[1] = -1
     }
   }
+  else if (skillname === 'grenade') { // 榴弹
+    var ratio = (s_t[0].Describe).ratio
+    Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹，暂定1秒
+    changeStatus(stand_num, 'grenade', current_time, ratio, 1)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
 }
 
-function changeStatus (stand_num, target, type, value, duration) { // 注意检查python
+function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
   var frame = 30 * duration
   if (target === 'all') { // 号令类
     if (!Set_Special.get('can_add_python')) { // 有蟒蛇，需要触发被动
@@ -352,34 +374,50 @@ function changeStatus (stand_num, target, type, value, duration) { // 注意检�
     var list_status = Set_Status.get(-1)
     list_status.push(new_status)
     Set_Status.set(-1, list_status)
-    refreshBaseProperty(-1, new_status, 'get')
+    endStatus(-1, new_status, 'get')
   } else if (target === 'self') { // 专注类
     var new_status = [[type, 1 + parseFloat(value)], frame]
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
-    refreshBaseProperty(stand_num, new_status, 'get')
+    endStatus(stand_num, new_status, 'get')
+  } else if (target === 'grenade') { // 榴弹
+    var new_status = [['grenade', value + '/' + (type + frame)], frame] // value记录"倍率/生效时刻"，其他同理
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
   }
 }
 
-function refreshBaseProperty (stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体
+function endStatus (stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体
   // status = [ [ type, value(>1) ], frame ]
-  if (stand_num === -1) { // 全体属性变化
-    for (var i = 0; i < 9; i++) {
-      if (Set_Base.get(i) != undefined) {
-        var this_info = (Set_Base.get(i)).Info
-        var new_property = (this_info).get(status[0][0])
-        if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
-        else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
-        this_info.set(status[0][0], new_property)
+  if (situation === 'get' || situation === 'lost') {
+    if (stand_num === -1) { // 全体属性变化
+      for (var i = 0; i < 9; i++) {
+        if (Set_Base.get(i) != undefined) {
+          var this_info = (Set_Base.get(i)).Info
+          var new_property = (this_info).get(status[0][0])
+          if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
+          else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
+          this_info.set(status[0][0], new_property)
+        }
       }
+    } else { // 某一人属性变化
+      var this_info = (Set_Base.get(stand_num)).Info
+      var new_property = (this_info).get(status[0][0])
+      if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
+      else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
+      this_info.set(status[0][0], new_property)
     }
-  } else { // 某一人属性变化
-    var this_info = (Set_Base.get(stand_num)).Info
-    var new_property = (this_info).get(status[0][0])
-    if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
-    else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
-    this_info.set(status[0][0], new_property)
+  }
+  else if (situation === 'grenade') {
+    var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
+    Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+    var grenade_para = status[0][1].split('/')
+    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form
+    var current_time = parseInt(grenade_para[1])
+    Set_Data.get(stand_num).push([current_time, lastData])
+    Set_Data.get(stand_num).push([current_time, lastData + damage_explode])
   }
 }
 
