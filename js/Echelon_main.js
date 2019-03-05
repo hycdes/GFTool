@@ -282,6 +282,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       var final_crit = 1
       if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
       final_dmg = Math.ceil(final_dmg * final_crit)
+      final_dmg *= 5 // 扩编
       Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
     }
     s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'))
