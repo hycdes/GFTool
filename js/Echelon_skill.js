@@ -28,24 +28,55 @@ function describe_property (list_target, list_pro, list_value) { // 属性增益
   return Describe
 }
 
+function describe_grenade (ratio) { // 榴弹
+  var Describe = {}
+  Describe.name = 'grenade'
+  Describe.ratio = ratio
+  return Describe
+}
+
+function describe_snipe (ratio, time_init, time_interval, snipe_num, labels) { // 狙击：倍率、初始时间、瞄准间隔、狙击次数，特殊说明
+  var Describe = {}
+  Describe.name = 'snipe'
+  Describe.ratio = ratio
+  Describe.time_init = time_init
+  Describe.time_interval = time_interval
+  Describe.snipe_num = snipe_num
+  Describe.labels = labels
+  return Describe
+}
+function describe_dsr50 (ratio_armless, ratio_arm, time_init, labels) { // 崩甲射击：倍率、初始时间、特殊说明
+  var Describe = {}
+  Describe.name = 'dsr50'
+  Describe.ratio_armless = ratio_armless
+  Describe.ratio_arm = ratio_arm
+  Describe.time_init = time_init
+  Describe.labels = labels
+  return Describe
+}
+function describe_js05 () { // 贯通射击
+  var Describe = {}
+  Describe.name = 'js05'
+  return Describe
+}
+
 function describe_hs2000 () {
   var Describe = {}
   Describe.name = 'hs2000'
   return Describe
 }
 
-function describe_grenade (ratio) { // 单人榴弹
-  var Describe = {}
-  Describe.name = 'grenade'
-  Describe.ratio = ratio
-  return Describe
-}
-function describe_grenade_k11 () { // 全体榴弹（K11）
+function describe_k11 () { // 恐惧榴弹
   var Describe = {}
   Describe.name = 'k11'
   return Describe
 }
-function describe_grenade_sop2 () { // 榴弹+狂乱马戏
+function describe_zas () { // 夜枭轰鸣
+  var Describe = {}
+  Describe.name = 'zas'
+  return Describe
+}
+function describe_sop2 () { // 狂乱马戏
   var Describe = {}
   Describe.name = 'sop2'
   return Describe
@@ -87,9 +118,29 @@ function describe_g11 () { // G11
   Describe.name = 'g11'
   return Describe
 }
+function describe_k2 () { // k2
+  var Describe = {}
+  Describe.name = 'k2'
+  return Describe
+}
+function describe_an94 () { // an94
+  var Describe = {}
+  Describe.name = 'an94'
+  return Describe
+}
+function describe_mdr () { // mdr
+  var Describe = {}
+  Describe.name = 'mdr'
+  return Describe
+}
+function describe_64howa () { // 64自
+  var Describe = {}
+  Describe.name = 'mdr'
+  return Describe
+}
 function describe_m4_passive () { // M4被动
   var Describe = {}
-  Describe.name = 'ar15_passive'
+  Describe.name = 'm4_passive'
   return Describe
 }
 function describe_ar15_passive () { // AR-15被动
@@ -109,18 +160,6 @@ lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) //
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
 lib_describe.set('px4', describe_property(['bloall'], ['crit/critdmg'], ['-0.2/0.5'])) // 狩猎筹码
-lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
-lib_describe.set('dmg_50', describe_property(['self'], ['dmg'], ['0.5'])) // 火力专注 50%
-lib_describe.set('dmgN_200', describe_property(['self'], ['dmg'], ['2'])) // 火力专注N 200%
-lib_describe.set('dmgN_180', describe_property(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
-lib_describe.set('dmgND_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注ND 70%
-lib_describe.set('dmgND_60', describe_property(['self'], ['dmg'], ['0.6'])) // 火力专注ND 60%
-lib_describe.set('rof_75', describe_property(['self'], ['rof'], ['0.75'])) // 突击专注 75%
-lib_describe.set('rof_50', describe_property(['self'], ['rof'], ['0.5'])) // 突击专注 50%
-lib_describe.set('art556', describe_property(['self'], ['dmg/rof'], ['0.85/0.25'])) // 冲锋专注 85%/25%
-lib_describe.set('t91N', describe_property(['self'], ['dmg/crit'], ['1.2/0.5'])) // 歼灭专注N 120%/50%
-lib_describe.set('t91ND', describe_property(['self'], ['dmg/crit'], ['0.5/0.25'])) // 歼灭专注ND 50%/25%
-lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) // 至高枪弹
 lib_describe.set('k5', describe_property(
   ['blohg', 'blosmg', 'bloar', 'blorf', 'blomg', 'blosg'],
   ['eva', 'eva', 'dmg', 'dmg', 'acu', 'acu'],
@@ -129,8 +168,28 @@ lib_describe.set('p22', describe_property(
   ['col1', 'col2'],
   ['dmg', 'acu/eva'],
   ['0.25', '0.6/0.6'])) // p22_决战序列_1/2列
+
+lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
+lib_describe.set('dmg_50', describe_property(['self'], ['dmg'], ['0.5'])) // 火力专注 50%
+lib_describe.set('dmgN_200', describe_property(['self'], ['dmg'], ['2'])) // 火力专注N 200%
+lib_describe.set('dmgN_180', describe_property(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
+lib_describe.set('dmgND_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注ND 70%
+lib_describe.set('dmgND_60', describe_property(['self'], ['dmg'], ['0.6'])) // 火力专注ND 60%
+lib_describe.set('iws2000', describe_property(['self'], ['dmg/rof'], ['1.8/-0.35'])) // 巨鹰攻势
+lib_describe.set('rof_75', describe_property(['self'], ['rof'], ['0.75'])) // 突击专注 75%
+lib_describe.set('rof_50', describe_property(['self'], ['rof'], ['0.5'])) // 突击专注 50%
+lib_describe.set('art556', describe_property(['self'], ['dmg/rof'], ['0.85/0.25'])) // 冲锋专注 85%/25%
+lib_describe.set('t91N', describe_property(['self'], ['dmg/crit'], ['1.2/0.5'])) // 歼灭专注N 120%/50%
+lib_describe.set('t91ND', describe_property(['self'], ['dmg/crit'], ['0.5/0.25'])) // 歼灭专注ND 50%/25%
+lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) // 至高枪弹
+lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.35/0.35/0.35/0.35'])) // 雪狼之眼
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
 lib_describe.set('rof_30_enemy', describe_property(['enemy'], ['rof'], ['-0.3'])) // 突击压制 30%
+
+lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
+lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
+lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
+lib_describe.set('js05', describe_js05()) // 贯通射击
 
 lib_describe.set('python_active', describe_python_active()) // 无畏者之拥：主动
 lib_describe.set('python_passive', describe_python_passive()) // 无畏者之拥：被动
@@ -140,12 +199,17 @@ lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
-lib_describe.set('grenade_k11', describe_grenade_k11()) // k11榴弹
-lib_describe.set('grenade_sop2', describe_grenade_sop2()) // sop2榴弹
+lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
+lib_describe.set('k11', describe_k11()) // 恐惧榴弹
+lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 
 lib_describe.set('aug', describe_aug()) // 葬仪之雨
 lib_describe.set('fal', describe_fal()) // 榴弹践踏
 lib_describe.set('g11', describe_g11()) // 突击者之眼
+lib_describe.set('k2', describe_k2()) // 热力过载
+lib_describe.set('an94', describe_an94()) // 人偶扳机
+lib_describe.set('mdr', describe_mdr()) // 危机嗅探器
+lib_describe.set('64howa', describe_64howa()) // 未来预警
 lib_describe.set('m4_passive', describe_m4_passive()) // 伸冤者印记
 lib_describe.set('ar15_passive', describe_ar15_passive()) // 罪与罚
 
@@ -185,12 +249,28 @@ lib_skill.set(181, [
   createSkill(6, 16, 5, lib_describe.get('t91N')),
   createSkill(6, 16, 5, lib_describe.get('t91ND'))
 ])
+lib_skill.set(194, [createSkill(8, 3, 0, lib_describe.get('k2'))])
+lib_skill.set(196, [createSkill(4, 16, 0, lib_describe.get('zas'))])
+lib_skill.set(205, [createSkill(6, 8, 5, lib_describe.get('an94'))])
+lib_skill.set(206, [createSkill(6, 8, 5, lib_describe.get('ak12'))])
+lib_skill.set(215, [createSkill(4, 16, 10, lib_describe.get('mdr'))])
+lib_skill.set(236, [createSkill(6, 16, 0, lib_describe.get('k11'))])
+lib_skill.set(243, [createSkill(6, 16, 0, lib_describe.get('64howa'))])
+
+lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
+lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])
+lib_skill.set(50, [createSkill(5, 8, 5, lib_describe.get('dmg_75'))])
+lib_skill.set(53, [createSkill(15, 16, 0, lib_describe.get('snipe_8'))])
+lib_skill.set(128, [createSkill(15, 16, 0, lib_describe.get('snipe_8'))])
+lib_skill.set(148, [createSkill(6, 16, 10, lib_describe.get('iws2000'))])
+lib_skill.set(179, [createSkill(15, 16, 0, lib_describe.get('dsr50'))])
+lib_skill.set(192, [createSkill(6, 16, 0, lib_describe.get('js05'))])
 
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(0, 0, 0, lib_describe.get('m4_passive'))
 ])
-lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('grenade_sop2'))])
+lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
 lib_skill.set(1057, [
   createSkill(4, 16, 15, lib_describe.get('rof_50')),
   createSkill(0, 0, -1, lib_describe.get('ar15_passive'))

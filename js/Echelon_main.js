@@ -125,20 +125,41 @@ function getBlockAffect () {
 function getResult (multiple) {
   var Set_Data_Buffer = new Map
   for (var n = 0; n < multiple; n++) {
-    console.log('do')
     getDPS()
     for (var i = 0; i < 9; i++) {
+      var final_data = []
       var this_data = Set_Data_Buffer.get(i)
       var new_data = Set_Data.get(i)
       if (this_data === undefined) {
-        this_data = new_data
+        final_data = new_data
       } else {
-        var len = this_data.length
-        for (var x = 0; x < len; x++) {
-          this_data[x][1] += new_data[x][1]
+        var len_this = this_data.length, len_new = new_data.length
+        var i_this = 0, i_new = 0
+        while (true) {
+          if (i_this < len_this && i_new < len_new) {
+            if (this_data[i_this][0] === new_data[i_this][0]) { // 同一个x坐标
+              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new][1]])
+              i_this++
+              i_new++
+            } else if (this_data[i_this][0] > new_data[i_new][0]) { // 新数据靠前
+              final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
+              i_new++
+            } else if (this_data[x_this][0] < new_data[x_new][0]) {
+              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
+              i_this++
+            }
+          } else if (i_this === len_this && i_new < len_new) {
+            final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
+            i_new++
+          } else if (i_this < len_this && i_new === len_new) {
+            final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
+            i_this++
+          } else {
+            break
+          }
         }
       }
-      Set_Data_Buffer.set(i, this_data)
+      Set_Data_Buffer.set(i, final_data)
     }
   }
   for (var i = 0; i < 9; i++) {
@@ -284,6 +305,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       final_dmg = Math.ceil(final_dmg * final_crit)
       final_dmg *= 5 // 扩编
       Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
+    } else {
+      Set_Data.get(stand_num).push([current_time, lastData])
     }
     s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'))
   }
@@ -308,7 +331,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
     }
     if (s_t[0].duration > 0) {
-      s_t[1] = (s_t[0].cld * 30)
+      var current_info = (Set_Base.get(stand_num)).Info
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_info.get('cld')) * 30) // 进入冷却
     } else if (s_t[0].duration === 0) { // 非持续类
       s_t[1] = -1
     }else if (s_t[0].duration === -1) { // 无限持续
@@ -385,7 +409,7 @@ function getBaseProperty (num) {
       num_tempblo = num
     }
   }
-  // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾
+  // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾, cld冷却缩减
   var full_property = [
     list_tdoll[num][1].Type,
     (list_tdoll[num][1].Property).hp,
@@ -398,6 +422,7 @@ function getBaseProperty (num) {
     (list_tdoll[num][1].Property).cs + (list_tdoll[num][1].Equip)[0].cs + (list_tdoll[num][1].Equip)[1].cs + (list_tdoll[num][1].Equip)[2].cs + (list_tdoll[num][1].Equip)[3].cs,
     1.5 + (list_tdoll[num][1].Equip)[0].critdmg + (list_tdoll[num][1].Equip)[1].critdmg + (list_tdoll[num][1].Equip)[2].critdmg + (list_tdoll[num][1].Equip)[3].critdmg,
     15 + (list_tdoll[num][1].Equip)[0].ap + (list_tdoll[num][1].Equip)[1].ap + (list_tdoll[num][1].Equip)[2].ap + (list_tdoll[num][1].Equip)[3].ap,
+    0,
     0,
     0
   ]
@@ -435,6 +460,11 @@ function getBaseProperty (num) {
   full_property[7] *= mul[5]
   Info.set('crit', full_property[7])
   Info.set('cs', full_property[8]); Info.set('critdmg', full_property[9]); Info.set('ap', full_property[10]); Info.set('ff', full_property[11]); Info.set('shield', full_property[12])
+  if (blockSet[num].get(str_tn + 'cld') != undefined) {
+    full_property[13] += blockSet[num].get(str_tn + 'cld')
+  }
+  if (full_property[13] > 0.3) full_property[13] = 0.3
+  Info.set('cld', full_property[13])
   return createBase(Area, Info)
 }
 

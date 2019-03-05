@@ -173,7 +173,17 @@ function resetEquipment () {
     document.getElementById('icon-equip3').onclick = ''
   } else {
     if (set_guntype === 1) set_equip = [11, 21, 31]
-    else if (set_guntype === 2) set_equip = [12, 22, 31]
+    else if (set_guntype === 2) {
+      var ID = parseInt(document.getElementById('select_tdoll').value)
+      if (ID === 56) set_equip = [12, 22, 14]
+      else if (ID === 57) set_equip = [12, 21057, 14]
+      else if (ID === 62) set_equip = [12, 22, 362]
+      else if (ID === 65) set_equip = [165, 22, 31]
+      else if (ID === 1056) set_equip = [12, 22, 11056]
+      else if (ID === 1057) set_equip = [12, 21057, 11057]
+      else if (ID === 1055) set_equip = [12, 22, 31055]
+      else set_equip = [12, 22, 31]
+    }
     else if (set_guntype === 3) set_equip = [32, 21, 11]
     else if (set_guntype === 4) set_equip = [12, 23, 34]
     else if (set_guntype === 5) set_equip = [12, 23, 35]

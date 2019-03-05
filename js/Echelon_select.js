@@ -158,12 +158,27 @@ function changeEquip () {
       if (ID === 1001) { // 纳甘左轮
       }
     } else if (set_guntype === 2) { // AR
-      str_items += '<option value=12>VFL 6-24X56</option>'
-      str_items += '<option value=14>EOT 518</option>'
-      str_items += '<option value=13>ITI MARS</option>'
-      str_items += '<option value=11>AC4消音器</option>'
-      str_items += '<option value=41>PEQ-16A</option>'
-      if (ID === 56) { // ST AR-15
+      if (ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
+        str_items += '<option value=12>VFL 6-24X56</option>'
+        str_items += '<option value=14>EOT 518</option>'
+        str_items += '<option value=13>ITI MARS</option>'
+        str_items += '<option value=11>AC4消音器</option>'
+        str_items += '<option value=41>PEQ-16A</option>'
+        if (ID === 65) {
+          str_items += '<option value=165>EOT-XPS3</option>'
+        }
+      } else {
+        if (set_equip[2] != 12) str_items += '<option value=12>VFL 6-24X56</option>'
+        if (set_equip[2] != 14) str_items += '<option value=14>EOT 518</option>'
+        if (set_equip[2] != 13) str_items += '<option value=13>ITI MARS</option>'
+        if (set_equip[2] != 11) str_items += '<option value=11>AC4消音器</option>'
+        if (set_equip[2] != 41) str_items += '<option value=41>PEQ-16A</option>'
+        if (ID === 1056) {
+          if (set_equip[2] != 11056) str_items += '<option value=11056>兵蚁型RO</option>'
+        }
+        if (ID === 1057) {
+          if (set_equip[2] != 11057) str_items += '<option value=11057>轻量化导轨套件</option>'
+        }
       }
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=32>IOP T4外骨骼</option>'
@@ -188,7 +203,8 @@ function changeEquip () {
       if (ID === 183) str_items += '<option value=23>Mk211高爆穿甲弹</option>'
     } else if (set_guntype === 2) { // AR
       str_items += '<option value=22>APCR高速弹</option>'
-      if (ID === 56) { // ST AR-15
+      if (ID === 1057 || ID === 57) { // ST AR-15
+        str_items += '<option value=21057>.300BLK高速弹</option>'
       }
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=21>ILM空尖弹</option>'
@@ -207,9 +223,27 @@ function changeEquip () {
       str_items += '<option value=31>IOP X4外骨骼</option>'
       str_items += '<option value=32>IOP T4外骨骼</option>'
     } else if (set_guntype === 2) { // AR
-      str_items += '<option value=31>IOP X4外骨骼</option>'
-      str_items += '<option value=32>IOP T4外骨骼</option>'
-      if (ID === 56) { // ST AR-15等人的瞄具，还有G41专属
+      if (ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
+        str_items += '<option value=31>IOP X4外骨骼</option>'
+        str_items += '<option value=32>IOP T4外骨骼</option>'
+        if (ID === 62) { // G41
+          str_items += '<option value=362>高性能战术发饰</option>'
+        }
+        if (ID === 1055) { // M4A1
+          str_items += '<option value=31055>遗留的武器库</option>'
+        }
+      } else {
+        if (set_equip[0] != 12) str_items += '<option value=12>VFL 6-24X56</option>'
+        if (set_equip[0] != 14) str_items += '<option value=14>EOT 518</option>'
+        if (set_equip[0] != 13) str_items += '<option value=13>ITI MARS</option>'
+        if (set_equip[0] != 11) str_items += '<option value=11>AC4消音器</option>'
+        if (set_equip[0] != 41) str_items += '<option value=41>PEQ-16A</option>'
+        if (ID === 1056) {
+          if (set_equip[0] != 11056) str_items += '<option value=11056>兵蚁型RO</option>'
+        }
+        if (ID === 1057) {
+          if (set_equip[0] != 11057) str_items += '<option value=11057>轻量化导轨套件</option>'
+        }
       }
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=11>AC4消音器</option>'
