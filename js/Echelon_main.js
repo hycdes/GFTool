@@ -8,7 +8,6 @@ var select_tdoll
 var select_equip
 
 // global variations for prepare
-var shapeSet = [] // 影响格形状库
 var buffer_table = new Map // 已放置人形的全局变量信息buffer
 var buffer_last
 var lib_affect = new Map // 人形影响格库，存放 < 编号, Affecy >
@@ -123,6 +122,48 @@ function getBlockAffect () {
   }
 }
 
+function getResult (multiple) {
+  var Set_Data_Buffer = new Map
+  for (var n = 0; n < multiple; n++) {
+    console.log('do')
+    getDPS()
+    for (var i = 0; i < 9; i++) {
+      var this_data = Set_Data_Buffer.get(i)
+      var new_data = Set_Data.get(i)
+      if (this_data === undefined) {
+        this_data = new_data
+      } else {
+        var len = this_data.length
+        for (var x = 0; x < len; x++) {
+          this_data[x][1] += new_data[x][1]
+        }
+      }
+      Set_Data_Buffer.set(i, this_data)
+    }
+  }
+  for (var i = 0; i < 9; i++) {
+    var this_data = Set_Data_Buffer.get(i)
+    var len = this_data.length
+    for (var x = 0; x < len; x++) {
+      this_data[x][1] = Math.ceil(this_data[x][1] / multiple)
+    }
+    Set_Data.set(i, this_data)
+  }
+  // 绘图
+  var x_max = Math.ceil(time / 30)
+  var y_max = 0
+  var str_label = ['', '', '', '', '', '', '', '', '', '']
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      var len_data = (Set_Data.get(i)).length
+      for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
+      if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
+      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name
+    }
+  }
+  makeGraph(x_max, y_max, str_label)
+}
+
 // MAIN, 攻击优先于所有
 function getDPS () {
   // 清空之前数据
@@ -194,19 +235,6 @@ function getDPS () {
       reactAllSkill('freefire', t)
     }
   }
-  // 绘图
-  var x_max = Math.ceil(time / 30)
-  var y_max = 0
-  var str_label = ['', '', '', '', '', '', '', '', '', '']
-  for (var i = 0; i < 9; i++) {
-    if (list_tdoll[i][1] != null) {
-      var len_data = (Set_Data.get(i)).length
-      for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
-      if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
-      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name
-    }
-  }
-  makeGraph(x_max, y_max, str_label)
 }
 
 // 处理所有技能，并更新所有状态
@@ -233,7 +261,6 @@ function reactAllSkill (command, current_time) {
       var s_t = v[s]
       if (s_t[1] > 0) s_t[1]-- // 状态持续减少
       else if (s_t[1] === 0) {
-        console.log('k=', k)
         refreshBaseProperty(k, s_t, 'lost') // 更新属性
         v.splice(s, 1) // 状态结束
         len_status = v.length; s = 0 // 重置长度和迭代器再次检查
@@ -275,14 +302,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var len = list_pro.length
           for (var p = 0; p < len; p++) {
             changeStatus(stand_num, list_target[i], list_pro[p], list_value[p], s_t[0].duration)
-            console.log('standnum in react', stand_num)
           }
         }
       }
     }
     if (s_t[0].duration > 0) {
       s_t[1] = (s_t[0].cld * 30)
-      console.log('buffer')
     } else if (s_t[0].duration === 0) { // 非持续类
       s_t[1] = -1
     }else if (s_t[0].duration === -1) { // 无限持续
@@ -314,7 +339,6 @@ function changeStatus (stand_num, target, type, value, duration) { // 注意检�
 function refreshBaseProperty (stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体
   // status = [ [ type, value(>1) ], frame ]
   if (stand_num === -1) { // 全体属性变化
-    console.log('all')
     for (var i = 0; i < 9; i++) {
       if (Set_Base.get(i) != undefined) {
         var this_info = (Set_Base.get(i)).Info
