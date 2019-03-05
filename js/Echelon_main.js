@@ -176,10 +176,11 @@ function getResult (multiple) {
   var str_label = ['', '', '', '', '', '', '', '', '', '']
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
-      var len_data = (Set_Data.get(i)).length
+      var current_data = Set_Data.get(i)
+      var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
-      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name
+      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name + '\t\t输出=' + current_data[len_data - 1][1]
     }
   }
   makeGraph(x_max, y_max, str_label)
@@ -308,7 +309,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     } else {
       Set_Data.get(stand_num).push([current_time, lastData])
     }
-    s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'))
+    s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof')) - 1
   }
   else if (skillname === 'property') { // 属性增益类
     var list_target = (s_t[0].Describe).list_target
@@ -332,7 +333,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     if (s_t[0].duration > 0) {
       var current_info = (Set_Base.get(stand_num)).Info
-      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_info.get('cld')) * 30) // 进入冷却
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_info.get('cld')) * 30) - 1 // 进入冷却
     } else if (s_t[0].duration === 0) { // 非持续类
       s_t[1] = -1
     }else if (s_t[0].duration === -1) { // 无限持续

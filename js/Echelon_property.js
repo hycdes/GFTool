@@ -91,7 +91,7 @@ lib_affect.set(51, createAffect('ru/rd/', 'hg', ['cld'], [0.1])) // FN-49
 lib_affect.set(52, createAffect('r/', 'hg', ['cld'], [0.1])) // BM59
 lib_affect.set(53, createAffect('r/', 'hg', ['cld'], [0.18])) // NTW-20
 lib_affect.set(54, createAffect('lu/l/r/ld/', 'smg', ['dmg', 'eva'], [0.1, 0.12])) // M16A1
-lib_affect.set(55, createAffect('lu/u/l/ld/d/', 'ar', ['dmg', 'crit'], [0.18, 0.3])) // M4A1
+lib_affect.set(55, createAffect('ru/u/r/rd/d/', 'ar', ['dmg', 'crit'], [0.18, 0.3])) // M4A1
 lib_affect.set(56, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // M4 SOPMODII
 lib_affect.set(57, createAffect('ru/r/rd/', 'smg', ['rof', 'eva'], [0.1, 0.12])) // ST AR-15
 lib_affect.set(58, createAffect('d/', 'smg', ['eva'], [0.18])) // AK-47
@@ -108,7 +108,7 @@ lib_affect.set(69, createAffect('rd/', 'smg', ['dmg', 'acu'], [0.25, 0.6])) // F
 lib_affect.set(70, createAffect('ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // FNC
 lib_affect.set(71, createAffect('r/', 'smg', ['acu', 'eva'], [0.5, 0.1])) // 加利尔
 lib_affect.set(72, createAffect('ru/rd/', 'smg', ['eva'], [0.18])) // TAR-21
-lib_affect.set(73, createAffect('lu/u/l/ld/d/', 'all', ['dmg', 'acu'], [0.12, 0.2])) // AUG
+lib_affect.set(73, createAffect('ru/u/r/rd/d/', 'all', ['dmg', 'acu'], [0.12, 0.2])) // AUG
 lib_affect.set(74, createAffect('ru/rd/', 'smg', ['dmg', 'rof'], [0.2, 0.1])) // SIG-510
 lib_affect.set(75, createAffect('rr/', 'sg', ['dmg', 'cld'], [0.15, 0.1])) // M1918
 lib_affect.set(77, createAffect('rr/', 'sg', ['dmg'], [0.22])) // M2HB 
@@ -123,8 +123,8 @@ lib_affect.set(86, createAffect('rrdd/', 'sg', ['dmg'], [0.22])) // MG42
 lib_affect.set(87, createAffect('rruu/', 'sg', ['dmg'], [0.2])) // MG34
 lib_affect.set(88, createAffect('rru/rrd/', 'sg', ['dmg', 'acu'], [0.1, 0.15])) // MG3
 lib_affect.set(89, createAffect('rr/rrdd/', 'sg', ['rof', 'acu'], [0.1, 0.12])) // 布伦
-lib_affect.set(90, createAffect('lu/u/l/ld/d/', 'all', ['rof', 'acu'], [0.2, 0.4])) // FNP-9
-lib_affect.set(91, createAffect('u/ru/r/d/rd/', 'all', ['dmg'], [0.28])) // MP-446
+lib_affect.set(90, createAffect('ru/u/r/rd/d/', 'all', ['rof', 'acu'], [0.2, 0.4])) // FNP-9
+lib_affect.set(91, createAffect('u/lu/l/d/ld/', 'all', ['dmg'], [0.28])) // MP-446
 lib_affect.set(92, createAffect('l/', 'ar', ['dmg'], [0.2])) // Spectre M4
 lib_affect.set(93, createAffect('lu/l/ld/', 'ar', ['eva'], [0.2])) // IDW
 lib_affect.set(94, createAffect('l/', 'ar', ['rof'], [0.2])) // 64式
@@ -147,7 +147,7 @@ lib_affect.set(110, createAffect('rru/rrd/', 'sg', ['acu'], [0.3])) // FG42
 lib_affect.set(111, createAffect('rrdd/', 'sg', ['rof'], [0.2])) // AAT-52
 lib_affect.set(112, createAffect('rru/rr/rrd/', 'sg', ['cld'], [0.2])) // 内格夫
 lib_affect.set(113, createAffect('u/l/d/', 'all', ['dmg', 'acu'], [0.24, 0.4])) // 谢尔久科夫
-lib_affect.set(114, createAffect('u/ru/r/d/rd/', 'all', ['dmg', 'rof'], [0.2, 0.16])) // 维尔德MkⅡ
+lib_affect.set(114, createAffect('u/lu/l/d/ld/', 'all', ['dmg', 'rof'], [0.2, 0.16])) // 维尔德MkⅡ
 lib_affect.set(115, createAffect('lu/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])) // 索米
 lib_affect.set(116, createAffect('l/ld/', 'ar', ['dmg', 'eva'], [0.12, 0.1])) // Z-62
 lib_affect.set(117, createAffect('u/d/', 'hg', ['cld'], [0.15])) // PSG-1
@@ -165,7 +165,7 @@ lib_affect.set(128, createAffect('r/', 'hg', ['cld'], [0.18])) // M99
 lib_affect.set(129, createAffect('rd/', 'smg', ['dmg', 'eva'], [0.1, 0.18])) // 95式
 lib_affect.set(130, createAffect('ru/', 'smg', ['rof', 'eva'], [0.1, 0.18])) // 97式
 lib_affect.set(131, createAffect('l/', 'ar', ['acu'], [0.55])) // EVO 3
-lib_affect.set(132, createAffect('lu/u/l/ld/d/', 'all', ['dmg', 'acu'], [0.2, 0.5])) // 59式
+lib_affect.set(132, createAffect('ru/u/r/rd/d/', 'all', ['dmg', 'acu'], [0.2, 0.5])) // 59式
 lib_affect.set(133, createAffect('r/', 'smg', ['dmg', 'rof'], [0.1, 0.2])) // 63式
 lib_affect.set(134, createAffect('ru/', 'smg', ['rof', 'acu'], [0.16, 0.75])) // AR70
 lib_affect.set(135, createAffect('lu/l/ld/', 'ar', ['rof', 'crit'], [0.18, 0.3])) // SR-3MP
@@ -176,7 +176,7 @@ lib_affect.set(139, createAffect('u/d/l/r/', 'all', ['dmg', 'rof'], [0.16, 0.1])
 lib_affect.set(140, createAffect('ru/l/r/rd/', 'all', ['acu', 'eva'], [0.56, 0.36])) // PSM
 lib_affect.set(141, createAffect('lu/r/ld/', 'all', ['rof'], [0.28])) // USP Compact
 lib_affect.set(142, createAffect('lu/l/r/ld/', 'all', ['rof', 'crit'], [0.3, 0.2])) // Five-seveN
-lib_affect.set(143, createAffect('u/ru/r/d/rd/', 'ar', ['rof', 'acu'], [0.1, 0.35])) // RO635
+lib_affect.set(143, createAffect('u/lu/l/d/ld/', 'ar', ['rof', 'acu'], [0.1, 0.35])) // RO635
 lib_affect.set(144, createAffect('lu/ld/', 'ar', ['dmg', 'eva'], [0.1, 0.12])) // MT-9
 lib_affect.set(145, createAffect('ru/rd/', 'hg', ['cld'], [0.12])) // OTs-44
 lib_affect.set(146, createAffect('u/d/', 'hg', ['cld'], [0.15])) // G28
@@ -251,7 +251,7 @@ lib_affect.set(215, createAffect('r/rd/', 'smg', ['dmg', 'acu'], [0.25, 0.65])) 
 lib_affect.set(216, createAffect('ru/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // XM8
 lib_affect.set(217, createAffect('u/d/', 'hg', ['cld'], [0.12])) // SM-1
 lib_affect.set(218, createAffect('lu/l/ld/', 'ar', ['rof'], [0.12])) // T77
-lib_affect.set(220, createAffect('lu/u/l/ld/d/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // MP-443
+lib_affect.set(220, createAffect('ru/u/r/rd/d/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // MP-443
 lib_affect.set(221, createAffect('u/ru/r/d/rd/', 'all', ['dmg', 'acu'], [0.24, 0.4])) // GSh-18
 lib_affect.set(222, createAffect('r/rd/', 'hg', ['cld'], [0.18])) // TAC-50
 lib_affect.set(223, createAffect('r/rd/', 'smg', ['dmg', 'acu'], [0.15, 0.25])) // Model L
@@ -263,7 +263,7 @@ lib_affect.set(228, createAffect('lu/ld/', 'ar', ['dmg', 'acu'], [0.12, 0.35])) 
 lib_affect.set(229, createAffect('llu/ll/', 'mg', ['dmg', 'acu'], [0.18, 0.12])) // M870
 lib_affect.set(230, createAffect('ru/rd/', 'hg', ['cld'], [0.12])) // OBR
 lib_affect.set(231, createAffect('r/rd/', 'hg', ['cld'], [0.18])) // M82A1
-lib_affect.set(232, createAffect('u/ru/r/d/rd/', 'all', ['dmg', 'rof'], [0.12, 0.2])) // MP-448
+lib_affect.set(232, createAffect('u/lu/l/d/ld/', 'all', ['dmg', 'rof'], [0.12, 0.2])) // MP-448
 lib_affect.set(233, createAffect('l/ld/d/ldd/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // Px4 风暴
 lib_affect.set(234, createAffect('l/ld/ldd/', 'ar', ['rof', 'crit'], [0.18, 0.3])) // JS 9
 lib_affect.set(235, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // SPR A3G
@@ -295,7 +295,7 @@ lib_affect.set(1037, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // M14改
 lib_affect.set(1039, createAffect('d/', 'hg', ['cld'], [0.18])) // 莫辛-纳甘改
 lib_affect.set(1044, createAffect('rd/', 'hg', ['cld'], [0.15])) // SV-98改
 lib_affect.set(1051, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // FN-49改
-lib_affect.set(1055, createAffect('lu/u/l/ld/d/', 'ar', ['dmg', 'crit'], [0.2, 0.32])) // M4A1改
+lib_affect.set(1055, createAffect('ru/u/r/rd/d/', 'ar', ['dmg', 'crit'], [0.2, 0.32])) // M4A1改
 lib_affect.set(1056, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.5, 0.15])) // M4 SOPMODII改
 lib_affect.set(1057, createAffect('ru/r/rd/', 'smg', ['rof', 'eva'], [0.1, 0.15])) // ST AR-15改
 lib_affect.set(1063, createAffect('u/r/', 'smg', ['rof', 'acu'], [0.25, 0.55])) // G3改
@@ -303,7 +303,7 @@ lib_affect.set(1064, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.15])) 
 lib_affect.set(1075, createAffect('rr/', 'sg', ['dmg', 'cld'], [0.18, 0.1])) // M1918改
 lib_affect.set(1081, createAffect('rr/', 'sg', ['dmg', 'rof'], [0.15, 0.15])) // LWMMG改
 lib_affect.set(1089, createAffect('rr/rrdd/', 'sg', ['rof', 'acu'], [0.1, 0.15])) // 布伦改
-lib_affect.set(1091, createAffect('u/ru/r/d/rd/', 'all', ['dmg'], [0.36])) // MP-446改
+lib_affect.set(1091, createAffect('u/lu/l/d/ld/', 'all', ['dmg'], [0.36])) // MP-446改
 lib_affect.set(1093, createAffect('lu/l/ld/', 'ar', ['eva', 'crit'], [0.2, 0.1])) // IDW改
 lib_affect.set(1094, createAffect('l/', 'ar', ['rof'], [0.24])) // 64式改
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改

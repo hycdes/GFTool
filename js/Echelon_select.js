@@ -167,6 +167,9 @@ function changeEquip () {
         if (ID === 65) {
           str_items += '<option value=165>EOT-XPS3</option>'
         }
+        if (ID === 1064) {
+          str_items += '<option value=11064>G36混合瞄准镜</option>'
+        }
       } else {
         if (set_equip[2] != 12) str_items += '<option value=12>VFL 6-24X56</option>'
         if (set_equip[2] != 14) str_items += '<option value=14>EOT 518</option>'

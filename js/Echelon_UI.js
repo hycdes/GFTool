@@ -182,6 +182,7 @@ function resetEquipment () {
       else if (ID === 1056) set_equip = [12, 22, 11056]
       else if (ID === 1057) set_equip = [12, 21057, 11057]
       else if (ID === 1055) set_equip = [12, 22, 31055]
+      else if (ID === 1064) set_equip = [11064, 22, 31]
       else set_equip = [12, 22, 31]
     }
     else if (set_guntype === 3) set_equip = [32, 21, 11]
