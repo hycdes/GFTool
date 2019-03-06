@@ -248,7 +248,7 @@ function getDPS () {
   }
   // 载入初始状态（全局设定、妖精天赋、换弹）
   if (document.getElementById('check_init_critmax').checked) {
-    changeStatus(-1, 'all', 'crit', '20', -1)
+    changeStatus(-1, 'all', 'crit', '100', -1)
   }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
@@ -307,7 +307,9 @@ function reactAllSkill (command, current_time) {
       var s_t = v[s]
       if (s_t[1] > 0) s_t[1]-- // 状态持续减少
       else if (s_t[1] === 0) {
-        if (isProperty(s_t[0][0])) endStatus(k, s_t, 'lost') // 更新属性
+        if (isProperty(s_t[0][0])) {
+          endStatus(k, s_t, 'lost') // 更新属性
+        }
         else if (s_t[0][0] === 'avenger_mark') Set_Special.delete(k) // 特殊变量：M4炮击结束
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
         else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
@@ -460,9 +462,31 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var list_value = []
     for (var i = 0; i < len_list_target; i++) {
       if (list_target[i].substr(0, 3) === 'blo') { // 影响格上
-        //
+        var list_pro = ((s_t[0].Describe).list_pro)[i].split('/')
+        var list_value = ((s_t[0].Describe).list_value)[i].split('/')
+        var len = list_pro.length
+        for (var b = 0; b < 9; b++) {
+          if (Set_Base.get(stand_num).Area[b] && list_tdoll[b][1] != null) { // 影响格上有人
+            for (var p = 0; p < len; p++) {
+              changeStatus(b, 'self', list_pro[p], list_value[p], s_t[0].duration)
+            }
+          }
+        }
       } else if (list_target[i].substr(0, 3) === 'col') { // 列数上
-        //
+        var list_pro = ((s_t[0].Describe).list_pro)[i].split('/')
+        var list_value = ((s_t[0].Describe).list_value)[i].split('/')
+        var len = list_pro.length
+        var b = []
+        if (list_target[i].substr(3) === '1') b = [0, 3, 6]
+        else if (list_target[i].substr(3) === '2') b = [1, 4, 7]
+        else if (list_target[i].substr(3) === '3') b = [2, 5, 8]
+        for (var c_n = 0; c_n < 3; c_n++) {
+          if (list_tdoll[b[c_n]][1] != null) { // 该列该点有人
+            for (var p = 0; p < len; p++) {
+              changeStatus(b[c_n], 'self', list_pro[p], list_value[p], s_t[0].duration)
+            }
+          }
+        }
       } else {
         if (list_target[i] === 'all' || list_target[i] === 'self') { // 号令类all、专注类self
           var list_pro = ((s_t[0].Describe).list_pro)[i].split('/')
@@ -524,7 +548,31 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
     endStatus(stand_num, new_status, 'get')
-  } else if (target === 'avenger_mark') {
+  } else if (target.substr(0, 3) === 'blo') {
+    if (target.substr(3) === 'all') {
+      var new_status = [[type, 1 + parseFloat(value)], frame]
+      var list_status = Set_Status.get(stand_num)
+      list_status.push(new_status)
+      Set_Status.set(stand_num, list_status)
+      endStatus(stand_num, new_status, 'get')
+    } else {
+      var n_type = 0
+      if (target.substr(3) === 'hg') n_type = 1
+      else if (target.substr(3) === 'ar') n_type = 2
+      else if (target.substr(3) === 'smg') n_type = 3
+      else if (target.substr(3) === 'rf') n_type = 4
+      else if (target.substr(3) === 'mg') n_type = 5
+      else if (target.substr(3) === 'sg') n_type = 6
+      if (n_type === list_tdoll[stand_num][1].Type) {
+        var new_status = [[type, 1 + parseFloat(value)], frame]
+        var list_status = Set_Status.get(stand_num)
+        list_status.push(new_status)
+        Set_Status.set(stand_num, list_status)
+        endStatus(stand_num, new_status, 'get')
+      }
+    }
+  }
+  else if (target === 'avenger_mark') {
     var new_status = [['avenger_mark', null], frame]
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
@@ -550,16 +598,28 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
         if (Set_Base.get(i) != undefined) {
           var this_info = (Set_Base.get(i)).Info
           var new_property = (this_info).get(status[0][0])
-          if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
-          else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
+          if (situation === 'get') {
+            if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property * status[0][1])
+            else new_property = new_property * status[0][1]
+          }
+          else if (situation === 'lost') {
+            if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property / status[0][1])
+            else new_property = new_property / status[0][1]
+          }
           this_info.set(status[0][0], new_property)
         }
       }
     } else { // 某一人属性变化
       var this_info = (Set_Base.get(stand_num)).Info
       var new_property = (this_info).get(status[0][0])
-      if (situation === 'get') new_property = Math.ceil(new_property * status[0][1])
-      else if (situation === 'lost') new_property = Math.floor(new_property / status[0][1])
+      if (situation === 'get') {
+        if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property * status[0][1])
+        else new_property = new_property * status[0][1]
+      }
+      else if (situation === 'lost') {
+        if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property / status[0][1])
+        else new_property = new_property / status[0][1]
+      }
       this_info.set(status[0][0], new_property)
     }
   }

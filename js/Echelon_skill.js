@@ -180,6 +180,7 @@ lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) /
 lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.35/0.35/0.35/0.35'])) // 雪狼之眼
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
 lib_describe.set('rof_30_enemy', describe_property(['enemy'], ['rof'], ['-0.3'])) // 突击压制 30%
+lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) // 狩猎示范
 
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
@@ -288,7 +289,7 @@ lib_skill.set(192, [createSkill(6, 16, 0, lib_describe.get('js05'))])
 lib_skill.set(197, [])
 lib_skill.set(198, [])
 lib_skill.set(204, [])
-lib_skill.set(211, [])
+lib_skill.set(211, [createSkill(6, 8, 5, lib_describe.get('srs'))])
 lib_skill.set(222, [])
 lib_skill.set(231, [])
 
