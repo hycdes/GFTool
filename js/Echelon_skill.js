@@ -250,6 +250,29 @@ lib_skill.set(206, [createSkill(6, 8, 5, lib_describe.get('ak12'))])
 lib_skill.set(215, [createSkill(4, 16, 10, lib_describe.get('mdr'))])
 lib_skill.set(236, [createSkill(6, 16, 0, lib_describe.get('k11'))])
 lib_skill.set(243, [createSkill(6, 16, 0, lib_describe.get('64howa'))])
+lib_skill.set(1055, [
+  createSkill(4, 16, 10, lib_describe.get('dmg_75')),
+  createSkill(4, 16, 10, lib_describe.get('m4'))
+])
+lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
+lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚可以单独在普攻实现，无需制作
+lib_skill.set(1064, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // 没写弧光契约
+
+lib_skill.set(16, [])
+lib_skill.set(20, [])
+lib_skill.set(28, [])
+lib_skill.set(59, [])
+lib_skill.set(104, [])
+lib_skill.set(115, [])
+lib_skill.set(127, [])
+lib_skill.set(135, [])
+lib_skill.set(143, [])
+lib_skill.set(213, [])
+lib_skill.set(224, [])
+lib_skill.set(228, [])
+lib_skill.set(234, [])
+lib_skill.set(245, [])
+lib_skill.set(251, [])
 
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
 lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])
@@ -259,10 +282,25 @@ lib_skill.set(128, [createSkill(15, 16, 0, lib_describe.get('snipe_8'))])
 lib_skill.set(148, [createSkill(6, 16, 10, lib_describe.get('iws2000'))])
 lib_skill.set(179, [createSkill(15, 16, 0, lib_describe.get('dsr50'))])
 lib_skill.set(192, [createSkill(6, 16, 0, lib_describe.get('js05'))])
+lib_skill.set(197, [])
+lib_skill.set(198, [])
+lib_skill.set(204, [])
+lib_skill.set(211, [])
+lib_skill.set(222, [])
+lib_skill.set(231, [])
 
-lib_skill.set(1055, [
-  createSkill(4, 16, 10, lib_describe.get('dmg_75')),
-  createSkill(4, 16, 10, lib_describe.get('m4'))
-])
-lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
-lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚可以单独在普攻实现，无需制作
+lib_skill.set(109, []) // 连珠终结实现于攻击
+lib_skill.set(112, []) // 狂躁血脉实现于换弹
+lib_skill.set(125, [])
+lib_skill.set(173, [])
+lib_skill.set(208, [])
+lib_skill.set(238, [])
+lib_skill.set(253, [])
+
+lib_skill.set(151, [])
+lib_skill.set(157, [])
+lib_skill.set(160, [])
+lib_skill.set(163, [])
+lib_skill.set(164, [])
+lib_skill.set(188, [])
+lib_skill.set(229, [])

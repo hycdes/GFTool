@@ -102,11 +102,12 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    梯队设置——目前进度：只做了五星AR/HG/RF可以平A、专注类和号令类技能、416的榴弹
+                                    梯队设置——目前进度：所有五星枪射击，专注类和号令类技能、416的榴弹、M4炮击、AR15被动、连珠、狂躁血脉
                                 </div>
                                 <div class="panel-body">
-                                    <div class="col-lg-5">
+                                    <div class="col-lg-4">
                                         <h4>梯队预览<span style="color:red" id="alert_display"></span></h4>
+                                        <h5>点击格点<span style="color:orangered">增删人形</span>，修改人形直接<span style="color:orangered">添加即可覆盖</span></h5>
                                         <div class="table-responsive">
                                             <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                                 <tbody>
@@ -130,109 +131,137 @@
                                         </div>
                                     </div>
                                     <!--INFO-->
-                                    <div class="col-lg-3">
-                                        <h4>人形信息</h4>
-                                        <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
-                                            <tr>
-                                                <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
-                                                <td class="td_info" id='info_name'>请点选一个<b><span style="color: red">九宫格</span></b></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_info"></td>
-                                                <td class="td_info" id='info_num'># -</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_info"></td>
-                                                <td class="td_info" id='info_type'>-</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_info" id='info_hp'>生命 -</td>
-                                                <td class="td_info" id='info_cs'>弹量 -</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_info" id='info_dmg'>伤害 -</td>
-                                                <td class="td_info" id='info_rof'>射速 -</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_info" id='info_acu'>命中 -</td>
-                                                <td class="td_info" id='info_eva'>回避 -</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_info" id='info_crit'>暴击 -</td>
-                                                <td class="td_info" id='info_critdmg'>暴伤 -</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="td_info" id='info_arm'>护甲 -</td>
-                                                <td class="td_info" id='info_ap'>穿甲 -</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <!--SETTING-->
-                                    <div class="col-lg-4">
-                                        <h4>人形</h4>
-                                        <table class="table_other table-bordered table-hover" style="width:210px">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="td_pickgun"><img id="icon-hg" src="../img/echelon/icon-hg-disable.png" style="cursor:default" onclick=''></td>
-                                                    <td class="td_pickgun"><img id="icon-ar" src="../img/echelon/icon-ar-disable.png" style="cursor:default" onclick=''></td>
-                                                    <td class="td_pickgun"><img id="icon-smg" src="../img/echelon/icon-smg-disable.png" style="cursor:default" onclick=''></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="td_pickgun"><img id="icon-rf" src="../img/echelon/icon-rf-disable.png" style="cursor:default" onclick=''></td>
-                                                    <td class="td_pickgun"><img id="icon-mg" src="../img/echelon/icon-mg-disable.png" style="cursor:default" onclick=''></td>
-                                                    <td class="td_pickgun"><img id="icon-sg" src="../img/echelon/icon-sg-disable.png" style="cursor:default" onclick=''></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table_other table-bordered table-hover" style="width:210px">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="td_starbutton"><img id="icon-addstar" src="../img/echelon/icon-add-disable.png" style="cursor: default" onclick=''></td>
-                                                    <td class="td_starbutton"><img id="icon-substar" src="../img/echelon/icon-sub-disable.png" style="cursor: default" onclick=''></td>
-                                                    <td><img id="icon-star" src="../img/echelon/icon-5star.png"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table_other table-bordered table-hover" style="width:210px">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <select class="form-control input-sm" id="select_tdoll" onchange="changePreview(1)" disabled>
-                                                            <option value=0 selected></option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <h4>装备</h4>
-                                        <table class="table_other table-bordered table-hover" style="width:228px">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="td_equip" id='img_e1'><img id="icon-equip1" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
-                                                    <td class="td_equip" id='img_e2'><img id="icon-equip2" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
-                                                    <td class="td_equip" id='img_e3'><img id="icon-equip3" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
-                                                </tr>
+                                    <div class="col-lg-8">
+                                        <div class="panel-body">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#make_tdoll" data-toggle="tab">人形设定</a>
+                                                </li>
+                                                <li><a href="#make_fairy" data-toggle="tab">妖精设定</a>
+                                                </li>
+                                                <li><a href="#make_hf" data-toggle="tab">重装部队设定</a>
+                                                </li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade in active" id="make_tdoll">
+                                                    <div class="col-lg-6">
+                                                        <h4>人形信息</h4>
+                                                        <h5>点击预览图标<span style="color:orangered">改变好感度</span></h5>
+                                                        <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
+                                                            <tr>
+                                                                <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
+                                                                <td class="td_info" id='info_name'>请点选一个<b><span style="color: red">九宫格</span></b></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_info"></td>
+                                                                <td class="td_info" id='info_num'># -</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_info"></td>
+                                                                <td class="td_info" id='info_type'>-</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_info" id='info_hp'>生命 -</td>
+                                                                <td class="td_info" id='info_cs'>弹量 -</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_info" id='info_dmg'>伤害 -</td>
+                                                                <td class="td_info" id='info_rof'>射速 -</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_info" id='info_acu'>命中 -</td>
+                                                                <td class="td_info" id='info_eva'>回避 -</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_info" id='info_crit'>暴击 -</td>
+                                                                <td class="td_info" id='info_critdmg'>暴伤 -</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="td_info" id='info_arm'>护甲 -</td>
+                                                                <td class="td_info" id='info_ap'>穿甲 -</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <!--SETTING-->
+                                                    <div class="col-lg-6">
+                                                        <h4>人形</h4>
+                                                        <table class="table_other table-bordered table-hover" style="width:210px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="td_pickgun"><img id="icon-hg" src="../img/echelon/icon-hg-disable.png" style="cursor:default" onclick=''></td>
+                                                                    <td class="td_pickgun"><img id="icon-ar" src="../img/echelon/icon-ar-disable.png" style="cursor:default" onclick=''></td>
+                                                                    <td class="td_pickgun"><img id="icon-smg" src="../img/echelon/icon-smg-disable.png" style="cursor:default" onclick=''></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="td_pickgun"><img id="icon-rf" src="../img/echelon/icon-rf-disable.png" style="cursor:default" onclick=''></td>
+                                                                    <td class="td_pickgun"><img id="icon-mg" src="../img/echelon/icon-mg-disable.png" style="cursor:default" onclick=''></td>
+                                                                    <td class="td_pickgun"><img id="icon-sg" src="../img/echelon/icon-sg-disable.png" style="cursor:default" onclick=''></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table class="table_other table-bordered table-hover" style="width:210px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="td_starbutton"><img id="icon-addstar" src="../img/echelon/icon-add-disable.png" style="cursor: default" onclick=''></td>
+                                                                    <td class="td_starbutton"><img id="icon-substar" src="../img/echelon/icon-sub-disable.png" style="cursor: default" onclick=''></td>
+                                                                    <td><img id="icon-star" src="../img/echelon/icon-5star.png"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table class="table_other table-bordered table-hover" style="width:210px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <select class="form-control input-sm" id="select_tdoll" onchange="changePreview(1)" disabled>
+                                                                            <option value=0 selected></option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h4>装备</h4>
+                                                        <h5>点击装备图标<span style="color:orangered">更改装备</span></h5>
+                                                        <table class="table_other table-bordered table-hover" style="width:228px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="td_equip" id='img_e1'><img id="icon-equip1" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
+                                                                    <td class="td_equip" id='img_e2'><img id="icon-equip2" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
+                                                                    <td class="td_equip" id='img_e3'><img id="icon-equip3" src="../img/echelon/equip/select-equip-no.png" style="cursor: default" onclick=''></td>
+                                                                </tr>
 
-                                            </tbody>
-                                        </table>
-                                        <table class="table_other table-bordered table-hover" style="width:228px">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <select class="form-control input-sm" id="select_equip" onchange="changePreview()" disabled>
-                                                            <option value=-1 selected></option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <label><span style="color:deeppink">&nbsp</span></label>
-                                        <p>
-                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形</button>
-                                            <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>删除人形</button>
-                                        </p>
-                                    </div>
+                                                            </tbody>
+                                                        </table>
+                                                        <table class="table_other table-bordered table-hover" style="width:228px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <select class="form-control input-sm" id="select_equip" onchange="changePreview()" disabled>
+                                                                            <option value=-1 selected></option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <label><span style="color:deeppink">&nbsp</span></label>
+                                                        <p>
+                                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形</button>
+                                                            <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>删除人形</button>
+                                                        </p>
+                                                    </div>
 
+                                                </div>
+                                                <div class="tab-pane fade" id="make_fairy">
+                                                    <h4>还早着呢！！！</h4>
+
+                                                </div>
+                                                <div class="tab-pane fade" id="make_hf">
+                                                    <h4>还早着呢！！！</h4>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -259,7 +288,7 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Setting1">
-                                                    <h4>全局</h4>
+                                                    <h4>全局(夜战没做)</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -340,11 +369,13 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting3">
                                                     <h4>说明和参考</h4>
-                                                    <p> * 射击及狙击弹道设定为瞬间到达</p>
+                                                    <p> * 射击及狙击弹道瞬间到达</p>
                                                     <p> * 榴弹准备至出膛设定为1秒</p>
                                                     <p>伤害判定流程和公式 <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA链接]</span></a></p>
                                                     <p>人物和装备素材来源 <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[英文维基链接]</span></a></p>
-                                                    <p>人物属性/影响格数据填写特别鸣谢：@AsLegend</p>
+                                                    <h4>特别感谢</h4>
+                                                    <p>人物属性/影响格数据填写：@AsLegend</p>
+                                                    <p>游戏机制细节指导：@白金·世界</p>
                                                     <h4>调试用</h4>
                                                     <p>
                                                         <button type="button" class="btn btn-default" onclick="test(1)">console_blockaffect</button>

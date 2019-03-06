@@ -246,9 +246,16 @@ function getDPS () {
       Set_Skill.set(i, list_Skill)
     }
   }
-  // 载入初始状态（妖精天赋和全局设定）
+  // 载入初始状态（全局设定、妖精天赋、换弹）
   if (document.getElementById('check_init_critmax').checked) {
     changeStatus(-1, 'all', 'crit', '20', -1)
+  }
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6) {
+        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs')) // MG和SG上弹
+      }
+    }
   }
 
   // 主函数
@@ -299,6 +306,7 @@ function reactAllSkill (command, current_time) {
         else if (s_t[0][0] === 'avenger_mark') Set_Special.delete(k) // 特殊变量：M4炮击结束
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
         else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
+        else if (s_t[0][0] === 'reload') Set_Special.set('attack_permission_' + k, 'fire_all') // 换弹结束
         v.splice(s, 1) // 状态结束
         len_status = v.length; s-- // 检查下一个
       }
@@ -310,6 +318,7 @@ function reactAllSkill (command, current_time) {
 // 执行技能，包括重置冷却、产生效果，以及添加数据
 function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, createSkill (init_cld, cld, duration, Describe)
   var skillname = (s_t[0].Describe).name // Describe -> name, special_paremeters
+  var current_Info = (Set_Base.get(stand_num)).Info
   if (skillname === 'attack') { // 普通攻击
     var fire_status = Set_Special.get('attack_permission_' + stand_num)
     if (fire_status.substr(0, 4) === 'fire') { // 射击准许
@@ -317,7 +326,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       if (list_tdoll[stand_num][1].ID === 1055 && Set_Special.get(stand_num) === 'shelling') {
         var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
         Set_Data.get(stand_num).push([current_time, lastData])
-        var current_Info = (Set_Base.get(stand_num)).Info
         var dmg_direct = 0, dmg_aoe = 0, final_dmg = 0
         // 必中，不可暴击，护甲减免的直击
         dmg_direct = 5 * Math.max(1, Math.ceil(6 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
@@ -332,16 +340,28 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         final_dmg = dmg_direct + dmg_aoe
         Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
       }
-      // 正常攻击
+      // 正常的攻击
       else {
         var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
         Set_Data.get(stand_num).push([current_time, lastData])
-        var current_Info = (Set_Base.get(stand_num)).Info
         if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
-          var final_crit = 1
-          if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
-          final_dmg = Math.ceil(final_dmg * final_crit)
+          if (list_tdoll[stand_num][1].ID === 77 || list_tdoll[stand_num][1].ID === 85 || list_tdoll[stand_num][1].ID === 109) { // 不可暴击：连珠终结
+            var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
+            if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
+              if (list_tdoll[stand_num][1].ID === 77) final_dmg *= 2.4
+              else if (list_tdoll[stand_num][1].ID === 85) final_dmg *= 2.6
+              else if (list_tdoll[stand_num][1].ID === 109) final_dmg *= 3
+            } else {
+              var final_crit = 1
+              if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+              final_dmg = Math.ceil(final_dmg * final_crit)
+            }
+          } else { // 按概率暴击的攻击
+            var final_crit = 1
+            if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+            final_dmg = Math.ceil(final_dmg * final_crit)
+          }
           if (list_tdoll[stand_num][1].ID === 1057) { // 如果AR-15 MOD
             ar15_list_status = Set_Status.get(stand_num)
             var len_list = ar15_list_status.length
@@ -366,8 +386,44 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           Set_Data.get(stand_num).push([current_time, lastData])
         }
       }
+      // 攻击间隔或者换弹判断
+      if (current_Info.get('type') != 5 && current_Info.get('type') != 6) { // HG/AR/SMG/RF
+        s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+      } else { // MG和SG扣除子弹
+        var cs = Set_Special.get('clipsize_' + stand_num)
+        cs--
+        if (cs === 0) { // 需要换弹
+          var reload_frame = 0
+          var rof = current_Info.get('rof')
+          if (current_Info.get('type') === 5) {
+            if (list_tdoll[stand_num][1].ID === 1075) { // M1918-MOD 战地魔术
+              reload_frame = 150
+            }else {
+              if (rof > 1000) rof = 1000
+              else if (rof < 1) rof = 1
+              reload_frame = Math.floor((4 + 200 / rof) * 30)
+            }
+          } else if (current_Info.get('type') === 6) {
+            if (false) {
+              // 狂热突袭单独判断
+            } else {
+              reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
+            }
+          }
+          Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
+          changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
+          Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
+          if (list_tdoll[stand_num][1].ID === 112) { // 狂躁血脉
+            changeStatus(stand_num, 'self', 'dmg', '0.5', 25)
+          }
+        } else {
+          s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+          Set_Special.set('clipsize_' + stand_num, cs)
+        }
+      }
+    } else if (fire_status === 'stop') {
+      // 技能禁止攻击，或换弹
     }
-    s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof')) - 1
   }
   else if (skillname === 'property') { // 属性增益类
     var list_target = (s_t[0].Describe).list_target
@@ -390,7 +446,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
     }
     if (s_t[0].duration > 0) {
-      var current_info = (Set_Base.get(stand_num)).Info
       s_t[1] = Math.ceil(s_t[0].cld * (1 - current_info.get('cld')) * 30) - 1 // 进入冷却
     } else if (s_t[0].duration === 0) { // 非持续类
       s_t[1] = -1
@@ -439,6 +494,11 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     Set_Status.set(stand_num, list_status)
   } else if (target === 'grenade') { // 榴弹
     var new_status = [['grenade', value + '/' + (type + frame)], frame] // value记录"倍率/生效时刻"，其他同理
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
+  } else if (target === 'reload') {
+    var new_status = [['reload', null], value]
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
@@ -563,7 +623,7 @@ function getBaseProperty (num) {
   return createBase(Area, Info)
 }
 
-function rof_to_frame (num_tn, base_rof) {
+function rof_to_frame (num_tn, base_rof, ID) {
   var str_tn = ''
   if (num_tn === 1) str_tn = 'hg'
   else if (num_tn === 2) str_tn = 'ar'
@@ -577,7 +637,9 @@ function rof_to_frame (num_tn, base_rof) {
     else if (base_rof <= 15) shootframe = 100
     else shootframe = Math.floor(1500 / base_rof)
   } else if (str_tn === 'mg') {
-    shootframe = 10 // 以后写11帧判断
+    if (ID === 77 || ID === 85 || ID === 109 || ID === 173) { // 连珠终结、暴动宣告
+      shootframe = 11
+    }else shootframe = 10
   } else if (str_tn === 'sg') {
     if (base_rof >= 60) shootframe = 25
     else if (base_rof <= 15) shootframe = 100
