@@ -164,12 +164,8 @@ function changeEquip () {
         str_items += '<option value=13>ITI MARS</option>'
         str_items += '<option value=11>AC4消音器</option>'
         str_items += '<option value=41>PEQ-16A</option>'
-        if (ID === 65) {
-          str_items += '<option value=165>EOT-XPS3</option>'
-        }
-        if (ID === 1064) {
-          str_items += '<option value=11064>G36混合瞄准镜</option>'
-        }
+        if (ID === 65)  str_items += '<option value=165>EOT-XPS3</option>'
+        if (ID === 1064) str_items += '<option value=11064>G36混合瞄准镜</option>'
       } else {
         if (set_equip[2] != 12) str_items += '<option value=12>VFL 6-24X56</option>'
         if (set_equip[2] != 14) str_items += '<option value=14>EOT 518</option>'
@@ -195,6 +191,8 @@ function changeEquip () {
       str_items += '<option value=12>VFL 6-24X56</option>'
       str_items += '<option value=14>EOT 518</option>'
       str_items += '<option value=13>ITI MARS</option>'
+      if (ID === 125) str_items += '<option value=1125>MG4用MGO</option>'
+      if (ID === 1075) str_items += '<option value=11075>CT 4X20</option>'
     } else if (set_guntype === 6) { // SG
       str_items += '<option value=33>Type3防弹插板</option>'
     }
@@ -258,6 +256,7 @@ function changeEquip () {
       str_items += '<option value=34>热光学迷彩披风</option>'
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=35>IOP极限弹链箱</option>'
+      if (ID === 1075) str_items += '<option value=31075>Titan火控芯片</option>'
     } else if (set_guntype === 6) { // SG
       str_items += '<option value=13>ITI MARS</option>'
       str_items += '<option value=12>VFL 6-24X56</option>'

@@ -207,6 +207,9 @@ lib_describe.set('mdr', describe_mdr()) // 危机嗅探器
 lib_describe.set('64howa', describe_64howa()) // 未来预警
 lib_describe.set('m4', describe_m4()) // 伸冤者印记
 
+lib_describe.set('mg4', describe_property(['self'], ['dmg'], ['0.35'])) // MG4蓄势待发，弹量实现于发动伤害增益
+lib_describe.set('hk21', describe_property(['self'], ['dmg/acu'], ['0.4/0.3'])) // 无差别崩坏，弹量实现于发动伤害增益
+
 // lib_skill
 lib_skill.set(4, [
   createSkill(6, 12, 5, lib_describe.get('python_active')),
@@ -291,9 +294,9 @@ lib_skill.set(231, [])
 
 lib_skill.set(109, []) // 连珠终结实现于攻击
 lib_skill.set(112, []) // 狂躁血脉实现于换弹
-lib_skill.set(125, [])
-lib_skill.set(173, [])
-lib_skill.set(208, [])
+lib_skill.set(125, [createSkill(8, 18, 8, lib_describe.get('mg4'))])
+lib_skill.set(173, []) // 暴动宣告实现于攻击
+lib_skill.set(208, [createSkill(8, 18, 8, lib_describe.get('hk21'))])
 lib_skill.set(238, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])
 lib_skill.set(253, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])
 lib_skill.set(1075, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])

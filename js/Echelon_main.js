@@ -255,7 +255,7 @@ function getDPS () {
       if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6) {
         Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs')) // MG和SG上弹
         if (list_tdoll[i][1].ID === 253) { // 刘易斯
-          Set_Special.set('angel_strength', 1)
+          Set_Special.set('angel_strength' + i, 1)
           Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
         }
       }
@@ -352,6 +352,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       else {
         var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
         Set_Data.get(stand_num).push([current_time, lastData])
+        if (list_tdoll[stand_num][1].ID === 173) { // PKP暴动宣告
+          0
+        }
         if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) { // 战地魔术额外增伤
@@ -414,7 +417,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               else if (rof < 1) rof = 1
               reload_frame = Math.floor((4 + 200 / rof) * 30)
               if (list_tdoll[stand_num][1].ID === 253) { // 刘易斯 力天使
-                reload_frame = Math.max(Math.ceil(reload_frame * Math.pow(0.85, Set_Special.get('angel_strength'))), reload_frame * 0.55)
+                reload_frame = Math.max(Math.ceil(reload_frame * Math.pow(0.85, Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
               }
             }
           } else if (current_Info.get('type') === 6) {
@@ -429,13 +432,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
           Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
           if (list_tdoll[stand_num][1].ID === 253) { // 刘易斯增加弹量
-            var angel_num = Set_Special.get('angel_strength')
+            var angel_num = Set_Special.get('angel_strength' + stand_num)
             if (angel_num < 3) angel_num++
-            Set_Special.set('angel_strength', angel_num)
+            Set_Special.set('angel_strength' + stand_num, angel_num)
             Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num)
-          } else if (list_tdoll[stand_num][1].ID === 238) { // 88式重机枪模式
-            Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
-            changeStatus(stand_num, 'self', 'acu', '0.3', -1)
+          } else if (list_tdoll[stand_num][1].ID === 238) { // 88式
+            if (!document.getElementById('special_88type_' + stand_num).checked) {
+              Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
+              changeStatus(stand_num, 'self', 'acu', '0.3', -1)
+            }else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
           }
           if (list_tdoll[stand_num][1].ID === 112) { // 狂躁血脉
             changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
@@ -464,6 +469,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var list_value = ((s_t[0].Describe).list_value)[i].split('/')
           var len = list_pro.length
           for (var p = 0; p < len; p++) {
+            if (list_pro[p] === 'dmg') { // MG类增加属性+弹量发动
+              var current_cs = Set_Special.get('clipsize_' + stand_num)
+              if (list_tdoll[stand_num][1].ID === 208) { // HK21无差别崩坏+2
+                Set_Special.set('clipsize_' + stand_num, current_cs + 2)
+              } else if (list_tdoll[stand_num][1].ID === 125) { // MG4蓄势待发+4
+                Set_Special.set('clipsize_' + stand_num, current_cs + 4)
+              }
+            }
             changeStatus(stand_num, list_target[i], list_pro[p], list_value[p], s_t[0].duration)
           }
         }

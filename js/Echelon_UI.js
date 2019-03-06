@@ -172,9 +172,9 @@ function resetEquipment () {
     document.getElementById('icon-equip2').onclick = ''
     document.getElementById('icon-equip3').onclick = ''
   } else {
+    var ID = parseInt(document.getElementById('select_tdoll').value)
     if (set_guntype === 1) set_equip = [11, 21, 31]
     else if (set_guntype === 2) {
-      var ID = parseInt(document.getElementById('select_tdoll').value)
       if (ID === 56) set_equip = [12, 22, 14]
       else if (ID === 57) set_equip = [12, 21057, 14]
       else if (ID === 62) set_equip = [12, 22, 362]
@@ -187,7 +187,10 @@ function resetEquipment () {
     }
     else if (set_guntype === 3) set_equip = [32, 21, 11]
     else if (set_guntype === 4) set_equip = [12, 23, 34]
-    else if (set_guntype === 5) set_equip = [12, 23, 35]
+    else if (set_guntype === 5) {
+      if (ID === 1075) set_equip = [12, 23, 31075]
+      else set_equip = [12, 23, 35]
+    }
     else if (set_guntype === 6) set_equip = [33, 24, 13]
     document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
     document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
@@ -364,6 +367,9 @@ function addTdoll () { // 添加战术人形
     if (ID === 4) Set_Special.set('can_add_python', false)
     else if (ID === 1055) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> 使用武器库炮击'
+    }
+    else if (ID === 238) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> 切换轻机枪模式'
     }
     // 前台更新
     document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
