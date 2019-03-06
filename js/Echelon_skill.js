@@ -1,6 +1,6 @@
 // 技能类，属性：前置冷却、冷却、持续时间、描述
 // react函数根据技能的参数和描述，进行解释
-// 非持续类[duration=0]，无限持续（被动）[duration=-1]
+// 非持续类[duration=0]，无限持续（被动）[duration=-1]，非属性被动技能会改写特殊变量表并删除自己
 // 另外，攻击所有值全为0，单独在react作为最高优先判断
 function createSkill (init_cld, cld, duration, Describe) {
   var Skill = {}
@@ -143,11 +143,6 @@ function describe_m4 () { // 伸冤者印记
   Describe.name = 'm4'
   return Describe
 }
-function describe_ar15 () { // 罪与罚
-  var Describe = {}
-  Describe.name = 'ar15'
-  return Describe
-}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -211,7 +206,6 @@ lib_describe.set('an94', describe_an94()) // 人偶扳机
 lib_describe.set('mdr', describe_mdr()) // 危机嗅探器
 lib_describe.set('64howa', describe_64howa()) // 未来预警
 lib_describe.set('m4', describe_m4()) // 伸冤者印记
-lib_describe.set('ar15', describe_ar15()) // 罪与罚
 
 // lib_skill
 lib_skill.set(4, [
@@ -271,7 +265,4 @@ lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('m4'))
 ])
 lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
-lib_skill.set(1057, [
-  createSkill(4, 16, 15, lib_describe.get('rof_50')),
-  createSkill(0, 0, -1, lib_describe.get('ar15'))
-])
+lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚可以单独在普攻实现，无需制作

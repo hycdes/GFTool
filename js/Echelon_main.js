@@ -202,6 +202,7 @@ function getDPS () {
   Set_Base.clear()
   Set_Command.clear()
   Set_Special.clear()
+  Set_EnemyStatus.clear()
   Set_Data.clear()
   reset_special()
   for (var i = -1; i < 9; i++) {
@@ -246,7 +247,9 @@ function getDPS () {
     }
   }
   // 载入初始状态（妖精天赋和全局设定）
-  // 并更新属性
+  if (document.getElementById('check_init_critmax').checked) {
+    changeStatus(-1, 'all', 'crit', '20', -1)
+  }
 
   // 主函数
   for (var t = 0; t < time; t++) {
@@ -339,6 +342,23 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var final_crit = 1
           if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
           final_dmg = Math.ceil(final_dmg * final_crit)
+          if (list_tdoll[stand_num][1].ID === 1057) { // 如果AR-15 MOD
+            ar15_list_status = Set_Status.get(stand_num)
+            var len_list = ar15_list_status.length
+            for (var i = 0; i < len_list; i++) {
+              if (ar15_list_status[i][0][0] === 'rof' && ar15_list_status[i][0][1] === 1.5) { // 突击专注期间
+                var extra_dmg = 0
+                if (Set_EnemyStatus.get('avenger_mark') === true) {
+                  extra_dmg = Math.max(1, Math.ceil(0.2 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 20%火力
+                } else {
+                  extra_dmg = Math.max(1, Math.ceil(0.1 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 10%火力
+                }
+                if (Math.random() + current_Info.get('crit') >= 1) extra_dmg = Math.ceil(extra_dmg * current_Info.get('critdmg'))
+                final_dmg += extra_dmg
+                break
+              }
+            }
+          }
           if (fire_status.substr(5) === 'all') final_dmg *= 5 // 全员攻击
           else if (fire_status.substr(5) === 'four') final_dmg *= 4 // 一人释放技能
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
@@ -606,8 +626,8 @@ function test (num) {
   if (num === 1) console.log(blockSet)
   else if (num === 2) console.log(list_tdoll)
   else if (num === 3) console.log(Set_Data)
-  else if (num === -1) {
-    getDPS()
+  else if (num === 4) {
+    console.log(Set_EnemyStatus.get('avenger_mark'))
   }
 // SAMPLE
 }
