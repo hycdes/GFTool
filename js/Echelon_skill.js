@@ -294,7 +294,7 @@ lib_skill.set(112, []) // 狂躁血脉实现于换弹
 lib_skill.set(125, [])
 lib_skill.set(173, [])
 lib_skill.set(208, [])
-lib_skill.set(238, [])
+lib_skill.set(238, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])
 lib_skill.set(253, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])
 lib_skill.set(1075, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])
 

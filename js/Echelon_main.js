@@ -354,7 +354,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         Set_Data.get(stand_num).push([current_time, lastData])
         if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
-          if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num)<3) { // 战地魔术额外增伤
+          if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) { // 战地魔术额外增伤
             final_dmg *= 1.4
           }
           if (list_tdoll[stand_num][1].ID === 77 || list_tdoll[stand_num][1].ID === 85 || list_tdoll[stand_num][1].ID === 109) { // 不可暴击：连珠终结
@@ -433,7 +433,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             if (angel_num < 3) angel_num++
             Set_Special.set('angel_strength', angel_num)
             Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num)
-            console.log(Set_Special.get('angel_strength'))
+          } else if (list_tdoll[stand_num][1].ID === 238) { // 88式重机枪模式
+            Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
+            changeStatus(stand_num, 'self', 'acu', '0.3', -1)
           }
           if (list_tdoll[stand_num][1].ID === 112) { // 狂躁血脉
             changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
@@ -448,7 +450,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
   }
   else if (skillname === 'property') { // 属性增益类
-    console.log('dmgup-75%', current_time / 30)
     var list_target = (s_t[0].Describe).list_target
     var len_list_target = list_target.length
     var list_value = []
