@@ -362,6 +362,9 @@ function addTdoll () { // 添加战术人形
   } else {
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
     if (ID === 4) Set_Special.set('can_add_python', false)
+    else if (ID === 1055) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '">使用武器库炮击'
+    }
     // 前台更新
     document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
     manageUI('pick-block')
@@ -375,6 +378,7 @@ function deleteTdoll () { // 删除战术人形
   buffer_table.delete(num_pickblock)
   list_tdoll[num_pickblock - 1][1] = null
   // 前台更新
+  document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = ''
   document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/0.png)'
   // 取消选定
   pickBlock(-1)
@@ -383,4 +387,15 @@ function deleteTdoll () { // 删除战术人形
 }
 function setWidth (len) {
   document.getElementById('container').style = 'width: ' + len + 'px; overflow: scroll'
+}
+function changeSunrise (type) {
+  if (type === 1) {
+    daytime = 1
+    document.getElementById('icon-day').src = '../img/echelon/icon-battle-daytime.png'
+    document.getElementById('icon-night').src = '../img/echelon/icon-battle-night-no.png'
+  } else if (type === 2) {
+    daytime = 2
+    document.getElementById('icon-day').src = '../img/echelon/icon-battle-daytime-no.png'
+    document.getElementById('icon-night').src = '../img/echelon/icon-battle-night.png'
+  }
 }

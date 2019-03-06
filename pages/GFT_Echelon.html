@@ -244,52 +244,128 @@
                                     结果
                                 </div>
                                 <div class="panel-body">
-                                    <div class="col-lg-3">
-                                        <h4>全局设定</h4>
+                                    <div class="col-lg-4">
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#Setting1" data-toggle="tab">基本设定</a>
+                                                </li>
+                                                <li><a href="#Setting2" data-toggle="tab">人形特殊设定</a>
+                                                </li>
+                                                <li><a href="#Setting3" data-toggle="tab">其他</a>
+                                                </li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade in active" id="Setting1">
+                                                    <h4>全局</h4>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%"><img id="icon-day" src="../img/echelon/icon-battle-daytime.png" style="cursor: pointer" onclick='changeSunrise(1)'></td>
+                                                                <td style="width: 50%"><img id="icon-night" src="../img/echelon/icon-battle-night-no.png" style="cursor: pointer" onclick='changeSunrise(2)'></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 30%">接敌时间</td>
+                                                                <td style="width: 70%">
+                                                                    <input class="form-control input-sm" placeholder="输入正数" id="time_init" value=0>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30%">战斗时间</td>
+                                                                <td style="width: 70%">
+                                                                    <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=100>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h4>敌人</h4>
+                                                    <p>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" value=1 onclick="" checked><b>普通</b></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" value=2 onclick=""><span style="color:dodgerblue"><b>精英(没做)</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" value=3 onclick=""><span style="color:red"><b>BOSS(没做)</b></span></label>
+                                                    </p>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 30%">闪避</td>
+                                                                <td style="width: 70%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva' value=0>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30%">护甲</td>
+                                                                <td style="width: 70%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm' value=0>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30%">单组编制</td>
+                                                                <td style="width: 70%">
+                                                                    <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30%">组数</td>
+                                                                <td style="width: 70%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 30%">力场(没做)</td>
+                                                                <td style="width: 70%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="Setting2">
+                                                    <h4>全体增益</h4>
+                                                    <h5>Coming soon...</h5>
+                                                    <p id="special_num0"></p>
+                                                    <p id="special_num1"></p>
+                                                    <p id="special_num2"></p>
+                                                    <p id="special_num3"></p>
+                                                    <p id="special_num4"></p>
+                                                    <p id="special_num5"></p>
+                                                    <p id="special_num6"></p>
+                                                    <p id="special_num7"></p>
+                                                    <p id="special_num8"></p>
+                                                </div>
+                                                <div class="tab-pane fade" id="Setting3">
+                                                    <h4>说明和参考</h4>
+                                                    <p> * 射击及狙击弹道设定为瞬间到达</p>
+                                                    <p> * 榴弹准备至出膛设定为1秒</p>
+                                                    <p>伤害判定流程和公式 <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA链接]</span></a></p>
+                                                    <p>人物和装备素材来源 <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[英文维基链接]</span></a></p>
+                                                    <p>人物属性/影响格数据填写特别鸣谢：@AsLegend</p>
+                                                    <h4>调试用</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-default" onclick="test(1)">console_blockaffect</button>
+                                                        <button type="button" class="btn btn-default" onclick="test(2)">console_list_tdoll</button>
+                                                        <button type="button" class="btn btn-default" onclick="test(3)">console_data</button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>输出计算</h4>
                                         <p>
-                                            <label class="radio-inline"><input type="radio" name="switch_sun" id="switch_daytime" value=1 onclick="" checked><span style="color:darkorange"><b>昼战</b></span></label>
-                                            <label class="radio-inline"><input type="radio" name="switch_sun" id="switch_nighttime" value=2 onclick=""><span style="color:darkblue"><b>夜战（没做）</b></span></label>
+                                            <button type="button" class="btn btn-outline btn-info" onclick="getResult(1)">计算1次</button>
+                                            <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100)">100次平均</button>
                                         </p>
-                                        <div class="form-group input-group" style="width:300px">
-                                            <span class="input-group-addon">接敌时间</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_init" value=0>
-                                            <span class="input-group-addon">秒</span>
-                                        </div>
-                                        <div class="form-group input-group" style="width:300px">
-                                            <span class="input-group-addon">战斗时间</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id="time_battle" value=100>
-                                            <span class="input-group-addon">秒</span>
-                                        </div>
-                                        <h4>敌人设定</h4>
+                                        <h4>承伤计算 (Coming...long time!)</h4>
                                         <p>
-                                            <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" value=1 onclick="" checked><b>非精英</b></label>
-                                            <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" value=2 onclick=""><span style="color:red"><b>精英（没做）</b></span></label>
-                                        </p>
-                                        <div class="form-group input-group" style="width:300px">
-                                            <span class="input-group-addon">闪避</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id='enemy_eva' value=0>
-                                        </div>
-                                        <div class="form-group input-group" style="width:300px">
-                                            <span class="input-group-addon">护甲</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id='enemy_arm' value=0>
-                                        </div>
-                                        <div class="form-group input-group" style="width:300px">
-                                            <span class="input-group-addon">编制</span>
-                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id='enemy_form' value=1>
-                                        </div>
-                                        <h4>计算</h4>
-                                        <p>
-                                            <button type="button" class="btn btn-default" onclick="getResult(1)">计算1次</button>
-                                            <button type="button" class="btn btn-primary" onclick="getResult(100)">100次平均</button>
-                                        </p>
-                                        <h4>调试用</h4>
-                                        <p>
-                                            <button type="button" class="btn btn-default" onclick="test(1)">console_blockaffect</button>
-                                            <button type="button" class="btn btn-default" onclick="test(2)">console_list_tdoll</button>
-                                            <button type="button" class="btn btn-default" onclick="test(3)">console_data</button>
+                                            <button type="button" class="btn btn-outline btn-warning" onclick="" disabled>计算1次</button>
+                                            <button type="button" class="btn btn-outline btn-danger" onclick="" disabled>100次平均</button>
                                         </p>
                                     </div>
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-8">
                                         <h4>输出曲线 <button type="button" class="btn btn-default" onclick="setWidth(300)">300px</button> <button type="button" class="btn btn-default" onclick="setWidth(700)">700px</button> <button type="button" class="btn btn-default" onclick="setWidth(1100)">1100px</button></h4>
                                         <div id="container" style="width: 700px; overflow: scroll"></div>
                                     </div>

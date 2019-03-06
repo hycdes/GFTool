@@ -135,17 +135,17 @@ function describe_mdr () { // mdr
 }
 function describe_64howa () { // 64自
   var Describe = {}
-  Describe.name = 'mdr'
+  Describe.name = '64howa'
   return Describe
 }
-function describe_m4_passive () { // M4被动
+function describe_m4 () { // 伸冤者印记
   var Describe = {}
-  Describe.name = 'm4_passive'
+  Describe.name = 'm4'
   return Describe
 }
-function describe_ar15_passive () { // AR-15被动
+function describe_ar15 () { // 罪与罚
   var Describe = {}
-  Describe.name = 'ar15_passive'
+  Describe.name = 'ar15'
   return Describe
 }
 
@@ -210,8 +210,8 @@ lib_describe.set('k2', describe_k2()) // 热力过载
 lib_describe.set('an94', describe_an94()) // 人偶扳机
 lib_describe.set('mdr', describe_mdr()) // 危机嗅探器
 lib_describe.set('64howa', describe_64howa()) // 未来预警
-lib_describe.set('m4_passive', describe_m4_passive()) // 伸冤者印记
-lib_describe.set('ar15_passive', describe_ar15_passive()) // 罪与罚
+lib_describe.set('m4', describe_m4()) // 伸冤者印记
+lib_describe.set('ar15', describe_ar15()) // 罪与罚
 
 // lib_skill
 lib_skill.set(4, [
@@ -268,10 +268,10 @@ lib_skill.set(192, [createSkill(6, 16, 0, lib_describe.get('js05'))])
 
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
-  createSkill(0, 0, 0, lib_describe.get('m4_passive'))
+  createSkill(4, 16, 10, lib_describe.get('m4'))
 ])
 lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
 lib_skill.set(1057, [
   createSkill(4, 16, 15, lib_describe.get('rof_50')),
-  createSkill(0, 0, -1, lib_describe.get('ar15_passive'))
+  createSkill(0, 0, -1, lib_describe.get('ar15'))
 ])
