@@ -254,6 +254,10 @@ function getDPS () {
     if (list_tdoll[i][1] != null) {
       if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6) {
         Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs')) // MG和SG上弹
+        if (list_tdoll[i][1].ID === 253) { // 刘易斯
+          Set_Special.set('angel_strength', 1)
+          Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
+        }
       }
     }
   }
@@ -291,7 +295,8 @@ function reactAllSkill (command, current_time) {
       for (var s_t of v) {
         if (s_t[1] > 0) s_t[1]-- // 冷却中
         else if (s_t[1] === 0) { // 激活
-          react(s_t, k, current_time) // 解释技能
+          if (Set_Special.get('reloading_' + k) != undefined) true // 换弹不准开技能
+          else react(s_t, k, current_time) // 解释技能
         }
       }
     }
@@ -306,7 +311,10 @@ function reactAllSkill (command, current_time) {
         else if (s_t[0][0] === 'avenger_mark') Set_Special.delete(k) // 特殊变量：M4炮击结束
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
         else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
-        else if (s_t[0][0] === 'reload') Set_Special.set('attack_permission_' + k, 'fire_all') // 换弹结束
+        else if (s_t[0][0] === 'reload') {
+          Set_Special.set('attack_permission_' + k, 'fire_all') // 换弹结束
+          Set_Special.delete('reloading_' + k)
+        }
         v.splice(s, 1) // 状态结束
         len_status = v.length; s-- // 检查下一个
       }
@@ -346,6 +354,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         Set_Data.get(stand_num).push([current_time, lastData])
         if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
+          if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num)<3) { // 战地魔术额外增伤
+            final_dmg *= 1.4
+          }
           if (list_tdoll[stand_num][1].ID === 77 || list_tdoll[stand_num][1].ID === 85 || list_tdoll[stand_num][1].ID === 109) { // 不可暴击：连珠终结
             var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
             if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
@@ -402,6 +413,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               if (rof > 1000) rof = 1000
               else if (rof < 1) rof = 1
               reload_frame = Math.floor((4 + 200 / rof) * 30)
+              if (list_tdoll[stand_num][1].ID === 253) { // 刘易斯 力天使
+                reload_frame = Math.max(Math.ceil(reload_frame * Math.pow(0.85, Set_Special.get('angel_strength'))), reload_frame * 0.55)
+              }
             }
           } else if (current_Info.get('type') === 6) {
             if (false) {
@@ -411,10 +425,18 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             }
           }
           Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
+          Set_Special.set('reloading_' + stand_num, true)
           changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
           Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
+          if (list_tdoll[stand_num][1].ID === 253) { // 刘易斯增加弹量
+            var angel_num = Set_Special.get('angel_strength')
+            if (angel_num < 3) angel_num++
+            Set_Special.set('angel_strength', angel_num)
+            Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num)
+            console.log(Set_Special.get('angel_strength'))
+          }
           if (list_tdoll[stand_num][1].ID === 112) { // 狂躁血脉
-            changeStatus(stand_num, 'self', 'dmg', '0.5', 25)
+            changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
           }
         } else {
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
@@ -426,6 +448,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
   }
   else if (skillname === 'property') { // 属性增益类
+    console.log('dmgup-75%', current_time / 30)
     var list_target = (s_t[0].Describe).list_target
     var len_list_target = list_target.length
     var list_value = []
@@ -446,7 +469,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
     }
     if (s_t[0].duration > 0) {
-      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_info.get('cld')) * 30) - 1 // 进入冷却
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
     } else if (s_t[0].duration === 0) { // 非持续类
       s_t[1] = -1
     }else if (s_t[0].duration === -1) { // 无限持续
