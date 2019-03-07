@@ -28,8 +28,10 @@ var Set_Base = new Map // 当前属性，当Status改变时更新
 var Set_Command = new Map // 命令，存放命令，< num_stand, command >，command = standby, freefire, skill_mf, skill_all...
 var Set_Special = new Map // 特殊变量表
 var Set_Data = new Map // 输出数据
-var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1
+var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_fragile = false
+
 var Set_EnemyStatus = new Map
+var global_frame = 0
 
 // inital
 function mergeCell (table1, startRow, endRow, col) {
@@ -232,6 +234,10 @@ function getDPS () {
   enemy_eva = parseInt(document.getElementById('enemy_eva').value)
   enemy_form = parseInt(document.getElementById('enemy_form').value)
   enemy_num = parseInt(document.getElementById('enemy_num').value)
+  enemy_fragile = false
+  if (document.getElementById('switch_normal').checked) enemy_type = 'normal'
+  else if (document.getElementById('switch_elite').checked) enemy_type = 'elite'
+  else if (document.getElementById('switch_boss').checked) enemy_type = 'boss'
   // 初始化Command
   if (init_time > 0) {
     for (var i = 0; i < 9; i++) {
@@ -272,6 +278,7 @@ function getDPS () {
 
   // 主函数
   for (var t = 0; t < time; t++) {
+    global_frame = t
     // 接敌时间
     if (init_time > 0) {
       init_time--
@@ -333,6 +340,7 @@ function reactAllSkill (command, current_time) {
         }
         v.splice(s, 1) // 状态结束
         len_status = v.length; s-- // 检查下一个
+        if (Set_Special.get('fragile_40') < global_frame) enemy_fragile = false
       }
     // -1则一直存在
     }
@@ -362,6 +370,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
         }
         final_dmg = dmg_direct + dmg_aoe
+        if (enemy_fragile) final_dmg = Math.ceil(final_dmg * 1.4)
         Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
       }
       // 正常的攻击
@@ -420,6 +429,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
           if (fire_status.substr(5) === 'all') final_dmg *= 5 // 全员攻击
           else if (fire_status.substr(5) === 'four') final_dmg *= 4 // 一人释放技能
+          if (enemy_fragile) final_dmg = Math.ceil(final_dmg * 1.4)
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
         } else {
           Set_Data.get(stand_num).push([current_time, lastData])
@@ -570,6 +580,29 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'grenade', current_time, ratio, 1)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
+  else if (skillname === 'snipe') { // 狙击
+    var ratio = (s_t[0].Describe).ratio
+    var snipe_num = (s_t[0].Describe).snipe_num
+    var time_init = (s_t[0].Describe).time_init
+    var time_interval = (s_t[0].Describe).time_interval
+    var labels = (s_t[0].Describe).labels
+    Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
+    Set_Special.set('snipe_num_' + stand_num, snipe_num)
+    Set_Special.set('snipe_interval_' + stand_num, time_interval)
+    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 30 * time_init)
+    changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'contender') { // 断罪者魔弹
+    Set_Special.set('fragile_40', global_frame + 150)
+    enemy_fragile = true
+    Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
+    Set_Special.set('snipe_num_' + stand_num, 1)
+    Set_Special.set('snipe_interval_' + stand_num, 0)
+    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 30 * 1)
+    changeStatus(stand_num, 'snipe', 'armless/critless/evaless', 3, 1)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -653,6 +686,11 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
+  } else if (target === 'snipe') {
+    var new_status = [['snipe', value + '/' + type], frame] // value+type记录：倍率/特性
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
   }
 }
 
@@ -693,10 +731,50 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
     Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
-    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form * enemy_num
+    var num_multi = enemy_num
+    if (enemy_fragile) num_multi += 0.4
+    var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form * num_multi)
     var current_time = parseInt(grenade_para[1])
     Set_Data.get(stand_num).push([current_time, lastData])
     Set_Data.get(stand_num).push([current_time, lastData + damage_explode])
+  }
+  else if (situation === 'snipe') {
+    var current_Info = (Set_Base.get(stand_num)).Info
+    var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
+    var labels = status[0][1]
+    var list_labels = labels.split('/') // ratio,arm,crit,eva
+    var ratio = parseFloat(list_labels[0])
+    var num_leftsnipe = Set_Special.get('snipe_num_' + stand_num)
+    num_leftsnipe--
+    Set_Special.set('snipe_num_' + stand_num, num_leftsnipe)
+    var damage_snipe_single = 0
+    if (list_tdoll[stand_num][1].ID === 192) {
+      if (document.getElementById('special_js05_' + stand_num).checked) damage_snipe_single = ratio * current_Info.get('dmg') * (enemy_num + 1)
+      else damage_snipe_single = ratio * current_Info.get('dmg') * 2
+    } else {
+      damage_snipe_single = ratio * current_Info.get('dmg')
+    }
+    if (list_labels[1] != 'armless') {
+      damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+    }
+    if (list_labels[2] != 'critless') {
+      if (Math.random <= current_Info.get('crit') || Set_Special.get('must_crit_' + stand_num) === true) damage_snipe_single *= (1 + current_Info.get('critdmg'))
+    }
+    if (list_labels[3] != 'evaless') {
+      if (Math.random > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
+    }
+    damage_snipe_single = Math.ceil(damage_snipe_single * 5)
+    var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
+    Set_Data.get(stand_num).push([current_time, lastData])
+    if (enemy_fragile) damage_snipe_single = Math.ceil(damage_snipe_single * 1.4)
+    Set_Data.get(stand_num).push([current_time, lastData + damage_snipe_single])
+    if (num_leftsnipe === 0) { // 狙击次数完毕
+      Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+    } else {
+      var time_init = Set_Special.get('snipe_interval_' + stand_num)
+      Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 30 * time_init)
+      changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+    }
   }
 }
 
@@ -833,7 +911,7 @@ function makeGraph (x_max, y_max, str_label) {
     { data: Set_Data.get(8), label: str_label[8]},
     { data: Set_Data.get(9), label: str_label[9]}
   ], {
-    colors: ['#FF0000', '#FF6666', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000'],
+    colors: ['#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000'],
     xaxis: { title: '时间',max: x_max, min: 0 },
     yaxis: { title: '伤害', max: y_max, min: 0 },
     mouse: { track: true, relative: true, trackFormatter: formater_DPS },
@@ -851,8 +929,6 @@ function test (num) {
   if (num === 1) console.log(blockSet)
   else if (num === 2) console.log(list_tdoll)
   else if (num === 3) console.log(Set_Data)
-  else if (num === 4) {
-    console.log(Set_EnemyStatus.get('avenger_mark'))
-  }
+  else if (num === 4) console.log(Set_EnemyStatus.get('avenger_mark'))
 // SAMPLE
 }

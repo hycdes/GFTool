@@ -368,6 +368,9 @@ function addTdoll () { // 添加战术人形
     else if (ID === 1055) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> 使用武器库炮击'
     }
+    else if (ID === 192) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> 贯穿射击所有敌人'
+    }
     else if (ID === 238) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> 切换轻机枪模式'
     }

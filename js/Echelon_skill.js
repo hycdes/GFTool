@@ -54,11 +54,6 @@ function describe_dsr50 (ratio_armless, ratio_arm, time_init, labels) { // 崩�
   Describe.labels = labels
   return Describe
 }
-function describe_js05 () { // 贯通射击
-  var Describe = {}
-  Describe.name = 'js05'
-  return Describe
-}
 
 function describe_hs2000 () {
   var Describe = {}
@@ -82,11 +77,6 @@ function describe_sop2 () { // 狂乱马戏
   return Describe
 }
 
-function describe_cz75 () {
-  var Describe = {}
-  Describe.name = 'cz75'
-  return Describe
-}
 function describe_contender () {
   var Describe = {}
   Describe.name = 'contender'
@@ -186,12 +176,13 @@ lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) /
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
-lib_describe.set('js05', describe_js05()) // 贯通射击
+lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击，目标数特殊变量设定
+lib_describe.set('tac50', describe_snipe(4.5, 1, 0, 1, 'armless/crit/evaless')) // 枫华萤火
 
 lib_describe.set('python', describe_python()) // 无畏者之拥
-lib_describe.set('cz75', describe_cz75()) // 观测者直击
+lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
 lib_describe.set('contender', describe_contender()) // 断罪者魔弹
-lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
+lib_describe.set('hs2000', describe_property(['all'], ['dmg/acu'], ['0.35/0.35'])) // 反击者壁垒
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
@@ -222,7 +213,7 @@ lib_skill.set(166, [createSkill(6, 12, 0, lib_describe.get('cz75'))])
 lib_skill.set(183, [createSkill(6, 12, 0, lib_describe.get('contender'))])
 lib_skill.set(233, [createSkill(6, 12, 8, lib_describe.get('px4'))])
 lib_skill.set(242, [createSkill(6, 12, 8, lib_describe.get('p22'))])
-lib_skill.set(250, [createSkill(6, 12, 0, lib_describe.get('hs2000'))])
+lib_skill.set(250, [createSkill(9, 9, 5, lib_describe.get('hs2000'))]) // 暂时不做护盾
 lib_skill.set(1001, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
 
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
@@ -287,7 +278,7 @@ lib_skill.set(197, [])
 lib_skill.set(198, [])
 lib_skill.set(204, [])
 lib_skill.set(211, [createSkill(6, 8, 5, lib_describe.get('srs'))])
-lib_skill.set(222, [])
+lib_skill.set(222, [createSkill(10, 16, 0, lib_describe.get('tac50'))])
 lib_skill.set(231, [])
 
 lib_skill.set(109, []) // 连珠终结实现于攻击
