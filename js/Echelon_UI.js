@@ -1,3 +1,62 @@
+function showAffect () {
+  for (var i = 1; i <= 3; i++) {
+    for (var j = 1; j <= 3;j++) document.getElementById('a' + i + '' + j).style = 'background-color:#000000'
+  }
+  if (set_guntype >= 1) {
+    var ID = parseInt(document.getElementById('select_tdoll').value)
+    var affect = lib_affect.get(ID)
+    var list_area = (affect.area).split('/')
+    var target = affect.target
+    var affect_type = affect.affect_type
+    var affect_value = affect.affect_value
+    var str_final = '影响'
+    var len = list_area.length - 1, base = [2, 2]
+    var list_posi = [base]
+    for (var i = 0; i < len; i++) {
+      var len_wd = list_area[i].length
+      var next_position = base.concat([])
+      for (var n = 0; n < len_wd; n++) {
+        if (list_area[i][n] === 'u') next_position[1]--
+        else if (list_area[i][n] === 'd') next_position[1]++
+        else if (list_area[i][n] === 'l') next_position[0]--
+        else if (list_area[i][n] === 'r') next_position[0]++
+      }
+      if (next_position[0] - 1 < 0) {
+        for (var e of list_posi) e[0] -= (next_position[0] - 1)
+        next_position[0] -= (next_position[0] - 1)
+      } else if (3 - next_position[0] < 0) {
+        for (var e of list_posi) e[0] += (3 - next_position[0])
+        next_position[0] += (3 - next_position[0])
+      }
+      if (next_position[1] - 1 < 0) {
+        for (var e of list_posi) e[1] -= (next_position[1] - 1)
+        next_position[1] -= (next_position[1] - 1)
+      } else if (3 - next_position[1] < 0) {
+        for (var e of list_posi) e[1] += (3 - next_position[1])
+        next_position[1] += (3 - next_position[1])
+      }
+      list_posi.push(next_position)
+    }
+    for (var e of list_posi) document.getElementById('a' + e[1] + '' + e[0]).style = 'background-color:#00FFDE'
+    document.getElementById('a' + list_posi[0][1] + '' + list_posi[0][0]).style = 'background-color:#FFFFFF'
+    str_final += target.toUpperCase() + ', '
+    var len_t = affect_type.length
+    for (var i = 0; i < len_t; i++) {
+      var str_temp = ''
+      if (affect_type[i] === 'dmg') str_temp = '伤害+'
+      else if (affect_type[i] === 'rof') str_temp = '射速+'
+      else if (affect_type[i] === 'acu') str_temp = '命中+'
+      else if (affect_type[i] === 'eva') str_temp = '回避+'
+      else if (affect_type[i] === 'crit') str_temp = '暴击+'
+      else if (affect_type[i] === 'arm') str_temp = '护甲+'
+      else if (affect_type[i] === 'cld') str_temp = '冷却+'
+      str_temp += parseInt(100 * parseFloat(affect_value[i])) + '% '
+      str_final += str_temp
+    }
+    document.getElementById('a_exp').innerHTML = str_final
+  }
+}
+
 function pickBlock (num) { // 选定格子，只有选定状态才能激活UI，管理全局变量switch_operate和num_pickblock
   if (num_pickblock === num) num_pickblock = -1 // 点已选定的格子，取消选定
   else num_pickblock = num // 选定没选定的格子
@@ -16,14 +75,21 @@ function changeAffection () { // 改变好感度，别把Affection(好感度)和
 }
 
 function changeStar (num) { // 改变星级，管理全局变量num_star
-  if (num === 1 && num_star < 5)  num_star++
-  else if (num === 2 && num_star > 2)  num_star--
+  if (num === 1 && num_star < 5) num_star++
+  else if (num === 0 && num_star > 2) {
+    if (set_guntype != 6 && num_star > 2) num_star--
+    else if (set_guntype === 6 && num_star > 3) num_star--
+  }
+  else if (num === -1) num_star = 5
+  else if (num <= 5 && num >= 2) num_star = num
   manageUI('change-star')
+  changeSelectItems()
 }
 
 function pickGunType (num) { // 选定枪种后改变全局变量set_guntype
   set_guntype = num
   manageUI('pick-gun')
+  changeStar(-1)
   changeSelectItems()
 }
 function pickEquip (num) { // 选定装备格子，管理全局变量num_pickequip
@@ -60,6 +126,7 @@ function manageUI () { // 管理图标变化，不涉及后台数值
       need_refresh = false
     }
     if (can_editTdoll) {
+      changeStar(100)
       if (need_refresh) pickGunType(1)
       else {
         readStatus()
@@ -67,6 +134,7 @@ function manageUI () { // 管理图标变化，不涉及后台数值
       }
     } else {
       pickGunType(0)
+      changeStar(-1)
     }
     if (can_add) {
       document.getElementById('button_addTdoll').disabled = false
@@ -96,14 +164,32 @@ function manageUI () { // 管理图标变化，不涉及后台数值
     document.getElementById('icon-addstar').src = '../img/echelon/icon-add.png'
     document.getElementById('icon-substar').src = '../img/echelon/icon-sub.png'
     document.getElementById('icon-addstar').style = 'cursor: pointer'
-    document.getElementById('icon-addstar').style = 'cursor: pointer'
+    document.getElementById('icon-substar').style = 'cursor: pointer'
+    document.getElementById('icon-addstar').onclick = Function('changeStar(1)')
+    document.getElementById('icon-substar').onclick = Function('changeStar(0)')
     if (num_star === 5) {
       document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
       document.getElementById('icon-addstar').style = 'cursor: default'
+      document.getElementById('icon-addstar').onclick = ''
+    }
+    if (num_star === 3 && set_guntype === 6) {
+      document.getElementById('icon-substar').src = '../img/echelon/icon-sub-disable.png'
+      document.getElementById('icon-substar').style = 'cursor: default'
+      document.getElementById('icon-substar').onclick = ''
     }
     if (num_star === 2) {
       document.getElementById('icon-substar').src = '../img/echelon/icon-sub-disable.png'
       document.getElementById('icon-substar').style = 'cursor: default'
+      document.getElementById('icon-substar').onclick = ''
+    }
+    if (set_guntype === 0) {
+      document.getElementById('icon-star').src = '../img/echelon/icon-5star.png'
+      document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
+      document.getElementById('icon-substar').src = '../img/echelon/icon-sub-disable.png'
+      document.getElementById('icon-addstar').style = 'cursor: default'
+      document.getElementById('icon-substar').style = 'cursor: default'
+      document.getElementById('icon-addstar').onclick = ''
+      document.getElementById('icon-substar').onclick = ''
     }
   }
   else if (command === 'pick-gun') {
@@ -327,13 +413,14 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     // readStatus需要保存当前状态，添加人形会把buffer_last填入buffer_table
     buffer_last = [set_guntype, num_star, ID, set_equip, affection, e_affection]
   }
+  showAffect()
 }
 function readStatus () { // 读取已有人形之前的全局环境
   var this_buffer = buffer_table.get(num_pickblock)
   set_guntype = this_buffer[0]
   pickGunType(set_guntype)
   num_star = this_buffer[1]
-  // changeStar(star)
+  changeStar(num_star)
   document.getElementById('select_tdoll').value = this_buffer[2]
   changePreview()
   set_equip[0] = this_buffer[3][0]; set_equip[1] = this_buffer[3][1]; set_equip[2] = this_buffer[3][2]

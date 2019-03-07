@@ -153,10 +153,10 @@ lib_affect.set(105, createAffect('ru/r/', 'smg', ['dmg', 'rof'], [0.15, 0.2])) /
 lib_affect.set(106, createAffect('ru/r/rd/', 'smg', ['eva'], [0.2])) // FAL
 lib_affect.set(107, createAffect('r/', 'smg', ['dmg', 'eva'], [0.2, 0.1])) // F2000
 lib_affect.set(108, createAffect('ru/rd/', 'smg', ['rof', 'acu'], [0.25, 0.5])) // CZ-805
-lib_affect.set(109, createAffect('rru/rrd/', 'sg', ['dmg', 'cld'], [0.1, 0.1])) // MG5
+lib_affect.set(109, createAffect('rru/rrd/', 'sg', ['dmg', 'arm'], [0.1, 0.1])) // MG5
 lib_affect.set(110, createAffect('rru/rrd/', 'sg', ['acu'], [0.3])) // FG42
 lib_affect.set(111, createAffect('rrdd/', 'sg', ['rof'], [0.2])) // AAT-52
-lib_affect.set(112, createAffect('rru/rr/rrd/', 'sg', ['cld'], [0.2])) // 内格夫
+lib_affect.set(112, createAffect('rru/rr/rrd/', 'sg', ['arm'], [0.2])) // 内格夫
 lib_affect.set(113, createAffect('u/l/d/', 'all', ['dmg', 'acu'], [0.24, 0.4])) // 谢尔久科夫
 lib_affect.set(114, createAffect('u/lu/l/d/ld/', 'all', ['dmg', 'rof'], [0.2, 0.16])) // 维尔德MkⅡ
 lib_affect.set(115, createAffect('lu/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])) // 索米
@@ -186,7 +186,7 @@ lib_affect.set(138, createAffect('r/', 'smg', ['dmg'], [0.35])) // 6P62
 lib_affect.set(139, createAffect('u/d/l/r/', 'all', ['dmg', 'rof'], [0.16, 0.1])) // Bren Ten
 lib_affect.set(140, createAffect('ru/l/r/rd/', 'all', ['acu', 'eva'], [0.56, 0.36])) // PSM
 lib_affect.set(141, createAffect('lu/r/ld/', 'all', ['rof'], [0.28])) // USP Compact
-lib_affect.set(142, createAffect('lu/l/r/ld/', 'all', ['rof', 'crit'], [0.3, 0.2])) // Five-seveN
+lib_affect.set(142, createAffect('u/ur/d/dr/', 'all', ['rof', 'crit'], [0.3, 0.2])) // Five-seveN
 lib_affect.set(143, createAffect('u/lu/l/d/ld/', 'ar', ['rof', 'acu'], [0.1, 0.35])) // RO635
 lib_affect.set(144, createAffect('lu/ld/', 'ar', ['dmg', 'eva'], [0.1, 0.12])) // MT-9
 lib_affect.set(145, createAffect('ru/rd/', 'hg', ['cld'], [0.12])) // OTs-44

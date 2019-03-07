@@ -227,6 +227,13 @@ lib_skill.set(1001, [
 ])
 
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
+lib_skill.set(7, [createSkill(6, 12, 8, lib_describe.get('com_rof_22'))])
+lib_skill.set(98, []) // 掩护压制
+lib_skill.set(99, []) // 火N
+lib_skill.set(100, []) // 掩护号令
+lib_skill.set(168, [])
+lib_skill.set(202, [])
+lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
 
 lib_skill.set(62, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))])
 lib_skill.set(65, [createSkill(8, 16, 0, lib_describe.get('grenade_15'))])

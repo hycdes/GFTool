@@ -18,11 +18,26 @@ function changeSelectItems () {
       str_items += '<option value=250>No.250 HS2000</option>'
       str_items += '<option value=1001>No.1 [MOD] 柯尔特左轮</option>'
     } else if (num_star === 4) {
-      str_items += '<option value=-1 selected>还没做！</option>'
+      str_items += '<option value=1 selected>No.1 柯尔特左轮</option>'
+      str_items += '<option value=7>No.7 斯捷奇金</option>'
+      str_items += '<option value=98>No.98 SPP-1</option>'
+      str_items += '<option value=99>No.99 MK23</option>'
+      str_items += '<option value=100>No.100 P7</option>'
+      str_items += '<option value=168>No.168 SpitFire</option>'
+      str_items += '<option value=202>No.202 雷电</option>'
+      str_items += '<option value=212>No.212 K5</option>'
+    // str_items += '<option value=248>No.248 杰里科</option>'
     } else if (num_star === 3) {
-      str_items += '<option value=-1 selected>还没做！</option>'
+      str_items += '<option value=3 selected>No.3 M9</option>'
     } else if (num_star === 2) {
-      str_items += '<option value=-1 selected>还没做！</option>'
+      str_items += '<option value=2 selected>No.2 M1911</option>'
+      str_items += '<option value=5>No.5 纳甘左轮</option>'
+      str_items += '<option value=9>No.9 P38</option>'
+      str_items += '<option value=10>No.10 PPK</option>'
+      str_items += '<option value=91>No.91 MP-446</option>'
+      str_items += '<option value=90>No.90 FNP-9</option>'
+      str_items += '<option value=139>No.139 Bren Ten</option>'
+      str_items += '<option value=141>No.141 USP Compact</option>'
     }
   } else if (set_guntype === 2) { // AR
     if (num_star === 5) {

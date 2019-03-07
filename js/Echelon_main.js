@@ -56,6 +56,7 @@ window.onload = function () {
   loadScript('../js/Echelon_UI.js')
   loadScript('../js/Echelon_select.js')
   mergeCell('table_property', 0, 2, 0)
+  mergeCell('table_affect', 0, 2, 3)
 }
 
 function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) {

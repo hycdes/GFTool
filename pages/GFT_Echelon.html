@@ -19,6 +19,21 @@
             text-align: center
         }
 
+        .td_affect {
+            padding: 0px;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            text-align: center
+        }
+
+        .td_affect_info {
+            padding: 0px;
+            width: 210px;
+            height: 10px;
+            text-align: center
+        }
+
         .td_pickgun {
             padding: 0px;
             background-color: black;
@@ -102,7 +117,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    梯队设置——目前进度：所有普攻、所有增益技能、所有MG技能、416的榴弹、M4炮击、AR15被动
+                                    梯队设置——目前进度：能看到的基本都做了！影响格数据错误请反馈给我哦！
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
@@ -181,6 +196,35 @@
                                                                 <td class="td_info" id='info_arm'>护甲 -</td>
                                                                 <td class="td_info" id='info_ap'>穿甲 -</td>
                                                             </tr>
+                                                        </table>
+                                                        <table class="table_other table-bordered table-hover" style="width:240px" id="table_affect">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="td_affect" id='a11'></td>
+                                                                    <td class="td_affect" id='a12'></td>
+                                                                    <td class="td_affect" id='a13'></td>
+                                                                    <td class="td_affect_info" id='a_exp'></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="td_affect" id='a21'></td>
+                                                                    <td class="td_affect" id='a22'></td>
+                                                                    <td class="td_affect" id='a23'></td>
+                                                                    <td class="td_affect_info"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="td_affect" id='a31'></td>
+                                                                    <td class="td_affect" id='a32'></td>
+                                                                    <td class="td_affect" id='a33'></td>
+                                                                    <td class="td_affect_info"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table class="table_other table-bordered table-hover" style="width:240px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="height: 30px" id='a_have'>以后会显示吃了多少增益</td>
+                                                                </tr>
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                     <!--SETTING-->
