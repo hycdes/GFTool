@@ -372,9 +372,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           0
         }
         if (list_tdoll[stand_num][1].ID === 4 && Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) { // 蟒蛇无畏者之拥期间
-          console.log('SpecialAttackLeft=', Set_Special.get('python_active'))
           var num_left = Set_Special.get('python_active') - 1
-          if (num_left === 0) console.log('[ ACTIVE ENDING ]')
           Set_Special.set('python_active', num_left)
           changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
         }
@@ -536,7 +534,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
   }
   else if (skillname === 'python') {
-    console.log('[ Embrace of the Dauntless ]')
     Set_Special.set('python_active', 6) // 重置无畏者之拥次数
     Set_Special.set('python_opening', true) // 开启主动
     changeStatus(stand_num, 'python', null, null, 5) // 施加无畏者之拥状态
@@ -564,9 +561,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
   var frame = 30 * duration
   if (target === 'all') { // 号令类
     if (!Set_Special.get('can_add_python')) { // 有蟒蛇，需要触发被动
-      console.log(type + '_command')
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
-        console.log('reflect buff_' + type + ', ' + type + '_buff=' + (Set_Special.get('python_' + type) + 1))
         var new_level = Set_Special.get('python_' + type) + 1
         Set_Special.set('python_' + type, new_level)
         react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0)
@@ -580,9 +575,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     endStatus(-1, new_status, 'get')
   } else if (target === 'self') { // 专注类
     if (!Set_Special.get('can_add_python') && list_tdoll[stand_num][1].ID === 4) { // 此人是蟒蛇
-      console.log(type + '_up')
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
-        console.log('reflect buff_' + type + ', ' + type + '_buff=' + (Set_Special.get('python_' + type) + 1))
         var new_level = Set_Special.get('python_' + type) + 1
         Set_Special.set('python_' + type, new_level)
         react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0)
@@ -840,7 +833,7 @@ function makeGraph (x_max, y_max, str_label) {
 }
 
 function test (num) {
-  if (num === 1) console.log(blockSet)
+if (num === 1) console.log(blockSet)
   else if (num === 2) console.log(list_tdoll)
   else if (num === 3) console.log(Set_Data)
   else if (num === 4) {

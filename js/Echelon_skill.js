@@ -212,8 +212,7 @@ lib_describe.set('mg4', describe_property(['self'], ['dmg'], ['0.35'])) // MG4�
 lib_describe.set('hk21', describe_property(['self'], ['dmg/acu'], ['0.4/0.3'])) // 无差别崩坏，弹量实现于发动伤害增益
 
 // lib_skill
-lib_skill.set(4, []) // 被动通过特殊变量实现
-// createSkill(6, 12, 5, lib_describe.get('python'))
+lib_skill.set(4, [createSkill(6, 12, 5, lib_describe.get('python'))]) // 被动通过特殊变量实现
 lib_skill.set(96, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
 lib_skill.set(97, [createSkill(6, 12, 8, lib_describe.get('com_rof_25'))])
 lib_skill.set(114, [createSkill(6, 12, 6, lib_describe.get('acu_45_enemy'))])
