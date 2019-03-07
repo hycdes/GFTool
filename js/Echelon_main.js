@@ -219,6 +219,14 @@ function getDPS () {
       Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
     }
   }
+  if (!Set_Special.get('can_add_python')) { // 有蟒蛇存在
+    Set_Special.set('python_dmg', 0)
+    Set_Special.set('python_rof', 0)
+    Set_Special.set('python_acu', 0)
+    Set_Special.set('python_eva', 0)
+    Set_Special.set('python_crit', 0)
+    Set_Special.set('python_active', 6)
+  }
   // 载入敌人属性
   enemy_arm = parseInt(document.getElementById('enemy_arm').value)
   enemy_eva = parseInt(document.getElementById('enemy_eva').value)
@@ -248,7 +256,7 @@ function getDPS () {
   }
   // 载入初始状态（全局设定、妖精天赋、换弹）
   if (document.getElementById('check_init_critmax').checked) {
-    changeStatus(-1, 'all', 'crit', '100', -1)
+    for (var i = 0; i < 9; i++) Set_Special.set('must_crit_' + i, true)
   }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
@@ -310,6 +318,12 @@ function reactAllSkill (command, current_time) {
         if (isProperty(s_t[0][0])) {
           endStatus(k, s_t, 'lost') // 更新属性
         }
+        else if (s_t[0][0] === 'python') Set_Special.delete('python_opening')
+        else if (s_t[0][0].substr(0, 12) === 'python_buff_') {
+          var str_type = s_t[0][0].substr(12)
+          var new_num = Set_Special.get('python_' + str_type)
+          if (new_num > 0) Set_Special.set('python_' + str_type, new_num - 1)
+        }
         else if (s_t[0][0] === 'avenger_mark') Set_Special.delete(k) // 特殊变量：M4炮击结束
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
         else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
@@ -357,6 +371,13 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         if (list_tdoll[stand_num][1].ID === 173) { // PKP暴动宣告
           0
         }
+        if (list_tdoll[stand_num][1].ID === 4 && Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) { // 蟒蛇无畏者之拥期间
+          console.log('SpecialAttackLeft=', Set_Special.get('python_active'))
+          var num_left = Set_Special.get('python_active') - 1
+          if (num_left === 0) console.log('[ ACTIVE ENDING ]')
+          Set_Special.set('python_active', num_left)
+          changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
+        }
         if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) { // 战地魔术额外增伤
@@ -375,7 +396,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             }
           } else { // 按概率暴击的攻击
             var final_crit = 1
-            if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+            if (Set_Special.get('must_crit_' + stand_num) != undefined || Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
             final_dmg = Math.ceil(final_dmg * final_crit)
           }
           if (list_tdoll[stand_num][1].ID === 1057) { // 如果AR-15 MOD
@@ -453,7 +474,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         }
       }
     } else if (fire_status === 'stop') {
-      // 技能禁止攻击，或换弹
+      // 技能禁止攻击，或换弹，无任何操作
     }
   }
   else if (skillname === 'property') { // 属性增益类
@@ -514,6 +535,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       s_t[1] = -1
     }
   }
+  else if (skillname === 'python') {
+    console.log('[ Embrace of the Dauntless ]')
+    Set_Special.set('python_active', 6) // 重置无畏者之拥次数
+    Set_Special.set('python_opening', true) // 开启主动
+    changeStatus(stand_num, 'python', null, null, 5) // 施加无畏者之拥状态
+    Set_Skill.get(stand_num)[0][1] = 0 // 重置普攻
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'm4') {
     Set_EnemyStatus.set('avenger_mark', true) // 敌人施加伸冤者印记
     if (document.getElementById('special_m4_' + stand_num).checked) { // 使用武器库炮击
@@ -535,7 +564,14 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
   var frame = 30 * duration
   if (target === 'all') { // 号令类
     if (!Set_Special.get('can_add_python')) { // 有蟒蛇，需要触发被动
-      //
+      console.log(type + '_command')
+      if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
+        console.log('reflect buff_' + type + ', ' + type + '_buff=' + (Set_Special.get('python_' + type) + 1))
+        var new_level = Set_Special.get('python_' + type) + 1
+        Set_Special.set('python_' + type, new_level)
+        react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0)
+        changeStatus(stand_num, 'python_buff_' + type, type, null, 3)
+      }
     }
     var new_status = [[type, 1 + parseFloat(value)], frame]
     var list_status = Set_Status.get(-1)
@@ -543,6 +579,16 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     Set_Status.set(-1, list_status)
     endStatus(-1, new_status, 'get')
   } else if (target === 'self') { // 专注类
+    if (!Set_Special.get('can_add_python') && list_tdoll[stand_num][1].ID === 4) { // 此人是蟒蛇
+      console.log(type + '_up')
+      if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
+        console.log('reflect buff_' + type + ', ' + type + '_buff=' + (Set_Special.get('python_' + type) + 1))
+        var new_level = Set_Special.get('python_' + type) + 1
+        Set_Special.set('python_' + type, new_level)
+        react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0)
+        changeStatus(stand_num, 'python_buff_' + type, type, null, 3)
+      }
+    }
     var new_status = [[type, 1 + parseFloat(value)], frame]
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
@@ -571,6 +617,18 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
         endStatus(stand_num, new_status, 'get')
       }
     }
+  }
+  else if (target === 'python') {
+    var new_status = [['python', null], frame]
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
+  }
+  else if (target.substr(0, 12) === 'python_buff_') {
+    var new_status = [['python_buff_' + type, null], frame]
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
   }
   else if (target === 'avenger_mark') {
     var new_status = [['avenger_mark', null], frame]

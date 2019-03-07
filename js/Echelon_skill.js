@@ -93,16 +93,12 @@ function describe_contender () {
   return Describe
 }
 
-function describe_python_active () { // 蟒蛇_主动
+function describe_python () { // 蟒蛇_主动
   var Describe = {}
-  Describe.name = 'python_active'
+  Describe.name = 'python'
   return Describe
 }
-function describe_python_passive () { // 蟒蛇_被动
-  var Describe = {}
-  Describe.name = 'python_passive'
-  return Describe
-}
+
 function describe_aug () { // AUG
   var Describe = {}
   Describe.name = 'aug'
@@ -154,6 +150,11 @@ lib_describe.set('com_dmgND_20', describe_property(['all'], ['dmg'], ['0.2'])) /
 lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) // 突击号令 25%
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
+lib_describe.set('python_dmg', describe_property(['bloall'], ['dmg'], ['0.06']))
+lib_describe.set('python_rof', describe_property(['bloall'], ['rof'], ['0.06']))
+lib_describe.set('python_acu', describe_property(['bloall'], ['acu'], ['0.3']))
+lib_describe.set('python_eva', describe_property(['bloall'], ['eva'], ['0.3']))
+lib_describe.set('python_crit', describe_property(['bloall'], ['crit'], ['0.12']))
 lib_describe.set('px4', describe_property(['bloall'], ['crit/critdmg'], ['-0.2/0.5'])) // 狩猎筹码
 lib_describe.set('k5', describe_property(
   ['blohg', 'blosmg', 'bloar', 'blorf', 'blomg', 'blosg'],
@@ -187,8 +188,7 @@ lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
 lib_describe.set('js05', describe_js05()) // 贯通射击
 
-lib_describe.set('python_active', describe_python_active()) // 无畏者之拥：主动
-lib_describe.set('python_passive', describe_python_passive()) // 无畏者之拥：被动
+lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('cz75', describe_cz75()) // 观测者直击
 lib_describe.set('contender', describe_contender()) // 断罪者魔弹
 lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
@@ -212,10 +212,8 @@ lib_describe.set('mg4', describe_property(['self'], ['dmg'], ['0.35'])) // MG4�
 lib_describe.set('hk21', describe_property(['self'], ['dmg/acu'], ['0.4/0.3'])) // 无差别崩坏，弹量实现于发动伤害增益
 
 // lib_skill
-lib_skill.set(4, [
-  createSkill(6, 12, 5, lib_describe.get('python_active')),
-  createSkill(0, 0, 3, lib_describe.get('python_passive'))
-])
+lib_skill.set(4, []) // 被动通过特殊变量实现
+// createSkill(6, 12, 5, lib_describe.get('python'))
 lib_skill.set(96, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
 lib_skill.set(97, [createSkill(6, 12, 8, lib_describe.get('com_rof_25'))])
 lib_skill.set(114, [createSkill(6, 12, 6, lib_describe.get('acu_45_enemy'))])
