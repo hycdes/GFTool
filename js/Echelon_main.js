@@ -137,14 +137,14 @@ function getResult (multiple) {
         var i_this = 0, i_new = 0
         while (true) {
           if (i_this < len_this && i_new < len_new) {
-            if (this_data[i_this][0] === new_data[i_this][0]) { // 同一个x坐标
+            if (this_data[i_this][0] === new_data[i_new][0]) { // 同一个x坐标
               final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new][1]])
               i_this++
               i_new++
             } else if (this_data[i_this][0] > new_data[i_new][0]) { // 新数据靠前
               final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
               i_new++
-            } else if (this_data[x_this][0] < new_data[x_new][0]) {
+            } else if (this_data[i_this][0] < new_data[i_new][0]) {
               final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
               i_this++
             }
@@ -368,10 +368,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       else {
         var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
         Set_Data.get(stand_num).push([current_time, lastData])
-        if (list_tdoll[stand_num][1].ID === 173) { // PKP暴动宣告
-          0
-        }
         if (list_tdoll[stand_num][1].ID === 4 && Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) { // 蟒蛇无畏者之拥期间
+          if (Set_Special.get('python_active') === 1) final_dmg *= 2
           var num_left = Set_Special.get('python_active') - 1
           Set_Special.set('python_active', num_left)
           changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
@@ -394,7 +392,13 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             }
           } else { // 按概率暴击的攻击
             var final_crit = 1
-            if (Set_Special.get('must_crit_' + stand_num) != undefined || Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+            if (Set_Special.get('must_crit_' + stand_num) != undefined || Math.random() + current_Info.get('crit') >= 1) {
+              final_crit *= current_Info.get('critdmg')
+            }
+            if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && list_tdoll[stand_num][1].ID === 173) { // 暴动宣告的1.5倍且必暴子弹
+              Set_Special.set('pkp_nextcrit_' + stand_num, false)
+              final_crit = current_Info.get('critdmg') * 1.5
+            }
             final_dmg = Math.ceil(final_dmg * final_crit)
           }
           if (list_tdoll[stand_num][1].ID === 1057) { // 如果AR-15 MOD
@@ -426,7 +430,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
       } else { // MG和SG扣除子弹
         var cs = Set_Special.get('clipsize_' + stand_num)
+        var extra_shoot_pkp = false
         cs--
+        if (list_tdoll[stand_num][1].ID === 173) { // PKP暴动宣告
+          if (Math.random() <= 0.2) {
+            cs++
+            extra_shoot_pkp = true
+          }
+        }
         if (cs === 0) { // 需要换弹
           var reload_frame = 0
           var rof = current_Info.get('rof')
@@ -467,7 +478,11 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
           }
         } else {
-          s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+          if (extra_shoot_pkp) {
+            Set_Special.set('pkp_nextcrit_' + stand_num, true)
+            s_t[1] = 0
+          }
+          else s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
           Set_Special.set('clipsize_' + stand_num, cs)
         }
       }
@@ -833,7 +848,7 @@ function makeGraph (x_max, y_max, str_label) {
 }
 
 function test (num) {
-if (num === 1) console.log(blockSet)
+  if (num === 1) console.log(blockSet)
   else if (num === 2) console.log(list_tdoll)
   else if (num === 3) console.log(Set_Data)
   else if (num === 4) {
