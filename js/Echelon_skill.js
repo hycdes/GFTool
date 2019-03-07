@@ -27,6 +27,11 @@ function describe_property (list_target, list_pro, list_value) { // 属性增益
   Describe.list_value = list_value
   return Describe
 }
+function describe_colt () {
+  var Describe = {}
+  Describe.name = 'colt'
+  return Describe
+}
 
 function describe_grenade (ratio) { // 榴弹
   var Describe = {}
@@ -140,6 +145,7 @@ lib_describe.set('com_dmgND_20', describe_property(['all'], ['dmg'], ['0.2'])) /
 lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) // 突击号令 25%
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
+lib_describe.set('colt', describe_colt()) // 决斗幸存者
 lib_describe.set('python_dmg', describe_property(['bloall'], ['dmg'], ['0.06']))
 lib_describe.set('python_rof', describe_property(['bloall'], ['rof'], ['0.06']))
 lib_describe.set('python_acu', describe_property(['bloall'], ['acu'], ['0.3']))
@@ -175,6 +181,7 @@ lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) /
 
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
+lib_describe.set('snipe_6.5', describe_snipe(6.5, 1.5, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
 lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击，目标数特殊变量设定
 lib_describe.set('tac50', describe_snipe(4.5, 1, 0, 1, 'armless/crit/evaless')) // 枫华萤火
@@ -214,7 +221,10 @@ lib_skill.set(183, [createSkill(6, 12, 0, lib_describe.get('contender'))])
 lib_skill.set(233, [createSkill(6, 12, 8, lib_describe.get('px4'))])
 lib_skill.set(242, [createSkill(6, 12, 8, lib_describe.get('p22'))])
 lib_skill.set(250, [createSkill(9, 9, 5, lib_describe.get('hs2000'))]) // 暂时不做护盾
-lib_skill.set(1001, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
+lib_skill.set(1001, [
+  createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
+  createSkill(4, 4, -1, lib_describe.get('colt'))
+])
 
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
 
@@ -280,6 +290,7 @@ lib_skill.set(204, [])
 lib_skill.set(211, [createSkill(6, 8, 5, lib_describe.get('srs'))])
 lib_skill.set(222, [createSkill(10, 16, 0, lib_describe.get('tac50'))])
 lib_skill.set(231, [])
+lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
 
 lib_skill.set(109, []) // 连珠终结实现于攻击
 lib_skill.set(112, []) // 狂躁血脉实现于换弹

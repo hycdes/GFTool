@@ -155,7 +155,8 @@ function changeEquip () {
     if (set_guntype === 1) { // HG
       str_items += '<option value=11>AC4消音器</option>'
       str_items += '<option value=41>PEQ-16A</option>'
-      if (ID === 1001) { // 纳甘左轮
+      if (ID === 1001) { // 柯尔特左轮
+        str_items += '<option value=11001>柯尔特左轮长枪管</option>'
       }
     } else if (set_guntype === 2) { // AR
       if (ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
@@ -187,6 +188,9 @@ function changeEquip () {
       str_items += '<option value=14>EOT 518</option>'
       str_items += '<option value=13>ITI MARS</option>'
       str_items += '<option value=11>AC4消音器</option>'
+      if (ID === 1039) { // 莫辛纳甘-MOD
+        str_items += '<option value=11039>K6-24X56</option>'
+      }
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=12>VFL 6-24X56</option>'
       str_items += '<option value=14>EOT 518</option>'
@@ -254,6 +258,9 @@ function changeEquip () {
       str_items += '<option value=41>PEQ-16A</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=34>热光学迷彩披风</option>'
+      if (ID === 1039) { // 莫辛纳甘-MOD
+        str_items += '<option value=31039>Hayha记忆芯片</option>'
+      }
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=35>IOP极限弹链箱</option>'
       if (ID === 1075) str_items += '<option value=31075>Titan火控芯片</option>'

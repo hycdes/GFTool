@@ -264,6 +264,14 @@ function getDPS () {
   if (document.getElementById('check_init_critmax').checked) {
     for (var i = 0; i < 9; i++) Set_Special.set('must_crit_' + i, true)
   }
+  if (Set_Special.get('sunrise') === 'night') { // 夜战BUFF
+    for (var i = 0; i < 9; i++) {
+      if (Set_Base.get(i) != undefined) {
+        var night_decline = (100 - (Set_Base.get(i).Info).get('night')) * (-0.9)
+        if (night_decline < 0) changeStatus(i, 'self', 'acu', ('' + (night_decline / 100)), -1)
+      }
+    }
+  }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6) {
@@ -603,6 +611,18 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'snipe', 'armless/critless/evaless', 3, 1)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'colt') { // 决斗幸存者
+    if (Set_Special.get('colt') === undefined) {
+      Set_Special.set('colt', 1)
+      changeStatus(-1, 'all', 'rof/acu', '0.05/0.05', -1)
+    } else {
+      var num_level = Set_Special.get('colt')
+      if (num_level < 3) {
+        Set_Special.set('colt', num_level + 1)
+        changeStatus(-1, 'all', 'rof/acu', '0.05/0.05', -1)
+      }
+    }
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -805,7 +825,7 @@ function getBaseProperty (num) {
       num_tempblo = num
     }
   }
-  // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾, cld冷却缩减
+  // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾, cld冷却缩减, night夜视能力
   var full_property = [
     list_tdoll[num][1].Type,
     (list_tdoll[num][1].Property).hp,
@@ -818,6 +838,7 @@ function getBaseProperty (num) {
     (list_tdoll[num][1].Property).cs + (list_tdoll[num][1].Equip)[0].cs + (list_tdoll[num][1].Equip)[1].cs + (list_tdoll[num][1].Equip)[2].cs + (list_tdoll[num][1].Equip)[3].cs,
     1.5 + (list_tdoll[num][1].Equip)[0].critdmg + (list_tdoll[num][1].Equip)[1].critdmg + (list_tdoll[num][1].Equip)[2].critdmg + (list_tdoll[num][1].Equip)[3].critdmg,
     15 + (list_tdoll[num][1].Equip)[0].ap + (list_tdoll[num][1].Equip)[1].ap + (list_tdoll[num][1].Equip)[2].ap + (list_tdoll[num][1].Equip)[3].ap,
+    0,
     0,
     0,
     0
@@ -861,6 +882,13 @@ function getBaseProperty (num) {
   }
   if (full_property[13] > 0.3) full_property[13] = 0.3
   Info.set('cld', full_property[13])
+  for (var i = 0; i < 3; i++) { // 以后写专属夜视
+    if (set_equip[i] === '41') {
+      full_property[14] = 100
+      break
+    }
+  }
+  Info.set('night', full_property[14])
   return createBase(Area, Info)
 }
 
