@@ -285,9 +285,14 @@ function getDPS () {
         }
       } else {
         if (list_tdoll[i][1].ID === 213) { // CMS
-          if (document.getElementById('special_cms_' + (i + 1) + '_1').checked === true) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
-          else if (document.getElementById('special_cms_' + (i + 1) + '_2').checked === true) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
-          else if (document.getElementById('special_cms_' + (i + 1) + '_3').checked === true) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
+          if (document.getElementById('special_cms_' + (i + 1) + '_1').checked) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
+          else if (document.getElementById('special_cms_' + (i + 1) + '_2').checked) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
+          else if (document.getElementById('special_cms_' + (i + 1) + '_3').checked) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
+        } else if (list_tdoll[i][1].ID === 231) { // M82A1
+          if (document.getElementById('special_m82a1_' + (i + 1) + '_0').checked) Set_Special.set('m82a1_win_' + i, 0) // 0胜场
+          else if (document.getElementById('special_m82a1_' + (i + 1) + '_1').checked) Set_Special.set('m82a1_win_' + i, 1) // 1胜场
+          else if (document.getElementById('special_m82a1_' + (i + 1) + '_2').checked) Set_Special.set('m82a1_win_' + i, 2) // 2胜场
+          else if (document.getElementById('special_m82a1_' + (i + 1) + '_3').checked) Set_Special.set('m82a1_win_' + i, 3) // 3胜场
         }
       }
     }
@@ -577,7 +582,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         for (var b = 0; b < 9; b++) {
           if (Set_Base.get(stand_num).Area[b] && list_tdoll[b][1] != null) { // 影响格上有人
             for (var p = 0; p < len; p++) {
-              changeStatus(b, list_target[p], list_pro[p], list_value[p], s_t[0].duration)
+              changeStatus(b, list_target[i], list_pro[p], list_value[p], s_t[0].duration)
             }
           }
         }
@@ -656,29 +661,52 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('g11_shootleft_' + stand_num, 2)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却  
   }
+  else if (skillname === 'multihit') {
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'snipe') { // 狙击
     var ratio = (s_t[0].Describe).ratio
     var snipe_num = (s_t[0].Describe).snipe_num
-    var time_init = (s_t[0].Describe).time_init
-    var time_interval = (s_t[0].Describe).time_interval
+    var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
+    var time_interval = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval
     var labels = (s_t[0].Describe).labels
+    if (snipe_num < 0) snipe_num = Math.floor(s_t[0].duration / time_interval)
     Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
     Set_Special.set('snipe_num_' + stand_num, snipe_num)
     Set_Special.set('snipe_interval_' + stand_num, time_interval)
-    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 30 * time_init)
+    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
     changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'm82a1') { // 伪神的启示
+    if (Set_Special.get('m82a1' + stand_num) === undefined) Set_Special.set('m82a1' + stand_num, 3)
+    if (Set_Special.get('m82a1' + stand_num) > 0) {
+      var ratio = (s_t[0].Describe).ratio
+      var snipe_num = (s_t[0].Describe).snipe_num
+      var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
+      var time_interval = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval
+      var labels = (s_t[0].Describe).labels
+      ratio *= Math.pow(1.1, Set_Special.get('m82a1_win_' + stand_num))
+      if (Set_Special.get('m82a1' + stand_num) === 1) ratio *= 2 // 最后一发
+      Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
+      Set_Special.set('snipe_num_' + stand_num, snipe_num)
+      Set_Special.set('snipe_interval_' + stand_num, time_interval)
+      Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
+      changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+      Set_Special.set('m82a1' + stand_num, (Set_Special.get('m82a1' + stand_num) - 1))
+    }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'dsr50') { // 崩甲射击
     var ratio
-    var time_init = (s_t[0].Describe).time_init
+    var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
     var labels = (s_t[0].Describe).labels
     if (enemy_arm > 0) ratio = (s_t[0].Describe).ratio_arm
     else ratio = (s_t[0].Describe).ratio_armless
     Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
     Set_Special.set('snipe_num_' + stand_num, 1)
     Set_Special.set('snipe_interval_' + stand_num, 0)
-    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 30 * time_init)
+    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
     changeStatus(stand_num, 'snipe', labels, ratio, time_init)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
@@ -719,7 +747,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  else if (skillname === 'aug') {
+  else if (skillname === 'aug') { // 葬仪之雨
     Set_Special.set('aug_' + stand_num, global_frame + 210)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
@@ -736,7 +764,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
-  var frame = 30 * duration
+  var frame = Math.floor(30 * duration)
   if (target === 'all') { // 号令类
     if (!Set_Special.get('can_add_python') && not_init) { // 有蟒蛇，需要触发被动
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
@@ -912,7 +940,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     } else {
       var time_init = Set_Special.get('snipe_interval_' + stand_num)
-      Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 30 * time_init)
+      Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
       changeStatus(stand_num, 'snipe', labels, ratio, time_init)
     }
   }

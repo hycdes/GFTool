@@ -228,6 +228,7 @@ function changeEquip () {
       }
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=21>ILM空尖弹</option>'
+      if (ID === 213)  str_items += '<option value=23>Mk211高爆穿甲弹</option>'
     // CMS
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=23>Mk211高爆穿甲弹</option>'

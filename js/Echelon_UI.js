@@ -472,6 +472,16 @@ function addTdoll () { // 添加战术人形
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_3"><span style="color:orange"> 标准弹(+200%命中)</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 231) {
+      var str_html = ''
+      str_html += '<h4>' + num_pickblock + '号位 M82A1</h4><p>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0胜场</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_1"> 1胜场</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_2"> 2胜场</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_3"> 3胜场</label>'
+      str_html += '</p>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     else if (ID === 238) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> 切换轻机枪模式'
     }

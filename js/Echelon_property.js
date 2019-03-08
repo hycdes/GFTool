@@ -297,6 +297,7 @@ lib_affect.set(252, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // KSVK
 lib_affect.set(253, createAffect('rru/rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.15])) // 刘易斯
 lib_affect.set(254, createAffect('rr/rrdd/', 'sg', ['dmg', 'acu'], [0.1, 0.15])) // UKM-2000
 lib_affect.set(255, createAffect('ru/r/', 'hg', ['cld'], [0.12])) // Scout
+lib_affect.set(257, createAffect('rd/r/', 'hg', ['cld'], [0.18])) // M200
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改

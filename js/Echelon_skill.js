@@ -76,6 +76,16 @@ function describe_dsr50 (ratio_armless, ratio_arm, time_init, labels) { // 崩�
   Describe.labels = labels
   return Describe
 }
+function describe_m82a1 (ratio, time_init, time_interval, snipe_num, labels) { // 伪神的启示（跟狙击一样）
+  var Describe = {}
+  Describe.name = 'm82a1'
+  Describe.ratio = ratio
+  Describe.time_init = time_init
+  Describe.time_interval = time_interval
+  Describe.snipe_num = snipe_num
+  Describe.labels = labels
+  return Describe
+}
 
 function describe_karm1891 () {
   var Describe = {}
@@ -142,9 +152,10 @@ function describe_k2 () { // k2
   Describe.name = 'k2'
   return Describe
 }
-function describe_an94 () { // an94
+function describe_multihit (multiple) { // an94、芭莉斯塔
   var Describe = {}
-  Describe.name = 'an94'
+  Describe.name = 'multihit'
+  Describe.value = multiple
   return Describe
 }
 function describe_mdr () { // mdr
@@ -216,6 +227,9 @@ lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless'))
 lib_describe.set('tac50', describe_snipe(4.5, 1, 0, 1, 'armless/crit/evaless')) // 枫华萤火
 lib_describe.set('karm1891', describe_karm1891()) // 玛尔斯号角
 lib_describe.set('karm9138', describe_karm9138()) // 墨尔斯假面
+lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless')) // 伪神的启示
+lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
+lib_describe.set('m200', describe_snipe(2, 0, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
 
 lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
@@ -232,7 +246,7 @@ lib_describe.set('aug', describe_aug()) // 葬仪之雨
 lib_describe.set('fal', describe_fal()) // 榴弹践踏
 lib_describe.set('g11', describe_g11()) // 突击者之眼
 lib_describe.set('k2', describe_k2()) // 热力过载
-lib_describe.set('an94', describe_an94()) // 人偶扳机
+lib_describe.set('an94', describe_multihit(2)) // 人偶扳机
 lib_describe.set('mdr', describe_mdr()) // 危机嗅探器
 lib_describe.set('64howa', describe_64howa()) // 未来预警
 lib_describe.set('m4', describe_m4()) // 伸冤者印记
@@ -325,10 +339,11 @@ lib_skill.set(179, [createSkill(15, 16, 0, lib_describe.get('dsr50'))])
 lib_skill.set(192, [createSkill(6, 16, 0, lib_describe.get('js05'))])
 lib_skill.set(197, [createSkill(6, 8, 7.5, lib_describe.get('karm1891'))])
 lib_skill.set(198, [createSkill(6, 8, 0, lib_describe.get('karm9138'))])
-lib_skill.set(204, [])
+lib_skill.set(204, [createSkill(8, 16, 6, lib_describe.get('blst'))])
 lib_skill.set(211, [createSkill(6, 8, 5, lib_describe.get('srs'))])
 lib_skill.set(222, [createSkill(10, 16, 0, lib_describe.get('tac50'))])
-lib_skill.set(231, [])
+lib_skill.set(231, [createSkill(6, 8, 0, lib_describe.get('m82a1'))])
+lib_skill.set(257, [createSkill(6, 16, 9, lib_describe.get('m200'))])
 lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
 
 lib_skill.set(109, []) // 连珠终结实现于攻击
