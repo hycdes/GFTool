@@ -15,11 +15,12 @@ var lib_property = new Map // 人形属性库，存放 < 编号, Property >
 var lib_property_equip = new Map // 装备属性库，存放 < 装备编号, Property_equip >
 var lib_describe = new Map // 描述库，存放 < 技能名, 描述 >
 var lib_skill = new Map // 技能库，存放 < 人形编号, list_Skill>
+var lib_fairy = new Map // 妖精库
 var list_tdoll = [[0, null], [1, null], [2, null], [3, null], [4, null], [5, null], [6, null], [7, null], [8, null]] // 战术人形列表，存放二元组[position, TdollInfo]
-var time = 100, init_time = 0, daytime = 1
-var fairy = createFairy(['null'], [0])
+var time = 100, init_time = 0, daytime = 1, fairy_no = 0
 var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map
 var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9]
+var not_init = false
 
 // global variations for main-calculation
 var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_frame> ]>，Status=[type,value(>1)]
@@ -29,7 +30,6 @@ var Set_Command = new Map // 命令，存放命令，< num_stand, command >，co
 var Set_Special = new Map // 特殊变量表
 var Set_Data = new Map // 输出数据
 var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_fragile = false
-
 var Set_EnemyStatus = new Map
 var global_frame = 0
 
@@ -69,14 +69,6 @@ function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) {
   TdollInfo.Property = Property
   TdollInfo.Equip = Equip
   return TdollInfo
-}
-
-function createFairy (ID, list_property, list_value) {
-  var Fairy = {}
-  Fairy.ID = ID
-  Fairy.property = list_property
-  Fairy.value = list_value
-  return Fairy
 }
 
 // 计算影响格
@@ -183,7 +175,7 @@ function getResult (multiple) {
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
-      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name + '\t\t输出=' + current_data[len_data - 1][1]
+      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name + '  输出=' + current_data[len_data - 1][1]
     }
   }
   makeGraph(x_max, y_max, str_label)
@@ -200,6 +192,7 @@ function isProperty (str) {
 // MAIN, 攻击优先于所有
 function getDPS () {
   // 清空之前数据
+  not_init = false
   Set_Status.clear()
   Set_Skill.clear()
   Set_Base.clear()
@@ -261,7 +254,16 @@ function getDPS () {
       Set_Skill.set(i, list_Skill)
     }
   }
-  // 载入初始状态（全局设定、妖精天赋、换弹）
+  // 载入初始状态（妖精天赋、全局设定、换弹）
+  if (fairy_no > 0) {
+    var fairy_info = lib_fairy.get(fairy_no)
+    var list_property = (fairy_info.property).split('/')
+    var list_value = (fairy_info.value).split('/')
+    var fairy_list_len = list_property.length
+    for (var i = 0; i < fairy_list_len; i++) {
+      changeStatus(-1, 'all', list_property[i], list_value[i], -1)
+    }
+  }
   if (document.getElementById('check_init_critmax').checked) {
     for (var i = 0; i < 9; i++) Set_Special.set('must_crit_' + i, true)
   }
@@ -277,15 +279,22 @@ function getDPS () {
     if (list_tdoll[i][1] != null) {
       if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6) {
         Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs')) // MG和SG上弹
-        if (list_tdoll[i][1].ID === 253) { // 刘易斯
+        if (list_tdoll[i][1].ID === 253) { // 刘易斯开场第一层buff
           Set_Special.set('angel_strength' + i, 1)
           Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
+        }
+      } else {
+        if (list_tdoll[i][1].ID === 213) { // CMS
+          if (document.getElementById('special_cms_' + (i + 1) + '_1').checked === true) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
+          else if (document.getElementById('special_cms_' + (i + 1) + '_2').checked === true) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
+          else if (document.getElementById('special_cms_' + (i + 1) + '_3').checked === true) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
         }
       }
     }
   }
 
   // 主函数
+  not_init = true
   for (var t = 0; t < time; t++) {
     global_frame = t
     // 接敌时间
@@ -387,6 +396,20 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       else {
         var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
         Set_Data.get(stand_num).push([current_time, lastData])
+        if (list_tdoll[stand_num][1].ID === 197) { // 玛尔斯号角，被动
+          if (Set_Special.get('karm1891') === undefined) Set_Special.set('karm1891', 0)
+          if (Math.random() <= 0.4 && Set_Special.get('karm1891') < 3) {
+            var num_col = Math.ceil(stand_num / 3) + 1
+            react([createSkill(0, 0, 2, describe_property(['col' + num_col], ['rof/crit'], ['0.04/0.04'])), 0], stand_num, current_time)
+            Set_Special.set('karm1891', Set_Special.get('karm1891') + 1)
+          }
+        }
+        if (list_tdoll[stand_num][1].ID === 198) { // 墨尔斯假面，被动
+          if (Set_Special.get('karm9138_' + stand_num) === undefined) Set_Special.set('karm9138_' + stand_num, 0)
+          if (Math.random() <= 0.7) {
+            Set_Special.set('karm9138_' + stand_num, Set_Special.get('karm9138_' + stand_num) + 2)
+          }
+        }
         if (list_tdoll[stand_num][1].ID === 4 && Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) { // 蟒蛇无畏者之拥期间
           if (Set_Special.get('python_active') === 1) final_dmg *= 2
           var num_left = Set_Special.get('python_active') - 1
@@ -467,6 +490,18 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
           }
         }
+        else if (list_tdoll[stand_num][1].ID === 198 && Set_Special.get('karm9138_' + stand_num) === 18) {
+          var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
+          Set_Data.get(stand_num).push([current_time, lastData])
+          var mors_ratio
+          if (enemy_type === 'normal') mors_ratio = 45
+          else mors_ratio = 3
+          var mors_dmg = 5 * mors_ratio * current_Info.get('dmg')
+          if (enemy_fragile) mors_dmg = Math.ceil(mors_dmg * 1.4)
+          Set_Data.get(stand_num).push([current_time, lastData + mors_dmg])
+          Set_Special.set('karm9138_' + stand_num, 0)
+          s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+        }
         else s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
       } else { // MG和SG扣除子弹
         var cs = Set_Special.get('clipsize_' + stand_num)
@@ -512,7 +547,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             if (!document.getElementById('special_88type_' + stand_num).checked) {
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
               changeStatus(stand_num, 'self', 'acu', '0.3', -1)
-            }else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
+            } else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
           }
           if (list_tdoll[stand_num][1].ID === 112) { // 狂躁血脉
             changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
@@ -634,6 +669,31 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'snipe', labels, ratio, time_init)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'dsr50') { // 崩甲射击
+    var ratio
+    var time_init = (s_t[0].Describe).time_init
+    var labels = (s_t[0].Describe).labels
+    if (enemy_arm > 0) ratio = (s_t[0].Describe).ratio_arm
+    else ratio = (s_t[0].Describe).ratio_armless
+    Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
+    Set_Special.set('snipe_num_' + stand_num, 1)
+    Set_Special.set('snipe_interval_' + stand_num, 0)
+    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 30 * time_init)
+    changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'karm9138') {
+    var ratio
+    if (enemy_type === 'normal') ratio = 45
+    else ratio = 3
+    Set_Special.set('karm9138_' + stand_num, 0)
+    Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
+    Set_Special.set('snipe_num_' + stand_num, 1)
+    Set_Special.set('snipe_interval_' + stand_num, 0)
+    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + 1)
+    changeStatus(stand_num, 'snipe', 'armless/critless/evaless', ratio, 0)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'contender') { // 断罪者魔弹
     Set_Special.set('fragile_40', global_frame + 150)
     enemy_fragile = true
@@ -647,12 +707,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   else if (skillname === 'colt') { // 决斗幸存者
     if (Set_Special.get('colt') === undefined) {
       Set_Special.set('colt', 1)
-      changeStatus(-1, 'all', 'rof/acu', '0.05/0.05', -1)
+      changeStatus(-1, 'all', 'rof', '0.05', -1)
+      changeStatus(-1, 'all', 'acu', '0.05', -1)
     } else {
       var num_level = Set_Special.get('colt')
       if (num_level < 3) {
         Set_Special.set('colt', num_level + 1)
-        changeStatus(-1, 'all', 'rof/acu', '0.05/0.05', -1)
+        changeStatus(-1, 'all', 'rof', '0.05', -1)
+        changeStatus(-1, 'all', 'acu', '0.05', -1)
       }
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
@@ -661,12 +723,22 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('aug_' + stand_num, global_frame + 210)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
+  else if (skillname === 'karm1891') { // 玛尔斯号角：主动
+    var num_rf = 0
+    for (var n = 0; n < 9; n++) {
+      if (list_tdoll[n][1] != null && list_tdoll[n][1].Type === 4) num_rf++
+    }
+    var str_value = (0.08 * num_rf) + ''
+    changeStatus(stand_num, 'self', 'crit', str_value, 7.5)
+    changeStatus(stand_num, 'self', 'rof', str_value, 7.5)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
   var frame = 30 * duration
   if (target === 'all') { // 号令类
-    if (!Set_Special.get('can_add_python')) { // 有蟒蛇，需要触发被动
+    if (!Set_Special.get('can_add_python') && not_init) { // 有蟒蛇，需要触发被动
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
         var new_level = Set_Special.get('python_' + type) + 1
         Set_Special.set('python_' + type, new_level)
@@ -680,7 +752,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     Set_Status.set(-1, list_status)
     endStatus(-1, new_status, 'get')
   } else if (target === 'self') { // 专注类
-    if (!Set_Special.get('can_add_python') && list_tdoll[stand_num][1].ID === 4) { // 此人是蟒蛇
+    if (!Set_Special.get('can_add_python') && list_tdoll[stand_num][1].ID === 4 && not_init) { // 此人是蟒蛇
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
         var new_level = Set_Special.get('python_' + type) + 1
         Set_Special.set('python_' + type, new_level)
@@ -695,20 +767,12 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     endStatus(stand_num, new_status, 'get')
   } else if (target.substr(0, 3) === 'blo') { // 影响格类
     if (target.substr(3) === 'all') { // 影响格上全部单位
-      var new_status = [[type, 1 + parseFloat(value)], frame]
-      var list_status = Set_Status.get(stand_num)
-      list_status.push(new_status)
-      Set_Status.set(stand_num, list_status)
-      endStatus(stand_num, new_status, 'get')
+      changeStatus(stand_num, 'self', type, value, duration)
     } else { // 影响格上特定枪种
       var n_type = 0
       n_type = name_to_num(target.substr(3))
       if (n_type === list_tdoll[stand_num][1].Type) {
-        var new_status = [[type, 1 + parseFloat(value)], frame]
-        var list_status = Set_Status.get(stand_num)
-        list_status.push(new_status)
-        Set_Status.set(stand_num, list_status)
-        endStatus(stand_num, new_status, 'get')
+        changeStatus(stand_num, 'self', type, value, duration)
       }
     }
   }

@@ -169,7 +169,7 @@ lib_affect.set(121, createAffect('rruu/rr/', 'sg', ['rof'], [0.18])) // Mk48
 lib_affect.set(122, createAffect('r/', 'smg', ['dmg', 'eva'], [0.3, 0.1])) // G11
 lib_affect.set(123, createAffect('u/r/d/', 'all', ['rof', 'eva'], [0.12, 0.36])) // P99
 lib_affect.set(124, createAffect('ru/', 'hg', ['cld'], [0.12])) // Super SASS
-lib_affect.set(125, createAffect('rru/rrd/', 'sg', ['acu', 'cld'], [0.12, 0.15])) // MG4
+lib_affect.set(125, createAffect('rru/rrd/', 'sg', ['acu', 'arm'], [0.12, 0.15])) // MG4
 lib_affect.set(126, createAffect('u/ru/l/r/d/rd/', 'all', ['dmg', 'eva'], [0.2, 0.3])) // NZ75
 lib_affect.set(127, createAffect('lu/ld/', 'ar', ['dmg'], [0.2])) // 79式
 lib_affect.set(128, createAffect('r/', 'hg', ['cld'], [0.18])) // M99
@@ -252,7 +252,7 @@ lib_affect.set(204, createAffect('ru/rd/', 'hg', ['cld'], [0.18])) // 芭莉斯�
 lib_affect.set(205, createAffect('r/rd/rdd/', 'smg', ['acu', 'eva'], [0.55, 0.16])) // AN-94
 lib_affect.set(206, createAffect('ruu/ru/r/', 'smg', ['dmg', 'rof'], [0.25, 0.15])) // AK-12
 lib_affect.set(207, createAffect('r/', 'smg', ['rof', 'eva'], [0.1, 0.15])) // CZ2000
-lib_affect.set(208, createAffect('rr/rrd/', 'sg', ['dmg', 'cld'], [0.15, 0.15])) // HK21
+lib_affect.set(208, createAffect('rr/rrd/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // HK21
 lib_affect.set(209, createAffect('lu/l/', 'ar', ['dmg'], [0.16])) // OTs-39
 lib_affect.set(210, createAffect('lu/l/r/ld/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // CZ52
 lib_affect.set(211, createAffect('r/rd/', 'hg', ['cld'], [0.18])) // SRS
@@ -280,7 +280,7 @@ lib_affect.set(234, createAffect('l/ld/ldd/', 'ar', ['rof', 'crit'], [0.18, 0.3]
 lib_affect.set(235, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // SPR A3G
 lib_affect.set(236, createAffect('ru/rd/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // K11
 lib_affect.set(237, createAffect('ru/r/rd/', 'smg', ['dmg', 'acu'], [0.2, 0.55])) // SAR-21
-lib_affect.set(238, createAffect('rruu/rru/rr/', 'sg', ['acu', 'cld'], [0.1, 0.15])) // 88式
+lib_affect.set(238, createAffect('rruu/rru/rr/', 'sg', ['acu', 'arm'], [0.1, 0.15])) // 88式
 lib_affect.set(239, createAffect('r/', 'smg', ['dmg', 'eva'], [0.12, 0.12])) // 03式
 lib_affect.set(240, createAffect('rr/rrdd/', 'sg', ['dmg', 'acu'], [0.1, 0.1])) // Mk46
 lib_affect.set(241, createAffect('ru/r/', 'hg', ['cld'], [0.12])) // RT-20
@@ -294,7 +294,7 @@ lib_affect.set(249, createAffect('rruu/rru/', 'sg', ['acu', 'cld'], [0.18, 0.08]
 lib_affect.set(250, createAffect('luu/uu/ruu/lu/u/ru/', 'all', ['rof', 'eva'], [0.3, 0.2])) // HS2000
 lib_affect.set(251, createAffect('l/ld/ldd/', 'ar', ['rof', 'acu'], [0.15, 0.25])) // X95
 lib_affect.set(252, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // KSVK
-lib_affect.set(253, createAffect('rru/rr/rrd/', 'sg', ['acu', 'cld'], [0.1, 0.15])) // 刘易斯
+lib_affect.set(253, createAffect('rru/rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.15])) // 刘易斯
 lib_affect.set(254, createAffect('rr/rrdd/', 'sg', ['dmg', 'acu'], [0.1, 0.15])) // UKM-2000
 lib_affect.set(255, createAffect('ru/r/', 'hg', ['cld'], [0.12])) // Scout
 // Digimind update
@@ -311,7 +311,7 @@ lib_affect.set(1056, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.5, 0.15]
 lib_affect.set(1057, createAffect('ru/r/rd/', 'smg', ['rof', 'eva'], [0.1, 0.15])) // ST AR-15改
 lib_affect.set(1063, createAffect('u/r/', 'smg', ['rof', 'acu'], [0.25, 0.55])) // G3改
 lib_affect.set(1064, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.15])) // G36改
-lib_affect.set(1075, createAffect('rr/', 'sg', ['dmg', 'cld'], [0.18, 0.1])) // M1918改
+lib_affect.set(1075, createAffect('rr/', 'sg', ['dmg', 'arm'], [0.18, 0.1])) // M1918改
 lib_affect.set(1081, createAffect('rr/', 'sg', ['dmg', 'rof'], [0.15, 0.15])) // LWMMG改
 lib_affect.set(1089, createAffect('rr/rrdd/', 'sg', ['rof', 'acu'], [0.1, 0.15])) // 布伦改
 lib_affect.set(1091, createAffect('u/lu/l/d/ld/', 'all', ['dmg'], [0.36])) // MP-446改
@@ -600,6 +600,7 @@ lib_property.set(1089, createProperty(97, 34, 29, 103, 0, 890, 0.05, 8))
 lib_property.set(1091, createProperty(31, 57, 80, 60, 0, 340, 0.2, -1))
 lib_property.set(1093, createProperty(27, 16, 92, 75, 0, 770, 0.05, -1))
 lib_property.set(1094, createProperty(28, 12, 70, 93, 0, 905, 0.05, -1))
+lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1))
 // EXTRA
 lib_property.set(2001, createProperty(39, 60, 82, 65, 0, 300, 0.2, -1))
 lib_property.set(2002, createProperty(36, 13, 9, 28, 23, 1375, 0.4, 5))
@@ -645,3 +646,32 @@ lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0))
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0))
 lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0))
+
+function createFairy (name, list_property, list_value) {
+  var Fairy = {}
+  Fairy.name = name
+  Fairy.property = list_property
+  Fairy.value = list_value
+  return Fairy
+}
+lib_fairy.set(1, createFairy('勇士妖精', 'dmg/acu/eva/arm', '0.25/0.8/0.4/0.1'))
+lib_fairy.set(2, createFairy('暴怒妖精', 'dmg/critdmg/eva/arm', '0.15/0.4/0.4/0.1'))
+lib_fairy.set(3, createFairy('盾甲妖精', 'dmg/critdmg/arm', '0.22/0.22/0.25'))
+lib_fairy.set(4, createFairy('护盾妖精', 'dmg/acu/eva', '0.2/0.6/0.8'))
+lib_fairy.set(5, createFairy('防御妖精', 'dmg/eva/arm', '0.22/0.8/0.2'))
+lib_fairy.set(6, createFairy('嘲讽妖精', 'dmg/critdmg/acu/eva/arm', '0.18/0.25/0.58/0.28/0.08'))
+lib_fairy.set(7, createFairy('狙击妖精', 'critdmg/acu/eva/arm', '0.36/0.88/0.28/0.15'))
+lib_fairy.set(8, createFairy('炮击妖精', 'dmg/eva/arm', '0.55/0.56/0.06'))
+lib_fairy.set(9, createFairy('空袭妖精', 'dmg/acu/eva/arm', '0.3/0.5/0.4/0.1'))
+lib_fairy.set(10, createFairy('增援妖精', 'dmg/critdmg/eva/arm', '0.12/0.15/0.88/0.12'))
+lib_fairy.set(11, createFairy('空降妖精', 'dmg/critdmg/eva/arm', '0.36/0.4/0.32/0.08'))
+lib_fairy.set(12, createFairy('布雷妖精', 'dmg/acu/eva', '0.25/0.44/0.85'))
+lib_fairy.set(13, createFairy('火箭妖精', 'critdmg/acu/arm', '0.35/0.44/0.22'))
+lib_fairy.set(14, createFairy('工事妖精', 'dmg/critdmg/acu/eva/arm', '0.15/0.2/0.5/0.4/0.1'))
+lib_fairy.set(15, createFairy('指挥妖精', 'dmg/critdmg/eva/arm', '0.36/0.36/0.32/0.08'))
+lib_fairy.set(16, createFairy('搜救妖精', 'dmg/acu/eva', '0.32/0.8/0.64'))
+lib_fairy.set(17, createFairy('照明妖精', 'critdmg/acu/eva/arm', '0.36/0.9/0.32/0.08'))
+lib_fairy.set(18, createFairy('黄金妖精', 'dmg/critdmg/acu/eva/arm', '0.2/0.25/0.62/0.5/0.12'))
+lib_fairy.set(19, createFairy('炊事妖精', 'dmg/critdmg/acu/eva/arm', '0.1/0.1/0.2/0.8/0.2'))
+lib_fairy.set(20, createFairy('花火妖精', 'dmg/acu/eva/arm', '0.32/0.75/0.32/0.08'))
+lib_fairy.set(21, createFairy('年兽妖精', 'dmg/critdmg/eva/arm', '0.25/0.25/0.2/0.2'))

@@ -77,6 +77,17 @@ function describe_dsr50 (ratio_armless, ratio_arm, time_init, labels) { // 崩�
   return Describe
 }
 
+function describe_karm1891 () {
+  var Describe = {}
+  Describe.name = 'karm1891'
+  return Describe
+}
+function describe_karm9138 () {
+  var Describe = {}
+  Describe.name = 'karm9138'
+  return Describe
+}
+
 function describe_hs2000 () {
   var Describe = {}
   Describe.name = 'hs2000'
@@ -178,6 +189,7 @@ lib_describe.set('p22', describe_property(
   ['dmg', 'acu/eva'],
   ['0.25', '0.6/0.6'])) // p22_决战序列_1/2列
 
+lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
 lib_describe.set('dmg_50', describe_property(['self'], ['dmg'], ['0.5'])) // 火力专注 50%
 lib_describe.set('dmgN_200', describe_propertyN(['self'], ['dmg'], ['2'])) // 火力专注N 200%
@@ -202,6 +214,8 @@ lib_describe.set('snipe_6.5', describe_snipe(6.5, 1.5, 0, 1, 'armless/critless/e
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
 lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击，目标数特殊变量设定
 lib_describe.set('tac50', describe_snipe(4.5, 1, 0, 1, 'armless/crit/evaless')) // 枫华萤火
+lib_describe.set('karm1891', describe_karm1891()) // 玛尔斯号角
+lib_describe.set('karm9138', describe_karm9138()) // 墨尔斯假面
 
 lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
@@ -284,21 +298,22 @@ lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
 lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚可以单独在普攻实现，无需制作
 lib_skill.set(1064, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // 没写弧光契约
 
-lib_skill.set(16, [])
+lib_skill.set(16, []) //
 lib_skill.set(20, [])
-lib_skill.set(28, [])
+lib_skill.set(28, []) //
 lib_skill.set(59, [])
-lib_skill.set(104, [])
-lib_skill.set(115, [])
-lib_skill.set(127, [])
-lib_skill.set(135, [])
-lib_skill.set(143, [])
+lib_skill.set(104, []) //
+lib_skill.set(115, []) //
+lib_skill.set(127, []) //
+lib_skill.set(135, [createSkill(4, 8, 5, lib_describe.get('dmg_260'))])
+lib_skill.set(143, []) //
 lib_skill.set(213, [])
-lib_skill.set(224, [])
+lib_skill.set(224, []) //
 lib_skill.set(228, [])
 lib_skill.set(234, [])
 lib_skill.set(245, [])
 lib_skill.set(251, [])
+lib_skill.set(1103, []) //
 
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
 lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])
@@ -308,8 +323,8 @@ lib_skill.set(128, [createSkill(15, 16, 0, lib_describe.get('snipe_8'))])
 lib_skill.set(148, [createSkill(6, 16, 10, lib_describe.get('iws2000'))])
 lib_skill.set(179, [createSkill(15, 16, 0, lib_describe.get('dsr50'))])
 lib_skill.set(192, [createSkill(6, 16, 0, lib_describe.get('js05'))])
-lib_skill.set(197, [])
-lib_skill.set(198, [])
+lib_skill.set(197, [createSkill(6, 8, 7.5, lib_describe.get('karm1891'))])
+lib_skill.set(198, [createSkill(6, 8, 0, lib_describe.get('karm9138'))])
 lib_skill.set(204, [])
 lib_skill.set(211, [createSkill(6, 8, 5, lib_describe.get('srs'))])
 lib_skill.set(222, [createSkill(10, 16, 0, lib_describe.get('tac50'))])

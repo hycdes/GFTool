@@ -49,7 +49,7 @@ function showAffect () {
       else if (affect_type[i] === 'eva') str_temp = '回避+'
       else if (affect_type[i] === 'crit') str_temp = '暴击+'
       else if (affect_type[i] === 'arm') str_temp = '护甲+'
-      else if (affect_type[i] === 'cld') str_temp = '冷却+'
+      else if (affect_type[i] === 'cld') str_temp = '冷却-'
       str_temp += parseInt(100 * parseFloat(affect_value[i])) + '% '
       str_final += str_temp
     }
@@ -464,6 +464,14 @@ function addTdoll () { // 添加战术人形
     else if (ID === 192) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> 贯穿射击所有敌人'
     }
+    else if (ID === 213) {
+      var str_html = ''
+      str_html += '<h4>' + num_pickblock + '号位 C-MS</h4>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> 亚音速弹(+65%回避)</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> 勺尖弹(+85%伤害)</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_3"><span style="color:orange"> 标准弹(+200%命中)</span></label></p>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     else if (ID === 238) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> 切换轻机枪模式'
     }
@@ -474,6 +482,7 @@ function addTdoll () { // 添加战术人形
     getBlockAffect()
   }
 }
+
 function deleteTdoll () { // 删除战术人形
   // 数据删除
   if (list_tdoll[num_pickblock - 1][1].ID === 4) Set_Special.set('can_add_python', true)
@@ -500,4 +509,7 @@ function changeSunrise (type) {
     document.getElementById('icon-day').src = '../img/echelon/icon-battle-daytime-no.png'
     document.getElementById('icon-night').src = '../img/echelon/icon-battle-night.png'
   }
+}
+function changeFairy () {
+  fairy_no = parseInt(document.getElementById('select_fairy').value)
 }
