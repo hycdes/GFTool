@@ -342,6 +342,7 @@ function reactAllSkill (command, current_time) {
         }
         else if (s_t[0][0] === 'avenger_mark') Set_Special.delete(k) // 特殊变量：M4炮击结束
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
+        else if (s_t[0][0] === 'fal') endStatus(k, s_t, 'fal') // 榴弹践踏
         else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
         else if (s_t[0][0] === 'reload') {
           Set_Special.set('attack_permission_' + k, 'fire_all') // 换弹结束
@@ -446,7 +447,27 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
       // 攻击间隔或者换弹判断
       if (current_Info.get('type') != 5 && current_Info.get('type') != 6) { // HG/AR/SMG/RF
-        s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+        if (list_tdoll[stand_num][1].ID === 73 && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
+        else if (list_tdoll[stand_num][1].ID === 122) { // 突击者之眼三连发：2帧间隔射击
+          if (Set_Special.get('g11_' + stand_num) >= current_time) { // 技能期间
+            if (Set_Special.get('g11_nextload_' + stand_num) === undefined || Set_Special.get('g11_nextload_' + stand_num) < current_time) {
+              Set_Special.set('g11_nextload_' + stand_num, current_time + rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1)
+            }
+            if (Set_Special.get('g11_nextload_' + stand_num) === current_time) {
+              Set_Special.set('g11_shootleft_' + stand_num, 2)
+              Set_Special.set('g11_nextload_' + stand_num, current_time + rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1)
+            }
+            if (Set_Special.get('g11_shootleft_' + stand_num) > 0) {
+              s_t[1] = 1
+              Set_Special.set('g11_shootleft_' + stand_num, (Set_Special.get('g11_shootleft_' + stand_num) - 1))
+            } else if (Set_Special.get('g11_shootleft_' + stand_num) === 0) {
+              s_t[1] = Set_Special.get('g11_nextload_' + stand_num) - current_time - 1
+            }
+          } else {
+            s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+          }
+        }
+        else s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
       } else { // MG和SG扣除子弹
         var cs = Set_Special.get('clipsize_' + stand_num)
         var extra_shoot_pkp = false
@@ -509,7 +530,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       // 技能禁止攻击，或换弹，无任何操作
     }
   }
-  else if (skillname === 'property') { // 属性增益类
+  else if (skillname === 'property' || (skillname === 'propertyN' && Set_Special.get('sunrise') === 'night') || (skillname === 'propertyND' && Set_Special.get('sunrise') === 'day')) { // 属性增益类
     var list_target = (s_t[0].Describe).list_target
     var len_list_target = list_target.length
     var list_value = []
@@ -521,7 +542,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         for (var b = 0; b < 9; b++) {
           if (Set_Base.get(stand_num).Area[b] && list_tdoll[b][1] != null) { // 影响格上有人
             for (var p = 0; p < len; p++) {
-              changeStatus(b, 'self', list_pro[p], list_value[p], s_t[0].duration)
+              changeStatus(b, list_target[p], list_pro[p], list_value[p], s_t[0].duration)
             }
           }
         }
@@ -585,9 +606,20 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   }
   else if (skillname === 'grenade') { // 榴弹
     var ratio = (s_t[0].Describe).ratio
-    Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹，暂定1秒
+    Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹
     changeStatus(stand_num, 'grenade', current_time, ratio, 1)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'fal') {
+    Set_Special.set('fal_' + stand_num, 3)
+    Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹
+    changeStatus(stand_num, 'fal', current_time, 5, 1)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却  
+  }
+  else if (skillname === 'g11') {
+    Set_Special.set('g11_' + stand_num, current_time + 135)
+    Set_Special.set('g11_shootleft_' + stand_num, 2)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却  
   }
   else if (skillname === 'snipe') { // 狙击
     var ratio = (s_t[0].Describe).ratio
@@ -623,6 +655,11 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         changeStatus(-1, 'all', 'rof/acu', '0.05/0.05', -1)
       }
     }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'aug') {
+    Set_Special.set('aug_' + stand_num, global_frame + 210)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
 }
 
@@ -656,21 +693,16 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
     endStatus(stand_num, new_status, 'get')
-  } else if (target.substr(0, 3) === 'blo') {
-    if (target.substr(3) === 'all') {
+  } else if (target.substr(0, 3) === 'blo') { // 影响格类
+    if (target.substr(3) === 'all') { // 影响格上全部单位
       var new_status = [[type, 1 + parseFloat(value)], frame]
       var list_status = Set_Status.get(stand_num)
       list_status.push(new_status)
       Set_Status.set(stand_num, list_status)
       endStatus(stand_num, new_status, 'get')
-    } else {
+    } else { // 影响格上特定枪种
       var n_type = 0
-      if (target.substr(3) === 'hg') n_type = 1
-      else if (target.substr(3) === 'ar') n_type = 2
-      else if (target.substr(3) === 'smg') n_type = 3
-      else if (target.substr(3) === 'rf') n_type = 4
-      else if (target.substr(3) === 'mg') n_type = 5
-      else if (target.substr(3) === 'sg') n_type = 6
+      n_type = name_to_num(target.substr(3))
       if (n_type === list_tdoll[stand_num][1].Type) {
         var new_status = [[type, 1 + parseFloat(value)], frame]
         var list_status = Set_Status.get(stand_num)
@@ -699,6 +731,11 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     Set_Status.set(stand_num, list_status)
   } else if (target === 'grenade') { // 榴弹
     var new_status = [['grenade', value + '/' + (type + frame)], frame] // value记录"倍率/生效时刻"，其他同理
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
+  } else if (target === 'fal') {
+    var new_status = [['fal', value + '/' + (type + frame)], frame] // fal类似grenade
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
@@ -751,6 +788,24 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   else if (situation === 'grenade') {
     var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
     Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+    var grenade_para = status[0][1].split('/')
+    var num_multi = enemy_num
+    if (enemy_fragile) num_multi += 0.4
+    var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form * num_multi)
+    var current_time = parseInt(grenade_para[1])
+    Set_Data.get(stand_num).push([current_time, lastData])
+    Set_Data.get(stand_num).push([current_time, lastData + damage_explode])
+  }
+  else if (situation === 'fal') {
+    var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
+    if (Set_Special.get('fal_' + stand_num) > 1) {
+      Set_Special.set('fal_' + stand_num, Set_Special.get('fal_' + stand_num) - 1)
+      var new_status = [['fal', 5 + '/' + (global_frame + 30)], 30] // fal类似grenade
+      var list_status = Set_Status.get(stand_num)
+      list_status.push(new_status)
+      Set_Status.set(stand_num, list_status)
+    }
+    else Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
     var num_multi = enemy_num
     if (enemy_fragile) num_multi += 0.4
@@ -846,12 +901,7 @@ function getBaseProperty (num) {
   ]
   Info.set('type', full_property[0]); Info.set('hp', full_property[1])
   var str_tn, num_tn = Info.get('type')
-  if (num_tn === 1) str_tn = 'hg'
-  else if (num_tn === 2) str_tn = 'ar'
-  else if (num_tn === 3) str_tn = 'smg'
-  else if (num_tn === 4) str_tn = 'rf'
-  else if (num_tn === 5) str_tn = 'mg'
-  else if (num_tn === 6) str_tn = 'sg'
+  str_tn = num_to_name(num_tn)
   var mul = [1, 1, 1, 1, 1, 1]
   if (blockSet[num].get(str_tn + 'dmg') != undefined) mul[0] += blockSet[num].get(str_tn + 'dmg')
   if (blockSet[num].get('alldmg') != undefined) mul[0] += blockSet[num].get('alldmg')
@@ -892,15 +942,24 @@ function getBaseProperty (num) {
   Info.set('night', full_property[14])
   return createBase(Area, Info)
 }
-
+function num_to_name (num_type) {
+  if (num_type === 1) return 'hg'
+  else if (num_type === 2) return 'ar'
+  else if (num_type === 3) return 'smg'
+  else if (num_type === 4) return 'rf'
+  else if (num_type === 5) return 'mg'
+  else if (num_type === 6) return 'sg'
+}
+function name_to_num (str_type) {
+  if (str_type === 'hg') return 1
+  else if (str_type === 'ar') return 2
+  else if (str_type === 'smg') return 3
+  else if (str_type === 'rf') return 4
+  else if (str_type === 'mg') return 5
+  else if (str_type === 'sg') return 6
+}
 function rof_to_frame (num_tn, base_rof, ID) {
-  var str_tn = ''
-  if (num_tn === 1) str_tn = 'hg'
-  else if (num_tn === 2) str_tn = 'ar'
-  else if (num_tn === 3) str_tn = 'smg'
-  else if (num_tn === 4) str_tn = 'rf'
-  else if (num_tn === 5) str_tn = 'mg'
-  else if (num_tn === 6) str_tn = 'sg'
+  var str_tn = num_to_name(num_tn)
   var shootframe = 100
   if (str_tn == 'hg' || str_tn == 'ar' || str_tn == 'smg' || str_tn == 'rf') {
     if (base_rof >= 120) shootframe = 12

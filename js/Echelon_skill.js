@@ -27,6 +27,23 @@ function describe_property (list_target, list_pro, list_value) { // 属性增益
   Describe.list_value = list_value
   return Describe
 }
+function describe_propertyN (list_target, list_pro, list_value) { // 属性增益N
+  var Describe = {}
+  Describe.name = 'propertyN'
+  Describe.list_target = list_target
+  Describe.list_pro = list_pro // e.g. dmg/acu/
+  Describe.list_value = list_value
+  return Describe
+}
+function describe_propertyND (list_target, list_pro, list_value) { // 属性增益N-昼战衰减
+  var Describe = {}
+  Describe.name = 'propertyND'
+  Describe.list_target = list_target
+  Describe.list_pro = list_pro // e.g. dmg/acu/
+  Describe.list_value = list_value
+  return Describe
+}
+
 function describe_colt () {
   var Describe = {}
   Describe.name = 'colt'
@@ -140,8 +157,8 @@ lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有�
 
 lib_describe.set('com_dmg_25', describe_property(['all'], ['dmg'], ['0.25'])) // 火力号令 25%
 lib_describe.set('com_dmg_22', describe_property(['all'], ['dmg'], ['0.22'])) // 火力号令 22%
-lib_describe.set('com_dmgN_35', describe_property(['all'], ['dmg'], ['0.35'])) // 火力号令N 35%
-lib_describe.set('com_dmgND_20', describe_property(['all'], ['dmg'], ['0.2'])) // 火力号令ND 20%
+lib_describe.set('com_dmgN_35', describe_propertyN(['all'], ['dmg'], ['0.35'])) // 火力号令N 35%
+lib_describe.set('com_dmgND_20', describe_propertyND(['all'], ['dmg'], ['0.2'])) // 火力号令ND 20%
 lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) // 突击号令 25%
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
@@ -163,16 +180,16 @@ lib_describe.set('p22', describe_property(
 
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
 lib_describe.set('dmg_50', describe_property(['self'], ['dmg'], ['0.5'])) // 火力专注 50%
-lib_describe.set('dmgN_200', describe_property(['self'], ['dmg'], ['2'])) // 火力专注N 200%
-lib_describe.set('dmgN_180', describe_property(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
-lib_describe.set('dmgND_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注ND 70%
-lib_describe.set('dmgND_60', describe_property(['self'], ['dmg'], ['0.6'])) // 火力专注ND 60%
+lib_describe.set('dmgN_200', describe_propertyN(['self'], ['dmg'], ['2'])) // 火力专注N 200%
+lib_describe.set('dmgN_180', describe_propertyN(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
+lib_describe.set('dmgND_70', describe_propertyND(['self'], ['dmg'], ['0.7'])) // 火力专注ND 70%
+lib_describe.set('dmgND_60', describe_propertyND(['self'], ['dmg'], ['0.6'])) // 火力专注ND 60%
 lib_describe.set('iws2000', describe_property(['self'], ['dmg/rof'], ['1.8/-0.35'])) // 巨鹰攻势
 lib_describe.set('rof_75', describe_property(['self'], ['rof'], ['0.75'])) // 突击专注 75%
 lib_describe.set('rof_50', describe_property(['self'], ['rof'], ['0.5'])) // 突击专注 50%
 lib_describe.set('art556', describe_property(['self'], ['dmg/rof'], ['0.85/0.25'])) // 冲锋专注 85%/25%
-lib_describe.set('t91N', describe_property(['self'], ['dmg/crit'], ['1.2/0.5'])) // 歼灭专注N 120%/50%
-lib_describe.set('t91ND', describe_property(['self'], ['dmg/crit'], ['0.5/0.25'])) // 歼灭专注ND 50%/25%
+lib_describe.set('t91N', describe_propertyN(['self'], ['dmg/crit'], ['1.2/0.5'])) // 歼灭专注N 120%/50%
+lib_describe.set('t91ND', describe_propertyND(['self'], ['dmg/crit'], ['0.5/0.25'])) // 歼灭专注ND 50%/25%
 lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) // 至高枪弹
 lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.35/0.35/0.35/0.35'])) // 雪狼之眼
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
@@ -249,8 +266,8 @@ lib_skill.set(130, [createSkill(2, 16, 15, lib_describe.get('rof_50'))])
 lib_skill.set(172, [createSkill(6, 16, 8, lib_describe.get('rfb'))])
 lib_skill.set(175, [createSkill(6, 16, 5, lib_describe.get('art556'))])
 lib_skill.set(181, [
-  createSkill(6, 16, 5, lib_describe.get('t91N')),
-  createSkill(6, 16, 5, lib_describe.get('t91ND'))
+  createSkill(6, 16, 8, lib_describe.get('t91N')),
+  createSkill(6, 16, 8, lib_describe.get('t91ND'))
 ])
 lib_skill.set(194, [createSkill(8, 3, 0, lib_describe.get('k2'))])
 lib_skill.set(196, [createSkill(4, 16, 0, lib_describe.get('zas'))])
