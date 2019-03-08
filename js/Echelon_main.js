@@ -735,14 +735,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   else if (skillname === 'colt') { // 决斗幸存者
     if (Set_Special.get('colt') === undefined) {
       Set_Special.set('colt', 1)
-      changeStatus(-1, 'all', 'rof', '0.05', -1)
-      changeStatus(-1, 'all', 'acu', '0.05', -1)
+      changeStatus(stand_num, 'all', 'rof', '0.05', -1)
+      changeStatus(stand_num, 'all', 'acu', '0.05', -1)
     } else {
       var num_level = Set_Special.get('colt')
       if (num_level < 3) {
         Set_Special.set('colt', num_level + 1)
-        changeStatus(-1, 'all', 'rof', '0.05', -1)
-        changeStatus(-1, 'all', 'acu', '0.05', -1)
+        changeStatus(stand_num, 'all', 'rof', '0.05', -1)
+        changeStatus(stand_num, 'all', 'acu', '0.05', -1)
       }
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却

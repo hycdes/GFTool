@@ -20,11 +20,11 @@ function changeSelectItems () {
     } else if (num_star === 4) {
       str_items += '<option value=1 selected>No.1 柯尔特左轮</option>'
       str_items += '<option value=7>No.7 斯捷奇金</option>'
-      str_items += '<option value=98>No.98 SPP-1</option>'
+      // str_items += '<option value=98>No.98 SPP-1</option>'
       str_items += '<option value=99>No.99 MK23</option>'
       str_items += '<option value=100>No.100 P7</option>'
       str_items += '<option value=168>No.168 SpitFire</option>'
-      str_items += '<option value=202>No.202 雷电</option>'
+      //  str_items += '<option value=202>No.202 雷电</option>'
       str_items += '<option value=212>No.212 K5</option>'
     // str_items += '<option value=248>No.248 杰里科</option>'
     } else if (num_star === 3) {
