@@ -265,7 +265,7 @@
                                                             </tbody>
                                                         </table>
                                                         <h4>装备</h4>
-                                                        <h5>点击装备图标<span style="color:orangered">更改装备</span></h5>
+                                                        <h5>选择一个装备栏<span style="color:orangered">更改装备</span></h5>
                                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                                             <tbody>
                                                                 <tr>
@@ -287,8 +287,8 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <h5>修改人形属性后点击<span style="color:orangered">添加人形</span>直接覆盖完成修改</h5>
-                                                        <h5>部分人形技能如何表现在<span style="color:orangered">复杂设定</span>中修改</h5>
+                                                        <h5>修改人形属性后<span style="color:orangered">添加人形</span>直接覆盖修改</h5>
+                                                        <h5>部分人形技能如何表现在<span style="color:orangered">特殊设定</span>中修改</h5>
                                                         <p>
                                                             <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形</button>
                                                             <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>删除人形</button>
@@ -348,7 +348,7 @@
                                             <ul class="nav nav-tabs">
                                                 <li class="active"><a href="#Setting1" data-toggle="tab">基本设定</a>
                                                 </li>
-                                                <li><a href="#Setting2" data-toggle="tab">复杂设定</a>
+                                                <li><a href="#Setting2" data-toggle="tab">特殊设定</a>
                                                 </li>
                                                 <li><a href="#Setting3" data-toggle="tab">其他</a>
                                                 </li>
@@ -382,11 +382,17 @@
                                                         </tbody>
                                                     </table>
                                                     <h4>敌人</h4>
-                                                    <p>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked><b>普通</b></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite"><span style="color:dodgerblue"><b>精英</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss"><span style="color:red"><b>BOSS</b></span></label>
-                                                    </p>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="height: 30px">
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked><b>普通</b></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite"><span style="color:dodgerblue"><b>精英</b></span></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss"><span style="color:red"><b>BOSS</b></span></label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -466,8 +472,21 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h4>输出曲线 <button type="button" class="btn btn-default" onclick="setWidth(300)">300px</button> <button type="button" class="btn btn-default" onclick="setWidth(700)">700px</button> <button type="button" class="btn btn-default" onclick="setWidth(1100)">1100px</button></h4>
-                                        <div id="container" style="width: 700px; overflow:hidden"></div>
+                                        <h4>输出曲线</h4>
+                                        <h5>请在<span style="color:orangered">计算前</span>设置宽度(推荐300~900之间)</h5>
+                                        <table class="table_other table-bordered table-hover" style="width:200px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 30%">宽度</td>
+                                                    <td style="width: 50%">
+                                                        <input class="form-control input-sm" placeholder="输入300~900整数" id="container_len" value=700 onblur="setWidth()">
+                                                    </td>
+                                                    <td>px</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>&nbsp</p>
+                                        <div id="container" style="width: 700px"></div>
                                     </div>
                                 </div>
                             </div>

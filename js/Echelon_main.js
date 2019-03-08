@@ -31,7 +31,7 @@ var Set_Special = new Map // 特殊变量表
 var Set_Data = new Map // 输出数据
 var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_fragile = false
 var Set_EnemyStatus = new Map
-var global_frame = 0
+var global_frame = 0, global_fragile = 1
 
 // inital
 function mergeCell (table1, startRow, endRow, col) {
@@ -192,6 +192,7 @@ function isProperty (str) {
 // MAIN, 攻击优先于所有
 function getDPS () {
   // 清空之前数据
+  global_fragile = 1
   not_init = false
   Set_Status.clear()
   Set_Skill.clear()
@@ -340,6 +341,26 @@ function reactAllSkill (command, current_time) {
     }
   }
   for (var [k, v] of Set_Status) { // 状态消逝，k = stand_num, v = [ [ [type, value(>1)] ,left_frame ] ... ] 的数组
+    if (Set_Special.get('fragile_40') != undefined && Set_Special.get('fragile_40') < global_frame) {
+      global_fragile /= 1.4
+      Set_Special.delete('fragile_40')
+    }
+    if (Set_Special.get('fragile_15') != undefined && Set_Special.get('fragile_15') < global_frame) {
+      global_fragile /= 1.15
+      Set_Special.delete('fragile_15')
+    }
+    if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) {
+      if (document.getElementById('special_64howa_' + (k + 1) + '_0').checked) {
+        changeStatus(k, 'self', 'dmg', '0.55', 5)
+        react([createSkill(0, 0, 5, describe_property(['bloall'], ['dmg'], ['0.55'])), 0], k, global_frame)
+      } else {
+        // 护盾暂时不做
+      }
+      Set_Special.delete('64howa_' + k)
+    }
+    if (Set_Special.get('multi_' + k) != undefined && Set_Special.get('multi_' + k)[1] < global_frame) {
+      Set_Special.delete('multi_' + k)
+    }
     var len_status = v.length
     for (var s = 0; s < len_status; s++) {
       var s_t = v[s]
@@ -364,7 +385,6 @@ function reactAllSkill (command, current_time) {
         }
         v.splice(s, 1) // 状态结束
         len_status = v.length; s-- // 检查下一个
-        if (Set_Special.get('fragile_40') < global_frame) enemy_fragile = false
       }
     // -1则一直存在
     }
@@ -394,7 +414,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
         }
         final_dmg = dmg_direct + dmg_aoe
-        if (enemy_fragile) final_dmg = Math.ceil(final_dmg * 1.4)
+        if (enemy_fragile) final_dmg = Math.ceil(final_dmg * global_fragile)
         Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
       }
       // 正常的攻击
@@ -424,7 +444,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) { // 战地魔术额外增伤
-            final_dmg *= 1.4
+            final_dmg *= global_fragile
           }
           if (list_tdoll[stand_num][1].ID === 77 || list_tdoll[stand_num][1].ID === 85 || list_tdoll[stand_num][1].ID === 109) { // 不可暴击：连珠终结
             var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
@@ -467,7 +487,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
           if (fire_status.substr(5) === 'all') final_dmg *= 5 // 全员攻击
           else if (fire_status.substr(5) === 'four') final_dmg *= 4 // 一人释放技能
-          if (enemy_fragile) final_dmg = Math.ceil(final_dmg * 1.4)
+          if (enemy_fragile) final_dmg = Math.ceil(final_dmg * global_fragile)
+          if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) {
+            final_dmg *= Set_Special.get('multi_' + stand_num)[0]
+          }
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
         } else {
           Set_Data.get(stand_num).push([current_time, lastData])
@@ -502,7 +525,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (enemy_type === 'normal') mors_ratio = 45
           else mors_ratio = 3
           var mors_dmg = 5 * mors_ratio * current_Info.get('dmg')
-          if (enemy_fragile) mors_dmg = Math.ceil(mors_dmg * 1.4)
+          if (enemy_fragile) mors_dmg = Math.ceil(mors_dmg * global_fragile)
           Set_Data.get(stand_num).push([current_time, lastData + mors_dmg])
           Set_Special.set('karm9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
@@ -650,11 +673,28 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'grenade', current_time, ratio, 1)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
-  else if (skillname === 'fal') {
+  else if (skillname === 'fal') { // 榴弹践踏
     Set_Special.set('fal_' + stand_num, 3)
     Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹
     changeStatus(stand_num, 'fal', current_time, 5, 1)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却  
+  }
+  else if (skillname === 'zas') { // 夜枭轰鸣
+    var ratio = 3
+    Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹
+    if (enemy_num > 3) {
+      Set_Special.set('fragile_15', global_frame + 90)
+      global_fragile *= 1.15
+    }
+    else changeStatus(stand_num, 'self', 'dmg', '0.6', 8)
+    changeStatus(stand_num, 'grenade', current_time, ratio, 1)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'k11') { // 恐惧榴弹
+    var ratio = parseInt(document.getElementById('special_k11_' + (stand_num + 1)).value)
+    Set_Special.set('attack_permission_' + stand_num, 'stop') // 一人准备释放榴弹
+    changeStatus(stand_num, 'grenade_k11', current_time, ratio, 1)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'g11') {
     Set_Special.set('g11_' + stand_num, current_time + 135)
@@ -662,6 +702,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却  
   }
   else if (skillname === 'multihit') {
+    Set_Special.set('multi_' + stand_num, [(s_t[0].Describe).value, current_time + (30 * s_t[0].duration)])
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'snipe') { // 狙击
@@ -710,7 +751,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'snipe', labels, ratio, time_init)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  else if (skillname === 'karm9138') {
+  else if (skillname === 'karm9138') { // 墨尔斯假面
     var ratio
     if (enemy_type === 'normal') ratio = 45
     else ratio = 3
@@ -724,6 +765,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   }
   else if (skillname === 'contender') { // 断罪者魔弹
     Set_Special.set('fragile_40', global_frame + 150)
+    global_fragile *= 1.4
     enemy_fragile = true
     Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
     Set_Special.set('snipe_num_' + stand_num, 1)
@@ -760,6 +802,33 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'self', 'crit', str_value, 7.5)
     changeStatus(stand_num, 'self', 'rof', str_value, 7.5)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === '64howa') { // 未来预警
+    Set_Special.set('64howa_' + stand_num, current_time + 149)
+    if (enemy_num > 5) {
+      changeStatus(stand_num, 'self', 'rof', '0.8', 3)
+      changeStatus(stand_num, 'self', 'acu', '0.8', 3)
+    } else changeStatus(stand_num, 'self', 'dmg', '0.9', 3)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'js9') {
+    var num_dmg = 4 - enemy_num, num_eva = enemy_num - 1
+    if (num_dmg < 0) num_dmg = 0
+    if (num_eva > 6) num_eva = 6
+    for (var n = 0; n < num_dmg; n++) changeStatus(stand_num, 'self', 'dmg', '0.5', 5)
+    for (var n = 0; n < num_eva; n++) changeStatus(stand_num, 'self', 'eva', '0.35', 5)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'mdr') {
+    if (stand_num === 2 || stand_num === 5 || stand_num === 8) {
+      // 贴膜
+    } else if (list_tdoll[stand_num + 1][1] != null) {
+      // 贴膜
+    } else {
+      changeStatus(stand_num, 'self', 'dmg', '0.45', 10)
+      changeStatus(stand_num, 'self', 'rof', '0.22', 10)
+    }
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
 }
 
@@ -828,6 +897,11 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     Set_Status.set(stand_num, list_status)
   } else if (target === 'fal') {
     var new_status = [['fal', value + '/' + (type + frame)], frame] // fal类似grenade
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
+  } else if (target === 'grenade_k11') { // K11榴弹
+    var new_status = [['grenade', value + '/' + (type + frame)], frame] // k11其他照搬榴弹
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
@@ -934,7 +1008,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     damage_snipe_single = Math.ceil(damage_snipe_single * 5)
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     Set_Data.get(stand_num).push([current_time, lastData])
-    if (enemy_fragile) damage_snipe_single = Math.ceil(damage_snipe_single * 1.4)
+    if (enemy_fragile) damage_snipe_single = Math.ceil(damage_snipe_single * global_fragile)
     Set_Data.get(stand_num).push([current_time, lastData + damage_snipe_single])
     if (num_leftsnipe === 0) { // 狙击次数完毕
       Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击

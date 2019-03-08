@@ -173,6 +173,11 @@ function describe_m4 () { // 伸冤者印记
   Describe.name = 'm4'
   return Describe
 }
+function describe_js9 () {
+  var Describe = {}
+  Describe.name = 'js9'
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -201,6 +206,7 @@ lib_describe.set('p22', describe_property(
   ['0.25', '0.6/0.6'])) // p22_决战序列_1/2列
 
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
+lib_describe.set('type100', describe_property(['self'], ['dmg'], ['0.85'])) // 火力专注 85%
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
 lib_describe.set('dmg_50', describe_property(['self'], ['dmg'], ['0.5'])) // 火力专注 50%
 lib_describe.set('dmgN_200', describe_propertyN(['self'], ['dmg'], ['2'])) // 火力专注N 200%
@@ -230,6 +236,8 @@ lib_describe.set('karm9138', describe_karm9138()) // 墨尔斯假面
 lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless')) // 伪神的启示
 lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('m200', describe_snipe(2, 0, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
+
+lib_describe.set('js9', describe_js9()) // 临阵磨枪
 
 lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
@@ -283,6 +291,16 @@ lib_skill.set(168, []) //
 lib_skill.set(202, []) // 雷电
 lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
 
+lib_skill.set(3, [])
+
+lib_skill.set(2, []) //
+lib_skill.set(5, []) //
+lib_skill.set(9, [])
+lib_skill.set(10, [])
+lib_skill.set(91, []) //
+lib_skill.set(139, [])
+lib_skill.set(141, [])
+
 lib_skill.set(62, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))])
 lib_skill.set(65, [createSkill(8, 16, 0, lib_describe.get('grenade_15'))])
 lib_skill.set(73, [createSkill(4, 16, 7, lib_describe.get('aug'))])
@@ -318,7 +336,7 @@ lib_skill.set(1064, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // 没
 lib_skill.set(16, []) //
 lib_skill.set(20, [])
 lib_skill.set(28, []) //
-lib_skill.set(59, [])
+lib_skill.set(59, []) //
 lib_skill.set(104, []) //
 lib_skill.set(115, []) //
 lib_skill.set(127, []) //
@@ -326,8 +344,8 @@ lib_skill.set(135, [createSkill(4, 8, 5, lib_describe.get('dmg_260'))])
 lib_skill.set(143, []) //
 lib_skill.set(213, [])
 lib_skill.set(224, []) //
-lib_skill.set(228, [])
-lib_skill.set(234, [])
+lib_skill.set(228, [createSkill(13, 16, 5, lib_describe.get('type100'))]) // 暂时不做护盾
+lib_skill.set(234, [createSkill(6, 8, 5, lib_describe.get('js9'))])
 lib_skill.set(245, [])
 lib_skill.set(251, [])
 lib_skill.set(1103, []) //

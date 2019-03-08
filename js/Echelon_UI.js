@@ -482,8 +482,25 @@ function addTdoll () { // 添加战术人形
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 236) {
+      var str_html = ''
+      str_html += '<h4>' + num_pickblock + '号位 K11</h4><p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 30%">榴弹倍率</td><td style="width: 50%">'
+      str_html += '<input class="form-control input-sm" placeholder="输入整数" id="special_k11_' + num_pickblock + '" onblur=inputCheck_k11('
+      str_html += "'" + 'special_k11_' + num_pickblock + "'"
+      str_html += ') value="28"></td><td>倍</td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     else if (ID === 238) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> 切换轻机枪模式'
+    }
+    else if (ID === 243) {
+      var str_html = ''
+      str_html += '<h4>' + num_pickblock + '号位 64式自</h4><p>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_0" checked> 未来预警提供增伤</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_1"> 未来预警提供护盾</label>'
+      str_html += '</p>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     // 前台更新
     document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
@@ -506,8 +523,13 @@ function deleteTdoll () { // 删除战术人形
   // 计算影响格
   getBlockAffect()
 }
-function setWidth (len) {
-  document.getElementById('container').style = 'width: ' + len + 'px; overflow: scroll'
+function setWidth () {
+  var len = document.getElementById('container_len').value
+  if (len === null || isNaN(len) || (len < 300 || len > 900)) {
+    len = 700
+    document.getElementById('container_len').value = 700
+  }
+  document.getElementById('container').style = 'width: ' + len + 'px'
 }
 function changeSunrise (type) {
   if (type === 1) {
@@ -522,4 +544,11 @@ function changeSunrise (type) {
 }
 function changeFairy () {
   fairy_no = parseInt(document.getElementById('select_fairy').value)
+}
+function inputCheck_k11 (str_id) {
+  var str_input = document.getElementById(str_id).value
+  if (str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
+    str_input = 28
+    document.getElementById(str_id).value = 28
+  }
 }
