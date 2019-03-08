@@ -377,6 +377,7 @@ function reactAllSkill (command, current_time) {
         }
         else if (s_t[0][0] === 'avenger_mark') Set_Special.delete(k) // 特殊变量：M4炮击结束
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
+        else if (s_t[0][0] === 'dot') endStatus(k, s_t, 'dot') // 持续伤害灼烧
         else if (s_t[0][0] === 'fal') endStatus(k, s_t, 'fal') // 榴弹践踏
         else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
         else if (s_t[0][0] === 'reload') {
@@ -441,10 +442,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           Set_Special.set('python_active', num_left)
           changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
         }
-        if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
+        if (list_tdoll[stand_num][1].ID === 245 && Set_Special.get('p90_' + stand_num) > 0) { // P90灰鼠发动，必定暴击和命中
+          var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
+          Set_Special.set('p90_' + stand_num, Set_Special.get('p90_' + stand_num) - 1)
+          final_dmg *= current_Info.get('critdmg')
+          final_dmg = Math.ceil(final_dmg * 5 * global_fragile)
+          Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
+        }
+        else if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 否则先判断命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) { // 战地魔术额外增伤
-            final_dmg *= global_fragile
+            final_dmg *= 1.4
           }
           if (list_tdoll[stand_num][1].ID === 77 || list_tdoll[stand_num][1].ID === 85 || list_tdoll[stand_num][1].ID === 109) { // 不可暴击：连珠终结
             var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
@@ -599,6 +607,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var list_value = []
     for (var i = 0; i < len_list_target; i++) {
       if (list_target[i].substr(0, 3) === 'blo') { // 影响格上
+        if (list_tdoll[stand_num][1].ID === 1064 && list_target[i] === 'bloall') { // 如果是G36MOD发动的弧光契约
+          var num_at_blo = get_g36_standblo(stand_num)
+          for (var nb = 0; nb < num_at_blo; nb++) changeStatus(stand_num, 'self', 'rof', '0.1', 5)
+        }
         var list_pro = ((s_t[0].Describe).list_pro)[i].split('/')
         var list_value = ((s_t[0].Describe).list_value)[i].split('/')
         var len = list_pro.length
@@ -671,6 +683,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var ratio = (s_t[0].Describe).ratio
     Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹
     changeStatus(stand_num, 'grenade', current_time, ratio, 1)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'bomb') { // 投掷物
+    var direct_ratio = (s_t[0].Describe).direct_ratio
+    var dot_ratio = (s_t[0].Describe).dot_ratio
+    var dot_per_second = (s_t[0].Describe).dot_per_second
+    var dot_time = (s_t[0].Describe).dot_time
+    var dot_num = dot_time * dot_per_second
+    Set_Special.set('dotnum_' + stand_num, dot_num)
+    changeStatus(stand_num, 'grenade', current_time, direct_ratio, 1)
+    changeStatus(stand_num, 'dot', current_time, dot_ratio, 1)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'fal') { // 榴弹践踏
@@ -830,6 +853,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
+  else if (skillname === 'x95') { // 花之锁
+    var dmg_up = parseFloat(document.getElementById('special_x95_' + (stand_num + 1)).value) / 100
+    changeStatus(stand_num, 'self', 'dmg', '' + dmg_up, 5)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'p90') { // 灰鼠
+    Set_Special.set('p90_' + stand_num, 4)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -890,7 +922,12 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
-  } else if (target === 'grenade') { // 榴弹
+  } else if (target === 'dot') { // 持续伤害
+    var new_status = [['dot', value + '/' + (type + frame)], frame] // 类似榴弹
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
+  }else if (target === 'grenade') { // 榴弹
     var new_status = [['grenade', value + '/' + (type + frame)], frame] // value记录"倍率/生效时刻"，其他同理
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
@@ -951,12 +988,29 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       this_info.set(status[0][0], new_property)
     }
   }
+  else if (situation === 'dot') {
+    var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
+    var dot_para = status[0][1].split('/')
+    var num_multi = enemy_num
+    if (enemy_fragile) num_multi *= global_fragile
+    var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0]) * enemy_form * num_multi)
+    var current_time = parseInt(dot_para[1])
+    Set_Data.get(stand_num).push([current_time, lastData])
+    Set_Data.get(stand_num).push([current_time, lastData + damage_explode])
+    Set_Special.set('dotnum_' + stand_num, Set_Special.get('dotnum_' + stand_num) - 1)
+    if (Set_Special.get('dotnum_' + stand_num) > 0) {
+      var new_status = [['dot', dot_para[0] + '/' + (global_frame + 10)], 10] // 类似榴弹
+      var list_status = Set_Status.get(stand_num)
+      list_status.push(new_status)
+      Set_Status.set(stand_num, list_status)
+    }
+  }
   else if (situation === 'grenade') {
     var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
     Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
     var num_multi = enemy_num
-    if (enemy_fragile) num_multi += 0.4
+    if (enemy_fragile) num_multi *= global_fragile
     var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form * num_multi)
     var current_time = parseInt(grenade_para[1])
     Set_Data.get(stand_num).push([current_time, lastData])
@@ -974,7 +1028,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     else Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
     var num_multi = enemy_num
-    if (enemy_fragile) num_multi += 0.4
+    if (enemy_fragile) num_multi *= global_fragile
     var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form * num_multi)
     var current_time = parseInt(grenade_para[1])
     Set_Data.get(stand_num).push([current_time, lastData])
@@ -1177,6 +1231,18 @@ function makeGraph (x_max, y_max, str_label) {
       backgroundColor: '#FFFFFF'
     }
   })
+}
+
+function get_g36_standblo(stand_num) {
+  var num_all = 0
+  if (stand_num === 2 || stand_num === 5 || stand_num === 8) true
+  else if (stand_num === 0 || stand_num === 1 || stand_num === 3 || stand_num === 4) {
+    if (list_tdoll[stand_num + 1][1] != null) num_all++
+    if (list_tdoll[stand_num + 4][1] != null) num_all++
+  } else {
+    if (list_tdoll[stand_num + 1][1] != null) num_all++
+  }
+  return num_all
 }
 
 function test (num) {

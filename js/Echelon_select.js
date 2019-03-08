@@ -34,8 +34,8 @@ function changeSelectItems () {
       str_items += '<option value=5>No.5 纳甘左轮</option>'
       str_items += '<option value=9>No.9 P38</option>'
       str_items += '<option value=10>No.10 PPK</option>'
+      // str_items += '<option value=90>No.90 FNP-9</option>'
       str_items += '<option value=91>No.91 MP-446</option>'
-      str_items += '<option value=90>No.90 FNP-9</option>'
       str_items += '<option value=139>No.139 Bren Ten</option>'
       str_items += '<option value=141>No.141 USP Compact</option>'
     }

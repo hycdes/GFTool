@@ -50,6 +50,16 @@ function describe_colt () {
   return Describe
 }
 
+function describe_bomb (direct_ratio, dot_ratio, dot_per_second, dot_time) { // 投掷物，实际执行榴弹+AOE单独计算
+  var Describe = {}
+  Describe.name = 'bomb'
+  Describe.direct_ratio = direct_ratio
+  Describe.dot_ratio = dot_ratio
+  Describe.dot_per_second = dot_per_second
+  Describe.dot_time = dot_time
+  return Describe
+}
+
 function describe_grenade (ratio) { // 榴弹
   var Describe = {}
   Describe.name = 'grenade'
@@ -173,9 +183,19 @@ function describe_m4 () { // 伸冤者印记
   Describe.name = 'm4'
   return Describe
 }
-function describe_js9 () {
+function describe_js9 () { // 临阵磨枪
   var Describe = {}
   Describe.name = 'js9'
+  return Describe
+}
+function describe_x95 () { // 花之锁
+  var Describe = {}
+  Describe.name = 'x95'
+  return Describe
+}
+function describe_p90 () { // 灰鼠
+  var Describe = {}
+  Describe.name = 'p90'
   return Describe
 }
 
@@ -184,11 +204,15 @@ lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有�
 
 lib_describe.set('com_dmg_25', describe_property(['all'], ['dmg'], ['0.25'])) // 火力号令 25%
 lib_describe.set('com_dmg_22', describe_property(['all'], ['dmg'], ['0.22'])) // 火力号令 22%
+lib_describe.set('com_dmg_18', describe_property(['all'], ['dmg'], ['0.18'])) // 火力号令 18%
 lib_describe.set('com_dmgN_35', describe_propertyN(['all'], ['dmg'], ['0.35'])) // 火力号令N 35%
 lib_describe.set('com_dmgND_20', describe_propertyND(['all'], ['dmg'], ['0.2'])) // 火力号令ND 20%
 lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) // 突击号令 25%
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
+lib_describe.set('com_acu_100', describe_property(['all'], ['acu'], ['1'])) // 精确号令 100%
+lib_describe.set('com_acuN_90', describe_propertyN(['all'], ['acu'], ['0.9'])) // 照明弹 90%
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
+lib_describe.set('com_dmgcrit_2', describe_property(['all'], ['dmg/crit'], ['0.1/0.35'])) // 歼灭号令 10%/35%
 lib_describe.set('colt', describe_colt()) // 决斗幸存者
 lib_describe.set('python_dmg', describe_property(['bloall'], ['dmg'], ['0.06']))
 lib_describe.set('python_rof', describe_property(['bloall'], ['rof'], ['0.06']))
@@ -204,6 +228,7 @@ lib_describe.set('p22', describe_property(
   ['col1', 'col2'],
   ['dmg', 'acu/eva'],
   ['0.25', '0.6/0.6'])) // p22_决战序列_1/2列
+lib_describe.set('g36_eva', describe_property(['bloall'], ['eva'], ['0.25']))
 
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
 lib_describe.set('type100', describe_property(['self'], ['dmg'], ['0.85'])) // 火力专注 85%
@@ -237,7 +262,10 @@ lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless
 lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('m200', describe_snipe(2, 0, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
 
+lib_describe.set('vector', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
+lib_describe.set('x95', describe_x95()) // 花之锁
+lib_describe.set('p90', describe_p90()) // 灰鼠
 
 lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
@@ -295,11 +323,11 @@ lib_skill.set(3, [])
 
 lib_skill.set(2, []) //
 lib_skill.set(5, []) //
-lib_skill.set(9, [])
-lib_skill.set(10, [])
+lib_skill.set(9, [createSkill(3, 16, 15, lib_describe.get('com_acuN_90'))])
+lib_skill.set(10, [createSkill(6, 12, 8, lib_describe.get('com_dmgcrit_2'))])
 lib_skill.set(91, []) //
-lib_skill.set(139, [])
-lib_skill.set(141, [])
+lib_skill.set(139, [createSkill(6, 12, 8, lib_describe.get('com_dmg_18'))])
+lib_skill.set(141, [createSkill(6, 12, 8, lib_describe.get('com_acu_100'))])
 
 lib_skill.set(62, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))])
 lib_skill.set(65, [createSkill(8, 16, 0, lib_describe.get('grenade_15'))])
@@ -331,10 +359,13 @@ lib_skill.set(1055, [
 ])
 lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
 lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚可以单独在普攻实现，无需制作
-lib_skill.set(1064, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // 没写弧光契约
+lib_skill.set(1064, [
+  createSkill(4, 16, 10, lib_describe.get('dmg_75')),
+  createSkill(4, 16, 5, lib_describe.get('g36_eva'))
+]) // 弧光契约，射速在react实现
 
 lib_skill.set(16, []) //
-lib_skill.set(20, [])
+lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('vector'))])
 lib_skill.set(28, []) //
 lib_skill.set(59, []) //
 lib_skill.set(104, []) //
@@ -346,8 +377,8 @@ lib_skill.set(213, [])
 lib_skill.set(224, []) //
 lib_skill.set(228, [createSkill(13, 16, 5, lib_describe.get('type100'))]) // 暂时不做护盾
 lib_skill.set(234, [createSkill(6, 8, 5, lib_describe.get('js9'))])
-lib_skill.set(245, [])
-lib_skill.set(251, [])
+lib_skill.set(245, [createSkill(6, 12, 5, lib_describe.get('p90'))])
+lib_skill.set(251, [createSkill(4, 8, 5, lib_describe.get('x95'))])
 lib_skill.set(1103, []) //
 
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])

@@ -58,7 +58,7 @@ lib_affect.set(5, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.32, 0.16])) 
 lib_affect.set(6, createAffect('lu/l/r/ld/', 'all', ['rof', 'acu'], [0.2, 0.5])) // 托卡列夫
 lib_affect.set(7, createAffect('lu/l/r/ld/', 'all', ['dmg', 'rof'], [0.12, 0.24])) // 斯捷奇金
 lib_affect.set(8, createAffect('lu/l/r/ld/', 'all', ['dmg', 'rof'], [0.2, 0.12])) // 马卡洛夫
-lib_affect.set(9, createAffect('lu/r/ld/', 'all', ['rof', 'acu'], [0.14, 0.56])) // P38
+lib_affect.set(9, createAffect('u/ru/d/rd/', 'all', ['rof', 'acu'], [0.14, 0.56])) // P38
 lib_affect.set(10, createAffect('lu/l/r/ld/', 'all', ['rof', 'crit'], [0.32, 0.16])) // PPK
 lib_affect.set(11, createAffect('u/r/d/', 'all', ['dmg', 'acu'], [0.14, 0.7])) // P08
 lib_affect.set(12, createAffect('lu/r/ld/', 'all', ['acu', 'eva'], [0.64, 0.3])) // C96

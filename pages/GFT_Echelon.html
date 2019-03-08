@@ -117,7 +117,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    梯队设置——目前进度：能看到的基本都做了！影响格数据错误请反馈给我哦！
+                                    梯队设置——能选的人里面，K2技能和SG技能没做，其他都有，长期慢更……
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
@@ -298,30 +298,51 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="make_fairy">
                                                     <h4>妖精选择</h4>
-                                                    <select class="form-control input-sm" id='select_fairy' onchange="changeFairy()">
-                                                        <option value=0 selected>无妖精</option>
-                                                        <option value=1>No.1 勇士妖精</option>
-                                                        <option value=2>No.2 暴怒妖精</option>
-                                                        <option value=3>No.3 盾甲妖精</option>
-                                                        <option value=4>No.4 护盾妖精</option>
-                                                        <option value=5>No.5 防御妖精</option>
-                                                        <option value=6>No.6 嘲讽妖精</option>
-                                                        <option value=7>No.7 狙击妖精</option>
-                                                        <option value=8>No.8 炮击妖精</option>
-                                                        <option value=9>No.9 空袭妖精</option>
-                                                        <option value=10>No.10 增援妖精</option>
-                                                        <option value=11>No.11 空降妖精</option>
-                                                        <option value=12>No.12 布雷妖精</option>
-                                                        <option value=13>No.13 火箭妖精</option>
-                                                        <option value=14>No.14 工事妖精</option>
-                                                        <option value=15>No.15 指挥妖精</option>
-                                                        <option value=16>No.16 搜救妖精</option>
-                                                        <option value=17>No.17 照明妖精</option>
-                                                        <option value=18>No.18 黄金妖精</option>
-                                                        <option value=19>No.19 炊事妖精</option>
-                                                        <option value=20>No.20 花火妖精</option>
-                                                        <option value=21>No.21 年兽妖精</option>
-                                                    </select>
+                                                    <table class="table_other table-bordered table-hover" style="width:200px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="height: 200px">
+                                                                    以后这里会有妖精的样子，现在妖精只有属性
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-control input-sm" id='select_fairy' onchange="changeFairy()">
+                                                                        <option value=0 selected>无妖精</option>
+                                                                        <option value=1>No.1 勇士妖精</option>
+                                                                        <option value=2>No.2 暴怒妖精</option>
+                                                                        <option value=3>No.3 盾甲妖精</option>
+                                                                        <option value=4>No.4 护盾妖精</option>
+                                                                        <option value=5>No.5 防御妖精</option>
+                                                                        <option value=6>No.6 嘲讽妖精</option>
+                                                                        <option value=7>No.7 狙击妖精</option>
+                                                                        <option value=8>No.8 炮击妖精</option>
+                                                                        <option value=9>No.9 空袭妖精</option>
+                                                                        <option value=10>No.10 增援妖精</option>
+                                                                        <option value=11>No.11 空降妖精</option>
+                                                                        <option value=12>No.12 布雷妖精</option>
+                                                                        <option value=13>No.13 火箭妖精</option>
+                                                                        <option value=14>No.14 工事妖精</option>
+                                                                        <option value=15>No.15 指挥妖精</option>
+                                                                        <option value=16>No.16 搜救妖精</option>
+                                                                        <option value=17>No.17 照明妖精</option>
+                                                                        <option value=18>No.18 黄金妖精</option>
+                                                                        <option value=19>No.19 炊事妖精</option>
+                                                                        <option value=20>No.20 花火妖精</option>
+                                                                        <option value=21>No.21 年兽妖精</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <select class="form-control input-sm" id='select_talent' onchange="">
+                                                                        <option value=0 selected>天赋即将制作</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
                                                 </div>
                                                 <div class="tab-pane fade" id="make_hf">
                                                     <h4>还早着呢！！！</h4>
@@ -376,7 +397,7 @@
                                                             <tr>
                                                                 <td style="width: 30%">战斗时间</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=100>
+                                                                    <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=50>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
