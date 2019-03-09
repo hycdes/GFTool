@@ -256,6 +256,13 @@ function getDPS () {
     }
   }
   // 载入初始状态（妖精属性、天赋、全局设定、换弹）
+  var common_position = 0
+  for (var cn = 0; cn < 9; cn++) {
+    if (list_tdoll[cn][1] != null) {
+      common_position = cn
+      break
+    }
+  }
   if (fairy_no > 0) {
     var fairy_info = lib_fairy.get(fairy_no)
     var list_property = (fairy_info.property).split('/')
@@ -269,16 +276,16 @@ function getDPS () {
       Set_Special.set('talent_active_at', 239)
       changeStatus(-1, 'all', 'dmg', '0.1', -1)
     }
-    else if (talent_no === 2) changeStatus(-1, 'all', 'dmg', '0.12', -1)
-    else if (talent_no === 3) changeStatus(-1, 'all', 'dmg', '0.15', -1)
-    else if (talent_no === 4) changeStatus(-1, 'all', 'acu', '0.2', -1)
-    else if (talent_no === 5) changeStatus(-1, 'all', 'acu', '0.25', -1)
-    else if (talent_no === 6) changeStatus(-1, 'all', 'eva', '0.15', -1)
-    else if (talent_no === 7) changeStatus(-1, 'all', 'eva', '0.2', -1)
-    else if (talent_no === 8) changeStatus(-1, 'all', 'arm', '0.08', -1)
-    else if (talent_no === 9) changeStatus(-1, 'all', 'arm', '0.10', -1)
-    else if (talent_no === 10) changeStatus(-1, 'all', 'crit', '0.4', -1)
-    else if (talent_no === 11) changeStatus(-1, 'all', 'crit', '0.5', -1)
+    else if (talent_no === 2) changeStatus(common_position, 'all', 'dmg', '0.12', -1)
+    else if (talent_no === 3) changeStatus(common_position, 'all', 'dmg', '0.15', -1)
+    else if (talent_no === 4) changeStatus(common_position, 'all', 'acu', '0.2', -1)
+    else if (talent_no === 5) changeStatus(common_position, 'all', 'acu', '0.25', -1)
+    else if (talent_no === 6) changeStatus(common_position, 'all', 'eva', '0.15', -1)
+    else if (talent_no === 7) changeStatus(common_position, 'all', 'eva', '0.2', -1)
+    else if (talent_no === 8) changeStatus(common_position, 'all', 'arm', '0.08', -1)
+    else if (talent_no === 9) changeStatus(common_position, 'all', 'arm', '0.10', -1)
+    else if (talent_no === 10) changeStatus(common_position, 'all', 'crit', '0.4', -1)
+    else if (talent_no === 11) changeStatus(common_position, 'all', 'crit', '0.5', -1)
     else if (talent_no === 12) {
       for (var i = 0; i < 9; i++) {
         if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 3) {
@@ -372,7 +379,7 @@ function getDPS () {
     if (check_talent) {
       if (global_frame === Set_Special.get('talent_active_at') && Set_Special.get('talent_num') < 3) {
         Set_Special.set('talent_active_at', Set_Special.get('talent_active_at') + 240)
-        changeStatus(-1, 'all', 'dmg', '0.1', -1)
+        changeStatus(common_position, 'all', 'dmg', '0.1', -1)
         Set_Special.set('talent_num', Set_Special.get('talent_num') + 1)
       }
       if (Set_Special.get('talent_num') >= 3) check_talent = false
@@ -1141,7 +1148,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
     }
     if (list_labels[2] != 'critless') {
-      if (Math.random <= current_Info.get('crit') || Set_Special.get('must_crit_' + stand_num) === true) damage_snipe_single *= (1 + current_Info.get('critdmg'))
+      if (Math.random <= current_Info.get('crit') || Set_Special.get('must_crit_' + stand_num) === true) damage_snipe_single *= current_Info.get('critdmg')
     }
     if (list_labels[3] != 'evaless') {
       if (Math.random > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
