@@ -979,7 +979,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
         var new_level = Set_Special.get('python_' + type) + 1
         Set_Special.set('python_' + type, new_level)
-        react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0)
+        react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0) // PROBLEM
         changeStatus(stand_num, 'python_buff_' + type, type, null, 3)
       }
     }
@@ -1062,7 +1062,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
             else new_property = new_property * status[0][1]
           }
           else if (situation === 'lost') {
-            if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property / status[0][1])
+            if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.floor(new_property / status[0][1])
             else new_property = new_property / status[0][1]
           }
           this_info.set(status[0][0], new_property)
@@ -1076,7 +1076,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
         else new_property = new_property * status[0][1]
       }
       else if (situation === 'lost') {
-        if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property / status[0][1])
+        if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.floor(new_property / status[0][1])
         else new_property = new_property / status[0][1]
       }
       this_info.set(status[0][0], new_property)
