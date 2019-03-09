@@ -276,7 +276,10 @@ function resetEquipment () {
     }
     else if (set_guntype === 3) set_equip = [32, 21, 11]
     else if (set_guntype === 4) {
-      if (ID === 1039) set_equip = [11039, 23, 31039]
+      if (ID === 46) set_equip = [146, 23, 34]
+      else if (ID === 1039) set_equip = [11039, 23, 31039]
+      else if (ID === 1037) set_equip = [11037, 23, 34]
+      else if (ID === 1051) set_equip = [11051, 23, 34]
       else set_equip = [12, 23, 34]
     }
     else if (set_guntype === 5) {
@@ -553,7 +556,19 @@ function changeSunrise (type) {
 }
 function changeFairy () {
   fairy_no = parseInt(document.getElementById('select_fairy').value)
+  if (fairy_no > 0) document.getElementById('select_talent').disabled = false
+  else {
+    document.getElementById('select_talent').disabled = true
+    changeTalent(0)
+  }
   document.getElementById('fairy_img').src = '../img/echelon/fairy/f' + fairy_no + '.png'
+}
+function changeTalent (num) {
+  if (num === 1) talent_no = parseInt(document.getElementById('select_talent').value)
+  else {
+    document.getElementById('select_talent').value = 0
+    talent_no = 0
+  }
 }
 function inputCheck_k11 (str_id) {
   var str_input = document.getElementById(str_id).value

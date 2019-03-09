@@ -208,8 +208,17 @@ function changeEquip () {
       str_items += '<option value=14>EOT 518</option>'
       str_items += '<option value=13>ITI MARS</option>'
       str_items += '<option value=11>AC4消音器</option>'
+      if (ID === 46) { // Kar98k
+        str_items += '<option value=146>PM 5-25X65</option>'
+      }
       if (ID === 1039) { // 莫辛纳甘-MOD
         str_items += '<option value=11039>K6-24X56</option>'
+      }
+      if (ID === 1037) { // M14 MOD
+        str_items += '<option value=11037>M2两脚架</option>'
+      }
+      if (ID === 1051) { // FN49 MOD
+        str_items += '<option value=11051>快慢机板机组</option>'
       }
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=12>VFL 6-24X56</option>'

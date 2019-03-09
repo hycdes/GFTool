@@ -17,7 +17,7 @@ var lib_describe = new Map // 描述库，存放 < 技能名, 描述 >
 var lib_skill = new Map // 技能库，存放 < 人形编号, list_Skill>
 var lib_fairy = new Map // 妖精库
 var list_tdoll = [[0, null], [1, null], [2, null], [3, null], [4, null], [5, null], [6, null], [7, null], [8, null]] // 战术人形列表，存放二元组[position, TdollInfo]
-var time = 100, init_time = 0, daytime = 1, fairy_no = 0
+var time = 100, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0
 var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map
 var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9]
 var not_init = false
@@ -255,7 +255,7 @@ function getDPS () {
       Set_Skill.set(i, list_Skill)
     }
   }
-  // 载入初始状态（妖精天赋、全局设定、换弹）
+  // 载入初始状态（妖精属性、天赋、全局设定、换弹）
   if (fairy_no > 0) {
     var fairy_info = lib_fairy.get(fairy_no)
     var list_property = (fairy_info.property).split('/')
@@ -263,6 +263,69 @@ function getDPS () {
     var fairy_list_len = list_property.length
     for (var i = 0; i < fairy_list_len; i++) {
       changeStatus(-1, 'all', list_property[i], list_value[i], -1)
+    }
+    if (talent_no === 1) {
+      Set_Special.set('talent_num', 1)
+      Set_Special.set('talent_active_at', 239)
+      changeStatus(-1, 'all', 'dmg', '0.1', -1)
+    }
+    else if (talent_no === 2) changeStatus(-1, 'all', 'dmg', '0.12', -1)
+    else if (talent_no === 3) changeStatus(-1, 'all', 'dmg', '0.15', -1)
+    else if (talent_no === 4) changeStatus(-1, 'all', 'acu', '0.2', -1)
+    else if (talent_no === 5) changeStatus(-1, 'all', 'acu', '0.25', -1)
+    else if (talent_no === 6) changeStatus(-1, 'all', 'eva', '0.15', -1)
+    else if (talent_no === 7) changeStatus(-1, 'all', 'eva', '0.2', -1)
+    else if (talent_no === 8) changeStatus(-1, 'all', 'arm', '0.08', -1)
+    else if (talent_no === 9) changeStatus(-1, 'all', 'arm', '0.10', -1)
+    else if (talent_no === 10) changeStatus(-1, 'all', 'crit', '0.4', -1)
+    else if (talent_no === 11) changeStatus(-1, 'all', 'crit', '0.5', -1)
+    else if (talent_no === 12) {
+      for (var i = 0; i < 9; i++) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 3) {
+          changeStatus(i, 'self', 'dmg', '0.08', -1)
+          changeStatus(i, 'self', 'eva', '0.12', -1)
+        }
+      }
+    }
+    else if (talent_no === 13) {
+      for (var i = 0; i < 9; i++) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 2) {
+          changeStatus(i, 'self', 'dmg', '0.1', -1)
+          changeStatus(i, 'self', 'rof', '0.08', -1)
+        }
+      }
+    }
+    else if (talent_no === 14) {
+      for (var i = 0; i < 9; i++) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 4) {
+          changeStatus(i, 'self', 'dmg', '0.08', -1)
+          changeStatus(i, 'self', 'rof', '0.10', -1)
+        }
+      }
+    }
+    else if (talent_no === 15) {
+      for (var i = 0; i < 9; i++) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 6) {
+          changeStatus(i, 'self', 'arm', '0.08', -1)
+          changeStatus(i, 'self', 'crit', '0.2', -1)
+        }
+      }
+    }
+    else if (talent_no === 16) {
+      for (var i = 0; i < 9; i++) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 5) {
+          changeStatus(i, 'self', 'dmg', '0.1', -1)
+          changeStatus(i, 'self', 'acu', '0.15', -1)
+        }
+      }
+    }
+    else if (talent_no === 17) {
+      for (var i = 0; i < 9; i++) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 1) {
+          changeStatus(i, 'self', 'eva', '0.1', -1)
+          changeStatus(i, 'self', 'crit', '0.3', -1)
+        }
+      }
     }
   }
   if (document.getElementById('check_init_critmax').checked) {
@@ -301,8 +364,19 @@ function getDPS () {
 
   // 主函数
   not_init = true
+  var check_talent = true
+  if (Set_Special.get('talent_active_at') === undefined) check_talent = false
   for (var t = 0; t < time; t++) {
     global_frame = t
+    // 激昂型发动
+    if (check_talent) {
+      if (global_frame === Set_Special.get('talent_active_at') && Set_Special.get('talent_num') < 3) {
+        Set_Special.set('talent_active_at', Set_Special.get('talent_active_at') + 240)
+        changeStatus(-1, 'all', 'dmg', '0.1', -1)
+        Set_Special.set('talent_num', Set_Special.get('talent_num') + 1)
+      }
+      if (Set_Special.get('talent_num') >= 3) check_talent = false
+    }
     // 接敌时间
     if (init_time > 0) {
       init_time--
@@ -694,6 +768,19 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('dotnum_' + stand_num, dot_num)
     changeStatus(stand_num, 'grenade', current_time, direct_ratio, 1)
     changeStatus(stand_num, 'dot', current_time, dot_ratio, 1)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'sop2') {
+    var ratio = 15
+    var extra_base = 1.9, extra_num = 1
+    if (enemy_num <= 3) extra_num = enemy_num
+    else extra_num = 3
+    if (Set_EnemyStatus.get('avenger_mark') === true) { // 伸冤者印记期间
+      extra_base *= 1.25
+    }
+    ratio += extra_base * extra_num
+    Set_Special.set('attack_permission_' + stand_num, 'fire_four') // 一人准备释放榴弹
+    changeStatus(stand_num, 'grenade', current_time, ratio, 1)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'fal') { // 榴弹践踏
