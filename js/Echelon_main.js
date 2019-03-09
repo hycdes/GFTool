@@ -1148,10 +1148,10 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
     }
     if (list_labels[2] != 'critless') {
-      if (Math.random <= current_Info.get('crit') || Set_Special.get('must_crit_' + stand_num) === true) damage_snipe_single *= current_Info.get('critdmg')
+      if (Math.random() <= current_Info.get('crit') || Set_Special.get('must_crit_' + stand_num) === true) damage_snipe_single *= current_Info.get('critdmg')
     }
     if (list_labels[3] != 'evaless') {
-      if (Math.random > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
+      if (Math.random() > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
     }
     damage_snipe_single = Math.ceil(damage_snipe_single * 5)
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)

@@ -82,6 +82,13 @@ function showAffect () {
         else if (k.substr(len_type) === 'cld') cld += 100 * v
       }
     }
+    dmg = Math.round(dmg)
+    rof = Math.round(rof)
+    acu = Math.round(acu)
+    crit = Math.round(crit)
+    eva = Math.round(eva)
+    arm = Math.round(arm)
+    cld = Math.round(cld)
     var num_buff = 0
     if (dmg > 0) {
       if (num_buff === 3) {
@@ -346,22 +353,33 @@ function resetEquipment () {
     var ID = parseInt(document.getElementById('select_tdoll').value)
     if (set_guntype === 1) {
       if (ID === 1001) set_equip = [11001, 21, 31]
+      else if (ID === 1002) set_equip = [11, 21002, 31]
+      else if (ID === 1005) set_equip = [11005, 21, 31]
+      else if (ID === 1091) set_equip = [11091, 21, 31]
       else set_equip = [11, 21, 31]
     }
     else if (set_guntype === 2) {
-      if (ID === 56) set_equip = [12, 22, 14]
+      if (ID === 54) set_equip = [32, 22, 354]
+      else if (ID === 56) set_equip = [12, 22, 14]
       else if (ID === 57) set_equip = [12, 21057, 14]
       else if (ID === 62) set_equip = [12, 22, 362]
       else if (ID === 65) set_equip = [165, 22, 31]
+      else if (ID === 66) set_equip = [166, 22, 31]
+      else if (ID === 69) set_equip = [169, 22, 31]
       else if (ID === 1056) set_equip = [12, 22, 11056]
       else if (ID === 1057) set_equip = [12, 21057, 11057]
       else if (ID === 1055) set_equip = [12, 22, 31055]
       else if (ID === 1064) set_equip = [11064, 22, 31]
       else set_equip = [12, 22, 31]
     }
-    else if (set_guntype === 3) set_equip = [32, 21, 11]
+    else if (set_guntype === 3) {
+      if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11]
+      else if (ID === 1103) set_equip = [3103, 21, 11103]
+      else set_equip = [32, 21, 11]
+    }
     else if (set_guntype === 4) {
-      if (ID === 46) set_equip = [146, 23, 34]
+      if (ID === 36) set_equip = [12, 236, 34]
+      else if (ID === 46) set_equip = [146, 23, 34]
       else if (ID === 1039) set_equip = [11039, 23, 31039]
       else if (ID === 1037) set_equip = [11037, 23, 34]
       else if (ID === 1051) set_equip = [11051, 23, 34]

@@ -56,7 +56,7 @@ lib_affect.set(3, createAffect('lu/l/r/ld/', 'all', ['dmg', 'eva'], [0.2, 0.2]))
 lib_affect.set(4, createAffect('u/ru/l/r/ld/d/', 'all', ['dmg', 'crit'], [0.3, 0.2])) // 蟒蛇
 lib_affect.set(5, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.32, 0.16])) // 纳甘左轮
 lib_affect.set(6, createAffect('lu/l/r/ld/', 'all', ['rof', 'acu'], [0.2, 0.5])) // 托卡列夫
-lib_affect.set(7, createAffect('lu/l/r/ld/', 'all', ['dmg', 'rof'], [0.12, 0.24])) // 斯捷奇金
+lib_affect.set(7, createAffect('u/ru/d/rd/', 'all', ['dmg', 'rof'], [0.12, 0.24])) // 斯捷奇金
 lib_affect.set(8, createAffect('lu/l/r/ld/', 'all', ['dmg', 'rof'], [0.2, 0.12])) // 马卡洛夫
 lib_affect.set(9, createAffect('u/ru/d/rd/', 'all', ['rof', 'acu'], [0.14, 0.56])) // P38
 lib_affect.set(10, createAffect('lu/l/r/ld/', 'all', ['rof', 'crit'], [0.32, 0.16])) // PPK
@@ -634,11 +634,19 @@ lib_property_equip.set(34, createProperty_equip(0, 0, 0, 0, 0, 0, 0.25, 0, 0))
 lib_property_equip.set(35, createProperty_equip(0, 0, -2, 0, 0, 0, 0, 5, 0))
 lib_property_equip.set(41, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0))
 // exclusive equipment
+lib_property_equip.set(166, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.44, 0, 0))
 lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0))
+lib_property_equip.set(169, createProperty_equip(4, 4, 0, 0, 0, 0.48, 0, 0, 0))
 lib_property_equip.set(165, createProperty_equip(8, 14, 0, 0, 0, 0.25, 0, 0, 0))
+lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195))
+lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0))
 lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0))
+lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0))
+lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(11001, createProperty_equip(3, 0, 10, 0, 0, 0.2, 0, 0, 0))
+lib_property_equip.set(11005, createProperty_equip(0, 4, 14, 0, 0, 0.2, 0, 0, 0))
+lib_property_equip.set(11091, createProperty_equip(0, 8, 10, 0, 0, 0.2, 0, 0, 0))
 lib_property_equip.set(11037, createProperty_equip(0, 10, 0, 0, 0, 0.48, 0, 0, 0))
 lib_property_equip.set(11039, createProperty_equip(0, 6, 0, 0, 0, 0.5, 0, 0, 0))
 lib_property_equip.set(11051, createProperty_equip(0, 0, 0, 5, 0, 0.48, 0, 0, 0))
@@ -646,6 +654,8 @@ lib_property_equip.set(11056, createProperty_equip(12, 14, 0, -2, 0, 0, 0, 0, 0)
 lib_property_equip.set(11057, createProperty_equip(0, 10, 0, 0, 0, 0, 0.2, 0, 0))
 lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0))
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0))
+lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0))
+lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7))
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0))
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0))
