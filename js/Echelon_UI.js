@@ -553,6 +553,7 @@ function changeSunrise (type) {
 }
 function changeFairy () {
   fairy_no = parseInt(document.getElementById('select_fairy').value)
+  document.getElementById('fairy_img').src = '../img/echelon/fairy/f' + fairy_no + '.png'
 }
 function inputCheck_k11 (str_id) {
   var str_input = document.getElementById(str_id).value

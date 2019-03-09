@@ -1233,7 +1233,7 @@ function makeGraph (x_max, y_max, str_label) {
   })
 }
 
-function get_g36_standblo(stand_num) {
+function get_g36_standblo (stand_num) {
   var num_all = 0
   if (stand_num === 2 || stand_num === 5 || stand_num === 8) true
   else if (stand_num === 0 || stand_num === 1 || stand_num === 3 || stand_num === 4) {

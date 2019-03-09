@@ -29,6 +29,7 @@ function changeSelectItems () {
     // str_items += '<option value=248>No.248 杰里科</option>'
     } else if (num_star === 3) {
       str_items += '<option value=3 selected>No.3 M9</option>'
+      str_items += '<option value=14>No.14 阿斯特拉左轮</option>'
     } else if (num_star === 2) {
       str_items += '<option value=2 selected>No.2 M1911</option>'
       str_items += '<option value=5>No.5 纳甘左轮</option>'
@@ -64,7 +65,7 @@ function changeSelectItems () {
       str_items += '<option value=1057>No.57 [MOD] ST AR-15</option>'
       str_items += '<option value=1064>No.64 [MOD] G36</option>'
     } else if (num_star === 4) {
-      str_items += '<option value=-1 selected>还没做！</option>'
+      str_items += '<option value=171 selected>No.171 利贝罗勒</option>'
     } else if (num_star === 3) {
       str_items += '<option value=-1 selected>还没做！</option>'
     } else if (num_star === 2) {
@@ -89,9 +90,11 @@ function changeSelectItems () {
       str_items += '<option value=251>No.251 X95</option>'
       str_items += '<option value=1103>No.103 [MOD] UMP45</option>'
     } else if (num_star === 4) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=136 selected>No.136 PP-19</option>'
+      str_items += '<option value=177>No.177 KLIN</option>'
+      str_items += '<option value=203>No.203 蜜獾</option>'
     } else if (num_star === 3) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=27 selected>No.27 蝎式</option>'
     } else if (num_star === 2) {
       str_items += '<option  value=-1 selected>还没做！</option>'
     }
@@ -114,11 +117,13 @@ function changeSelectItems () {
       str_items += '<option value=257>No.257 M200</option>'
       str_items += '<option value=1039>No.39 [MOD] 莫辛-纳甘</option>'
     } else if (num_star === 4) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=247 selected>No.247 K31</option>'
+      str_items += '<option value=1037>No.37 [MOD]M14</option>'
+      str_items += '<option value=1051>No.51 [MOD]FN-49</option>'
     } else if (num_star === 3) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=37 selected>No.37 M14</option>'
     } else if (num_star === 2) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=51 selected>No.51 FN-49</option>'
     }
   } else if (set_guntype === 5) { // MG
     if (num_star === 5) {
