@@ -1,6 +1,6 @@
 function showAffect () {
   for (var i = 1; i <= 3; i++) {
-    for (var j = 1; j <= 3;j++) document.getElementById('a' + i + '' + j).style = 'background-color:#000000'
+    for (var j = 1; j <= 3; j++) document.getElementById('a' + i + '' + j).style = 'background-color:#000000'
   }
   if (set_guntype >= 1) {
     var ID = parseInt(document.getElementById('select_tdoll').value)
@@ -54,6 +54,91 @@ function showAffect () {
       str_final += str_temp
     }
     document.getElementById('a_exp').innerHTML = str_final
+  }
+  var str_a_have = ''
+
+  if (num_pickblock === -1 || list_tdoll[num_pickblock - 1][1] === null) {
+    document.getElementById('a_have').innerHTML = '放置人形后才能显示受到的增益'
+  } else {
+    var this_blo = blockSet[num_pickblock - 1]
+    var this_type = num_to_name(list_tdoll[num_pickblock - 1][1].Type), len_type = this_type.length
+    var dmg = 0, rof = 0, acu = 0, crit = 0, eva = 0, arm = 0, cld = 0
+    for (var [k, v] of this_blo) {
+      if (k.substr(0, 3) === 'all') {
+        if (k.substr(3) === 'dmg') dmg += 100 * v
+        else if (k.substr(3) === 'rof') rof += 100 * v
+        else if (k.substr(3) === 'acu') acu += 100 * v
+        else if (k.substr(3) === 'crit') crit += 100 * v
+        else if (k.substr(3) === 'eva') eva += 100 * v
+        else if (k.substr(3) === 'arm') arm += 100 * v
+        else if (k.substr(3) === 'cld') cld += 100 * v
+      } else if (k.substr(0, len_type) === this_type) {
+        if (k.substr(len_type) === 'dmg') dmg += 100 * v
+        else if (k.substr(len_type) === 'rof') rof += 100 * v
+        else if (k.substr(len_type) === 'acu') acu += 100 * v
+        else if (k.substr(len_type) === 'crit') crit += 100 * v
+        else if (k.substr(len_type) === 'eva') eva += 100 * v
+        else if (k.substr(len_type) === 'arm') arm += 100 * v
+        else if (k.substr(len_type) === 'cld') cld += 100 * v
+      }
+    }
+    var num_buff = 0
+    if (dmg > 0) {
+      if (num_buff === 3) {
+        num_buff = 0
+        str_a_have += '<br>'
+      }
+      str_a_have += '伤害+' + dmg + '%  '
+      num_buff++
+    }
+    if (rof > 0) {
+      if (num_buff === 3) {
+        num_buff = 0
+        str_a_have += '<br>'
+      }
+      str_a_have += '射速+' + rof + '%  '
+      num_buff++
+    }
+    if (acu > 0) {
+      if (num_buff === 3) {
+        num_buff = 0
+        str_a_have += '<br>'
+      }
+      str_a_have += '命中+' + acu + '%  '
+      num_buff++
+    }
+    if (crit > 0) {
+      if (num_buff === 3) {
+        num_buff = 0
+        str_a_have += '<br>'
+      }
+      str_a_have += '暴击+' + crit + '%  '
+      num_buff++
+    }
+    if (eva > 0) {
+      if (num_buff === 3) {
+        num_buff = 0
+        str_a_have += '<br>'
+      }
+      str_a_have += '回避+' + eva + '%  '
+      num_buff++
+    }
+    if (arm > 0) {
+      if (num_buff === 3) {
+        num_buff = 0
+        str_a_have += '<br>'
+      }
+      str_a_have += '护甲+' + arm + '%  '
+      num_buff++
+    }
+    if (cld > 0) {
+      if (num_buff === 3) {
+        num_buff = 0
+        str_a_have += '<br>'
+      }
+      str_a_have += '冷却-' + cld + '%  '
+    }
+    document.getElementById('a_have').innerHTML = str_a_have
   }
 }
 
