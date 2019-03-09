@@ -906,8 +906,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  else if (skillname === 'aug') { // 葬仪之雨
-    Set_Special.set('aug_' + stand_num, global_frame + 210)
+  else if (skillname === 'aug') { // 葬仪之雨 或 大流星暴
+    Set_Special.set('aug_' + stand_num, global_frame + s_t[0].duration * 30)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'karm1891') { // 玛尔斯号角：主动

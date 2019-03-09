@@ -101,7 +101,7 @@ lib_affect.set(50, createAffect('u/d/', 'hg', ['cld'], [0.18])) // 李-恩菲尔
 lib_affect.set(51, createAffect('ru/rd/', 'hg', ['cld'], [0.1])) // FN-49
 lib_affect.set(52, createAffect('r/', 'hg', ['cld'], [0.1])) // BM59
 lib_affect.set(53, createAffect('r/', 'hg', ['cld'], [0.18])) // NTW-20
-lib_affect.set(54, createAffect('lu/l/r/ld/', 'smg', ['dmg', 'eva'], [0.1, 0.12])) // M16A1
+lib_affect.set(54, createAffect('u/ru/d/rd/', 'smg', ['dmg', 'eva'], [0.1, 0.12])) // M16A1
 lib_affect.set(55, createAffect('ru/u/r/rd/d/', 'ar', ['dmg', 'crit'], [0.18, 0.3])) // M4A1
 lib_affect.set(56, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // M4 SOPMODII
 lib_affect.set(57, createAffect('ru/r/rd/', 'smg', ['rof', 'eva'], [0.1, 0.12])) // ST AR-15

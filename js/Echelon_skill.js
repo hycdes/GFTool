@@ -215,11 +215,12 @@ lib_describe.set('com_acuN_90', describe_propertyN(['all'], ['acu'], ['0.9'])) /
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
 lib_describe.set('com_dmgcrit_2', describe_property(['all'], ['dmg/crit'], ['0.1/0.35'])) // 歼灭号令 10%/35%
 lib_describe.set('colt', describe_colt()) // 决斗幸存者
-lib_describe.set('python_dmg', describe_property(['bloall'], ['dmg'], ['0.06']))
+lib_describe.set('python_dmg', describe_property(['bloall'], ['dmg'], ['0.06'])) // 蟒蛇：各种复读
 lib_describe.set('python_rof', describe_property(['bloall'], ['rof'], ['0.06']))
 lib_describe.set('python_acu', describe_property(['bloall'], ['acu'], ['0.3']))
 lib_describe.set('python_eva', describe_property(['bloall'], ['eva'], ['0.3']))
 lib_describe.set('python_crit', describe_property(['bloall'], ['crit'], ['0.12']))
+lib_describe.set('mp446', describe_property(['bloall'], ['rof'], ['0.2'])) // 潮音突袭
 lib_describe.set('px4', describe_property(['bloall'], ['crit/critdmg'], ['-0.2/0.5'])) // 狩猎筹码
 lib_describe.set('k5', describe_property(
   ['blohg', 'blosmg', 'bloar', 'blorf', 'blomg', 'blosg'],
@@ -236,6 +237,7 @@ lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // �
 lib_describe.set('dmgeva_16040', describe_property(['self'], ['dmg/eva'], ['1.6/0.4'])) // 机动专注 160%/40%
 lib_describe.set('type100', describe_property(['self'], ['dmg'], ['0.85'])) // 火力专注 85%
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
+lib_describe.set('dmg_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注 70%
 lib_describe.set('dmg_65', describe_property(['self'], ['dmg'], ['0.65'])) // 火力专注 65%
 lib_describe.set('dmg_60', describe_property(['self'], ['dmg'], ['0.6'])) // 火力专注 60%
 lib_describe.set('dmg_55', describe_property(['self'], ['dmg'], ['0.55'])) // 火力专注 55%
@@ -244,13 +246,18 @@ lib_describe.set('dmgN_200', describe_propertyN(['self'], ['dmg'], ['2'])) // �
 lib_describe.set('dmgN_180', describe_propertyN(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
 lib_describe.set('dmgND_70', describe_propertyND(['self'], ['dmg'], ['0.7'])) // 火力专注ND 70%
 lib_describe.set('dmgND_60', describe_propertyND(['self'], ['dmg'], ['0.6'])) // 火力专注ND 60%
+lib_describe.set('cz2000_N', describe_propertyN(['self'], ['acu/rof'], ['0.4/0.5'])) // 黎明气焰-N
+lib_describe.set('cz2000_ND', describe_propertyND(['self'], ['dmg/crit'], ['0.65/0.25'])) // 黎明气焰-ND
+lib_describe.set('a91_N', describe_propertyN(['self'], ['dmg/acu'], ['0.5/0.5'])) // A91杀伤榴弹N-属性加成
 lib_describe.set('iws2000', describe_property(['self'], ['dmg/rof'], ['1.8/-0.35'])) // 巨鹰攻势
 lib_describe.set('k31', describe_property(['self'], ['rof/acu'], ['0.8/-0.35'])) // 紧急流速
 lib_describe.set('rof_75', describe_property(['self'], ['rof'], ['0.75'])) // 突击专注 75%
 lib_describe.set('rof_50', describe_property(['self'], ['rof'], ['0.5'])) // 突击专注 50%
+lib_describe.set('rof_45', describe_property(['self'], ['rof'], ['0.45'])) // 突击专注 45%
 lib_describe.set('rof_15', describe_property(['self'], ['rof'], ['0.15'])) // 凛冽斗志 15%
 lib_describe.set('critdmg_10', describe_property(['self'], ['critdmg'], ['0.1'])) // 明澈斗志 10%
 lib_describe.set('art556', describe_property(['self'], ['dmg/rof'], ['0.85/0.25'])) // 冲锋专注 85%/25%
+lib_describe.set('tar21', describe_property(['self'], ['dmg/rof'], ['0.75/0.25'])) // 冲锋专注 75%/25%
 lib_describe.set('t91N', describe_propertyN(['self'], ['dmg/crit'], ['1.2/0.5'])) // 歼灭专注N 120%/50%
 lib_describe.set('t91ND', describe_propertyND(['self'], ['dmg/crit'], ['0.5/0.25'])) // 歼灭专注ND 50%/25%
 lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) // 至高枪弹
@@ -287,6 +294,8 @@ lib_describe.set('hs2000', describe_property(['all'], ['dmg/acu'], ['0.35/0.35']
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
+lib_describe.set('grenade_10', describe_grenade(10)) // 10倍榴弹
+lib_describe.set('grenade_5', describe_grenade(5)) // 5倍榴弹
 lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
 lib_describe.set('k11', describe_k11()) // 恐惧榴弹
 lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
@@ -331,6 +340,7 @@ lib_skill.set(100, []) // 掩护号令
 lib_skill.set(168, []) //
 lib_skill.set(202, []) // 雷电
 lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
+lib_skill.set(1091, [createSkill(6, 12, 4, lib_describe.get('mp446'))])
 
 lib_skill.set(3, [])
 lib_skill.set(14, [createSkill(6, 12, 8, lib_describe.get('com_rof_20'))])
@@ -378,6 +388,34 @@ lib_skill.set(1064, [
   createSkill(4, 16, 5, lib_describe.get('g36_eva'))
 ]) // 弧光契约，射速在react实现
 
+lib_skill.set(54, []) // 闪光弹
+lib_skill.set(55, [createSkill(4, 16, 10, lib_describe.get('dmg_70'))])
+lib_skill.set(56, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
+lib_skill.set(57, [createSkill(4, 16, 15, lib_describe.get('rof_45'))])
+lib_skill.set(60, [
+  createSkill(5, 16, 6, lib_describe.get('dmgN_180')),
+  createSkill(5, 16, 6, lib_describe.get('dmgND_60'))
+])
+lib_skill.set(64, [createSkill(4, 16, 10, lib_describe.get('dmg_70'))])
+lib_skill.set(66, [createSkill(8, 16, 0, lib_describe.get('grenade_5'))])
+lib_skill.set(69, [createSkill(8, 16, 0, lib_describe.get('grenade_5'))])
+lib_skill.set(72, [createSkill(6, 16, 5, lib_describe.get('tar21'))])
+lib_skill.set(118, [
+  createSkill(5, 16, 6, lib_describe.get('dmgN_180')),
+  createSkill(5, 16, 6, lib_describe.get('dmgND_60'))
+])
+lib_skill.set(187, [createSkill(5, 8, 5, lib_describe.get('dmg_65'))])
+lib_skill.set(207, [
+  createSkill(4, 16, 10, lib_describe.get('cz2000_N')),
+  createSkill(4, 16, 10, lib_describe.get('cz2000_ND'))
+])
+lib_skill.set(216, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
+lib_skill.set(227, [
+  createSkill(8, 16, 0, lib_describe.get('grenade_10')),
+  createSkill(8, 16, 10, lib_describe.get('a91_N'))
+])
+lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
+
 lib_skill.set(171, [createSkill(6, 16, 5, lib_describe.get('lbll'))])
 
 lib_skill.set(16, []) //
@@ -389,7 +427,7 @@ lib_skill.set(115, []) //
 lib_skill.set(127, []) //
 lib_skill.set(135, [createSkill(4, 8, 5, lib_describe.get('dmg_260'))])
 lib_skill.set(143, []) //
-lib_skill.set(213, [])
+lib_skill.set(213, []) // 心情链环由特殊设置决定
 lib_skill.set(224, []) //
 lib_skill.set(228, [createSkill(13, 16, 5, lib_describe.get('type100'))]) // 暂时不做护盾
 lib_skill.set(234, [createSkill(6, 8, 5, lib_describe.get('js9'))])

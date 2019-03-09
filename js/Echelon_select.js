@@ -27,8 +27,8 @@ function changeSelectItems () {
       //  str_items += '<option value=202>No.202 雷电</option>'
       str_items += '<option value=212>No.212 K5</option>'
       // str_items += '<option value=248>No.248 杰里科</option>'
-      str_items += '<option value=1002>No.2 [MOD] M1911</option>'
-      str_items += '<option value=1005>No.5 [MOD] 纳甘左轮</option>'
+      // str_items += '<option value=1002>No.2 [MOD] M1911</option>'
+      // str_items += '<option value=1005>No.5 [MOD] 纳甘左轮</option>'
       str_items += '<option value=1091>No.91 [MOD] MP-446</option>'
     } else if (num_star === 3) {
       str_items += '<option value=3 selected>No.3 M9</option>'
@@ -205,7 +205,7 @@ function changeEquip () {
         str_items += '<option value=11091>MP446C比赛枪管</option>'
       }
     } else if (set_guntype === 2) { // AR
-      if (ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
+      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
         str_items += '<option value=12>VFL 6-24X56</option>'
         str_items += '<option value=14>EOT 518</option>'
         str_items += '<option value=13>ITI MARS</option>'
@@ -214,7 +214,7 @@ function changeEquip () {
         if (ID === 65) str_items += '<option value=165>EOT-XPS3</option>'
         if (ID === 66) str_items += '<option value=166>KSTSP</option>'
         if (ID === 69) str_items += '<option value=169>FÉLIN系统瞄具</option>'
-        if (ID === 118)  str_items += '<option value=118>PKN03M夜视瞄具</option>'
+        if (ID === 118)  str_items += '<option value=4118>PKN03M夜视瞄具</option>'
         if (ID === 1064) str_items += '<option value=11064>G36混合瞄准镜</option>'
       } else if (ID === 54) { // M16A1
         if (set_equip[2] != 32) str_items += '<option value=32>IOP T4外骨骼</option>'
@@ -298,7 +298,7 @@ function changeEquip () {
       str_items += '<option value=31>IOP X4外骨骼</option>'
       str_items += '<option value=32>IOP T4外骨骼</option>'
     } else if (set_guntype === 2) { // AR
-      if (ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
+      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
         str_items += '<option value=31>IOP X4外骨骼</option>'
         str_items += '<option value=32>IOP T4外骨骼</option>'
         if (ID === 62) { // G41
