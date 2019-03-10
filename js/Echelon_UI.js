@@ -352,11 +352,12 @@ function resetEquipment () {
   } else {
     var ID = parseInt(document.getElementById('select_tdoll').value)
     if (set_guntype === 1) {
-      if (ID === 1001) set_equip = [11001, 21, 31]
+      if (ID === 4) set_equip = [11, 21, 31]
+      else if (ID === 1001) set_equip = [11001, 21, 32]
       else if (ID === 1002) set_equip = [11, 21002, 31]
-      else if (ID === 1005) set_equip = [11005, 21, 31]
-      else if (ID === 1091) set_equip = [11091, 21, 31]
-      else set_equip = [11, 21, 31]
+      else if (ID === 1005) set_equip = [11005, 21, 32]
+      else if (ID === 1091) set_equip = [11091, 21, 32]
+      else set_equip = [11, 21, 32]
     }
     else if (set_guntype === 2) {
       if (ID === 54) set_equip = [32, 22, 354]
@@ -374,6 +375,7 @@ function resetEquipment () {
     }
     else if (set_guntype === 3) {
       if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11]
+      else if (ID === 20 || ID === 135 || ID === 251 || ID === 136 || ID === 177) set_equip = [31, 21, 11]
       else if (ID === 1103) set_equip = [3103, 21, 11103]
       else set_equip = [32, 21, 11]
     }
