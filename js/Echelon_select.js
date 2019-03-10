@@ -27,8 +27,8 @@ function changeSelectItems () {
       //  str_items += '<option value=202>No.202 雷电</option>'
       str_items += '<option value=212>No.212 K5</option>'
       // str_items += '<option value=248>No.248 杰里科</option>'
-      // str_items += '<option value=1002>No.2 [MOD] M1911</option>'
-      // str_items += '<option value=1005>No.5 [MOD] 纳甘左轮</option>'
+      str_items += '<option value=1002>No.2 [MOD] M1911</option>'
+      str_items += '<option value=1005>No.5 [MOD] 纳甘左轮</option>'
       str_items += '<option value=1091>No.91 [MOD] MP-446</option>'
     } else if (num_star === 3) {
       str_items += '<option value=3 selected>No.3 M9</option>'

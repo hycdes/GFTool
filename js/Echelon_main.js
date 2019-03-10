@@ -214,6 +214,7 @@ function getDPS () {
     if (list_tdoll[i][1] != null) {
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
       Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
+      if (list_tdoll[i][1].ID === 1005) Set_Special.set('m1895_' + i, 0)
     }
   }
   if (!Set_Special.get('can_add_python')) { // 有蟒蛇存在
@@ -505,6 +506,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       else {
         var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
         Set_Data.get(stand_num).push([current_time, lastData])
+        if (list_tdoll[stand_num][1].ID === 1005) {
+          if (Set_Special.get('m1895_' + stand_num) === 0) {
+            changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
+            changeStatus(stand_num, 'all', 'acu', '0.1', 4)
+          }
+          Set_Special.set('m1895_' + stand_num, Set_Special.get('m1895_' + stand_num) + 1)
+          if (Set_Special.get('m1895_' + stand_num) === 7) Set_Special.set('m1895_' + stand_num, 0)
+        }
         if (list_tdoll[stand_num][1].ID === 197) { // 玛尔斯号角，被动
           if (Set_Special.get('karm1891') === undefined) Set_Special.set('karm1891', 0)
           if (Math.random() <= 0.4 && Set_Special.get('karm1891') < 3) {
@@ -533,7 +542,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
         }
         else if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 否则先判断命中
-          var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
+          var base_dmg = current_Info.get('dmg')
+          if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) base_dmg *= 2
+          var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) { // 战地魔术额外增伤
             final_dmg *= 1.4
           }
@@ -590,6 +601,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       // 攻击间隔或者换弹判断
       if (current_Info.get('type') != 5 && current_Info.get('type') != 6) { // HG/AR/SMG/RF
         if (list_tdoll[stand_num][1].ID === 73 && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
+        else if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手120射速
+          s_t[1] = 11
+          Set_Special.set('m1911_' + stand_num, Set_Special.get('m1911_' + stand_num) - 1)
+        }
         else if (list_tdoll[stand_num][1].ID === 122) { // 突击者之眼三连发：2帧间隔射击
           if (Set_Special.get('g11_' + stand_num) >= current_time) { // 技能期间
             if (Set_Special.get('g11_nextload_' + stand_num) === undefined || Set_Special.get('g11_nextload_' + stand_num) < current_time) {
@@ -906,6 +921,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         changeStatus(stand_num, 'all', 'acu', '0.05', -1)
       }
     }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'm1911') { // 绝境神枪手
+    Set_Special.set('m1911_' + stand_num, 7)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'aug') { // 葬仪之雨 或 大流星暴

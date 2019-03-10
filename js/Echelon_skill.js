@@ -44,9 +44,15 @@ function describe_propertyND (list_target, list_pro, list_value) { // 属性增�
   return Describe
 }
 
-function describe_colt () {
+function describe_colt () { // 决斗幸存者
   var Describe = {}
   Describe.name = 'colt'
+  return Describe
+}
+
+function describe_m1911 () { // 绝境神枪手
+  var Describe = {}
+  Describe.name = 'm1911'
   return Describe
 }
 
@@ -287,6 +293,7 @@ lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
 lib_describe.set('p90', describe_p90()) // 灰鼠
 
+lib_describe.set('m1911', describe_m1911()) // 绝境神枪手
 lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
 lib_describe.set('contender', describe_contender()) // 断罪者魔弹
@@ -328,6 +335,8 @@ lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))
 ])
+lib_skill.set(1002, [createSkill(1, 12, 0, lib_describe.get('m1911'))])
+lib_skill.set(1005, []) // 纳甘左轮被动实现于特殊变量表
 
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
 lib_skill.set(7, [createSkill(6, 12, 8, lib_describe.get('com_rof_22'))])
