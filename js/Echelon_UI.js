@@ -653,12 +653,19 @@ function deleteTdoll () { // 删除战术人形
   getBlockAffect()
 }
 function setWidth () {
-  var len = document.getElementById('container_len').value
-  if (len === null || isNaN(len) || (len < 300 || len > 900)) {
-    len = 700
-    document.getElementById('container_len').value = 700
+  var command = arguments['0']
+  if (command === 'input') {
+    var len = document.getElementById('container_len').value
+    if (len === null || isNaN(len) || (len < 300 || len > 900)) {
+      len = 700
+      document.getElementById('container_len').value = 700
+    }
+    document.getElementById('container').style = 'width: ' + len + 'px'
+  } else {
+    document.getElementById('container_len').value = parseInt(command)
+    document.getElementById('container').style = 'width: ' + parseInt(command) + 'px'
   }
-  document.getElementById('container').style = 'width: ' + len + 'px'
+  refreshImage()
 }
 function changeSunrise (type) {
   if (type === 1) {
@@ -679,6 +686,23 @@ function changeFairy () {
     changeTalent(0)
   }
   document.getElementById('fairy_img').src = '../img/echelon/fairy/f' + fairy_no + '.png'
+  document.getElementById('fairy_dmg').innerHTML = '伤害 -'
+  document.getElementById('fairy_critdmg').innerHTML = '暴伤 -'
+  document.getElementById('fairy_acu').innerHTML = '命中 -'
+  document.getElementById('fairy_eva').innerHTML = '回避 -'
+  document.getElementById('fairy_arm').innerHTML = '护甲 -'
+  if (fairy_no > 0) {
+    var list_pro = lib_fairy.get(fairy_no).property.split('/')
+    var list_value = lib_fairy.get(fairy_no).value.split('/')
+    var fplen = list_pro.length
+    for (var i = 0; i < fplen;i++) {
+      if (list_pro[i] === 'dmg') document.getElementById('fairy_dmg').innerHTML = '伤害<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'critdmg') document.getElementById('fairy_critdmg').innerHTML = '暴伤<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'acu') document.getElementById('fairy_acu').innerHTML = '命中<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'eva') document.getElementById('fairy_eva').innerHTML = '回避<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'arm') document.getElementById('fairy_arm').innerHTML = '护甲<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+    }
+  }
 }
 function changeTalent (num) {
   if (num === 1) talent_no = parseInt(document.getElementById('select_talent').value)

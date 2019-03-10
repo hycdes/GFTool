@@ -366,22 +366,22 @@
                                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td>伤害</td>
+                                                                    <td id="fairy_dmg">伤害 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>暴伤</td>
+                                                                    <td id="fairy_critdmg">暴伤 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>命中</td>
+                                                                    <td id="fairy_acu">命中 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>回避</td>
+                                                                    <td id="fairy_eva">回避 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>护甲</td>
+                                                                    <td id="fairy_arm">护甲 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>技能：</td>
+                                                                    <td id="fairy_skill">技能 -</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td><input type="checkbox" id="fairyskill_active" disabled> 发动技能</td>
@@ -541,13 +541,17 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <h4>输出曲线</h4>
-                                        <h5>请在<span style="color:orangered">计算前</span>设置宽度(推荐300~900之间)</h5>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">手机竖屏</button>
+                                            <button type="button" class="btn btn-default" onclick="setWidth(700)">常规</button>
+                                            <button type="button" class="btn btn-default" onclick="setWidth(900)">最宽</button>
+                                        </p>
                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 30%">宽度</td>
-                                                    <td style="width: 50%">
-                                                        <input class="form-control input-sm" placeholder="输入300~900整数" id="container_len" value=700 onblur="setWidth()">
+                                                    <td style="width: 50%">宽度(300~900)</td>
+                                                    <td style="width: 40%">
+                                                        <input class="form-control input-sm" placeholder="输入300~900整数" id="container_len" value=700 onblur="setWidth('input')">
                                                     </td>
                                                     <td>px</td>
                                                 </tr>

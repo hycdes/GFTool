@@ -29,6 +29,8 @@ var Set_Base = new Map // 当前属性，当Status改变时更新
 var Set_Command = new Map // 命令，存放命令，< num_stand, command >，command = standby, freefire, skill_mf, skill_all...
 var Set_Special = new Map // 特殊变量表
 var Set_Data = new Map // 输出数据
+var Set_Data_Buffer = new Map // 缓存已有数据
+var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = []
 var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_fragile = false
 var Set_EnemyStatus = new Map
 var global_frame = 0, global_fragile = 1
@@ -118,7 +120,7 @@ function getBlockAffect () {
 }
 
 function getResult (multiple) {
-  var Set_Data_Buffer = new Map
+  Set_Data_Buffer.clear()
   for (var n = 0; n < multiple; n++) {
     getDPS()
     for (var i = 0; i < 9; i++) {
@@ -178,8 +180,11 @@ function getResult (multiple) {
       str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name + '  输出=' + current_data[len_data - 1][1]
     }
   }
+  x_max_buffer = x_max, y_max_buffer = y_max, str_label_buffer = str_label
   makeGraph(x_max, y_max, str_label)
 }
+
+function refreshImage() { makeGraph(x_max_buffer, y_max_buffer, str_label_buffer) }
 
 function isProperty (str) {
   var isPro = false
