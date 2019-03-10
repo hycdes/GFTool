@@ -567,14 +567,26 @@ function addTdoll () { // 添加战术人形
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
     if (ID === 4) Set_Special.set('can_add_python', false)
     else if (ID === 1055) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> 使用武器库炮击'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [伸冤者印记] 使用炮击'
+    }
+    else if (ID === 1039) {
+      var str_html = ''
+      str_html += '<h4>' + num_pickblock + '号位 莫辛纳甘</h4>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 10%">每</td><td style="width: 30%">'
+      str_html += '<input class="form-control input-sm" placeholder="输入正整数" id="special_mosin_attackkill_' + num_pickblock + '" onblur=inputCheck_mosin('
+      str_html += "'" + 'special_mosin_attackkill_' + num_pickblock + "'"
+      str_html += ') value="2"></td><td>次普攻击杀敌人</td></tr></tbody></table>'
+      str_html += '<input type="checkbox" id="special_mosin_' + num_pickblock + '"> [沉稳射击] 禁用 '
+      str_html += '<input type="checkbox" id="special_mosin_skillkill_' + num_pickblock + '" checked> [苍白收割者] 技能击杀敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 192) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> 贯穿射击所有敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
     }
     else if (ID === 213) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + '号位 C-MS</h4>'
+      str_html += '<h5>[心情链环] 挂载状态</h5>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> 亚音速弹(+65%回避)</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> 勺尖弹(+85%伤害)</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_3"><span style="color:orange"> 标准弹(+200%命中)</span></label></p>'
@@ -583,30 +595,30 @@ function addTdoll () { // 添加战术人形
     else if (ID === 231) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + '号位 M82A1</h4><p>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0胜场</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_1"> 1胜场</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_2"> 2胜场</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_3"> 3胜场</label>'
+      str_html += '[伪神的启示] 战斗胜场 <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_1"> 1</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_2"> 2</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_3"> 3</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 236) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + '号位 K11</h4><p>'
-      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 30%">榴弹倍率</td><td style="width: 50%">'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 30%">倍率</td><td style="width: 50%">'
       str_html += '<input class="form-control input-sm" placeholder="输入整数" id="special_k11_' + num_pickblock + '" onblur=inputCheck_k11('
       str_html += "'" + 'special_k11_' + num_pickblock + "'"
       str_html += ') value="28"></td><td>倍</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 238) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> 切换轻机枪模式'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [懒惰的怒火] 轻机枪模式'
     }
     else if (ID === 243) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + '号位 64式自</h4><p>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_0" checked> 未来预警提供增伤</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_1"> 未来预警提供护盾</label>'
+      str_html += '[未来预警] 发动3秒后 <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_0" checked> 增伤55%</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_1"> 护盾25</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
@@ -687,5 +699,12 @@ function inputCheck_x95 (str_id) {
   if (str_input === '' || str_input === null || isNaN(str_input) || (parseInt(str_input) < 0 || parseInt(str_input) > 300)) {
     str_input = 150
     document.getElementById(str_id).value = 150
+  }
+}
+function inputCheck_mosin (str_id) {
+  var str_input = document.getElementById(str_id).value
+  if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
+    str_input = 2
+    document.getElementById(str_id).value = 2
   }
 }

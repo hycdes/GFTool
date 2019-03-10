@@ -215,6 +215,11 @@ function getDPS () {
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
       Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
       if (list_tdoll[i][1].ID === 1005) Set_Special.set('m1895_' + i, 0)
+      if (list_tdoll[i][1].ID === 1039) {
+        Set_Special.set('mosin_numneed_' + i, parseInt(document.getElementById('special_mosin_attackkill_' + (i + 1)).value))
+        Set_Special.set('mosin_' + i, Set_Special.get('mosin_numneed_' + i))
+        Set_Special.set('mosin_bufftime_' + i, 0)
+      }
     }
   }
   if (!Set_Special.get('can_add_python')) { // 有蟒蛇存在
@@ -539,15 +544,25 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           Set_Special.set('p90_' + stand_num, Set_Special.get('p90_' + stand_num) - 1)
           final_dmg *= current_Info.get('critdmg')
           final_dmg = Math.ceil(final_dmg * 5 * global_fragile)
+          if (enemy_fragile) final_dmg = Math.ceil(final_dmg * global_fragile)
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
         }
         else if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 否则先判断命中
           var base_dmg = current_Info.get('dmg')
-          if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) base_dmg *= 2
-          var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
-          if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) { // 战地魔术额外增伤
-            final_dmg *= 1.4
+          if (list_tdoll[stand_num][1].ID === 1039) { // 苍白收割者buff是否存在，是否能够触发buff
+            if (Set_Special.get('mosin_bufftime_' + stand_num) >= global_frame) {
+              base_dmg *= 1.2
+            }
+            if (Set_Special.get('mosin_' + stand_num) <= 1) { // 能够刷新状态
+              Set_Special.set('mosin_bufftime_' + stand_num, global_frame + 89)
+              Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_numneed_' + stand_num))
+            } else {
+              Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_' + stand_num) - 1)
+            }
           }
+          if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) base_dmg *= 2 // 绝境神枪手2倍伤害
+          if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) base_dmg *= 1.4 // 战地魔术额外增伤
+          var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           if (list_tdoll[stand_num][1].ID === 77 || list_tdoll[stand_num][1].ID === 85 || list_tdoll[stand_num][1].ID === 109) { // 不可暴击：连珠终结
             var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
             if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
@@ -653,7 +668,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (current_Info.get('type') === 5) {
             if (list_tdoll[stand_num][1].ID === 1075) { // M1918-MOD 战地魔术
               reload_frame = 150
-            }else {
+            } else {
               if (rof > 1000) rof = 1000
               else if (rof < 1) rof = 1
               reload_frame = Math.floor((4 + 200 / rof) * 30)
@@ -757,7 +772,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
     } else if (s_t[0].duration === 0) { // 非持续类
       s_t[1] = -1
-    }else if (s_t[0].duration === -1) { // 无限持续
+    } else if (s_t[0].duration === -1) { // 无限持续
       s_t[1] = -1
     }
   }
@@ -840,17 +855,21 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'snipe') { // 狙击
-    var ratio = (s_t[0].Describe).ratio
-    var snipe_num = (s_t[0].Describe).snipe_num
-    var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
-    var time_interval = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval
-    var labels = (s_t[0].Describe).labels
-    if (snipe_num < 0) snipe_num = Math.floor(s_t[0].duration / time_interval)
-    Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
-    Set_Special.set('snipe_num_' + stand_num, snipe_num)
-    Set_Special.set('snipe_interval_' + stand_num, time_interval)
-    Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
-    changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+    if (list_tdoll[stand_num][1].ID === 1039 && document.getElementById('special_mosin_' + (stand_num + 1)).checked) {
+      // do nothing
+    } else {
+      var ratio = (s_t[0].Describe).ratio
+      var snipe_num = (s_t[0].Describe).snipe_num
+      var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
+      var time_interval = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval
+      var labels = (s_t[0].Describe).labels
+      if (snipe_num < 0) snipe_num = Math.floor(s_t[0].duration / time_interval)
+      Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
+      Set_Special.set('snipe_num_' + stand_num, snipe_num)
+      Set_Special.set('snipe_interval_' + stand_num, time_interval)
+      Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
+      changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+    }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'm82a1') { // 伪神的启示
@@ -1179,6 +1198,9 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     Set_Data.get(stand_num).push([current_time, lastData])
     if (enemy_fragile) damage_snipe_single = Math.ceil(damage_snipe_single * global_fragile)
     Set_Data.get(stand_num).push([current_time, lastData + damage_snipe_single])
+    if (list_tdoll[stand_num][1].ID === 1039 && document.getElementById('special_mosin_skillkill_' + (stand_num + 1)).checked) { // 苍白收割者：沉稳射击击杀目标
+      changeStatus(stand_num, 'self', 'rof', '0.3', 5)
+    }
     if (num_leftsnipe === 0) { // 狙击次数完毕
       Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     } else {
