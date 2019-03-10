@@ -342,7 +342,9 @@ function getDPS () {
     for (var i = 0; i < 9; i++) {
       if (Set_Base.get(i) != undefined) {
         var night_decline = (100 - (Set_Base.get(i).Info).get('night')) * (-0.9)
-        if (night_decline < 0) changeStatus(i, 'self', 'acu', ('' + (night_decline / 100)), -1)
+        if (night_decline < 0) {
+          changeStatus(i, 'self', 'acu', (night_decline / 100), -1)
+        }
       }
     }
   }
@@ -1225,20 +1227,20 @@ function getBaseProperty (num) {
   if (blockSet[num].get('allacu') != undefined) mul[1] += blockSet[num].get('allacu')
   full_property[3] *= mul[1]
   Info.set('acu', Math.ceil(full_property[3]))
-  if (blockSet[num].get(str_tn + 'eva') != undefined)  mul[2] += (blockSet[num].get(str_tn + 'eva'))
-  if (blockSet[num].get('alleva') != undefined)  mul[2] += blockSet[num].get('alleva')
+  if (blockSet[num].get(str_tn + 'eva') != undefined) mul[2] += (blockSet[num].get(str_tn + 'eva'))
+  if (blockSet[num].get('alleva') != undefined) mul[2] += blockSet[num].get('alleva')
   full_property[4] *= mul[2]
   Info.set('eva', Math.ceil(full_property[4]))
-  if (blockSet[num].get(str_tn + 'rof') != undefined)  mul[3] += blockSet[num].get(str_tn + 'rof')
-  if (blockSet[num].get('allrof') != undefined)  mul[3] += blockSet[num].get('allrof')
+  if (blockSet[num].get(str_tn + 'rof') != undefined) mul[3] += blockSet[num].get(str_tn + 'rof')
+  if (blockSet[num].get('allrof') != undefined) mul[3] += blockSet[num].get('allrof')
   full_property[5] *= mul[3]
   Info.set('rof', Math.ceil(full_property[5]))
-  if (blockSet[num].get(str_tn + 'arm') != undefined)  mul[4] += blockSet[num].get(str_tn + 'arm')
-  if (blockSet[num].get('allarm') != undefined)  mul[4] += blockSet[num].get('allarm')
+  if (blockSet[num].get(str_tn + 'arm') != undefined) mul[4] += blockSet[num].get(str_tn + 'arm')
+  if (blockSet[num].get('allarm') != undefined) mul[4] += blockSet[num].get('allarm')
   full_property[6] *= mul[4]
   Info.set('arm', Math.ceil(full_property[6]))
-  if (blockSet[num].get(str_tn + 'crit') != undefined)  mul[5] += blockSet[num].get(str_tn + 'crit')
-  if (blockSet[num].get('allcrit') != undefined)  mul[5] += blockSet[num].get('allcrit')
+  if (blockSet[num].get(str_tn + 'crit') != undefined) mul[5] += blockSet[num].get(str_tn + 'crit')
+  if (blockSet[num].get('allcrit') != undefined) mul[5] += blockSet[num].get('allcrit')
   full_property[7] *= mul[5]
   Info.set('crit', full_property[7])
   Info.set('cs', full_property[8]); Info.set('critdmg', full_property[9]); Info.set('ap', full_property[10]); Info.set('ff', full_property[11]); Info.set('shield', full_property[12])
@@ -1247,12 +1249,7 @@ function getBaseProperty (num) {
   }
   if (full_property[13] > 0.3) full_property[13] = 0.3
   Info.set('cld', full_property[13])
-  for (var i = 0; i < 3; i++) { // 以后写专属夜视
-    if (set_equip[i] === '41') {
-      full_property[14] = 100
-      break
-    }
-  }
+  for (var i = 0; i < 3; i++) full_property[14] += (list_tdoll[num][1].Equip)[i].na
   Info.set('night', full_property[14])
   return createBase(Area, Info)
 }
@@ -1343,6 +1340,6 @@ function test (num) {
   if (num === 1) console.log(blockSet)
   else if (num === 2) console.log(list_tdoll)
   else if (num === 3) console.log(Set_Data)
-  else if (num === 4) console.log(Set_EnemyStatus.get('avenger_mark'))
+  else if (num === 4) console.log(Set_Base)
 // SAMPLE
 }
