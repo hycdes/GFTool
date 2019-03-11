@@ -33,6 +33,7 @@ var Set_Data_Buffer = new Map // 缓存已有数据
 var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = [], totaldamage_buffer = 0
 var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_fragile = false
 var Set_EnemyStatus = new Map
+var Set_EnemyProperty = [] // 敌人属性变化
 var global_frame = 0, global_fragile = 1
 
 // inital
@@ -176,10 +177,15 @@ function getResult (multiple) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data.get(i)
       totaldamage_buffer += current_data[current_data.length - 1][1]
+    }
+  }
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      var current_data = Set_Data.get(i)
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
-      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name + '  输出=' + current_data[len_data - 1][1]
+      str_label[i] += (i + 1) + '号位:' + list_tdoll[i][1].Name + '  输出=' + current_data[len_data - 1][1] + ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
     }
   }
   x_max_buffer = x_max, y_max_buffer = y_max, str_label_buffer = str_label
@@ -210,7 +216,7 @@ function getDPS () {
   Set_EnemyStatus.clear()
   Set_Data.clear()
   reset_special()
-  for (var i = -1; i < 9; i++) {
+  for (var i = -2; i < 9; i++) { // -2敌人，-1全体，0~8站位
     Set_Status.set(i, [])
   }
   var end_of_standby = false
@@ -463,7 +469,10 @@ function reactAllSkill (command, current_time) {
       var s_t = v[s]
       if (s_t[1] > 0) s_t[1]-- // 状态持续减少
       else if (s_t[1] === 0) {
-        if (isProperty(s_t[0][0])) {
+        if (s_t[0][0].substr(0, 6) === 'enemy_') {
+          endStatus(k, s_t, 'enemy_lost')
+        }
+        else if (isProperty(s_t[0][0])) {
           endStatus(k, s_t, 'lost') // 更新属性
         }
         else if (s_t[0][0] === 'python') Set_Special.delete('python_opening')
@@ -756,6 +765,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               changeStatus(b[c_n], 'self', list_pro[p], list_value[p], s_t[0].duration)
             }
           }
+        }
+      } else if (list_target[i] === 'enemy') {
+        var list_pro = ((s_t[0].Describe).list_pro)[i].split('/')
+        var list_value = ((s_t[0].Describe).list_value)[i].split('/')
+        var len = list_pro.length
+        for (var p = 0; p < len; p++) {
+          var new_status = [['enemy_' + list_pro[p], 1 + parseFloat(list_value[p])], Math.ceil(30 * s_t[0].duration)]
+          Set_Status.get(-2).push(new_status)
+          endStatus(-1, new_status, 'enemy_get')
         }
       } else {
         if (list_target[i] === 'all' || list_target[i] === 'self') { // 号令类all、专注类self
@@ -1128,6 +1146,13 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
         else new_property = new_property / status[0][1]
       }
       this_info.set(status[0][0], new_property)
+    }
+  }
+  else if (situation === 'enemy_get' || situation === 'enemy_lost') { // 敌人状态：[type, value>1]，先做掩护压制
+    if (situation === 'enemy_get') {
+      if (status[0][0].substr(6) === 'eva') enemy_eva = Math.ceil(enemy_eva * status[0][1])
+    } else {
+      if (status[0][0].substr(6) === 'eva') enemy_eva = Math.floor(enemy_eva / status[0][1])
     }
   }
   else if (situation === 'dot') {

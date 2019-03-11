@@ -20,7 +20,7 @@ function changeSelectItems () {
     } else if (num_star === 4) {
       str_items += '<option value=1 selected>No.1 柯尔特左轮</option>'
       str_items += '<option value=7>No.7 斯捷奇金</option>'
-      // str_items += '<option value=98>No.98 SPP-1</option>'
+      str_items += '<option value=98>No.98 SPP-1</option>'
       str_items += '<option value=99>No.99 MK23</option>'
       str_items += '<option value=100>No.100 P7</option>'
       str_items += '<option value=168>No.168 SpitFire</option>'
@@ -33,12 +33,13 @@ function changeSelectItems () {
     } else if (num_star === 3) {
       str_items += '<option value=3 selected>No.3 M9</option>'
       str_items += '<option value=14>No.14 阿斯特拉左轮</option>'
+      str_items += '<option value=132>No.132 59式</option>'
     } else if (num_star === 2) {
       str_items += '<option value=2 selected>No.2 M1911</option>'
       str_items += '<option value=5>No.5 纳甘左轮</option>'
       str_items += '<option value=9>No.9 P38</option>'
       str_items += '<option value=10>No.10 PPK</option>'
-      // str_items += '<option value=90>No.90 FNP-9</option>'
+      str_items += '<option value=90>No.90 FNP-9</option>'
       str_items += '<option value=91>No.91 MP-446</option>'
       str_items += '<option value=139>No.139 Bren Ten</option>'
       str_items += '<option value=141>No.141 USP Compact</option>'

@@ -268,6 +268,10 @@ lib_describe.set('t91N', describe_propertyN(['self'], ['dmg/crit'], ['1.2/0.5'])
 lib_describe.set('t91ND', describe_propertyND(['self'], ['dmg/crit'], ['0.5/0.25'])) // 歼灭专注ND 50%/25%
 lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) // 至高枪弹
 lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.35/0.35/0.35/0.35'])) // 雪狼之眼
+lib_describe.set('eva_55_enemy', describe_property(['enemy'], ['eva'], ['-0.55'])) // 掩护压制 55%
+lib_describe.set('eva_40_enemy', describe_property(['enemy'], ['eva'], ['-0.4'])) // 掩护压制 40%
+lib_describe.set('evaN_75_enemy', describe_propertyN(['enemy'], ['eva'], ['-0.75'])) // 掩护压制 75%
+lib_describe.set('evaND_40_enemy', describe_propertyND(['enemy'], ['eva'], ['-0.4'])) // 掩护压制 40%
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
 lib_describe.set('rof_30_enemy', describe_property(['enemy'], ['rof'], ['-0.3'])) // 突击压制 30%
 lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) // 狩猎示范
@@ -340,7 +344,7 @@ lib_skill.set(1005, []) // 纳甘左轮被动实现于特殊变量表
 
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
 lib_skill.set(7, [createSkill(6, 12, 8, lib_describe.get('com_rof_22'))])
-lib_skill.set(98, []) // 掩护压制
+lib_skill.set(98, [createSkill(6, 12, 8, lib_describe.get('eva_55_enemy'))]) // 掩护压制 55%
 lib_skill.set(99, [
   createSkill(6, 12, 8, lib_describe.get('com_dmgN_35')),
   createSkill(6, 12, 5, lib_describe.get('com_dmgND_20'))
@@ -353,11 +357,16 @@ lib_skill.set(1091, [createSkill(6, 12, 4, lib_describe.get('mp446'))])
 
 lib_skill.set(3, [])
 lib_skill.set(14, [createSkill(6, 12, 8, lib_describe.get('com_rof_20'))])
+lib_skill.set(132, [
+  createSkill(6, 12, 8, lib_describe.get('evaN_75_enemy')),
+  createSkill(6, 12, 5, lib_describe.get('evaND_40_enemy'))
+])
 
 lib_skill.set(2, []) //
 lib_skill.set(5, []) //
 lib_skill.set(9, [createSkill(3, 16, 15, lib_describe.get('com_acuN_90'))])
 lib_skill.set(10, [createSkill(6, 12, 8, lib_describe.get('com_dmgcrit_2'))])
+lib_skill.set(90, [createSkill(6, 12, 8, lib_describe.get('eva_40_enemy'))])
 lib_skill.set(91, []) //
 lib_skill.set(139, [createSkill(6, 12, 8, lib_describe.get('com_dmg_18'))])
 lib_skill.set(141, [createSkill(6, 12, 8, lib_describe.get('com_acu_100'))])
