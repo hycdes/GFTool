@@ -677,6 +677,7 @@ function changeSunrise (type) {
     document.getElementById('icon-day').src = '../img/echelon/icon-battle-daytime-no.png'
     document.getElementById('icon-night').src = '../img/echelon/icon-battle-night.png'
   }
+  changeEnvironment()
 }
 function changeFairy () {
   fairy_no = parseInt(document.getElementById('select_fairy').value)
@@ -703,6 +704,7 @@ function changeFairy () {
       else if (list_pro[i] === 'arm') document.getElementById('fairy_arm').innerHTML = '护甲<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
     }
   }
+  changeEnvironment()
 }
 function changeTalent (num) {
   if (num === 1) talent_no = parseInt(document.getElementById('select_talent').value)
@@ -710,6 +712,7 @@ function changeTalent (num) {
     document.getElementById('select_talent').value = 0
     talent_no = 0
   }
+  changeEnvironment()
 }
 function inputCheck_k11 (str_id) {
   var str_input = document.getElementById(str_id).value
@@ -731,4 +734,69 @@ function inputCheck_mosin (str_id) {
     str_input = 2
     document.getElementById(str_id).value = 2
   }
+}
+function changeEnvironment () {
+  var edit_timeinit = document.getElementById('time_init').value
+  if (edit_timeinit === '' || isNaN(edit_timeinit) || parseInt(edit_timeinit) < 0) { // 非负数
+    document.getElementById('time_init').value = 0
+  }
+  var edit_timeall = document.getElementById('time_battle').value
+  if (edit_timeall === '' || isNaN(edit_timeall) || parseInt(edit_timeall) <= 0) { // 正数
+    document.getElementById('time_battle').value = 50
+  }
+  var edit_eva = document.getElementById('enemy_eva').value
+  if (edit_eva === '' || isNaN(edit_eva) || parseInt(edit_eva) < 0 || (parseFloat(edit_eva) != parseInt(edit_eva))) { // 非负整数
+    document.getElementById('enemy_eva').value = 0
+  }
+  var edit_arm = document.getElementById('enemy_arm').value
+  if (edit_arm === '' || isNaN(edit_arm) || parseInt(edit_arm) < 0 || (parseFloat(edit_arm) != parseInt(edit_arm))) { // 非负整数
+    document.getElementById('enemy_arm').value = 0
+  }
+  var edit_form = document.getElementById('enemy_form').value
+  if (edit_form != 1 && edit_form != 2 && edit_form != 3 && edit_form != 4 && edit_form != 5) {
+    document.getElementById('enemy_form').value = 1
+  }
+  var edit_num = document.getElementById('enemy_num').value
+  if (edit_num === '' || isNaN(edit_num) || parseInt(edit_num) <= 0 || (parseFloat(edit_num) != parseInt(edit_num))) { // 正整数
+    document.getElementById('enemy_num').value = 1
+  }
+  var edit_ff = document.getElementById('enemy_forcefield').value
+  if (edit_ff === '' || isNaN(edit_ff) || parseInt(edit_ff) < 0 || (parseFloat(edit_ff) != parseInt(edit_ff))) { // 非负整数
+    document.getElementById('enemy_forcefield').value = 0
+  }
+  if (daytime === 1) {
+    document.getElementById('envi_day').innerHTML = '昼战'
+    document.getElementById('envi_night').innerHTML = ''
+  } else if (daytime === 2) {
+    document.getElementById('envi_day').innerHTML = ''
+    document.getElementById('envi_night').innerHTML = '夜战'
+  }
+  if (fairy_no > 0) {
+    var fairyidx = document.getElementById('select_fairy').selectedIndex
+    var fairyname = (document.getElementById('select_fairy')[fairyidx].text).split(' ')[1]
+    document.getElementById('envi_fairy').innerHTML = fairyname
+  } else document.getElementById('envi_fairy').innerHTML = '无妖精'
+  if (talent_no > 0) {
+    var talentidx = document.getElementById('select_talent').selectedIndex
+    var talentname = document.getElementById('select_talent')[talentidx].text
+    document.getElementById('envi_talent').innerHTML = talentname
+  } else document.getElementById('envi_talent').innerHTML = '无天赋发动'
+  document.getElementById('envi_alltime').innerHTML = document.getElementById('time_battle').value
+  document.getElementById('envi_contertime').innerHTML = document.getElementById('time_init').value
+  document.getElementById('envi_alldmg').innerHTML = totaldamage_buffer
+  if (document.getElementById('switch_normal').checked) {
+    document.getElementById('envi_ene_type').innerHTML = '普通'
+    document.getElementById('envi_ene_type').style = 'color:black'
+  } else if (document.getElementById('switch_elite').checked) {
+    document.getElementById('envi_ene_type').innerHTML = '精英'
+    document.getElementById('envi_ene_type').style = 'color:dodgerblue'
+  } else if (document.getElementById('switch_boss').checked) {
+    document.getElementById('envi_ene_type').innerHTML = 'BOSS'
+    document.getElementById('envi_ene_type').style = 'color:red'
+  }
+  document.getElementById('envi_ene_eva').innerHTML = document.getElementById('enemy_eva').value
+  document.getElementById('envi_ene_arm').innerHTML = document.getElementById('enemy_arm').value
+  document.getElementById('envi_ene_form').innerHTML = document.getElementById('enemy_form').value
+  document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
+  document.getElementById('envi_ene_ff').innerHTML = document.getElementById('enemy_forcefield').value
 }

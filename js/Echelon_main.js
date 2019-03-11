@@ -30,7 +30,7 @@ var Set_Command = new Map // 命令，存放命令，< num_stand, command >，co
 var Set_Special = new Map // 特殊变量表
 var Set_Data = new Map // 输出数据
 var Set_Data_Buffer = new Map // 缓存已有数据
-var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = []
+var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = [], totaldamage_buffer = 0
 var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_fragile = false
 var Set_EnemyStatus = new Map
 var global_frame = 0, global_fragile = 1
@@ -171,9 +171,11 @@ function getResult (multiple) {
   var x_max = Math.ceil(time / 30)
   var y_max = 0
   var str_label = ['', '', '', '', '', '', '', '', '', '']
+  totaldamage_buffer = 0
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data.get(i)
+      totaldamage_buffer += current_data[current_data.length - 1][1]
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
@@ -182,9 +184,10 @@ function getResult (multiple) {
   }
   x_max_buffer = x_max, y_max_buffer = y_max, str_label_buffer = str_label
   makeGraph(x_max, y_max, str_label)
+  changeEnvironment()
 }
 
-function refreshImage() { makeGraph(x_max_buffer, y_max_buffer, str_label_buffer) }
+function refreshImage () { makeGraph(x_max_buffer, y_max_buffer, str_label_buffer) }
 
 function isProperty (str) {
   var isPro = false
@@ -1380,12 +1383,4 @@ function get_g36_standblo (stand_num) {
     if (list_tdoll[stand_num + 1][1] != null) num_all++
   }
   return num_all
-}
-
-function test (num) {
-  if (num === 1) console.log(blockSet)
-  else if (num === 2) console.log(list_tdoll)
-  else if (num === 3) console.log(Set_Data)
-  else if (num === 4) console.log(Set_Base)
-// SAMPLE
 }
