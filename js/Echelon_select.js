@@ -17,6 +17,11 @@ function changeSelectItems () {
       str_items += '<option value=242>No.242 P22</option>'
       str_items += '<option value=250>No.250 HS2000</option>'
       str_items += '<option value=1001>No.1 [MOD] 柯尔特左轮</option>'
+      str_items += '<option value=2001>No.EX1 诺艾尔</option>'
+      str_items += '<option value=2003>No.EX3 琪亚娜</option>'
+      // str_items += '<option value=2006>No.EX6 德丽莎</option>'
+      str_items += '<option value=2009>No.EX9 克莉尔</option>'
+      str_items += '<option value=2010>No.EX10 菲尔</option>'
     } else if (num_star === 4) {
       str_items += '<option value=1 selected>No.1 柯尔特左轮</option>'
       str_items += '<option value=7>No.7 斯捷奇金</option>'
@@ -204,6 +209,12 @@ function changeEquip () {
       }
       if (ID === 1091) { // MP446
         str_items += '<option value=11091>MP446C比赛枪管</option>'
+      }
+      if (ID === 2009) {
+        str_items += '<option value=42009>荣耀之光</option>'
+      }
+      if (ID === 2010) {
+        str_items += '<option value=42010>漆黑之猫</option>'
       }
     } else if (set_guntype === 2) { // AR
       if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {

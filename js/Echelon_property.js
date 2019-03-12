@@ -323,14 +323,14 @@ lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])
 // EXTRA
 lib_affect.set(2001, createAffect('lu/u/ru/ld/d/rd/', 'all', ['rof', 'eva'], [0.3, 0.2])) // 诺爱尔
 lib_affect.set(2002, createAffect('llu/lld/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // 艾尔菲尔特
-lib_affect.set(2003, createAffect('lu/l/r/ld/', 'all', ['dmg', 'eva'], [0.2, 0.3])) // 琪亚娜
+lib_affect.set(2003, createAffect('u/ru/d/rd/', 'all', ['dmg', 'eva'], [0.2, 0.3])) // 琪亚娜
 lib_affect.set(2004, createAffect('u/ru/', 'hg', ['cld'], [0.18])) // 雷电芽衣
 lib_affect.set(2005, createAffect('d/rd/', 'hg', ['cld'], [0.18])) // 布洛妮娅
 lib_affect.set(2006, createAffect('lu/u/ld/d/', 'all', ['rof', 'acu'], [0.3, 0.5])) // 德丽莎
 lib_affect.set(2007, createAffect('r/', 'smg', ['dmg', 'rof'], [0.2, 0.2])) // 无量塔姬子
 lib_affect.set(2008, createAffect('llu/lld/', 'mg', ['dmg', 'acu'], [0.2, 0.1])) // 希儿
-lib_affect.set(2009, createAffect('u/ru/r/d/rd/', 'all', ['rof', 'acu'], [0.3, 0.5])) // 克莉尔
-lib_affect.set(2010, createAffect('lu/u/l/ld/d/', 'all', ['dmg', 'acu'], [0.3, 0.5])) // 菲尔
+lib_affect.set(2009, createAffect('lu/u/l/ld/d/', 'all', ['rof', 'acu'], [0.3, 0.5])) // 克莉尔
+lib_affect.set(2010, createAffect('u/ru/r/d/rd/', 'all', ['dmg', 'acu'], [0.3, 0.5])) // 菲尔
 
 // T-doll property
 // dmg, acu, eva, rof, arm, hp, crit, cs
@@ -661,6 +661,8 @@ lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 
 lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0, 0))
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0))
 lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0))
+lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100))
+lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100))
 
 function createFairy (name, list_property, list_value) {
   var Fairy = {}

@@ -204,6 +204,11 @@ function describe_p90 () { // 灰鼠
   Describe.name = 'p90'
   return Describe
 }
+function describe_theresa () { // 圣光制裁
+  var Describe = {}
+  Describe.name = 'theresa'
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -287,6 +292,7 @@ lib_describe.set('karm9138', describe_karm9138()) // 墨尔斯假面
 lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless')) // 伪神的启示
 lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('m200', describe_snipe(2, 0, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
+lib_describe.set('noel', describe_snipe(1.2, 0, 0.1, 8, 'armless/critless/evaless')) // 诺艾尔技能
 
 lib_describe.set('vector', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
 lib_describe.set('klin', describe_bomb(6.5, 1, 3, 5)) // 燃烧弹-4星
@@ -302,11 +308,14 @@ lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
 lib_describe.set('contender', describe_contender()) // 断罪者魔弹
 lib_describe.set('hs2000', describe_property(['all'], ['dmg/acu'], ['0.35/0.35'])) // 反击者壁垒
+lib_describe.set('theresa', describe_theresa()) // 圣光制裁
+lib_describe.set('clear', describe_snipe(0, 0, 0.533, 5, 'armless/critless/evaless')) // 克莉尔技能：再接再厉
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
 lib_describe.set('grenade_10', describe_grenade(10)) // 10倍榴弹
 lib_describe.set('grenade_5', describe_grenade(5)) // 5倍榴弹
+lib_describe.set('kiana', describe_grenade(-1)) // kiana技能，-1表示倍率特殊单独判断
 lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
 lib_describe.set('k11', describe_k11()) // 恐惧榴弹
 lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
@@ -507,3 +516,9 @@ lib_skill.set(163, [])
 lib_skill.set(164, [])
 lib_skill.set(188, [])
 lib_skill.set(229, [])
+
+lib_skill.set(2001, [createSkill(6, 12, 0, lib_describe.get('noel'))])
+lib_skill.set(2003, [createSkill(6, 12, 0, lib_describe.get('kiana'))])
+lib_skill.set(2006, [createSkill(1, 12, 0, lib_describe.get('theresa'))])
+lib_skill.set(2009, [createSkill(6, 8, 0, lib_describe.get('clear'))])
+lib_skill.set(2010, []) //

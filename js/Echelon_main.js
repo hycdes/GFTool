@@ -1176,9 +1176,14 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
     Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
+    if (grenade_para[0] === '-1') {
+      if (list_tdoll[stand_num][1].ID === 2003) {
+        grenade_para[0] = ((Set_Base.get(stand_num)).Info).get('critdmg')
+      }
+    }
     var num_multi = enemy_num
     if (enemy_fragile) num_multi *= global_fragile
-    var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form * num_multi)
+    var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0]) * enemy_form * num_multi)
     var current_time = parseInt(grenade_para[1])
     Set_Data.get(stand_num).push([current_time, lastData])
     Set_Data.get(stand_num).push([current_time, lastData + damage_explode])
@@ -1233,6 +1238,34 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     Set_Data.get(stand_num).push([current_time, lastData + damage_snipe_single])
     if (list_tdoll[stand_num][1].ID === 1039 && document.getElementById('special_mosin_skillkill_' + (stand_num + 1)).checked) { // 苍白收割者：沉稳射击击杀目标
       changeStatus(stand_num, 'self', 'rof', '0.3', 5)
+    }
+    if (list_tdoll[stand_num][1].ID === 2009) { // 克莉尔：再接再厉
+      var dps_list = []
+      for (var n = 0; n < 9; n++) {
+        if (n != stand_num && list_tdoll[n][1] != null) {
+          var last_dmg = Set_Data.get(n)[Set_Data.get(n).length - 1][1]
+          dps_list.push([n, last_dmg])
+        }
+      }
+      var add_len = dps_list.length
+      if (add_len > 0) {
+        dps_list.sort(compare_dps)
+        var scan_n = 0
+        for (; scan_n < add_len; scan_n++) {
+          if (Set_Special.get('clearbuff_' + dps_list[scan_n][0]) === undefined || Set_Special.get('clearbuff_' + dps_list[scan_n][0]) < global_frame) { // no buff
+            Set_Special.set('clearbuff_' + dps_list[scan_n][0], global_frame + 90)
+            if (Set_Special.get('clearexclusive_' + stand_num) === true) {
+              changeStatus(dps_list[scan_n][0], 'self', 'dmg', '0.4', 3)
+              changeStatus(dps_list[scan_n][0], 'self', 'acu', '0.4', 3)
+              break
+            } else {
+              changeStatus(dps_list[scan_n][0], 'self', 'dmg', '0.3', 3)
+              changeStatus(dps_list[scan_n][0], 'self', 'acu', '0.3', 3)
+              break
+            }
+          }
+        }
+      }
     }
     if (num_leftsnipe === 0) { // 狙击次数完毕
       Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
@@ -1323,7 +1356,12 @@ function getBaseProperty (num) {
   }
   if (full_property[13] > 0.3) full_property[13] = 0.3
   Info.set('cld', full_property[13])
-  for (var i = 0; i < 3; i++) full_property[14] += (list_tdoll[num][1].Equip)[i].na
+  for (var i = 0; i < 3; i++) {
+    if ((list_tdoll[num][1].Equip)[i].na === -100) {
+      full_property[14] += 100
+      if (list_tdoll[num][1].ID === 2009) Set_Special.set('clearexclusive_' + num, true)
+    } else full_property[14] += (list_tdoll[num][1].Equip)[i].na
+  }
   Info.set('night', full_property[14])
   return createBase(Area, Info)
 }
@@ -1409,3 +1447,5 @@ function get_g36_standblo (stand_num) {
   }
   return num_all
 }
+
+function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
