@@ -215,6 +215,7 @@ lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有�
 
 lib_describe.set('com_dmg_25', describe_property(['all'], ['dmg'], ['0.25'])) // 火力号令 25%
 lib_describe.set('com_dmg_22', describe_property(['all'], ['dmg'], ['0.22'])) // 火力号令 22%
+lib_describe.set('com_dmg_20', describe_property(['all'], ['dmg'], ['0.2'])) // 火力号令 20%
 lib_describe.set('com_dmg_18', describe_property(['all'], ['dmg'], ['0.18'])) // 火力号令 18%
 lib_describe.set('com_dmgN_35', describe_propertyN(['all'], ['dmg'], ['0.35'])) // 火力号令N 35%
 lib_describe.set('com_dmgND_20', describe_propertyND(['all'], ['dmg'], ['0.2'])) // 火力号令ND 20%
@@ -222,7 +223,9 @@ lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) //
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
 lib_describe.set('com_rof_20', describe_property(['all'], ['rof'], ['0.20'])) // 突击号令 20%
 lib_describe.set('com_acu_100', describe_property(['all'], ['acu'], ['1'])) // 精确号令 100%
+lib_describe.set('com_eva_55', describe_property(['all'], ['eva'], ['0.55'])) // 掩护号令 55%
 lib_describe.set('com_acuN_90', describe_propertyN(['all'], ['acu'], ['0.9'])) // 照明弹 90%
+lib_describe.set('com_acuN_100', describe_propertyN(['all'], ['acu'], ['1'])) // 照明弹 100%
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
 lib_describe.set('com_dmgcrit_2', describe_property(['all'], ['dmg/crit'], ['0.1/0.35'])) // 歼灭号令 10%/35%
 lib_describe.set('colt', describe_colt()) // 决斗幸存者
@@ -310,6 +313,7 @@ lib_describe.set('contender', describe_contender()) // 断罪者魔弹
 lib_describe.set('hs2000', describe_property(['all'], ['dmg/acu'], ['0.35/0.35'])) // 反击者壁垒
 lib_describe.set('theresa', describe_theresa()) // 圣光制裁
 lib_describe.set('clear', describe_snipe(0, 0, 0.533, 5, 'armless/critless/evaless')) // 克莉尔技能：再接再厉
+lib_describe.set('gsh18', describe_multihit(2)) // 锁链冲击
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
@@ -365,11 +369,16 @@ lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
 lib_skill.set(1091, [createSkill(6, 12, 4, lib_describe.get('mp446'))])
 
 lib_skill.set(3, [])
+lib_skill.set(6, [createSkill(6, 12, 8, lib_describe.get('com_eva_55'))])
+lib_skill.set(8, []) // 精确压制
+lib_skill.set(12, [createSkill(3, 16, 15, lib_describe.get('com_acuN_100'))])
 lib_skill.set(14, [createSkill(6, 12, 8, lib_describe.get('com_rof_20'))])
 lib_skill.set(132, [
   createSkill(6, 12, 8, lib_describe.get('evaN_75_enemy')),
   createSkill(6, 12, 5, lib_describe.get('evaND_40_enemy'))
 ])
+lib_skill.set(210, [createSkill(6, 12, 8, lib_describe.get('com_dmg_20'))])
+lib_skill.set(221, [createSkill(6, 12, 6, lib_describe.get('gsh18'))])
 
 lib_skill.set(2, []) //
 lib_skill.set(5, []) //

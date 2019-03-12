@@ -591,6 +591,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
               final_dmg = Math.ceil(final_dmg * final_crit)
             }
+          } else if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time && list_tdoll[stand_num][1].ID === 221) { // 锁链冲击：必定暴击
+            final_dmg *= current_Info.get('critdmg')
           } else { // 按概率暴击的攻击
             var final_crit = 1
             if (Set_Special.get('must_crit_' + stand_num) != undefined || Math.random() + current_Info.get('crit') >= 1) {
@@ -622,7 +624,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (fire_status.substr(5) === 'all') final_dmg *= 5 // 全员攻击
           else if (fire_status.substr(5) === 'four') final_dmg *= 4 // 一人释放技能
           if (enemy_fragile) final_dmg = Math.ceil(final_dmg * global_fragile)
-          if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) {
+          if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) { // 多重攻击
             final_dmg *= Set_Special.get('multi_' + stand_num)[0]
           }
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
