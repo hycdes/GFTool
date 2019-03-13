@@ -124,7 +124,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">芯片计算器 <button type="button" class="btn btn-warning" onclick="getHelp()">如何使用？</button></h1>
+                        <h1 class="page-header">芯片计算器 <button type="button" class="btn btn-warning" onclick="getHelp()">一图教程</button></h1>
                     </div>
                     <div class="col-lg-12">
                         <div class="panel panel-default" style="background:url(../img/CC-Heavyfire.png) no-repeat right 50px top 120px;">
@@ -146,6 +146,8 @@
                                     <div class="tab-pane fade in active" id="ChipSetting">
                                         <div class="col-lg-4">
                                             <h4>形状和颜色</h4>
+                                            <h5>点击图标定制芯片，颜色/旋转<span style="color:#FF0066">仅做对比</span>免得填错，<span style="color:#FF0066">无实际意义</span></h5>
+                                            <h5>部分5格芯片没有因为属性差，想深究<a href="https://bbs.nga.cn/read.php?tid=15110212" target="_blank"><span style="color:dodgerblue">[请点这里]</span></a></h5>
                                             <table class="table-bordered" style="width:250px; height:100px;overflow:hidden" id="ImgChart_preview">
                                                 <tbody>
                                                     <tr style="height:50px">
@@ -180,9 +182,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="tooltip-demo">
-                                                <h4>强化和格数 <button type="button" data-toggle="tooltip" data-placement="bottom" title="对应属性 = 向上取整[基础值x格数] 精度7.1 装填5.7 杀伤4.4 破防12.7" class="btn btn-outline btn-default">?</button></h4>
-                                            </div>
+                                            <h4>强化和格数</h4>
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
@@ -265,6 +265,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <h4>芯片仓库</h4>
+                                            <h5>现版本因数值改版，推荐先<span style="color:#FF0066">保存一份</span>，<span style="color:#FF0066">满强化</span>，再<span style="color:#FF0066">按有效总值排序</span></h5>
                                             <div class="col-lg-3">
                                                 <p>
                                                     <select class="form-control" id="DeleteSelect" onchange="manageDeleteButton()">
