@@ -209,6 +209,11 @@ function describe_theresa () { // 圣光制裁
   Describe.name = 'theresa'
   return Describe
 }
+function describe_ump40 () { // 烙印过载
+  var Describe = {}
+  Describe.name = 'ump40'
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -305,6 +310,7 @@ lib_describe.set('vz61', describe_bomb(6, 1, 3, 5)) // 燃烧弹-3星
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
 lib_describe.set('p90', describe_p90()) // 灰鼠
+lib_describe.set('ump40', describe_ump40()) // 烙印过载
 
 lib_describe.set('m1911', describe_m1911()) // 绝境神枪手
 lib_describe.set('python', describe_python()) // 无畏者之拥
@@ -471,6 +477,7 @@ lib_skill.set(245, [createSkill(6, 12, 5, lib_describe.get('p90'))])
 lib_skill.set(251, [createSkill(4, 8, 5, lib_describe.get('x95'))])
 lib_skill.set(1103, []) //
 
+lib_skill.set(102, [createSkill(1, 2, 0, lib_describe.get('ump40'))])
 lib_skill.set(136, [createSkill(3, 16, 0, lib_describe.get('pp19'))])
 lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('klin'))])
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))])

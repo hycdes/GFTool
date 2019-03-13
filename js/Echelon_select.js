@@ -131,7 +131,8 @@ function changeSelectItems () {
       str_items += '<option value=251>No.251 X95</option>'
       str_items += '<option value=1103>No.103 [MOD] UMP45</option>'
     } else if (num_star === 4) {
-      str_items += '<option value=136 selected>No.136 PP-19</option>'
+      str_items += '<option value=102 selected>No.102 UMP40</option>'
+      str_items += '<option value=136>No.136 PP-19</option>'
       str_items += '<option value=177>No.177 KLIN</option>'
       str_items += '<option value=203>No.203 蜜獾</option>'
     } else if (num_star === 3) {

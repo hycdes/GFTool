@@ -1024,6 +1024,22 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('p90_' + stand_num, 4)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
+  else if (skillname === 'ump40') { // 烙印过载
+    if (Set_Special.get('ump40buffnum_' + stand_num) === undefined) {
+      Set_Special.set('ump40buffnum_' + stand_num, 0)
+    }
+    if (Set_Special.get('ump40buffnum_' + stand_num) < 5) {
+      if (document.getElementById('special_ump40_' + (stand_num + 1) + '_0').checked) {
+        changeStatus(stand_num, 'self', 'dmg', '-0.05', -1)
+        changeStatus(stand_num, 'self', 'eva', '0.1', -1)
+      } else {
+        changeStatus(stand_num, 'self', 'dmg', '0.3', -1)
+        changeStatus(stand_num, 'self', 'eva', '-0.25', -1)
+      }
+      Set_Special.set('ump40buffnum_' + stand_num, Set_Special.get('ump40buffnum_' + stand_num) + 1) // 叠加BUFF
+    }
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表

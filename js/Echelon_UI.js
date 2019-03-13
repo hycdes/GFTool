@@ -358,7 +358,7 @@ function resetEquipment () {
       else if (ID === 1005) set_equip = [11005, 21, 32]
       else if (ID === 1091) set_equip = [11091, 21, 32]
       else if (ID === 2009) set_equip = [42009, 21, 32]
-        else if(ID===2010) set_equip= [42010, 21, 32]
+      else if (ID === 2010) set_equip = [42010, 21, 32]
       else set_equip = [11, 21, 32]
     }
     else if (set_guntype === 2) {
@@ -580,6 +580,14 @@ function addTdoll () { // 添加战术人形
       str_html += ') value="2"></td><td>次普攻击杀敌人</td></tr></tbody></table>'
       str_html += '<input type="checkbox" id="special_mosin_' + num_pickblock + '"> [沉稳射击] 禁用 '
       str_html += '<input type="checkbox" id="special_mosin_skillkill_' + num_pickblock + '" checked> [苍白收割者] 技能击杀敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
+    else if (ID === 102) {
+      var str_html = ''
+      str_html += '<h4>' + num_pickblock + '号位 UMP40</h4><p>'
+      str_html += '[烙印过载] <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_0" checked> 默认</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_1"> 过载</label>'
+      str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 192) {

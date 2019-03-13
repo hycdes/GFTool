@@ -147,7 +147,7 @@ lib_affect.set(98, createAffect('lu/u/ld/d/', 'all', ['dmg', 'acu'], [0.12, 0.9]
 lib_affect.set(99, createAffect('lu/l/r/ld/', 'all', ['dmg'], [0.36])) // Mk23
 lib_affect.set(100, createAffect('lu/u/ru/ld/d/rd/', 'all', ['rof', 'eva'], [0.2, 0.24])) // P7
 lib_affect.set(101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.12, 0.3])) // UMP9
-lib_affect.set(102, createAffect('lu/l/r/ld/', 'smg', ['crit'], [5.0])) // UMP40
+lib_affect.set(102, createAffect('u/ru/d/rd/', 'smg', ['crit'], [5.0])) // UMP40
 lib_affect.set(103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.18, 0.3])) // UMP45
 lib_affect.set(104, createAffect('lu/l/ld/', 'ar', ['dmg', 'rof'], [0.1, 0.08])) // G36C
 lib_affect.set(105, createAffect('ru/r/', 'smg', ['dmg', 'rof'], [0.15, 0.2])) // OTs-12
