@@ -274,7 +274,7 @@ function repo_addChart (chipData) {
   var Repo_Fil
   var Repo_Dmg
   var Repo_Dbk
-  if (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132) {
+  if (block_class === 551 && (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132)) {
     Repo_Acu = Math.ceil(stren_parameter * Math.ceil(chipData.bAcu * 0.92 * 7.1))
     Repo_Fil = Math.ceil(stren_parameter * Math.ceil(chipData.bFil * 0.92 * 5.7))
     Repo_Dmg = Math.ceil(stren_parameter * Math.ceil(chipData.bDmg * 0.92 * 4.4))
@@ -603,7 +603,7 @@ function changeBigImg (command) { // change preview and change property
   refreshPreview()
 }
 function refreshPreview () {
-  if (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132) {
+  if (block_class === 551 && (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132)) {
     document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 0.92 * 4.4))
     document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 0.92 * 12.7))
     document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 0.92 * 7.1))
@@ -1353,10 +1353,12 @@ function compare_sumpro (solu_a, solu_b) {
   var HeavyfireType = 1
   if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else HeavyfireType = 3
+  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
+  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1387,10 +1389,12 @@ function compare_sumblo (solu_a, solu_b) {
   var HeavyfireType = 1
   if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else HeavyfireType = 3
+  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
+  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
   if (HeavyfireType === 1) { dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
   else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
   else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
+  else if (HeavyfireType === 4) { dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
