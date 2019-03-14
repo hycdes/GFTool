@@ -4,8 +4,8 @@ var filter_switch = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
-var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = []
-var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = []
+var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [],topologyLib_M2 = []
+var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [],topologyLibRefer_M2 = []
 var rules = ['InfinityFrost', 'FatalChapters']
 var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1, block_class = 56, block_shape = 9
 var chipNum = 0
@@ -152,10 +152,17 @@ function maxAllChip () {
       if (chipRepo_data[c].levelNum < 20) {
         chipRepo_data[c].levelNum = 20
         chipRepo_chart[c].chipLevel = '+20'
-        chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1))
-        chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7))
-        chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 4.4))
-        chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
+        if (chipRepo_chart[c].chipType === '五格 形状b' || chipRepo_chart[c].chipType === '五格 形状d' || chipRepo_chart[c].chipType === '五格 形状|' || chipRepo_chart[c].chipType === '五格 形状C' || chipRepo_chart[c].chipType === '五格 形状Z' || chipRepo_chart[c].chipType === '五格 形状Z-' || chipRepo_chart[c].chipType === '五格 形状V' || chipRepo_chart[c].chipType === '五格 形状L' || chipRepo_chart[c].chipType === '五格 形状L-') {
+          chipRepo_chart[c].Acu = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bAcu * 7.1))
+          chipRepo_chart[c].Fil = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bFil * 5.7))
+          chipRepo_chart[c].Dmg = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bDmg * 4.4))
+          chipRepo_chart[c].Dbk = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
+        } else {
+          chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1))
+          chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7))
+          chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 4.4))
+          chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
+        }
       }
     }
     for (var c = 0; c < chipNum; c++) {
@@ -263,10 +270,21 @@ function repo_addChart (chipData) {
   var stren_parameter = 1
   if (chipData.levelNum <= 10) stren_parameter = 1 + 0.08 * chipData.levelNum
   else stren_parameter = 1.8 + 0.07 * (chipData.levelNum - 10)
-  var Repo_Acu = Math.ceil(stren_parameter * Math.ceil(chipData.bAcu * 7.1))
-  var Repo_Fil = Math.ceil(stren_parameter * Math.ceil(chipData.bFil * 5.7))
-  var Repo_Dmg = Math.ceil(stren_parameter * Math.ceil(chipData.bDmg * 4.4))
-  var Repo_Dbk = Math.ceil(stren_parameter * Math.ceil(chipData.bDbk * 12.7))
+  var Repo_Acu
+  var Repo_Fil
+  var Repo_Dmg
+  var Repo_Dbk
+  if (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132) {
+    Repo_Acu = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bAcu * 7.1))
+    Repo_Fil = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bFil * 5.7))
+    Repo_Dmg = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bDmg * 4.4))
+    Repo_Dbk = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bDbk * 12.7))
+  } else {
+    Repo_Acu = Math.ceil(stren_parameter * Math.ceil(chipData.bAcu * 7.1))
+    Repo_Fil = Math.ceil(stren_parameter * Math.ceil(chipData.bFil * 5.7))
+    Repo_Dmg = Math.ceil(stren_parameter * Math.ceil(chipData.bDmg * 4.4))
+    Repo_Dbk = Math.ceil(stren_parameter * Math.ceil(chipData.bDbk * 12.7))
+  }
   var Repo_Type = ''
   if (chipData.classNum === 56) {
     Repo_Type += '六格 '
@@ -292,6 +310,15 @@ function repo_addChart (chipData) {
     else if (chipData.typeNum === 4) Repo_Type += '形状T'
     else if (chipData.typeNum === 5) Repo_Type += '形状W'
     else if (chipData.typeNum === 6) Repo_Type += '形状X'
+    else if (chipData.typeNum === 81) Repo_Type += '形状b'
+    else if (chipData.typeNum === 82) Repo_Type += '形状d'
+    else if (chipData.typeNum === 9) Repo_Type += '形状|'
+    else if (chipData.typeNum === 10) Repo_Type += '形状C'
+    else if (chipData.typeNum === 111) Repo_Type += '形状Z'
+    else if (chipData.typeNum === 112) Repo_Type += '形状Z-'
+    else if (chipData.typeNum === 120) Repo_Type += '形状V'
+    else if (chipData.typeNum === 131) Repo_Type += '形状L'
+    else if (chipData.typeNum === 132) Repo_Type += '形状L-'
   }
   var newRepo = creatRepo(chipData.chipNum, Repo_Type, '+' + chipData.levelNum, Repo_Acu, Repo_Fil, Repo_Dmg, Repo_Dbk)
   chipRepo_chart.push(newRepo)
@@ -423,7 +450,9 @@ function changeProperty (command) { // for change color/chipClass/chipShape
   } else if (command === 'class') { // chipClass, 56=block_6, 551=block_5_type1
     var SL1 = document.getElementById('ShapeLine1')
     var SL2 = document.getElementById('ShapeLine2')
-    var SL1_html = '', SL2_html = ''
+    var SL3 = document.getElementById('ShapeLine3')
+    var SL4 = document.getElementById('ShapeLine4')
+    var SL1_html = '', SL2_html = '', SL3_html = '',SL4_html = ''
     if (block_class === 56) {
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-9.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-9")' + "'" + '></td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-8.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-8")' + "'" + '></td>'
@@ -437,6 +466,8 @@ function changeProperty (command) { // for change color/chipClass/chipShape
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-2.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-2")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-1.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-1")' + "'" + '></td>'
       SL2.innerHTML = SL2_html
+      SL3.innerHTML = SL3_html
+      SL4.innerHTML = SL4_html
     } else if (block_class === 551) {
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-12.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-12")' + "'" + '></td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-11.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-11")' + "'" + '></td>'
@@ -450,6 +481,18 @@ function changeProperty (command) { // for change color/chipClass/chipShape
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-22.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-22")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-5.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-5")' + "'" + '></td>'
       SL2.innerHTML = SL2_html
+      SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-81.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-81")' + "'" + '></td>'
+      SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-82.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-82")' + "'" + '></td>'
+      SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-9.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-9")' + "'" + '></td>'
+      SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-10.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-10")' + "'" + '></td>'
+      SL3_html += '<td style="width:50px"></td>'
+      SL3.innerHTML = SL3_html
+      SL4_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-111.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-111")' + "'" + '></td>'
+      SL4_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-112.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-112")' + "'" + '></td>'
+      SL4_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-120.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-120")' + "'" + '></td>'
+      SL4_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-131.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-131")' + "'" + '></td>'
+      SL4_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-132.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-132")' + "'" + '></td>'
+      SL4.innerHTML = SL4_html
     }
     resetBlock()
   } else if (command === 'level') {
@@ -534,7 +577,7 @@ function changeBigImg (command) { // change preview and change property
     else if (command === '6-8') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-8-0.png'
     else if (command === '6-9') imgid.src = '../img/chip/bigsample/' + colorStr + '_56-9-0.png'
     block_shape = parseInt(command.substr(2))
-  } else if (command === '5-11' || command === '5-12' || command === '5-21' || command === '5-22' || command === '5-31' || command === '5-32' || command === '5-4' || command === '5-5' || command === '5-6') {
+  } else if (command === '5-11' || command === '5-12' || command === '5-21' || command === '5-22' || command === '5-31' || command === '5-32' || command === '5-4' || command === '5-5' || command === '5-6' || command === '5-81' || command === '5-82' || command === '5-9' || command === '5-10' || command === '5-111' || command === '5-112' || command === '5-120' || command === '5-131' || command === '5-132') {
     var colorStr = 'b'
     if (color === 2) colorStr = 'o'
     if (command === '5-11') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-11-0.png'
@@ -546,14 +589,31 @@ function changeBigImg (command) { // change preview and change property
     else if (command === '5-4') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-4-0.png'
     else if (command === '5-5') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-5-0.png'
     else if (command === '5-6') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-6-0.png'
+    else if (command === '5-81') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-81-0.png'
+    else if (command === '5-82') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-82-0.png'
+    else if (command === '5-9') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-9-0.png'
+    else if (command === '5-10') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-10-0.png'
+    else if (command === '5-111') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-111-0.png'
+    else if (command === '5-112') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-112-0.png'
+    else if (command === '5-120') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-120-0.png'
+    else if (command === '5-131') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-131-0.png'
+    else if (command === '5-132') imgid.src = '../img/chip/bigsample/' + colorStr + '_551-132-0.png'
     block_shape = parseInt(command.substr(2))
   }
+  refreshPreview()
 }
 function refreshPreview () {
-  document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
-  document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
-  document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
-  document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7))
+  if (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132) {
+    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_dmg * 4.4))
+    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_dbk * 12.7))
+    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_acu * 7.1))
+    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_fil * 5.7))
+  } else {
+    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
+    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
+    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
+    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7))
+  }
   document.getElementById('AdTx1').innerHTML = block_dmg
   document.getElementById('AdTx2').innerHTML = block_dbk
   document.getElementById('AdTx3').innerHTML = block_acu
@@ -672,6 +732,20 @@ function chartBack (typeInfo) {
       line7.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>'
       line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>'
       break
+    case 4:
+      Process_Text_Dmg.innerHTML = '0/206'
+      Process_Text_Dbk.innerHTML = '0/60'
+      Process_Text_Acu.innerHTML = '0/97'
+      Process_Text_Fil.innerHTML = '0/146'
+      line1.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_blueback">'
+      line2.innerHTML = '<td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback">'
+      line3.innerHTML = '<td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback">'
+      line4.innerHTML = '<td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black">'
+      line5.innerHTML = '<td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black">'
+      line6.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black">'
+      line7.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black">'
+      line8.innerHTML = '<td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback">'
+      break
   }
 }
 function countMS (td1, td2) { return ((60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
@@ -687,9 +761,11 @@ function getTopology () {
   var HeavyfireType = 1
   if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else HeavyfireType = 3
+  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
+  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
   var validSet
   var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]]
+  var chipShape_5_2 = [[81, 0], [82, 0], [9, 0], [10, 0], [111, 0], [112, 0], [120, 0], [131, 0], [132, 0]]
   var chipShape_6 = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]]
   for (var i = 0; i < chipNum; i++) {
     if (chipRepo_data[i].classNum === 551) {
@@ -702,6 +778,15 @@ function getTopology () {
       else if (chipRepo_data[i].typeNum === 4) chipShape_5[6][1]++
       else if (chipRepo_data[i].typeNum === 5) chipShape_5[7][1]++
       else if (chipRepo_data[i].typeNum === 6) chipShape_5[8][1]++
+      else if (chipRepo_data[i].typeNum === 81) chipShape_5_2[0][1]++
+      else if (chipRepo_data[i].typeNum === 82) chipShape_5_2[1][1]++
+      else if (chipRepo_data[i].typeNum === 9) chipShape_5_2[2][1]++
+      else if (chipRepo_data[i].typeNum === 10) chipShape_5_2[3][1]++
+      else if (chipRepo_data[i].typeNum === 111) chipShape_5_2[4][1]++
+      else if (chipRepo_data[i].typeNum === 112) chipShape_5_2[5][1]++
+      else if (chipRepo_data[i].typeNum === 120) chipShape_5_2[6][1]++
+      else if (chipRepo_data[i].typeNum === 131) chipShape_5_2[7][1]++
+      else if (chipRepo_data[i].typeNum === 132) chipShape_5_2[8][1]++
     }
     else if (chipRepo_data[i].classNum === 56) {
       if (chipRepo_data[i].typeNum === 1) chipShape_6[0][1]++
@@ -716,7 +801,8 @@ function getTopology () {
       else if (chipRepo_data[i].typeNum === 9) chipShape_6[9][1]++
     }
   }
-  validSet = searchValid(chipShape_6, chipShape_5, HeavyfireType)
+  if (HeavyfireType === 1 || HeavyfireType === 2 || HeavyfireType === 3) validSet = searchValid(chipShape_6, chipShape_5, HeavyfireType)
+  else validSet = searchValid(chipShape_6, chipShape_5.concat(chipShape_5_2), HeavyfireType)
   var allTopoNum = validSet.length
   // get topology
   for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
@@ -725,6 +811,7 @@ function getTopology () {
       else topologySet.push(topologyLib_BGM_2[validSet[num_topo] - topologyLibRefer_BGM_1.length])
     } else if (HeavyfireType === 2) topologySet.push(topologyLib_AGS[validSet[num_topo]])
     else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]])
+    else if (HeavyfireType === 4) topologySet.push(topologyLib_M2[validSet[num_topo]])
   }
   if (topologySet.length > 0) {
     if (filter_switch) { // show sort
@@ -808,6 +895,8 @@ function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
     searchlen = topologyLibRefer_AGS.length
   } else if (HeavyfireType === 3) {
     searchlen = topologyLibRefer_2B14.length
+  } else if (HeavyfireType === 4) {
+    searchlen = topologyLibRefer_M2.length
   }
   if (HeavyfireType === 1) {
     for (var i = 0; i < searchlen; i++) {
@@ -823,6 +912,10 @@ function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
   } else if (HeavyfireType === 3) {
     for (var i = 0; i < searchlen; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_2B14[i], 19)) validSet.push(i)
+    }
+  } else if (HeavyfireType === 4) {
+    for (var i = 0; i < searchlen; i++) {
+      if (isPossible(chipShape_65, topologyLibRefer_M2[i], 28)) validSet.push(i)
     }
   }
   return validSet
@@ -858,6 +951,12 @@ function showTopology (solution, HeavyfireType) {
         putChip(0, 1, 8, i, solution[i], htmlSet)
       }
       break
+    case 4:
+      var soluChipNum = solution.length
+      for (var i = 0; i < soluChipNum; i++) {
+        putChip(0, 0, 8, i, solution[i], htmlSet)
+      }
+      break
   }
   for (var i = 0; i < 8; i++) {
     var htmlText = ''
@@ -873,13 +972,13 @@ function putChip (bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
     if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - border_x * parseInt((i - 1) / border_x) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + '</td>'
   }
 }
-function flogy (actionId) {
-  if (actionId === 0) topologyNum = parseInt(document.getElementById('TopologySelect').value)
-  if (actionId === 1) topologyNum++
-  if (actionId === 2) topologyNum--
-  document.getElementById('TopologySelect').value = topologyNum
-  showSolution()
-}
+// function flogy (actionId) {
+//   if (actionId === 0) topologyNum = parseInt(document.getElementById('TopologySelect').value)
+//   if (actionId === 1) topologyNum++
+//   if (actionId === 2) topologyNum--
+//   document.getElementById('TopologySelect').value = topologyNum
+//   showSolution()
+// }
 function changeAnalyze (actionId) {
   var SolutionSelect = document.getElementById('SolutionSelect')
   var SSV = parseInt(SolutionSelect.value)
@@ -892,7 +991,8 @@ function showAnalyze () {
   var HeavyfireType
   if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else HeavyfireType = 3
+  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
+  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
   var AdTp = document.getElementById('AdTp')
   var SbTp = document.getElementById('SbTp')
   var AdCo = document.getElementById('AdCo')
@@ -979,6 +1079,7 @@ function showAnalyze () {
       if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
       else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+      else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
       for (var c = 0; c < c_num; c++) {
         dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg
         dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk
@@ -1029,6 +1130,7 @@ function showAnalyze () {
       if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
       else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
       else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
+      else if (HeavyfireType === 4) { dmg_blomax = 19; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 10; }
       for (var c = 0; c < c_num; c++) {
         dmg_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDmg
         dbk_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDbk
@@ -1098,6 +1200,7 @@ function showAnalyze () {
       if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
       else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+      else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
       Process_Text_Dmg.innerHTML = 0 + '/' + dmg_max
       DmgAlert.innerHTML = ''
       Process_Bar_Dmg.style = ('width:0%')
@@ -1117,6 +1220,7 @@ function showAnalyze () {
       if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
       else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
       else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
+      else if (HeavyfireType === 3) { dmg_blomax = 19; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 10; }
       Process_Text_Dmg.innerHTML = 0 + '/' + dmg_blomax
       DmgAlert.innerHTML = ''
       Process_Bar_Dmg.style = ('width:0%')
@@ -1314,7 +1418,8 @@ function compare_dmg (solu_a, solu_b) {
   var dmg_a = 0, dmg_b = 0, dmg_max = 0
   if (document.getElementById('HFSwitch1').checked === true) dmg_max = 190
   else if (document.getElementById('HFSwitch2').checked === true) dmg_max = 106
-  else dmg_max = 227
+  else if (document.getElementById('HFSwitch3').checked === true) dmg_max = 227
+  else if (document.getElementById('HFSwitch4').checked === true) dmg_max = 206
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1327,7 +1432,8 @@ function compare_dbk (solu_a, solu_b) {
   var dbk_a = 0, dbk_b = 0, dbk_max = 0
   if (document.getElementById('HFSwitch1').checked === true) dbk_max = 329
   else if (document.getElementById('HFSwitch2').checked === true) dbk_max = 130
-  else dbk_max = 58
+  else if (document.getElementById('HFSwitch3').checked === true) dbk_max = 58
+  else if (document.getElementById('HFSwitch4').checked === true) dbk_max = 60
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1340,7 +1446,8 @@ function compare_acu (solu_a, solu_b) {
   var acu_a = 0, acu_b = 0, acu_max = 0
   if (document.getElementById('HFSwitch1').checked === true) acu_max = 191
   else if (document.getElementById('HFSwitch2').checked === true) acu_max = 120
-  else acu_max = 90
+  else if (document.getElementById('HFSwitch3').checked === true) acu_max = 90
+  else if (document.getElementById('HFSwitch4').checked === true) acu_max = 97
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1353,7 +1460,8 @@ function compare_fil (solu_a, solu_b) {
   var fil_a = 0, fil_b = 0, fil_max = 0
   if (document.getElementById('HFSwitch1').checked === true) fil_max = 46
   else if (document.getElementById('HFSwitch2').checked === true) fil_max = 233
-  else fil_max = 107
+  else if (document.getElementById('HFSwitch3').checked === true) fil_max = 107
+  else if (document.getElementById('HFSwitch4').checked === true) fil_max = 146
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1430,12 +1538,14 @@ function sortSolution (sortType) {
   else if (sortType === 2) analyze_switch = -1
   if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else HeavyfireType = 3
+  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
+  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
   var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
   var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
+  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
   var SolutionSelect = document.getElementById('SolutionSelect')
   var SSText = ''
   solutionSet = ignoreSolution(dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max)

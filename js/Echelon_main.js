@@ -1249,6 +1249,11 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     if (list_labels[3] != 'evaless') {
       if (Math.random() > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
     }
+    if (list_tdoll[stand_num][1].ID === 202) {
+      if (Set_Special.get('thunder_' + stand_num) === undefined) {
+        0
+      }
+    }
     damage_snipe_single = Math.ceil(damage_snipe_single * 5)
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     Set_Data.get(stand_num).push([current_time, lastData])

@@ -146,8 +146,8 @@
                                     <div class="tab-pane fade in active" id="ChipSetting">
                                         <div class="col-lg-4">
                                             <h4>形状和颜色</h4>
-                                            <h5>点击图标定制芯片，颜色/旋转<span style="color:#FF0066">仅做对比</span>免得填错，<span style="color:#FF0066">无实际意义</span></h5>
-                                            <h5>部分5格芯片没有因为属性差，想深究<a href="https://bbs.nga.cn/read.php?tid=15110212" target="_blank"><span style="color:dodgerblue">[请点这里]</span></a></h5>
+                                            <h5>点击图标定制芯片，颜色/旋转<span style="color:#FF0066">仅对照用</span>免得填错</h5>
+                                            <h5>5格2类(后9种)<span style="color:#FF0066">仅参与M2拼接</span></h5>
                                             <table class="table-bordered" style="width:250px; height:100px;overflow:hidden" id="ImgChart_preview">
                                                 <tbody>
                                                     <tr style="height:50px">
@@ -179,6 +179,10 @@
                                                         <td style="width:50px"><img src="../img/chip/shapebutton/6-3.png" style="cursor:pointer" onclick='changeBigImg("6-3")'></td>
                                                         <td style="width:50px"><img src="../img/chip/shapebutton/6-2.png" style="cursor:pointer" onclick='changeBigImg("6-2")'></td>
                                                         <td style="width:50px"><img src="../img/chip/shapebutton/6-1.png" style="cursor:pointer" onclick='changeBigImg("6-1")'></td>
+                                                    </tr>
+                                                    <tr style="height:50px" id="ShapeLine3">
+                                                    </tr>
+                                                    <tr style="height:50px" id="ShapeLine4">
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -364,6 +368,7 @@
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch4" value=4 onclick="chartBack(4)"><span style="color:darkblue"><b>M2</b></span></label>
                                                     </p>
                                                 </div>
                                                 <h4>求解设置</h4>
