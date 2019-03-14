@@ -153,10 +153,10 @@ function maxAllChip () {
         chipRepo_data[c].levelNum = 20
         chipRepo_chart[c].chipLevel = '+20'
         if (chipRepo_chart[c].chipType === '五格 形状b' || chipRepo_chart[c].chipType === '五格 形状d' || chipRepo_chart[c].chipType === '五格 形状|' || chipRepo_chart[c].chipType === '五格 形状C' || chipRepo_chart[c].chipType === '五格 形状Z' || chipRepo_chart[c].chipType === '五格 形状Z-' || chipRepo_chart[c].chipType === '五格 形状V' || chipRepo_chart[c].chipType === '五格 形状L' || chipRepo_chart[c].chipType === '五格 形状L-') {
-          chipRepo_chart[c].Acu = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bAcu * 7.1))
-          chipRepo_chart[c].Fil = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bFil * 5.7))
-          chipRepo_chart[c].Dmg = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bDmg * 4.4))
-          chipRepo_chart[c].Dbk = Math.ceil(2.5 * 0.92 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
+          chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 0.92 * 7.1))
+          chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 0.92 * 5.7))
+          chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 0.92 * 4.4))
+          chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 0.92 * 12.7))
         } else {
           chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1))
           chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7))
@@ -275,10 +275,10 @@ function repo_addChart (chipData) {
   var Repo_Dmg
   var Repo_Dbk
   if (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132) {
-    Repo_Acu = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bAcu * 7.1))
-    Repo_Fil = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bFil * 5.7))
-    Repo_Dmg = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bDmg * 4.4))
-    Repo_Dbk = Math.ceil(stren_parameter * 0.92 * Math.ceil(chipData.bDbk * 12.7))
+    Repo_Acu = Math.ceil(stren_parameter * Math.ceil(chipData.bAcu * 0.92 * 7.1))
+    Repo_Fil = Math.ceil(stren_parameter * Math.ceil(chipData.bFil * 0.92 * 5.7))
+    Repo_Dmg = Math.ceil(stren_parameter * Math.ceil(chipData.bDmg * 0.92 * 4.4))
+    Repo_Dbk = Math.ceil(stren_parameter * Math.ceil(chipData.bDbk * 0.92 * 12.7))
   } else {
     Repo_Acu = Math.ceil(stren_parameter * Math.ceil(chipData.bAcu * 7.1))
     Repo_Fil = Math.ceil(stren_parameter * Math.ceil(chipData.bFil * 5.7))
@@ -604,10 +604,10 @@ function changeBigImg (command) { // change preview and change property
 }
 function refreshPreview () {
   if (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132) {
-    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_dmg * 4.4))
-    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_dbk * 12.7))
-    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_acu * 7.1))
-    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(0.92 * mul_property * Math.ceil(block_fil * 5.7))
+    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 0.92 * 4.4))
+    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 0.92 * 12.7))
+    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 0.92 * 7.1))
+    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 0.92 * 5.7))
   } else {
     document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
     document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
