@@ -490,7 +490,6 @@ function reactAllSkill (command, current_time) {
           endStatus(k, s_t, 'enemy_lost')
         }
         else if (isProperty(s_t[0][0])) {
-          if (s_t[0][0] === 'rof') console.log(s_t[0][1])
           endStatus(k, s_t, 'lost') // 更新属性
         }
         else if (s_t[0][0] === 'python') Set_Special.delete('python_opening')
@@ -565,7 +564,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         if (list_tdoll[stand_num][1].ID === 197) { // 玛尔斯号角，被动
           if (Set_Special.get('karm1891') === undefined) Set_Special.set('karm1891', 0)
           if (Math.random() <= 0.4 && Set_Special.get('karm1891') < 3) {
-            console.log('passive')
             var num_col = Math.ceil(stand_num / 3) + 1
             react([createSkill(0, 0, 2, describe_property(['col' + num_col], ['rof/crit'], ['0.04/0.04'])), 0], stand_num, current_time)
             changeStatus(stand_num, 'self', 'rof', '0', 2)
