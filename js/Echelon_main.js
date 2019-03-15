@@ -228,11 +228,19 @@ function getDPS () {
     if (list_tdoll[i][1] != null) {
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
       Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
-      if (list_tdoll[i][1].ID === 1005) Set_Special.set('m1895_' + i, 0)
-      if (list_tdoll[i][1].ID === 1039) {
+      if (list_tdoll[i][1].ID === 1005) Set_Special.set('m1895_' + i, 0) // 七音之凯歌buff发动
+      if (list_tdoll[i][1].ID === 1039) { // 莫辛纳甘：攻击被动
         Set_Special.set('mosin_numneed_' + i, parseInt(document.getElementById('special_mosin_attackkill_' + (i + 1)).value))
         Set_Special.set('mosin_' + i, Set_Special.get('mosin_numneed_' + i))
         Set_Special.set('mosin_bufftime_' + i, 0)
+      }
+      if (list_tdoll[i][1].ID === 248) {
+        Set_Special.set('jericho_exist', true)
+        if (Set_Special.get('jericho_standset') === undefined) {
+          Set_Special.set('jericho_standset', [i])
+        } else {
+          Set_Special.set('jericho_standset', (Set_Special.get('jericho_standset')).concat(i))
+        }
       }
     }
   }
@@ -451,6 +459,10 @@ function reactAllSkill (command, current_time) {
     if (Set_Special.get('fragile_15') != undefined && Set_Special.get('fragile_15') < global_frame) {
       global_fragile /= 1.15
       Set_Special.delete('fragile_15')
+    }
+    if (Set_Special.get('fragile_100') != undefined && Set_Special.get('fragile_100') < global_frame) {
+      global_fragile /= 2
+      Set_Special.delete('fragile_100')
     }
     if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) {
       if (document.getElementById('special_64howa_' + (k + 1) + '_0').checked) {
@@ -700,6 +712,24 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               // 狂热突袭单独判断
             } else {
               reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
+            }
+          }
+          if (Set_Special.get('jericho_exist') === true) {
+            var jericho_standset = Set_Special.get('jericho_standset')
+            for (var jrc of jericho_standset) {
+              if (is_in_affect_of(jrc, stand_num)) {
+                if (Set_Special.get('jericho_buff_' + stand_num) === undefined) {
+                  Set_Special.set('jericho_buff_' + stand_num, 1)
+                  changeStatus(stand_num, 'self', 'dmg', '0.05', 15)
+                  changeStatus(stand_num, 'self', 'acu', '0.05', 15)
+                  changeStatus(stand_num, 'self', 'critdmg', '0', 15) // 记录buff层数专用
+                } else if (Set_Special.get('jericho_buff_' + stand_num) < 3) {
+                  Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) + 1)
+                  changeStatus(stand_num, 'self', 'dmg', '0.05', 15)
+                  changeStatus(stand_num, 'self', 'acu', '0.05', 15)
+                  changeStatus(stand_num, 'self', 'critdmg', '0', 15)
+                }
+              }
             }
           }
           Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
@@ -955,6 +985,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'snipe', 'armless/critless/evaless', 3, 1)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'theresa') {
+    if (document.getElementById('special_theresa_' + stand_num).checked) {
+      Set_Special.set('fragile_100', global_frame + 150)
+      global_fragile *= 2
+      enemy_fragile = true
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'colt') { // 决斗幸存者
     if (Set_Special.get('colt') === undefined) {
       Set_Special.set('colt', 1)
@@ -1063,7 +1101,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
         var new_level = Set_Special.get('python_' + type) + 1
         Set_Special.set('python_' + type, new_level)
-        react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0) // PROBLEM
+        react([createSkill(0, 0, 3, lib_describe.get('python_' + type)), 0], stand_num, 0)
         changeStatus(stand_num, 'python_buff_' + type, type, null, 3)
       }
     }
@@ -1148,6 +1186,11 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
           else if (situation === 'lost') {
             if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.floor(new_property / status[0][1])
             else new_property = new_property / status[0][1]
+            if (status[0][0] === 'critdmg' && status[0][1] === 0) { // 杰里科被动消失情况
+              if (Set_Special.get('jericho_buff_' + stand_num) > 0) {
+                Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) - 1)
+              }
+            }
           }
           this_info.set(status[0][0], new_property)
         }
@@ -1230,6 +1273,15 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var labels = status[0][1]
     var list_labels = labels.split('/') // ratio,arm,crit,eva
     var ratio = parseFloat(list_labels[0])
+    if (list_tdoll[stand_num][1].ID === 202) {
+      if (Set_Special.get('thunder_' + stand_num) != true) {
+        Set_Special.set('thunder_' + stand_num, true)
+        ratio = 12
+      } else {
+        Set_Special.set('thunder_' + stand_num, false)
+        ratio = 0
+      }
+    }
     var num_leftsnipe = Set_Special.get('snipe_num_' + stand_num)
     num_leftsnipe--
     Set_Special.set('snipe_num_' + stand_num, num_leftsnipe)
@@ -1472,3 +1524,4 @@ function get_g36_standblo (stand_num) {
 }
 
 function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
+function is_in_affect_of (stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b];}

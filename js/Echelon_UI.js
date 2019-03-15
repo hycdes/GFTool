@@ -367,7 +367,7 @@ function resetEquipment () {
       else if (ID === 57) set_equip = [12, 21057, 14]
       else if (ID === 62) set_equip = [12, 22, 362]
       else if (ID === 65) set_equip = [165, 22, 31]
-      else if (ID === 66) set_equip = [166, 22, 31]
+      else if (ID === 58 || ID === 66) set_equip = [166, 22, 31] // ak47 56-1
       else if (ID === 69) set_equip = [169, 22, 31]
       else if (ID === 1056) set_equip = [12, 22, 11056]
       else if (ID === 1057) set_equip = [12, 21057, 11057]
@@ -581,6 +581,9 @@ function addTdoll () { // 添加战术人形
       str_html += '<input type="checkbox" id="special_mosin_' + num_pickblock + '"> [沉稳射击] 禁用 '
       str_html += '<input type="checkbox" id="special_mosin_skillkill_' + num_pickblock + '" checked> [苍白收割者] 技能击杀敌人'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
+    else if (ID === 2006) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 德丽莎</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [圣光制裁] 敌人进入制裁范围'
     }
     else if (ID === 102) {
       var str_html = ''

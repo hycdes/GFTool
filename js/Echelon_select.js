@@ -19,7 +19,7 @@ function changeSelectItems () {
       str_items += '<option value=1001>No.1 [MOD] 柯尔特左轮</option>'
       str_items += '<option value=2001>No.EX1 诺艾尔</option>'
       str_items += '<option value=2003>No.EX3 琪亚娜</option>'
-      // str_items += '<option value=2006>No.EX6 德丽莎</option>'
+      str_items += '<option value=2006>No.EX6 德丽莎</option>'
       str_items += '<option value=2009>No.EX9 克莉尔</option>'
       str_items += '<option value=2010>No.EX10 菲尔</option>'
     } else if (num_star === 4) {
@@ -31,7 +31,7 @@ function changeSelectItems () {
       str_items += '<option value=168>No.168 SpitFire</option>'
       str_items += '<option value=202>No.202 雷电</option>'
       str_items += '<option value=212>No.212 K5</option>'
-      // str_items += '<option value=248>No.248 杰里科</option>'
+      str_items += '<option value=248>No.248 杰里科</option>'
       str_items += '<option value=1002>No.2 [MOD] M1911</option>'
       str_items += '<option value=1005>No.5 [MOD] 纳甘左轮</option>'
       str_items += '<option value=1091>No.91 [MOD] MP-446</option>'
@@ -108,9 +108,25 @@ function changeSelectItems () {
       str_items += '<option value=237>No.237 SAR-21</option>'
       str_items += '<option value=1063>No.1063 [MOD] G3</option>'
     } else if (num_star === 3) {
-      str_items += '<option value=-1 selected>还没做！</option>'
+      str_items += '<option value=58 selected>No.58 AK-47</option>'
+      str_items += '<option value=61>No.61 StG44</option>'
+      str_items += '<option value=70>No.70 FNC</option>'
+      str_items += '<option value=105>No.105 OTs-12</option>'
+      str_items += '<option value=108>No.108 CZ-805</option>'
+      str_items += '<option value=120>No.120 ARX-160</option>'
+      str_items += '<option value=134>No.134 AR70</option>'
+      str_items += '<option value=138>No.138 6P62</option>'
+      str_items += '<option value=170>No.170 ASh-12.7</option>'
+      str_items += '<option value=193>No.193 T65</option>'
+      str_items += '<option value=223>No.223 Model L</option>'
+      str_items += '<option value=239>No.239 03式</option>'
     } else if (num_star === 2) {
-      str_items += '<option value=-1 selected>还没做！</option>'
+      str_items += '<option value=63 selected>No.63 G3</option>'
+      str_items += '<option value=68>No.68 L85A1</option>'
+      str_items += '<option value=71>No.71 加利尔</option>'
+      str_items += '<option value=74>No.74 SIG-510</option>'
+      str_items += '<option value=107>No.107 F2000</option>'
+      str_items += '<option value=133>No.133 63式</option>'
     }
   } else if (set_guntype === 3) { // SMG
     if (num_star === 5) {
@@ -241,7 +257,7 @@ function changeEquip () {
         str_items += '<option value=11>AC4消音器</option>'
         str_items += '<option value=41>PEQ-16A</option>'
         if (ID === 65) str_items += '<option value=165>EOT-XPS3</option>'
-        if (ID === 66) str_items += '<option value=166>KSTSP</option>'
+        if (ID === 58 || ID === 66) str_items += '<option value=166>KSTSP</option>'
         if (ID === 69) str_items += '<option value=169>FÉLIN系统瞄具</option>'
         if (ID === 118)  str_items += '<option value=4118>PKN03M夜视瞄具</option>'
         if (ID === 1064) str_items += '<option value=11064>G36混合瞄准镜</option>'
@@ -298,15 +314,12 @@ function changeEquip () {
   } else if (num_pickequip === 2) { // 第二格装备（AR小队双瞄具/人形放在第三）
     if (set_guntype === 1) { // HG
       str_items += '<option value=21>ILM空尖弹</option>'
-      if (ID === 1002) { // M1911
-        str_items += '<option value=21002>XM261短弹</option>'
-      }
+      if (ID === 1002) str_items += '<option value=21002>XM261短弹</option>' // M1911
       if (ID === 183) str_items += '<option value=23>Mk211高爆穿甲弹</option>'
     } else if (set_guntype === 2) { // AR
       str_items += '<option value=22>APCR高速弹</option>'
-      if (ID === 1057 || ID === 57) { // ST AR-15
-        str_items += '<option value=21057>.300BLK高速弹</option>'
-      }
+      if (ID === 138) str_items += '<option value=23>Mk211高爆穿甲弹</option>' // 6P62
+      if (ID === 1057 || ID === 57) str_items += '<option value=21057>.300BLK高速弹</option>' // ST AR-15
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=21>ILM空尖弹</option>'
       if (ID === 213)  str_items += '<option value=23>Mk211高爆穿甲弹</option>'
