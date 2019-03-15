@@ -596,6 +596,15 @@ function addTdoll () { // 添加战术人形
     else if (ID === 192) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
     }
+    else if (ID === 194) {
+      var str_html = ''
+      str_html += '<h4>' + num_pickblock + '号位 K2</h4>'
+      str_html += '<h5>[热力过载] 启动状态</h5>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_1" checked> 自动释放</label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_2"><span style="color:red"> 持续Fever(三连发)</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_3"><span style="color:orange"> 持续Note(单点)</span></label></p>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     else if (ID === 213) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + '号位 C-MS</h4>'

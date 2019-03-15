@@ -234,7 +234,12 @@ function getDPS () {
         Set_Special.set('mosin_' + i, Set_Special.get('mosin_numneed_' + i))
         Set_Special.set('mosin_bufftime_' + i, 0)
       }
-      if (list_tdoll[i][1].ID === 248) {
+      if (list_tdoll[i][1].ID === 194) { // K2热力过载
+        Set_Special.set('k2_' + i, 'fever')
+        Set_Special.set('k2_temp_' + i, 0)
+        Set_Special.set('k2_dmgup_' + i, 0)
+      }
+      if (list_tdoll[i][1].ID === 248) { // 杰里科：深红月蚀被动
         Set_Special.set('jericho_exist', true)
         if (Set_Special.get('jericho_standset') === undefined) {
           Set_Special.set('jericho_standset', [i])
@@ -540,6 +545,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       else {
         var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
         Set_Data.get(stand_num).push([current_time, lastData])
+        if (list_tdoll[stand_num][1].ID === 194) { // K2热力过载
+          if (Set_Special.get('k2_' + stand_num) === 'fever') {
+            if (Set_Special.get('k2_temp_' + stand_num) < 35) Set_Special.set('k2_temp_' + stand_num, Set_Special.get('k2_temp_' + stand_num) + 1) // fever模式升温
+          } else {
+            if (Set_Special.get('k2_temp_' + stand_num) > 0) Set_Special.set('k2_temp_' + stand_num, Set_Special.get('k2_temp_' + stand_num) - 1) // note模式升温
+            if (Set_Special.get('k2_dmgup_' + stand_num) < 10) Set_Special.set('k2_dmgup_' + stand_num, Set_Special.get('k2_dmgup_' + stand_num) + 1) // note模式增伤
+          }
+        }
         if (list_tdoll[stand_num][1].ID === 1005) {
           if (Set_Special.get('m1895_' + stand_num) === 0) {
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
@@ -568,6 +581,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           Set_Special.set('python_active', num_left)
           changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
         }
+        var base_acu = current_Info.get('acu') // 基础命中
+        if (list_tdoll[stand_num][1].ID === 194) { // K2-debuff减命中
+          if (Set_Special.get('k2_temp_' + stand_num) > 15)  base_acu *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15)
+        }
         if (list_tdoll[stand_num][1].ID === 245 && Set_Special.get('p90_' + stand_num) > 0) { // P90灰鼠发动，必定暴击和命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           Set_Special.set('p90_' + stand_num, Set_Special.get('p90_' + stand_num) - 1)
@@ -576,7 +593,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (enemy_fragile) final_dmg = Math.ceil(final_dmg * global_fragile)
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
         }
-        else if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 否则先判断命中
+        else if (Math.random() <= base_acu / (base_acu + enemy_eva)) { // 否则先判断命中
           var base_dmg = current_Info.get('dmg')
           if (list_tdoll[stand_num][1].ID === 1039) { // 苍白收割者buff是否存在，是否能够触发buff
             if (Set_Special.get('mosin_bufftime_' + stand_num) >= global_frame) {
@@ -591,7 +608,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
           if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) base_dmg *= 2 // 绝境神枪手2倍伤害
           if (list_tdoll[stand_num][1].ID === 1075 && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) base_dmg *= 1.4 // 战地魔术额外增伤
+          if (list_tdoll[stand_num][1].ID === 194) { // K2判断模式基础伤害
+            if (Set_Special.get('k2_' + stand_num) === 'fever') base_dmg *= 0.52 // fever三连发单次伤害
+            else base_dmg *= Math.pow(1.05, Set_Special.get('k2_dmgup_' + stand_num)) // note经过加成后的伤害
+            if (Set_Special.get('k2_temp_' + stand_num) > 15) base_dmg *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // 过热减伤
+          }
           var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
+          if (list_tdoll[stand_num][1].ID === 194) { // K2判断模式射击次数
+            if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
+          }
           if (list_tdoll[stand_num][1].ID === 77 || list_tdoll[stand_num][1].ID === 85 || list_tdoll[stand_num][1].ID === 109) { // 不可暴击：连珠终结
             var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
             if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
@@ -1075,6 +1100,20 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         changeStatus(stand_num, 'self', 'eva', '-0.25', -1)
       }
       Set_Special.set('ump40buffnum_' + stand_num, Set_Special.get('ump40buffnum_' + stand_num) + 1) // 叠加BUFF
+    }
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'k2') { // 热力过载
+    if (document.getElementById('special_k2_' + (stand_num + 1) + '_1').checked) { // 自动
+      if (Set_Special.get('k2_' + stand_num) === 'fever') Set_Special.set('k2_' + stand_num, 'note')
+      else {
+        Set_Special.set('k2_' + stand_num, 'fever')
+        Set_Special.set('k2_dmgup_' + stand_num, 0) // 清空note积累层数
+      }
+    } else if (document.getElementById('special_k2_' + (stand_num + 1) + '_2').checked) { // Fever
+      // do nothing
+    } else if (document.getElementById('special_k2_' + (stand_num + 1) + '_3').checked) { // Note
+      if (Set_Special.get('k2_' + stand_num) === 'fever') Set_Special.set('k2_' + stand_num, 'note')
     }
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
