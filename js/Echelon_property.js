@@ -2,11 +2,21 @@ Set_Special.set('can_add_python', true)
 Set_Special.set('can_add_karm1891', true)
 Set_Special.set('sunrise', 'day')
 function reset_special () {
+  Set_Special.set('can_add_python', true)
+  Set_Special.set('can_add_karm1891', true)
   // 能否添加蟒蛇
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       if (list_tdoll[i][1].ID === 4) {
         Set_Special.set('can_add_python', false)
+        break
+      }
+    }
+  }
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      if (list_tdoll[i][1].ID === 197) {
+        Set_Special.set('can_add_karm1891', false)
         break
       }
     }
