@@ -352,45 +352,48 @@ function resetEquipment () {
   } else {
     var ID = parseInt(document.getElementById('select_tdoll').value)
     if (set_guntype === 1) {
-      if (ID === 4) set_equip = [11, 21, 31]
-      else if (ID === 1001) set_equip = [11001, 21, 32]
-      else if (ID === 1002) set_equip = [11, 21002, 31]
-      else if (ID === 1005) set_equip = [11005, 21, 32]
-      else if (ID === 1091) set_equip = [11091, 21, 32]
-      else if (ID === 2009) set_equip = [42009, 21, 32]
-      else if (ID === 2010) set_equip = [42010, 21, 32]
+      if (ID === 4) set_equip = [11, 21, 31] // python
+      else if (ID === 1001) set_equip = [11001, 21, 32] // colt mod
+      else if (ID === 1002) set_equip = [11, 21002, 31] // m1911 mod
+      else if (ID === 1005) set_equip = [11005, 21, 32] // m1895 mod
+      else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
+      else if (ID === 2009) set_equip = [42009, 21, 32] // clear
+      else if (ID === 2010) set_equip = [42010, 21, 32] // fail
       else set_equip = [11, 21, 32]
     }
     else if (set_guntype === 2) {
-      if (ID === 54) set_equip = [32, 22, 354]
-      else if (ID === 56) set_equip = [12, 22, 14]
-      else if (ID === 57) set_equip = [12, 21057, 14]
-      else if (ID === 62) set_equip = [12, 22, 362]
-      else if (ID === 65) set_equip = [165, 22, 31]
+      if (ID === 54) set_equip = [32, 22, 354] // m16
+      else if (ID === 56) set_equip = [12, 22, 14] // sop2
+      else if (ID === 57) set_equip = [12, 21057, 14] // ar15
+      else if (ID === 62) set_equip = [12, 22, 362] // g41
+      else if (ID === 65) set_equip = [165, 22, 31] // hk416
       else if (ID === 58 || ID === 66) set_equip = [166, 22, 31] // ak47 56-1
-      else if (ID === 69) set_equip = [169, 22, 31]
-      else if (ID === 1056) set_equip = [12, 22, 11056]
-      else if (ID === 1057) set_equip = [12, 21057, 11057]
-      else if (ID === 1055) set_equip = [12, 22, 31055]
-      else if (ID === 1064) set_equip = [11064, 22, 31]
+      else if (ID === 69) set_equip = [169, 22, 31] // famas
+      else if (ID === 1056) set_equip = [12, 22, 11056] // sop2 mod
+      else if (ID === 1057) set_equip = [12, 21057, 11057] // ar15 mod
+      else if (ID === 1055) set_equip = [12, 22, 31055] // m4 mod
+      else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
+      else if (ID === 1063) set_equip = [11063, 22, 31] // g3 mod
       else set_equip = [12, 22, 31]
     }
     else if (set_guntype === 3) {
-      if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11]
-      else if (ID === 20 || ID === 135 || ID === 251 || ID === 136 || ID === 177) set_equip = [31, 21, 11]
-      else if (ID === 1103) set_equip = [3103, 21, 11103]
+      if (ID === 26) set_equip = [326, 21, 11] // mp5
+      else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
+      else if (ID === 20 || ID === 135 || ID === 251 || ID === 136 || ID === 177) set_equip = [31, 21, 11] // 输出型
+      else if (ID === 1103) set_equip = [3103, 21, 11103] // ump45 mod
+      else if (ID === 1029) set_equip = [32, 21, 11029] // sten mod
       else set_equip = [32, 21, 11]
     }
     else if (set_guntype === 4) {
-      if (ID === 36) set_equip = [12, 236, 34]
-      else if (ID === 46) set_equip = [146, 23, 34]
-      else if (ID === 1039) set_equip = [11039, 23, 31039]
-      else if (ID === 1037) set_equip = [11037, 23, 34]
-      else if (ID === 1051) set_equip = [11051, 23, 34]
+      if (ID === 36) set_equip = [12, 236, 34] // springfield
+      else if (ID === 46) set_equip = [146, 23, 34] // kar98k
+      else if (ID === 1039) set_equip = [11039, 23, 31039] // mosin mod
+      else if (ID === 1037) set_equip = [11037, 23, 34] // m14 mod
+      else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
       else set_equip = [12, 23, 34]
     }
     else if (set_guntype === 5) {
-      if (ID === 1075) set_equip = [12, 23, 31075]
+      if (ID === 1075) set_equip = [12, 23, 31075] // m1918 mod
       else set_equip = [12, 23, 35]
     }
     else if (set_guntype === 6) set_equip = [33, 24, 13]

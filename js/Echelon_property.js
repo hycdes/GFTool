@@ -640,20 +640,23 @@ lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0,
 lib_property_equip.set(169, createProperty_equip(4, 4, 0, 0, 0, 0.48, 0, 0, 0, 0))
 lib_property_equip.set(165, createProperty_equip(8, 14, 0, 0, 0, 0.25, 0, 0, 0, 0))
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
-lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0, 0))
-lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0, 0))
-lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0))
-lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0, 0))
+lib_property_equip.set(326, createProperty_equip(-6, 0, 58, 0, 0, 0, 0, 0, 0, 0)) // mp5
+lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0, 0)) // m16
+lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0, 0)) // g41
+lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0)) // mg4
+lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0, 0)) // UMP series
 lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100))
 lib_property_equip.set(11001, createProperty_equip(3, 0, 10, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(11005, createProperty_equip(0, 4, 14, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(11091, createProperty_equip(0, 8, 10, 0, 0, 0.2, 0, 0, 0, 0))
+lib_property_equip.set(11029, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // sten mod
 lib_property_equip.set(11037, createProperty_equip(0, 10, 0, 0, 0, 0.48, 0, 0, 0, 0))
 lib_property_equip.set(11039, createProperty_equip(0, 6, 0, 0, 0, 0.5, 0, 0, 0, 0))
 lib_property_equip.set(11051, createProperty_equip(0, 0, 0, 5, 0, 0.48, 0, 0, 0, 0))
 lib_property_equip.set(11056, createProperty_equip(12, 14, 0, -2, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(11057, createProperty_equip(0, 10, 0, 0, 0, 0, 0.2, 0, 0, 0))
-lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0, 0))
+lib_property_equip.set(11063, createProperty_equip(4, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // g3 mod
+lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0, 0)) // g36 mod
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0, 0))
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0))
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0))

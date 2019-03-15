@@ -496,6 +496,7 @@ lib_skill.set(227, [
   createSkill(8, 16, 10, lib_describe.get('a91_N'))
 ])
 lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
+lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
 
 lib_skill.set(58, [createSkill(5, 8, 5, lib_describe.get('dmgacu_3'))])
 lib_skill.set(61, [createSkill(8, 16, 0, lib_describe.get('grenade_4.5'))])
@@ -597,5 +598,6 @@ lib_skill.set(229, [])
 lib_skill.set(2001, [createSkill(6, 12, 0, lib_describe.get('noel'))])
 lib_skill.set(2003, [createSkill(6, 12, 0, lib_describe.get('kiana'))])
 lib_skill.set(2006, [createSkill(1, 12, 0, lib_describe.get('theresa'))])
+lib_skill.set(2007, [createSkill(1, 16, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(2009, [createSkill(6, 8, 0, lib_describe.get('clear'))])
 lib_skill.set(2010, []) //
