@@ -571,8 +571,8 @@ function addTdoll () { // 添加战术人形
     if (list_tdoll[num_pickblock - 1][1].ID === 197) this_is_karm1891 = true
   }
   if ((!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) || (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891)) {
-    if (ID === 4) document.getElementById('alert_display').innerHTML = ' *不能添加两个蟒蛇'
-    if (ID === 197) document.getElementById('alert_display').innerHTML = ' *不能添加两个karm1891'
+    if (!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) document.getElementById('alert_display').innerHTML = ' *不能添加两个蟒蛇'
+    if (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891) document.getElementById('alert_display').innerHTML = ' *不能添加两个CarcanoM1891'
   } else {
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
     if (ID === 4) Set_Special.set('can_add_python', false)
