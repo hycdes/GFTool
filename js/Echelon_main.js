@@ -291,7 +291,7 @@ function getDPS () {
       var list_Skill = []
       list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
       for (var v_skill of list_tdoll[i][1].Skill) {
-        list_Skill.push([v_skill, 30 * (v_skill.init_cld)]) // 载入技能表
+        list_Skill.push([v_skill, Math.ceil(30 * (v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')))]) // 载入技能表
       }
       Set_Skill.set(i, list_Skill)
     }

@@ -346,7 +346,7 @@ lib_describe.set('contender', describe_contender()) // 断罪者魔弹
 lib_describe.set('hs2000', describe_property(['all'], ['dmg/acu'], ['0.35/0.35'])) // 反击者壁垒
 lib_describe.set('thunder', describe_snipe(-1, 1, 2, 2, 'armless/critless/eva')) // 临界点射击，倍率-1表示要分别判断
 lib_describe.set('theresa', describe_theresa()) // 圣光制裁
-lib_describe.set('clear', describe_snipe(0, 0, 0.533, 5, 'armless/critless/evaless')) // 克莉尔技能：再接再厉
+lib_describe.set('clear', describe_snipe(0, 0, 1, 5, 'armless/critless/evaless')) // 克莉尔技能：再接再厉
 lib_describe.set('gsh18', describe_multihit(2)) // 锁链冲击
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
@@ -648,5 +648,5 @@ lib_skill.set(2001, [createSkill(6, 12, 0, lib_describe.get('noel'))])
 lib_skill.set(2003, [createSkill(6, 12, 0, lib_describe.get('kiana'))])
 lib_skill.set(2006, [createSkill(1, 12, 0, lib_describe.get('theresa'))])
 lib_skill.set(2007, [createSkill(1, 16, 5, lib_describe.get('dmg_60'))])
-lib_skill.set(2009, [createSkill(6, 8, 0, lib_describe.get('clear'))])
+lib_skill.set(2009, [createSkill(6.533, 8, 0, lib_describe.get('clear'))])
 lib_skill.set(2010, []) //

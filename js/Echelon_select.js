@@ -97,7 +97,7 @@ function changeSelectItems () {
       str_items += '<option value=57>No.57 ST AR-15</option>'
       str_items += '<option value=60>No.60 As Val</option>'
       str_items += '<option value=64>No.64 G36</option>'
-      str_items += '<option value=66>No.66 56-式</option>'
+      str_items += '<option value=66>No.66 56-1式</option>'
       str_items += '<option value=69>No.69 FAMAS</option>'
       str_items += '<option value=72>No.72 TAR-21</option>'
       str_items += '<option value=118>No.118 9A-91</option>'
