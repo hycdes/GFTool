@@ -566,6 +566,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (Math.random() <= 0.4 && Set_Special.get('karm1891') < 3) {
             var num_col = Math.ceil(stand_num / 3) + 1
             react([createSkill(0, 0, 2, describe_property(['col' + num_col], ['rof/crit'], ['0.04/0.04'])), 0], stand_num, current_time)
+            changeStatus(stand_num, 'self', 'rof', '0', 2)
             Set_Special.set('karm1891', Set_Special.get('karm1891') + 1)
           }
         }
@@ -1225,9 +1226,14 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
           else if (situation === 'lost') {
             if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.floor(new_property / status[0][1])
             else new_property = new_property / status[0][1]
-            if (status[0][0] === 'critdmg' && status[0][1] === 0) { // 杰里科被动消失情况
+            if (status[0][0] === 'critdmg' && status[0][1] === 0) { // 杰里科被动消失一层
               if (Set_Special.get('jericho_buff_' + stand_num) > 0) {
                 Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) - 1)
+              }
+            }
+            if (status[0][0] === 'rof' && status[0][1] === 0) { // 玛尔斯号角被动消失一层
+              if (Set_Special.get('karm1891') > 0) {
+                Set_Special.set('karm1891', Set_Special.get('karm1891') - 1)
               }
             }
           }

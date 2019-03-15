@@ -563,14 +563,18 @@ function addTdoll () { // 添加战术人形
   var new_stand = num_pickblock - 1
   // 数据添加
   var this_is_python = false
+  var this_is_karm1891 = false
   if (list_tdoll[num_pickblock - 1][1] != null) {
     if (list_tdoll[num_pickblock - 1][1].ID === 4) this_is_python = true
+    if (list_tdoll[num_pickblock - 1][1].ID === 197) this_is_karm1891 = true
   }
-  if (!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) {
-    document.getElementById('alert_display').innerHTML = ' *不能添加两个蟒蛇'
+  if ((!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) || (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891)) {
+    if (ID === 4) document.getElementById('alert_display').innerHTML = ' *不能添加两个蟒蛇'
+    if (ID === 197) document.getElementById('alert_display').innerHTML = ' *不能添加两个karm1891'
   } else {
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
     if (ID === 4) Set_Special.set('can_add_python', false)
+    if (ID === 197) Set_Special.set('can_add_karm1891', false)
     else if (ID === 1055) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [伸冤者印记] 使用炮击'
     }
@@ -667,6 +671,7 @@ function addTdoll () { // 添加战术人形
 function deleteTdoll () { // 删除战术人形
   // 数据删除
   if (list_tdoll[num_pickblock - 1][1].ID === 4) Set_Special.set('can_add_python', true)
+  if (list_tdoll[num_pickblock - 1][1].ID === 197) Set_Special.set('can_add_karm1891', true)
   buffer_table.delete(num_pickblock)
   list_tdoll[num_pickblock - 1][1] = null
   // 前台更新
