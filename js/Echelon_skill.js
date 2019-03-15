@@ -268,6 +268,7 @@ lib_describe.set('rof_30_enemy', describe_property(['enemy'], ['rof'], ['-0.3'])
 
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
 lib_describe.set('dmgeva_16040', describe_property(['self'], ['dmg/eva'], ['1.6/0.4'])) // 机动专注 160%/40%
+lib_describe.set('dmgeva_15040', describe_property(['self'], ['dmg/eva'], ['1.5/0.4'])) // 机动专注 150%/40%
 lib_describe.set('type100', describe_property(['self'], ['dmg'], ['0.85'])) // 火力专注 85%
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
 lib_describe.set('dmg_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注 70%
@@ -303,6 +304,7 @@ lib_describe.set('dmgacu_3', describe_property(['self'], ['dmg/acu'], ['0.35/1']
 lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) // 至高枪弹
 lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.35/0.35/0.35/0.35'])) // 雪狼之眼
 lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) // 狩猎示范
+lib_describe.set('evaacu_4', describe_property(['self'], ['eva/acu'], ['0.8/0.5'])) // 隐秘专注-4星
 
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
@@ -317,10 +319,13 @@ lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('m200', describe_snipe(2, 0, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
 lib_describe.set('noel', describe_snipe(1.2, 0, 0.1, 8, 'armless/critless/evaless')) // 诺艾尔技能
 
-lib_describe.set('vector', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
-lib_describe.set('klin', describe_bomb(6.5, 1, 3, 5)) // 燃烧弹-4星
-lib_describe.set('pp19', describe_bomb(6.5, 0, 0, 0)) // 手榴弹-4星
-lib_describe.set('vz61', describe_bomb(6, 1, 3, 5)) // 燃烧弹-3星
+lib_describe.set('incendiary_7', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
+lib_describe.set('incendiary_6.5', describe_bomb(6.5, 1, 3, 5)) // 燃烧弹-4星
+lib_describe.set('incendiary_6', describe_bomb(6, 1, 3, 5)) // 燃烧弹-3星
+lib_describe.set('incendiary_5.5', describe_bomb(5.5, 1, 3, 5)) // 燃烧弹-2星
+lib_describe.set('hand_grenade_6.5', describe_bomb(6.5, 0, 0, 0)) // 手榴弹-4星
+lib_describe.set('hand_grenade_6', describe_bomb(6, 0, 0, 0)) // 手榴弹-3星
+lib_describe.set('hand_grenade_5.5', describe_bomb(5.5, 0, 0, 0)) // 手榴弹-2星
 
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
@@ -523,7 +528,7 @@ lib_skill.set(133, [createSkill(5, 16, 15, lib_describe.get('acu_500'))])
 // SMG
 
 lib_skill.set(16, []) //
-lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('vector'))])
+lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('incendiary_7'))])
 lib_skill.set(28, []) //
 lib_skill.set(59, []) //
 lib_skill.set(104, []) //
@@ -539,12 +544,46 @@ lib_skill.set(245, [createSkill(6, 12, 5, lib_describe.get('p90'))])
 lib_skill.set(251, [createSkill(4, 8, 5, lib_describe.get('x95'))])
 lib_skill.set(1103, []) //
 
+lib_skill.set(23, []) //
+lib_skill.set(26, []) //
+lib_skill.set(101, []) //
 lib_skill.set(102, [createSkill(1, 2, 0, lib_describe.get('ump40'))])
-lib_skill.set(136, [createSkill(3, 16, 0, lib_describe.get('pp19'))])
-lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('klin'))])
+lib_skill.set(103, []) //
+lib_skill.set(136, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // pp-19
+lib_skill.set(137, []) //
+lib_skill.set(150, []) //
+lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) // klin
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))])
+lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
+lib_skill.set(1093, []) // 没做
+lib_skill.set(1094, []) // 没做
+lib_skill.set(225, [createSkill(6, 16, 10, lib_describe.get('evaacu_4'))]) //
 
-lib_skill.set(27, [createSkill(3, 16, 0, lib_describe.get('vz61'))])
+lib_skill.set(18, []) //
+lib_skill.set(19, []) //
+lib_skill.set(22, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
+lib_skill.set(27, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
+lib_skill.set(29, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
+lib_skill.set(32, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
+lib_skill.set(116, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
+lib_skill.set(131, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
+lib_skill.set(144, []) //
+lib_skill.set(169, [createSkill(6, 8, 5, lib_describe.get('dmgeva_15040'))])
+lib_skill.set(176, []) //
+lib_skill.set(178, []) //
+lib_skill.set(191, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
+lib_skill.set(209, []) //
+lib_skill.set(218, []) //
+
+lib_skill.set(17, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
+lib_skill.set(21, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
+lib_skill.set(24, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
+lib_skill.set(25, [createSkill(3, 16, 0, lib_describe.get('incendiary_5.5'))])
+lib_skill.set(31, []) //
+lib_skill.set(33, []) //
+lib_skill.set(92, []) //
+lib_skill.set(93, []) //
+lib_skill.set(94, []) //
 
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
 lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])

@@ -3,8 +3,6 @@ Set_Special.set('can_add_karm1891', true)
 Set_Special.set('sunrise', 'day')
 function reset_special () {
   // 能否添加蟒蛇
-  Set_Special.set('can_add_python', true)
-  Set_Special.set('can_add_karm1891', true)
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       if (list_tdoll[i][1].ID === 4) {
@@ -660,12 +658,14 @@ lib_property_equip.set(11057, createProperty_equip(0, 10, 0, 0, 0, 0, 0.2, 0, 0,
 lib_property_equip.set(11063, createProperty_equip(4, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // g3 mod
 lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0, 0)) // g36 mod
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0, 0))
+lib_property_equip.set(11094, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // 64type mod
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0))
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0))
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0, 0))
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0))
 lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0))
+lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 0)) // IDW mod
 lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100))
 lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100))
 

@@ -318,6 +318,7 @@ function changeEquip () {
       str_items += '<option value=31>IOP X4外骨骼</option>'
       if (ID === 26) str_items += '<option value=326>GSG UX外骨骼</option>' // MP5
       if (ID === 101 || ID === 102 || ID === 103 || ID === 1103) str_items += '<option value=3103>UMP UX外骨骼</option>' // UMP系列
+      if (ID === 1093) str_items += '<option value=31093>性能升级卡带</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=12>VFL 6-24X56</option>'
       str_items += '<option value=14>EOT 518</option>'
@@ -408,6 +409,7 @@ function changeEquip () {
       str_items += '<option value=41>PEQ-16A</option>'
       if (ID === 1029) str_items += '<option value=11029>司登专用消音器</option>'
       if (ID === 1103) str_items += '<option value=11103>附加运算模块</option>'
+      if (ID === 1094) str_items += '<option value=11094>64专属消音器</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=34>热光学迷彩披风</option>'
       if (ID === 1039) { // 莫辛纳甘-MOD

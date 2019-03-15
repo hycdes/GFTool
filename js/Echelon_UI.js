@@ -379,9 +379,11 @@ function resetEquipment () {
     else if (set_guntype === 3) {
       if (ID === 26) set_equip = [326, 21, 11] // mp5
       else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
-      else if (ID === 20 || ID === 135 || ID === 251 || ID === 136 || ID === 177) set_equip = [31, 21, 11] // 输出型
+      else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 135 || ID === 251 || ID === 136 || ID === 177) set_equip = [31, 21, 11] // 输出型
       else if (ID === 1103) set_equip = [3103, 21, 11103] // ump45 mod
       else if (ID === 1029) set_equip = [32, 21, 11029] // sten mod
+      else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
+      else if (ID === 1094) set_equip = [32, 21, 11094] // 64type mod
       else set_equip = [32, 21, 11]
     }
     else if (set_guntype === 4) {
