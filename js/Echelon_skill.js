@@ -214,6 +214,11 @@ function describe_ump40 () { // 烙印过载
   Describe.name = 'ump40'
   return Describe
 }
+function describe_idw () { // 电光大狂欢
+  var Describe = {}
+  Describe.name = 'idw'
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -285,6 +290,7 @@ lib_describe.set('rof_60', describe_property(['self'], ['rof'], ['0.6'])) // 突
 lib_describe.set('rof_50', describe_property(['self'], ['rof'], ['0.5'])) // 突击专注 50%
 lib_describe.set('rof_45', describe_property(['self'], ['rof'], ['0.45'])) // 突击专注 45%
 lib_describe.set('acu_500', describe_property(['self'], ['acu'], ['5'])) // 精确专注 500%
+lib_describe.set('eva_130', describe_property(['self'], ['eva'], ['1.3'])) // 掩护专注 130%
 lib_describe.set('rof_15', describe_property(['self'], ['rof'], ['0.15'])) // 凛冽斗志 15%
 lib_describe.set('cz2000_N', describe_propertyN(['self'], ['acu/rof'], ['0.4/0.5'])) // 黎明气焰-N
 lib_describe.set('cz2000_ND', describe_propertyND(['self'], ['dmg/crit'], ['0.65/0.25'])) // 黎明气焰-ND
@@ -331,6 +337,7 @@ lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
 lib_describe.set('p90', describe_p90()) // 灰鼠
 lib_describe.set('ump40', describe_ump40()) // 烙印过载
+lib_describe.set('idw', describe_idw()) // 电光大狂欢
 
 lib_describe.set('m1911', describe_m1911()) // 绝境神枪手
 lib_describe.set('python', describe_python()) // 无畏者之拥
@@ -553,11 +560,14 @@ lib_skill.set(136, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]
 lib_skill.set(137, []) //
 lib_skill.set(150, []) //
 lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) // klin
-lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))])
-lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
-lib_skill.set(1093, []) // 没做
-lib_skill.set(1094, []) // 没做
+lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))]) // storm cx4
 lib_skill.set(225, [createSkill(6, 16, 10, lib_describe.get('evaacu_4'))]) //
+lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
+lib_skill.set(1093, [
+  createSkill(6, 8, 4, lib_describe.get('eva_130')),
+  createSkill(6, 8, 0, lib_describe.get('idw'))
+])
+lib_skill.set(1094, []) // 没做
 
 lib_skill.set(18, []) //
 lib_skill.set(19, []) //

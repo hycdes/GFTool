@@ -234,6 +234,14 @@ function getDPS () {
         Set_Special.set('mosin_' + i, Set_Special.get('mosin_numneed_' + i))
         Set_Special.set('mosin_bufftime_' + i, 0)
       }
+      if (list_tdoll[i][1].ID === 1093) { // IDW电光大狂欢初始3层
+        changeStatus(i, 'self', 'dmg', '0.2', 2)
+        changeStatus(i, 'self', 'dmg', '0.2', 4)
+        changeStatus(i, 'self', 'dmg', '0.2', 6)
+        changeStatus(i, 'self', 'rof', '0.1', 2)
+        changeStatus(i, 'self', 'rof', '0.1', 4)
+        changeStatus(i, 'self', 'rof', '0.1', 6)
+      }
       if (list_tdoll[i][1].ID === 194) { // K2热力过载
         Set_Special.set('k2_' + i, 'fever')
         Set_Special.set('k2_temp_' + i, 0)
@@ -1116,6 +1124,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     } else if (document.getElementById('special_k2_' + (stand_num + 1) + '_3').checked) { // Note
       if (Set_Special.get('k2_' + stand_num) === 'fever') Set_Special.set('k2_' + stand_num, 'note')
     }
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'idw') {
+    changeStatus(stand_num, 'self', 'dmg', '0.2', 2)
+    changeStatus(stand_num, 'self', 'dmg', '0.2', 4)
+    changeStatus(stand_num, 'self', 'dmg', '0.2', 6)
+    changeStatus(stand_num, 'self', 'rof', '0.1', 2)
+    changeStatus(stand_num, 'self', 'rof', '0.1', 4)
+    changeStatus(stand_num, 'self', 'rof', '0.1', 6)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
 }
