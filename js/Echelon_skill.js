@@ -230,6 +230,12 @@ function describe_addclip (clipsize) {
   Describe.clipsize = clipsize
   return Describe
 }
+function describe_aimupto (aim_num) {
+  var Describe = {}
+  Describe.name = 'aimupto'
+  Describe.aim = aim_num
+  return Describe
+}
 function describe_mustcrit () {
   var Describe = {}
   Describe.name = 'mustcrit'
@@ -292,6 +298,7 @@ lib_describe.set('rof_30_enemy', describe_property(['enemy'], ['rof'], ['-0.3'])
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
 lib_describe.set('dmgeva_16040', describe_property(['self'], ['dmg/eva'], ['1.6/0.4'])) // 机动专注 160%/40%
 lib_describe.set('dmgeva_15040', describe_property(['self'], ['dmg/eva'], ['1.5/0.4'])) // 机动专注 150%/40%
+lib_describe.set('dmg_120', describe_property(['self'], ['dmg'], ['1.2'])) // 火力专注 120%
 lib_describe.set('type100', describe_property(['self'], ['dmg'], ['0.85'])) // 火力专注 85%
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
 lib_describe.set('dmg_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注 70%
@@ -366,12 +373,14 @@ lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) /
 lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.35/0.35/0.35/0.35'])) // 雪狼之眼
 lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) // 狩猎示范
 lib_describe.set('evaacu_4', describe_property(['self'], ['eva/acu'], ['0.8/0.5'])) // 隐秘专注-4星
+lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
 
 lib_describe.set('addclip_10', describe_addclip(10)) // 弹量+10
 lib_describe.set('addclip_4', describe_addclip(4)) // 弹量+4
 lib_describe.set('addclip_3', describe_addclip(3)) // 弹量+3
 lib_describe.set('addclip_2', describe_addclip(2)) // 弹量+2
 lib_describe.set('addclip_dynamic', describe_addclip(-1)) // 动态判断弹量
+lib_describe.set('aimupto_5', describe_aimupto(5)) // 攻击目标增至5
 
 lib_describe.set('incendiary_7', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
 lib_describe.set('incendiary_6.5', describe_bomb(6.5, 1, 3, 5)) // 燃烧弹-4星
@@ -405,6 +414,7 @@ lib_describe.set('thunder', describe_snipe(-1, 1, 2, 2, 'armless/critless/eva'))
 lib_describe.set('noel', describe_snipe(1.2, 0, 0.1, 8, 'armless/critless/evaless')) // 诺艾尔技能
 lib_describe.set('clear', describe_snipe(0, 0, 1, 5, 'armless/critless/evaless')) // 克莉尔技能
 lib_describe.set('m1887', describe_snipe(-1, 1, 0, 1, 'armless/critless/evaless')) // 终结打击，倍率=-1表示动态
+lib_describe.set('sg_shock', describe_snipe(-1, 0, 0, 1, 'armless/critless/evaless')) // 震荡打击
 
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
@@ -859,19 +869,31 @@ lib_skill.set(164, []) //
 lib_skill.set(188, []) //
 lib_skill.set(229, []) //
 
-lib_skill.set(153, [])
+lib_skill.set(153, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(155, []) //
 lib_skill.set(156, []) //
-lib_skill.set(161, [])
-lib_skill.set(162, [])
-lib_skill.set(165, [])
-lib_skill.set(189, [])
+lib_skill.set(161, [
+  createSkill(8, 16, 8, lib_describe.get('dmg_120')),
+  createSkill(8, 16, 8, lib_describe.get('aimupto_5'))
+])
+lib_skill.set(162, [
+  createSkill(8, 16, 8, lib_describe.get('dmg_120')),
+  createSkill(8, 16, 8, lib_describe.get('aimupto_5'))
+])
+lib_skill.set(165, [createSkill(10, 16, 8, lib_describe.get('m1014'))]) // m1014应激性暗示
+lib_skill.set(189, [
+  createSkill(1, 16, 8, lib_describe.get('rof_60')),
+  createSkill(1, 16, 0, lib_describe.get('addclip_4'))
+])
 
-lib_skill.set(152, [])
+lib_skill.set(152, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(154, []) //
-lib_skill.set(158, [])
-lib_skill.set(159, [])
-lib_skill.set(190, [])
+lib_skill.set(158, [ // 火力专注SG
+  createSkill(8, 16, 8, lib_describe.get('dmg_120')),
+  createSkill(8, 16, 8, lib_describe.get('aimupto_5'))
+])
+lib_skill.set(159, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
+lib_skill.set(190, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 
 // EXTRA
 

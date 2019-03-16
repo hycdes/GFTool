@@ -634,11 +634,36 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             var cs = Set_Special.get('clipsize_' + stand_num)
             if (cs === 1) base_dmg *= 3
           }
-          if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) base_dmg *= 3 // 独头弹x3伤害
+          if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) {
+            if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
+              if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
+                Set_Special.set('aa12_skillmode_' + stand_num, false)
+              // 不能受独头弹加成
+              } else {
+                Set_Special.set('aa12_skillmode_' + stand_num, true)
+                base_dmg *= 3 // 独头弹x3伤害
+              }
+            } else {
+              if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
+            }
+          }
           var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
-          if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG非独头弹3单位
-            if (enemy_num >= 3) final_dmg *= 3
+          if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
+            var aim_num = Set_Special.get('aim_forceon_' + stand_num)
+            if (enemy_num >= aim_num) final_dmg *= aim_num
             else final_dmg *= enemy_num
+          } else {
+            if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
+              if (enemy_num >= 3) final_dmg *= 3
+              else final_dmg *= enemy_num
+            } else { // 如果携带，可能因为技能攻击多个目标
+              if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
+                if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
+                  if (enemy_num >= 3) final_dmg *= 3
+                  else final_dmg *= enemy_num
+                }
+              }
+            }
           }
           if (Set_Special.get('python_active') === 0) final_dmg *= 2 // 无畏者之拥结束伤害
           if (list_tdoll[stand_num][1].ID === 194) { // K2判断模式射击次数
@@ -762,8 +787,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               }
             }
           } else if (current_Info.get('type') === 6) { // SG的换弹
-            if (false) {
-              // 狂热突袭单独判断
+            if (Set_Special.get('usas12_' + stand_num) === true) { // 狂热突袭增加1s换弹
+              reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs)) + 30
             } else if (list_tdoll[stand_num][1].ID === 2008) { // 量子回溯瞬间完成换弹
               reload_frame = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
             } else {
@@ -1168,11 +1193,22 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
     }
     Set_Special.set('clipsize_' + stand_num, Set_Special.get('clipsize_' + stand_num) + clip_num)
+    if (list_tdoll[stand_num][1].ID === 163) {
+      Set_Special.set('aa12_' + stand_num, global_frame + 240) // 技能持续时间
+      Set_Special.set('aa12_skillmode_' + stand_num, true) // 下一枪是酮血症作用下的强制3目标射击
+    }
+    else if (list_tdoll[stand_num][1].ID === 189) Set_Special.set('usas12_' + stand_num, true) // 狂热突袭增加换弹时间
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'mustcrit') { // 必定暴击
     Set_Special.set('skill_mustcrit_' + stand_num, global_frame + 30 * s_t[0].duration)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'aimupto') { // 攻击目标数更换至某个值
+    var aim = (s_t[0].Describe).aim
+    Set_Special.set('aim_time_' + stand_num, global_frame + 240)
+    Set_Special.set('aim_forceon_' + stand_num, aim)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
 }
 
@@ -1392,14 +1428,23 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     num_leftsnipe--
     Set_Special.set('snipe_num_' + stand_num, num_leftsnipe)
     var damage_snipe_single = 0
-    if (list_tdoll[stand_num][1].ID === 180 || list_tdoll[stand_num][1].ID === 192) { // 贯通射击
+    var this_ID = list_tdoll[stand_num][1].ID
+    if (this_ID === 180 || this_ID === 192) { // 贯通射击
       if (document.getElementById('special_js05_' + stand_num).checked) damage_snipe_single = ratio * current_Info.get('dmg') * (enemy_num + 1)
       else damage_snipe_single = ratio * current_Info.get('dmg') * 2
-    } else if (list_tdoll[stand_num][1].ID === 252) { // 震荡冲击弹
+    } else if (this_ID === 252) { // 震荡冲击弹
       damage_snipe_single = ratio * current_Info.get('dmg')
       if (document.getElementById('special_KSVK_' + stand_num).checked) damage_snipe_single += 0.5 * current_Info.get('dmg') * (enemy_num - 1)
-    } else if (list_tdoll[stand_num][1].ID === 151) { // 终结打击
+    } else if (this_ID === 151) { // 终结打击
       damage_snipe_single = 1000
+    } else if (this_ID === 152 || this_ID === 159 || this_ID === 190) { // 2倍震荡打击
+      damage_snipe_single = 2 * current_Info.get('dmg')
+      if (enemy_num >= 3) damage_snipe_single *= 3
+      else damage_snipe_single *= enemy_num
+    } else if (this_ID === 153) { // 2.5倍震荡打击
+      damage_snipe_single = Math.ceil(2.5 * current_Info.get('dmg'))
+      if (enemy_num >= 3) damage_snipe_single *= 3
+      else damage_snipe_single *= enemy_num
     } else {
       damage_snipe_single = ratio * current_Info.get('dmg')
     }
