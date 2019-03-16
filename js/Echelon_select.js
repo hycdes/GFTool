@@ -207,15 +207,49 @@ function changeSelectItems () {
       str_items += '<option value=231>No.231 M82A1</option>'
       str_items += '<option value=257>No.257 M200</option>'
       str_items += '<option value=1039>No.39 [MOD] 莫辛-纳甘</option>'
+      str_items += '<option value=2004>No.EX4 雷电芽衣</option>'
+      str_items += '<option value=2005>No.EX5 布洛妮娅</option>'
     } else if (num_star === 4) {
       str_items += '<option value=36 selected>No.36 春田</option>'
+      str_items += '<option value=39>No.39 莫辛-纳甘</option>'
+      str_items += '<option value=42>No.42 PTRD</option>'
+      str_items += '<option value=43>No.43 SVD</option>'
+      str_items += '<option value=117>No.117 PSG-1</option>'
+      str_items += '<option value=146>No.146 G28</option>'
+      str_items += '<option value=180>No.180 PzB39</option>'
+      str_items += '<option value=184>No.184 T-5000</option>'
+      str_items += '<option value=200>No.200 XM3</option>'
+      str_items += '<option value=226>No.226 Mk 12</option>'
+      str_items += '<option value=235>No.235 SPR A3G</option>'
       str_items += '<option value=247>No.247 K31</option>'
-      str_items += '<option value=1037>No.37 [MOD]M14</option>'
-      str_items += '<option value=1051>No.51 [MOD]FN-49</option>'
+      str_items += '<option value=252>No.252 KSVK</option>'
+      str_items += '<option value=1037>No.37 [MOD] M14</option>'
+      str_items += '<option value=1044>No.44 [MOD] SV-98</option>'
+      str_items += '<option value=1051>No.51 [MOD] FN-49</option>'
     } else if (num_star === 3) {
-      str_items += '<option value=37 selected>No.37 M14</option>'
+      str_items += '<option value=34 selected>No.34 M1加兰德</option>'
+      str_items += '<option value=35>No.35 M1A1</option>'
+      str_items += '<option value=37>No.37 M14</option>'
+      str_items += '<option value=38>No.38 M21</option>'
+      str_items += '<option value=44>No.44 SV-98</option>'
+      str_items += '<option value=49>No.49 56式半</option>'
+      str_items += '<option value=95>No.95 汉阳造88式</option>'
+      str_items += '<option value=124>No.124 Super SASS</option>'
+      str_items += '<option value=145>No.145 OTs-44</option>'
+      str_items += '<option value=147>No.147 SSG 69</option>'
+      str_items += '<option value=174>No.174 八一式马</option>'
+      str_items += '<option value=182>No.182 wz.92</option>'
+      str_items += '<option value=201>No.201 猎豹M1</option>'
+      str_items += '<option value=217>No.217 SM-1</option>'
+      str_items += '<option value=230>No.230 OBR</option>'
+      str_items += '<option value=241>No.241 RT-20</option>'
+      str_items += '<option value=255>No.255 侦察者</option>'
     } else if (num_star === 2) {
-      str_items += '<option value=51 selected>No.51 FN-49</option>'
+      str_items += '<option value=40 selected>No.40 SVT-38</option>'
+      str_items += '<option value=41>No.41 西蒙诺夫</option>'
+      str_items += '<option value=47>No.47 G43</option>'
+      str_items += '<option value=51>No.51 FN-49</option>'
+      str_items += '<option value=52>No.52 BM59</option>'
     }
   } else if (set_guntype === 5) { // MG
     if (num_star === 5) {
@@ -228,11 +262,33 @@ function changeSelectItems () {
       str_items += '<option value=253>No.253 刘易斯</option>'
       str_items += '<option value=1075>No.75 [MOD] M1918</option>'
     } else if (num_star === 4) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=75 selected>No.75 M1918</option>'
+      str_items += '<option value=78>No.78 M60</option>'
+      str_items += '<option value=85>No.85 PK</option>'
+      str_items += '<option value=88>No.88 MG3</option>'
+      str_items += '<option value=121>No.121 Mk48</option>'
+      str_items += '<option value=149>No.149 AEK-999</option>'
+      str_items += '<option value=185>No.185 阿梅利</option>'
+      str_items += '<option value=199>No.199 80式</option>'
+      str_items += '<option value=240>No.240 Mk46</option>'
+      str_items += '<option value=254>No.254 UKM-2000</option>'
+      str_items += '<option value=1081>No.81 [MOD] LWMMG</option>'
+      str_items += '<option value=1089>No.89 [MOD] 布伦</option>'
     } else if (num_star === 3) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=77 selected>No.77 M2HB</option>'
+      str_items += '<option value=79>No.79 M249 SAW</option>'
+      str_items += '<option value=80>No.80 M1919A4</option>'
+      str_items += '<option value=84>No.84 RPD</option>'
+      str_items += '<option value=86>No.86 MG42</option>'
+      str_items += '<option value=89>No.89 布伦</option>'
+      str_items += '<option value=195>No.195 HK23</option>'
+      str_items += '<option value=249>No.249 62式</option>'
     } else if (num_star === 2) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=81 selected>No.81 LWMMG</option>'
+      str_items += '<option value=82>No.82 DP28</option>'
+      str_items += '<option value=87>No.87 MG34</option>'
+      str_items += '<option value=110>No.110 FG42</option>'
+      str_items += '<option value=111>No.111 AAT-52</option>'
     }
   } else if (set_guntype === 6) { // SG
     if (num_star === 5) {
@@ -243,12 +299,22 @@ function changeSelectItems () {
       str_items += '<option value=164>No.164 FP-6</option>'
       str_items += '<option value=188>No.188 S.A.T.8</option>'
       str_items += '<option value=229>No.229 M870</option>'
+      str_items += '<option value=2002>No.EX2 艾尔菲尔特</option>'
+      str_items += '<option value=2008>No.EX8 希儿</option>'
     } else if (num_star === 4) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=153 selected>No.153 M37</option>'
+      str_items += '<option value=155>No.155 M590</option>'
+      str_items += '<option value=156>No.156 Super-Shorty</option>'
+      str_items += '<option value=161>No.161 97式霰</option>'
+      str_items += '<option value=162>No.162 SPAS-12</option>'
+      str_items += '<option value=165>No.165 M1014</option>'
+      str_items += '<option value=189>No.189 USAS-12</option>'
     } else if (num_star === 3) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
-    } else if (num_star === 2) {
-      str_items += '<option  value=-1 selected>还没做！</option>'
+      str_items += '<option value=152 selected>No.152 M897</option>'
+      str_items += '<option value=154>No.154 M200</option>'
+      str_items += '<option value=158>No.158 KS-23</option>'
+      str_items += '<option value=159>No.159 RMb-93</option>'
+      str_items += '<option value=190>No.190 NS2000</option>'
     }
   }
   if (switch_operate) {
@@ -265,30 +331,20 @@ function changeEquip () {
   var str_items = ''
   if (num_pickequip === 1) { // 第一格装备
     if (set_guntype === 1) { // HG
-      str_items += '<option value=11>AC4消音器</option>'
-      str_items += '<option value=41>PEQ-16A</option>'
-      if (ID === 1001) { // 柯尔特左轮
-        str_items += '<option value=11001>柯尔特左轮长枪管</option>'
-      }
-      if (ID === 1005) { // 纳甘左轮
-        str_items += '<option value=11005>纳甘左轮消音器</option>'
-      }
-      if (ID === 1091) { // MP446
-        str_items += '<option value=11091>MP446C比赛枪管</option>'
-      }
-      if (ID === 2009) {
-        str_items += '<option value=42009>荣耀之光</option>'
-      }
-      if (ID === 2010) {
-        str_items += '<option value=42010>漆黑之猫</option>'
-      }
+      str_items += '<option value=11>[消音器] AC4</option>'
+      str_items += '<option value=41>[夜视仪] PEQ-16A</option>'
+      if (ID === 1001) str_items += '<option value=11001>柯尔特左轮长枪管</option>' // 柯尔特左轮
+      if (ID === 1005) str_items += '<option value=11005>纳甘左轮消音器</option>' // 纳甘左轮
+      if (ID === 1091) str_items += '<option value=11091>MP446C比赛枪管</option>' // MP446
+      if (ID === 2009) str_items += '<option value=42009>荣耀之光</option>'
+      if (ID === 2010) str_items += '<option value=42010>漆黑之猫</option>'
     } else if (set_guntype === 2) { // AR
       if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
-        str_items += '<option value=12>VFL 6-24X56</option>'
-        str_items += '<option value=14>EOT 518</option>'
-        str_items += '<option value=13>ITI MARS</option>'
-        str_items += '<option value=11>AC4消音器</option>'
-        str_items += '<option value=41>PEQ-16A</option>'
+        str_items += '<option value=12>[光瞄] VFL 6-24X56</option>'
+        str_items += '<option value=14>[全息] EOT 518</option>'
+        str_items += '<option value=13>[红点] ITI MARS</option>'
+        str_items += '<option value=11>[消音器] AC4</option>'
+        str_items += '<option value=41>[夜视仪] PEQ-16A</option>'
         if (ID === 65) str_items += '<option value=165>EOT-XPS3</option>'
         if (ID === 58 || ID === 66) str_items += '<option value=166>KSTSP</option>'
         if (ID === 69) str_items += '<option value=169>FÉLIN系统瞄具</option>'
@@ -301,11 +357,11 @@ function changeEquip () {
         if (set_equip[2] != 33) str_items += '<option value=33>Type3防弹插板</option>'
         if (set_equip[2] != 354) str_items += '<option value=354>特殊战机动装甲</option>'
       } else {
-        if (set_equip[2] != 12) str_items += '<option value=12>VFL 6-24X56</option>'
-        if (set_equip[2] != 14) str_items += '<option value=14>EOT 518</option>'
-        if (set_equip[2] != 13) str_items += '<option value=13>ITI MARS</option>'
-        if (set_equip[2] != 11) str_items += '<option value=11>AC4消音器</option>'
-        if (set_equip[2] != 41) str_items += '<option value=41>PEQ-16A</option>'
+        if (set_equip[2] != 12) str_items += '<option value=12>[光瞄] VFL 6-24X56</option>'
+        if (set_equip[2] != 14) str_items += '<option value=14>[全息] EOT 518</option>'
+        if (set_equip[2] != 13) str_items += '<option value=13>[红点] ITI MARS</option>'
+        if (set_equip[2] != 11) str_items += '<option value=11>[消音器] AC4</option>'
+        if (set_equip[2] != 41) str_items += '<option value=41>[夜视仪] PEQ-16A</option>'
         if (ID === 1056) {
           if (set_equip[2] != 11056) str_items += '<option value=11056>兵蚁型RO</option>'
         }
@@ -320,28 +376,22 @@ function changeEquip () {
       if (ID === 101 || ID === 102 || ID === 103 || ID === 1103) str_items += '<option value=3103>UMP UX外骨骼</option>' // UMP系列
       if (ID === 1093) str_items += '<option value=31093>性能升级卡带</option>'
     } else if (set_guntype === 4) { // RF
-      str_items += '<option value=12>VFL 6-24X56</option>'
-      str_items += '<option value=14>EOT 518</option>'
-      str_items += '<option value=13>ITI MARS</option>'
-      str_items += '<option value=11>AC4消音器</option>'
-      if (ID === 46) { // Kar98k
-        str_items += '<option value=146>PM 5-25X65</option>'
-      }
-      if (ID === 1039) { // 莫辛纳甘-MOD
-        str_items += '<option value=11039>K6-24X56</option>'
-      }
-      if (ID === 1037) { // M14 MOD
-        str_items += '<option value=11037>M2两脚架</option>'
-      }
-      if (ID === 1051) { // FN49 MOD
-        str_items += '<option value=11051>快慢机板机组</option>'
-      }
+      str_items += '<option value=12>[光瞄] VFL 6-24X56</option>'
+      str_items += '<option value=14>[全息] EOT 518</option>'
+      str_items += '<option value=13>[红点] ITI MARS</option>'
+      str_items += '<option value=11>[消音器] AC4</option>'
+      if (ID === 46) str_items += '<option value=146>PM 5-25X65</option>' // Kar98k
+      if (ID === 1039) str_items += '<option value=11039>K6-24X56</option>' // 莫辛纳甘-MOD
+      if (ID === 1037) str_items += '<option value=11037>M2两脚架</option>' // M14 MOD
+      if (ID === 1051) str_items += '<option value=11051>快慢机板机组</option>' // FN49 MOD
     } else if (set_guntype === 5) { // MG
-      str_items += '<option value=12>VFL 6-24X56</option>'
-      str_items += '<option value=14>EOT 518</option>'
-      str_items += '<option value=13>ITI MARS</option>'
+      str_items += '<option value=12>[光瞄] VFL 6-24X56</option>'
+      str_items += '<option value=14>[全息] EOT 518</option>'
+      str_items += '<option value=13>[红点] ITI MARS</option>'
       if (ID === 125) str_items += '<option value=1125>MG4用MGO</option>'
       if (ID === 1075) str_items += '<option value=11075>CT 4X20</option>'
+      if (ID === 1081) str_items += '<option value=11081>MGO 6x48</option>'
+      if (ID === 1089) str_items += '<option value=11089>布伦L4枪管组</option>'
     } else if (set_guntype === 6) { // SG
       str_items += '<option value=33>Type3防弹插板</option>'
     }
@@ -353,16 +403,13 @@ function changeEquip () {
     } else if (set_guntype === 2) { // AR
       str_items += '<option value=22>APCR高速弹</option>'
       if (ID === 138) str_items += '<option value=23>Mk211高爆穿甲弹</option>' // 6P62
-      if (ID === 1057 || ID === 57) str_items += '<option value=21057>.300BLK高速弹</option>' // ST AR-15
+      if (ID === 1057 || ID === 57) str_items += '<option value=21057>.300BLK高速弹</option>' // AR-15
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=21>ILM空尖弹</option>'
-      if (ID === 213)  str_items += '<option value=23>Mk211高爆穿甲弹</option>'
-    // CMS
+      if (ID === 213)  str_items += '<option value=23>Mk211高爆穿甲弹</option>' // CMS
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=23>Mk211高爆穿甲弹</option>'
-      if (ID === 36) { // 春田
-        str_items += '<option value=236>国家竞赛穿甲弹</option>'
-      }
+      if (ID === 36) str_items += '<option value=236>国家竞赛穿甲弹</option>' // 春田
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=23>Mk211高爆穿甲弹</option>'
     } else if (set_guntype === 6) { // SG
@@ -377,23 +424,19 @@ function changeEquip () {
       if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
         str_items += '<option value=31>IOP X4外骨骼</option>'
         str_items += '<option value=32>IOP T4外骨骼</option>'
-        if (ID === 62) { // G41
-          str_items += '<option value=362>高性能战术发饰</option>'
-        }
-        if (ID === 1055) { // M4A1
-          str_items += '<option value=31055>遗留的武器库</option>'
-        }
+        if (ID === 62) str_items += '<option value=362>高性能战术发饰</option>' // G41
+        if (ID === 1055) str_items += '<option value=31055>遗留的武器库</option>' // M4A1 mod
       } else if (ID === 54) { // M16A1
         if (set_equip[0] != 32) str_items += '<option value=32>IOP T4外骨骼</option>'
         if (set_equip[0] != 31) str_items += '<option value=31>IOP X4外骨骼</option>'
         if (set_equip[0] != 33) str_items += '<option value=33>Type3防弹插板</option>'
         if (set_equip[0] != 354) str_items += '<option value=354>特殊战机动装甲</option>'
       } else {
-        if (set_equip[0] != 12) str_items += '<option value=12>VFL 6-24X56</option>'
-        if (set_equip[0] != 14) str_items += '<option value=14>EOT 518</option>'
-        if (set_equip[0] != 13) str_items += '<option value=13>ITI MARS</option>'
-        if (set_equip[0] != 11) str_items += '<option value=11>AC4消音器</option>'
-        if (set_equip[0] != 41) str_items += '<option value=41>PEQ-16A</option>'
+        if (set_equip[0] != 12) str_items += '<option value=12>[光瞄] VFL 6-24X56</option>'
+        if (set_equip[0] != 14) str_items += '<option value=14>[全息] EOT 518</option>'
+        if (set_equip[0] != 13) str_items += '<option value=13>[红点] ITI MARS</option>'
+        if (set_equip[0] != 11) str_items += '<option value=11>[消音器] AC4</option>'
+        if (set_equip[0] != 41) str_items += '<option value=41>[夜视仪] PEQ-16A</option>'
         if (ID === 1056) {
           if (set_equip[0] != 11056) str_items += '<option value=11056>兵蚁型RO</option>'
         }
@@ -402,27 +445,29 @@ function changeEquip () {
         }
       }
     } else if (set_guntype === 3) { // SMG
-      str_items += '<option value=11>AC4消音器</option>'
-      str_items += '<option value=14>EOT 518</option>'
-      str_items += '<option value=13>ITI MARS</option>'
-      str_items += '<option value=12>VFL 6-24X56</option>'
-      str_items += '<option value=41>PEQ-16A</option>'
+      str_items += '<option value=11>[消音器] AC4</option>'
+      str_items += '<option value=14>[全息] EOT 518</option>'
+      str_items += '<option value=13>[红点] ITI MARS</option>'
+      str_items += '<option value=12>[光瞄] VFL 6-24X56</option>'
+      str_items += '<option value=41>[夜视仪] PEQ-16A</option>'
       if (ID === 1029) str_items += '<option value=11029>司登专用消音器</option>'
       if (ID === 1103) str_items += '<option value=11103>附加运算模块</option>'
       if (ID === 1094) str_items += '<option value=11094>64专属消音器</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=34>热光学迷彩披风</option>'
-      if (ID === 1039) { // 莫辛纳甘-MOD
-        str_items += '<option value=31039>Hayha记忆芯片</option>'
-      }
+      if (ID === 42) str_items += '<option value=342>蓝色加厚披风</option>' // PTRD
+      if (ID === 39 || ID === 1039) str_items += '<option value=31039>Hayha记忆芯片</option>' // 莫辛纳甘
+      if (ID === 1044) str_items += '<option value=31044>数码迷彩披风</option>' // SV-98 MOD
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=35>IOP极限弹链箱</option>'
-      if (ID === 1075) str_items += '<option value=31075>Titan火控芯片</option>'
+      if (ID === 88) str_items += '<option value=388>无限弹链箱</option>' // MG3
+      if (ID === 185) str_items += '<option value=3185>专用战术内存</option>' // 阿梅利
+      if (ID === 75 || ID === 1075) str_items += '<option value=31075>Titan火控芯片</option>'
     } else if (set_guntype === 6) { // SG
-      str_items += '<option value=13>ITI MARS</option>'
-      str_items += '<option value=12>VFL 6-24X56</option>'
-      str_items += '<option value=14>EOT 518</option>'
-      str_items += '<option value=41>PEQ-16A</option>'
+      str_items += '<option value=13>[红点] ITI MARS</option>'
+      str_items += '<option value=12>[光瞄] VFL 6-24X56</option>'
+      str_items += '<option value=14>[全息] EOT 518</option>'
+      str_items += '<option value=41>[夜视仪] PEQ-16A</option>'
     }
   }
   if (switch_operate && switch_equip) {

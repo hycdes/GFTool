@@ -397,6 +397,11 @@ function getDPS () {
           Set_Special.set('angel_strength' + i, 1)
           Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
         }
+        if (list_tdoll[i][1].ID === 1089) {
+          Set_Special.set('bren_buff_' + i, 1)
+          Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
+          changeStatus(i, 'self', 'acu', 0.15, -1)
+        }
       } else {
         if (list_tdoll[i][1].ID === 213) { // CMS
           if (document.getElementById('special_cms_' + (i + 1) + '_1').checked) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
@@ -622,7 +627,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             else base_dmg *= Math.pow(1.05, Set_Special.get('k2_dmgup_' + stand_num)) // note经过加成后的伤害
             if (Set_Special.get('k2_temp_' + stand_num) > 15) base_dmg *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // 过热减伤
           }
-          var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
+          if (list_tdoll[stand_num][1].ID === 2008) { // 希儿：量子回溯最后一发
+            var cs = Set_Special.get('clipsize_' + stand_num)
+            if (cs === 1) base_dmg *= 3
+          }
+          if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) base_dmg *= 3 // 独头弹x3伤害
+          var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
+          if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG非独头弹3单位
+            if (enemy_num >= 3) final_dmg *= 3
+            else final_dmg *= enemy_num
+          }
+          if (Set_Special.get('python_active') === 0) final_dmg *= 2 // 无畏者之拥结束伤害
           if (list_tdoll[stand_num][1].ID === 194) { // K2判断模式射击次数
             if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
           }
@@ -641,7 +656,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             final_dmg *= current_Info.get('critdmg')
           } else { // 按概率暴击的攻击
             var final_crit = 1
-            if (Set_Special.get('must_crit_' + stand_num) != undefined || Math.random() + current_Info.get('crit') >= 1) {
+            if (Set_Special.get('must_crit_' + stand_num) != undefined || (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= current_time) || Math.random() + current_Info.get('crit') >= 1) {
               final_crit *= current_Info.get('critdmg')
             }
             if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && list_tdoll[stand_num][1].ID === 173) { // 暴动宣告的1.5倍且必暴子弹
@@ -730,7 +745,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         if (cs === 0) { // 需要换弹
           var reload_frame = 0
           var rof = current_Info.get('rof')
-          if (current_Info.get('type') === 5) {
+          if (current_Info.get('type') === 5) { // MG的换弹
             if (list_tdoll[stand_num][1].ID === 1075) { // M1918-MOD 战地魔术
               reload_frame = 150
             } else {
@@ -739,11 +754,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               reload_frame = Math.floor((4 + 200 / rof) * 30)
               if (list_tdoll[stand_num][1].ID === 253) { // 刘易斯 力天使
                 reload_frame = Math.max(Math.ceil(reload_frame * Math.pow(0.85, Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
+              } else if (list_tdoll[stand_num][1].ID === 254) {
+                if (Set_Special.get('sunrise') === 'night') reload_frame = Math.ceil(0.7 * reload_frame) // 白夜独奏曲：夜战减换弹
               }
             }
-          } else if (current_Info.get('type') === 6) {
+          } else if (current_Info.get('type') === 6) { // SG的换弹
             if (false) {
               // 狂热突袭单独判断
+            } else if (list_tdoll[stand_num][1].ID === 2008) { // 量子回溯瞬间完成换弹
+              reload_frame = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
             } else {
               reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
             }
@@ -780,6 +799,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
               changeStatus(stand_num, 'self', 'acu', '0.3', -1)
             } else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
+          } else if (list_tdoll[stand_num][1].ID === 1089) { // 布伦MOD
+            if (Set_Special.get('bren_buff_' + stand_num) < 3) {
+              Set_Special.set('bren_buff_' + stand_num, Set_Special.get('bren_buff_' + stand_num) + 1)
+              changeStatus(stand_num, 'self', 'acu', 0.15, -1)
+            }
+            Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + Set_Special.get('bren_buff_' + stand_num))
           }
           if (list_tdoll[stand_num][1].ID === 112) { // 狂躁血脉
             changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
@@ -847,14 +872,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var list_value = ((s_t[0].Describe).list_value)[i].split('/')
           var len = list_pro.length
           for (var p = 0; p < len; p++) {
-            if (list_pro[p] === 'dmg') { // MG类增加属性+弹量发动
-              var current_cs = Set_Special.get('clipsize_' + stand_num)
-              if (list_tdoll[stand_num][1].ID === 208) { // HK21无差别崩坏+2
-                Set_Special.set('clipsize_' + stand_num, current_cs + 2)
-              } else if (list_tdoll[stand_num][1].ID === 125) { // MG4蓄势待发+4
-                Set_Special.set('clipsize_' + stand_num, current_cs + 4)
-              }
-            }
             changeStatus(stand_num, list_target[i], list_pro[p], list_value[p], s_t[0].duration)
           }
         }
@@ -1008,6 +1025,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'snipe', 'armless/critless/evaless', ratio, 0)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'iws2000reset') { // 巨鹰攻势重置普攻
+    Set_Skill.get(stand_num)[0][1] = 0 // 重置普攻
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'contender') { // 断罪者魔弹
     Set_Special.set('fragile_40', global_frame + 150)
     global_fragile *= 1.4
@@ -1134,6 +1155,21 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     changeStatus(stand_num, 'self', 'rof', '0.1', 4)
     changeStatus(stand_num, 'self', 'rof', '0.1', 6)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'addclip') { // 增加弹量
+    var clip_num = (s_t[0].Describe).clipsize
+    if (clip_num < 0) {
+      if (list_tdoll[stand_num][1].ID === 254) {
+        if (Set_Special.get('sunrise') === 'night') clip_num = 4
+        else clip_num = 2
+      }
+    }
+    Set_Special.set('clipsize_' + stand_num, Set_Special.get('clipsize_' + stand_num) + clip_num)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'mustcrit') { // 必定暴击
+    Set_Special.set('skill_mustcrit_' + stand_num, global_frame + 30 * s_t[0].duration)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 }
 
@@ -1306,7 +1342,12 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     }
     var num_multi = enemy_num
     if (enemy_fragile) num_multi *= global_fragile
-    var damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0]) * enemy_form * num_multi)
+    var damage_explode = 0
+    if (list_tdoll[stand_num][1].ID === 2002 && parseFloat(grenade_para[0]) === 8) { // 压轴甜点第一次8倍攻击
+      damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0]))
+    } else {
+      damage_explode = Math.ceil(((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0]) * enemy_form * num_multi)
+    }
     var current_time = parseInt(grenade_para[1])
     Set_Data.get(stand_num).push([current_time, lastData])
     Set_Data.get(stand_num).push([current_time, lastData + damage_explode])
@@ -1335,7 +1376,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var labels = status[0][1]
     var list_labels = labels.split('/') // ratio,arm,crit,eva
     var ratio = parseFloat(list_labels[0])
-    if (list_tdoll[stand_num][1].ID === 202) {
+    if (list_tdoll[stand_num][1].ID === 202) { // 临界点射击
       if (Set_Special.get('thunder_' + stand_num) != true) {
         Set_Special.set('thunder_' + stand_num, true)
         ratio = 12
@@ -1348,9 +1389,14 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     num_leftsnipe--
     Set_Special.set('snipe_num_' + stand_num, num_leftsnipe)
     var damage_snipe_single = 0
-    if (list_tdoll[stand_num][1].ID === 192) {
+    if (list_tdoll[stand_num][1].ID === 180 || list_tdoll[stand_num][1].ID === 192) { // 贯通射击
       if (document.getElementById('special_js05_' + stand_num).checked) damage_snipe_single = ratio * current_Info.get('dmg') * (enemy_num + 1)
       else damage_snipe_single = ratio * current_Info.get('dmg') * 2
+    } else if (list_tdoll[stand_num][1].ID === 252) { // 震荡冲击弹
+      damage_snipe_single = ratio * current_Info.get('dmg')
+      if (document.getElementById('special_KSVK_' + stand_num).checked) damage_snipe_single += 0.5 * current_Info.get('dmg') * (enemy_num - 1)
+    } else if (list_tdoll[stand_num][1].ID === 151) { // 终结打击
+      damage_snipe_single = 1000
     } else {
       damage_snipe_single = ratio * current_Info.get('dmg')
     }
@@ -1442,10 +1488,19 @@ function getBaseProperty (num) {
     }
   }
   // INFO: type类型, hp生命, dmg伤害, acu命中, eva闪避, rof射速, arm护甲, crit暴击, critdmg爆伤, cs弹量, ap穿甲, ff力场, shield护盾, cld冷却缩减, night夜视能力
+  var dmg_e = [0, 0, 0, (list_tdoll[num][1].Equip)[3].dmg] // 如果装备独头弹，multi将变为3
+  for (var en = 0; en < 4; en++) {
+    if ((list_tdoll[num][1].Equip)[en].dmg === 2.01) { // 独头弹
+      dmg_e[en] = 0
+      Set_Special.set('sg_ammo_type_' + num, 'single')
+    } else {
+      dmg_e[en] = (list_tdoll[num][1].Equip)[en].dmg
+    }
+  }
   var full_property = [
     list_tdoll[num][1].Type,
     (list_tdoll[num][1].Property).hp,
-    (list_tdoll[num][1].Property).dmg + (list_tdoll[num][1].Equip)[0].dmg + (list_tdoll[num][1].Equip)[1].dmg + (list_tdoll[num][1].Equip)[2].dmg + (list_tdoll[num][1].Equip)[3].dmg,
+    (list_tdoll[num][1].Property).dmg + dmg_e[0] + dmg_e[1] + dmg_e[2] + dmg_e[3],
     (list_tdoll[num][1].Property).acu + (list_tdoll[num][1].Equip)[0].acu + (list_tdoll[num][1].Equip)[1].acu + (list_tdoll[num][1].Equip)[2].acu + (list_tdoll[num][1].Equip)[3].acu,
     (list_tdoll[num][1].Property).eva + (list_tdoll[num][1].Equip)[0].eva + (list_tdoll[num][1].Equip)[1].eva + (list_tdoll[num][1].Equip)[2].eva + (list_tdoll[num][1].Equip)[3].eva,
     (list_tdoll[num][1].Property).rof + (list_tdoll[num][1].Equip)[0].rof + (list_tdoll[num][1].Equip)[1].rof + (list_tdoll[num][1].Equip)[2].rof + (list_tdoll[num][1].Equip)[3].rof,

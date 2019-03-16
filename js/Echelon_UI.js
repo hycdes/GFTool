@@ -388,14 +388,20 @@ function resetEquipment () {
     }
     else if (set_guntype === 4) {
       if (ID === 36) set_equip = [12, 236, 34] // springfield
+      else if (ID === 39) set_equip = [12, 23, 31039] // mosin
+      else if (ID === 42) set_equip = [12, 23, 342] // ptrd
       else if (ID === 46) set_equip = [146, 23, 34] // kar98k
       else if (ID === 1039) set_equip = [11039, 23, 31039] // mosin mod
       else if (ID === 1037) set_equip = [11037, 23, 34] // m14 mod
+      else if (ID === 1037) set_equip = [12, 23, 31044] // sv98 mod
       else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
       else set_equip = [12, 23, 34]
     }
     else if (set_guntype === 5) {
-      if (ID === 1075) set_equip = [12, 23, 31075] // m1918 mod
+      if (ID === 75 || ID === 1075) set_equip = [12, 23, 31075] // m1918
+      else if (ID === 88) set_equip = [12, 23, 388] // MG3
+      else if (ID === 185) set_equip = [12, 23, 3185] // ameli
+      else if (ID === 1081) set_equip = [11081, 23, 35] // lwmmg mod
       else set_equip = [12, 23, 35]
     }
     else if (set_guntype === 6) set_equip = [33, 24, 13]
@@ -495,9 +501,16 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     }
     var str_dmg = '伤害 ', str_acu = '命中 ', str_eva = '闪避 '
     // dmg
-    if (e_dmg > 0 && e_dmg != 2.01) str_dmg += '<span style="color:green">' + property_display.dmg + '+' + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
+    if (e_dmg > 0 && e_dmg - Math.floor(e_dmg) === 0) str_dmg += '<span style="color:green">' + property_display.dmg + '+' + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     else if (e_dmg < 0) str_dmg += '<span style="color:orangered">' + property_display.dmg + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
-    else if (e_dmg === 2.01) str_dmg += '<span style="color:blue">(' + property_display.dmg + '<span style="color:hotpink">+' + e_affection.dmg + '</span>' + ')x3' + '</span>'
+    else if (e_dmg - Math.floor(e_dmg) != 0) {
+      var e_dmg_13 = lib_property_equip.get(set_equip[0]).dmg + lib_property_equip.get(set_equip[2]).dmg
+      var str_e_dmg_13 = ''
+      if (e_dmg_13 > 0) str_e_dmg_13 = '+' + e_dmg_13
+      str_dmg += '<span style="color:blue">(</span>'
+      str_dmg += '<span style="color:green">' + property_display.dmg + str_e_dmg_13 + '</span>' + '<span style="color:hotpink">+' + e_affection.dmg + '</span>'
+      str_dmg += '<span style="color:blue">)x3</span>'
+    }
     else str_dmg += '<span style="color:green">' + property_display.dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     document.getElementById('info_dmg').innerHTML = str_dmg
     // rof
@@ -602,8 +615,14 @@ function addTdoll () { // 添加战术人形
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 180) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
+    }
     else if (ID === 192) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
+    }
+    else if (ID === 252) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [震荡冲击弹] 溅射所有敌人'
     }
     else if (ID === 194) {
       var str_html = ''

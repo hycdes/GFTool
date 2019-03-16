@@ -635,9 +635,9 @@ lib_property_equip.set(13, createProperty_equip(0, 30, 0, -1, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(14, createProperty_equip(8, 14, 0, -4, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(21, createProperty_equip(15, 0, 0, 0, 0, 0, 0, 0, -7, 0))
 lib_property_equip.set(22, createProperty_equip(20, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-lib_property_equip.set(23, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 180, 0))
-lib_property_equip.set(24, createProperty_equip(15, 0, 0, 0, 0, 0, 0.22, 0, 0, 0))
-lib_property_equip.set(25, createProperty_equip(2.01, 20, 0, 0, 0, 0, 0, 0, 0, 0))
+lib_property_equip.set(23, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // 穿甲弹
+lib_property_equip.set(24, createProperty_equip(15, 0, 0, 0, 0, 0, 0.22, 0, 0, 0)) // 猎鹿弹
+lib_property_equip.set(25, createProperty_equip(2.01, 20, 0, 0, 0, 0, 0, 0, 0, 0)) // 独头弹
 lib_property_equip.set(31, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(32, createProperty_equip(-6, 0, 35, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(33, createProperty_equip(0, 0, -2, 0, 11, 0, 0, 0, 0, 0))
@@ -649,15 +649,11 @@ lib_property_equip.set(166, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.44, 0, 0
 lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0, 0))
 lib_property_equip.set(169, createProperty_equip(4, 4, 0, 0, 0, 0.48, 0, 0, 0, 0))
 lib_property_equip.set(165, createProperty_equip(8, 14, 0, 0, 0, 0.25, 0, 0, 0, 0))
-lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
-lib_property_equip.set(326, createProperty_equip(-6, 0, 58, 0, 0, 0, 0, 0, 0, 0)) // mp5
-lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0, 0)) // m16
-lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0, 0)) // g41
 lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0)) // mg4
-lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0, 0)) // UMP series
-lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100))
 lib_property_equip.set(11001, createProperty_equip(3, 0, 10, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(11005, createProperty_equip(0, 4, 14, 0, 0, 0.2, 0, 0, 0, 0))
+lib_property_equip.set(11081, createProperty_equip(2, 34, 0, -1, 0, 0, 0, 0, 0, 0)) // lwmmg mod
+lib_property_equip.set(11089, createProperty_equip(5, 30, 0, -1, 0, 0, 0, 0, 0, 0)) // bren mod
 lib_property_equip.set(11091, createProperty_equip(0, 8, 10, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(11029, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // sten mod
 lib_property_equip.set(11037, createProperty_equip(0, 10, 0, 0, 0, 0.48, 0, 0, 0, 0))
@@ -670,14 +666,27 @@ lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0,
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0, 0))
 lib_property_equip.set(11094, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // 64type mod
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0))
+
+lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0))
-lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0))
-lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0, 0))
+lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
+
+lib_property_equip.set(326, createProperty_equip(-6, 0, 58, 0, 0, 0, 0, 0, 0, 0)) // mp5
+lib_property_equip.set(342, createProperty_equip(0, 0, 0, 3, 0, 0, 0.25, 0, 0, 0)) // ptrd
+lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0, 0)) // m16
+lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0, 0)) // g41
+lib_property_equip.set(388, createProperty_equip(-25, -10, -2, 0, 0, 0, 0, 30, 0, 0)) // mg3
+lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0, 0)) // UMP series
+lib_property_equip.set(3185, createProperty_equip(8, -3, 0, 0, 0, 0, 0, 6, 0, 0)) // 阿梅利
+lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0, 0)) // mosin
+lib_property_equip.set(31044, createProperty_equip(6, 0, 0, 0, 0, 0, 0.25, 0, 0, 0)) // sv98 mod
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0))
-lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0))
+lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0)) // m1918
 lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 0)) // IDW mod
-lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100))
-lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100))
+
+lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 9a91
+lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // clear
+lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // fail
 
 function createFairy (name, list_property, list_value) {
   var Fairy = {}
