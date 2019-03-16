@@ -241,6 +241,11 @@ function describe_mustcrit () {
   Describe.name = 'mustcrit'
   return Describe
 }
+function describe_saiga () {
+  var Describe = {}
+  Describe.name = 'saiga'
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -451,6 +456,7 @@ lib_describe.set('k2', describe_k2()) // 热力过载
 lib_describe.set('mdr', describe_mdr()) // 危机嗅探器
 lib_describe.set('64howa', describe_64howa()) // 未来预警
 lib_describe.set('m4', describe_m4()) // 伸冤者印记
+lib_describe.set('saiga', describe_saiga()) // 巨羚号角
 
 // lib_skill
 
@@ -860,7 +866,7 @@ lib_skill.set(111, [
 
 lib_skill.set(151, [createSkill(15, 16, 0, lib_describe.get('m1887'))]) // 终结打击
 lib_skill.set(157, []) //
-lib_skill.set(160, [])
+lib_skill.set(160, [createSkill(8, 16, 0, lib_describe.get('saiga'))]) // 巨羚号角
 lib_skill.set(163, [ // 酮血症
   createSkill(8, 16, 8, lib_describe.get('rof_80')),
   createSkill(8, 16, 0, lib_describe.get('addclip_10'))

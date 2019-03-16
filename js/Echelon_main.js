@@ -610,6 +610,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (enemy_fragile) final_dmg = Math.ceil(final_dmg * global_fragile)
           Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
         }
+        else if (list_tdoll[stand_num][1].ID === 160 && Set_Special.get('saiga_' + stand_num) > 0) { // saiga-12巨羚号角，必中/无视护甲/不能暴击/无视独头弹/强制三目标
+          var final_dmg = current_Info.get('dmg')
+          if (Set_Special.get('saiga_' + stand_num) === 3) final_dmg *= 1.5
+          else if (Set_Special.get('saiga_' + stand_num) === 2) final_dmg *= 2.5
+          else if (Set_Special.get('saiga_' + stand_num) === 1) final_dmg *= 3.5
+          final_dmg = Math.ceil(5 * final_dmg)
+          Set_Special.set('saiga_' + stand_num, Set_Special.get('saiga_' + stand_num) - 1)
+          if (enemy_num >= 3) final_dmg *= 3
+          else final_dmg *= enemy_num
+          Set_Data.get(stand_num).push([current_time, lastData + final_dmg])
+        }
         else if (Math.random() <= base_acu / (base_acu + enemy_eva)) { // 否则先判断命中
           var base_dmg = current_Info.get('dmg')
           if (list_tdoll[stand_num][1].ID === 1039) { // 苍白收割者buff是否存在，是否能够触发buff
@@ -634,7 +645,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             var cs = Set_Special.get('clipsize_' + stand_num)
             if (cs === 1) base_dmg *= 3
           }
-          if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) {
+          if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
             if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
               if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
                 Set_Special.set('aa12_skillmode_' + stand_num, false)
@@ -1208,6 +1219,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var aim = (s_t[0].Describe).aim
     Set_Special.set('aim_time_' + stand_num, global_frame + 240)
     Set_Special.set('aim_forceon_' + stand_num, aim)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'saiga') { // 巨羚号角
+    Set_Special.set('saiga_' + stand_num, 3)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
 }
