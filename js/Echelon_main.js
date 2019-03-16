@@ -594,6 +594,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var num_left = Set_Special.get('python_active') - 1
           Set_Special.set('python_active', num_left)
           changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
+          if (num_left === 0) {
+            Set_Skill.get(stand_num)[0][1] = 0 // 重置普攻
+          }
         }
         var base_acu = current_Info.get('acu') // 基础命中
         if (list_tdoll[stand_num][1].ID === 194) { // K2-debuff减命中
