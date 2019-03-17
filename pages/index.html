@@ -24,6 +24,7 @@
         function Language(typeCode) {
             if (typeCode === 'Chinese') window.location.href = "index.html";
             else if (typeCode === 'English') window.location.href = "index-EN.html";
+            else if (typeCode === 'Korean') window.location.href = "index-KO.html";
         }
     </script>
 </head>
@@ -73,7 +74,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">首页 <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button></h1>
+                            <h1 class="page-header">首页
+                                <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
+                                <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button>
+                                <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
+                            </h1>
                         </div>
                     </div>
                     <!-- Multi-page Panel -->
@@ -155,6 +160,7 @@
                                     <div class="tab-pane fade" id="index-supporter" style="background:url(../img/404.png) no-repeat right top;">
                                         <h4>“你的名字有人知晓，你的功绩永世长存”</h4>
                                         <p><b>建站/域名购买/开发/资料制作</b>：命运の乐章</p>
+                                        <p><b>韩文翻译</b>: @pohcy @marty</p>
                                         <p><b>JavaScript指导</b>：Damien丶泽宇</p>
                                         <p><b>算法和数学指导</b>：Simon</p>
                                         <p><b>查错贡献</b>：@白金·世界 @矩形波导[b站] @普鲁露特酱poi[b站] @AsLegend[b站] @笑笑哭笑笑[b站] @IIdf[NGA]</p>
