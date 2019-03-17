@@ -645,38 +645,44 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             var cs = Set_Special.get('clipsize_' + stand_num)
             if (cs === 1) base_dmg *= 3
           }
-          if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
-            if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
-              if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
-                Set_Special.set('aa12_skillmode_' + stand_num, false)
-              // 不能受独头弹加成
+          if (current_Info.get('type') === 6) {
+            if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
+              if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
+                if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
+                  Set_Special.set('aa12_skillmode_' + stand_num, false)
+                // 不能受独头弹加成
+                } else {
+                  Set_Special.set('aa12_skillmode_' + stand_num, true)
+                  base_dmg *= 3 // 独头弹x3伤害
+                }
               } else {
-                Set_Special.set('aa12_skillmode_' + stand_num, true)
-                base_dmg *= 3 // 独头弹x3伤害
+                if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
               }
-            } else {
-              if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
             }
           }
           var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
-          if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
-            var aim_num = Set_Special.get('aim_forceon_' + stand_num)
-            if (enemy_num >= aim_num) final_dmg *= aim_num
-            else final_dmg *= enemy_num
-          } else {
-            if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
-              if (enemy_num >= 3) final_dmg *= 3
+          if (current_Info.get('type') === 6) {
+            if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
+              var aim_num = Set_Special.get('aim_forceon_' + stand_num)
+              if (enemy_num >= aim_num) final_dmg *= aim_num
               else final_dmg *= enemy_num
-            } else { // 如果携带，可能因为技能攻击多个目标
-              if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
-                if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
-                  if (enemy_num >= 3) final_dmg *= 3
-                  else final_dmg *= enemy_num
+            } else {
+              if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
+                if (enemy_num >= 3) final_dmg *= 3
+                else final_dmg *= enemy_num
+              } else { // 如果携带，可能因为技能攻击多个目标
+                if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
+                  if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
+                    if (enemy_num >= 3) final_dmg *= 3
+                    else final_dmg *= enemy_num
+                  }
                 }
               }
             }
           }
-          if (Set_Special.get('python_active') === 0) final_dmg *= 2 // 无畏者之拥结束伤害
+          if (Set_Special.get('python_active') === 0 && list_tdoll[stand_num][1].ID === 4) {
+            final_dmg *= 2 // 无畏者之拥结束伤害
+          }
           if (list_tdoll[stand_num][1].ID === 194) { // K2判断模式射击次数
             if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
           }
