@@ -680,8 +680,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               }
             }
           }
-          if (Set_Special.get('python_active') === 0 && list_tdoll[stand_num][1].ID === 4) {
+          if (Set_Special.get('python_active') === 0 && list_tdoll[stand_num][1].ID === 4 && Set_Special.get('python_opening') === true) {
             final_dmg *= 2 // 无畏者之拥结束伤害
+            Set_Special.set('python_active', -1)
+            Set_Special.set('python_opening', false)
           }
           if (list_tdoll[stand_num][1].ID === 194) { // K2判断模式射击次数
             if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
