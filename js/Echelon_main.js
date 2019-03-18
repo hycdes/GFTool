@@ -742,7 +742,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
       // 攻击间隔或者换弹判断
       if (current_Info.get('type') != 5 && current_Info.get('type') != 6) { // HG/AR/SMG/RF
-        if (list_tdoll[stand_num][1].ID === 73 && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
+        if ((list_tdoll[stand_num][1].ID === 73 || list_tdoll[stand_num][1].ID === 237) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
         else if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手120射速
           s_t[1] = 11
           Set_Special.set('m1911_' + stand_num, Set_Special.get('m1911_' + stand_num) - 1)
