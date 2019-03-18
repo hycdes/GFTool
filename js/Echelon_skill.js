@@ -360,6 +360,7 @@ lib_describe.set('iws2000', describe_property(['self'], ['dmg/rof'], ['1.8/-0.35
 lib_describe.set('t5000', describe_property(['self'], ['rof/acu'], ['0.5/0.5'])) // 锁定专注 50%
 lib_describe.set('obr', describe_property(['self'], ['rof/acu'], ['0.45/0.45'])) // 锁定专注 45%
 lib_describe.set('k31', describe_property(['self'], ['rof/acu'], ['0.8/-0.35'])) // 紧急流速
+lib_describe.set('sv98', describe_property(['self'], ['rof/acu'], ['0.08/0.08'])) // 阴影解救者
 lib_describe.set('mk12', describe_property(['self'], ['rof/critdmg'], ['0.3/0.3'])) // 愤怒灵感
 lib_describe.set('critdmg_10', describe_property(['self'], ['critdmg'], ['0.1'])) // 明澈斗志 10%
 lib_describe.set('art556', describe_property(['self'], ['dmg/rof'], ['0.85/0.25'])) // 冲锋专注 85%/25%
@@ -401,6 +402,7 @@ lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless
 lib_describe.set('snipe_7', describe_snipe(7, 2, 0, 1, 'armless/critless/evaless')) // 7倍炮狙
 lib_describe.set('snipe_6.5', describe_snipe(6.5, 1.5, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
 lib_describe.set('snipe_6.5_2', describe_snipe(6.5, 2, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙，2秒瞄准
+lib_describe.set('snipe_7.08', describe_snipe(7.08, 1.5, 0, 1, 'armless/critless/evaless')) // 7.08倍炮狙，sv-98 mod狙击近似化处理
 lib_describe.set('snipe_6', describe_snipe(6, 1.5, 0, 1, 'armless/critless/evaless')) // 6倍炮狙
 lib_describe.set('snipe_5.5', describe_snipe(5.5, 1.5, 0, 1, 'armless/critless/evaless')) // 5.5倍炮狙
 lib_describe.set('snipe_5', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 5倍炮狙
@@ -725,6 +727,11 @@ lib_skill.set(252, [createSkill(10, 16, 0, lib_describe.get('snipe_4'))])
 lib_skill.set(1037, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 6, lib_describe.get('critdmg_10'))
+])
+lib_skill.set(1044, [
+  createSkill(10, 16, 0, lib_describe.get('snipe_7.08')),
+  createSkill(3, -1, 7, lib_describe.get('sv98')),
+  createSkill(13, 16, 13, lib_describe.get('sv98'))
 ])
 lib_skill.set(1051, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),

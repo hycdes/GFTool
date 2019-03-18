@@ -1537,6 +1537,7 @@ function changeRankingSwitch (sortType) {
   showAnalyze()
 }
 function sortSolution (sortType) {
+  var HeavyfireType = 1
   ranking_switch = parseInt(sortType)
   if (sortType === 1) analyze_switch = 1
   else if (sortType === 2) analyze_switch = -1
@@ -1734,3 +1735,6 @@ function setBestNum () {
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
 function getHelp () { window.open('../img/CC-tutorial.png'); }
+function test () {
+  console.log(solutionSet)
+}
