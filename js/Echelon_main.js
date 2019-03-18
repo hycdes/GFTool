@@ -1334,28 +1334,16 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
         if (Set_Base.get(i) != undefined) {
           var this_info = (Set_Base.get(i)).Info
           var new_property = (this_info).get(status[0][0])
-          if (situation === 'get') {
-            if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property * status[0][1])
-            else new_property = new_property * status[0][1]
-          }
-          else if (situation === 'lost') {
-            if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.floor(new_property / status[0][1])
-            else new_property = new_property / status[0][1]
-          }
+          if (situation === 'get') new_property = new_property * status[0][1]
+          else if (situation === 'lost') new_property = new_property / status[0][1]
           this_info.set(status[0][0], new_property)
         }
       }
     } else { // 某一人属性变化
       var this_info = (Set_Base.get(stand_num)).Info
       var new_property = (this_info).get(status[0][0])
-      if (situation === 'get') {
-        if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.ceil(new_property * status[0][1])
-        else new_property = new_property * status[0][1]
-      }
-      else if (situation === 'lost') {
-        if (status[0][0] != 'crit' && status[0][0] != 'critdmg') new_property = Math.floor(new_property / status[0][1])
-        else new_property = new_property / status[0][1]
-      }
+      if (situation === 'get') new_property = new_property * status[0][1]
+      else if (situation === 'lost') new_property = new_property / status[0][1]
       if (status[0][0] === 'critdmg' && status[0][1] === 1) { // 杰里科被动消失一层
         if (Set_Special.get('jericho_buff_' + stand_num) > 0) {
           Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) - 1)
@@ -1480,11 +1468,6 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     if (list_labels[3] != 'evaless') {
       if (Math.random() > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
     }
-    if (list_tdoll[stand_num][1].ID === 202) {
-      if (Set_Special.get('thunder_' + stand_num) === undefined) {
-        0
-      }
-    }
     damage_snipe_single = Math.ceil(damage_snipe_single * 5)
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     Set_Data.get(stand_num).push([current_time, lastData])
@@ -1592,23 +1575,23 @@ function getBaseProperty (num) {
   if (blockSet[num].get(str_tn + 'dmg') != undefined) mul[0] += blockSet[num].get(str_tn + 'dmg')
   if (blockSet[num].get('alldmg') != undefined) mul[0] += blockSet[num].get('alldmg')
   full_property[2] *= mul[0]
-  Info.set('dmg', Math.ceil(full_property[2]))
+  Info.set('dmg', full_property[2])
   if (blockSet[num].get(str_tn + 'acu') != undefined) mul[1] += blockSet[num].get(str_tn + 'acu')
   if (blockSet[num].get('allacu') != undefined) mul[1] += blockSet[num].get('allacu')
   full_property[3] *= mul[1]
-  Info.set('acu', Math.ceil(full_property[3]))
+  Info.set('acu', Math.floor(full_property[3]))
   if (blockSet[num].get(str_tn + 'eva') != undefined) mul[2] += (blockSet[num].get(str_tn + 'eva'))
   if (blockSet[num].get('alleva') != undefined) mul[2] += blockSet[num].get('alleva')
   full_property[4] *= mul[2]
-  Info.set('eva', Math.ceil(full_property[4]))
+  Info.set('eva', Math.floor(full_property[4]))
   if (blockSet[num].get(str_tn + 'rof') != undefined) mul[3] += blockSet[num].get(str_tn + 'rof')
   if (blockSet[num].get('allrof') != undefined) mul[3] += blockSet[num].get('allrof')
   full_property[5] *= mul[3]
-  Info.set('rof', Math.ceil(full_property[5]))
+  Info.set('rof', Math.floor(full_property[5]))
   if (blockSet[num].get(str_tn + 'arm') != undefined) mul[4] += blockSet[num].get(str_tn + 'arm')
   if (blockSet[num].get('allarm') != undefined) mul[4] += blockSet[num].get('allarm')
   full_property[6] *= mul[4]
-  Info.set('arm', Math.ceil(full_property[6]))
+  Info.set('arm', Math.floor(full_property[6]))
   if (blockSet[num].get(str_tn + 'crit') != undefined) mul[5] += blockSet[num].get(str_tn + 'crit')
   if (blockSet[num].get('allcrit') != undefined) mul[5] += blockSet[num].get('allcrit')
   full_property[7] *= mul[5]
