@@ -4,8 +4,8 @@ var filter_switch = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
-var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [],topologyLib_M2 = []
-var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [],topologyLibRefer_M2 = []
+var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [], topologyLib_M2 = [], topologyLib_M2_6x6 = [], topologyLib_M2_6x5n5 = []
+var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [],topologyLibRefer_M2 = [], topologyLibRefer_M2_6x6 = [], topologyLibRefer_M2_6x5n5 = []
 var rules = ['InfinityFrost', 'FatalChapters']
 var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1, block_class = 56, block_shape = 9
 var chipNum = 0
@@ -703,6 +703,7 @@ function chartBack (typeInfo) {
       line6.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">'
       line7.innerHTML = '<td class="td_black"><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black">'
       line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>'
+      document.getElementById('M2_options').innerHTML = ''
       break
     case 2:
       Process_Text_Dmg.innerHTML = '0/106'
@@ -717,6 +718,7 @@ function chartBack (typeInfo) {
       line6.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td>'
       line7.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td>'
       line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>'
+      document.getElementById('M2_options').innerHTML = ''
       break
     case 3:
       Process_Text_Dmg.innerHTML = '0/227'
@@ -731,6 +733,7 @@ function chartBack (typeInfo) {
       line6.innerHTML = '<td class="td_black"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_orangeback"></td><td class="td_black"></td>'
       line7.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_orangeback"></td><td class="td_black"></td><td class="td_black"></td>'
       line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>'
+      document.getElementById('M2_options').innerHTML = ''
       break
     case 4:
       Process_Text_Dmg.innerHTML = '0/206'
@@ -745,6 +748,7 @@ function chartBack (typeInfo) {
       line6.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black">'
       line7.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black">'
       line8.innerHTML = '<td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback">'
+      document.getElementById('M2_options').innerHTML = '<input type="checkbox" id="M2_can_unfill"> 允许空出1~3格(不使用五格2类)'
       break
   }
 }
@@ -802,7 +806,9 @@ function getTopology () {
     }
   }
   if (HeavyfireType === 1 || HeavyfireType === 2 || HeavyfireType === 3) validSet = searchValid(chipShape_6, chipShape_5, HeavyfireType)
-  else validSet = searchValid(chipShape_6, chipShape_5.concat(chipShape_5_2), HeavyfireType)
+  else if (HeavyfireType === 4) {
+    validSet = searchValid(chipShape_6, chipShape_5.concat(chipShape_5_2), HeavyfireType)
+  }
   var allTopoNum = validSet.length
   // get topology
   for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
@@ -811,7 +817,14 @@ function getTopology () {
       else topologySet.push(topologyLib_BGM_2[validSet[num_topo] - topologyLibRefer_BGM_1.length])
     } else if (HeavyfireType === 2) topologySet.push(topologyLib_AGS[validSet[num_topo]])
     else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]])
-    else if (HeavyfireType === 4) topologySet.push(topologyLib_M2[validSet[num_topo]])
+    else if (HeavyfireType === 4) {
+      if (document.getElementById('M2_can_unfill').checked) {
+        if (validSet[num_topo] < topologyLibRefer_M2_6x6.length) topologySet.push(topologyLib_M2_6x6[validSet[num_topo]])
+        else topologySet.push(topologyLib_M2_6x5n5[validSet[num_topo] - topologyLibRefer_M2_6x6.length])
+      } else {
+        topologySet.push(topologyLib_M2[validSet[num_topo]])
+      }
+    }
   }
   if (topologySet.length > 0) {
     if (filter_switch) { // show sort
@@ -884,38 +897,56 @@ function isPossible (chipShape_65, chipRefer, border) {
   for (var i = 0; i < border; i++) if (parseInt(chipRefer[i]) > chipShape_65[i][1]) return false
   return true
 }
+function getChipShape6_total (chipShape_6) {
+  var total = 0
+  for (var e of chipShape_6) total += e[1]
+  return total
+}
 function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
   var chipShape_65 = chipShape_6.concat(chipShape_5)
   var validSet = []
-  var searchlen, searchlen_ex
+  var searchlen = [0, 0, 0]
   if (HeavyfireType === 1) {
-    searchlen = topologyLibRefer_BGM_1.length
-    searchlen_ex = topologyLibRefer_BGM_2.length
+    searchlen[0] = topologyLibRefer_BGM_1.length
+    searchlen[1] = topologyLibRefer_BGM_2.length
   } else if (HeavyfireType === 2) {
-    searchlen = topologyLibRefer_AGS.length
+    searchlen[0] = topologyLibRefer_AGS.length
   } else if (HeavyfireType === 3) {
-    searchlen = topologyLibRefer_2B14.length
+    searchlen[0] = topologyLibRefer_2B14.length
   } else if (HeavyfireType === 4) {
-    searchlen = topologyLibRefer_M2.length
+    searchlen[0] = topologyLibRefer_M2_6x6.length
+    searchlen[1] = topologyLibRefer_M2_6x5n5.length
+    searchlen[2] = topologyLibRefer_M2.length
   }
   if (HeavyfireType === 1) {
-    for (var i = 0; i < searchlen; i++) {
-      if (isPossible(chipShape_65, topologyLibRefer_BGM_1[i], 10)) validSet.push(i)
+    for (var i = 0; i < searchlen[0]; i++) {
+      if (isPossible(chipShape_65, topologyLibRefer_BGM_1[i], 10)) validSet.push(i) // BGM 6x6
     }
-    for (var i = 0; i < searchlen_ex; i++) {
-      if (isPossible(chipShape_65, topologyLibRefer_BGM_2[i], 19)) validSet.push(i + searchlen)
+    for (var i = 0; i < searchlen[1]; i++) {
+      if (isPossible(chipShape_65, topologyLibRefer_BGM_2[i], 19)) validSet.push(i + searchlen[0]) // BGM 6x5+5
     }
   } else if (HeavyfireType === 2) {
-    for (var i = 0; i < searchlen; i++) {
+    for (var i = 0; i < searchlen[0]; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_AGS[i], 19)) validSet.push(i)
     }
   } else if (HeavyfireType === 3) {
-    for (var i = 0; i < searchlen; i++) {
+    for (var i = 0; i < searchlen[0]; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_2B14[i], 19)) validSet.push(i)
     }
   } else if (HeavyfireType === 4) {
-    for (var i = 0; i < searchlen; i++) {
-      if (isPossible(chipShape_65, topologyLibRefer_M2[i], 28)) validSet.push(i)
+    if (document.getElementById('M2_can_unfill').checked) {
+      for (var i = 0; i < searchlen[0]; i++) {
+        if (getChipShape6_total(chipShape_6) >= 36) {
+          if (isPossible(chipShape_65, topologyLibRefer_M2_6x6[i], 10)) validSet.push(i) // M2 6x6
+        }
+      }
+      for (var i = 0; i < searchlen[1]; i++) {
+        if (isPossible(chipShape_65, topologyLibRefer_M2_6x5n5[i], 19)) validSet.push(i + searchlen[0]) // M2 6x5+5
+      }
+    } else {
+      for (var i = 0; i < searchlen[2]; i++) {
+        if (isPossible(chipShape_65, topologyLibRefer_M2[i], 28)) validSet.push(i) // M2 full with 552
+      }
     }
   }
   return validSet
@@ -931,7 +962,19 @@ function showTopology (solution, HeavyfireType) {
   var line8 = document.getElementById('solutionLine8')
   var lineSet = [line1, line2, line3, line4, line5, line6, line7, line8]
   var htmlSet = []
-  for (var i = 0; i < 8; i++) htmlSet.push(['<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>'])
+  if (HeavyfireType === 4) {
+    // '<td class="td_blueback"></td>'
+    htmlSet.push(['<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>'])
+    htmlSet.push(['<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>'])
+    htmlSet.push(['<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>'])
+    htmlSet.push(['<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>'])
+    htmlSet.push(['<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>'])
+    htmlSet.push(['<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>'])
+    htmlSet.push(['<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_black"></td>'])
+    htmlSet.push(['<td class="td_blueback"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>', '<td class="td_blueback"></td>'])
+  } else {
+    for (var i = 0; i < 8; i++) htmlSet.push(['<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>', '<td class="td_black"></td>'])
+  }
   switch (HeavyfireType) {
     case 1:
       var soluChipNum = solution.length

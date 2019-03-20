@@ -9,7 +9,7 @@ function showAffect () {
     var target = affect.target
     var affect_type = affect.affect_type
     var affect_value = affect.affect_value
-    var str_final = '影响'
+    var str_final = lib_language.UI_affect
     var len = list_area.length - 1, base = [2, 2]
     var list_posi = [base]
     for (var i = 0; i < len; i++) {
@@ -43,13 +43,13 @@ function showAffect () {
     var len_t = affect_type.length
     for (var i = 0; i < len_t; i++) {
       var str_temp = ''
-      if (affect_type[i] === 'dmg') str_temp = '伤害+'
-      else if (affect_type[i] === 'rof') str_temp = '射速+'
-      else if (affect_type[i] === 'acu') str_temp = '命中+'
-      else if (affect_type[i] === 'eva') str_temp = '回避+'
-      else if (affect_type[i] === 'crit') str_temp = '暴击+'
-      else if (affect_type[i] === 'arm') str_temp = '护甲+'
-      else if (affect_type[i] === 'cld') str_temp = '冷却-'
+      if (affect_type[i] === 'dmg') str_temp = lib_language.dmg + '+'
+      else if (affect_type[i] === 'rof') str_temp = lib_language.rof + '+'
+      else if (affect_type[i] === 'acu') str_temp = lib_language.acu + '+'
+      else if (affect_type[i] === 'eva') str_temp = lib_language.eva + '+'
+      else if (affect_type[i] === 'crit') str_temp = lib_language.crit + '+'
+      else if (affect_type[i] === 'arm') str_temp = lib_language.arm + '+'
+      else if (affect_type[i] === 'cld') str_temp = lib_language.cld + '-'
       str_temp += parseInt(100 * parseFloat(affect_value[i])) + '% '
       str_final += str_temp
     }
@@ -58,7 +58,7 @@ function showAffect () {
   var str_a_have = ''
 
   if (num_pickblock === -1 || list_tdoll[num_pickblock - 1][1] === null) {
-    document.getElementById('a_have').innerHTML = '放置人形后才能显示受到的增益'
+    document.getElementById('a_have').innerHTML = lib_language.UI_putsee
   } else {
     var this_blo = blockSet[num_pickblock - 1]
     var this_type = num_to_name(list_tdoll[num_pickblock - 1][1].Type), len_type = this_type.length
@@ -95,7 +95,7 @@ function showAffect () {
         num_buff = 0
         str_a_have += '<br>'
       }
-      str_a_have += '伤害+' + dmg + '%  '
+      str_a_have += lib_language.dmg + '+' + dmg + '%  '
       num_buff++
     }
     if (rof > 0) {
@@ -103,7 +103,7 @@ function showAffect () {
         num_buff = 0
         str_a_have += '<br>'
       }
-      str_a_have += '射速+' + rof + '%  '
+      str_a_have += lib_language.rof + '+' + rof + '%  '
       num_buff++
     }
     if (acu > 0) {
@@ -111,7 +111,7 @@ function showAffect () {
         num_buff = 0
         str_a_have += '<br>'
       }
-      str_a_have += '命中+' + acu + '%  '
+      str_a_have += lib_language.acu + '+' + acu + '%  '
       num_buff++
     }
     if (crit > 0) {
@@ -119,7 +119,7 @@ function showAffect () {
         num_buff = 0
         str_a_have += '<br>'
       }
-      str_a_have += '暴击+' + crit + '%  '
+      str_a_have += lib_language.crit + '+' + crit + '%  '
       num_buff++
     }
     if (eva > 0) {
@@ -127,7 +127,7 @@ function showAffect () {
         num_buff = 0
         str_a_have += '<br>'
       }
-      str_a_have += '回避+' + eva + '%  '
+      str_a_have += lib_language.eva + '+' + eva + '%  '
       num_buff++
     }
     if (arm > 0) {
@@ -135,7 +135,7 @@ function showAffect () {
         num_buff = 0
         str_a_have += '<br>'
       }
-      str_a_have += '护甲+' + arm + '%  '
+      str_a_have += lib_language.arm + '+' + arm + '%  '
       num_buff++
     }
     if (cld > 0) {
@@ -143,7 +143,7 @@ function showAffect () {
         num_buff = 0
         str_a_have += '<br>'
       }
-      str_a_have += '冷却-' + cld + '%  '
+      str_a_have += lib_language.cld + '-' + cld + '%  '
     }
     document.getElementById('a_have').innerHTML = str_a_have
   }
@@ -442,19 +442,19 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
   document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
   document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
   if (ID <= 0) { // 没选中
-    document.getElementById('info_name').innerHTML = '请点选一个<b><span style="color: red">九宫格</span></b>'
+    document.getElementById('info_name').innerHTML = lib_language.pickblock
     document.getElementById('info_num').innerHTML = '# -'
     document.getElementById('info_type').innerHTML = '-'
-    document.getElementById('info_hp').innerHTML = '生命 -'
-    document.getElementById('info_cs').innerHTML = '弹量 -'
-    document.getElementById('info_dmg').innerHTML = '伤害 -'
-    document.getElementById('info_rof').innerHTML = '射速 -'
-    document.getElementById('info_acu').innerHTML = '命中 -'
-    document.getElementById('info_eva').innerHTML = '闪避 -'
-    document.getElementById('info_crit').innerHTML = '暴击 -'
-    document.getElementById('info_critdmg').innerHTML = '暴伤 -'
-    document.getElementById('info_arm').innerHTML = '护甲 -'
-    document.getElementById('info_ap').innerHTML = '穿甲 -'
+    document.getElementById('info_hp').innerHTML = lib_language.hp + ' -'
+    document.getElementById('info_cs').innerHTML = lib_language.cs + ' -'
+    document.getElementById('info_dmg').innerHTML = lib_language.dmg + ' -'
+    document.getElementById('info_rof').innerHTML = lib_language.rof + ' -'
+    document.getElementById('info_acu').innerHTML = lib_language.acu + ' -'
+    document.getElementById('info_eva').innerHTML = lib_language.eva + ' -'
+    document.getElementById('info_crit').innerHTML = lib_language.crit + ' -'
+    document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' -'
+    document.getElementById('info_arm').innerHTML = lib_language.arm + ' -'
+    document.getElementById('info_ap').innerHTML = lib_language.ap + ' -'
   } else {
     var selectIdx = selectID.selectedIndex
     var selectTxt = selectID[selectIdx].text
@@ -477,11 +477,11 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     document.getElementById('info_name').innerHTML = str_name
     document.getElementById('info_num').innerHTML = '# ' + ID
     document.getElementById('info_type').innerHTML = str_type
-    document.getElementById('info_hp').innerHTML = '生命 <span style="color:green">' + property_display.hp + '</span>'
-    if (property_display.cs < 0) document.getElementById('info_cs').innerHTML = '弹量 ∞'
+    document.getElementById('info_hp').innerHTML = lib_language.hp + ' <span style="color:green">' + property_display.hp + '</span>'
+    if (property_display.cs < 0) document.getElementById('info_cs').innerHTML = lib_language.cs + ' ∞'
     else {
-      if (set_guntype === 5 && set_equip[2] != 0) document.getElementById('info_cs').innerHTML = '弹量 <span style="color:green">' + property_display.cs + '+' + lib_property_equip.get(set_equip[2]).cs + '</span>'
-      else if (set_guntype === 6) document.getElementById('info_cs').innerHTML = '弹量 <span style="color:green">' + property_display.cs + '</span>'
+      if (set_guntype === 5 && set_equip[2] != 0) document.getElementById('info_cs').innerHTML = lib_language.cs + ' <span style="color:green">' + property_display.cs + '+' + lib_property_equip.get(set_equip[2]).cs + '</span>'
+      else if (set_guntype === 6) document.getElementById('info_cs').innerHTML = lib_language.cs + ' <span style="color:green">' + property_display.cs + '</span>'
     }
     var e_dmg = lib_property_equip.get(set_equip[0]).dmg + lib_property_equip.get(set_equip[1]).dmg + lib_property_equip.get(set_equip[2]).dmg
     var e_rof = lib_property_equip.get(set_equip[0]).rof + lib_property_equip.get(set_equip[1]).rof + lib_property_equip.get(set_equip[2]).rof
@@ -499,7 +499,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
       if (affection === 'love') e_affection = createProperty_equip(Math.ceil(0.05 * property_display.dmg), Math.ceil(0.05 * property_display.acu), Math.ceil(0.05 * property_display.eva), 0, 0, 0, 0, 0, 0)
       else if (affection === 'marry') e_affection = createProperty_equip(Math.ceil(0.1 * property_display.dmg), Math.ceil(0.1 * property_display.acu), Math.ceil(0.1 * property_display.eva), 0, 0, 0, 0, 0, 0)
     }
-    var str_dmg = '伤害 ', str_acu = '命中 ', str_eva = '闪避 '
+    var str_dmg = lib_language.dmg + ' ', str_acu = lib_language.acu + ' ', str_eva = lib_language.eva + ' '
     // dmg
     if (e_dmg > 0 && e_dmg - Math.floor(e_dmg) === 0) str_dmg += '<span style="color:green">' + property_display.dmg + '+' + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     else if (e_dmg < 0) str_dmg += '<span style="color:orangered">' + property_display.dmg + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
@@ -514,9 +514,9 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     else str_dmg += '<span style="color:green">' + property_display.dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     document.getElementById('info_dmg').innerHTML = str_dmg
     // rof
-    if (e_rof > 0) document.getElementById('info_rof').innerHTML = '射速 <span style="color:green">' + property_display.rof + '+' + e_rof + '</span>'
-    else if (e_rof < 0) document.getElementById('info_rof').innerHTML = '射速 <span style="color:orangered">' + property_display.rof + e_rof + '</span>'
-    else document.getElementById('info_rof').innerHTML = '射速 <span style="color:green">' + property_display.rof + '</span>'
+    if (e_rof > 0) document.getElementById('info_rof').innerHTML = lib_language.rof + ' <span style="color:green">' + property_display.rof + '+' + e_rof + '</span>'
+    else if (e_rof < 0) document.getElementById('info_rof').innerHTML = lib_language.rof + ' <span style="color:orangered">' + property_display.rof + e_rof + '</span>'
+    else document.getElementById('info_rof').innerHTML = lib_language.rof + ' <span style="color:green">' + property_display.rof + '</span>'
     // acu
     if (e_acu > 0) str_acu += '<span style="color:green">' + property_display.acu + '+' + e_acu + '</span><span style="color:hotpink">+' + e_affection.acu + '</span>'
     else if (e_acu < 0) str_acu += '<span style="color:orangered">' + property_display.acu + e_acu + '</span><span style="color:hotpink">+' + e_affection.acu + '</span>'
@@ -528,16 +528,16 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     else str_eva += '<span style="color:green">' + property_display.eva + '</span><span style="color:hotpink">+' + e_affection.eva + '</span>'
     document.getElementById('info_eva').innerHTML = str_eva
     // crit
-    if (e_crit > 0) document.getElementById('info_crit').innerHTML = '暴击 <span style="color:green">' + parseInt(property_display.crit * 100) + '+' + parseInt(e_crit * 100) + '</span>' + '%'
-    else document.getElementById('info_crit').innerHTML = '暴击 <span style="color:green">' + parseInt(property_display.crit * 100) + '</span>' + '%'
+    if (e_crit > 0) document.getElementById('info_crit').innerHTML = lib_language.crit + ' <span style="color:green">' + parseInt(property_display.crit * 100) + '+' + parseInt(e_crit * 100) + '</span>' + '%'
+    else document.getElementById('info_crit').innerHTML = lib_language.crit + ' <span style="color:green">' + parseInt(property_display.crit * 100) + '</span>' + '%'
     // critdmg
-    if (e_critdmg > 0)document.getElementById('info_critdmg').innerHTML = '暴伤 <span style="color:green">150' + '+' + parseInt(e_critdmg * 100) + '</span>' + '%'
-    else document.getElementById('info_critdmg').innerHTML = '暴伤 <span style="color:green">150' + '</span>' + '%'
-    if (e_arm > 0) document.getElementById('info_arm').innerHTML = '护甲 <span style="color:green">' + property_display.arm + '+' + e_arm + '</span>'
-    else document.getElementById('info_arm').innerHTML = '护甲 <span style="color:green">' + property_display.arm + '</span>'
-    if (e_ap > 0) document.getElementById('info_ap').innerHTML = '穿甲 <span style="color:green">' + '15' + '+' + e_ap + '</span>'
-    else if (e_ap < 0) document.getElementById('info_ap').innerHTML = '穿甲 <span style="color:orangered">' + '15' + e_ap + '</span>'
-    else document.getElementById('info_ap').innerHTML = '穿甲 <span style="color:green">' + '15' + '</span>'
+    if (e_critdmg > 0)document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' <span style="color:green">150' + '+' + parseInt(e_critdmg * 100) + '</span>' + '%'
+    else document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' <span style="color:green">150' + '</span>' + '%'
+    if (e_arm > 0) document.getElementById('info_arm').innerHTML = lib_language.arm + ' <span style="color:green">' + property_display.arm + '+' + e_arm + '</span>'
+    else document.getElementById('info_arm').innerHTML = lib_language.arm + ' <span style="color:green">' + property_display.arm + '</span>'
+    if (e_ap > 0) document.getElementById('info_ap').innerHTML = lib_language.ap + ' <span style="color:green">' + '15' + '+' + e_ap + '</span>'
+    else if (e_ap < 0) document.getElementById('info_ap').innerHTML = lib_language.ap + ' <span style="color:orangered">' + '15' + e_ap + '</span>'
+    else document.getElementById('info_ap').innerHTML = lib_language.ap + ' <span style="color:green">' + '15' + '</span>'
     // readStatus需要保存当前状态，添加人形会把buffer_last填入buffer_table
     buffer_last = [set_guntype, num_star, ID, set_equip, affection, e_affection]
   }
@@ -584,49 +584,49 @@ function addTdoll () { // 添加战术人形
     if (list_tdoll[num_pickblock - 1][1].ID === 197) this_is_karm1891 = true
   }
   if ((!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) || (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891)) {
-    if (!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) document.getElementById('alert_display').innerHTML = ' *不能添加两个蟒蛇'
-    if (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891) document.getElementById('alert_display').innerHTML = ' *不能添加两个CarcanoM1891'
+    if (!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_python
+    if (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_carcano
   } else {
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
     if (ID === 4) Set_Special.set('can_add_python', false)
     if (ID === 197) Set_Special.set('can_add_karm1891', false)
     else if (ID === 1055) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [伸冤者印记] 使用炮击'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [伸冤者印记] 使用炮击'
     }
     else if (ID === 1039) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 莫辛纳甘</h4>'
-      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 10%">每</td><td style="width: 30%">'
-      str_html += '<input class="form-control input-sm" placeholder="输入正整数" id="special_mosin_attackkill_' + num_pickblock + '" onblur=inputCheck_mosin('
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_39 + '</h4>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 10%">' + lib_language.DESCRIBE_39_1 + '</td><td style="width: 30%">'
+      str_html += '<input class="form-control input-sm" placeholder="' + lib_language.INPUT_PI + '" id="special_mosin_attackkill_' + num_pickblock + '" onblur=inputCheck_mosin('
       str_html += "'" + 'special_mosin_attackkill_' + num_pickblock + "'"
-      str_html += ') value="2"></td><td>次普攻击杀敌人</td></tr></tbody></table>'
-      str_html += '<input type="checkbox" id="special_mosin_' + num_pickblock + '"> [沉稳射击] 禁用 '
-      str_html += '<input type="checkbox" id="special_mosin_skillkill_' + num_pickblock + '" checked> [苍白收割者] 技能击杀敌人'
+      str_html += ') value="2"></td><td>' + lib_language.DESCRIBE_39_2 + '</td></tr></tbody></table>'
+      str_html += '<input type="checkbox" id="special_mosin_' + num_pickblock + '"> [' + lib_language.skillNAME_39 + '] ' + lib_language.DESCRIBE_39_3 + ' '
+      str_html += '<input type="checkbox" id="special_mosin_skillkill_' + num_pickblock + '" checked> [' + lib_language.skillNAME_39_2 + '] ' + lib_language.DESCRIBE_39_4
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 2006) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 德丽莎</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [圣光制裁] 敌人进入制裁范围'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' 德丽莎</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [圣光制裁] 敌人进入制裁范围'
     }
     else if (ID === 102) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 UMP40</h4><p>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' UMP40</h4><p>'
       str_html += '[烙印过载] <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_0" checked> 默认</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_1"> 过载</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 180) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
     }
     else if (ID === 192) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
     }
     else if (ID === 252) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [震荡冲击弹] 溅射所有敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [震荡冲击弹] 溅射所有敌人'
     }
     else if (ID === 194) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 K2</h4>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' K2</h4>'
       str_html += '<h5>[热力过载] 启动状态</h5>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_1" checked> 自动释放</label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_2"><span style="color:red"> 持续Fever(三连发)</span></label></p>'
@@ -635,7 +635,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 213) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 C-MS</h4>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' C-MS</h4>'
       str_html += '<h5>[心情链环] 挂载状态</h5>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> 亚音速弹(+65%回避)</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> 勺尖弹(+85%伤害)</span></label></p>'
@@ -644,7 +644,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 231) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 M82A1</h4><p>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' M82A1</h4><p>'
       str_html += '[伪神的启示] 战斗胜场 <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_1"> 1</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_2"> 2</label>'
@@ -654,7 +654,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 236) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 K11</h4><p>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' K11</h4><p>'
       str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 30%">倍率</td><td style="width: 50%">'
       str_html += '<input class="form-control input-sm" placeholder="输入整数" id="special_k11_' + num_pickblock + '" onblur=inputCheck_k11('
       str_html += "'" + 'special_k11_' + num_pickblock + "'"
@@ -662,11 +662,11 @@ function addTdoll () { // 添加战术人形
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 238) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + '号位 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [懒惰的怒火] 轻机枪模式'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [懒惰的怒火] 轻机枪模式'
     }
     else if (ID === 243) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 64式自</h4><p>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' 64式自</h4><p>'
       str_html += '[未来预警] 发动3秒后 <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_0" checked> 增伤55%</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_1"> 护盾25</label>'
       str_html += '</p>'
@@ -674,7 +674,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 251) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + '号位 X95</h4><p>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' X95</h4><p>'
       str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">花之锁增伤</td><td style="width: 50%">'
       str_html += '<input class="form-control input-sm" placeholder="输入0~300" id="special_x95_' + num_pickblock + '" onblur=inputCheck_x95('
       str_html += "'" + 'special_x95_' + num_pickblock + "'"
@@ -738,21 +738,21 @@ function changeFairy () {
     changeTalent(0)
   }
   document.getElementById('fairy_img').src = '../img/echelon/fairy/f' + fairy_no + '.png'
-  document.getElementById('fairy_dmg').innerHTML = '伤害 -'
-  document.getElementById('fairy_critdmg').innerHTML = '暴伤 -'
-  document.getElementById('fairy_acu').innerHTML = '命中 -'
-  document.getElementById('fairy_eva').innerHTML = '回避 -'
-  document.getElementById('fairy_arm').innerHTML = '护甲 -'
+  document.getElementById('fairy_dmg').innerHTML = lib_language.dmg + ' -'
+  document.getElementById('fairy_critdmg').innerHTML = lib_language.critdmg + ' -'
+  document.getElementById('fairy_acu').innerHTML = lib_language.acu + ' -'
+  document.getElementById('fairy_eva').innerHTML = lib_language.eva + ' -'
+  document.getElementById('fairy_arm').innerHTML = lib_language.arm + ' -'
   if (fairy_no > 0) {
     var list_pro = lib_fairy.get(fairy_no).property.split('/')
     var list_value = lib_fairy.get(fairy_no).value.split('/')
     var fplen = list_pro.length
     for (var i = 0; i < fplen;i++) {
-      if (list_pro[i] === 'dmg') document.getElementById('fairy_dmg').innerHTML = '伤害<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
-      else if (list_pro[i] === 'critdmg') document.getElementById('fairy_critdmg').innerHTML = '暴伤<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
-      else if (list_pro[i] === 'acu') document.getElementById('fairy_acu').innerHTML = '命中<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
-      else if (list_pro[i] === 'eva') document.getElementById('fairy_eva').innerHTML = '回避<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
-      else if (list_pro[i] === 'arm') document.getElementById('fairy_arm').innerHTML = '护甲<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      if (list_pro[i] === 'dmg') document.getElementById('fairy_dmg').innerHTML = lib_language.dmg + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'critdmg') document.getElementById('fairy_critdmg').innerHTML = lib_language.critdmg + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'acu') document.getElementById('fairy_acu').innerHTML = lib_language.acu + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'eva') document.getElementById('fairy_eva').innerHTML = lib_language.eva + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
+      else if (list_pro[i] === 'arm') document.getElementById('fairy_arm').innerHTML = lib_language.arm + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
     }
   }
   changeEnvironment()
