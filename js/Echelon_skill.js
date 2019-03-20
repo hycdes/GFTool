@@ -102,6 +102,16 @@ function describe_m82a1 (ratio, time_init, time_interval, snipe_num, labels) { /
   Describe.labels = labels
   return Describe
 }
+function describe_falcon (ratio, time_init, time_interval, snipe_num, labels) { // 夕阳隼
+  var Describe = {}
+  Describe.name = 'falcon'
+  Describe.ratio = ratio
+  Describe.time_init = time_init
+  Describe.time_interval = time_interval
+  Describe.snipe_num = snipe_num
+  Describe.labels = labels
+  return Describe
+}
 
 function describe_karm1891 () {
   var Describe = {}
@@ -244,6 +254,11 @@ function describe_mustcrit () {
 function describe_saiga () {
   var Describe = {}
   Describe.name = 'saiga'
+  return Describe
+}
+function describe_falcon_getbullet () {
+  var Describe = {}
+  Describe.name = 'falcon_getbullet'
   return Describe
 }
 
@@ -415,6 +430,8 @@ lib_describe.set('karm1891', describe_karm1891()) // 玛尔斯号角
 lib_describe.set('karm9138', describe_karm9138()) // 墨尔斯假面
 lib_describe.set('iws2000_reset', describe_iws2000reset()) // 巨鹰攻势重置普攻
 lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless')) // 伪神的启示
+lib_describe.set('falcon', describe_falcon(2.5, 2, 0, 1, 'armless/crit/evaless')) // 夕阳隼
+lib_describe.set('falcon_getbullet', describe_falcon_getbullet()) // 夕阳隼，特殊弹装填
 lib_describe.set('m200', describe_snipe(2, 0, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
 lib_describe.set('thunder', describe_snipe(-1, 1, 2, 2, 'armless/critless/eva')) // 临界点射击，倍率-1表示要分别判断
@@ -703,6 +720,10 @@ lib_skill.set(211, [createSkill(6, 8, 5, lib_describe.get('srs'))])
 lib_skill.set(222, [createSkill(10, 16, 0, lib_describe.get('tac50'))])
 lib_skill.set(231, [createSkill(6, 8, 0, lib_describe.get('m82a1'))])
 lib_skill.set(257, [createSkill(6, 16, 9, lib_describe.get('m200'))])
+lib_skill.set(256, [
+  createSkill(6, 10, 0, lib_describe.get('falcon_getbullet')),
+  createSkill(6, 1, 0, lib_describe.get('falcon')),
+])
 lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
 
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])

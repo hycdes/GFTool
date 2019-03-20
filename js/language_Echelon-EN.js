@@ -80,6 +80,7 @@ var lib_language = {
   NAME_2002: 'Elphelt',
   NAME_2008: 'Seele',
   NAME_161: 'Type 97 Shotgun',
+  NAME_256: 'Falcon',
 
   equipNAME_0: 'No equipment',
   equipNAME_12: 'Telescope Sight',

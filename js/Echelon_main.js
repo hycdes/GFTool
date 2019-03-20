@@ -191,6 +191,9 @@ function getDPS () {
           Set_Special.set('jericho_standset', (Set_Special.get('jericho_standset')).concat(i))
         }
       }
+      if (list_tdoll[i][1].ID === 256) { // 隼初始1发特殊子弹
+        Set_Special.set('falcon_' + i, 0)
+      }
     }
   }
   if (!Set_Special.get('can_add_python')) { // 有蟒蛇存在
@@ -327,8 +330,8 @@ function getDPS () {
   }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
-      if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6) {
-        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs')) // MG和SG上弹
+      if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6 || list_tdoll[i][1].ID === 256) {
+        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs')) // MG和SG上弹，以及RF隼
         if (list_tdoll[i][1].ID === 253) { // 刘易斯开场第一层buff
           Set_Special.set('angel_strength' + i, 1)
           Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
@@ -533,8 +536,11 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
         }
         var base_acu = current_Info.get('acu') // 基础命中
+        if (list_tdoll[stand_num][1].ID === 256) { // 隼：特殊子弹命中增加
+          if (Set_Special.get('falcon_' + stand_num) > 0) base_acu *= Math.pow(1.18, Set_Special.get('falcon_' + stand_num))
+        }
         if (list_tdoll[stand_num][1].ID === 194) { // K2-debuff减命中
-          if (Set_Special.get('k2_temp_' + stand_num) > 15)  base_acu *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15)
+          if (Set_Special.get('k2_temp_' + stand_num) > 15) base_acu *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15)
         }
         if (list_tdoll[stand_num][1].ID === 245 && Set_Special.get('p90_' + stand_num) > 0) { // P90灰鼠发动，必定暴击和命中
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
@@ -593,6 +599,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
                 if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
               }
             }
+          }
+          if (list_tdoll[stand_num][1].ID === 256) { // 隼：特殊子弹增加伤害18%，普通射击1.5倍
+            if (Set_Special.get('falcon_' + stand_num) > 0) {
+              base_dmg *= Math.pow(1.18, Set_Special.get('falcon_' + stand_num))
+            }
+            base_dmg *= 1.5
           }
           var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
           if (current_Info.get('type') === 6) {
@@ -675,7 +687,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         }
       }
       // 攻击间隔或者换弹判断
-      if (current_Info.get('type') != 5 && current_Info.get('type') != 6) { // HG/AR/SMG/RF
+      if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && list_tdoll[stand_num][1].ID != 256) { // HG/AR/SMG/RF 并排除 隼
         if ((list_tdoll[stand_num][1].ID === 73 || list_tdoll[stand_num][1].ID === 237) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
         else if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手120射速
           s_t[1] = 11
@@ -747,6 +759,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             } else {
               reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
             }
+          } else if (current_Info.get('type') === 4 && list_tdoll[stand_num][1].ID === 256) { // 隼的换弹
+            reload_frame = Math.floor(3600 / (current_Info.get('rof') + 10))
           }
           if (Set_Special.get('jericho_exist') === true) {
             var jericho_standset = Set_Special.get('jericho_standset')
@@ -1171,6 +1185,31 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('saiga_' + stand_num, 3)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
+  else if (skillname === 'falcon') { // 夕阳隼：狙击
+    Set_Special.set('saiga_' + stand_num, 3)
+    if (Set_Special.get('falcon_' + stand_num) > 0) {
+      var ratio = (s_t[0].Describe).ratio
+      var snipe_num = (s_t[0].Describe).snipe_num
+      var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
+      var time_interval = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval
+      var labels = (s_t[0].Describe).labels
+      Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
+      Set_Special.set('snipe_num_' + stand_num, snipe_num)
+      Set_Special.set('snipe_interval_' + stand_num, time_interval)
+      Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
+      changeStatus(stand_num, 'snipe', labels, ratio, time_init)
+      Set_Special.set('falcon_' + stand_num, (Set_Special.get('falcon_' + stand_num) - 1))
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+    } else {
+      s_t[1] = 0 // 等待装填
+    }
+  }
+  else if (skillname === 'falcon_getbullet') {
+    if (Set_Special.get('falcon_' + stand_num) < 2) {
+      Set_Special.set('falcon_' + stand_num, Set_Special.get('falcon_' + stand_num) + 1)
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -1569,9 +1608,13 @@ function rof_to_frame (num_tn, base_rof, ID) {
   var str_tn = num_to_name(num_tn)
   var shootframe = 100
   if (str_tn == 'hg' || str_tn == 'ar' || str_tn == 'smg' || str_tn == 'rf') {
-    if (base_rof >= 120) shootframe = 12
-    else if (base_rof <= 15) shootframe = 100
-    else shootframe = Math.floor(1500 / base_rof)
+    if (ID === 256) {
+      shootframe = 30
+    } else {
+      if (base_rof >= 120) shootframe = 12
+      else if (base_rof <= 15) shootframe = 100
+      else shootframe = Math.floor(1500 / base_rof)
+    }
   } else if (str_tn === 'mg') {
     if (ID === 77 || ID === 85 || ID === 109 || ID === 173) { // 连珠终结、暴动宣告
       shootframe = 11

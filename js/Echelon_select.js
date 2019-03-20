@@ -244,6 +244,7 @@ function changeSelectItems () {
       str_items += '<option value=230>No.230 OBR</option>'
       str_items += '<option value=241>No.241 RT-20</option>'
       str_items += '<option value=255>No.255 ' + lib_language.NAME_255 + '</option>'
+      str_items += '<option value=256>No.256 ' + lib_language.NAME_256 + '</option>'
     } else if (num_star === 2) {
       str_items += '<option value=40 selected>No.40 SVT-38</option>'
       str_items += '<option value=41>No.41 ' + lib_language.NAME_41 + '</option>'

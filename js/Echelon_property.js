@@ -308,6 +308,7 @@ lib_affect.set(252, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // KSVK
 lib_affect.set(253, createAffect('rru/rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.15])) // 刘易斯
 lib_affect.set(254, createAffect('rr/rrdd/', 'sg', ['dmg', 'acu'], [0.1, 0.15])) // UKM-2000
 lib_affect.set(255, createAffect('ru/r/', 'hg', ['cld'], [0.12])) // Scout
+lib_affect.set(256, createAffect('rd/r/', 'hg', ['cld'], [0.12])) // Falcon
 lib_affect.set(257, createAffect('rd/r/', 'hg', ['cld'], [0.18])) // M200
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
@@ -591,6 +592,7 @@ lib_property.set(252, createProperty(158, 78, 30, 31, 0, 440, 0.4, -1))
 lib_property.set(253, createProperty(102, 31, 31, 116, 0, 950, 0.05, 10))
 lib_property.set(254, createProperty(90, 26, 26, 115, 0, 845, 0.05, 11))
 lib_property.set(255, createProperty(158, 78, 28, 27, 0, 450, 0.4, -1))
+lib_property.set(256, createProperty(140, 71, 28, 32, 0, 440, 0.4, 2))
 lib_property.set(257, createProperty(145, 96, 31, 34, 0, 440, 0.4, -1))
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))

@@ -12,11 +12,6 @@ var lib_language = {
   UI_not_2_python: ' *不能添加两个蟒蛇',
   UI_not_2_carcano: ' *不能添加两个CarcanoM1891',
 
-
-
-
-
-
   NAME_1: '柯尔特左轮',
   NAME_4: '蟒蛇',
   NAME_5: '纳甘左轮',
@@ -74,6 +69,7 @@ var lib_language = {
   NAME_249: '62式',
   NAME_253: '刘易斯',
   NAME_255: '侦察者',
+  NAME_256: '隼',
   NAME_2001: '诺艾尔',
   NAME_2002: '艾尔菲尔特',
   NAME_2003: '琪亚娜',
