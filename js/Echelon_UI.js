@@ -442,7 +442,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
   document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
   document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
   if (ID <= 0) { // 没选中
-    document.getElementById('info_name').innerHTML = lib_language.pickblock
+    document.getElementById('info_name').innerHTML = lib_language.UI_pickblock
     document.getElementById('info_num').innerHTML = '# -'
     document.getElementById('info_type').innerHTML = '-'
     document.getElementById('info_hp').innerHTML = lib_language.hp + ' -'
@@ -591,7 +591,7 @@ function addTdoll () { // 添加战术人形
     if (ID === 4) Set_Special.set('can_add_python', false)
     if (ID === 197) Set_Special.set('can_add_karm1891', false)
     else if (ID === 1055) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [伸冤者印记] 使用炮击'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_55 + '] ' + lib_language.DESCRIBE_55
     }
     else if (ID === 1039) {
       var str_html = ''
@@ -605,47 +605,47 @@ function addTdoll () { // 添加战术人形
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 2006) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' 德丽莎</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [圣光制裁] 敌人进入制裁范围'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_2006 + '</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_2006 + '] ' + lib_language.DESCRIBE_2006
     }
     else if (ID === 102) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' UMP40</h4><p>'
-      str_html += '[烙印过载] <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_0" checked> 默认</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_1"> 过载</label>'
+      str_html += '[' + lib_language.skillNAME_102 + '] <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_0" checked> ' + lib_language.DESCRIBE_102_1 + '</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_1"> ' + lib_language.DESCRIBE_102_2 + '</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 180) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
     }
     else if (ID === 192) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [贯穿射击] 贯穿所有敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
     }
     else if (ID === 252) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [震荡冲击弹] 溅射所有敌人'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_252 + '] ' + lib_language.DESCRIBE_252
     }
     else if (ID === 194) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' K2</h4>'
-      str_html += '<h5>[热力过载] 启动状态</h5>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_1" checked> 自动释放</label></p>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_2"><span style="color:red"> 持续Fever(三连发)</span></label></p>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_3"><span style="color:orange"> 持续Note(单点)</span></label></p>'
+      str_html += '<h5>[' + lib_language.skillNAME_194 + '] ' + lib_language.DESCRIBE_194_0 + '</h5>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_1" checked> ' + lib_language.DESCRIBE_194_1 + '</label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_194_2 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_3"><span style="color:orange"> ' + lib_language.DESCRIBE_194_3 + '</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 213) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' C-MS</h4>'
-      str_html += '<h5>[心情链环] 挂载状态</h5>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> 亚音速弹(+65%回避)</span></label></p>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> 勺尖弹(+85%伤害)</span></label></p>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_3"><span style="color:orange"> 标准弹(+200%命中)</span></label></p>'
+      str_html += '<h5>[' + lib_language.skillNAME_213 + '] ' + lib_language.DESCRIBE_213_0 + '</h5>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> ' + lib_language.DESCRIBE_213_1 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_213_2 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_3"><span style="color:orange"> ' + lib_language.DESCRIBE_213_3 + '</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 231) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' M82A1</h4><p>'
-      str_html += '[伪神的启示] 战斗胜场 <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0</label>'
+      str_html += '[' + lib_language.skillNAME_231 + '] ' + lib_language.DESCRIBE_231 + ' <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_1"> 1</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_2"> 2</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_3"> 3</label>'
@@ -655,28 +655,28 @@ function addTdoll () { // 添加战术人形
     else if (ID === 236) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' K11</h4><p>'
-      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 30%">倍率</td><td style="width: 50%">'
-      str_html += '<input class="form-control input-sm" placeholder="输入整数" id="special_k11_' + num_pickblock + '" onblur=inputCheck_k11('
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 30%">' + lib_language.DESCRIBE_236 + '</td><td style="width: 50%">'
+      str_html += '<input class="form-control input-sm" placeholder="' + lib_language.INPUT_PI + '" id="special_k11_' + num_pickblock + '" onblur=inputCheck_k11('
       str_html += "'" + 'special_k11_' + num_pickblock + "'"
-      str_html += ') value="28"></td><td>倍</td></tr></tbody></table>'
+      str_html += ') value="28"></td><td>' + lib_language.DESCRIBE_236 + '</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 238) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' 88式</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [懒惰的怒火] 轻机枪模式'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_238 + '</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_238 + '] ' + lib_language.DESCRIBE_238
     }
     else if (ID === 243) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' 64式自</h4><p>'
-      str_html += '[未来预警] 发动3秒后 <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_0" checked> 增伤55%</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_1"> 护盾25</label>'
+      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_243 + '</h4><p>'
+      str_html += '[' + lib_language.skillNAME_243 + '] ' + lib_language.DESCRIBE_243_0 + ' <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_0" checked> ' + lib_language.DESCRIBE_243_1 + '</label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_1"> ' + lib_language.DESCRIBE_243_2 + '</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 251) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' X95</h4><p>'
-      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">花之锁增伤</td><td style="width: 50%">'
-      str_html += '<input class="form-control input-sm" placeholder="输入0~300" id="special_x95_' + num_pickblock + '" onblur=inputCheck_x95('
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">' + lib_language.DESCRIBE_251 + '</td><td style="width: 50%">'
+      str_html += '<input class="form-control input-sm" placeholder="0~300" id="special_x95_' + num_pickblock + '" onblur=inputCheck_x95('
       str_html += "'" + 'special_x95_' + num_pickblock + "'"
       str_html += ') value="150"></td><td>%</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
@@ -816,30 +816,30 @@ function changeEnvironment () {
     document.getElementById('enemy_forcefield').value = 0
   }
   if (daytime === 1) {
-    document.getElementById('envi_day').innerHTML = '昼战'
+    document.getElementById('envi_day').innerHTML = lib_language.daytime
     document.getElementById('envi_night').innerHTML = ''
   } else if (daytime === 2) {
     document.getElementById('envi_day').innerHTML = ''
-    document.getElementById('envi_night').innerHTML = '夜战'
+    document.getElementById('envi_night').innerHTML = lib_language.night
   }
   if (fairy_no > 0) {
     var fairyidx = document.getElementById('select_fairy').selectedIndex
     var fairyname = (document.getElementById('select_fairy')[fairyidx].text).split(' ')[1]
     document.getElementById('envi_fairy').innerHTML = fairyname
-  } else document.getElementById('envi_fairy').innerHTML = '无妖精'
+  } else document.getElementById('envi_fairy').innerHTML = lib_language.fairy_0
   if (talent_no > 0) {
     var talentidx = document.getElementById('select_talent').selectedIndex
     var talentname = document.getElementById('select_talent')[talentidx].text
     document.getElementById('envi_talent').innerHTML = talentname
-  } else document.getElementById('envi_talent').innerHTML = '无天赋发动'
+  } else document.getElementById('envi_talent').innerHTML = lib_language.talent_0
   document.getElementById('envi_alltime').innerHTML = document.getElementById('time_battle').value
   document.getElementById('envi_contertime').innerHTML = document.getElementById('time_init').value
   document.getElementById('envi_alldmg').innerHTML = totaldamage_buffer
   if (document.getElementById('switch_normal').checked) {
-    document.getElementById('envi_ene_type').innerHTML = '普通'
+    document.getElementById('envi_ene_type').innerHTML = lib_language.enemy_normal
     document.getElementById('envi_ene_type').style = 'color:black'
   } else if (document.getElementById('switch_elite').checked) {
-    document.getElementById('envi_ene_type').innerHTML = '精英'
+    document.getElementById('envi_ene_type').innerHTML = lib_language.enemy_elite
     document.getElementById('envi_ene_type').style = 'color:dodgerblue'
   } else if (document.getElementById('switch_boss').checked) {
     document.getElementById('envi_ene_type').innerHTML = 'BOSS'

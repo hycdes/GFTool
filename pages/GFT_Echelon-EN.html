@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>少女前线-阵形模拟器 by 命运の乐章</title>
+    <title>Girls' Frontline Tools-Echelon simulator by FatalChapter</title>
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -66,7 +66,7 @@
             margin: left;
         }
     </style>
-    <script type="text/javascript" src="../js/Echelon_guide_CN.js"></script>
+    <script type="text/javascript" src="../js/Echelon_guide_EN.js"></script>
 </head>
 
 <body>
@@ -80,7 +80,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+                <a class="navbar-brand" href="index-EN.html"><span style="color:#FF0066">Girls' Frontline Tools</span> by FatalChapter</a>
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -95,13 +95,13 @@
                                 </span>
                             </div>
                         </li>
-                        <li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>
-                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库</a></li>
-                        <li><a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器</a></li>
-                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
-                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
-                        <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
-                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
+                        <li><a href="index-EN.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> Database</a></li>
+                        <li><a href="GFT_LogiRank-EN.html"><i class="fa fa-briefcase fa-fw"></i> Logistics ranking</a></li>
+                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> Levelup calculator</a></li>
+                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> IOP simulator</a></li>
+                        <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> Chip calculator</a></li>
+                        <li><a href="GFT_Echelon-EN.html"><i class="glyphicon glyphicon-screenshot"></i> &nbspEchelon simulator</a></li>
                     </ul>
                 </div>
             </div>
@@ -119,7 +119,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">阵形模拟器
+                            <h1 class="page-header">Echelon simulator
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button>
                                 <!-- <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button> -->
@@ -130,12 +130,12 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    梯队设置
+                                    Echelon setting
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
-                                        <h4>梯队预览<span style="color:red" id="alert_display"></span></h4>
-                                        <h5>点击格点<span style="color:orangered">增删人形</span>，修改人形直接<span style="color:orangered">添加即可覆盖</span></h5>
+                                        <h4>Echelon preview<span style="color:red" id="alert_display"></span></h4>
+                                        <h5>Click a block to <span style="color:orangered">add/delete T-doll</span>, press <span style="color:orangered">Place T-doll</span> to cover</h5>
                                         <div class="table-responsive">
                                             <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                                 <tbody>
@@ -163,23 +163,23 @@
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#make_tdoll" data-toggle="tab">人形设定</a>
+                                                <li class="active"><a href="#make_tdoll" data-toggle="tab">T-doll setting</a>
                                                 </li>
-                                                <li><a href="#make_fairy" data-toggle="tab">妖精设定</a>
+                                                <li><a href="#make_fairy" data-toggle="tab">Fairy setting</a>
                                                 </li>
-                                                <li><a href="#make_hf" data-toggle="tab">重装部队设定</a>
+                                                <li><a href="#make_hf" data-toggle="tab">Heavy-fire force setting</a>
                                                 </li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="make_tdoll">
                                                     <div class="col-lg-6">
-                                                        <h4>人形信息</h4>
-                                                        <h5>点击预览图标<span style="color:orangered">改变好感度</span></h5>
+                                                        <h4>T-doll info</h4>
+                                                        <h5>Press chibi to <span style="color:orangered">change affection</span></h5>
                                                         <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
                                                             <tr>
                                                                 <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
-                                                                <td class="td_info" id='info_name'>请点选一个<b><span style="color: red">九宫格</span></b></td>
+                                                                <td class="td_info" id='info_name'><b>Click a <span style="color: red">block</span> first</b></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td_info"></td>
@@ -190,24 +190,24 @@
                                                                 <td class="td_info" id='info_type'>-</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_hp'>生命 -</td>
-                                                                <td class="td_info" id='info_cs'>弹量 -</td>
+                                                                <td class="td_info" id='info_hp'>hp -</td>
+                                                                <td class="td_info" id='info_cs'>clipsize -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_dmg'>伤害 -</td>
-                                                                <td class="td_info" id='info_rof'>射速 -</td>
+                                                                <td class="td_info" id='info_dmg'>dmg -</td>
+                                                                <td class="td_info" id='info_rof'>rof -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_acu'>命中 -</td>
-                                                                <td class="td_info" id='info_eva'>回避 -</td>
+                                                                <td class="td_info" id='info_acu'>acu -</td>
+                                                                <td class="td_info" id='info_eva'>eva -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_crit'>暴击 -</td>
-                                                                <td class="td_info" id='info_critdmg'>暴伤 -</td>
+                                                                <td class="td_info" id='info_crit'>crit -</td>
+                                                                <td class="td_info" id='info_critdmg'>critdmg -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_arm'>护甲 -</td>
-                                                                <td class="td_info" id='info_ap'>穿甲 -</td>
+                                                                <td class="td_info" id='info_arm'>arm -</td>
+                                                                <td class="td_info" id='info_ap'>ap -</td>
                                                             </tr>
                                                         </table>
                                                         <table class="table_other table-bordered table-hover" style="width:240px" id="table_affect">
@@ -235,14 +235,14 @@
                                                         <table class="table_other table-bordered table-hover" style="width:240px">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td style="height: 30px" id='a_have'>放置人形后才能显示受到的增益</td>
+                                                                    <td style="height: 30px" id='a_have'>Place a T-doll to show effect</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!--SETTING-->
                                                     <div class="col-lg-6">
-                                                        <h4>人形</h4>
+                                                        <h4>T-doll</h4>
                                                         <table class="table_other table-bordered table-hover" style="width:210px">
                                                             <tbody>
                                                                 <tr>
@@ -277,8 +277,8 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <h4>装备</h4>
-                                                        <h5>选择一个装备栏<span style="color:orangered">更改装备</span></h5>
+                                                        <h4>Equipment</h4>
+                                                        <h5>Select a bar to <span style="color:orangered">change equipment</span></h5>
                                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                                             <tbody>
                                                                 <tr>
@@ -300,18 +300,18 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <h5>修改人形属性后<span style="color:orangered">添加人形</span>直接覆盖修改</h5>
-                                                        <h5>部分人形技能如何表现在<span style="color:orangered">特殊设定</span>中修改</h5>
+                                                        <h5>After modification press <span style="color:orangered">Place T-doll</span> to cover</h5>
+                                                        <h5>How some special skills work set in <span style="color:orangered">Special setting</span></h5>
                                                         <p>
-                                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形</button>
-                                                            <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>删除人形</button>
+                                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>Place T-doll</button>
+                                                            <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>Delete T-doll</button>
                                                         </p>
                                                     </div>
 
                                                 </div>
                                                 <div class="tab-pane fade" id="make_fairy">
                                                     <div class='col-lg-4'>
-                                                        <h4>妖精选择</h4>
+                                                        <h4>Fairy select</h4>
                                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                                             <tbody>
                                                                 <tr>
@@ -375,29 +375,29 @@
                                                         </table>
                                                     </div>
                                                     <div class='col-lg-8'>
-                                                        <h4>属性</h4>
+                                                        <h4>Property</h4>
                                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td id="fairy_dmg">伤害 -</td>
+                                                                    <td id="fairy_dmg">dmg -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_critdmg">暴伤 -</td>
+                                                                    <td id="fairy_critdmg">critdmg -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_acu">命中 -</td>
+                                                                    <td id="fairy_acu">acu -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_eva">回避 -</td>
+                                                                    <td id="fairy_eva">eva -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_arm">护甲 -</td>
+                                                                    <td id="fairy_arm">arm -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_skill">技能 -</td>
+                                                                    <td id="fairy_skill">skill -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><input type="checkbox" id="fairyskill_active" disabled> 发动技能</td>
+                                                                    <td><input type="checkbox" id="fairyskill_active" disabled> skill active</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -405,7 +405,7 @@
 
                                                 </div>
                                                 <div class="tab-pane fade" id="make_hf">
-                                                    <h4>还早着呢！！！</h4>
+                                                    <h4>To be done</h4>
 
                                                 </div>
                                             </div>
@@ -419,7 +419,7 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default" style="background:url(../img/Produce-16lab.png) no-repeat right 100px top 100px;">
                                 <div class="panel-heading">
-                                    结果
+                                    Results
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
@@ -427,17 +427,17 @@
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#Setting1" data-toggle="tab">基本设定</a>
+                                                <li class="active"><a href="#Setting1" data-toggle="tab">Basic setting</a>
                                                 </li>
-                                                <li><a href="#Setting2" data-toggle="tab">特殊设定</a>
+                                                <li><a href="#Setting2" data-toggle="tab">Special setting</a>
                                                 </li>
-                                                <li><a href="#Setting3" data-toggle="tab">其他</a>
+                                                <li><a href="#Setting3" data-toggle="tab">Others</a>
                                                 </li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Setting1">
-                                                    <h4>全局</h4>
+                                                    <h4>Global</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -449,26 +449,26 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 30%">接敌时间</td>
+                                                                <td style="width: 30%">Encounter</td>
                                                                 <td style="width: 70%">
                                                                     <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">战斗时间</td>
+                                                                <td style="width: 30%">Battle</td>
                                                                 <td style="width: 70%">
                                                                     <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h4>敌人</h4>
+                                                    <h4>Enemy</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="height: 30px">
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>普通</b></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>精英</b></span></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>Normal</b></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>Elite</b></span></label>
                                                                     <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
                                                                 </td>
                                                             </tr>
@@ -477,41 +477,41 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 30%">回避</td>
+                                                                <td style="width: 30%">eva</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_eva' value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">护甲</td>
+                                                                <td style="width: 30%">arm</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_arm' value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">单组编制</td>
+                                                                <td style="width: 30%">formation</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="1~5" id='enemy_form' value=1 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">组数</td>
+                                                                <td style="width: 30%">num</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_num' value=1 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">力场(没做)</td>
+                                                                <td style="width: 30%">force-field</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_forcefield' value=0 disabled>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting2">
-                                                    <h4>全体增益</h4>
-                                                    <input type="checkbox" id="check_init_critmax"> 全员满暴击
+                                                    <h4>BUFF all</h4>
+                                                    <input type="checkbox" id="check_init_critmax"> Crit max
                                                     <p id="special_num0"></p>
                                                     <p id="special_num1"></p>
                                                     <p id="special_num2"></p>
@@ -523,35 +523,35 @@
                                                     <p id="special_num8"></p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting3">
-                                                    <h4>说明和参考</h4>
-                                                    <p> * 射击及狙击弹道瞬间到达</p>
-                                                    <p> * 榴弹准备至出膛设定为1秒</p>
-                                                    <p>伤害判定流程和公式 <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA链接]</span></a></p>
-                                                    <p>人物和装备素材来源 <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[英文维基链接]</span></a></p>
-                                                    <h4>特别感谢</h4>
-                                                    <p>人物属性/影响格数据填写：@AsLegend</p>
-                                                    <p>游戏机制细节指导：@白金·世界</p>
-                                                    <p>BUG排查：@a232430</p>
+                                                    <h4>Note and reference</h4>
+                                                    <p> * Shoot/Snipe bullet arrive in no time</p>
+                                                    <p> * Grenade prepare to launch cost 1s</p>
+                                                    <p>Game mechanism <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA link]</span></a></p>
+                                                    <p>T-doll/equipment resources <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[EN-wiki link]</span></a></p>
+                                                    <h4>Special thanks</h4>
+                                                    <p>T-doll property/block-effect data: @AsLegend</p>
+                                                    <p>Game mechanism guidance: @白金·世界</p>
+                                                    <p>Debug support: @a232430</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4>输出计算</h4>
+                                        <h4>Damage statistics</h4>
                                         <p>
-                                            <button type="button" class="btn btn-outline btn-info" onclick="getResult(1)">计算1次</button>
-                                            <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100)">100次平均</button>
+                                            <button type="button" class="btn btn-outline btn-info" onclick="getResult(1)">Simu once</button>
+                                            <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100)">100 times avg</button>
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h4>输出曲线</h4>
+                                        <h4>Damage chart</h4>
                                         <p>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">手机竖屏</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(700)">常规</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(900)">最宽</button>
+                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">Mobile vertical screen</button>
+                                            <button type="button" class="btn btn-default" onclick="setWidth(700)">Default</button>
+                                            <button type="button" class="btn btn-default" onclick="setWidth(900)">Max width</button>
                                         </p>
                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 50%">宽度(300~900)</td>
+                                                    <td style="width: 50%">Width(300~900)</td>
                                                     <td style="width: 40%">
                                                         <input class="form-control input-sm" placeholder="输入300~900整数" id="container_len" value=700 onblur="setWidth('input')">
                                                     </td>
@@ -559,25 +559,25 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <h5><b>[战场环境]</b>
-                                            <span style="color:darkorange" id='envi_day'>昼战</span><span style="color:darkblue" id='envi_night'></span>
-                                            <span id='envi_fairy'>无妖精</span>
-                                            <span id='envi_talent'>无天赋发动</span>
-                                            <span id='envi_fairyskill'>无妖精技能</span>
+                                        <h5><b>[Battlefield environment]</b>
+                                            <span style="color:darkorange" id='envi_day'>Daytime</span><span style="color:darkblue" id='envi_night'></span>
+                                            <span id='envi_fairy'>No fairy</span>
+                                            <span id='envi_talent'>No talent</span>
+                                            <span id='envi_fairyskill'>No skill</span>
                                             <span style="color: red" id="envi_allpro"></span>
                                         </h5>
-                                        <h5><b>[敌人属性]</b>
-                                            类型 [ <span style="color:black" id='envi_ene_type'>普通</span> ]
-                                            回避 [ <span style="color:green" id='envi_ene_eva'>0</span> ]
-                                            护甲 [ <span style="color:green" id='envi_ene_arm'>0</span> ]
-                                            单组编制 [ <span style="color:green" id='envi_ene_form'>1</span> ]
-                                            组数 [ <span style="color:green" id='envi_ene_num'>1</span> ]
-                                            力场 [ <span style="color:green" id='envi_ene_ff'>0</span> ]
+                                        <h5><b>[Enemy]</b>
+                                            Type [ <span style="color:black" id='envi_ene_type'>Normal</span> ]
+                                            eva [ <span style="color:green" id='envi_ene_eva'>0</span> ]
+                                            arm [ <span style="color:green" id='envi_ene_arm'>0</span> ]
+                                            foramtion [ <span style="color:green" id='envi_ene_form'>1</span> ]
+                                            num [ <span style="color:green" id='envi_ene_num'>1</span> ]
+                                            forcefireld [ <span style="color:green" id='envi_ene_ff'>0</span> ]
                                         </h5>
-                                        <h5><b>[战斗数据]</b>
-                                            总输出 [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
-                                            战斗总时间 [ <span style="color:green" id='envi_alltime'>50</span> ]
-                                            接敌时间 [ <span style="color:green" id='envi_contertime'>0</span> ]
+                                        <h5><b>[Statistics]</b>
+                                            Total damage [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
+                                            Battle time [ <span style="color:green" id='envi_alltime'>50</span> ]
+                                            Encounter [ <span style="color:green" id='envi_contertime'>0</span> ]
                                         </h5>
                                         <div id="container" style="width: 700px"></div>
                                     </div>
