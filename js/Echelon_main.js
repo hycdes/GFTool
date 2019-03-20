@@ -1083,7 +1083,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   }
   else if (skillname === 'mdr') {
     if (stand_num === 2 || stand_num === 5 || stand_num === 8) {
-      // 贴膜
+      changeStatus(stand_num, 'self', 'dmg', '0.45', 10)
+      changeStatus(stand_num, 'self', 'rof', '0.22', 10)
     } else if (list_tdoll[stand_num + 1][1] != null) {
       // 贴膜
     } else {
