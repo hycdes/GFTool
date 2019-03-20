@@ -426,19 +426,11 @@ function manageDeleteButton () {
   if (parseInt(DeleteSelectId.value) > 0) document.getElementById('deleteChipButton').disabled = false
   else document.getElementById('deleteChipButton').disabled = true
 }
-function addBlock (typeInfo) { // 增加格数
-  if (typeInfo === 1) block_dmg++
-  else if (typeInfo === 2) block_dbk++
-  else if (typeInfo === 3) block_acu++
-  else if (typeInfo === 4) block_fil++
-  refreshPreview()
-  manageButton()
-}
-function subBlock (typeInfo) { // 减少格数
-  if (typeInfo === 1) block_dmg--
-  else if (typeInfo === 2) block_dbk--
-  else if (typeInfo === 3) block_acu--
-  else if (typeInfo === 4) block_fil--
+function setBlock (typeInfo, value) { // 设定格数
+  if (typeInfo === 1) block_dmg = value
+  else if (typeInfo === 2) block_dbk = value
+  else if (typeInfo === 3) block_acu = value
+  else if (typeInfo === 4) block_fil = value
   refreshPreview()
   manageButton()
 }
@@ -602,22 +594,19 @@ function changeBigImg (command) { // change preview and change property
   }
   refreshPreview()
 }
+function blockToValue(typeInfo, block) {
+    var value = block * [4.4, 12.7, 7.1, 5.7][typeInfo - 1]
+    if (block_class === 551 && [81,82,9,10,111,112,120,131,132].indexOf(block_shape) >= 0)
+        value *= 0.92
+    return Math.ceil(Math.ceil(value) * mul_property)
+}
 function refreshPreview () {
-  if (block_class === 551 && (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132)) {
-    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 0.92 * 4.4))
-    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 0.92 * 12.7))
-    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 0.92 * 7.1))
-    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 0.92 * 5.7))
-  } else {
-    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
-    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
-    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
-    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7))
+  for (var typeInfo = 1; typeInfo <= 4; typeInfo++) {
+      var className = ['SeDmgBt', 'SeDbkBt', 'SeAcuBt', 'SeFilBt'][typeInfo - 1]
+      var buttons = document.getElementsByClassName(className)
+      for (var i = 1; i < buttons.length; i++)
+          buttons[i].innerHTML = blockToValue(typeInfo, i)
   }
-  document.getElementById('AdTx1').innerHTML = block_dmg
-  document.getElementById('AdTx2').innerHTML = block_dbk
-  document.getElementById('AdTx3').innerHTML = block_acu
-  document.getElementById('AdTx4').innerHTML = block_fil
   manageButton()
 }
 function resetPage () {
@@ -632,53 +621,21 @@ function resetBlock () {
   manageButton()
 }
 function manageButton () {
-  var AdBt1 = document.getElementById('AdBt1')
-  var AdBt2 = document.getElementById('AdBt2')
-  var AdBt3 = document.getElementById('AdBt3')
-  var AdBt4 = document.getElementById('AdBt4')
-  var SbBt1 = document.getElementById('SbBt1')
-  var SbBt2 = document.getElementById('SbBt2')
-  var SbBt3 = document.getElementById('SbBt3')
-  var SbBt4 = document.getElementById('SbBt4')
   var AdLv = document.getElementById('AdLv')
   var SbLv = document.getElementById('SbLv')
-  AdBt1.disabled = false
-  AdBt2.disabled = false
-  AdBt3.disabled = false
-  AdBt4.disabled = false
-  SbBt1.disabled = false
-  SbBt2.disabled = false
-  SbBt3.disabled = false
-  SbBt4.disabled = false
-  AdLv.disabled = true
-  SbLv.disabled = true
-  if (parseInt(document.getElementById('ChipLevel').value) === 0) {
-    AdLv.disabled = false
-    SbLv.disabled = true
-  } else if (parseInt(document.getElementById('ChipLevel').value) === 20) {
-    AdLv.disabled = true
-    SbLv.disabled = false
-  } else {
-    AdLv.disabled = false
-    SbLv.disabled = false
-  }
+  AdLv.disabled = parseInt(document.getElementById('ChipLevel').value) === 20
+  SbLv.disabled = parseInt(document.getElementById('ChipLevel').value) === 0
+
   var addChipButtonId = document.getElementById('addChipButton')
-  addChipButtonId.disabled = true
-  var bn = 6
-  if (block_class === 551) bn = 5
-  if (block_dmg + block_dbk + block_acu + block_fil >= bn) {
-    AdBt1.disabled = true; AdBt2.disabled = true; AdBt3.disabled = true; AdBt4.disabled = true
-  } else {
-    if (block_dmg === bn - 1) AdBt1.disabled = true
-    if (block_dbk === bn - 1) AdBt2.disabled = true
-    if (block_acu === bn - 1) AdBt3.disabled = true
-    if (block_fil === bn - 1) AdBt4.disabled = true
+  addChipButtonId.disabled = (block_dmg + block_dbk + block_acu + block_fil) !== (block_class === 551 ? 5 : 6)
+
+  for (var typeInfo = 1; typeInfo <= 4; typeInfo++) {
+      var blocks = [block_dmg, block_dbk, block_acu, block_fil][typeInfo - 1]
+      var className = ['SeDmgBt', 'SeDbkBt', 'SeAcuBt', 'SeFilBt'][typeInfo - 1]
+      var buttons = document.getElementsByClassName(className)
+      for (var i = 0; i < buttons.length; i++)
+          buttons[i].classList.toggle("active", i === blocks);
   }
-  if (block_dmg === 0) SbBt1.disabled = true
-  if (block_dbk === 0) SbBt2.disabled = true
-  if (block_acu === 0) SbBt3.disabled = true
-  if (block_fil === 0) SbBt4.disabled = true
-  if (block_dmg + block_dbk + block_acu + block_fil === bn) addChipButtonId.disabled = false
 }
 function chartBack (typeInfo) {
   var line1 = document.getElementById('solutionLine1')
