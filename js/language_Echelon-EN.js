@@ -189,5 +189,9 @@ var lib_language = {
   ap: 'ap',
   cld: 'cld',
   night: 'Night',
-  daytime: 'Daytime'
+  daytime: 'Daytime',
+
+  // new
+  skillNAME_256: 'Sunset Falcon',
+  DESCRIBE_256: 'Do not use special bullets'
 }
