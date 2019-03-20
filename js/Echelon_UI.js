@@ -665,6 +665,9 @@ function addTdoll () { // 添加战术人形
     else if (ID === 238) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_238 + '</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_238 + '] ' + lib_language.DESCRIBE_238
     }
+    else if (ID === 256) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_256 + '</h4><input type="checkbox" id="special_falcon_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_256 + '] ' + lib_language.DESCRIBE_256
+    }
     else if (ID === 243) {
       var str_html = ''
       str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_243 + '</h4><p>'

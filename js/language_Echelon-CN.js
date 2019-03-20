@@ -188,5 +188,8 @@ var lib_language = {
   ap: '穿甲',
   cld: '冷却',
   night: '夜战',
-  daytime: '昼战'
+  daytime: '昼战',
+  // new
+  skillNAME_256: '夕阳隼',
+  DESCRIBE_256: '不使用特殊子弹'
 }
