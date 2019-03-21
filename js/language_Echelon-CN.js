@@ -42,6 +42,7 @@ var lib_language = {
   NAME_113: '谢尔久科夫',
   NAME_114: '维尔德 MkⅡ',
   NAME_115: '索米',
+  NAME_127: '79式',
   NAME_129: '95式',
   NAME_130: '97式',
   NAME_132: '59式',

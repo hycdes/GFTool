@@ -4,8 +4,8 @@ var filter_switch = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
-var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [], topologyLib_M2 = [], topologyLib_M2_6x6 = [], topologyLib_M2_6x5n5 = []
-var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [],topologyLibRefer_M2 = [], topologyLibRefer_M2_6x6 = [], topologyLibRefer_M2_6x5n5 = []
+var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [], topologyLib_M2 = [], topologyLib_M2_6x6 = [], topologyLib_M2_6x5n5 = [],topologyLib_AT4_6x6 = []
+var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [],topologyLibRefer_M2 = [], topologyLibRefer_M2_6x6 = [], topologyLibRefer_M2_6x5n5 = [],topologyLibRefer_AT4_6x6 = []
 var rules = ['InfinityFrost', 'FatalChapters']
 var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1, block_class = 56, block_shape = 9
 var chipNum = 0
@@ -750,6 +750,20 @@ function chartBack (typeInfo) {
       line8.innerHTML = '<td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback">'
       document.getElementById('M2_options').innerHTML = '<input type="checkbox" id="M2_can_unfill"> 允许空出1~3格(不使用五格2类)'
       break
+    case 5:
+      Process_Text_Dmg.innerHTML = '0/169'
+      Process_Text_Dbk.innerHTML = '0/261'
+      Process_Text_Acu.innerHTML = '0/190'
+      Process_Text_Fil.innerHTML = '0/90'
+      line1.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>'
+      line2.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td>'
+      line3.innerHTML = '<td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td>'
+      line4.innerHTML = '<td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td>'
+      line5.innerHTML = '<td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td>'
+      line6.innerHTML = '<td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td>'
+      line7.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td>'
+      line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>'
+      break
   }
 }
 function countMS (td1, td2) { return ((60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
@@ -767,6 +781,7 @@ function getTopology () {
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
   else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
   else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
+  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   var validSet
   var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]]
   var chipShape_5_2 = [[81, 0], [82, 0], [9, 0], [10, 0], [111, 0], [112, 0], [120, 0], [131, 0], [132, 0]]
@@ -809,6 +824,9 @@ function getTopology () {
   else if (HeavyfireType === 4) {
     validSet = searchValid(chipShape_6, chipShape_5.concat(chipShape_5_2), HeavyfireType)
   }
+  else if (HeavyfireType === 5) {
+    validSet = searchValid(chipShape_6, [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]], HeavyfireType)
+  }
   var allTopoNum = validSet.length
   // get topology
   for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
@@ -825,6 +843,7 @@ function getTopology () {
         topologySet.push(topologyLib_M2[validSet[num_topo]])
       }
     }
+    else if (HeavyfireType === 5) topologySet.push(topologyLib_AT4_6x6[validSet[num_topo]])
   }
   if (topologySet.length > 0) {
     if (filter_switch) { // show sort
@@ -917,6 +936,8 @@ function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
     searchlen[0] = topologyLibRefer_M2_6x6.length
     searchlen[1] = topologyLibRefer_M2_6x5n5.length
     searchlen[2] = topologyLibRefer_M2.length
+  } else if (HeavyfireType === 5) {
+    searchlen[0] = topologyLibRefer_AT4_6x6.length
   }
   if (HeavyfireType === 1) {
     for (var i = 0; i < searchlen[0]; i++) {
@@ -947,6 +968,10 @@ function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
       for (var i = 0; i < searchlen[2]; i++) {
         if (isPossible(chipShape_65, topologyLibRefer_M2[i], 28)) validSet.push(i) // M2 full with 552
       }
+    }
+  } else if (HeavyfireType === 5) {
+    for (var i = 0; i < searchlen[0]; i++) {
+      if (isPossible(chipShape_65, topologyLibRefer_AT4_6x6[i], 10)) validSet.push(i) // AT4 6x6
     }
   }
   return validSet
@@ -1000,6 +1025,12 @@ function showTopology (solution, HeavyfireType) {
         putChip(0, 0, 8, i, solution[i], htmlSet)
       }
       break
+    case 5:
+      var soluChipNum = solution.length
+      for (var i = 0; i < soluChipNum; i++) {
+        putChip(0, 0, 8, i, solution[i], htmlSet)
+      }
+      break
   }
   for (var i = 0; i < 8; i++) {
     var htmlText = ''
@@ -1036,6 +1067,7 @@ function showAnalyze () {
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
   else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
   else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
+  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   var AdTp = document.getElementById('AdTp')
   var SbTp = document.getElementById('SbTp')
   var AdCo = document.getElementById('AdCo')
@@ -1123,6 +1155,7 @@ function showAnalyze () {
       else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
       else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+      else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
       for (var c = 0; c < c_num; c++) {
         dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg
         dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk
@@ -1174,6 +1207,7 @@ function showAnalyze () {
       else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
       else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
       else if (HeavyfireType === 4) { dmg_blomax = 19; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 10; }
+      else if (HeavyfireType === 5) { dmg_blomax = 16; dbk_blomax = 8; acu_blomax = 10; fil_blomax = 6; }
       for (var c = 0; c < c_num; c++) {
         dmg_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDmg
         dbk_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDbk
@@ -1244,6 +1278,7 @@ function showAnalyze () {
       else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
       else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+      else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
       Process_Text_Dmg.innerHTML = 0 + '/' + dmg_max
       DmgAlert.innerHTML = ''
       Process_Bar_Dmg.style = ('width:0%')
@@ -1263,7 +1298,8 @@ function showAnalyze () {
       if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
       else if (HeavyfireType === 2) { dmg_blomax = 10; dbk_blomax = 4; acu_blomax = 7; fil_blomax = 17; }
       else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
-      else if (HeavyfireType === 3) { dmg_blomax = 19; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 10; }
+      else if (HeavyfireType === 4) { dmg_blomax = 19; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 10; }
+      else if (HeavyfireType === 5) { dmg_blomax = 16; dbk_blomax = 8; acu_blomax = 10; fil_blomax = 6; }
       Process_Text_Dmg.innerHTML = 0 + '/' + dmg_blomax
       DmgAlert.innerHTML = ''
       Process_Bar_Dmg.style = ('width:0%')
@@ -1398,10 +1434,12 @@ function compare_sumpro (solu_a, solu_b) {
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
   else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
   else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
+  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
   else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+  else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1434,10 +1472,12 @@ function compare_sumblo (solu_a, solu_b) {
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
   else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
   else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
+  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   if (HeavyfireType === 1) { dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
   else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
   else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
   else if (HeavyfireType === 4) { dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
+  else if (HeavyfireType === 5) { dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1467,6 +1507,7 @@ function compare_dmg (solu_a, solu_b) {
   else if (document.getElementById('HFSwitch2').checked === true) dmg_max = 106
   else if (document.getElementById('HFSwitch3').checked === true) dmg_max = 227
   else if (document.getElementById('HFSwitch4').checked === true) dmg_max = 206
+  else if (document.getElementById('HFSwitch5').checked === true) dmg_max = 169
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1481,6 +1522,7 @@ function compare_dbk (solu_a, solu_b) {
   else if (document.getElementById('HFSwitch2').checked === true) dbk_max = 130
   else if (document.getElementById('HFSwitch3').checked === true) dbk_max = 58
   else if (document.getElementById('HFSwitch4').checked === true) dbk_max = 60
+  else if (document.getElementById('HFSwitch5').checked === true) dbk_max = 261
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1495,6 +1537,7 @@ function compare_acu (solu_a, solu_b) {
   else if (document.getElementById('HFSwitch2').checked === true) acu_max = 120
   else if (document.getElementById('HFSwitch3').checked === true) acu_max = 90
   else if (document.getElementById('HFSwitch4').checked === true) acu_max = 97
+  else if (document.getElementById('HFSwitch5').checked === true) acu_max = 190
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1509,6 +1552,7 @@ function compare_fil (solu_a, solu_b) {
   else if (document.getElementById('HFSwitch2').checked === true) fil_max = 233
   else if (document.getElementById('HFSwitch3').checked === true) fil_max = 107
   else if (document.getElementById('HFSwitch4').checked === true) fil_max = 146
+  else if (document.getElementById('HFSwitch5').checked === true) fil_max = 90
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1588,12 +1632,14 @@ function sortSolution (sortType) {
   else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
   else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
   else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
+  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
   var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
   else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
+  else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
   var SolutionSelect = document.getElementById('SolutionSelect')
   var SSText = ''
   solutionSet = ignoreSolution(dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max)

@@ -1187,7 +1187,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   }
   else if (skillname === 'falcon') { // 夕阳隼：狙击
     Set_Special.set('saiga_' + stand_num, 3)
-    if (Set_Special.get('falcon_' + stand_num) > 0 && !document.getElementById('special_falcon_'+stand_num).checked) {
+    if (Set_Special.get('falcon_' + stand_num) > 0 && !document.getElementById('special_falcon_' + stand_num).checked) {
       var ratio = (s_t[0].Describe).ratio
       var snipe_num = (s_t[0].Describe).snipe_num
       var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init

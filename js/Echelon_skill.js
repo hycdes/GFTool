@@ -722,7 +722,7 @@ lib_skill.set(231, [createSkill(6, 8, 0, lib_describe.get('m82a1'))])
 lib_skill.set(257, [createSkill(6, 16, 9, lib_describe.get('m200'))])
 lib_skill.set(256, [
   createSkill(6, 10, 0, lib_describe.get('falcon_getbullet')),
-  createSkill(6, 1, 0, lib_describe.get('falcon')),
+  createSkill(6, 1, 0, lib_describe.get('falcon'))
 ])
 lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
 
