@@ -449,7 +449,7 @@ lib_describe.set('idw', describe_idw()) // 电光大狂欢
 lib_describe.set('m1911', describe_m1911()) // 绝境神枪手
 lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('contender', describe_contender()) // 断罪者魔弹
-lib_describe.set('hs2000', describe_property(['all'], ['dmg/acu'], ['0.35/0.35'])) // 反击者壁垒
+lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
 lib_describe.set('theresa', describe_theresa()) // 圣光制裁
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
@@ -491,7 +491,7 @@ lib_skill.set(166, [createSkill(6, 12, 0, lib_describe.get('cz75'))])
 lib_skill.set(183, [createSkill(6, 12, 0, lib_describe.get('contender'))])
 lib_skill.set(233, [createSkill(6, 12, 8, lib_describe.get('px4'))])
 lib_skill.set(242, [createSkill(6, 12, 8, lib_describe.get('p22'))])
-lib_skill.set(250, [createSkill(9, 9, 5, lib_describe.get('hs2000'))]) // 暂时不做护盾
+lib_skill.set(250, [createSkill(6, 12, 6, lib_describe.get('hs2000'))]) // 暂时不做护盾
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))

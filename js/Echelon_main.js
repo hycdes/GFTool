@@ -505,7 +505,7 @@ function reactAllSkill (command, current_time) {
       global_fragile /= 2
       Set_Special.delete('fragile_100')
     }
-    if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) {
+    if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) { // 未来预警发动
       if (document.getElementById('special_64howa_' + (k + 1) + '_0').checked) {
         changeStatus(k, 'self', 'dmg', '0.55', 5)
         react([createSkill(0, 0, 5, describe_property(['bloall'], ['dmg'], ['0.55'])), 0], k, global_frame)
@@ -516,6 +516,13 @@ function reactAllSkill (command, current_time) {
     }
     if (Set_Special.get('multi_' + k) != undefined && Set_Special.get('multi_' + k)[1] < global_frame) {
       Set_Special.delete('multi_' + k)
+    }
+    if (global_frame >= Set_Special.get('hs2000_shield') && Set_Special.get('hs2000_can_active')) {
+      Set_Special.set('hs2000_can_active', false)
+      if (true) { // 没设计破盾
+        changeStatus(k, 'all', 'dmg', 0.35, 5)
+        changeStatus(k, 'all', 'acu', 0.35, 5)
+      }
     }
     var len_status = v.length
     for (var s = 0; s < len_status; s++) {
@@ -1293,6 +1300,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   else if (skillname === 'falcon_getbullet') {
     if (Set_Special.get('falcon_' + stand_num) < 2) {
       Set_Special.set('falcon_' + stand_num, Set_Special.get('falcon_' + stand_num) + 1)
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'hs2000') { // 反击者壁垒
+    if (Set_Special.get('hs2000_shield') === undefined || Set_Special.get('hs2000_shield') < current_time - 150) {
+      Set_Special.set('hs2000_can_active', true)
+      Set_Special.set('hs2000_shield', current_time + 90)
+    // 套盾没写
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
