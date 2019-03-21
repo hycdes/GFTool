@@ -430,7 +430,7 @@ lib_describe.set('karm1891', describe_karm1891()) // 玛尔斯号角
 lib_describe.set('karm9138', describe_karm9138()) // 墨尔斯假面
 lib_describe.set('iws2000_reset', describe_iws2000reset()) // 巨鹰攻势重置普攻
 lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless')) // 伪神的启示
-lib_describe.set('falcon', describe_falcon(2.5, 2, 0, 1, 'armless/crit/evaless')) // 夕阳隼
+lib_describe.set('falcon', describe_falcon(2.5, 1.33, 0, 1, 'armless/crit/evaless')) // 夕阳隼
 lib_describe.set('falcon_getbullet', describe_falcon_getbullet()) // 夕阳隼，特殊弹装填
 lib_describe.set('m200', describe_snipe(2, 0, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
