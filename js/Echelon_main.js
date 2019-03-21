@@ -243,18 +243,113 @@ function getDPS () {
       break
     }
   }
+  if (Set_Special.get('sunrise') === 'night') { // 夜战BUFF
+    for (var i = 0; i < 9; i++) {
+      if (Set_Base.get(i) != undefined) {
+        var night_decline = (100 - (Set_Base.get(i).Info).get('night')) * (-0.9)
+        if (night_decline < 0) {
+          changeStatus(i, 'self', 'acu', (night_decline / 100), -1)
+        }
+      }
+    }
+  }
   if (fairy_no > 0) {
+    // 妖精属性
     var fairy_info = lib_fairy.get(fairy_no)
     var list_property = (fairy_info.property).split('/')
     var list_value = (fairy_info.value).split('/')
     var fairy_list_len = list_property.length
     for (var i = 0; i < fairy_list_len; i++) {
-      changeStatus(-1, 'all', list_property[i], list_value[i], -1)
+      changeStatus(common_position, 'all', list_property[i], list_value[i], -1)
     }
+    // 妖精技能：不可被蟒蛇激活
+    if (document.getElementById('fairyskill_active').checked) {
+      if (fairy_no === 11) { // 机场解放
+        changeStatus(common_position, 'all', 'dmg', '-0.4', -1)
+        changeStatus(common_position, 'all', 'acu', '-0.4', -1)
+        changeStatus(common_position, 'all', 'eva', '-0.4', -1)
+        changeStatus(common_position, 'all', 'arm', '-0.4', -1)
+        changeStatus(common_position, 'all', 'crit', '-0.4', -1)
+      }
+    }
+  }
+
+  // 以下BUFF皆能被蟒蛇复读——————————————————————————————————————————————————————————————
+
+  not_init = true
+  // 妖精技能：可被蟒蛇激活
+  if (document.getElementById('fairyskill_active').checked) {
+    if (fairy_no === 1) { // 战斗效率
+      changeStatus(common_position, 'all', 'dmg', '0.2', 20)
+      changeStatus(common_position, 'all', 'rof', '0.1', 20)
+    } else if (fairy_no === 2) { // 怒无限强
+      changeStatus(common_position, 'all', 'acu', '0.5', 20)
+      changeStatus(common_position, 'all', 'crit', '0.25', 20)
+    } else if (fairy_no === 3) { // 防暴强化（暂时没做）
+      //
+    } else if (fairy_no === 4) { // 能量护盾（暂时没做）
+      //
+    } else if (fairy_no === 5) { // 临时装甲（暂时没做）
+      //
+    } else if (fairy_no === 6) { // 嘲讽靶机（暂时没做）
+      //
+    } else if (fairy_no === 7) { // 狙击指令（暂时没做）
+      //
+    } else if (fairy_no === 8) { // 炮击指令（暂时没做）
+      //
+    } else if (fairy_no === 9) { // 致命空袭（暂时没做）
+      //
+    } else if (fairy_no === 10) { // 增援人形
+      changeStatus(common_position, 'all', 'eva', '0.1', 20)
+    } else if (fairy_no === 12) { // 地雷阵线（暂时没做）
+      //
+    } else if (fairy_no === 13) { // 阵地死神（暂时没做）
+      //
+    } else if (fairy_no === 14) { // 紧急堡垒
+      changeStatus(common_position, 'all', 'dmg', '0.3', -1)
+      changeStatus(common_position, 'all', 'acu', '0.3', -1)
+      changeStatus(common_position, 'all', 'eva', '0.3', -1)
+      changeStatus(common_position, 'all', 'arm', '0.3', -1)
+      changeStatus(common_position, 'all', 'crit', '0.3', -1)
+    } else if (fairy_no === 17) { // 夜间照明
+      if (Set_Special.get('sunrise') === 'night') changeStatus(common_position, 'all', 'acu', '0.3', 20)
+    } else if (fairy_no === 19) { // 紧急开饭
+      if (document.getElementById('special_fairyskill_0').checked) { // 随机
+        var meal_type = Math.random()
+        if (meal_type <= 0.2) {
+          changeStatus(common_position, 'all', 'dmg', '0.2', 30)
+        } else if (meal_type > 0.2 && meal_type <= 0.4) {
+          changeStatus(common_position, 'all', 'rof', '0.2', 30)
+        } else if (meal_type > 0.4 && meal_type <= 0.6) {
+          changeStatus(common_position, 'all', 'acu', '0.3', 30)
+        } else if (meal_type > 0.6 && meal_type <= 0.8) {
+          changeStatus(common_position, 'all', 'eva', '0.25', 30)
+        } else {
+          // do nothing
+        }
+      } else if (document.getElementById('special_fairyskill_1').checked) {
+        changeStatus(common_position, 'all', 'dmg', '0.2', 30)
+      } else if (document.getElementById('special_fairyskill_2').checked) {
+        changeStatus(common_position, 'all', 'rof', '0.2', 30)
+      } else if (document.getElementById('special_fairyskill_3').checked) {
+        changeStatus(common_position, 'all', 'acu', '0.3', 30)
+      } else if (document.getElementById('special_fairyskill_4').checked) {
+        changeStatus(common_position, 'all', 'eva', '0.25', 30)
+      } else {
+        // do nothing
+      }
+    } else if (fairy_no === 20) { // 夏末花火
+      changeStatus(common_position, 'all', 'acu', '0.8', 10)
+    } else if (fairy_no === 21) { // 爆竹迎春（暂时没做）
+      //
+    }
+  }
+  // 妖精天赋
+  if (fairy_no > 0) {
     if (talent_no === 1) {
       Set_Special.set('talent_num', 1)
       Set_Special.set('talent_active_at', 239)
-      changeStatus(-1, 'all', 'dmg', '0.1', -1)
+      changeStatus(common_position, 'all', 'dmg', '0.1', -1)
     }
     else if (talent_no === 2) changeStatus(common_position, 'all', 'dmg', '0.12', -1)
     else if (talent_no === 3) changeStatus(common_position, 'all', 'dmg', '0.15', -1)
@@ -315,19 +410,11 @@ function getDPS () {
       }
     }
   }
+  // 特殊全局设定
   if (document.getElementById('check_init_critmax').checked) {
     for (var i = 0; i < 9; i++) Set_Special.set('must_crit_' + i, true)
   }
-  if (Set_Special.get('sunrise') === 'night') { // 夜战BUFF
-    for (var i = 0; i < 9; i++) {
-      if (Set_Base.get(i) != undefined) {
-        var night_decline = (100 - (Set_Base.get(i).Info).get('night')) * (-0.9)
-        if (night_decline < 0) {
-          changeStatus(i, 'self', 'acu', (night_decline / 100), -1)
-        }
-      }
-    }
-  }
+
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6 || list_tdoll[i][1].ID === 256) {
@@ -355,7 +442,6 @@ function getDPS () {
   }
 
   // 主函数
-  not_init = true
   var check_talent = true
   if (Set_Special.get('talent_active_at') === undefined) check_talent = false
   for (var t = 0; t < time; t++) {

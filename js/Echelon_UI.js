@@ -743,9 +743,28 @@ function changeSunrise (type) {
 }
 function changeFairy () {
   fairy_no = parseInt(document.getElementById('select_fairy').value)
-  if (fairy_no > 0) document.getElementById('select_talent').disabled = false
-  else {
+  if (fairy_no > 0) {
+    document.getElementById('select_talent').disabled = false
+    document.getElementById('fairyskill_active').disabled = false
+    if (fairy_no === 19) {
+      var str_html = ''
+      str_html += '<h4>' + lib_language.fairyDESCRIBE_19 + '</h4>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_0" checked> ' + lib_language.fairyDESCRIBE_19_0 + '</label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_1"><span style="color:red"> ' + lib_language.fairyDESCRIBE_19_1 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_2"><span style="color:orange"> ' + lib_language.fairyDESCRIBE_19_2 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_3"><span style="color:green"> ' + lib_language.fairyDESCRIBE_19_3 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_4"><span style="color:blue"> ' + lib_language.fairyDESCRIBE_19_4 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_5"><span style="color:purple"> ' + lib_language.fairyDESCRIBE_19_5 + '</span></label></p>'
+      document.getElementById('special_fairy').innerHTML = str_html
+    } else {
+      document.getElementById('special_fairy').innerHTML = ''
+    }
+  } else {
+    document.getElementById('special_fairy').innerHTML = ''
     document.getElementById('select_talent').disabled = true
+    document.getElementById('fairyskill_active').disabled = true
+    document.getElementById('fairyskill_active').checked = false
+    document.getElementById('fairy_skill').innerHTML = lib_language.fairyskillstr + '-'
     changeTalent(0)
   }
   document.getElementById('fairy_img').src = '../img/echelon/fairy/f' + fairy_no + '.png'
@@ -765,6 +784,9 @@ function changeFairy () {
       else if (list_pro[i] === 'eva') document.getElementById('fairy_eva').innerHTML = lib_language.eva + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
       else if (list_pro[i] === 'arm') document.getElementById('fairy_arm').innerHTML = lib_language.arm + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
     }
+    var skillname_str = lib_language.fairyskillstr
+    eval('var fsn=lib_language.fairy_skillNAME_' + fairy_no)
+    document.getElementById('fairy_skill').innerHTML = skillname_str + fsn
   }
   changeEnvironment()
 }
