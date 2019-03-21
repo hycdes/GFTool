@@ -190,7 +190,30 @@ var lib_language = {
   cld: '冷却',
   night: '夜战',
   daytime: '昼战',
-  // new
+
   skillNAME_256: '夕阳隼',
-  DESCRIBE_256: '不使用特殊子弹'
+  DESCRIBE_256: '不使用特殊子弹',
+
+  // new
+  fairyNAME_1: '勇士妖精',
+  fairyNAME_2: '暴怒妖精',
+  fairyNAME_3: '盾甲妖精',
+  fairyNAME_4: '护盾妖精',
+  fairyNAME_5: '防御妖精',
+  fairyNAME_6: '嘲讽妖精',
+  fairyNAME_7: '狙击妖精',
+  fairyNAME_8: '炮击妖精',
+  fairyNAME_9: '空袭妖精',
+  fairyNAME_10: '增援妖精',
+  fairyNAME_11: '空降妖精',
+  fairyNAME_12: '布雷妖精',
+  fairyNAME_13: '火箭妖精',
+  fairyNAME_14: '工事妖精',
+  fairyNAME_15: '指挥妖精',
+  fairyNAME_16: '搜救妖精',
+  fairyNAME_17: '照明妖精',
+  fairyNAME_18: '黄金妖精',
+  fairyNAME_19: '炊事妖精',
+  fairyNAME_20: '花火妖精',
+  fairyNAME_21: '年兽妖精'
 }

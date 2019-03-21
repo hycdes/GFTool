@@ -584,10 +584,17 @@ function addTdoll () { // 添加战术人形
     if (list_tdoll[num_pickblock - 1][1].ID === 4) this_is_python = true
     if (list_tdoll[num_pickblock - 1][1].ID === 197) this_is_karm1891 = true
   }
+  document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '' // 删除之前所在位置的特殊设定
   if ((!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) || (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891)) {
     if (!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_python
     if (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_carcano
   } else {
+    if (this_is_python && ID != 4) { // 蟒蛇被覆盖掉
+      Set_Special.set('can_add_python', true)
+    }
+    if (this_is_karm1891 && ID != 197) { // 卡姐被覆盖掉
+      Set_Special.set('can_add_karm1891', true)
+    }
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
     if (ID === 4) Set_Special.set('can_add_python', false)
     if (ID === 197) Set_Special.set('can_add_karm1891', false)

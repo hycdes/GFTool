@@ -191,8 +191,29 @@ var lib_language = {
   cld: 'cld',
   night: 'Night',
   daytime: 'Daytime',
+  skillNAME_256: 'Sunset Falcon',
+  DESCRIBE_256: 'Do not use special bullets',
 
   // new
-  skillNAME_256: 'Sunset Falcon',
-  DESCRIBE_256: 'Do not use special bullets'
+  fairyNAME_1: 'Warrior Fairy',
+  fairyNAME_2: 'Fury Fairy',
+  fairyNAME_3: 'Armor Fairy',
+  fairyNAME_4: 'Shield Fairy',
+  fairyNAME_5: 'Defence Fairy',
+  fairyNAME_6: 'Provocation Fairy',
+  fairyNAME_7: 'Sniper Fairy',
+  fairyNAME_8: 'Bombardment Fairy',
+  fairyNAME_9: 'Airstrike Fairy',
+  fairyNAME_10: 'Reinforcement  Fairy',
+  fairyNAME_11: 'Airborne Fairy',
+  fairyNAME_12: 'Landmine Fairy',
+  fairyNAME_13: 'Rocket Fairy',
+  fairyNAME_14: 'Construction Fairy',
+  fairyNAME_15: 'Command Fairy',
+  fairyNAME_16: 'Rescue Fairy',
+  fairyNAME_17: 'Illumination Fairy',
+  fairyNAME_18: 'Golden',
+  fairyNAME_19: 'Kitchen Fairy',
+  fairyNAME_20: 'Firework Fairy',
+  fairyNAME_21: 'Nian Fairy'
 }

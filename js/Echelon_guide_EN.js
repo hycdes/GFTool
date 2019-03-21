@@ -57,7 +57,7 @@ function loadScript (url) {
 
 window.onload = function () {
   loadScript('../js/Echelon_main.js')
-  loadScript('../js/Echelon_property.js')
+  loadScript('../js/Echelon_property-EN.js')
   loadScript('../js/Echelon_skill.js')
   loadScript('../js/Echelon_UI.js')
   loadScript('../js/Echelon_select.js') // diff
