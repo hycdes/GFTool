@@ -1,0 +1,42 @@
+lib_lang = {
+  sele_selenum: '번호 선택',
+  sele_selebest: '가장 좋은 옵션은 다음과 같습니다',
+  sele_noresult: '적절한 조합이 없습니다',
+
+  check_M2: '1~3칸 비우기 허용(5칸 A형을 사용하지 않음)',
+
+  btn_clear: '다시 클릭을 하면 모든 칩셋을 목록에서 삭제합니다',
+  btn_maxall: '다시 클릭을 하면 모든 칩셋을 최대 수치까지 강화합니다',
+  btn_blueall: '다시 클릭을 하면 파란색 칩셋을 제외한 모든 칩셋을 목록에서 삭제합니다',
+  btn_orangeall: '다시 클릭을 하면 주황색 칩셋을 제외한 모든 칩셋을 목록에서 삭제합니다',
+  btn_savedone: '저장 코드가 클립보드에 복사되었습니다',
+  btn_loaderror: '올바르지 않은 저장 코드입니다',
+  btn_showblock: '스탯 포인트 표시',
+  btn_showvalue: '스탯 수치 표시',
+
+  over_dmg: '살상과다',
+  over_dbk: '파쇄과다',
+  over_acu: '정밀과다',
+  over_fil: '장전과다',
+
+  blo_5: '5칸',
+  blo_6: '6칸',
+  shape: '모양',
+  num: '번호',
+  topo: '그림',
+  toponum: '그림 번호',
+  notopo: '가능한 조합이 없습니다',
+  totaltime: '총 시간',
+  refer: '계급',
+  valid_value: '유효 스탯',
+  valid_block: '유효 포인트',
+  dmg: '살상',
+  dbk: '파쇄',
+  acu: '정밀',
+  fil: '장전',
+  sorting: '정렬',
+  have: '있다',
+  type_of_combi: '유형 유효 조합',
+  showall: ' 【전체 조합】가능한 모든 조합을 제공합니다.(매우 빠름 + 필요한 것을 찾기 힘들 수 있습니다)',
+  showsort: ' 【최적 조합】최적화 된 구성으로 조합을 출력합니다.(약간의 시간이 소요됩니다)'
+}

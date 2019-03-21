@@ -1,18 +1,3 @@
-var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
-var switch_clear = false, switch_maxall = false, switch_blueall = false, switch_orangeall = false
-var filter_switch = false
-var topologySet = [], solutionSet = [], topologyNum = 0
-var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
-var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [], topologyLib_M2 = [], topologyLib_M2_6x6 = [], topologyLib_M2_6x5n5 = [],topologyLib_AT4_6x6 = []
-var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [],topologyLibRefer_M2 = [], topologyLibRefer_M2_6x6 = [], topologyLibRefer_M2_6x5n5 = [],topologyLibRefer_AT4_6x6 = []
-var rules = ['InfinityFrost', 'FatalChapters']
-var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1, block_class = 56, block_shape = 9
-var chipNum = 0
-var chipRepo_data = [], chipRepo_chart = []; // Chip data; Repository information that display at repository-table
-var chipRepo_shape_5 = [], chipRepo_shape_6 = [] // For make shape only
-var analyze_switch = 1, ranking_switch = 1; // show_percentage[1=validProperty,-1=validBlocknum] rank_result_by[1~6]
-var deleteSelectHTML = ['<option value=0 selected>选择编号</option>']
 function creatChip (chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
   var chipData = { }
   chipData.chipNum = chipNum // chip number
@@ -38,27 +23,6 @@ function creatRepo (chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
   repoData.Dbk = Dbk
   return repoData
 }
-function loadScript (url) {
-  var script = document.createElement('script')
-  script.type = 'text/javascript'
-  script.src = url
-  document.body.appendChild(script)
-}
-window.onload = function () {
-  mergeCell('ImgChart_preview', 0, 0, 0)
-  resetPage()
-  loadScript('../js/topology.js')
-}
-function mergeCell (table1, startRow, endRow, col) {
-  var tb = document.getElementById(table1)
-  if (!tb || !tb.rows || tb.rows.length <= 0) return
-  if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
-  if (endRow == 0) endRow = tb.rows.length - 1
-  for (var i = startRow; i < endRow; i++) {
-    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col])
-    tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
-  }
-}
 function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
   var ChipRepoChartId = document.getElementById('ChipRepoChart')
   var DeleteSelectId = document.getElementById('DeleteSelect')
@@ -82,7 +46,7 @@ function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
       chipRepo_chart.splice(deleteNum - 1, 1)
       chipNum--
       ChipRepoChartId.innerHTML = '' // CLEAR chart
-      deleteSelectHTML = ['<option value=0 selected>选择编号</option>']
+      deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
       for (var i = 0; i < chipNum; i++) {
         var ChartAdd = ''
         var colorName
@@ -109,7 +73,7 @@ function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
     case 3:
       if (switch_clear === false) {
         switch_clear = true
-        document.getElementById('alert_clear').innerHTML = ' * 再按一次确认清空芯片仓库'
+        document.getElementById('alert_clear').innerHTML = ' * ' + lib_lang.btn_clear
       } else {
         switch_clear = false
         document.getElementById('alert_clear').innerHTML = ''
@@ -117,7 +81,7 @@ function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
         chipRepo_chart = []
         chipNum = 0
         ChipRepoChartId.innerHTML = '' // CLEAR chart
-        deleteSelectHTML = ['<option value=0 selected>选择编号</option>']
+        deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
         DeleteSelectId.innerHTML = deleteSelectHTML[0]
         break
       }
@@ -142,7 +106,7 @@ function maxAllChip () {
   switch_orangeall = false
   if (switch_maxall === false) {
     switch_maxall = true
-    document.getElementById('alert_maxall').innerHTML = ' * 再按一次确认全部满强化'
+    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang_maxall
   } else {
     switch_maxall = false
     document.getElementById('alert_maxall').innerHTML = ''
@@ -152,7 +116,11 @@ function maxAllChip () {
       if (chipRepo_data[c].levelNum < 20) {
         chipRepo_data[c].levelNum = 20
         chipRepo_chart[c].chipLevel = '+20'
-        if (chipRepo_chart[c].chipType === '五格 形状b' || chipRepo_chart[c].chipType === '五格 形状d' || chipRepo_chart[c].chipType === '五格 形状|' || chipRepo_chart[c].chipType === '五格 形状C' || chipRepo_chart[c].chipType === '五格 形状Z' || chipRepo_chart[c].chipType === '五格 形状Z-' || chipRepo_chart[c].chipType === '五格 形状V' || chipRepo_chart[c].chipType === '五格 形状L' || chipRepo_chart[c].chipType === '五格 形状L-') {
+        if (chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'b' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'd' ||
+          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + '|' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'C' ||
+          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'Z' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'Z-' ||
+          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'V' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'L' ||
+          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'L-') {
           chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 0.92 * 7.1))
           chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 0.92 * 5.7))
           chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 0.92 * 4.4))
@@ -189,7 +157,7 @@ function blueAllChip () {
   switch_orangeall = false
   if (switch_blueall === false) {
     switch_blueall = true
-    document.getElementById('alert_maxall').innerHTML = ' * 再按一次确认只保留【蓝色】芯片'
+    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang.btn_blueall
   } else {
     switch_blueall = false
     document.getElementById('alert_maxall').innerHTML = ''
@@ -215,7 +183,7 @@ function orangeAllChip () {
   switch_blueall = false
   if (switch_orangeall === false) {
     switch_orangeall = true
-    document.getElementById('alert_maxall').innerHTML = ' * 再按一次确认只保留【橙色】芯片'
+    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang.btn_orangeall
   } else {
     switch_orangeall = false
     document.getElementById('alert_maxall').innerHTML = ''
@@ -263,7 +231,7 @@ function getSaveCode () { // 获取存储码
   SaveCodeId.value = code
   SaveCodeId.select()
   document.execCommand('Copy')
-  SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 存储码已复制到剪贴板</span>'
+  SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_savedone + '</span>'
 }
 function repo_addChart (chipData) {
   // Add chipRepo_chart
@@ -287,38 +255,38 @@ function repo_addChart (chipData) {
   }
   var Repo_Type = ''
   if (chipData.classNum === 56) {
-    Repo_Type += '六格 '
-    if (chipData.typeNum === 1) Repo_Type += '形状1'
-    else if (chipData.typeNum === 2) Repo_Type += '形状2'
-    else if (chipData.typeNum === 3) Repo_Type += '形状3'
-    else if (chipData.typeNum === 41) Repo_Type += '形状4a'
-    else if (chipData.typeNum === 42) Repo_Type += '形状4b'
-    else if (chipData.typeNum === 5) Repo_Type += '形状5'
-    else if (chipData.typeNum === 6) Repo_Type += '形状6'
-    else if (chipData.typeNum === 7) Repo_Type += '形状7'
-    else if (chipData.typeNum === 8) Repo_Type += '形状8'
-    else if (chipData.typeNum === 9) Repo_Type += '形状9'
+    Repo_Type += lib_lang.blo_6 + ' '
+    if (chipData.typeNum === 1) Repo_Type += lib_lang.shape + '1'
+    else if (chipData.typeNum === 2) Repo_Type += lib_lang.shape + '2'
+    else if (chipData.typeNum === 3) Repo_Type += lib_lang.shape + '3'
+    else if (chipData.typeNum === 41) Repo_Type += lib_lang.shape + '4a'
+    else if (chipData.typeNum === 42) Repo_Type += lib_lang.shape + '4b'
+    else if (chipData.typeNum === 5) Repo_Type += lib_lang.shape + '5'
+    else if (chipData.typeNum === 6) Repo_Type += lib_lang.shape + '6'
+    else if (chipData.typeNum === 7) Repo_Type += lib_lang.shape + '7'
+    else if (chipData.typeNum === 8) Repo_Type += lib_lang.shape + '8'
+    else if (chipData.typeNum === 9) Repo_Type += lib_lang.shape + '9'
   }
   else if (chipData.classNum === 551) {
-    Repo_Type += '五格 '
-    if (chipData.typeNum === 11) Repo_Type += '形状Fa'
-    else if (chipData.typeNum === 12) Repo_Type += '形状Fb'
-    else if (chipData.typeNum === 21) Repo_Type += '形状Na'
-    else if (chipData.typeNum === 22) Repo_Type += '形状Nb'
-    else if (chipData.typeNum === 31) Repo_Type += '形状Ya'
-    else if (chipData.typeNum === 32) Repo_Type += '形状Yb'
-    else if (chipData.typeNum === 4) Repo_Type += '形状T'
-    else if (chipData.typeNum === 5) Repo_Type += '形状W'
-    else if (chipData.typeNum === 6) Repo_Type += '形状X'
-    else if (chipData.typeNum === 81) Repo_Type += '形状b'
-    else if (chipData.typeNum === 82) Repo_Type += '形状d'
-    else if (chipData.typeNum === 9) Repo_Type += '形状|'
-    else if (chipData.typeNum === 10) Repo_Type += '形状C'
-    else if (chipData.typeNum === 111) Repo_Type += '形状Z'
-    else if (chipData.typeNum === 112) Repo_Type += '形状Z-'
-    else if (chipData.typeNum === 120) Repo_Type += '形状V'
-    else if (chipData.typeNum === 131) Repo_Type += '形状L'
-    else if (chipData.typeNum === 132) Repo_Type += '形状L-'
+    Repo_Type += lib_lang.blo_5 + ' '
+    if (chipData.typeNum === 11) Repo_Type += lib_lang.shape + 'Fa'
+    else if (chipData.typeNum === 12) Repo_Type += lib_lang.shape + 'Fb'
+    else if (chipData.typeNum === 21) Repo_Type += lib_lang.shape + 'Na'
+    else if (chipData.typeNum === 22) Repo_Type += lib_lang.shape + 'Nb'
+    else if (chipData.typeNum === 31) Repo_Type += lib_lang.shape + 'Ya'
+    else if (chipData.typeNum === 32) Repo_Type += lib_lang.shape + 'Yb'
+    else if (chipData.typeNum === 4) Repo_Type += lib_lang.shape + 'T'
+    else if (chipData.typeNum === 5) Repo_Type += lib_lang.shape + 'W'
+    else if (chipData.typeNum === 6) Repo_Type += lib_lang.shape + 'X'
+    else if (chipData.typeNum === 81) Repo_Type += lib_lang.shape + 'b'
+    else if (chipData.typeNum === 82) Repo_Type += lib_lang.shape + 'd'
+    else if (chipData.typeNum === 9) Repo_Type += lib_lang.shape + '|'
+    else if (chipData.typeNum === 10) Repo_Type += lib_lang.shape + 'C'
+    else if (chipData.typeNum === 111) Repo_Type += lib_lang.shape + 'Z'
+    else if (chipData.typeNum === 112) Repo_Type += lib_lang.shape + 'Z-'
+    else if (chipData.typeNum === 120) Repo_Type += lib_lang.shape + 'V'
+    else if (chipData.typeNum === 131) Repo_Type += lib_lang.shape + 'L'
+    else if (chipData.typeNum === 132) Repo_Type += lib_lang.shape + 'L-'
   }
   var newRepo = creatRepo(chipData.chipNum, Repo_Type, '+' + chipData.levelNum, Repo_Acu, Repo_Fil, Repo_Dmg, Repo_Dbk)
   chipRepo_chart.push(newRepo)
@@ -392,7 +360,7 @@ function loadSaveCode () { // load save
   var LoadAlertId = document.getElementById('LoadAlert')
   if (simpleCheck(LoadCode)) {
     document.getElementById('ChipRepoChart').innerHTML = ''
-    chipRepo_chart = []; chipRepo_data = []; deleteSelectHTML = ['<option value=0 selected>选择编号</option>']
+    chipRepo_chart = []; chipRepo_data = []; deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
     resetPage()
     var scan = 3, elementNum = 0, tempStr = ''
     var chipEntry = []
@@ -418,7 +386,7 @@ function loadSaveCode () { // load save
     document.getElementById('ChipSetting').className = 'tab-pane fade in active'
     document.getElementById('SaveLoad').className = 'tab-pane fade'
   } else {
-    LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 不正确的存储码</span>'
+    LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_loaderror + '</span>'
   }
 }
 function manageDeleteButton () {
@@ -602,85 +570,9 @@ function changeBigImg (command) { // change preview and change property
   }
   refreshPreview()
 }
-function refreshPreview () {
-  if (block_class === 551 && (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132)) {
-    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 0.92 * 4.4))
-    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 0.92 * 12.7))
-    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 0.92 * 7.1))
-    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 0.92 * 5.7))
-  } else {
-    document.getElementById('Dmg').innerHTML = '<img src="../img/icon-dmg.png"> ' + Math.ceil(mul_property * Math.ceil(block_dmg * 4.4))
-    document.getElementById('Dbk').innerHTML = '<img src="../img/icon-dbk.png"> ' + Math.ceil(mul_property * Math.ceil(block_dbk * 12.7))
-    document.getElementById('Acu').innerHTML = '<img src="../img/icon-acu.png"> ' + Math.ceil(mul_property * Math.ceil(block_acu * 7.1))
-    document.getElementById('Fil').innerHTML = '<img src="../img/icon-fil.png"> ' + Math.ceil(mul_property * Math.ceil(block_fil * 5.7))
-  }
-  document.getElementById('AdTx1').innerHTML = block_dmg
-  document.getElementById('AdTx2').innerHTML = block_dbk
-  document.getElementById('AdTx3').innerHTML = block_acu
-  document.getElementById('AdTx4').innerHTML = block_fil
-  manageButton()
-}
-function resetPage () {
-  mul_property = 1
-  document.getElementById('ChipLevel').value = 0
-  refreshPreview()
-  resetBlock()
-}
-function resetBlock () {
-  block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0
-  refreshPreview()
-  manageButton()
-}
-function manageButton () {
-  var AdBt1 = document.getElementById('AdBt1')
-  var AdBt2 = document.getElementById('AdBt2')
-  var AdBt3 = document.getElementById('AdBt3')
-  var AdBt4 = document.getElementById('AdBt4')
-  var SbBt1 = document.getElementById('SbBt1')
-  var SbBt2 = document.getElementById('SbBt2')
-  var SbBt3 = document.getElementById('SbBt3')
-  var SbBt4 = document.getElementById('SbBt4')
-  var AdLv = document.getElementById('AdLv')
-  var SbLv = document.getElementById('SbLv')
-  AdBt1.disabled = false
-  AdBt2.disabled = false
-  AdBt3.disabled = false
-  AdBt4.disabled = false
-  SbBt1.disabled = false
-  SbBt2.disabled = false
-  SbBt3.disabled = false
-  SbBt4.disabled = false
-  AdLv.disabled = true
-  SbLv.disabled = true
-  if (parseInt(document.getElementById('ChipLevel').value) === 0) {
-    AdLv.disabled = false
-    SbLv.disabled = true
-  } else if (parseInt(document.getElementById('ChipLevel').value) === 20) {
-    AdLv.disabled = true
-    SbLv.disabled = false
-  } else {
-    AdLv.disabled = false
-    SbLv.disabled = false
-  }
-  var addChipButtonId = document.getElementById('addChipButton')
-  addChipButtonId.disabled = true
-  var bn = 6
-  if (block_class === 551) bn = 5
-  if (block_dmg + block_dbk + block_acu + block_fil >= bn) {
-    AdBt1.disabled = true; AdBt2.disabled = true; AdBt3.disabled = true; AdBt4.disabled = true
-  } else {
-    if (block_dmg === bn - 1) AdBt1.disabled = true
-    if (block_dbk === bn - 1) AdBt2.disabled = true
-    if (block_acu === bn - 1) AdBt3.disabled = true
-    if (block_fil === bn - 1) AdBt4.disabled = true
-  }
-  if (block_dmg === 0) SbBt1.disabled = true
-  if (block_dbk === 0) SbBt2.disabled = true
-  if (block_acu === 0) SbBt3.disabled = true
-  if (block_fil === 0) SbBt4.disabled = true
-  if (block_dmg + block_dbk + block_acu + block_fil === bn) addChipButtonId.disabled = false
-}
+
 function chartBack (typeInfo) {
+  HeavyfireType = typeInfo
   var line1 = document.getElementById('solutionLine1')
   var line2 = document.getElementById('solutionLine2')
   var line3 = document.getElementById('solutionLine3')
@@ -748,7 +640,7 @@ function chartBack (typeInfo) {
       line6.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black">'
       line7.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black">'
       line8.innerHTML = '<td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback">'
-      document.getElementById('M2_options').innerHTML = '<input type="checkbox" id="M2_can_unfill"> 允许空出1~3格(不使用五格2类)'
+      document.getElementById('M2_options').innerHTML = '<input type="checkbox" id="M2_can_unfill"> ' + lib_lang.check_M2
       break
     case 5:
       Process_Text_Dmg.innerHTML = '0/169'
@@ -763,6 +655,7 @@ function chartBack (typeInfo) {
       line6.innerHTML = '<td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td>'
       line7.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td>'
       line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>'
+      document.getElementById('M2_options').innerHTML = ''
       break
   }
 }
@@ -776,12 +669,6 @@ function getTopology () {
   globaltime[0] = 0
   var td1 = new Date()
   topologySet = [], solutionSet = []
-  var HeavyfireType = 1
-  if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
-  else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
-  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
-  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   var validSet
   var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]]
   var chipShape_5_2 = [[81, 0], [82, 0], [9, 0], [10, 0], [111, 0], [112, 0], [120, 0], [131, 0], [132, 0]]
@@ -850,7 +737,7 @@ function getTopology () {
       buffer_solu = [], buffer_topo = []
       buffer_num = parseInt(document.getElementById('best_num').value)
       document.getElementById('TopologySelect').disabled = true
-      document.getElementById('TopologySelect').innerHTML = '<option value=0 selected>下面是最优的数个方案</option>'
+      document.getElementById('TopologySelect').innerHTML = '<option value=0 selected>' + lib_lang.sele_selebest + '</option>'
       var topoNum = topologySet.length
       for (var t = 0; t < topoNum; t++) {
         solutionSet = getSolution(topologySet[t])
@@ -875,13 +762,13 @@ function getTopology () {
       var SSText = ''
       if (bufferlen > 0) {
         for (var i = 0; i < bufferlen; i++) {
-          SSText += '<option value=' + i + '>编号 '
+          SSText += '<option value=' + i + '>' + lib_lang.num + ' '
           var c_num = solutionSet[i].length
           for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + ' ')
           SSText += '</option>'
         }
       } else {
-        SSText = '<option value=-1>无合适方案</option>'
+        SSText = '<option value=-1>' + lib_lang.sele_noresult + '</option>'
       }
       document.getElementById('SortInfo').innerHTML = ''
       SolutionSelect.innerHTML = SSText
@@ -891,9 +778,9 @@ function getTopology () {
       var soluNum = topologySet.length
       var TopologySelect = document.getElementById('TopologySelect')
       TopologySelect.disabled = false
-      var RTText = '<option value=0 selected>图解 1</option>'
+      var RTText = '<option value=0 selected>' + lib_lang.topo + ' 1</option>'
       for (var i = 1; i < soluNum; i++) {
-        RTText += '<option value=' + i + '>图解 ' + (i + 1) + '</option>'
+        RTText += '<option value=' + i + '>' + lib_lang.topo + ' ' + (i + 1) + '</option>'
       }
       TopologySelect.innerHTML = RTText
       var NoResultTextId = document.getElementById('NoResultText')
@@ -903,14 +790,14 @@ function getTopology () {
     }
   } else {
     var NoResultTextId = document.getElementById('NoResultText')
-    NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* 没有可能的解</span>'
+    NoResultTextId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.notopo + '</span>'
     var TopologySelect = document.getElementById('TopologySelect')
     TopologySelect.disabled = true
-    var RTText = '<option value=1 selected>图解编号</option>'
+    var RTText = '<option value=1 selected>' + lib_lang.toponum + '</option>'
   }
   var td2 = new Date()
   globaltime[0] += countMS(td1, td2)
-  document.getElementById('timeText').innerHTML = '总时间' + (globaltime[0] / 1000).toFixed(2) + 's'
+  document.getElementById('timeText').innerHTML = lib_lang.totaltime + (globaltime[0] / 1000).toFixed(2) + 's'
 }
 function isPossible (chipShape_65, chipRefer, border) {
   for (var i = 0; i < border; i++) if (parseInt(chipRefer[i]) > chipShape_65[i][1]) return false
@@ -1046,13 +933,7 @@ function putChip (bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
     if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - border_x * parseInt((i - 1) / border_x) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + '</td>'
   }
 }
-// function flogy (actionId) {
-//   if (actionId === 0) topologyNum = parseInt(document.getElementById('TopologySelect').value)
-//   if (actionId === 1) topologyNum++
-//   if (actionId === 2) topologyNum--
-//   document.getElementById('TopologySelect').value = topologyNum
-//   showSolution()
-// }
+
 function changeAnalyze (actionId) {
   var SolutionSelect = document.getElementById('SolutionSelect')
   var SSV = parseInt(SolutionSelect.value)
@@ -1062,12 +943,6 @@ function changeAnalyze (actionId) {
   showAnalyze()
 }
 function showAnalyze () {
-  var HeavyfireType
-  if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
-  else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
-  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
-  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   var AdTp = document.getElementById('AdTp')
   var SbTp = document.getElementById('SbTp')
   var AdCo = document.getElementById('AdCo')
@@ -1147,7 +1022,7 @@ function showAnalyze () {
     else AdCo.disabled = false
     // show percentage of property or blocknum
     if (analyze_switch === 1) {
-      document.getElementById('AnalyzeSwitch').innerHTML = '显示有效格数'
+      document.getElementById('AnalyzeSwitch').innerHTML = lib_lang.btn_showblock
       document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-success'
       var dmg = 0, dbk = 0, acu = 0, fil = 0
       var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
@@ -1164,7 +1039,7 @@ function showAnalyze () {
       }
       if (dmg > dmg_max) {
         Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg + '</span>' + '/' + dmg_max
-        DmgAlert.innerHTML = '* 杀伤溢出'
+        DmgAlert.innerHTML = '* ' + lib_lang.over_dmg
         Process_Bar_Dmg.style = 'width:100%'
       }else {
         Process_Text_Dmg.innerHTML = dmg + '/' + dmg_max
@@ -1173,7 +1048,7 @@ function showAnalyze () {
       }
       if (dbk > dbk_max) {
         Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk + '</span>' + '/' + dbk_max
-        DbkAlert.innerHTML = '* 破防溢出'
+        DbkAlert.innerHTML = '* ' + lib_lang.over_dbk
         Process_Bar_Dbk.style = 'width:100%'
       }else {
         Process_Text_Dbk.innerHTML = dbk + '/' + dbk_max
@@ -1182,7 +1057,7 @@ function showAnalyze () {
       }
       if (acu > acu_max) {
         Process_Text_Acu.innerHTML = '<span style="color:red">' + acu + '</span>' + '/' + acu_max
-        AcuAlert.innerHTML = '* 精度溢出'
+        AcuAlert.innerHTML = '* ' + lib_lang.over_acu
         Process_Bar_Acu.style = 'width:100%'
       }else {
         Process_Text_Acu.innerHTML = acu + '/' + acu_max
@@ -1191,7 +1066,7 @@ function showAnalyze () {
       }
       if (fil > fil_max) {
         Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max
-        FilAlert.innerHTML = '* 装填溢出'
+        FilAlert.innerHTML = '* ' + lib_lang.over_fil
         Process_Bar_Fil.style = 'width:100%'
       }else {
         Process_Text_Fil.innerHTML = fil + '/' + fil_max
@@ -1199,7 +1074,7 @@ function showAnalyze () {
         Process_Bar_Fil.style = ('width:' + (fil / fil_max).toFixed(2) * 100 + '%')
       }
     } else if (analyze_switch === -1) {
-      document.getElementById('AnalyzeSwitch').innerHTML = '显示有效属性'
+      document.getElementById('AnalyzeSwitch').innerHTML = lib_lang.btn_showvalue
       document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-warning'
       var dmg_blo = 0, dbk_blo = 0, acu_blo = 0, fil_blo = 0
       var dmg_blomax = 0, dbk_blomax = 0, acu_blomax = 0, fil_blomax = 0
@@ -1216,7 +1091,7 @@ function showAnalyze () {
       }
       if (dmg_blo > dmg_blomax) {
         Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg_blo + '</span>' + '/' + dmg_blomax
-        DmgAlert.innerHTML = '* 杀伤溢出'
+        DmgAlert.innerHTML = '* ' + lib_lang.over_dmg
         Process_Bar_Dmg.style = 'width:100%'
       } else {
         Process_Text_Dmg.innerHTML = dmg_blo + '/' + dmg_blomax
@@ -1225,7 +1100,7 @@ function showAnalyze () {
       }
       if (dbk_blo > dbk_blomax) {
         Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk_blo + '</span>' + '/' + dbk_blomax
-        DbkAlert.innerHTML = '* 破防溢出'
+        DbkAlert.innerHTML = '* ' + lib_lang.over_dbk
         Process_Bar_Dbk.style = 'width:100%'
       } else {
         Process_Text_Dbk.innerHTML = dbk_blo + '/' + dbk_blomax
@@ -1234,7 +1109,7 @@ function showAnalyze () {
       }
       if (acu_blo > acu_blomax) {
         Process_Text_Acu.innerHTML = '<span style="color:red">' + acu_blo + '</span>' + '/' + acu_blomax
-        AcuAlert.innerHTML = '* 精度溢出'
+        AcuAlert.innerHTML = '* ' + lib_lang.over_acu
         Process_Bar_Acu.style = 'width:100%'
       } else {
         Process_Text_Acu.innerHTML = acu_blo + '/' + acu_blomax
@@ -1243,7 +1118,7 @@ function showAnalyze () {
       }
       if (fil_blo > fil_blomax) {
         Process_Text_Fil.innerHTML = '<span style="color:red">' + fil_blo + '</span>' + '/' + fil_blomax
-        FilAlert.innerHTML = '* 装填溢出'
+        FilAlert.innerHTML = '* ' + lib_lang.over_fil
         Process_Bar_Fil.style = 'width:100%'
       } else {
         Process_Text_Fil.innerHTML = fil_blo + '/' + fil_blomax
@@ -1271,7 +1146,7 @@ function showAnalyze () {
     AdCo.disabled = true
     // show percentage of property or blocknum
     if (analyze_switch === 1) {
-      document.getElementById('AnalyzeSwitch').innerHTML = '显示有效格数'
+      document.getElementById('AnalyzeSwitch').innerHTML = lib_lang.btn_showblock
       document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-success'
       var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
       if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
@@ -1292,7 +1167,7 @@ function showAnalyze () {
       FilAlert.innerHTML = ''
       Process_Bar_Fil.style = ('width:0%')
     } else if (analyze_switch === -1) {
-      document.getElementById('AnalyzeSwitch').innerHTML = '显示有效属性'
+      document.getElementById('AnalyzeSwitch').innerHTML = lib_lang.btn_showvalue
       document.getElementById('AnalyzeSwitch').className = 'btn btn-outline btn-warning'
       var dmg_blomax = 0, dbk_blomax = 0, acu_blomax = 0, fil_blomax = 0
       if (HeavyfireType === 1) { dmg_blomax = 18; dbk_blomax = 11; acu_blomax = 11; fil_blomax = 4; }
@@ -1429,12 +1304,6 @@ function compare_sumpro (solu_a, solu_b) {
   var value_a = 0, value_b = 0
   var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0
   var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
-  var HeavyfireType = 1
-  if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
-  else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
-  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
-  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
@@ -1467,12 +1336,6 @@ function compare_sumblo (solu_a, solu_b) {
   var value_a = 0, value_b = 0
   var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0
   var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0
-  var HeavyfireType = 1
-  if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
-  else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
-  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
-  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   if (HeavyfireType === 1) { dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
   else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
   else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
@@ -1503,11 +1366,11 @@ function compare_sumblo (solu_a, solu_b) {
 }
 function compare_dmg (solu_a, solu_b) {
   var dmg_a = 0, dmg_b = 0, dmg_max = 0
-  if (document.getElementById('HFSwitch1').checked === true) dmg_max = 190
-  else if (document.getElementById('HFSwitch2').checked === true) dmg_max = 106
-  else if (document.getElementById('HFSwitch3').checked === true) dmg_max = 227
-  else if (document.getElementById('HFSwitch4').checked === true) dmg_max = 206
-  else if (document.getElementById('HFSwitch5').checked === true) dmg_max = 169
+  if (HeavyfireType === 1) dmg_max = 190
+  else if (HeavyfireType === 2) dmg_max = 106
+  else if (HeavyfireType === 3) dmg_max = 227
+  else if (HeavyfireType === 4) dmg_max = 206
+  else if (HeavyfireType === 5) dmg_max = 169
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1518,11 +1381,11 @@ function compare_dmg (solu_a, solu_b) {
 }
 function compare_dbk (solu_a, solu_b) {
   var dbk_a = 0, dbk_b = 0, dbk_max = 0
-  if (document.getElementById('HFSwitch1').checked === true) dbk_max = 329
-  else if (document.getElementById('HFSwitch2').checked === true) dbk_max = 130
-  else if (document.getElementById('HFSwitch3').checked === true) dbk_max = 58
-  else if (document.getElementById('HFSwitch4').checked === true) dbk_max = 60
-  else if (document.getElementById('HFSwitch5').checked === true) dbk_max = 261
+  if (HeavyfireType === 1) dbk_max = 329
+  else if (HeavyfireType === 2) dbk_max = 130
+  else if (HeavyfireType === 3) dbk_max = 58
+  else if (HeavyfireType === 4) dbk_max = 60
+  else if (HeavyfireType === 5) dbk_max = 261
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1533,11 +1396,11 @@ function compare_dbk (solu_a, solu_b) {
 }
 function compare_acu (solu_a, solu_b) {
   var acu_a = 0, acu_b = 0, acu_max = 0
-  if (document.getElementById('HFSwitch1').checked === true) acu_max = 191
-  else if (document.getElementById('HFSwitch2').checked === true) acu_max = 120
-  else if (document.getElementById('HFSwitch3').checked === true) acu_max = 90
-  else if (document.getElementById('HFSwitch4').checked === true) acu_max = 97
-  else if (document.getElementById('HFSwitch5').checked === true) acu_max = 190
+  if (HeavyfireType === 1) acu_max = 191
+  else if (HeavyfireType === 2) acu_max = 120
+  else if (HeavyfireType === 3) acu_max = 90
+  else if (HeavyfireType === 4) acu_max = 97
+  else if (HeavyfireType === 5) acu_max = 190
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1548,11 +1411,11 @@ function compare_acu (solu_a, solu_b) {
 }
 function compare_fil (solu_a, solu_b) {
   var fil_a = 0, fil_b = 0, fil_max = 0
-  if (document.getElementById('HFSwitch1').checked === true) fil_max = 46
-  else if (document.getElementById('HFSwitch2').checked === true) fil_max = 233
-  else if (document.getElementById('HFSwitch3').checked === true) fil_max = 107
-  else if (document.getElementById('HFSwitch4').checked === true) fil_max = 146
-  else if (document.getElementById('HFSwitch5').checked === true) fil_max = 90
+  if (HeavyfireType === 1) fil_max = 46
+  else if (HeavyfireType === 2) fil_max = 233
+  else if (HeavyfireType === 3) fil_max = 107
+  else if (HeavyfireType === 4) fil_max = 146
+  else if (HeavyfireType === 5) fil_max = 90
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1624,15 +1487,9 @@ function changeRankingSwitch (sortType) {
   showAnalyze()
 }
 function sortSolution (sortType) {
-  var HeavyfireType = 1
   ranking_switch = parseInt(sortType)
   if (sortType === 1) analyze_switch = 1
   else if (sortType === 2) analyze_switch = -1
-  if (document.getElementById('HFSwitch1').checked === true) HeavyfireType = 1
-  else if (document.getElementById('HFSwitch2').checked === true) HeavyfireType = 2
-  else if (document.getElementById('HFSwitch3').checked === true) HeavyfireType = 3
-  else if (document.getElementById('HFSwitch4').checked === true) HeavyfireType = 4
-  else if (document.getElementById('HFSwitch5').checked === true) HeavyfireType = 5
   var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
   var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
@@ -1646,40 +1503,40 @@ function sortSolution (sortType) {
   var solulen = solutionSet.length
   switch (ranking_switch) {
     case 1: // All property
-      document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效总属性</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合'
+      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_value + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_sumpro)
       break
     case 2: // All blockNum
-      document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>有效格数</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合'
+      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_block + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_sumblo)
       break
     case 3: // Dmg
-      document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>杀伤</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合'
+      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dmg + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_dmg)
       break
     case 4: // Dbk
-      document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>破防</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合'
+      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dbk + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_dbk)
       break
     case 5: // Acu
-      document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>精度</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合'
+      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.acu + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_acu)
       break
     case 6: // Fil
-      document.getElementById('SortInfo').innerHTML = '按 <span style="color:red"><b>装填</b></span> 排序' + '，图解 ' + (topologyNum + 1) + ' 有 ' + solutionSet.length + ' 种有效组合'
+      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.fil + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_fil)
       break
   }
   SolutionSelect.disabled = false
   if (solulen > 0) {
     for (var i = 0; i < solulen; i++) {
-      SSText += '<option value=' + i + '>编号 '
+      SSText += '<option value=' + i + '>' + lib_lang.num + ' '
       var c_num = solutionSet[i].length
       for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + ' ')
       SSText += '</option>'
     }
   } else {
-    SSText = '<option value=-1>无合适方案</option>'
+    SSText = '<option value=-1>' + lib_lang.sele_noresult + '</option>'
   }
   SolutionSelect.innerHTML = SSText
 }
@@ -1810,11 +1667,11 @@ function setBest (typeInfo) {
   if (typeInfo === 1) {
     filter_switch = false
     document.getElementById('best_num').disabled = true
-    document.getElementById('best_alert').innerHTML = ' 【全部方案】给出所有可行图解，及每种图解的所有可能和组合(速度很快)'
+    document.getElementById('best_alert').innerHTML = lib_lang.showall
   }else {
     filter_switch = true
     document.getElementById('best_num').disabled = false
-    document.getElementById('best_alert').innerHTML = ' 【最优方案】输出最优的数个的方案(约数分钟不等)'
+    document.getElementById('best_alert').innerHTML = lib_lang.showsort
   }
 }
 function setBestSort (typeInfo) { ranking_switch = typeInfo; }
@@ -1824,6 +1681,3 @@ function setBestNum () {
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
 function getHelp () { window.open('../img/CC-tutorial.png'); }
-function test () {
-  console.log(solutionSet)
-}
