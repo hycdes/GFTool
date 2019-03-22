@@ -1588,6 +1588,13 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     if (num_leftsnipe === 0) { // 狙击次数完毕
       Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     } else {
+      var new_n = labels.length
+      for (var nn = 0; nn < new_n; nn++) {
+        if (labels[nn] === '/') {
+          labels = labels.substr(nn + 1)
+          break
+        }
+      }
       var time_init = Set_Special.get('snipe_interval_' + stand_num)
       Set_Special.set('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
       changeStatus(stand_num, 'snipe', labels, ratio, time_init)
