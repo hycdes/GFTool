@@ -517,11 +517,13 @@ function reactAllSkill (command, current_time) {
     if (Set_Special.get('multi_' + k) != undefined && Set_Special.get('multi_' + k)[1] < global_frame) {
       Set_Special.delete('multi_' + k)
     }
-    if (global_frame >= Set_Special.get('hs2000_shield') && Set_Special.get('hs2000_can_active')) {
-      Set_Special.set('hs2000_can_active', false)
-      if (true) { // 没设计破盾
-        changeStatus(k, 'all', 'dmg', 0.35, 5)
-        changeStatus(k, 'all', 'acu', 0.35, 5)
+    if (k > 0 && list_tdoll[k][1] != null) { // 需要时延相应被蟒蛇复读的all类技能
+      if (list_tdoll[k][1].ID === 250 && global_frame >= Set_Special.get('hs2000_shield') && Set_Special.get('hs2000_can_active')) {
+        Set_Special.set('hs2000_can_active', false)
+        if (true) { // 没设计破盾
+          changeStatus(k, 'all', 'dmg', 0.35, 5)
+          changeStatus(k, 'all', 'acu', 0.35, 5)
+        }
       }
     }
     var len_status = v.length
