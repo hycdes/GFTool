@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>少女前线-芯片计算器 by 命运の乐章</title>
+    <title>Girls' Frontline Tools by FatalChapter</title>
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -79,7 +79,7 @@
             background: fuchsia;
         }
     </style>
-    <script src="../js/ChipCal_guide_CN.js"></script>
+    <script src="../js/ChipCal_guide_EN.js"></script>
 </head>
 
 <body>
@@ -93,7 +93,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+                <a class="navbar-brand" href="index-EN.html"><span style="color:#FF0066">Girls' Frontline Tools</span> by FatalChapter</a>
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -108,13 +108,13 @@
                                 </span>
                             </div>
                         </li>
-                        <li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>
-                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库</a></li>
-                        <li><a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器</a></li>
-                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
-                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
-                        <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
-                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
+                        <li><a href="index-EN.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
+                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> Database</a></li>
+                        <li><a href="GFT_LogiRank-EN.html"><i class="fa fa-briefcase fa-fw"></i> Logistics ranking</a></li>
+                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> Levelup calculator</a></li>
+                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> IOP simulator</a></li>
+                        <li><a href="GFT_ChipCal-EN.html"><i class="fa fa-delicious fa-fw"></i> Chip calculator</a></li>
+                        <li><a href="GFT_Echelon-EN.html"><i class="glyphicon glyphicon-screenshot"></i> &nbspEchelon simulator</a></li>
                     </ul>
                 </div>
             </div>
@@ -125,11 +125,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">芯片计算器
+                            <h1 class="page-header">Chip calculator
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
-                                <button type="button" class="btn btn-warning" onclick="getHelp()">一图教程</button>
+                                <button type="button" class="btn btn-warning" onclick="getHelp()">Tutorial</button>
                             </h1>
                         </div>
                         <script>
@@ -143,15 +143,15 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default" style="background:url(../img/CC-Heavyfire.png) no-repeat right 50px top 120px;">
                             <div class="panel-heading">
-                                芯片录入
+                                Chip input
                             </div>
                             <div class="panel-body">
                                 <ul class="nav nav-tabs">
                                     <li class="active" id="panelS">
-                                        <a href="#ChipSetting" data-toggle="tab">芯片设置</a>
+                                        <a href="#ChipSetting" data-toggle="tab">Chip setting</a>
                                     </li>
                                     <li id="panelSL">
-                                        <a href="#SaveLoad" data-toggle="tab">保存/读取数据</a>
+                                        <a href="#SaveLoad" data-toggle="tab">Save/Load data</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -159,9 +159,9 @@
                                     <!--CHIPSETTING-->
                                     <div class="tab-pane fade in active" id="ChipSetting">
                                         <div class="col-lg-4">
-                                            <h4>形状和颜色</h4>
-                                            <h5>点击图标定制芯片，颜色/旋转<span style="color:#FF0066">仅对照用</span>免得填错</h5>
-                                            <h5>5格2类(后9种)<span style="color:#FF0066">仅参与M2拼接</span></h5>
+                                            <h4>Shape and color</h4>
+                                            <h5>Press icon to set shape, color/rotation for <span style="color:#FF0066">comparision ONLY</span></h5>
+                                            <h5>5-block-type-2 (last 9 chips) for <span style="color:#FF0066">M2 ONLY</span></h5>
                                             <table class="table-bordered" style="width:250px; height:100px;overflow:hidden" id="ImgChart_preview">
                                                 <tbody>
                                                     <tr style="height:50px">
@@ -200,7 +200,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <h4>强化和格数</h4>
+                                            <h4>Strengthen and blocknum</h4>
                                             <table class="table table-bordered table-hover">
                                                 <tbody>
                                                     <tr>
@@ -243,7 +243,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td value=0 id="Dmg" style='width:30%'><img src="../img/icon-dmg.png"> 0</td>
-                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx1">0</span>格</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx1">0</span> block</td>
                                                         <td style="width:40%">
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(1)" id="AdBt1">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(1)" id="SbBt1">&nbsp-&nbsp&nbsp</button>
@@ -251,7 +251,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td value=0 id="Dbk" style='width:30%'><img src="../img/icon-dbk.png"> 0</td>
-                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx2">0</span>格</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx2">0</span> block</td>
                                                         <td style="width:40%">
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(2)" id="AdBt2">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(2)" id="SbBt2">&nbsp-&nbsp&nbsp</button>
@@ -259,7 +259,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td value=0 id="Acu" style="width:30%"><img src="../img/icon-acu.png"> 0</td>
-                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx3">0</span>格</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx3">0</span> block</td>
                                                         <td style="width:40%">
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(3)" id="AdBt3">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(3)" id="SbBt3">&nbsp-&nbsp&nbsp</button>
@@ -267,7 +267,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td value=0 id="Fil" style='width:30%'><img src="../img/icon-fil.png"> 0</td>
-                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx4">0</span>格</td>
+                                                        <td style="width:30%"><span style="color:dodgerblue" id="AdTx4">0</span> block</td>
                                                         <td style="width:40%">
                                                             <button type="button" class="btn btn-outline btn-primary" onclick="addBlock(4)" id="AdBt4">&nbsp+&nbsp</button>
                                                             <button type="button" class="btn btn-outline btn-danger" onclick="subBlock(4)" id="SbBt4">&nbsp-&nbsp&nbsp</button>
@@ -277,31 +277,31 @@
                                             </table>
                                             <p id="errorInfo"></p>
                                             <p>
-                                                <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton">将芯片添加进仓库</button>
-                                                <button type="button" class="btn btn-danger" onclick="resetPage()">重置芯片属性</button>
+                                                <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton">Add chip</button>
+                                                <button type="button" class="btn btn-danger" onclick="resetPage()">Reset property</button>
                                             </p>
                                         </div>
                                         <div class="col-lg-8">
-                                            <h4>芯片仓库</h4>
-                                            <h5>现版本因数值改版，推荐先<span style="color:#FF0066">保存一份</span>，<span style="color:#FF0066">满强化</span>，再<span style="color:#FF0066">按有效总值排序</span></h5>
+                                            <h4>Chip repository</h4>
+                                            <h5>Due to version update, we suggest you <span style="color:#FF0066">save first</span>, <span style="color:#FF0066">Max all</span>, and <span style="color:#FF0066">sorting by total valid properties</span></h5>
                                             <div class="col-lg-3">
                                                 <p>
                                                     <select class="form-control" id="DeleteSelect" onchange="manageDeleteButton()">
-                                                        <option value=0 selected>选择编号</option>
+                                                        <option value=0 selected>Select number</option>
                                                     </select>
                                                 </p>
                                             </div>
                                             <div class="col-lg-9">
                                                 <p>
-                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该编号</button>
-                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空仓库</button><span style="color:#FF0066"><b id="alert_clear"></b></span>
+                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>Delete this chip</button>
+                                                    <button type="button" class="btn btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>Clear repository</button><span style="color:#FF0066"><b id="alert_clear"></b></span>
                                                 </p>
                                             </div>
                                             <div class="col-lg-12">
                                                 <p>
-                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强化</button>
-                                                    <button type="button" class="btn btn-primary" onclick="blueAllChip()" id="blueAllButton" disabled>只留蓝色</button>
-                                                    <button type="button" class="btn btn-warning" onclick="orangeAllChip()" id="orangeAllButton" disabled>只留橙色</button>
+                                                    <button type="button" class="btn btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>Max all</button>
+                                                    <button type="button" class="btn btn-primary" onclick="blueAllChip()" id="blueAllButton" disabled>Blue only</button>
+                                                    <button type="button" class="btn btn-warning" onclick="orangeAllChip()" id="orangeAllButton" disabled>Orange only</button>
                                                     <span style="color:#FF0066"><b id="alert_maxall"></b></span>
                                                 </p>
                                             </div>
@@ -310,9 +310,9 @@
                                                     <table class="table table-striped table-bordered table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th style="width:13%">编号</th>
-                                                                <th style="width:22%">类型</th>
-                                                                <th style="width:13%">强化</th>
+                                                                <th style="width:13%">Num</th>
+                                                                <th style="width:22%">Type</th>
+                                                                <th style="width:13%">Stren. level</th>
                                                                 <th style="width:13%"><img src="../img/icon-acu.png"></th>
                                                                 <th style="width:13%"><img src="../img/icon-fil.png"></th>
                                                                 <th style="width:13%"><img src="../img/icon-dmg.png"></th>
@@ -333,18 +333,18 @@
                                     <!--SAVELOAD-->
                                     <div class="tab-pane fade" id="SaveLoad">
                                         <div class="col-lg-6">
-                                            <h4>存档芯片仓库数据</h4>
+                                            <h4>Save chip data</h4>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="7" placeholder="存储码将在这里显示" id="SaveCode" style="width:70%" readonly></textarea>
+                                                <textarea class="form-control" rows="7" placeholder="Save code here" id="SaveCode" style="width:70%" readonly></textarea>
                                             </div>
-                                            <p><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>复制存储码</button><b id="SaveAlert"></b></p>
+                                            <p><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>Copy savecode</button><b id="SaveAlert"></b></p>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>读取存档</h4>
+                                            <h4>Load savecode</h4>
                                             <div class="form-group">
-                                                <textarea class="form-control" rows="7" placeholder="将存储码粘贴在此，仓库将复现之前的结果" id="LoadCode" style="width:70%"></textarea>
+                                                <textarea class="form-control" rows="7" placeholder="Paste savecode here to load" id="LoadCode" style="width:70%"></textarea>
                                             </div>
-                                            <p><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">读取存储码</button><b id="LoadAlert"></b></p>
+                                            <p><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">Load savecode</button><b id="LoadAlert"></b></p>
                                         </div>
                                     </div>
                                 </div>
@@ -359,7 +359,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default" style="background:url(../img/CC-WAVE.png) no-repeat right 100px top 100px;">
                             <div class="panel-heading">
-                                拼接结果
+                                Calculate result
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -367,16 +367,16 @@
                                     <div class="panel-body">
                                         <ul class="nav nav-tabs">
                                             <li class="active" id="panelS">
-                                                <a href="#SortOption_basic" data-toggle="tab">基本设置</a>
+                                                <a href="#SortOption_basic" data-toggle="tab">Basic setting</a>
                                             </li>
                                             <li id="panelSL">
-                                                <a href="#SortOption_advanced" data-toggle="tab">筛选设置</a>
+                                                <a href="#SortOption_advanced" data-toggle="tab">Filter setting</a>
                                             </li>
                                         </ul>
                                         <!-- Tab panes -->
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="SortOption_basic">
-                                                <h4>重装部队类型</h4>
+                                                <h4>Heavy-fire force type</h4>
                                                 <div class="col-lg-12">
                                                     <p>
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
@@ -389,33 +389,33 @@
                                                 </div>
                                                 <h4>求解设置</h4>
                                                 <div class="col-lg-12">
-                                                    <h5 id="best_alert"> 【全部方案】给出所有可行图解的所有可能和组合(速度很快)</h5>
+                                                    <h5 id="best_alert"> [Show all] output each combination of each topology (few seconds)</h5>
                                                     <p>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>全部方案</label>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">最优解</span></label>
+                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>Show all</label>
+                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">Sort all</span></label>
                                                     </p>
                                                     <div class="form-group input-group">
-                                                        <span class="input-group-addon">挑选个数</span>
-                                                        <input type="text" class="form-control input-sm" placeholder="输入整数" id="best_num" value=10 style="width:150px" onblur="setBestNum()" disabled>
+                                                        <span class="input-group-addon">Output number</span>
+                                                        <input type="text" class="form-control input-sm" placeholder="Integer" id="best_num" value=10 style="width:150px" onblur="setBestNum()" disabled>
                                                     </div>
                                                     <p id="best_sort">
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(1)" checked>最高有效总值</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(2)">最高有效格数</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(3)">最高杀伤</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(4)">最高破防</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(5)">最高精度</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(6)">最高装填</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(1)" checked>Best total valid properties</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(2)">Best total valid blocknum</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(3)">Best DMG</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(4)">Best DBK</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(5)">Best ACU</label>
+                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(6)">Best FIL</label>
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="SortOption_advanced">
                                                 <div class="tooltip-demo">
-                                                    <h4>设定溢出上限 <button type="button" data-toggle="tooltip" data-placement="bottom" title="以下值溢出超过设定值则放弃" class="btn btn-outline btn-default">?</button></h4>
+                                                    <h4>Overflow limitation <button type="button" data-toggle="tooltip" data-placement="bottom" title="Discard if overflow more than setting value" class="btn btn-outline btn-default">?</button></h4>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <p>
-                                                        <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">全选</button>
-                                                        <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">全不选</button>
+                                                        <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">Select all</button>
+                                                        <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">Cancel all selection</button>
                                                     </p>
                                                     <p>
                                                         <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(3)" id="">BGM-71</button>
@@ -425,35 +425,35 @@
                                                     <table class="table table-bordered table-hover" style="width:240px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> 杀伤值</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> DMG</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgmax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> 破防值</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> DBK</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkmax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> 精度值</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> ACU</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acumax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> 装填值</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> FIL</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filmax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> 杀伤格数</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> DMG-block</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgblomax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> 破防格数</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> DBK-block</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkblomax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> 精度格数</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> ACU-block</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acublomax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> 装填格数</label></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> FIL-block</label></td>
                                                                 <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filblomax" value=0 disabled></td>
                                                             </tr>
                                                         </tbody>
@@ -464,11 +464,11 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <p><button type="button" class="btn btn-primary" onclick="getTopology()">计算拼接方案</button><b id="NoResultText"></b></p>
+                                    <p><button type="button" class="btn btn-primary" onclick="getTopology()">Calculate</button><b id="NoResultText"></b></p>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="col-lg-4">
-                                        <h4>图解 (ChipCal_hycdes ver 5.0)</h4>
+                                        <h4>Topology (ChipCal_hycdes ver 5.0)</h4>
                                         <h5 id="timeText"></h5>
                                         <div class="table-responsive">
                                             <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
@@ -561,7 +561,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td style='text-align: center'>
-                                                            <button type="button" class="btn btn-outline btn-success" id="AnalyzeSwitch" onclick="switchAnalyze()" disabled>切换为格数</button>
+                                                            <button type="button" class="btn btn-outline btn-success" id="AnalyzeSwitch" onclick="switchAnalyze()" disabled>Show blocknum</button>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -614,41 +614,41 @@
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="tooltip-demo">
-                                            <h4>该图解下组合的排序基准 <button type="button" data-toggle="tooltip" data-placement="bottom" title="将所属同一图解的组合按条件排序 仅用于【全部方案】" class="btn btn-outline btn-default">?</button></h4>
+                                            <h4>Sorting by (in this topology) <button type="button" data-toggle="tooltip" data-placement="bottom" title="For [Show all] ONLY" class="btn btn-outline btn-default">?</button></h4>
                                         </div>
                                         <p>
-                                            <button type="button" class="btn btn-outline btn-danger" onclick="changeRankingSwitch(1)" id="SortButton_AllPro" disabled>有效总属性</button>
-                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeRankingSwitch(2)" id="SortButton_Block" disabled>有效格</button>
+                                            <button type="button" class="btn btn-outline btn-danger" onclick="changeRankingSwitch(1)" id="SortButton_AllPro" disabled>total valid properties</button>
+                                            <button type="button" class="btn btn-outline btn-warning" onclick="changeRankingSwitch(2)" id="SortButton_Block" disabled>total valid blocknum</button>
                                         </p>
                                         <p>
-                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(3)" id="SortButton_Dmg" disabled>杀伤</button>
-                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(4)" id="SortButton_Dbk" disabled>破防</button>
-                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(5)" id="SortButton_Acu" disabled>精度</button>
-                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(6)" id="SortButton_Fil" disabled>装填</button>
+                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(3)" id="SortButton_Dmg" disabled>DMG</button>
+                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(4)" id="SortButton_Dbk" disabled>DBK</button>
+                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(5)" id="SortButton_Acu" disabled>ACU</button>
+                                            <button type="button" class="btn btn-default" onclick="changeRankingSwitch(6)" id="SortButton_Fil" disabled>FIL</button>
                                         </p>
-                                        <h4>方案选择</h4>
+                                        <h4>Combination</h4>
                                         <h5 id="SortInfo"></h5>
                                         <table class="table table-bordered table-hover" style='width:400px'>
                                             <tbody>
                                                 <tr>
-                                                    <td style='width:130px'>图解
+                                                    <td style='width:130px'>Topo
                                                         <button type="button" class="btn btn-outline btn-success" onclick="changeTopology(2)" id="SbTp" disabled> &lt </button>
                                                         <button type="button" class="btn btn-outline btn-warning" onclick="changeTopology(1)" id="AdTp" disabled> &gt </button>
                                                     </td>
                                                     <td style='width:200px'>
                                                         <select class="form-control input-sm" id="TopologySelect" style="width: 240px" onchange="changeTopology(0)" disabled>
-                                                            <option value=-1>图解编号</option>
+                                                            <option value=-1>Topology number</option>
                                                         </select>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style='width:130px'>组合
+                                                    <td style='width:130px'>Comb
                                                         <button type="button" class="btn btn-outline btn-success" onclick="changeAnalyze(2)" id="SbCo" disabled> &lt </button>
                                                         <button type="button" class="btn btn-outline btn-warning" onclick="changeAnalyze(1)" id="AdCo" disabled> &gt </button>
                                                     </td>
                                                     <td style='width:200px'>
                                                         <select class="form-control input-sm" id="SolutionSelect" style="width: 240px" onchange="showAnalyze()" disabled>
-                                                            <option value=-1>芯片组合</option>
+                                                            <option value=-1>Combination</option>
                                                         </select>
                                                     </td>
                                                 </tr>
@@ -658,9 +658,9 @@
                                             <table class="table table-striped table-bordered table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>编号</th>
-                                                        <th>类型</th>
-                                                        <th>强化</th>
+                                                        <th>Num</th>
+                                                        <th>Type</th>
+                                                        <th>Stren. level</th>
                                                         <th><img src="../img/icon-acu.png"></th>
                                                         <th><img src="../img/icon-fil.png"></th>
                                                         <th><img src="../img/icon-dmg.png"></th>
