@@ -884,3 +884,30 @@ function changeEnvironment () {
   document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
   document.getElementById('envi_ene_ff').innerHTML = document.getElementById('enemy_forcefield').value
 }
+function templatePro (type) {
+  if (type === 1) {
+    document.getElementById('enemy_arm').value = 25
+    document.getElementById('enemy_eva').value = 10
+    document.getElementById('switch_boss').checked = true
+  } else if (type === 2) {
+    document.getElementById('enemy_arm').value = 199
+    document.getElementById('enemy_eva').value = 0
+    document.getElementById('switch_normal').checked = true
+  } else if (type === 3) {
+    document.getElementById('enemy_arm').value = 229
+    document.getElementById('enemy_eva').value = 14
+    document.getElementById('switch_elite').checked = true
+  } else if (type === 4) {
+    document.getElementById('enemy_arm').value = 0
+    document.getElementById('enemy_eva').value = 60
+    document.getElementById('switch_boss').checked = true
+  } else if (type === 5) {
+    document.getElementById('enemy_arm').value = 0
+    document.getElementById('enemy_eva').value = 32
+    document.getElementById('switch_normal').checked = true
+  } else if (type === 6) {
+    document.getElementById('enemy_arm').value = 119
+    document.getElementById('enemy_eva').value = 0
+    document.getElementById('switch_normal').checked = true
+  }
+}
