@@ -195,6 +195,7 @@ var lib_language = {
   DESCRIBE_256: '不使用特殊子弹',
 
   // new
+
   // fairyNAME_1: '勇士妖精',
   // fairyNAME_2: '暴怒妖精',
   // fairyNAME_3: '盾甲妖精',
@@ -225,6 +226,7 @@ var lib_language = {
   // fairyNAME_21: '年兽妖精',
 
   fairyskillstr: '技能 ',
+  fairy_skillNAME_0: '无技能发动',
   fairy_skillNAME_1: '战斗效率',
   fairy_skillNAME_2: '怒无限强',
   fairy_skillNAME_3: '防暴强化',

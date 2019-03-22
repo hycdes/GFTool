@@ -859,7 +859,9 @@ function changeEnvironment () {
     var fairyidx = document.getElementById('select_fairy').selectedIndex
     var fairyname = (document.getElementById('select_fairy')[fairyidx].text).split(' ')[1]
     document.getElementById('envi_fairy').innerHTML = fairyname
-  } else document.getElementById('envi_fairy').innerHTML = lib_language.fairy_0
+  } else {
+    document.getElementById('envi_fairy').innerHTML = lib_language.fairy_0
+  }
   if (talent_no > 0) {
     var talentidx = document.getElementById('select_talent').selectedIndex
     var talentname = document.getElementById('select_talent')[talentidx].text
@@ -878,6 +880,9 @@ function changeEnvironment () {
     document.getElementById('envi_ene_type').innerHTML = 'BOSS'
     document.getElementById('envi_ene_type').style = 'color:red'
   }
+  if (document.getElementById('fairyskill_active').checked) eval('var fairy_skillname_str = lib_language.fairy_skillNAME_' + fairy_no)
+  else eval('var fairy_skillname_str = lib_language.fairy_skillNAME_' + 0)
+  document.getElementById('envi_fairyskill').innerHTML = fairy_skillname_str
   document.getElementById('envi_ene_eva').innerHTML = document.getElementById('enemy_eva').value
   document.getElementById('envi_ene_arm').innerHTML = document.getElementById('enemy_arm').value
   document.getElementById('envi_ene_form').innerHTML = document.getElementById('enemy_form').value

@@ -397,16 +397,14 @@
                                                                     <td id="fairy_skill">技能 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><input type="checkbox" id="fairyskill_active" disabled> 发动技能</td>
+                                                                    <td><input type="checkbox" id="fairyskill_active" disabled onchange="changeEnvironment()"> 发动技能</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
-
                                                 </div>
                                                 <div class="tab-pane fade" id="make_hf">
                                                     <h4>还早着呢！！！</h4>
-
                                                 </div>
                                             </div>
                                         </div>
@@ -423,11 +421,38 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
+                                        <h4>环境</h4>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 50%"><img id="icon-day" src="../img/echelon/icon-battle-daytime.png" style="cursor: pointer" onclick='changeSunrise(1)'></td>
+                                                    <td style="width: 50%"><img id="icon-night" src="../img/echelon/icon-battle-night-no.png" style="cursor: pointer" onclick='changeSunrise(2)'></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 30%">接敌时间</td>
+                                                    <td style="width: 70%">
+                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 30%">战斗时间</td>
+                                                    <td style="width: 70%">
+                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#Setting1" data-toggle="tab">基本设定</a>
+                                                <li class="active"><a href="#Setting1" data-toggle="tab">输出测试</a>
+                                                </li>
+                                                <li><a href="#Setting1-2" data-toggle="tab">承伤测试(没做)</a>
                                                 </li>
                                                 <li><a href="#Setting2" data-toggle="tab">特殊设定</a>
                                                 </li>
@@ -437,32 +462,7 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Setting1">
-                                                    <h4>全局</h4>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="width: 50%"><img id="icon-day" src="../img/echelon/icon-battle-daytime.png" style="cursor: pointer" onclick='changeSunrise(1)'></td>
-                                                                <td style="width: 50%"><img id="icon-night" src="../img/echelon/icon-battle-night-no.png" style="cursor: pointer" onclick='changeSunrise(2)'></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="width: 30%">接敌时间</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 30%">战斗时间</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <h4>敌人</h4>
+                                                    <h4>敌人防御属性</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -523,6 +523,137 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <h4>输出计算</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-info" onclick="getResult(1)">计算1次</button>
+                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100)">100次平均</button>
+                                                    </p>
+                                                </div>
+                                                <div class="tab-pane fade" id="Setting1-2">
+                                                    <h4>敌人输出属性</h4>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px">模板待定</td>
+                                                                <td style="width:100px; height:40px">模板待定</td>
+                                                                <td style="width:100px; height:40px">模板待定</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px">模板待定</td>
+                                                                <td style="width:100px; height:40px">模板待定</td>
+                                                                <td style="width:100px; height:40px">模板待定</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h7>&nbsp</h7>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="height: 30px">
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_normal_2" checked onclick="changeEnvironment()"><b>普通</b></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_elite_2" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>精英</b></span></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_boss_2" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%">伤害</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="changeEnvironment()">
+                                                                </td>
+                                                                <td style="width: 25%">射速</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=30 onblur="changeEnvironment()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%"><input type="checkbox" id="enemy_hp_check"> 敌人攻击必中</td>
+                                                                <td style="width: 25%">命中</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="changeEnvironment()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%">穿甲</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="changeEnvironment()">
+                                                                </td>
+                                                                <td style="width: 25%">破防</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%">编制</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form_2' value=1 onblur="changeEnvironment()">
+                                                                </td>
+                                                                <td style="width: 25%">组数</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num_2' value=1 onblur="changeEnvironment()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr style="height: 30px">
+                                                                <td>
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="releaseEnemyPro()"> 输出超过设定生命值<span style="color:orangered">立刻停战</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%">生命</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 disabled>
+                                                                </td>
+                                                                <td style="width: 25%">回避</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%">护甲</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 disabled>
+                                                                </td>
+                                                                <td style="width: 25%">力场</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%">AOE组数</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=0 disabled>
+                                                                </td>
+                                                                <td style="width: 25%">无敌时间</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h4>承伤计算</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-warning" onclick="getResult_2(1)" disabled>计算1次</button>
+                                                        <button type="button" class="btn btn-outline btn-danger" onclick="getResult_2(100)" disabled>100次平均</button>
+                                                    </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting2">
                                                     <h4>全体增益</h4>
@@ -547,18 +678,14 @@
                                                     <h4>特别感谢</h4>
                                                     <p>人物属性/影响格数据填写：@AsLegend</p>
                                                     <p>游戏机制细节指导：@白金·世界</p>
+                                                    <p>韩文翻译：@pohcy @marty</p>
                                                     <p>BUG排查：@a232430</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4>输出计算</h4>
-                                        <p>
-                                            <button type="button" class="btn btn-outline btn-info" onclick="getResult(1)">计算1次</button>
-                                            <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100)">100次平均</button>
-                                        </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h4>输出曲线</h4>
+                                        <h4>模拟结果曲线</h4>
                                         <p>
                                             <button type="button" class="btn btn-default" onclick="setWidth(300)">手机竖屏</button>
                                             <button type="button" class="btn btn-default" onclick="setWidth(700)">常规</button>
@@ -576,10 +703,10 @@
                                             </tbody>
                                         </table>
                                         <h5><b>[战场环境]</b>
-                                            <span style="color:darkorange" id='envi_day'>昼战</span><span style="color:darkblue" id='envi_night'></span>
+                                            <b><span style="color:darkorange" id='envi_day'>昼战</span><span style="color:darkblue" id='envi_night'></span></b>
                                             <span id='envi_fairy'>无妖精</span>
-                                            <span id='envi_talent'>无天赋发动</span>
-                                            <span id='envi_fairyskill'>无妖精技能</span>
+                                            <span id='envi_talent' style="color:orangered">无天赋发动</span>
+                                            <span id='envi_fairyskill' style="color:dodgerblue">无技能发动</span>
                                             <span style="color: red" id="envi_allpro"></span>
                                         </h5>
                                         <h5><b>[敌人属性]</b>
