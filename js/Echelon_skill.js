@@ -374,6 +374,7 @@ lib_describe.set('a91_N', describe_propertyN(['self'], ['dmg/acu'], ['0.5/0.5'])
 lib_describe.set('iws2000', describe_property(['self'], ['dmg/rof'], ['1.8/-0.35'])) // 巨鹰攻势
 lib_describe.set('t5000', describe_property(['self'], ['rof/acu'], ['0.5/0.5'])) // 锁定专注 50%
 lib_describe.set('obr', describe_property(['self'], ['rof/acu'], ['0.45/0.45'])) // 锁定专注 45%
+lib_describe.set('modelL', describe_property(['self'], ['rof/acu'], ['0.4/0.9'])) // 锁定专注 40/90%
 lib_describe.set('k31', describe_property(['self'], ['rof/acu'], ['0.8/-0.35'])) // 紧急流速
 lib_describe.set('sv98', describe_property(['self'], ['rof/acu'], ['0.08/0.08'])) // 阴影解救者
 lib_describe.set('mk12', describe_property(['self'], ['rof/critdmg'], ['0.3/0.3'])) // 愤怒灵感
@@ -628,6 +629,7 @@ lib_skill.set(193, [
   createSkill(5, 16, 8, lib_describe.get('t65N')),
   createSkill(5, 16, 8, lib_describe.get('t65ND'))
 ])
+lib_skill.set(223, [createSkill(5, 8, 5, lib_describe.get('modelL'))])
 lib_skill.set(239, [createSkill(6, 8, 5, lib_describe.get('dmgcrit_3'))])
 
 lib_skill.set(63, [createSkill(8, 16, 0, lib_describe.get('grenade_10'))])
