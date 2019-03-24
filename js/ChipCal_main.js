@@ -775,6 +775,7 @@ function getTopology () {
       showAnalyze()
       SolutionSelect.disabled = false
     } else { // show all
+      buffer_num = -1
       var soluNum = topologySet.length
       var TopologySelect = document.getElementById('TopologySelect')
       TopologySelect.disabled = false
@@ -1500,15 +1501,14 @@ function sortSolution (sortType) {
   var SolutionSelect = document.getElementById('SolutionSelect')
   var SSText = ''
   solutionSet = ignoreSolution(dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max)
-  var solulen = solutionSet.length
   switch (ranking_switch) {
     case 1: // All property
       document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_value + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
-      solutionSet.sort(compare_sumpro)
+      solutionSet = selectOptimal(solutionSet, buffer_num, value_sumpro_of_HeavyfireType(HeavyfireType))
       break
     case 2: // All blockNum
       document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_block + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
-      solutionSet.sort(compare_sumblo)
+      solutionSet = selectOptimal(solutionSet, buffer_num, value_sumblo_of_HeavyfireType(HeavyfireType))
       break
     case 3: // Dmg
       document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dmg + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
@@ -1528,6 +1528,7 @@ function sortSolution (sortType) {
       break
   }
   SolutionSelect.disabled = false
+  var solulen = solutionSet.length
   if (solulen > 0) {
     for (var i = 0; i < solulen; i++) {
       SSText += '<option value=' + i + '>' + lib_lang.num + ' '
@@ -1681,3 +1682,164 @@ function setBestNum () {
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
 function getHelp () { window.open('../img/CC-tutorial.png'); }
+
+// ====================================================================
+
+/**
+ * this part made by kirA, thanks him
+ * return a function that can compute the value for specified HeavyfireType
+ */
+function value_sumpro_of_HeavyfireType (HeavyfireType) {
+  var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
+  // Init max value of each property for different Heavyfire.
+  if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
+  else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
+  else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
+  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+  else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
+
+  // get value for a solution
+  function getValue (solu_a) {
+    var looplen_a = solu_a.length
+    if (isNaN(solu_a[looplen_a - 1])) looplen_a--
+
+    var dmg_a = 0, dbk_a = 0, acu_a = 0, fil_a = 0
+    for (var n = 0; n < looplen_a; n++) {
+      dmg_a += chipRepo_chart[solu_a[n] - 1].Dmg
+      dbk_a += chipRepo_chart[solu_a[n] - 1].Dbk
+      acu_a += chipRepo_chart[solu_a[n] - 1].Acu
+      fil_a += chipRepo_chart[solu_a[n] - 1].Fil
+    }
+
+    if (dmg_a > dmg_max) dmg_a = dmg_max
+    if (dbk_a > dbk_max) dbk_a = dbk_max
+    if (acu_a > acu_max) acu_a = acu_max
+    if (fil_a > fil_max) fil_a = fil_max
+
+    var value_a = (dmg_a / dmg_max) + (dbk_a / dbk_max) + (acu_a / acu_max) + (fil_a / fil_max)
+    return value_a
+  }
+  return getValue
+}
+
+function value_sumblo_of_HeavyfireType (HeavyfireType) {
+  var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0
+  if (HeavyfireType === 1) { dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
+  else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
+  else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
+  else if (HeavyfireType === 4) { dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
+  else if (HeavyfireType === 5) { dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
+
+  function getValue (solu_a) {
+    var looplen_a = solu_a.length
+    if (isNaN(solu_a[looplen_a - 1])) looplen_a--
+
+    var dmg_a = 0, dbk_a = 0, acu_a = 0, fil_a = 0
+    for (var n = 0; n < looplen_a; n++) {
+      dmg_a += chipRepo_data[solu_a[n] - 1].bDmg
+      dbk_a += chipRepo_data[solu_a[n] - 1].bDbk
+      acu_a += chipRepo_data[solu_a[n] - 1].bAcu
+      fil_a += chipRepo_data[solu_a[n] - 1].bFil
+    }
+
+    if (dmg_a > dmgblo_max) dmg_a = dmgblo_max
+    if (dbk_a > dbkblo_max) dbk_a = dbkblo_max
+    if (acu_a > acublo_max) acu_a = acublo_max
+    if (fil_a > filblo_max) fil_a = filblo_max
+
+    var value_a = dmg_a + dbk_a + acu_a + fil_a
+    return value_a
+  }
+  return getValue
+}
+
+/**
+ * 
+ * @param {Array} solutionSet solutionSet
+ * @param {Number} topN the number of solutions which will be select
+ * @param {Function} getValue a function can compute the value of solution
+ */
+function selectOptimal (solutionSet, topN, getValue) {
+  // store value for each solution
+  var value_array = []
+  var setsize = solutionSet.length
+  for (var i = 0; i < setsize; i++) {
+    value_array.push(getValue(solutionSet[i]))
+  }
+  // select indices of the top N max value in value_array
+  var heap = new TopNheap(topN, (i, j) => value_array[i] - value_array[j])
+  for (var i = 0; i < value_array.length; i++) {
+    heap.push(i)
+  }
+  var topN_index_array = heap.extractAll()
+  // select the top N solution with indices
+  var topNsolutionSet = []
+  for (var i = 0; i < topN_index_array.length; i++) {
+    topNsolutionSet.push(solutionSet[topN_index_array[i]])
+  }
+  return topNsolutionSet
+}
+function TopNheap (N, compare) {
+  this.array = []
+  this.size = 0
+  this.N = N
+  this.compare = compare
+
+  for (var i = 0; i < N + 1; i++) {
+    this.array[i] = 0
+  }
+  this.exchange = function (i, j) {
+    var temp = this.array[i]
+    this.array[i] = this.array[j]
+    this.array[j] = temp
+  }
+  this.push = function (item) {
+    if (N < 0 || this.size < N) {
+      this.size++
+      var i = this.size
+      this.array[i] = item
+      while (i > 1 && this.compare(this.array[i], this.array[parseInt(i / 2)]) < 0) {
+        var j = parseInt(i / 2)
+        this.exchange(i, j)
+        i = j
+      }
+    }
+    else if (this.compare(item, this.array[1]) > 0) {
+      this.array[1] = item
+      this.heapify(1)
+    }
+  }
+  this.extractHead = function () {
+    if (this.size < 1) {
+      return
+    }
+    var temp = this.array[1]
+    this.array[1] = this.array[this.size]
+    this.size--
+    this.heapify(1)
+    return temp
+  }
+  this.heapify = function (root) {
+    while (1) {
+      var left = root * 2
+      var right = left + 1
+      var temp = root
+      if (left <= this.size && this.compare(this.array[left], this.array[temp]) < 0) {
+        temp = left
+      }
+      if (right <= this.size && this.compare(this.array[right], this.array[temp]) < 0) {
+        temp = right
+      }
+      if (temp == root) break
+      this.exchange(temp, root)
+      root = temp
+    }
+  }
+  this.extractAll = function () {
+    var a = []
+    while (this.size > 0) {
+      a.push(this.extractHead())
+    }
+    return a.reverse()
+  }
+}
