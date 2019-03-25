@@ -525,8 +525,8 @@
                                                     </table>
                                                     <h4>输出计算</h4>
                                                     <p>
-                                                        <button type="button" class="btn btn-outline btn-info" onclick="getResult(1)">计算1次</button>
-                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100)">100次平均</button>
+                                                        <button type="button" class="btn btn-outline btn-info" onclick="getResult(1,'damage')">计算1次</button>
+                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100,'damage')">100次平均</button>
                                                     </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting1-2">
@@ -610,7 +610,7 @@
                                                         <tbody>
                                                             <tr style="height: 30px">
                                                                 <td>
-                                                                    <input type="checkbox" id="enemy_hp_check" onchange="releaseEnemyPro()"> 输出超过设定生命值<span style="color:orangered">立刻停战</span>
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="releaseEnemyPro()"> 敌人<span style="color:orangered">能够被杀死</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -651,8 +651,8 @@
                                                     </table>
                                                     <h4>承伤计算</h4>
                                                     <p>
-                                                        <button type="button" class="btn btn-outline btn-warning" onclick="getResult_2(1)" disabled>计算1次</button>
-                                                        <button type="button" class="btn btn-outline btn-danger" onclick="getResult_2(100)" disabled>100次平均</button>
+                                                        <button type="button" class="btn btn-outline btn-warning" onclick="getResult(1,'suffer')" disabled>计算1次</button>
+                                                        <button type="button" class="btn btn-outline btn-danger" onclick="getResult(100,'suffer')" disabled>100次平均</button>
                                                     </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting2">

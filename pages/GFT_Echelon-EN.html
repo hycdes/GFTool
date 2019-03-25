@@ -423,11 +423,38 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
+                                        <h4>Environment</h4>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 50%"><img id="icon-day" src="../img/echelon/icon-battle-daytime.png" style="cursor: pointer" onclick='changeSunrise(1)'></td>
+                                                    <td style="width: 50%"><img id="icon-night" src="../img/echelon/icon-battle-night-no.png" style="cursor: pointer" onclick='changeSunrise(2)'></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 30%">Encounter</td>
+                                                    <td style="width: 70%">
+                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 30%">Battle</td>
+                                                    <td style="width: 70%">
+                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#Setting1" data-toggle="tab">Basic setting</a>
+                                                <li class="active"><a href="#Setting1" data-toggle="tab">Dmg simu</a>
+                                                </li>
+                                                <li><a href="#Setting1-2" data-toggle="tab">Inj simu</a>
                                                 </li>
                                                 <li><a href="#Setting2" data-toggle="tab">Special setting</a>
                                                 </li>
@@ -437,32 +464,22 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Setting1">
-                                                    <h4>Global</h4>
+                                                    <h4>Enemy properties</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 50%"><img id="icon-day" src="../img/echelon/icon-battle-daytime.png" style="cursor: pointer" onclick='changeSunrise(1)'></td>
-                                                                <td style="width: 50%"><img id="icon-night" src="../img/echelon/icon-battle-night-no.png" style="cursor: pointer" onclick='changeSunrise(2)'></td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-1.png" style="cursor: pointer" onclick='templatePro(1)'></td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-2.png" style="cursor: pointer" onclick='templatePro(2)'></td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-3.png" style="cursor: pointer" onclick='templatePro(3)'></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-4.png" style="cursor: pointer" onclick='templatePro(4)'></td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-5.png" style="cursor: pointer" onclick='templatePro(5)'></td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-6.png" style="cursor: pointer" onclick='templatePro(6)'></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="width: 30%">Encounter</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 30%">Battle</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <h4>Enemy</h4>
+                                                    <h7>&nbsp</h7>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -479,39 +496,170 @@
                                                             <tr>
                                                                 <td style="width: 30%">eva</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_eva' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 30%">arm</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_arm' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">formation</td>
+                                                                <td style="width: 30%">form</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="1~5" id='enemy_form' value=1 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 30%">num</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_num' value=1 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">force-field</td>
+                                                                <td style="width: 30%">forcefield</td>
                                                                 <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_forcefield' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 disabled>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <h4>Damage simulate</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-info" onclick="getResult(1,'damage')">Simulate once</button>
+                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100,'damage')">Simulate 100</button>
+                                                    </p>
+                                                </div>
+                                                <div class="tab-pane fade" id="Setting1-2">
+                                                    <h4>Enemy properties</h4>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h7>&nbsp</h7>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="height: 30px">
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_normal_2" checked onclick="changeEnvironment()"><b>Normal</b></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_elite_2" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>Elite</b></span></label>
+                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_boss_2" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%">dmg</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="changeEnvironment()">
+                                                                </td>
+                                                                <td style="width: 25%">rof</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=30 onblur="changeEnvironment()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%"><input type="checkbox" id="enemy_hp_check"> 100% accuracy</td>
+                                                                <td style="width: 25%">acu</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="changeEnvironment()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%">ap</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="changeEnvironment()">
+                                                                </td>
+                                                                <td style="width: 25%">dbk</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%">form</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form_2' value=1 onblur="changeEnvironment()">
+                                                                </td>
+                                                                <td style="width: 25%">num</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num_2' value=1 onblur="changeEnvironment()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr style="height: 30px">
+                                                                <td>
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="releaseEnemyPro()"> Enemies<span style="color:orangered"> can be killed</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%">hp</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 disabled>
+                                                                </td>
+                                                                <td style="width: 25%">eva</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%">arm</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 disabled>
+                                                                </td>
+                                                                <td style="width: 25%">forcefield</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%">AOE affect</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=0 disabled>
+                                                                </td>
+                                                                <td style="width: 25%">immortal time</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 disabled>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h4>Injury simulate</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-warning" onclick="getResult(1,'suffer')" disabled>Simulate once</button>
+                                                        <button type="button" class="btn btn-outline btn-danger" onclick="getResult(100,'suffer')" disabled>Simulate 100</button>
+                                                    </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting2">
-                                                    <h4>BUFF all</h4>
-                                                    <input type="checkbox" id="check_init_critmax"> Crit max
+                                                    <h4>BUFF All</h4>
+                                                    <input type="checkbox" id="check_init_critmax"> Must crit
                                                     <p id="special_fairy"></p>
                                                     <p id="special_num0"></p>
                                                     <p id="special_num1"></p>
@@ -525,34 +673,30 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting3">
                                                     <h4>Note and reference</h4>
-                                                    <p> * Shoot/Snipe bullet arrive in no time</p>
-                                                    <p> * Grenade prepare to launch cost 1s</p>
-                                                    <p>Game mechanism <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA link]</span></a></p>
-                                                    <p>T-doll/equipment resources <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[EN-wiki link]</span></a></p>
+                                                    <p> * Bullets arrive immediately</p>
+                                                    <p> * 1s from grenade preparation to launching</p>
+                                                    <p>Formulations <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA-link]</span></a></p>
+                                                    <p>T-doll/equip resources <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[enwiki-link]</span></a></p>
                                                     <h4>Special thanks</h4>
-                                                    <p>T-doll property/block-effect data: @AsLegend</p>
-                                                    <p>Game mechanism guidance: @白金·世界</p>
-                                                    <p>Debug support: @a232430</p>
+                                                    <p>T-dolls' propertire/affect block info support: @AsLegend</p>
+                                                    <p>Game details guide: @白金·世界</p>
+                                                    <p>Korean translation: @pohcy @marty</p>
+                                                    <p>BUG feedback: @a232430</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4>Damage statistics</h4>
-                                        <p>
-                                            <button type="button" class="btn btn-outline btn-info" onclick="getResult(1)">Simu once</button>
-                                            <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100)">100 times avg</button>
-                                        </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h4>Damage chart</h4>
+                                        <h4>Simulation</h4>
                                         <p>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">Mobile vertical screen</button>
+                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">Mobile vertical</button>
                                             <button type="button" class="btn btn-default" onclick="setWidth(700)">Default</button>
                                             <button type="button" class="btn btn-default" onclick="setWidth(900)">Max width</button>
                                         </p>
                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 50%">Width(300~900)</td>
+                                                    <td style="width: 50%">Wid(300~900)</td>
                                                     <td style="width: 40%">
                                                         <input class="form-control input-sm" placeholder="输入300~900整数" id="container_len" value=700 onblur="setWidth('input')">
                                                     </td>
@@ -561,23 +705,23 @@
                                             </tbody>
                                         </table>
                                         <h5><b>[Battlefield environment]</b>
-                                            <span style="color:darkorange" id='envi_day'>Daytime</span><span style="color:darkblue" id='envi_night'></span>
+                                            <b><span style="color:darkorange" id='envi_day'>Daytime</span><span style="color:darkblue" id='envi_night'></span></b>
                                             <span id='envi_fairy'>No fairy</span>
-                                            <span id='envi_talent'>No talent</span>
-                                            <span id='envi_fairyskill'>No skill</span>
+                                            <span id='envi_talent' style="color:orangered">No talent</span>
+                                            <span id='envi_fairyskill' style="color:dodgerblue">No skill</span>
                                             <span style="color: red" id="envi_allpro"></span>
                                         </h5>
-                                        <h5><b>[Enemy]</b>
+                                        <h5><b>[Enemy properties]</b>
                                             Type [ <span style="color:black" id='envi_ene_type'>Normal</span> ]
                                             eva [ <span style="color:green" id='envi_ene_eva'>0</span> ]
-                                            arm [ <span style="color:green" id='envi_ene_arm'>0</span> ]
-                                            foramtion [ <span style="color:green" id='envi_ene_form'>1</span> ]
+                                            aem [ <span style="color:green" id='envi_ene_arm'>0</span> ]
+                                            form [ <span style="color:green" id='envi_ene_form'>1</span> ]
                                             num [ <span style="color:green" id='envi_ene_num'>1</span> ]
-                                            forcefireld [ <span style="color:green" id='envi_ene_ff'>0</span> ]
+                                            ff [ <span style="color:green" id='envi_ene_ff'>0</span> ]
                                         </h5>
                                         <h5><b>[Statistics]</b>
-                                            Total damage [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
-                                            Battle time [ <span style="color:green" id='envi_alltime'>50</span> ]
+                                            All dmg [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
+                                            Battle-time [ <span style="color:green" id='envi_alltime'>50</span> ]
                                             Encounter [ <span style="color:green" id='envi_contertime'>0</span> ]
                                         </h5>
                                         <div id="container" style="width: 700px"></div>

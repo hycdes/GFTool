@@ -21,21 +21,15 @@ var list_tdoll = [[0, null], [1, null], [2, null], [3, null], [4, null], [5, nul
 var time = 100, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0
 var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map
 var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9]
-var not_init = false
 
 // global variations for main-calculation
 var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_frame> ]>，Status=[type,value(>1)]
 var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, frame> ] >，攻击也是个技能
 var Set_Base = new Map // 当前属性，当Status改变时更新
-var Set_Command = new Map // 命令，存放命令，< num_stand, command >，command = standby, freefire, skill_mf, skill_all...
 var Set_Special = new Map // 特殊变量表
 var Set_Data = new Map // 输出数据
 var Set_Data_Buffer = new Map // 缓存已有数据
 var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = [], totaldamage_buffer = 0
-var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_fragile = false
-var Set_EnemyStatus = new Map
-var Set_EnemyProperty = [] // 敌人属性变化
-var global_frame = 0, global_fragile = 1
 
 // inital
 function mergeCell (table1, startRow, endRow, col) {
