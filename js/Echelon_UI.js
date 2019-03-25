@@ -714,8 +714,7 @@ function deleteTdoll () { // 删除战术人形
   // 计算影响格
   getBlockAffect()
 }
-function setWidth () {
-  var command = arguments['0']
+function setWidth (command) {
   if (command === 'input') {
     var len = document.getElementById('container_len').value
     if (len === null || isNaN(len) || (len < 300 || len > 900)) {
@@ -727,7 +726,7 @@ function setWidth () {
     document.getElementById('container_len').value = parseInt(command)
     document.getElementById('container').style = 'width: ' + parseInt(command) + 'px'
   }
-  refreshImage()
+  refreshImage('container')
 }
 function changeSunrise (type) {
   if (type === 1) {
@@ -819,41 +818,42 @@ function inputCheck_mosin (str_id) {
     document.getElementById(str_id).value = 2
   }
 }
-function changeEnvironment () {
+function changeEnvironment () { // change display of envi-parameters and check value
+  // 伤害测试
   var edit_timeinit = document.getElementById('time_init').value
-  if (edit_timeinit === '' || isNaN(edit_timeinit) || parseInt(edit_timeinit) < 0) { // 非负数
+  if (edit_timeinit === '' || isNaN(edit_timeinit) || parseInt(edit_timeinit) < 0) { // 接敌时间，非负数
     document.getElementById('time_init').value = 0
   }
   var edit_timeall = document.getElementById('time_battle').value
-  if (edit_timeall === '' || isNaN(edit_timeall) || parseInt(edit_timeall) <= 0) { // 正数
-    document.getElementById('time_battle').value = 50
+  if (edit_timeall === '' || isNaN(edit_timeall) || parseInt(edit_timeall) <= 0) { // 战斗时间，正数
+    document.getElementById('time_battle').value = 20
   }
   var edit_eva = document.getElementById('enemy_eva').value
-  if (edit_eva === '' || isNaN(edit_eva) || parseInt(edit_eva) < 0 || (parseFloat(edit_eva) != parseInt(edit_eva))) { // 非负整数
+  if (edit_eva === '' || isNaN(edit_eva) || parseInt(edit_eva) < 0 || (parseFloat(edit_eva) != parseInt(edit_eva))) { // 敌人回避，非负整数
     document.getElementById('enemy_eva').value = 0
   }
   var edit_arm = document.getElementById('enemy_arm').value
-  if (edit_arm === '' || isNaN(edit_arm) || parseInt(edit_arm) < 0 || (parseFloat(edit_arm) != parseInt(edit_arm))) { // 非负整数
+  if (edit_arm === '' || isNaN(edit_arm) || parseInt(edit_arm) < 0 || (parseFloat(edit_arm) != parseInt(edit_arm))) { // 敌人护甲，非负整数
     document.getElementById('enemy_arm').value = 0
   }
   var edit_form = document.getElementById('enemy_form').value
-  if (edit_form != 1 && edit_form != 2 && edit_form != 3 && edit_form != 4 && edit_form != 5) {
+  if (edit_form != 1 && edit_form != 2 && edit_form != 3 && edit_form != 4 && edit_form != 5) { // 敌人编制，1~5
     document.getElementById('enemy_form').value = 1
   }
   var edit_num = document.getElementById('enemy_num').value
-  if (edit_num === '' || isNaN(edit_num) || parseInt(edit_num) <= 0 || (parseFloat(edit_num) != parseInt(edit_num))) { // 正整数
+  if (edit_num === '' || isNaN(edit_num) || parseInt(edit_num) <= 0 || (parseFloat(edit_num) != parseInt(edit_num))) { // 敌人组数，正整数
     document.getElementById('enemy_num').value = 1
   }
   var edit_ff = document.getElementById('enemy_forcefield').value
-  if (edit_ff === '' || isNaN(edit_ff) || parseInt(edit_ff) < 0 || (parseFloat(edit_ff) != parseInt(edit_ff))) { // 非负整数
+  if (edit_ff === '' || isNaN(edit_ff) || parseInt(edit_ff) < 0 || (parseFloat(edit_ff) != parseInt(edit_ff))) { // 敌人力场，非负整数
     document.getElementById('enemy_forcefield').value = 0
   }
   if (daytime === 1) {
-    document.getElementById('envi_day').innerHTML = lib_language.daytime
+    document.getElementById('envi_day').innerHTML = lib_language.daytime // 昼
     document.getElementById('envi_night').innerHTML = ''
   } else if (daytime === 2) {
     document.getElementById('envi_day').innerHTML = ''
-    document.getElementById('envi_night').innerHTML = lib_language.night
+    document.getElementById('envi_night').innerHTML = lib_language.night // 夜
   }
   if (fairy_no > 0) {
     var fairyidx = document.getElementById('select_fairy').selectedIndex
@@ -888,6 +888,33 @@ function changeEnvironment () {
   document.getElementById('envi_ene_form').innerHTML = document.getElementById('enemy_form').value
   document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
   document.getElementById('envi_ene_ff').innerHTML = document.getElementById('enemy_forcefield').value
+  // 承伤测试
+  if (document.getElementById('enemy_hp_check').checked) {
+    document.getElementById('enemy_hp').disabled = false
+    document.getElementById('enemy_eva_2').disabled = false
+    document.getElementById('enemy_arm_2').disabled = false
+    document.getElementById('enemy_forcefield_2').disabled = false
+    document.getElementById('enemy_aoe').disabled = false
+    document.getElementById('enemy_immortal').disabled = false
+  } else {
+    document.getElementById('enemy_hp').value = 1000
+    document.getElementById('enemy_eva_2').value = 10
+    document.getElementById('enemy_arm_2').value = 0
+    document.getElementById('enemy_forcefield_2').value = 0
+    document.getElementById('enemy_aoe').value = parseInt(document.getElementById('enemy_num_2').value)
+    document.getElementById('enemy_immortal').value = 0
+    document.getElementById('enemy_hp').disabled = true
+    document.getElementById('enemy_eva_2').disabled = true
+    document.getElementById('enemy_arm_2').disabled = true
+    document.getElementById('enemy_forcefield_2').disabled = true
+    document.getElementById('enemy_aoe').disabled = true
+    document.getElementById('enemy_immortal').disabled = true
+  }
+  if (document.getElementById('enemy_acumax').checked) {
+    0
+  } else {
+    0
+  }
 }
 function templatePro (type) {
   if (type === 1) {

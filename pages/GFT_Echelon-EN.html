@@ -448,6 +448,17 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="height: 30px">
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>Normal</b></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>Elite</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
@@ -480,17 +491,6 @@
                                                         </tbody>
                                                     </table>
                                                     <h7>&nbsp</h7>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="height: 30px">
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>Normal</b></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>Elite</b></span></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -548,17 +548,6 @@
                                                         </tbody>
                                                     </table>
                                                     <h7>&nbsp</h7>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="height: 30px">
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_normal_2" checked onclick="changeEnvironment()"><b>Normal</b></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_elite_2" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>Elite</b></span></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_boss_2" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -626,7 +615,7 @@
                                                                 </td>
                                                                 <td style="width: 25%">eva</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 disabled>
                                                                 </td>
                                                             </tr>
                                                             <tr>

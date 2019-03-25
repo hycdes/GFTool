@@ -13,6 +13,11 @@ var fragile_main = 1, fragile_all = 1 // 主目标脆弱，副目标脆弱
 // special variations
 var not_init = false // 控制蟒蛇能够开始复读的时间
 
+// result data
+var display_type = 'damage'
+var Set_Data = new Map // 输出数据
+var Set_Data_Buffer = new Map // 缓存已有数据
+
 // init_status and data
 function resetAllConfig () {
   not_init = false // 此阶段所有buff皆不可复读
@@ -42,7 +47,7 @@ function resetAllConfig () {
   if (daytime === 1) Set_Special.set('sunrise', 'day')
   else if (daytime === 2) Set_Special.set('sunrise', 'night')
 
-  for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位
+  for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
 }
@@ -107,9 +112,10 @@ function getBlockAffect () {
 
 function getResult (multiple, action) {
   Set_Data_Buffer.clear()
+  display_type = action
   for (var n = 0; n < multiple; n++) {
-    if (action === 'damage') getDPS()
-    else if (action === 'suffer') getDPS('suffer')
+    if (display_type === 'damage') getDPS()
+    else if (display_type === 'suffer') getDPS('suffer')
     for (var i = 0; i < 9; i++) {
       var final_data = []
       var this_data = Set_Data_Buffer.get(i)
@@ -157,7 +163,7 @@ function getResult (multiple, action) {
   // 绘图
   var x_max = Math.ceil(time / 30)
   var y_max = 0
-  var str_label = ['', '', '', '', '', '', '', '', '', '']
+  var str_label = ['', '', '', '', '', '', '', '', '', '', '']
   totaldamage_buffer = 0
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
@@ -165,6 +171,12 @@ function getResult (multiple, action) {
       totaldamage_buffer += current_data[current_data.length - 1][1]
     }
   }
+  if (fairy_no === 12 && document.getElementById('fairyskill_active').checked) {
+    if (enemy_type != 'boss') recordData(9, 0, totaldamage_buffer)
+    else recordData(9, 0, 0)
+    recordData(9, time, 0)
+  }
+  totaldamage_buffer += Set_Data.get(9)[Set_Data.get(9).length - 1][1]
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data.get(i)
@@ -173,6 +185,13 @@ function getResult (multiple, action) {
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
       str_label[i] += (i + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + lib_language.main_draw_2 + current_data[len_data - 1][1] + ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
     }
+  }
+  if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
+    var current_data = Set_Data.get(9)
+    var len_data = current_data.length
+    for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
+    if (y_max < Set_Data.get(9)[Set_Data.get(9).length - 1][1]) y_max = Set_Data.get(9)[Set_Data.get(9).length - 1][1]
+    eval('str_label[9]=lib_language.fairyNAME_' + fairy_no + '+lib_language.main_draw_2+current_data[len_data - 1][1]+"("+((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + "%)"')
   }
   x_max_buffer = x_max, y_max_buffer = y_max, str_label_buffer = str_label
   makeGraph(x_max, y_max, str_label)
@@ -202,8 +221,10 @@ function getDPS () {
   // Phase 2: 初始化出战数据 及 不可复读buff————————————————————————————————————————————————————————————
 
   // 出战属性和初始状态
+  for (var i = 0; i < 10; i++) {
+    Set_Data.set(i, [[0, 0]]) // 输出数据初始化，包括妖精
+  }
   for (var i = 0; i < 9; i++) {
-    Set_Data.set(i, [[0, 0]]) // 输出数据初始化
     if (list_tdoll[i][1] != null) {
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
       Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
@@ -253,7 +274,7 @@ function getDPS () {
   enemy_form = parseInt(document.getElementById('enemy_form').value)
   enemy_num = parseInt(document.getElementById('enemy_num').value)
   enemy_num_left = enemy_num
-  if (testing_type==='suffer') aoe_num = document.getElementById('enemy_aoe')
+  if (testing_type === 'suffer') aoe_num = document.getElementById('enemy_aoe')
   else aoe_num = enemy_num
   if (document.getElementById('switch_normal').checked) enemy_type = 'normal'
   else if (document.getElementById('switch_elite').checked) enemy_type = 'elite'
@@ -359,12 +380,15 @@ function getDPS () {
       //
     } else if (fairy_no === 6) { // 嘲讽靶机（暂时没做）
       //
-    } else if (fairy_no === 7) { // 狙击指令（暂时没做）
-      //
-    } else if (fairy_no === 8) { // 炮击指令（暂时没做）
-      //
-    } else if (fairy_no === 9) { // 致命空袭（暂时没做）
-      //
+    } else if (fairy_no === 7) { // 狙击指令
+      Set_Special.set('fairy_skillon', true)
+      Set_Special.set('fairy_skilltime', 300)
+    } else if (fairy_no === 8) { // 炮击指令
+      Set_Special.set('fairy_skillon', true)
+      Set_Special.set('fairy_skilltime', 150)
+    } else if (fairy_no === 9) { // 致命空袭
+      Set_Special.set('fairy_skillon', true)
+      Set_Special.set('fairy_skilltime', 30)
     } else if (fairy_no === 10) { // 增援人形
       changeStatus(common_position, 'all', 'eva', '0.1', 20)
     } else if (fairy_no === 12) { // 地雷阵线（暂时没做）
@@ -491,6 +515,23 @@ function getDPS () {
       }
       if (Set_Special.get('talent_num') >= 3) check_talent = false
     }
+    // 狙击指令
+    if (Set_Special.get('fairy_skillon') === true) {
+      if (Set_Special.get('fairy_skilltime') <= t) {
+        if (fairy_no === 7) { // 狙击指令
+          recordData(9, t, 0)
+          recordData(9, t, 20000 * explain_fragile('single'))
+        } else if (fairy_no === 8) { // 炮击指令
+          recordData(9, t, 0)
+          recordData(9, t, 1200 * explain_fragile('aoe'))
+        } else if (fairy_no === 9) { // 致命空袭
+          recordData(9, t, 0)
+          recordData(9, t, 500 * explain_fragile('aoe'))
+        }
+
+        Set_Special.set('fairy_skillon', false)
+      }
+    }
     // 接敌时间
     if (init_time > 0) {
       init_time--
@@ -505,6 +546,7 @@ function getDPS () {
     }
   }
   for (var i = 0; i < 9; i++) if (list_tdoll[i][1] != null) recordData(i, time, 0)
+  if (fairy_no != 12 && fairy_no != 13) recordData(9, time, 0)
 }
 
 // 处理所有技能，并更新所有状态
@@ -1798,30 +1840,69 @@ function recordData (stand_num, current_time, increment) {
 function formater_DPS (e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
 function makeGraph (x_max, y_max, str_label) {
   var container = document.getElementById('container')
-  graph = Flotr.draw(container, [
-    { data: Set_Data.get(0), label: str_label[0]},
-    { data: Set_Data.get(1), label: str_label[1]},
-    { data: Set_Data.get(2), label: str_label[2]},
-    { data: Set_Data.get(3), label: str_label[3]},
-    { data: Set_Data.get(4), label: str_label[4]},
-    { data: Set_Data.get(5), label: str_label[5]},
-    { data: Set_Data.get(6), label: str_label[6]},
-    { data: Set_Data.get(7), label: str_label[7]},
-    { data: Set_Data.get(8), label: str_label[8]},
-    { data: Set_Data.get(9), label: str_label[9]}
-  ], {
-    colors: ['#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000'],
-    xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
-    yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
-    mouse: { track: true, relative: true, trackFormatter: formater_DPS },
-    points: { show: false },
-    HtmlText: false,
-    grid: { verticalLines: false },
-    legend: {
-      position: 'nw',
-      backgroundColor: '#FFFFFF'
-    }
-  })
+  if (display_type === 'damage') {
+    graph = Flotr.draw(container, [
+      { data: Set_Data.get(0), label: str_label[0]},
+      { data: Set_Data.get(1), label: str_label[1]},
+      { data: Set_Data.get(2), label: str_label[2]},
+      { data: Set_Data.get(3), label: str_label[3]},
+      { data: Set_Data.get(4), label: str_label[4]},
+      { data: Set_Data.get(5), label: str_label[5]},
+      { data: Set_Data.get(6), label: str_label[6]},
+      { data: Set_Data.get(7), label: str_label[7]},
+      { data: Set_Data.get(8), label: str_label[8]},
+      { data: Set_Data.get(9), label: str_label[9]}
+    ], {
+      colors: ['#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000', '#666666'],
+      xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
+      yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
+      mouse: { track: true, relative: true, trackFormatter: formater_DPS },
+      points: { show: false },
+      HtmlText: false,
+      grid: { verticalLines: false },
+      legend: {
+        position: 'nw',
+        backgroundColor: '#FFFFFF'
+      }
+    })
+  } else if (display_type === 'suffer') {
+    graph = Flotr.draw(container, [
+      { data: Set_Data.get(0), label: str_label[0]},
+      { data: Set_Data.get(1), label: str_label[1]},
+      { data: Set_Data.get(2), label: str_label[2]},
+      { data: Set_Data.get(3), label: str_label[3]},
+      { data: Set_Data.get(4), label: str_label[4]},
+      { data: Set_Data.get(5), label: str_label[5]},
+      { data: Set_Data.get(6), label: str_label[6]},
+      { data: Set_Data.get(7), label: str_label[7]},
+      { data: Set_Data.get(8), label: str_label[8]},
+      { data: Set_Data.get(9), label: str_label[9]},
+      { data: Set_Data_suffer.get(0), label: str_label[0]},
+      { data: Set_Data_suffer.get(1), label: str_label[1]},
+      { data: Set_Data_suffer.get(2), label: str_label[2]},
+      { data: Set_Data_suffer.get(3), label: str_label[3]},
+      { data: Set_Data_suffer.get(4), label: str_label[4]},
+      { data: Set_Data_suffer.get(5), label: str_label[5]},
+      { data: Set_Data_suffer.get(6), label: str_label[6]},
+      { data: Set_Data_suffer.get(7), label: str_label[7]},
+      { data: Set_Data_suffer.get(8), label: str_label[8]}
+    ], {
+      colors: [
+        '#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000', '#666666',
+        '#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000'
+      ],
+      xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
+      yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
+      mouse: { track: true, relative: true, trackFormatter: formater_DPS },
+      points: { show: false },
+      HtmlText: false,
+      grid: { verticalLines: false },
+      legend: {
+        position: 'nw',
+        backgroundColor: '#FFFFFF'
+      }
+    })
+  }
 }
 
 function get_g36_standblo (stand_num) {
@@ -1842,11 +1923,11 @@ function explain_fragile (damage_type) { // single单体, aoe范围, around_aoe�
   if (damage_type === 'single') return fragile_main
   else if (damage_type === 'around_single') return fragile_all
   else if (damage_type === 'aoe') {
-    if (aoe_num <= enemy_num_left) return fragile_main + (aoe_num - 1) * fragile_all
-    else return fragile_main + (enemy_num_left - 1) * fragile_all
+    if (aoe_num <= enemy_num_left) return (fragile_main + (aoe_num - 1) * fragile_all) * enemy_form
+    else return (fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form
   }
   else if (damage_type === 'around_aoe') {
-    if (aoe_num <= enemy_num_left) return (aoe_num - 1) * fragile_all
-    else return (enemy_num_left - 1) * fragile_all
+    if (aoe_num <= enemy_num_left) return ((aoe_num - 1) * fragile_all) * enemy_form
+    else return ((enemy_num_left - 1) * fragile_all) * enemy_form
   }
 }

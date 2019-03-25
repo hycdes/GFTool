@@ -27,8 +27,6 @@ var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Sta
 var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, frame> ] >，攻击也是个技能
 var Set_Base = new Map // 当前属性，当Status改变时更新
 var Set_Special = new Map // 特殊变量表
-var Set_Data = new Map // 输出数据
-var Set_Data_Buffer = new Map // 缓存已有数据
 var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = [], totaldamage_buffer = 0
 
 // inital

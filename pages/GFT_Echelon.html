@@ -446,6 +446,17 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="height: 30px">
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>普通</b></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>精英</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
@@ -478,17 +489,6 @@
                                                         </tbody>
                                                     </table>
                                                     <h7>&nbsp</h7>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="height: 30px">
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>普通</b></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>精英</b></span></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -549,17 +549,6 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="height: 30px">
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_normal_2" checked onclick="changeEnvironment()"><b>普通</b></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_elite_2" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>精英</b></span></label>
-                                                                    <label class="radio-inline"><input type="radio" name="switch_class_2" id="switch_boss_2" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
                                                                 <td style="width: 25%">伤害</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="changeEnvironment()">
@@ -574,7 +563,7 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 50%"><input type="checkbox" id="enemy_hp_check"> 敌人攻击必中</td>
+                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax"> 敌人攻击必中</td>
                                                                 <td style="width: 25%">命中</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="changeEnvironment()">
@@ -591,7 +580,7 @@
                                                                 </td>
                                                                 <td style="width: 25%">破防</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -610,7 +599,7 @@
                                                         <tbody>
                                                             <tr style="height: 30px">
                                                                 <td>
-                                                                    <input type="checkbox" id="enemy_hp_check" onchange="releaseEnemyPro()"> 敌人<span style="color:orangered">能够被杀死</span>
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="changeEnvironment()"> 敌人<span style="color:orangered">能够被杀死</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -620,31 +609,31 @@
                                                             <tr>
                                                                 <td style="width: 25%">生命</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 onblur="changeEnvironment()" disabled>
                                                                 </td>
                                                                 <td style="width: 25%">回避</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 onblur="changeEnvironment()" disabled>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">护甲</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 onblur="changeEnvironment()" disabled>
                                                                 </td>
                                                                 <td style="width: 25%">力场</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="changeEnvironment()" disabled>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">AOE组数</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=0 onblur="changeEnvironment()" disabled>
                                                                 </td>
                                                                 <td style="width: 25%">无敌时间</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 onblur="changeEnvironment()" disabled>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
