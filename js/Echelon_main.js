@@ -1,68 +1,32 @@
-// t-doll property
+// UI
+var buffer_table = new Map // 已放置人形的信息缓存，点击人形查看
+var buffer_last // 上一次添加人形的缓存
+var switch_operate = false, switch_equip = false // 人形和装备更改开关
+var num_pickblock = -1, num_pickequip = -1 // 选中的人形和装备
+var set_guntype = 1 // 枪种：1=hg, 2=ar, 3=smg, 4=rf, 5=mg, 6=sg
+var set_equip = [0, 0, 0] // 装备代号，开头：1=配件, 2=子弹, 3=人形装备, 4=夜战装备
+var num_star = 5, affection = 'love' // 星级，好感度
+// Main
+var time = 20, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0 // 全局变量默认值：时间20s，接敌0s，昼战，无妖精，无天赋
+var global_frame = 0 // 当前帧，时间测算和特殊buff发动
 var aoe_num = 1 // aoe波及范围，仅适用承伤
-var Set_Leftnum = new Map // 编制剩余
-
-// enemy_property
-var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal'
+var list_tdoll = [[5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null]] // 战术人形列表，存放 [form, TdollInfo]
+var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map // 每个格点的影响属性
+var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9] // 影响格集合
+var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_frame> ]>, Status=[type,value(>1)]
+var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, frame> ] >, 攻击是首位技能
+var Set_Base = new Map // 实时属性，当Status改变时更新
+var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal' // 敌人护甲，回避，编制，组数，类型
 var enemy_num_left = 1 // 敌人剩余组数
-var Set_EnemyStatus = new Map // 敌人状态
-var Set_EnemyProperty = [] // 敌人属性变化
-var global_frame = 0 // 全局当前帧
-var fragile_main = 1, fragile_all = 1 // 主目标脆弱，副目标脆弱
-
-// special variations
-var not_init = false // 控制蟒蛇能够开始复读的时间
-
-// result data
-var display_type = 'damage'
+var Set_EnemyStatus = new Map // 敌人状态表
+var fragile_main = 1, fragile_all = 1 // 主目标脆弱，范围脆弱
+// Graph
+var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = [], totaldamage_buffer = 0 // 更改宽度的缓存值
+var display_type = 'damage' // 模拟类型
 var Set_Data = new Map // 输出数据
-var Set_Data_Buffer = new Map // 缓存已有数据
-
-// init_status and data
-function resetAllConfig () {
-  not_init = false // 此阶段所有buff皆不可复读
-  Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear()
-  fragile_main = 1; fragile_all = 1
-
-  Set_Special.set('can_add_python', true)
-  Set_Special.set('can_add_karm1891', true)
-  // 能否添加蟒蛇
-  for (var i = 0; i < 9; i++) {
-    if (list_tdoll[i][1] != null) {
-      if (list_tdoll[i][1].ID === 4) {
-        Set_Special.set('can_add_python', false)
-        break
-      }
-    }
-  }
-  // 能否添加CarcanoM1891
-  for (var i = 0; i < 9; i++) {
-    if (list_tdoll[i][1] != null) {
-      if (list_tdoll[i][1].ID === 197) {
-        Set_Special.set('can_add_karm1891', false)
-        break
-      }
-    }
-  }
-  if (daytime === 1) Set_Special.set('sunrise', 'day')
-  else if (daytime === 2) Set_Special.set('sunrise', 'night')
-
-  for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精
-  time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
-  init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
-}
-
-function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) {
-  var TdollInfo = {}
-  TdollInfo.ID = ID
-  TdollInfo.Type = Type
-  TdollInfo.Name = Name
-  TdollInfo.Affect = Affect
-  TdollInfo.Skill = Skill
-  TdollInfo.Property = Property
-  TdollInfo.Equip = Equip
-  return TdollInfo
-}
+var Set_Data_Buffer = new Map // 已有数据缓存
+// special variations
+var not_init = false // 控制蟒蛇能够开始复读的开关
 
 // 计算影响格
 function getBlockAffect () {
@@ -198,101 +162,37 @@ function getResult (multiple, action) {
   changeEnvironment()
 }
 
-function refreshImage () { makeGraph(x_max_buffer, y_max_buffer, str_label_buffer) }
-
-function isProperty (str) {
-  var isPro = false
-  if (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield') {
-    isPro = true
-  }
-  return isPro
-}
-
 // MAIN, 攻击优先于所有
 function getDPS () {
   var testing_type = 'damage'
+  var end_of_standby = false // 接敌时间控制器
   if (arguments['0'] = 'suffer') testing_type = 'suffer'
 
   // Phase 1: 清空数据————————————————————————————————————————————————————————————
-
-  resetAllConfig()
-  var end_of_standby = false
+  init_resetAllConfig()
 
   // Phase 2: 初始化出战数据 及 不可复读buff————————————————————————————————————————————————————————————
+  init_loadPrepareStatus()
 
-  // 出战属性和初始状态
-  for (var i = 0; i < 10; i++) {
-    Set_Data.set(i, [[0, 0]]) // 输出数据初始化，包括妖精
-  }
-  for (var i = 0; i < 9; i++) {
-    if (list_tdoll[i][1] != null) {
-      Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
-      Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
-      if (list_tdoll[i][1].ID === 1005) Set_Special.set('m1895_' + i, 0) // 七音之凯歌buff预备发动
-      if (list_tdoll[i][1].ID === 1039) { // 莫辛纳甘：攻击被动
-        Set_Special.set('mosin_numneed_' + i, parseInt(document.getElementById('special_mosin_attackkill_' + (i + 1)).value))
-        Set_Special.set('mosin_' + i, Set_Special.get('mosin_numneed_' + i))
-        Set_Special.set('mosin_bufftime_' + i, 0)
-      }
-      if (list_tdoll[i][1].ID === 1093) { // IDW电光大狂欢初始3层
-        changeStatus(i, 'self', 'dmg', '0.2', 2)
-        changeStatus(i, 'self', 'dmg', '0.2', 4)
-        changeStatus(i, 'self', 'dmg', '0.2', 6)
-        changeStatus(i, 'self', 'rof', '0.1', 2)
-        changeStatus(i, 'self', 'rof', '0.1', 4)
-        changeStatus(i, 'self', 'rof', '0.1', 6)
-      }
-      if (list_tdoll[i][1].ID === 194) { // K2热力过载
-        Set_Special.set('k2_' + i, 'fever')
-        Set_Special.set('k2_temp_' + i, 0)
-        Set_Special.set('k2_dmgup_' + i, 0)
-      }
-      if (list_tdoll[i][1].ID === 248) { // 杰里科：深红月蚀被动
-        Set_Special.set('jericho_exist', true)
-        if (Set_Special.get('jericho_standset') === undefined) {
-          Set_Special.set('jericho_standset', [i])
-        } else {
-          Set_Special.set('jericho_standset', (Set_Special.get('jericho_standset')).concat(i))
-        }
-      }
-      if (list_tdoll[i][1].ID === 256) { // 隼初始1发特殊子弹
-        Set_Special.set('falcon_' + i, 0)
-      }
-    }
-  }
-  if (!Set_Special.get('can_add_python')) { // 蟒蛇的复读及主动层数初始化
-    Set_Special.set('python_dmg', 0)
-    Set_Special.set('python_rof', 0)
-    Set_Special.set('python_acu', 0)
-    Set_Special.set('python_eva', 0)
-    Set_Special.set('python_crit', 0)
-    Set_Special.set('python_active', 6)
-  }
   // 载入设定属性
   enemy_arm = parseInt(document.getElementById('enemy_arm').value)
   enemy_eva = parseInt(document.getElementById('enemy_eva').value)
   enemy_form = parseInt(document.getElementById('enemy_form').value)
   enemy_num = parseInt(document.getElementById('enemy_num').value)
   enemy_num_left = enemy_num
-  if (testing_type === 'suffer') aoe_num = document.getElementById('enemy_aoe')
-  else aoe_num = enemy_num
+  if (testing_type === 'suffer') {
+    aoe_num = document.getElementById('enemy_aoe')
+  // 还有其他属性
+  } else {
+    aoe_num = enemy_num
+  }
   if (document.getElementById('switch_normal').checked) enemy_type = 'normal'
   else if (document.getElementById('switch_elite').checked) enemy_type = 'elite'
   else if (document.getElementById('switch_boss').checked) enemy_type = 'boss'
   // 初始化Command
   if (init_time > 0) end_of_standby = false
   else end_of_standby = true
-  // 载入技能
-  for (var i = 0; i < 9; i++) {
-    if (list_tdoll[i][1] != null) {
-      var list_Skill = []
-      list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
-      for (var v_skill of list_tdoll[i][1].Skill) {
-        list_Skill.push([v_skill, Math.ceil(30 * (v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')))]) // 载入技能表
-      }
-      Set_Skill.set(i, list_Skill)
-    }
-  }
+
   // 载入初始状态（妖精属性、天赋、全局设定、换弹）
   var common_position = 0 // 随便选定一个人作为默认全体BUFF发动位（主要解决蟒蛇复读回溯问题）
   for (var cn = 0; cn < 9; cn++) {
@@ -317,25 +217,14 @@ function getDPS () {
   }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
-      if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6 || list_tdoll[i][1].ID === 256) {
-        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs')) // MG和SG上弹，以及RF隼
-        if (list_tdoll[i][1].ID === 253) { // 刘易斯开场第一层buff
+      if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6 || is_this(i, 256)) { // MG和SG上弹，以及RF隼
+        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs'))
+        if (is_this(i, 253)) { // 刘易斯开场第一层buff
           Set_Special.set('angel_strength' + i, 1)
           Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
         }
-        if (list_tdoll[i][1].ID === 1089) {
+        if (is_this(i, 1089)) { // 布伦mod
           Set_Special.set('bren_buff_' + i, 0)
-        }
-      } else {
-        if (list_tdoll[i][1].ID === 213) { // CMS
-          if (document.getElementById('special_cms_' + (i + 1) + '_1').checked) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
-          else if (document.getElementById('special_cms_' + (i + 1) + '_2').checked) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
-          else if (document.getElementById('special_cms_' + (i + 1) + '_3').checked) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
-        } else if (list_tdoll[i][1].ID === 231) { // M82A1
-          if (document.getElementById('special_m82a1_' + (i + 1) + '_0').checked) Set_Special.set('m82a1_win_' + i, 0) // 0胜场
-          else if (document.getElementById('special_m82a1_' + (i + 1) + '_1').checked) Set_Special.set('m82a1_win_' + i, 1) // 1胜场
-          else if (document.getElementById('special_m82a1_' + (i + 1) + '_2').checked) Set_Special.set('m82a1_win_' + i, 2) // 2胜场
-          else if (document.getElementById('special_m82a1_' + (i + 1) + '_3').checked) Set_Special.set('m82a1_win_' + i, 3) // 3胜场
         }
       }
     }
@@ -391,8 +280,6 @@ function getDPS () {
       Set_Special.set('fairy_skilltime', 30)
     } else if (fairy_no === 10) { // 增援人形
       changeStatus(common_position, 'all', 'eva', '0.1', 20)
-    } else if (fairy_no === 12) { // 地雷阵线（暂时没做）
-      //
     } else if (fairy_no === 13) { // 阵地死神（暂时没做）
       //
     } else if (fairy_no === 14) { // 紧急堡垒
@@ -515,7 +402,7 @@ function getDPS () {
       }
       if (Set_Special.get('talent_num') >= 3) check_talent = false
     }
-    // 狙击指令
+    // 妖精主动技能
     if (Set_Special.get('fairy_skillon') === true) {
       if (Set_Special.get('fairy_skilltime') <= t) {
         if (fairy_no === 7) { // 狙击指令
@@ -528,7 +415,6 @@ function getDPS () {
           recordData(9, t, 0)
           recordData(9, t, 500 * explain_fragile('aoe'))
         }
-
         Set_Special.set('fairy_skillon', false)
       }
     }
@@ -612,7 +498,7 @@ function reactAllSkill (command, current_time) {
         if (s_t[0][0].substr(0, 6) === 'enemy_') {
           endStatus(k, s_t, 'enemy_lost')
         }
-        else if (isProperty(s_t[0][0])) {
+        else if (is_property(s_t[0][0])) {
           endStatus(k, s_t, 'lost') // 更新属性
         }
         else if (s_t[0][0] === 'python') Set_Special.delete('python_opening')
@@ -646,21 +532,21 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var fire_status = Set_Special.get('attack_permission_' + stand_num)
     if (fire_status.substr(0, 4) === 'fire') { // 射击准许
       // M4A1 MOD 炮击
-      if (list_tdoll[stand_num][1].ID === 1055 && Set_Special.get(stand_num) === 'shelling') {
+      if (is_this(stand_num, 1055) && Set_Special.get(stand_num) === 'shelling') {
         recordData(stand_num, current_time, 0)
         var dmg_direct = 0, dmg_aoe = 0, final_dmg = 0
         // 必中，不可暴击，护甲减免的直击
-        dmg_direct = 5 * Math.max(1, Math.ceil(6 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+        dmg_direct = this_formation(stand_num) * Math.max(1, Math.ceil(6 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
         // 能闪避，可暴击，护甲减免的溅射
         for (var i = 0; i < enemy_num - 1; i++) {
           if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
             var final_crit = 1
             if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
-            dmg_aoe += 5 * final_crit * (enemy_num - 1) * Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+            dmg_aoe += this_formation(stand_num) * final_crit * (enemy_num - 1) * Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
           }
         }
         dmg_direct = Math.ceil(dmg_direct * explain_fragile('single'))
-        dmg_aoe = Math.ceil(dmg_aoe * explain_fragile('around_aoe'))
+        dmg_aoe = Math.ceil(dmg_aoe * explain_fragile('around_single'))
         final_dmg = dmg_direct + dmg_aoe
         recordData(stand_num, current_time, final_dmg)
       }
@@ -1856,9 +1742,10 @@ function makeGraph (x_max, y_max, str_label) {
       colors: ['#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000', '#666666'],
       xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
       yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
+      y2axis: { color: '#FFFFFF', title: lib_language.main_makeGraph_3, max: y_max, min: 0 },
       mouse: { track: true, relative: true, trackFormatter: formater_DPS },
       points: { show: false },
-      HtmlText: false,
+      HtmlText: true,
       grid: { verticalLines: false },
       legend: {
         position: 'nw',
@@ -1917,8 +1804,100 @@ function get_g36_standblo (stand_num) {
   return num_all
 }
 
+// 初始化函数
+function init_resetAllConfig () { // 重置所有数据
+  not_init = false // 此阶段所有buff皆不可复读
+  Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear()
+  fragile_main = 1; fragile_all = 1
+  Set_Special.set('can_add_python', true)
+  Set_Special.set('can_add_karm1891', true)
+  if (is_exist_someone(4)) Set_Special.set('can_add_python', false) // 能否添加蟒蛇
+  if (is_exist_someone(197)) Set_Special.set('can_add_karm1891', false) // 能否添加CarcanoM1891
+  if (daytime === 1) Set_Special.set('sunrise', 'day')
+  else if (daytime === 2) Set_Special.set('sunrise', 'night')
+  for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精
+  time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
+  init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
+}
+function init_loadPrepareStatus () { // 初始化战前属性，包括(1)人形特殊设定
+  // 出战属性和初始状态
+  for (var i = 0; i < 10; i++) Set_Data.set(i, [[0, 0]]) // 包括妖精在内的输出数据初始化
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
+      Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
+      if (is_this(i, 194)) { // K2热力过载
+        Set_Special.set('k2_' + i, 'fever')
+        Set_Special.set('k2_temp_' + i, 0)
+        Set_Special.set('k2_dmgup_' + i, 0)
+      } else if (is_this(i, 213)) { // CMS
+        if (document.getElementById('special_cms_' + (i + 1) + '_1').checked) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
+        else if (document.getElementById('special_cms_' + (i + 1) + '_2').checked) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
+        else if (document.getElementById('special_cms_' + (i + 1) + '_3').checked) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
+      } else if (is_this(i, 231)) { // M82A1
+        if (document.getElementById('special_m82a1_' + (i + 1) + '_0').checked) Set_Special.set('m82a1_win_' + i, 0) // 0胜场
+        else if (document.getElementById('special_m82a1_' + (i + 1) + '_1').checked) Set_Special.set('m82a1_win_' + i, 1) // 1胜场
+        else if (document.getElementById('special_m82a1_' + (i + 1) + '_2').checked) Set_Special.set('m82a1_win_' + i, 2) // 2胜场
+        else if (document.getElementById('special_m82a1_' + (i + 1) + '_3').checked) Set_Special.set('m82a1_win_' + i, 3) // 3胜场
+      } else if (is_this(i, 248)) { // 杰里科：深红月蚀被动
+        Set_Special.set('jericho_exist', true)
+        if (Set_Special.get('jericho_standset') === undefined) {
+          Set_Special.set('jericho_standset', [i])
+        } else {
+          Set_Special.set('jericho_standset', (Set_Special.get('jericho_standset')).concat(i))
+        }
+      } else if (is_this(i, 256)) { // 隼初始1发特殊子弹
+        Set_Special.set('falcon_' + i, 0)
+      } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
+        Set_Special.set('m1895_' + i, 0)
+      } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动
+        Set_Special.set('mosin_numneed_' + i, parseInt(document.getElementById('special_mosin_attackkill_' + (i + 1)).value))
+        Set_Special.set('mosin_' + i, Set_Special.get('mosin_numneed_' + i))
+        Set_Special.set('mosin_bufftime_' + i, 0)
+      } else if (is_this(i, 1093)) { // IDW电光大狂欢初始3层
+        changeStatus(i, 'self', 'dmg', '0.2', 2)
+        changeStatus(i, 'self', 'dmg', '0.2', 4)
+        changeStatus(i, 'self', 'dmg', '0.2', 6)
+        changeStatus(i, 'self', 'rof', '0.1', 2)
+        changeStatus(i, 'self', 'rof', '0.1', 4)
+        changeStatus(i, 'self', 'rof', '0.1', 6)
+      }
+    }
+  }
+  if (!Set_Special.get('can_add_python')) { // 蟒蛇的复读及主动层数初始化
+    Set_Special.set('python_dmg', 0)
+    Set_Special.set('python_rof', 0)
+    Set_Special.set('python_acu', 0)
+    Set_Special.set('python_eva', 0)
+    Set_Special.set('python_crit', 0)
+    Set_Special.set('python_active', 6)
+  }
+  for (var i = 0; i < 9; i++) { // 载入技能
+    if (list_tdoll[i][1] != null) {
+      var list_Skill = []
+      list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
+      for (var v_skill of list_tdoll[i][1].Skill) {
+        list_Skill.push([v_skill, Math.ceil(30 * (v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')))]) // 载入技能表
+      }
+      Set_Skill.set(i, list_Skill)
+    }
+  }
+}
+
+// 基本语义性函数
+function refreshImage () { makeGraph(x_max_buffer, y_max_buffer, str_label_buffer) }
 function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
+function is_property (str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield');}
 function is_in_affect_of (stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
+function is_this (stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
+function is_exist_someone (ID) {
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      if (list_tdoll[i][1].ID === ID) return true
+    }
+  }
+  return false
+}
 function explain_fragile (damage_type) { // single单体, aoe范围, around_aoe溅射
   if (damage_type === 'single') return fragile_main
   else if (damage_type === 'around_single') return fragile_all
@@ -1931,3 +1910,4 @@ function explain_fragile (damage_type) { // single单体, aoe范围, around_aoe�
     else return ((enemy_num_left - 1) * fragile_all) * enemy_form
   }
 }
+function this_formation (stand_num) { return list_tdoll[stand_num][0];}

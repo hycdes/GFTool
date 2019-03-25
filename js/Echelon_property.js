@@ -1,8 +1,15 @@
-Set_Special.set('can_add_python', true)
-Set_Special.set('can_add_karm1891', true)
-Set_Special.set('sunrise', 'day')
-
-function createAffect (str_affectArea, target, list_affectType, list_affectValue) {
+function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) { // 战术人形
+  var TdollInfo = {}
+  TdollInfo.ID = ID
+  TdollInfo.Type = Type
+  TdollInfo.Name = Name
+  TdollInfo.Affect = Affect
+  TdollInfo.Skill = Skill
+  TdollInfo.Property = Property
+  TdollInfo.Equip = Equip
+  return TdollInfo
+}
+function createAffect (str_affectArea, target, list_affectType, list_affectValue) { // 影响格
   var Affect = {}
   Affect.area = str_affectArea // area = l/r/u/d/
   Affect.target = target // target = all, hg, ar, smg, rf, mg, sg
@@ -10,7 +17,7 @@ function createAffect (str_affectArea, target, list_affectType, list_affectValue
   Affect.affect_value = list_affectValue // list of value
   return Affect
 }
-function createProperty (dmg, acu, eva, rof, arm, hp, crit, cs) { // need to add at function: ap, critdmg, ff
+function createProperty (dmg, acu, eva, rof, arm, hp, crit, cs) { // 人形属性
   var Property = {}
   Property.hp = hp // health_point
   Property.eva = eva // evasion
@@ -22,7 +29,7 @@ function createProperty (dmg, acu, eva, rof, arm, hp, crit, cs) { // need to add
   Property.cs = cs // clip_size
   return Property
 }
-function createProperty_equip (dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, na) {
+function createProperty_equip (dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, na) { // 装备属性
   var Property = {}
   Property.dmg = dmg
   Property.acu = acu
@@ -35,6 +42,13 @@ function createProperty_equip (dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, n
   Property.ap = ap
   Property.na = na
   return Property
+}
+function createFairy (name, list_property, list_value) { // 妖精
+  var Fairy = {}
+  Fairy.name = name
+  Fairy.property = list_property
+  Fairy.value = list_value
+  return Fairy
 }
 
 lib_affect.set(1, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.5])) // 柯尔特左轮
@@ -609,13 +623,13 @@ lib_property.set(2010, createProperty(31, 62, 88, 61, 0, 330, 0.2, -1))
 lib_property_equip.set(0, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(11, createProperty_equip(0, 0, 10, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(12, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0, 0, 0, 0))
-lib_property_equip.set(13, createProperty_equip(0, 30, 0, -1, 0, 0, 0, 0, 0, 0))
-lib_property_equip.set(14, createProperty_equip(8, 14, 0, -4, 0, 0, 0, 0, 0, 0))
-lib_property_equip.set(21, createProperty_equip(15, 0, 0, 0, 0, 0, 0, 0, -7, 0))
-lib_property_equip.set(22, createProperty_equip(20, 0, 0, 0, 0, 0, 0, 0, 0, 0))
-lib_property_equip.set(23, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // 穿甲弹
-lib_property_equip.set(24, createProperty_equip(15, 0, 0, 0, 0, 0, 0.22, 0, 0, 0)) // 猎鹿弹
-lib_property_equip.set(25, createProperty_equip(2.01, 20, 0, 0, 0, 0, 0, 0, 0, 0)) // 独头弹
+lib_property_equip.set(13, createProperty_equip(0, 30, 0, -1, 0, 0, 0, 0, 0, 0)) // 
+lib_property_equip.set(14, createProperty_equip(8, 14, 0, -4, 0, 0, 0, 0, 0, 0)) // eot
+lib_property_equip.set(21, createProperty_equip(15, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // hp-ammo
+lib_property_equip.set(22, createProperty_equip(20, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // hv-ammo
+lib_property_equip.set(23, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ap-ammo
+lib_property_equip.set(24, createProperty_equip(15, 0, 0, 0, 0, 0, 0.22, 0, 0, 0)) // buck
+lib_property_equip.set(25, createProperty_equip(2.01, 20, 0, 0, 0, 0, 0, 0, 0, 0)) // sabot
 lib_property_equip.set(31, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(32, createProperty_equip(-6, 0, 35, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(33, createProperty_equip(0, 0, -2, 0, 11, 0, 0, 0, 0, 0))
@@ -644,53 +658,43 @@ lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0,
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0, 0))
 lib_property_equip.set(11094, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // 64type mod
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0))
-
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0))
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
-
 lib_property_equip.set(326, createProperty_equip(-6, 0, 58, 0, 0, 0, 0, 0, 0, 0)) // mp5
 lib_property_equip.set(342, createProperty_equip(0, 0, 0, 3, 0, 0, 0.25, 0, 0, 0)) // ptrd
 lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0, 0)) // m16
 lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0, 0)) // g41
 lib_property_equip.set(388, createProperty_equip(-25, -10, -2, 0, 0, 0, 0, 30, 0, 0)) // mg3
 lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0, 0)) // UMP series
-lib_property_equip.set(3185, createProperty_equip(8, -3, 0, 0, 0, 0, 0, 6, 0, 0)) // 阿梅利
+lib_property_equip.set(3185, createProperty_equip(8, -3, 0, 0, 0, 0, 0, 6, 0, 0)) // ameli
 lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0, 0)) // mosin
 lib_property_equip.set(31044, createProperty_equip(6, 0, 0, 0, 0, 0, 0.25, 0, 0, 0)) // sv98 mod
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0))
 lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0)) // m1918
 lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 0)) // IDW mod
-
 lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 9a91
 lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // clear
 lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // fail
 
-function createFairy (name, list_property, list_value) {
-  var Fairy = {}
-  Fairy.name = name
-  Fairy.property = list_property
-  Fairy.value = list_value
-  return Fairy
-}
-lib_fairy.set(1, createFairy('Warrior Fairy', 'dmg/acu/eva/arm', '0.25/0.8/0.4/0.1'))
-lib_fairy.set(2, createFairy('Fury Fairy', 'dmg/critdmg/eva/arm', '0.15/0.4/0.4/0.1'))
-lib_fairy.set(3, createFairy('Armor Fairy', 'dmg/critdmg/arm', '0.22/0.22/0.25'))
-lib_fairy.set(4, createFairy('Shield Fairy', 'dmg/acu/eva', '0.2/0.6/0.8'))
-lib_fairy.set(5, createFairy('Defence Fairy', 'dmg/eva/arm', '0.22/0.8/0.2'))
-lib_fairy.set(6, createFairy('Provocation Fairy', 'dmg/critdmg/acu/eva/arm', '0.18/0.25/0.58/0.28/0.08'))
-lib_fairy.set(7, createFairy('Sniper Fairy', 'critdmg/acu/eva/arm', '0.36/0.88/0.28/0.15'))
-lib_fairy.set(8, createFairy('Bombardment Fairy', 'dmg/eva/arm', '0.55/0.56/0.06'))
-lib_fairy.set(9, createFairy('Airstrike Fairy', 'dmg/acu/eva/arm', '0.3/0.5/0.4/0.1'))
-lib_fairy.set(10, createFairy('Reinforcement  Fairy', 'dmg/critdmg/eva/arm', '0.12/0.15/0.88/0.12'))
-lib_fairy.set(11, createFairy('Airborne Fairy', 'dmg/critdmg/eva/arm', '0.36/0.4/0.32/0.08'))
-lib_fairy.set(12, createFairy('Landmine Fairy', 'dmg/acu/eva', '0.25/0.44/0.85'))
-lib_fairy.set(13, createFairy('Rocket Fairy', 'critdmg/acu/arm', '0.35/0.44/0.22'))
-lib_fairy.set(14, createFairy('Construction Fairy', 'dmg/critdmg/acu/eva/arm', '0.15/0.2/0.5/0.4/0.1'))
-lib_fairy.set(15, createFairy('Command Fairy', 'dmg/critdmg/eva/arm', '0.36/0.36/0.32/0.08'))
-lib_fairy.set(16, createFairy('Rescue Fairy', 'dmg/acu/eva', '0.32/0.8/0.64'))
-lib_fairy.set(17, createFairy('Illumination Fairy', 'critdmg/acu/eva/arm', '0.36/0.9/0.32/0.08'))
-lib_fairy.set(18, createFairy('Golden Fairy', 'dmg/critdmg/acu/eva/arm', '0.2/0.25/0.62/0.5/0.12'))
-lib_fairy.set(19, createFairy('Kitchen Fairy', 'dmg/critdmg/acu/eva/arm', '0.1/0.1/0.2/0.8/0.2'))
-lib_fairy.set(20, createFairy('Firework Fairy', 'dmg/acu/eva/arm', '0.32/0.75/0.32/0.08'))
-lib_fairy.set(21, createFairy('Nian Fairy', 'dmg/critdmg/eva/arm', '0.25/0.25/0.2/0.2'))
+lib_fairy.set(1, createFairy(lib_language.fairyNAME_1, 'dmg/acu/eva/arm', '0.25/0.8/0.4/0.1'))
+lib_fairy.set(2, createFairy(lib_language.fairyNAME_2, 'dmg/critdmg/eva/arm', '0.15/0.4/0.4/0.1'))
+lib_fairy.set(3, createFairy(lib_language.fairyNAME_3, 'dmg/critdmg/arm', '0.22/0.22/0.25'))
+lib_fairy.set(4, createFairy(lib_language.fairyNAME_4, 'dmg/acu/eva', '0.2/0.6/0.8'))
+lib_fairy.set(5, createFairy(lib_language.fairyNAME_5, 'dmg/eva/arm', '0.22/0.8/0.2'))
+lib_fairy.set(6, createFairy(lib_language.fairyNAME_6, 'dmg/critdmg/acu/eva/arm', '0.18/0.25/0.58/0.28/0.08'))
+lib_fairy.set(7, createFairy(lib_language.fairyNAME_7, 'critdmg/acu/eva/arm', '0.36/0.88/0.28/0.15'))
+lib_fairy.set(8, createFairy(lib_language.fairyNAME_8, 'dmg/eva/arm', '0.55/0.56/0.06'))
+lib_fairy.set(9, createFairy(lib_language.fairyNAME_9, 'dmg/acu/eva/arm', '0.3/0.5/0.4/0.1'))
+lib_fairy.set(10, createFairy(lib_language.fairyNAME_10, 'dmg/critdmg/eva/arm', '0.12/0.15/0.88/0.12'))
+lib_fairy.set(11, createFairy(lib_language.fairyNAME_11, 'dmg/critdmg/eva/arm', '0.36/0.4/0.32/0.08'))
+lib_fairy.set(12, createFairy(lib_language.fairyNAME_12, 'dmg/acu/eva', '0.25/0.44/0.85'))
+lib_fairy.set(13, createFairy(lib_language.fairyNAME_13, 'critdmg/acu/arm', '0.35/0.44/0.22'))
+lib_fairy.set(14, createFairy(lib_language.fairyNAME_14, 'dmg/critdmg/acu/eva/arm', '0.15/0.2/0.5/0.4/0.1'))
+lib_fairy.set(15, createFairy(lib_language.fairyNAME_15, 'dmg/critdmg/eva/arm', '0.36/0.36/0.32/0.08'))
+lib_fairy.set(16, createFairy(lib_language.fairyNAME_16, 'dmg/acu/eva', '0.32/0.8/0.64'))
+lib_fairy.set(17, createFairy(lib_language.fairyNAME_17, 'critdmg/acu/eva/arm', '0.36/0.9/0.32/0.08'))
+lib_fairy.set(18, createFairy(lib_language.fairyNAME_18, 'dmg/critdmg/acu/eva/arm', '0.2/0.25/0.62/0.5/0.12'))
+lib_fairy.set(19, createFairy(lib_language.fairyNAME_19, 'dmg/critdmg/acu/eva/arm', '0.1/0.1/0.2/0.8/0.2'))
+lib_fairy.set(20, createFairy(lib_language.fairyNAME_20, 'dmg/acu/eva/arm', '0.32/0.75/0.32/0.08'))
+lib_fairy.set(21, createFairy(lib_language.fairyNAME_21, 'dmg/critdmg/eva/arm', '0.25/0.25/0.2/0.2'))

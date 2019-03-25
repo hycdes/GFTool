@@ -1,4 +1,4 @@
-var lib_language = {
+lib_language = {
   main_draw_1: 'position:',
   main_draw_2: '  dmg=',
   main_formatDPS_1: 'time=',
