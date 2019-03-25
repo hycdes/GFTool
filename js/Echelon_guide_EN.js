@@ -30,14 +30,16 @@ function loadScript (url) {
 
 window.onload = function () {
   loadScript('../js/language_Echelon-EN.js') // diff
-  loadScript('../js/Echelon_main.js')
-  loadScript('../js/Echelon_property.js')
-  loadScript('../js/Echelon_skill.js')
-  loadScript('../js/Echelon_UI.js')
-  loadScript('../js/Echelon_select.js') // diff
-  mergeCell('table_property', 0, 2, 0)
-  mergeCell('table_affect', 0, 2, 3)
-  Set_Special.set('can_add_python', true)
-  Set_Special.set('can_add_karm1891', true)
-  Set_Special.set('sunrise', 'day')
+  lsetTimeout(function () {
+    loadScript('../js/Echelon_main.js')
+    loadScript('../js/Echelon_property.js')
+    loadScript('../js/Echelon_skill.js')
+    loadScript('../js/Echelon_UI.js')
+    loadScript('../js/Echelon_select.js') // diff
+    mergeCell('table_property', 0, 2, 0)
+    mergeCell('table_affect', 0, 2, 3)
+    Set_Special.set('can_add_python', true)
+    Set_Special.set('can_add_karm1891', true)
+    Set_Special.set('sunrise', 'day')
+  }, 50)
 }
