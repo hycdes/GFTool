@@ -445,7 +445,10 @@ function reactAllSkill (command, current_time) {
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
         else if (s_t[0][0] === 'dot') endStatus(k, s_t, 'dot') // 持续伤害灼烧
         else if (s_t[0][0] === 'fal') endStatus(k, s_t, 'fal') // 榴弹践踏
-        else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
+        else if (s_t[0][0] === 'snipe') {
+          endStatus(k, s_t, 'snipe') // 狙击出膛
+          console.log(global_frame)
+        }
         else if (s_t[0][0] === 'reload') {
           Set_Special.set('attack_permission_' + k, 'fire_all') // 换弹结束
           Set_Special.delete('reloading_' + k)
@@ -1882,6 +1885,7 @@ function init_loadEnemyInfo () {
     enemy_eva = parseInt(document.getElementById('enemy_eva').value)
     enemy_arm = parseInt(document.getElementById('enemy_arm').value)
     enemy_forcefield = parseInt(document.getElementById('enemy_forcefield').value)
+    enemy_num_left = enemy_num
   } else if (display_type === 'suffer') {
     enemy_dmg = parseInt(document.getElementById('enemy_dmg').value)
     enemy_rof = parseInt(document.getElementById('enemy_rof').value)
