@@ -54,6 +54,8 @@ function showAffect () {
       str_final += str_temp
     }
     document.getElementById('a_exp').innerHTML = str_final
+  } else {
+    document.getElementById('a_exp').innerHTML = ''
   }
   var str_a_have = ''
 
@@ -889,6 +891,13 @@ function changeEnvironment () { // change display of envi-parameters and check v
   document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
   document.getElementById('envi_ene_ff').innerHTML = document.getElementById('enemy_forcefield').value
   // 承伤测试
+  if (document.getElementById('enemy_acumax').checked) {
+    document.getElementById('enemy_acu').disabled = true
+    document.getElementById('enemy_acu').value = '∞'
+  } else {
+    document.getElementById('enemy_acu').disabled = false
+    document.getElementById('enemy_acu').value = 10
+  }
   if (document.getElementById('enemy_hp_check').checked) {
     document.getElementById('enemy_hp').disabled = false
     document.getElementById('enemy_eva_2').disabled = false
@@ -901,7 +910,7 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('enemy_eva_2').value = 10
     document.getElementById('enemy_arm_2').value = 0
     document.getElementById('enemy_forcefield_2').value = 0
-    document.getElementById('enemy_aoe').value = parseInt(document.getElementById('enemy_num_2').value)
+    document.getElementById('enemy_aoe').value = parseInt(document.getElementById('enemy_num').value)
     document.getElementById('enemy_immortal').value = 0
     document.getElementById('enemy_hp').disabled = true
     document.getElementById('enemy_eva_2').disabled = true

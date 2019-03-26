@@ -9,14 +9,14 @@ var num_star = 5, affection = 'love' // 星级，好感度
 // Main
 var time = 20, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0 // 全局变量默认值：时间20s，接敌0s，昼战，无妖精，无天赋
 var global_frame = 0 // 当前帧，时间测算和特殊buff发动
-var aoe_num = 1 // aoe波及范围，仅适用承伤
 var list_tdoll = [[5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null]] // 战术人形列表，存放 [form, TdollInfo]
 var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map // 每个格点的影响属性
 var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9] // 影响格集合
 var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_frame> ]>, Status=[type,value(>1)]
 var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, frame> ] >, 攻击是首位技能
 var Set_Base = new Map // 实时属性，当Status改变时更新
-var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal' // 敌人护甲，回避，编制，组数，类型
+var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_forcefield = 0 // 输出测试属性：敌人护甲，回避，编制，组数，类型，力场
+var enemy_dmg = 10, enemy_rof = 40, enemy_acu = 10, enemy_ap = 0, enemy_dbk = 0, enemy_hp = 1000, enemy_eva_2 = 10, enemy_arm_2 = 0, enemy_forcefield_2 = 0, aoe_num = 1, enemy_immortal = 0
 var enemy_num_left = 1 // 敌人剩余组数
 var Set_EnemyStatus = new Map // 敌人状态表
 var fragile_main = 1, fragile_all = 1 // 主目标脆弱，范围脆弱
@@ -24,7 +24,9 @@ var fragile_main = 1, fragile_all = 1 // 主目标脆弱，范围脆弱
 var x_max_buffer = 0, y_max_buffer = 0, str_label_buffer = [], totaldamage_buffer = 0 // 更改宽度的缓存值
 var display_type = 'damage' // 模拟类型
 var Set_Data = new Map // 输出数据
-var Set_Data_Buffer = new Map // 已有数据缓存
+var Set_Data_Buffer = new Map // 输出数据缓存
+var Set_Data_S = new Map // 承伤数据
+var Set_Data_S_Buffer = new Map // 承伤数据缓存
 // special variations
 var not_init = false // 控制蟒蛇能够开始复读的开关
 
@@ -78,8 +80,7 @@ function getResult (multiple, action) {
   Set_Data_Buffer.clear()
   display_type = action
   for (var n = 0; n < multiple; n++) {
-    if (display_type === 'damage') getDPS()
-    else if (display_type === 'suffer') getDPS('suffer')
+    getDPS()
     for (var i = 0; i < 9; i++) {
       var final_data = []
       var this_data = Set_Data_Buffer.get(i)
@@ -164,35 +165,17 @@ function getResult (multiple, action) {
 
 // MAIN, 攻击优先于所有
 function getDPS () {
-  var testing_type = 'damage'
   var end_of_standby = false // 接敌时间控制器
-  if (arguments['0'] = 'suffer') testing_type = 'suffer'
 
   // Phase 1: 清空数据————————————————————————————————————————————————————————————
   init_resetAllConfig()
 
   // Phase 2: 初始化出战数据 及 不可复读buff————————————————————————————————————————————————————————————
-  init_loadPrepareStatus()
-
-  // 载入设定属性
-  enemy_arm = parseInt(document.getElementById('enemy_arm').value)
-  enemy_eva = parseInt(document.getElementById('enemy_eva').value)
-  enemy_form = parseInt(document.getElementById('enemy_form').value)
-  enemy_num = parseInt(document.getElementById('enemy_num').value)
-  enemy_num_left = enemy_num
-  if (testing_type === 'suffer') {
-    aoe_num = document.getElementById('enemy_aoe')
-  // 还有其他属性
-  } else {
-    aoe_num = enemy_num
-  }
-  if (document.getElementById('switch_normal').checked) enemy_type = 'normal'
-  else if (document.getElementById('switch_elite').checked) enemy_type = 'elite'
-  else if (document.getElementById('switch_boss').checked) enemy_type = 'boss'
+  init_loadPrepareStatus() // 载入出战数据，包括(1)数据清空(2)出战属性 环境 和特殊设定(3)载入技能(4)开场第一层buff
+  init_loadEnemyInfo() // 载入敌人属性
   // 初始化Command
   if (init_time > 0) end_of_standby = false
   else end_of_standby = true
-
   // 载入初始状态（妖精属性、天赋、全局设定、换弹）
   var common_position = 0 // 随便选定一个人作为默认全体BUFF发动位（主要解决蟒蛇复读回溯问题）
   for (var cn = 0; cn < 9; cn++) {
@@ -201,46 +184,9 @@ function getDPS () {
       break
     }
   }
-  for (var i = 0; i < 9; i++) {
-    if (list_tdoll[i][1] != null) {
-      if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6 || is_this(i, 256)) { // MG和SG上弹，以及RF隼
-        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs'))
-        if (is_this(i, 253)) { // 刘易斯开场第一层buff
-          Set_Special.set('angel_strength' + i, 1)
-          Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
-        }
-        if (is_this(i, 1089)) { // 布伦mod
-          Set_Special.set('bren_buff_' + i, 0)
-        }
-      }
-    }
-  }
-  if (fairy_no > 0) {
-    // 妖精属性
-    var fairy_info = lib_fairy.get(fairy_no)
-    var list_property = (fairy_info.property).split('/')
-    var list_value = (fairy_info.value).split('/')
-    var fairy_list_len = list_property.length
-    for (var i = 0; i < fairy_list_len; i++) {
-      changeStatus(common_position, 'all', list_property[i], list_value[i], -1)
-    }
-    // 妖精技能：不可被蟒蛇激活
-    if (document.getElementById('fairyskill_active').checked) {
-      if (fairy_no === 11) { // 机场解放
-        changeStatus(common_position, 'all', 'dmg', '-0.4', -1)
-        changeStatus(common_position, 'all', 'acu', '-0.4', -1)
-        changeStatus(common_position, 'all', 'eva', '-0.4', -1)
-        changeStatus(common_position, 'all', 'arm', '-0.4', -1)
-        changeStatus(common_position, 'all', 'crit', '-0.4', -1)
-      }
-    }
-  }
-
   // 以下BUFF皆能被蟒蛇复读——————————————————————————————————————————————————————————————
-
   not_init = true // 可以复读
-  // 妖精技能：可被蟒蛇激活
-  if (document.getElementById('fairyskill_active').checked) {
+  if (document.getElementById('fairyskill_active').checked) { // 可被蟒蛇复读的妖精技能
     if (fairy_no === 1) { // 战斗效率
       changeStatus(common_position, 'all', 'dmg', '0.2', 20)
       changeStatus(common_position, 'all', 'rof', '0.1', 20)
@@ -314,19 +260,19 @@ function getDPS () {
       Set_Special.set('talent_active_at', 239)
       changeStatus(common_position, 'all', 'dmg', '0.1', -1)
     }
-    else if (talent_no === 2) changeStatus(common_position, 'all', 'dmg', '0.12', -1)
-    else if (talent_no === 3) changeStatus(common_position, 'all', 'dmg', '0.15', -1)
-    else if (talent_no === 4) changeStatus(common_position, 'all', 'acu', '0.2', -1)
-    else if (talent_no === 5) changeStatus(common_position, 'all', 'acu', '0.25', -1)
-    else if (talent_no === 6) changeStatus(common_position, 'all', 'eva', '0.15', -1)
-    else if (talent_no === 7) changeStatus(common_position, 'all', 'eva', '0.2', -1)
-    else if (talent_no === 8) changeStatus(common_position, 'all', 'arm', '0.08', -1)
-    else if (talent_no === 9) changeStatus(common_position, 'all', 'arm', '0.10', -1)
-    else if (talent_no === 10) changeStatus(common_position, 'all', 'crit', '0.4', -1)
-    else if (talent_no === 11) changeStatus(common_position, 'all', 'crit', '0.5', -1)
+    else if (talent_no === 2) changeStatus(common_position, 'all', 'dmg', '0.12', -1) // 杀1
+    else if (talent_no === 3) changeStatus(common_position, 'all', 'dmg', '0.15', -1) // 杀2
+    else if (talent_no === 4) changeStatus(common_position, 'all', 'acu', '0.2', -1) // 精1
+    else if (talent_no === 5) changeStatus(common_position, 'all', 'acu', '0.25', -1) // 精2
+    else if (talent_no === 6) changeStatus(common_position, 'all', 'eva', '0.15', -1) // 回1
+    else if (talent_no === 7) changeStatus(common_position, 'all', 'eva', '0.2', -1) // 回2
+    else if (talent_no === 8) changeStatus(common_position, 'all', 'arm', '0.08', -1) // 甲1
+    else if (talent_no === 9) changeStatus(common_position, 'all', 'arm', '0.10', -1) // 甲2
+    else if (talent_no === 10) changeStatus(common_position, 'all', 'crit', '0.4', -1) // 必1
+    else if (talent_no === 11) changeStatus(common_position, 'all', 'crit', '0.5', -1) // 必2
     else if (talent_no === 12) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 3) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 3) { // 
           changeStatus(i, 'self', 'dmg', '0.08', -1)
           changeStatus(i, 'self', 'eva', '0.12', -1)
         }
@@ -334,7 +280,7 @@ function getDPS () {
     }
     else if (talent_no === 13) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 2) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 2) { // 突击型
           changeStatus(i, 'self', 'dmg', '0.1', -1)
           changeStatus(i, 'self', 'rof', '0.08', -1)
         }
@@ -342,7 +288,7 @@ function getDPS () {
     }
     else if (talent_no === 14) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 4) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 4) { // 瞄准型
           changeStatus(i, 'self', 'dmg', '0.08', -1)
           changeStatus(i, 'self', 'rof', '0.10', -1)
         }
@@ -350,7 +296,7 @@ function getDPS () {
     }
     else if (talent_no === 15) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 6) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 6) { // 
           changeStatus(i, 'self', 'arm', '0.08', -1)
           changeStatus(i, 'self', 'crit', '0.2', -1)
         }
@@ -358,7 +304,7 @@ function getDPS () {
     }
     else if (talent_no === 16) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 5) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 5) { // 镇压型
           changeStatus(i, 'self', 'dmg', '0.1', -1)
           changeStatus(i, 'self', 'acu', '0.15', -1)
         }
@@ -374,7 +320,7 @@ function getDPS () {
     }
   }
 
-  // 主函数
+  // 主函数——————————————————————————————————————————————————————————————————————————————————————
   var check_talent = true
   if (Set_Special.get('talent_active_at') === undefined) check_talent = false
   for (var t = 0; t < time; t++) {
@@ -689,9 +635,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (is_this(stand_num, 77) || is_this(stand_num, 85) || is_this(stand_num, 109)) { // 连珠终结不可暴击
             var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
             if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
-              if (list_tdoll[stand_num][1].ID === 77) final_dmg *= 2.4
-              else if (list_tdoll[stand_num][1].ID === 85) final_dmg *= 2.6
-              else if (list_tdoll[stand_num][1].ID === 109) final_dmg *= 3
+              if (is_this(stand_num, 77)) final_dmg *= 2.4
+              else if (is_this(stand_num, 85)) final_dmg *= 2.6
+              else if (is_this(stand_num, 109)) final_dmg *= 3
             } else {
               var final_crit = 1
               if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
@@ -740,13 +686,13 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         }
       }
       // 攻击间隔或者换弹判断
-      if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && list_tdoll[stand_num][1].ID != 256) { // HG/AR/SMG/RF 并排除 隼
-        if ((list_tdoll[stand_num][1].ID === 73 || list_tdoll[stand_num][1].ID === 237) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
-        else if (list_tdoll[stand_num][1].ID === 1002 && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手120射速
+      if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && is_this(stand_num, 256)) { // HG/AR/SMG/RF 并排除 隼
+        if ((is_this(stand_num, 73) || is_this(stand_num, 237)) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
+        else if (is_this(stand_num, 1002) && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手120射速
           s_t[1] = 11
           Set_Special.set('m1911_' + stand_num, Set_Special.get('m1911_' + stand_num) - 1)
         }
-        else if (list_tdoll[stand_num][1].ID === 122) { // 突击者之眼三连发：2帧间隔射击
+        else if (is_this(stand_num, 122)) { // 突击者之眼三连发：2帧间隔射击
           if (Set_Special.get('g11_' + stand_num) >= current_time) { // 技能期间
             if (Set_Special.get('g11_nextload_' + stand_num) === undefined || Set_Special.get('g11_nextload_' + stand_num) < current_time) {
               Set_Special.set('g11_nextload_' + stand_num, current_time + rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1)
@@ -765,13 +711,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
           }
         }
-        else if (list_tdoll[stand_num][1].ID === 198 && Set_Special.get('karm9138_' + stand_num) === 18) {
+        else if (is_this(stand_num, 198) && Set_Special.get('karm9138_' + stand_num) === 18) {
           recordData(stand_num, current_time, 0)
           var mors_ratio
           if (enemy_type === 'normal') mors_ratio = 45
           else mors_ratio = 3
-          var mors_dmg = 5 * mors_ratio * current_Info.get('dmg')
-          mors_dmg = Math.ceil(mors_dmg * explain_fragile('single'))
+          var mors_dmg = this_formation(stand_num) * Math.ceil(mors_ratio * current_Info.get('dmg') * explain_fragile('single'))
           recordData(stand_num, current_time, mors_dmg)
           Set_Special.set('karm9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
@@ -781,7 +726,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         var cs = Set_Special.get('clipsize_' + stand_num)
         var extra_shoot_pkp = false
         cs--
-        if (list_tdoll[stand_num][1].ID === 173) { // PKP暴动宣告
+        if (is_this(stand_num, 173)) { // PKP暴动宣告
           if (Math.random() <= 0.2) {
             cs++
             extra_shoot_pkp = true
@@ -791,27 +736,27 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var reload_frame = 0
           var rof = current_Info.get('rof')
           if (current_Info.get('type') === 5) { // MG的换弹
-            if (list_tdoll[stand_num][1].ID === 1075) { // M1918-MOD 战地魔术
+            if (is_this(stand_num, 1075)) { // M1918-MOD 战地魔术
               reload_frame = 150
             } else {
               if (rof > 1000) rof = 1000
               else if (rof < 1) rof = 1
               reload_frame = Math.floor((4 + 200 / rof) * 30)
-              if (list_tdoll[stand_num][1].ID === 253) { // 刘易斯 力天使
+              if (is_this(stand_num, 253)) { // 刘易斯 力天使
                 reload_frame = Math.max(Math.ceil(reload_frame * Math.pow(0.85, Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
-              } else if (list_tdoll[stand_num][1].ID === 254) {
+              } else if (is_this(stand_num, 254)) {
                 if (Set_Special.get('sunrise') === 'night') reload_frame = Math.ceil(0.7 * reload_frame) // 白夜独奏曲：夜战减换弹
               }
             }
           } else if (current_Info.get('type') === 6) { // SG的换弹
             if (Set_Special.get('usas12_' + stand_num) === true) { // 狂热突袭增加1s换弹
               reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs)) + 30
-            } else if (list_tdoll[stand_num][1].ID === 2008) { // 量子回溯瞬间完成换弹
+            } else if (is_this(stand_num, 2008)) { // 量子回溯瞬间完成换弹
               reload_frame = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
             } else {
               reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
             }
-          } else if (current_Info.get('type') === 4 && list_tdoll[stand_num][1].ID === 256) { // 隼的换弹
+          } else if (current_Info.get('type') === 4 && is_this(stand_num, 256)) { // 隼的换弹
             reload_frame = Math.floor(3600 / (current_Info.get('rof') + 10))
           }
           if (Set_Special.get('jericho_exist') === true) {
@@ -836,12 +781,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           Set_Special.set('reloading_' + stand_num, true)
           changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
           Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
-          if (list_tdoll[stand_num][1].ID === 253) { // 刘易斯增加弹量
+          if (is_this(stand_num, 253)) { // 刘易斯增加弹量
             var angel_num = Set_Special.get('angel_strength' + stand_num)
             if (angel_num < 3) angel_num++
             Set_Special.set('angel_strength' + stand_num, angel_num)
             Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num)
-          } else if (list_tdoll[stand_num][1].ID === 238) { // 88式
+          } else if (is_this(stand_num, 238)) { // 88式
             if (!document.getElementById('special_88type_' + stand_num).checked) {
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
               if (Set_Special.get('88type_buffon' + stand_num) === undefined) {
@@ -849,14 +794,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
                 Set_Special.set('88type_buffon' + stand_num, true)
               }
             } else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
-          } else if (list_tdoll[stand_num][1].ID === 1089) { // 布伦MOD
+          } else if (is_this(stand_num, 1089)) { // 布伦MOD
             if (Set_Special.get('bren_buff_' + stand_num) < 3) {
               Set_Special.set('bren_buff_' + stand_num, Set_Special.get('bren_buff_' + stand_num) + 1)
               changeStatus(stand_num, 'self', 'acu', 0.15, -1)
             }
             Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + Set_Special.get('bren_buff_' + stand_num))
           }
-          if (list_tdoll[stand_num][1].ID === 112) { // 狂躁血脉
+          if (is_this(stand_num, 112)) { // 狂躁血脉
             changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
           }
         } else {
@@ -878,7 +823,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var list_value = []
     for (var i = 0; i < len_list_target; i++) {
       if (list_target[i].substr(0, 3) === 'blo') { // 影响格上
-        if (list_tdoll[stand_num][1].ID === 1064 && list_target[i] === 'bloall') { // 如果是G36MOD发动的弧光契约
+        if (is_this(stand_num, 1064) && list_target[i] === 'bloall') { // 如果是G36MOD发动的弧光契约
           var num_at_blo = get_g36_standblo(stand_num)
           for (var nb = 0; nb < num_at_blo; nb++) changeStatus(stand_num, 'self', 'rof', '0.1', 5)
         }
@@ -1015,7 +960,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'snipe') { // 狙击
-    if (list_tdoll[stand_num][1].ID === 1039 && document.getElementById('special_mosin_' + (stand_num + 1)).checked) {
+    if (is_this(stand_num, 1039) && document.getElementById('special_mosin_' + (stand_num + 1)).checked) {
       // do nothing
     } else {
       var ratio = (s_t[0].Describe).ratio
@@ -1213,17 +1158,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   else if (skillname === 'addclip') { // 增加弹量
     var clip_num = (s_t[0].Describe).clipsize
     if (clip_num < 0) {
-      if (list_tdoll[stand_num][1].ID === 254) {
+      if (is_this(stand_num, 254)) {
         if (Set_Special.get('sunrise') === 'night') clip_num = 4
         else clip_num = 2
       }
     }
     Set_Special.set('clipsize_' + stand_num, Set_Special.get('clipsize_' + stand_num) + clip_num)
-    if (list_tdoll[stand_num][1].ID === 163) {
+    if (is_this(stand_num, 163)) {
       Set_Special.set('aa12_' + stand_num, global_frame + 240) // 技能持续时间
       Set_Special.set('aa12_skillmode_' + stand_num, true) // 下一枪是酮血症作用下的强制3目标射击
     }
-    else if (list_tdoll[stand_num][1].ID === 189) Set_Special.set('usas12_' + stand_num, true) // 狂热突袭增加换弹时间
+    else if (is_this(stand_num, 189)) Set_Special.set('usas12_' + stand_num, true) // 狂热突袭增加换弹时间
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'mustcrit') { // 必定暴击
@@ -1292,7 +1237,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     Set_Status.set(-1, list_status)
     endStatus(-1, new_status, 'get')
   } else if (target === 'self') { // 专注类
-    if (!Set_Special.get('can_add_python') && list_tdoll[stand_num][1].ID === 4 && not_init) { // 此人是蟒蛇
+    if (!Set_Special.get('can_add_python') && is_this(stand_num, 4) && not_init) { // 此人是蟒蛇
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
         var new_level = Set_Special.get('python_' + type) + 1
         Set_Special.set('python_' + type, new_level)
@@ -1423,12 +1368,12 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
     if (grenade_para[0] === '-1') {
-      if (list_tdoll[stand_num][1].ID === 2003) { // kiana skill
+      if (is_this(stand_num, 2003)) { // kiana skill
         grenade_para[0] = ((Set_Base.get(stand_num)).Info).get('critdmg')
       }
     }
     var damage_explode = 0
-    if (list_tdoll[stand_num][1].ID === 2002 && parseFloat(grenade_para[0]) === 8) { // 压轴甜点第一次8倍攻击
+    if (is_this(stand_num, 2002) && parseFloat(grenade_para[0]) === 8) { // 压轴甜点第一次8倍攻击
       damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0])
       damage_explode = Math.ceil(damage_explode * explain_fragile('single'))
     } else {
@@ -1460,7 +1405,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var labels = status[0][1]
     var list_labels = labels.split('/') // ratio,arm,crit,eva
     var ratio = parseFloat(list_labels[0])
-    if (list_tdoll[stand_num][1].ID === 202) { // 临界点射击
+    if (is_this(stand_num, 202)) { // 临界点射击
       if (Set_Special.get('thunder_' + stand_num) != true) {
         Set_Special.set('thunder_' + stand_num, true)
         ratio = 12
@@ -1523,10 +1468,10 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     recordData(stand_num, current_time, 0)
     damage_snipe_single = Math.ceil(damage_snipe_single * explain_fragile('single'))
     recordData(stand_num, current_time, damage_snipe_single)
-    if (list_tdoll[stand_num][1].ID === 1039 && document.getElementById('special_mosin_skillkill_' + (stand_num + 1)).checked) { // 苍白收割者：沉稳射击击杀目标
+    if (is_this(stand_num, 1039) && document.getElementById('special_mosin_skillkill_' + (stand_num + 1)).checked) { // 苍白收割者：沉稳射击击杀目标
       changeStatus(stand_num, 'self', 'rof', '0.3', 5)
     }
-    if (list_tdoll[stand_num][1].ID === 2009) { // 克莉尔：再接再厉
+    if (is_this(stand_num, 2009)) { // 克莉尔：再接再厉
       var dps_list = []
       for (var n = 0; n < 9; n++) {
         if (n != stand_num && list_tdoll[n][1] != null) {
@@ -1760,15 +1705,15 @@ function makeGraph (x_max, y_max, str_label) {
       { data: Set_Data.get(7), label: str_label[7]},
       { data: Set_Data.get(8), label: str_label[8]},
       { data: Set_Data.get(9), label: str_label[9]},
-      { data: Set_Data_suffer.get(0), label: str_label[0]},
-      { data: Set_Data_suffer.get(1), label: str_label[1]},
-      { data: Set_Data_suffer.get(2), label: str_label[2]},
-      { data: Set_Data_suffer.get(3), label: str_label[3]},
-      { data: Set_Data_suffer.get(4), label: str_label[4]},
-      { data: Set_Data_suffer.get(5), label: str_label[5]},
-      { data: Set_Data_suffer.get(6), label: str_label[6]},
-      { data: Set_Data_suffer.get(7), label: str_label[7]},
-      { data: Set_Data_suffer.get(8), label: str_label[8]}
+      { data: Set_Data_S.get(0), label: str_label[0]},
+      { data: Set_Data_S.get(1), label: str_label[1]},
+      { data: Set_Data_S.get(2), label: str_label[2]},
+      { data: Set_Data_S.get(3), label: str_label[3]},
+      { data: Set_Data_S.get(4), label: str_label[4]},
+      { data: Set_Data_S.get(5), label: str_label[5]},
+      { data: Set_Data_S.get(6), label: str_label[6]},
+      { data: Set_Data_S.get(7), label: str_label[7]},
+      { data: Set_Data_S.get(8), label: str_label[8]}
     ], {
       colors: [
         '#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000', '#666666',
@@ -1804,6 +1749,7 @@ function get_g36_standblo (stand_num) {
 function init_resetAllConfig () { // 重置所有数据
   not_init = false // 此阶段所有buff皆不可复读
   Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear()
+  for (var i = 0; i < 9; i++) list_tdoll[i][0] = 5 // 恢复编制
   fragile_main = 1; fragile_all = 1
   Set_Special.set('can_add_python', true)
   Set_Special.set('can_add_karm1891', true)
@@ -1815,7 +1761,7 @@ function init_resetAllConfig () { // 重置所有数据
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
 }
-function init_loadPrepareStatus () { // 初始化战前属性，包括(1)人形特殊设定
+function init_loadPrepareStatus () { // 初始化战前属性
   // 出战属性和初始状态
   for (var i = 0; i < 10; i++) Set_Data.set(i, [[0, 0]]) // 包括妖精在内的输出数据初始化
   for (var i = 0; i < 9; i++) {
@@ -1891,6 +1837,67 @@ function init_loadPrepareStatus () { // 初始化战前属性，包括(1)人形�
   // 特殊设定
   if (document.getElementById('check_init_critmax').checked) { // 全体必暴
     for (var i = 0; i < 9; i++) Set_Special.set('must_crit_' + i, true)
+  }
+  // MG SG 隼 的初始装弹，已经初始层buff
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6 || is_this(i, 256)) {
+        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs'))
+        if (is_this(i, 253)) { // 刘易斯开场第一层buff
+          Set_Special.set('angel_strength' + i, 1)
+          Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs') + 1)
+        }
+        if (is_this(i, 1089)) Set_Special.set('bren_buff_' + i, 0) // 布伦mod
+      }
+    }
+  }
+  // 妖精属性和不可复读buff
+  if (fairy_no > 0) {
+    var fairy_info = lib_fairy.get(fairy_no)
+    var list_property = (fairy_info.property).split('/')
+    var list_value = (fairy_info.value).split('/')
+    var fairy_list_len = list_property.length
+    for (var i = 0; i < fairy_list_len; i++) {
+      changeStatus(-1, 'all', list_property[i], list_value[i], -1)
+    }
+    if (document.getElementById('fairyskill_active').checked) {
+      if (fairy_no === 11) { // 机场解放减益
+        changeStatus(-1, 'all', 'dmg', '-0.4', -1)
+        changeStatus(-1, 'all', 'acu', '-0.4', -1)
+        changeStatus(-1, 'all', 'eva', '-0.4', -1)
+        changeStatus(-1, 'all', 'arm', '-0.4', -1)
+        changeStatus(-1, 'all', 'crit', '-0.4', -1)
+      }
+    }
+  }
+}
+function init_loadEnemyInfo () {
+  if (document.getElementById('switch_normal').checked) enemy_type = 'normal'
+  else if (document.getElementById('switch_elite').checked) enemy_type = 'elite'
+  else if (document.getElementById('switch_boss').checked) enemy_type = 'boss'
+  enemy_form = parseInt(document.getElementById('enemy_form').value)
+  enemy_num = parseInt(document.getElementById('enemy_num').value)
+  if (display_type === 'damage') {
+    aoe_num = enemy_num
+    enemy_eva = parseInt(document.getElementById('enemy_eva').value)
+    enemy_arm = parseInt(document.getElementById('enemy_arm').value)
+    enemy_forcefield = parseInt(document.getElementById('enemy_forcefield').value)
+  } else if (display_type === 'suffer') {
+    enemy_dmg = parseInt(document.getElementById('enemy_dmg').value)
+    enemy_rof = parseInt(document.getElementById('enemy_rof').value)
+    if (document.getElementById('enemy_maxacu').checked) Set_Special.set('enemy_maxacu', true)
+    else enemy_acu = parseInt(document.getElementById('enemy_acu').value)
+    enemy_ap = parseInt(document.getElementById('enemy_ap').value)
+    enemy_dbk = parseInt(document.getElementById('enemy_dbk').value)
+    enemy_num_left = enemy_num
+    if (document.getElementById('enemy_hp_check').checked === true) {
+      enemy_hp = parseInt(document.getElementById('enemy_hp').value)
+      enemy_eva_2 = parseInt(document.getElementById('enemy_eva_2').value)
+      enemy_arm_2 = parseInt(document.getElementById('enemy_arm_2').value)
+      enemy_forcefield_2 = parseInt(document.getElementById('enemy_forcefield_2').value)
+      aoe_num = parseInt(document.getElementById('enemy_aoe'))
+      enemy_immortal = parseInt(document.getElementById('enemy_immortal').value)
+    } else aoe_num = enemy_num
   }
 }
 
