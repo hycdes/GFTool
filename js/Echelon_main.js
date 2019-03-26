@@ -1386,7 +1386,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0])
       damage_explode = Math.ceil(damage_explode * explain_fragile('single'))
     } else {
-      damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0]) * enemy_form
+      damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0])
       damage_explode = Math.ceil(damage_explode * explain_fragile('aoe'))
     }
     var current_time = parseInt(grenade_para[1])
@@ -1403,7 +1403,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     }
     else Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
-    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0]) * enemy_form
+    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0])
     damage_explode = Math.ceil(damage_explode * explain_fragile('aoe'))
     var current_time = parseInt(grenade_para[1])
     recordData(stand_num, current_time, 0)
