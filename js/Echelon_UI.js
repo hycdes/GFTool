@@ -560,6 +560,11 @@ function readStatus () { // 读取已有人形之前的全局环境
   changeAffection('read')
 }
 function addTdoll () { // 添加战术人形
+  var reverse_position = num_pickblock
+  if (lang_type === 'ko') {
+    if (reverse_position >= 7) reverse_position -= 6
+    else if (reverse_position <= 3) reverse_position += 6
+  }
   // Name
   var selectID = document.getElementById('select_tdoll')
   var selectIdx = selectID.selectedIndex
@@ -601,11 +606,11 @@ function addTdoll () { // 添加战术人形
     if (ID === 4) Set_Special.set('can_add_python', false)
     if (ID === 197) Set_Special.set('can_add_karm1891', false)
     else if (ID === 1055) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_55 + '] ' + lib_language.DESCRIBE_55
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_55 + '] ' + lib_language.DESCRIBE_55
     }
     else if (ID === 1039) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_39 + '</h4>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_39 + '</h4>'
       str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 10%">' + lib_language.DESCRIBE_39_1 + '</td><td style="width: 30%">'
       str_html += '<input class="form-control input-sm" placeholder="' + lib_language.INPUT_PI + '" id="special_mosin_attackkill_' + num_pickblock + '" onblur=inputCheck_mosin('
       str_html += "'" + 'special_mosin_attackkill_' + num_pickblock + "'"
@@ -615,28 +620,28 @@ function addTdoll () { // 添加战术人形
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 2006) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_2006 + '</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_2006 + '] ' + lib_language.DESCRIBE_2006
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_2006 + '</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_2006 + '] ' + lib_language.DESCRIBE_2006
     }
     else if (ID === 102) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' UMP40</h4><p>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' UMP40</h4><p>'
       str_html += '[' + lib_language.skillNAME_102 + '] <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_0" checked> ' + lib_language.DESCRIBE_102_1 + '</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_1"> ' + lib_language.DESCRIBE_102_2 + '</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 180) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
     }
     else if (ID === 192) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
     }
     else if (ID === 252) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_252 + '] ' + lib_language.DESCRIBE_252
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_252 + '] ' + lib_language.DESCRIBE_252
     }
     else if (ID === 194) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' K2</h4>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' K2</h4>'
       str_html += '<h5>[' + lib_language.skillNAME_194 + '] ' + lib_language.DESCRIBE_194_0 + '</h5>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_1" checked> ' + lib_language.DESCRIBE_194_1 + '</label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_194_2 + '</span></label></p>'
@@ -645,7 +650,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 213) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' C-MS</h4>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' C-MS</h4>'
       str_html += '<h5>[' + lib_language.skillNAME_213 + '] ' + lib_language.DESCRIBE_213_0 + '</h5>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> ' + lib_language.DESCRIBE_213_1 + '</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_213_2 + '</span></label></p>'
@@ -654,7 +659,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 231) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' M82A1</h4><p>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' M82A1</h4><p>'
       str_html += '[' + lib_language.skillNAME_231 + '] ' + lib_language.DESCRIBE_231 + ' <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_1"> 1</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_2"> 2</label>'
@@ -664,7 +669,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 236) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' K11</h4><p>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' K11</h4><p>'
       str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 30%">' + lib_language.DESCRIBE_236 + '</td><td style="width: 50%">'
       str_html += '<input class="form-control input-sm" placeholder="' + lib_language.INPUT_PI + '" id="special_k11_' + num_pickblock + '" onblur=inputCheck_k11('
       str_html += "'" + 'special_k11_' + num_pickblock + "'"
@@ -672,14 +677,14 @@ function addTdoll () { // 添加战术人形
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 238) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_238 + '</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_238 + '] ' + lib_language.DESCRIBE_238
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_238 + '</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_238 + '] ' + lib_language.DESCRIBE_238
     }
     else if (ID === 256) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_256 + '</h4><input type="checkbox" id="special_falcon_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_256 + '] ' + lib_language.DESCRIBE_256
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_256 + '</h4><input type="checkbox" id="special_falcon_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_256 + '] ' + lib_language.DESCRIBE_256
     }
     else if (ID === 243) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' ' + lib_language.NAME_243 + '</h4><p>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_243 + '</h4><p>'
       str_html += '[' + lib_language.skillNAME_243 + '] ' + lib_language.DESCRIBE_243_0 + ' <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_0" checked> ' + lib_language.DESCRIBE_243_1 + '</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_64howa_' + num_pickblock + '_1"> ' + lib_language.DESCRIBE_243_2 + '</label>'
       str_html += '</p>'
@@ -687,7 +692,7 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 251) {
       var str_html = ''
-      str_html += '<h4>' + num_pickblock + lib_language.UI_num + ' X95</h4><p>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' X95</h4><p>'
       str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">' + lib_language.DESCRIBE_251 + '</td><td style="width: 50%">'
       str_html += '<input class="form-control input-sm" placeholder="0~300" id="special_x95_' + num_pickblock + '" onblur=inputCheck_x95('
       str_html += "'" + 'special_x95_' + num_pickblock + "'"

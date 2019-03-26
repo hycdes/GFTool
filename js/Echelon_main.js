@@ -9,6 +9,7 @@ var num_star = 5, affection = 'love' // 星级，好感度
 // Main
 var time = 20, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0 // 全局变量默认值：时间20s，接敌0s，昼战，无妖精，无天赋
 var global_frame = 0 // 当前帧，时间测算和特殊buff发动
+var global_total_dmg = 0 // 全局总伤害，决定结束战斗的时间
 var list_tdoll = [[5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null], [5, null]] // 战术人形列表，存放 [form, TdollInfo]
 var block1 = new Map, block2 = new Map, block3 = new Map, block4 = new Map, block5 = new Map, block6 = new Map, block7 = new Map, block8 = new Map, block9 = new Map // 每个格点的影响属性
 var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, block9] // 影响格集合
@@ -17,7 +18,7 @@ var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <S
 var Set_Base = new Map // 实时属性，当Status改变时更新
 var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_forcefield = 0 // 输出测试属性：敌人护甲，回避，编制，组数，类型，力场
 var enemy_dmg = 10, enemy_rof = 40, enemy_acu = 10, enemy_ap = 0, enemy_dbk = 0, enemy_hp = 1000, enemy_eva_2 = 10, enemy_arm_2 = 0, enemy_forcefield_2 = 0, aoe_num = 1, enemy_immortal = 0
-var enemy_num_left = 1 // 敌人剩余组数
+var enemy_num_left = 1, enemy_still_alive = true // 敌人剩余组数，敌人存活状况
 var Set_EnemyStatus = new Map // 敌人状态表
 var fragile_main = 1, fragile_all = 1 // 主目标脆弱，范围脆弱
 // Graph
@@ -148,7 +149,12 @@ function getResult (multiple, action) {
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
-      str_label[i] += (i + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + lib_language.main_draw_2 + current_data[len_data - 1][1] + ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+      var reverse_position = i
+      if (lang_type === 'ko') {
+        if (reverse_position >= 6) reverse_position -= 6
+        else if (reverse_position <= 2) reverse_position += 6
+      }
+      str_label[i] += (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + lib_language.main_draw_2 + current_data[len_data - 1][1] + ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
     }
   }
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
@@ -361,6 +367,7 @@ function getDPS () {
         end_of_standby = true
       }
       reactAllSkill('freefire', t)
+    // if (display_type === 'suffer' && enemy_still_alive) reactInjury()
     }
   }
   for (var i = 0; i < 9; i++) if (list_tdoll[i][1] != null) recordData(i, time, 0)
@@ -416,7 +423,7 @@ function reactAllSkill (command, current_time) {
       Set_Special.delete('multi_' + k)
     }
     if (k > 0 && list_tdoll[k][1] != null) { // 需要时延相应被蟒蛇复读的all类技能
-      if (list_tdoll[k][1].ID === 250 && global_frame >= Set_Special.get('hs2000_shield') && Set_Special.get('hs2000_can_active')) {
+      if (is_this(k, 250) && global_frame >= Set_Special.get('hs2000_shield') && Set_Special.get('hs2000_can_active')) {
         Set_Special.set('hs2000_can_active', false)
         if (true) { // 没设计破盾
           changeStatus(k, 'all', 'dmg', 0.35, 5)
@@ -447,7 +454,6 @@ function reactAllSkill (command, current_time) {
         else if (s_t[0][0] === 'fal') endStatus(k, s_t, 'fal') // 榴弹践踏
         else if (s_t[0][0] === 'snipe') {
           endStatus(k, s_t, 'snipe') // 狙击出膛
-          console.log(global_frame)
         }
         else if (s_t[0][0] === 'reload') {
           Set_Special.set('attack_permission_' + k, 'fire_all') // 换弹结束
@@ -1519,6 +1525,11 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   }
 }
 
+function reactInjury () {
+  var enemy_total_hp = 1
+  if (global_total_dmg > 0) true
+}
+
 function getBaseProperty (num) {
   var Area = [false, false, false, false, false, false, false, false, false] // 影响格范围
   var Info = new Map // 全部信息，包括最终出战全属性和枪种
@@ -1665,6 +1676,7 @@ function createBase (Area, Info) {
 function recordData (stand_num, current_time, increment) {
   var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
   Set_Data.get(stand_num).push([current_time, lastData + increment])
+  global_total_dmg += increment
 }
 
 function formater_DPS (e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
@@ -1750,6 +1762,7 @@ function get_g36_standblo (stand_num) {
 
 // 初始化函数
 function init_resetAllConfig () { // 重置所有数据
+  global_total_dmg = 0 // 总伤害重置
   not_init = false // 此阶段所有buff皆不可复读
   Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear()
   for (var i = 0; i < 9; i++) list_tdoll[i][0] = 5 // 恢复编制
@@ -1875,6 +1888,7 @@ function init_loadPrepareStatus () { // 初始化战前属性
   }
 }
 function init_loadEnemyInfo () {
+  enemy_still_alive = true
   if (document.getElementById('switch_normal').checked) enemy_type = 'normal'
   else if (document.getElementById('switch_elite').checked) enemy_type = 'elite'
   else if (document.getElementById('switch_boss').checked) enemy_type = 'boss'
