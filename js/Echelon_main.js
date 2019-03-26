@@ -1360,7 +1360,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   }
   else if (situation === 'dot') {
     var dot_para = status[0][1].split('/')
-    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0]) * enemy_form
+    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0])
     damage_explode = Math.ceil(damage_explode * explain_fragile('aoe'))
     var current_time = parseInt(dot_para[1])
     recordData(stand_num, current_time, 0)
