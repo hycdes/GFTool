@@ -686,7 +686,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         }
       }
       // 攻击间隔或者换弹判断
-      if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && is_this(stand_num, 256)) { // HG/AR/SMG/RF 并排除 隼
+      if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && !is_this(stand_num, 256)) { // HG/AR/SMG/RF 并排除 隼
         if ((is_this(stand_num, 73) || is_this(stand_num, 237)) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
         else if (is_this(stand_num, 1002) && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手120射速
           s_t[1] = 11
