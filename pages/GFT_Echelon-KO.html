@@ -235,7 +235,7 @@
                                                         <table class="table_other table-bordered table-hover" style="width:240px">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td style="height: 30px" id='a_have'>인형을 배치 후 받고 있는 진형 버프가 표기됩니다</td>
+                                                                    <td style="height: 30px" id='a_have'>여기에 받고 있는 진형 버프가 표시됩니다</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -375,7 +375,7 @@
                                                         </table>
                                                     </div>
                                                     <div class='col-lg-8'>
-                                                        <h4>属性</h4>
+                                                        <h4>특성</h4>
                                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                                             <tbody>
                                                                 <tr>
@@ -394,28 +394,43 @@
                                                                     <td id="fairy_arm">장갑 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_skill">기능 -</td>
+                                                                    <td id="fairy_skill">스킬 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><input type="checkbox" id="fairyskill_active" disabled onchange="changeEnvironment()"> 기능 활성</td>
+                                                                    <td><input type="checkbox" id="fairyskill_active" disabled onchange="changeEnvironment()"> 스킬 발동</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane fade" id="make_hf">
-                                                    <h4>화력소대</h4>
-                                                    <table class="table_other table-bordered table-hover" style="width:350px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="td_pickgun"></td>
-                                                                <td class="td_pickgun"></td>
-                                                                <td class="td_pickgun"></td>
-                                                                <td class="td_pickgun"></td>
-                                                                <td class="td_pickgun"></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <div class='col-lg-4'>
+                                                        <h4>화력소대(unfinished)</h4>
+                                                        <table class="table_other table-bordered table-hover" style="width:220px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
+                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-1.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
+                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-2.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
+                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-3.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
+                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-4.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
+                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-5.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -455,22 +470,22 @@
                                         <table class="table_other table-bordered table-hover" style="width:300px">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 35%">전투 시작 시간</td>
-                                                    <td style="width: 20%">
+                                                    <td style="width: 25%">교전 시작</td>
+                                                    <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
                                                     </td>
                                                     <td style="width: 25%">전투 시간</td>
-                                                    <td style="width: 20%">
+                                                    <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 35%">더미 수</td>
-                                                    <td style="width: 20%">
+                                                    <td style="width: 25%">더미 수</td>
+                                                    <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="changeEnvironment()">
                                                     </td>
                                                     <td style="width: 25%">개체 수</td>
-                                                    <td style="width: 20%">
+                                                    <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="changeEnvironment()">
                                                     </td>
                                                 </tr>
@@ -480,9 +495,9 @@
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#Setting1" data-toggle="tab">피해 테스트</a>
+                                                <li class="active"><a href="#Setting1" data-toggle="tab">공격 시뮬</a>
                                                 </li>
-                                                <li><a href="#Setting1-2" data-toggle="tab">부상 테스트</a>
+                                                <li><a href="#Setting1-2" data-toggle="tab">방어 시뮬</a>
                                                 </li>
                                                 <li><a href="#Setting2" data-toggle="tab">특수 설정</a>
                                                 </li>
@@ -492,7 +507,7 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Setting1">
-                                                    <h4>적</h4>
+                                                    <h4>적 방어 능력</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -537,7 +552,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting1-2">
-                                                    <h4>적</h4>
+                                                    <h4>적 공격 능력</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -570,7 +585,7 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="changeEnvironment()"> 최고의 정확도</td>
+                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="changeEnvironment()"> 적의 공격 필중</td>
                                                                 <td style="width: 25%">명중</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="changeEnvironment()">
@@ -596,7 +611,7 @@
                                                         <tbody>
                                                             <tr style="height: 30px">
                                                                 <td>
-                                                                    <input type="checkbox" id="enemy_hp_check" onchange="changeEnvironment()"> 적<span style="color:orangered">죽일 수있다</span>
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="changeEnvironment()"> 적을 <span style="color:orangered">죽일 수 있음</span>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -628,7 +643,7 @@
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=1 onblur="changeEnvironment()" disabled>
                                                                 </td>
-                                                                <td style="width: 25%">无敌时间</td>
+                                                                <td style="width: 25%">무적 시간</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 onblur="changeEnvironment()" disabled>
                                                                 </td>
@@ -695,7 +710,7 @@
                                             <span id='envi_fairyskill' style="color:dodgerblue">요정 스킬 미사용</span>
                                             <span style="color: red" id="envi_allpro"></span>
                                         </h5>
-                                        <h5><b>[적 재산]</b>
+                                        <h5><b>[적 설정]</b>
                                             유형 [ <span style="color:black" id='envi_ene_type'>일반</span> ]
                                             회피 [ <span style="color:green" id='envi_ene_eva'>0</span> ]
                                             장갑 [ <span style="color:green" id='envi_ene_arm'>0</span> ]
@@ -705,8 +720,8 @@
                                         </h5>
                                         <h5><b>[전투 데이터]</b>
                                             총 피해 [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
-                                            전투 시간 [ <span style="color:green" id='envi_alltime'>50</span> ]
-                                            전투 시작 시간 [ <span style="color:green" id='envi_contertime'>0</span> ]
+                                            전투 시간 [ <span style="color:green" id='envi_alltime'>20</span> ]
+                                            교전 시작 [ <span style="color:green" id='envi_contertime'>0</span> ]
                                         </h5>
                                         <div id="container" style="width: 700px"></div>
                                     </div>
