@@ -766,7 +766,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
             }
           } else if (current_Info.get('type') === 4 && is_this(stand_num, 256)) { // 隼的换弹
-            reload_frame = Math.floor(3600 / (current_Info.get('rof') + 10))
+            reload_frame = 30 + Math.floor(3600 / (current_Info.get('rof') + 10))
           }
           if (Set_Special.get('jericho_exist') === true) {
             var jericho_standset = Set_Special.get('jericho_standset')
