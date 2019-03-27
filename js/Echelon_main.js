@@ -35,6 +35,8 @@ var Set_Data = new Map // 输出数据
 var Set_Data_Buffer = new Map // 输出数据缓存
 var Set_Data_S = new Map // 承伤数据
 var Set_Data_S_Buffer = new Map // 承伤数据缓存
+var Set_Data_HF = new Map // 重装部队输出数据
+var Set_Data_HF_Buffer = new Map // 重装部队输出数据缓存
 // special variations
 var not_init = false // 控制蟒蛇能够开始复读的开关
 
@@ -86,9 +88,11 @@ function getBlockAffect () {
 
 function getResult (multiple, action) {
   Set_Data_Buffer.clear()
+  Set_Data_HF_Buffer.clear()
   display_type = action
   for (var n = 0; n < multiple; n++) {
     getDPS()
+    // 梯队伤害统计
     for (var i = 0; i < 9; i++) {
       var final_data = []
       var this_data = Set_Data_Buffer.get(i)
@@ -124,7 +128,44 @@ function getResult (multiple, action) {
       }
       Set_Data_Buffer.set(i, final_data)
     }
+    // 重装部队伤害统计
+    for (var i = 0; i < 5; i++) {
+      var final_data = []
+      var this_data = Set_Data_HF_Buffer.get(i)
+      var new_data = Set_Data_HF.get(i)
+      if (this_data === undefined) {
+        final_data = new_data
+      } else {
+        var len_this = this_data.length, len_new = new_data.length
+        var i_this = 0, i_new = 0
+        while (true) {
+          if (i_this < len_this && i_new < len_new) {
+            if (this_data[i_this][0] === new_data[i_new][0]) { // 同一个x坐标
+              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new][1]])
+              i_this++
+              i_new++
+            } else if (this_data[i_this][0] > new_data[i_new][0]) { // 新数据靠前
+              final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
+              i_new++
+            } else if (this_data[i_this][0] < new_data[i_new][0]) {
+              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
+              i_this++
+            }
+          } else if (i_this === len_this && i_new < len_new) {
+            final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
+            i_new++
+          } else if (i_this < len_this && i_new === len_new) {
+            final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
+            i_this++
+          } else {
+            break
+          }
+        }
+      }
+      Set_Data_HF_Buffer.set(i, final_data)
+    }
   }
+  // 场次平均
   for (var i = 0; i < 9; i++) {
     var this_data = Set_Data_Buffer.get(i)
     var len = this_data.length
@@ -133,23 +174,45 @@ function getResult (multiple, action) {
     }
     Set_Data.set(i, this_data)
   }
+  for (var i = 0; i < 5; i++) {
+    var this_data = Set_Data_HF_Buffer.get(i)
+    var len = this_data.length
+    for (var x = 0; x < len; x++) {
+      this_data[x][1] = Math.ceil(this_data[x][1] / multiple)
+    }
+    Set_Data_HF.set(i, this_data)
+  }
   // 绘图
   var x_max = Math.ceil(time / 30)
   var y_max = 0
-  var str_label = ['', '', '', '', '', '', '', '', '', '', '']
+  var str_label = [
+    '', '', '', '', '', '', '', '', '', // echelon*9
+    '', '', '', '', '', '', '', '', '', // echelon hp*9
+    '', // fairy
+    '', '', '', '', '', '' // heavyfire
+  ]
   totaldamage_buffer = 0
+  // 总伤害
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data.get(i)
       totaldamage_buffer += current_data[current_data.length - 1][1]
     }
   }
+  for (var i = 0; i < 5; i++) {
+    if (list_HF[i][0]) {
+      var current_data = Set_Data_HF.get(i)
+      totaldamage_buffer += current_data[current_data.length - 1][1]
+    }
+  }
+  // 布雷妖精伤害计算
   if (fairy_no === 12 && document.getElementById('fairyskill_active').checked) {
     if (enemy_type != 'boss') recordData(9, 0, totaldamage_buffer)
     else recordData(9, 0, 0)
     recordData(9, time, 0)
   }
   totaldamage_buffer += Set_Data.get(9)[Set_Data.get(9).length - 1][1]
+  // 梯队伤害统计百分比
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data.get(i)
@@ -165,12 +228,29 @@ function getResult (multiple, action) {
       if (totaldamage_buffer > 0) str_label[i] += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
     }
   }
+  // 重装部队伤害统计百分比
+  for (var i = 0; i < 5; i++) {
+    if (list_HF[i][0]) {
+      var current_data = Set_Data_HF.get(i)
+      var len_data = (current_data).length
+      for (var d = 0; d < len_data; d++) Set_Data_HF.get(i)[d][0] = (Set_Data_HF.get(i)[d][0] / 30).toFixed(1)
+      if (Set_Data_HF.get(i)[len_data - 1][1] > y_max) y_max = Set_Data_HF.get(i)[len_data - 1][1]
+      var HF_name = ''
+      if (i === 0) HF_name = 'BGM-71'
+      else if (i === 1) HF_name = 'AGS-30'
+      else if (i === 2) HF_name = '2B-14'
+      else if (i === 3) HF_name = 'M2'
+      else if (i === 4) HF_name = 'AT4'
+      str_label[i + 19] += HF_name + lib_language.main_draw_2 + current_data[len_data - 1][1]
+      if (totaldamage_buffer > 0) str_label[i + 19] += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+    }
+  }
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
     var current_data = Set_Data.get(9)
     var len_data = current_data.length
-    for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
+    for (var d = 0; d < len_data; d++) Set_Data.get(9)[d][0] = (Set_Data.get(9)[d][0] / 30).toFixed(1)
     if (y_max < Set_Data.get(9)[Set_Data.get(9).length - 1][1]) y_max = Set_Data.get(9)[Set_Data.get(9).length - 1][1]
-    eval('str_label[9]=lib_language.fairyNAME_' + fairy_no + '+lib_language.main_draw_2+current_data[len_data - 1][1]+"("+((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + "%)"')
+    eval('str_label[18]=lib_language.fairyNAME_' + fairy_no + '+lib_language.main_draw_2+current_data[len_data - 1][1]+"("+((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + "%)"')
   }
   x_max_buffer = x_max, y_max_buffer = y_max, str_label_buffer = str_label
   makeGraph(x_max, y_max, str_label)
@@ -374,11 +454,22 @@ function getDPS () {
       if (!end_of_standby) { // 解锁所有人command
         end_of_standby = true
       }
+      // 重装部队支援是否到达
+      for (var hfn = 0; hfn < 5; hfn++) {
+        if (list_HF[hfn][0]) {
+          if (Set_Special.get('HF_incoming' + hfn) <= t) {
+            Set_Special.set('HF_incoming' + hfn, t + fil_to_frame(list_HF[hfn][1].v4 + list_HF[hfn][2].v4 + list_HF[hfn][3].v4)) // reloading
+            recordData_HF(hfn, t)
+          }
+        }
+      }
+      // 处理攻击和技能
       reactAllSkill('freefire', t)
     // if (display_type === 'suffer' && enemy_still_alive) reactInjury()
     }
   }
-  for (var i = 0; i < 9; i++) if (list_tdoll[i][1] != null) recordData(i, time, 0)
+  for (var i = 0; i < 9; i++) if (list_tdoll[i][1] != null) recordData(i, time, 0) // 末尾填补数据防断档
+  for (var i = 0; i < 5; i++) if (list_HF[i][0]) recordData_HF(i, time, 'lastrecord')
   if (fairy_no != 12 && fairy_no != 13) recordData(9, time, 0)
 }
 
@@ -1673,6 +1764,7 @@ function rof_to_frame (num_tn, base_rof, ID) {
   }
   return shootframe
 }
+function fil_to_frame (filling) { return Math.ceil(45000 / (300 + filling)); }
 
 function createBase (Area, Info) {
   var Base = {}
@@ -1685,6 +1777,19 @@ function recordData (stand_num, current_time, increment) {
   var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
   Set_Data.get(stand_num).push([current_time, lastData + increment])
   global_total_dmg += increment
+}
+function recordData_HF () {
+  var hfn = arguments['0']
+  var current_time = arguments['1']
+  var command = arguments['2']
+  var lastData = (Set_Data_HF.get(hfn))[(Set_Data_HF.get(hfn)).length - 1][1]
+  var increment = explain_heavyfire(hfn)
+  if (command === undefined) {
+    Set_Data_HF.get(hfn).push([current_time, lastData])
+    Set_Data_HF.get(hfn).push([current_time, lastData + increment])
+  } else {
+    Set_Data_HF.get(hfn).push([current_time, lastData])
+  }
 }
 
 function formater_DPS (e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
@@ -1701,12 +1806,20 @@ function makeGraph (x_max, y_max, str_label) {
       { data: Set_Data.get(6), label: str_label[6]},
       { data: Set_Data.get(7), label: str_label[7]},
       { data: Set_Data.get(8), label: str_label[8]},
-      { data: Set_Data.get(9), label: str_label[9]}
+      { data: Set_Data.get(9), label: str_label[18]},
+      { data: Set_Data_HF.get(0), label: str_label[19]},
+      { data: Set_Data_HF.get(1), label: str_label[20]},
+      { data: Set_Data_HF.get(2), label: str_label[21]},
+      { data: Set_Data_HF.get(3), label: str_label[22]},
+      { data: Set_Data_HF.get(4),label: str_label[23]}
     ], {
-      colors: ['#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000', '#666666'],
+      colors: [
+        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
+        '#666666',
+        '#8001A0', '#FF9900', '#FFFF00', '#CC00FF', '#FFCCFF'
+      ],
       xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
       yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
-      y2axis: { color: '#FFFFFF', title: lib_language.main_makeGraph_3, max: y_max, min: 0 },
       mouse: { track: true, relative: true, trackFormatter: formater_DPS },
       points: { show: false },
       HtmlText: false,
@@ -1728,22 +1841,25 @@ function makeGraph (x_max, y_max, str_label) {
       { data: Set_Data.get(7), label: str_label[7]},
       { data: Set_Data.get(8), label: str_label[8]},
       { data: Set_Data.get(9), label: str_label[9]},
-      { data: Set_Data_S.get(0), label: str_label[0]},
-      { data: Set_Data_S.get(1), label: str_label[1]},
-      { data: Set_Data_S.get(2), label: str_label[2]},
-      { data: Set_Data_S.get(3), label: str_label[3]},
-      { data: Set_Data_S.get(4), label: str_label[4]},
-      { data: Set_Data_S.get(5), label: str_label[5]},
-      { data: Set_Data_S.get(6), label: str_label[6]},
-      { data: Set_Data_S.get(7), label: str_label[7]},
-      { data: Set_Data_S.get(8), label: str_label[8]}
+      { data: Set_Data_S.get(0), label: str_label[0], yaxis: 2},
+      { data: Set_Data_S.get(1), label: str_label[1], yaxis: 2},
+      { data: Set_Data_S.get(2), label: str_label[2], yaxis: 2},
+      { data: Set_Data_S.get(3), label: str_label[3], yaxis: 2},
+      { data: Set_Data_S.get(4), label: str_label[4], yaxis: 2},
+      { data: Set_Data_S.get(5), label: str_label[5], yaxis: 2},
+      { data: Set_Data_S.get(6), label: str_label[6], yaxis: 2},
+      { data: Set_Data_S.get(7), label: str_label[7], yaxis: 2},
+      { data: Set_Data_S.get(8), label: str_label[8], yaxis: 2}
     ], {
       colors: [
-        '#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000', '#666666',
-        '#FF0000', '#CC00FF', '#FFCC00', '#FFFF00', '#66FF99', '#33FF00', '#6699FF', '#3366FF', '#000000'
+        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
+        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
+        '#666666',
+        '#8001A0', '#FF9900', '#FFFF00', '#CC00FF', '#FFCCFF'
       ],
       xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
       yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
+      y2axis: { color: '#FF0000', title: lib_language.main_makeGraph_3,  max: y_max, min: 0},
       mouse: { track: true, relative: true, trackFormatter: formater_DPS },
       points: { show: false },
       HtmlText: false,
@@ -1772,7 +1888,7 @@ function get_g36_standblo (stand_num) {
 function init_resetAllConfig () { // 重置所有数据
   global_total_dmg = 0 // 总伤害重置
   not_init = false // 此阶段所有buff皆不可复读
-  Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear()
+  Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear(); Set_Data_HF.clear()
   for (var i = 0; i < 9; i++) list_tdoll[i][0] = 5 // 恢复编制
   fragile_main = 1; fragile_all = 1
   Set_Special.set('can_add_python', true)
@@ -1788,6 +1904,12 @@ function init_resetAllConfig () { // 重置所有数据
 function init_loadPrepareStatus () { // 初始化战前属性
   // 出战属性和初始状态
   for (var i = 0; i < 10; i++) Set_Data.set(i, [[0, 0]]) // 包括妖精在内的输出数据初始化
+  for (var i = 0; i < 5; i++) { // 重装部队数据初始化
+    Set_Data_HF.set(i, [[0, 0]])
+    if (list_HF[i][0]) { // 支援中的重装设定初始到达时间1s
+      Set_Special.set('HF_incoming' + i, 30)
+    }
+  }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
@@ -1943,7 +2065,7 @@ function is_exist_someone (ID) {
   }
   return false
 }
-function explain_fgl_ff (damage_type) { // single单体, aoe范围, around_aoe溅射
+function explain_fgl_ff (damage_type) { // 解释伤害加成，力场减免+AOE计算+伤害加深，single单体, around_single周遭单体, aoe范围, around_aoe溅射
   var ff_ratio = 1
   if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
   else if (display_type === 'suffer') ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
@@ -1958,11 +2080,31 @@ function explain_fgl_ff (damage_type) { // single单体, aoe范围, around_aoe�
     else return ((enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio
   }
 }
+function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减、额外破防伤害、基础无视力场伤害
+  var damage = list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1
+  var defencebreaking = list_HF[hfn][1].v2 + list_HF[hfn][2].v2 + list_HF[hfn][3].v2
+  var overdbk = 0
+  var aoe_multi = 1
+  if (display_type === 'damage') {
+    enemy_forcefield -= defencebreaking
+    overdbk = Math.ceil(Math.max(0, (enemy_forcefield * -0.1))) // 溢出破防
+    if (enemy_forcefield < 0) enemy_forcefield = 0
+  }
+  else if (display_type === 'suffer') {
+    enemy_forcefield_2 -= defencebreaking
+    overdbk = Math.ceil(Math.max(0, (enemy_forcefield_2 * -0.1))) // 溢出破防
+    if (enemy_forcefield_2 < 0) enemy_forcefield = 0
+  }
+  if (aoe_num <= enemy_num_left) aoe_multi = (fragile_main + (aoe_num - 1) * fragile_all) * enemy_form
+  else return (fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form
+  return (damage + overdbk) * aoe_multi
+}
 function this_formation (stand_num) { return list_tdoll[stand_num][0];}
 function createHF (dmg, dbk, acu, fil) {
   var HF = {}
-  HF.dmg = dmg
-  HF.dbk = dbk
-  HF.acu = acu
-  HF.fil = fil
+  HF.v1 = dmg
+  HF.v2 = dbk
+  HF.v3 = acu
+  HF.v4 = fil
+  return HF
 }

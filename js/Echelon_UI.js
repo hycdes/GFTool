@@ -945,26 +945,38 @@ function templatePro (type) {
   if (type === 1) {
     document.getElementById('enemy_arm').value = 25
     document.getElementById('enemy_eva').value = 10
+    document.getElementById('enemy_forcefield').value = 0
+    document.getElementById('enemy_forcefield_max').value = 0
     document.getElementById('switch_boss').checked = true
   } else if (type === 2) {
     document.getElementById('enemy_arm').value = 199
     document.getElementById('enemy_eva').value = 0
+    document.getElementById('enemy_forcefield').value = 0
+    document.getElementById('enemy_forcefield_max').value = 0
     document.getElementById('switch_normal').checked = true
   } else if (type === 3) {
     document.getElementById('enemy_arm').value = 229
     document.getElementById('enemy_eva').value = 14
+    document.getElementById('enemy_forcefield').value = 5010
+    document.getElementById('enemy_forcefield_max').value = 5010
     document.getElementById('switch_elite').checked = true
   } else if (type === 4) {
     document.getElementById('enemy_arm').value = 0
     document.getElementById('enemy_eva').value = 60
+    document.getElementById('enemy_forcefield').value = 0
+    document.getElementById('enemy_forcefield_max').value = 0
     document.getElementById('switch_boss').checked = true
   } else if (type === 5) {
     document.getElementById('enemy_arm').value = 0
     document.getElementById('enemy_eva').value = 32
+    document.getElementById('enemy_forcefield').value = 0
+    document.getElementById('enemy_forcefield_max').value = 0
     document.getElementById('switch_normal').checked = true
   } else if (type === 6) {
     document.getElementById('enemy_arm').value = 119
     document.getElementById('enemy_eva').value = 0
+    document.getElementById('enemy_forcefield').value = 2104
+    document.getElementById('enemy_forcefield_max').value = 3006
     document.getElementById('switch_normal').checked = true
   }
 }
@@ -979,4 +991,38 @@ function selectHF (num) {
     document.getElementById('hfselect_' + num).src = '../img/echelon/heavyfire/hf-select-no.png'
     for (var i = 0; i < 4; i++) document.getElementById('hf' + num + '_pro' + (i + 1)).disabled = true
   }
+}
+
+function changeHFPro (num, type) {
+  var input_value = parseInt(document.getElementById('hf' + num + '_pro' + type).value)
+  // check value
+  if (num === 1) {
+    if (type === 1 && (isNaN(input_value) || input_value < 0 || input_value > 190)) input_value = 190
+    else if (type === 2 && (isNaN(input_value) || input_value < 0 || input_value > 329)) input_value = 329
+    else if (type === 3 && (isNaN(input_value) || input_value < 0 || input_value > 191)) input_value = 191
+    else if (type === 4 && (isNaN(input_value) || input_value < 0 || input_value > 46)) input_value = 46
+  } else if (num === 2) {
+    if (type === 1 && (isNaN(input_value) || input_value < 0 || input_value > 106)) input_value = 106
+    else if (type === 2 && (isNaN(input_value) || input_value < 0 || input_value > 130)) input_value = 130
+    else if (type === 3 && (isNaN(input_value) || input_value < 0 || input_value > 120)) input_value = 120
+    else if (type === 4 && (isNaN(input_value) || input_value < 0 || input_value > 233)) input_value = 233
+  } else if (num === 3) {
+    if (type === 1 && (isNaN(input_value) || input_value < 0 || input_value > 227)) input_value = 227
+    else if (type === 2 && (isNaN(input_value) || input_value < 0 || input_value > 58)) input_value = 58
+    else if (type === 3 && (isNaN(input_value) || input_value < 0 || input_value > 90)) input_value = 90
+    else if (type === 4 && (isNaN(input_value) || input_value < 0 || input_value > 107)) input_value = 107
+  } else if (num === 4) {
+    if (type === 1 && (isNaN(input_value) || input_value < 0 || input_value > 206)) input_value = 206
+    else if (type === 2 && (isNaN(input_value) || input_value < 0 || input_value > 60)) input_value = 60
+    else if (type === 3 && (isNaN(input_value) || input_value < 0 || input_value > 97)) input_value = 97
+    else if (type === 4 && (isNaN(input_value) || input_value < 0 || input_value > 148)) input_value = 148
+  } else if (num === 5) {
+    if (type === 1 && (isNaN(input_value) || input_value < 0 || input_value > 169)) input_value = 169
+    else if (type === 2 && (isNaN(input_value) || input_value < 0 || input_value > 261)) input_value = 261
+    else if (type === 3 && (isNaN(input_value) || input_value < 0 || input_value > 190)) input_value = 190
+    else if (type === 4 && (isNaN(input_value) || input_value < 0 || input_value > 90)) input_value = 90
+  }
+  // assignment
+  document.getElementById('hf' + num + '_pro' + type).value = input_value
+  eval('"list_HF[num - 1][2].v+"+type+"=input_value"')
 }
