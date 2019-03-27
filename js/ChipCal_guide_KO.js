@@ -1,3 +1,4 @@
+var lang_type = 'ko'
 var HeavyfireType = 1
 var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
 var switch_clear = false, switch_maxall = false, switch_blueall = false, switch_orangeall = false

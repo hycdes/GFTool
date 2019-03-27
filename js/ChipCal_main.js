@@ -1681,7 +1681,10 @@ function setBestNum () {
   if ((best_num.value).length === 0) best_num.value = 10
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
-function getHelp () { window.open('../img/CC-tutorial.png'); }
+function getHelp () {
+  if (lang_type === 'cn') window.open('../img/CC-tutorial.png')
+  else if (lang_type === 'ko') window.open('../img/CC-tutorial-KO.png')
+}
 
 // ====================================================================
 
