@@ -852,8 +852,14 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('enemy_num').value = 1
   }
   var edit_ff = document.getElementById('enemy_forcefield').value
+  var edit_ff_max = document.getElementById('enemy_forcefield_max').value
   if (edit_ff === '' || isNaN(edit_ff) || parseInt(edit_ff) < 0 || (parseFloat(edit_ff) != parseInt(edit_ff))) { // 敌人力场，非负整数
+    edit_ff = 0
     document.getElementById('enemy_forcefield').value = 0
+  }
+  if (edit_ff_max === '' || isNaN(edit_ff_max) || parseInt(edit_ff_max) < 0 || (parseFloat(edit_ff_max) != parseInt(edit_ff_max)) || parseFloat(edit_ff_max) < parseFloat(edit_ff)) { // 敌人力场max，非负整数，且不能低于设定力场
+    edit_ff_max = edit_ff
+    document.getElementById('enemy_forcefield_max').value = edit_ff
   }
   if (daytime === 1) {
     document.getElementById('envi_day').innerHTML = lib_language.daytime // 昼
@@ -894,7 +900,9 @@ function changeEnvironment () { // change display of envi-parameters and check v
   document.getElementById('envi_ene_arm').innerHTML = document.getElementById('enemy_arm').value
   document.getElementById('envi_ene_form').innerHTML = document.getElementById('enemy_form').value
   document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
-  document.getElementById('envi_ene_ff').innerHTML = document.getElementById('enemy_forcefield').value
+  var ff_str = '' + document.getElementById('enemy_forcefield').value
+  if (parseInt(document.getElementById('enemy_forcefield_max').value) != 0) ff_str += ' (' + (100 * (document.getElementById('enemy_forcefield').value) / (document.getElementById('enemy_forcefield_max').value)).toFixed(2) + '%)'
+  document.getElementById('envi_ene_ff').innerHTML = ff_str
   // 承伤测试
   if (document.getElementById('enemy_acumax').checked) {
     document.getElementById('enemy_acu').disabled = true
@@ -908,6 +916,7 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('enemy_eva_2').disabled = false
     document.getElementById('enemy_arm_2').disabled = false
     document.getElementById('enemy_forcefield_2').disabled = false
+    document.getElementById('enemy_forcefield_2_max').disabled = false
     document.getElementById('enemy_aoe').disabled = false
     document.getElementById('enemy_immortal').disabled = false
   } else {
@@ -915,12 +924,14 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('enemy_eva_2').value = 10
     document.getElementById('enemy_arm_2').value = 0
     document.getElementById('enemy_forcefield_2').value = 0
+    document.getElementById('enemy_forcefield_2_max').value = 0
     document.getElementById('enemy_aoe').value = parseInt(document.getElementById('enemy_num').value)
     document.getElementById('enemy_immortal').value = 0
     document.getElementById('enemy_hp').disabled = true
     document.getElementById('enemy_eva_2').disabled = true
     document.getElementById('enemy_arm_2').disabled = true
     document.getElementById('enemy_forcefield_2').disabled = true
+    document.getElementById('enemy_forcefield_2_max').disabled = true
     document.getElementById('enemy_aoe').disabled = true
     document.getElementById('enemy_immortal').disabled = true
   }
@@ -955,5 +966,17 @@ function templatePro (type) {
     document.getElementById('enemy_arm').value = 119
     document.getElementById('enemy_eva').value = 0
     document.getElementById('switch_normal').checked = true
+  }
+}
+
+function selectHF (num) {
+  if (list_HF[num - 1][0] === false) {
+    list_HF[num - 1][0] = true
+    document.getElementById('hfselect_' + num).src = '../img/echelon/heavyfire/hf-select.png'
+    for (var i = 0; i < 4; i++) document.getElementById('hf' + num + '_pro' + (i + 1)).disabled = false
+  } else {
+    list_HF[num - 1][0] = false
+    document.getElementById('hfselect_' + num).src = '../img/echelon/heavyfire/hf-select-no.png'
+    for (var i = 0; i < 4; i++) document.getElementById('hf' + num + '_pro' + (i + 1)).disabled = true
   }
 }

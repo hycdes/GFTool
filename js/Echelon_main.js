@@ -2,7 +2,7 @@
 var buffer_table = new Map // 已放置人形的信息缓存，点击人形查看
 var buffer_last // 上一次添加人形的缓存
 var switch_operate = false, switch_equip = false // 人形和装备更改开关
-var num_pickblock = -1, num_pickequip = -1 // 选中的人形和装备
+var num_pickblock = -1, num_pickequip = -1, num_pickhf = 0 // 选中的人形、装备、重装部队
 var set_guntype = 1 // 枪种：1=hg, 2=ar, 3=smg, 4=rf, 5=mg, 6=sg
 var set_equip = [0, 0, 0] // 装备代号，开头：1=配件, 2=子弹, 3=人形装备, 4=夜战装备
 var num_star = 5, affection = 'love' // 星级，好感度
@@ -16,8 +16,15 @@ var blockSet = [block1, block2, block3, block4, block5, block6, block7, block8, 
 var Set_Status = new Map // 状态表，存放状态列表，< num_stand, [ <Status, left_frame> ]>, Status=[type,value(>1)]
 var Set_Skill = new Map // 技能表，存放二元组列表，< num_stand, [ <Skill, frame> ] >, 攻击是首位技能
 var Set_Base = new Map // 实时属性，当Status改变时更新
-var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_forcefield = 0 // 输出测试属性：敌人护甲，回避，编制，组数，类型，力场
-var enemy_dmg = 10, enemy_rof = 40, enemy_acu = 10, enemy_ap = 0, enemy_dbk = 0, enemy_hp = 1000, enemy_eva_2 = 10, enemy_arm_2 = 0, enemy_forcefield_2 = 0, aoe_num = 1, enemy_immortal = 0
+var list_HF = [ // 重装部队属性: 支援与否，基础，芯片，同色谐振
+  [false, createHF(200, 497, 418, 99), createHF(190, 329, 191, 46), createHF(158, 66, 38, 9)],
+  [false, createHF(102, 180, 239, 465), createHF(106, 130, 120, 233), createHF(84, 26, 22, 46)],
+  [false, createHF(202, 73, 164, 194), createHF(227, 58, 90, 107), createHF(192, 15, 22, 22)],
+  [false, createHF(154, 63, 147, 225), createHF(206, 60, 97, 148), createHF(159, 15, 22, 28)],
+  [false, createHF(147, 325, 343, 161), createHF(169, 261, 190, 90), createHF(120, 45, 33, 15)]
+]
+var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_forcefield = 0, enemy_forcefield_max = 0 // 输出测试属性：敌人护甲，回避，编制，组数，类型，力场
+var enemy_dmg = 10, enemy_rof = 40, enemy_acu = 10, enemy_ap = 0, enemy_dbk = 0, enemy_hp = 1000, enemy_eva_2 = 10, enemy_arm_2 = 0, enemy_forcefield_2 = 0, enemy_forcefield_2_max = 0, aoe_num = 1, enemy_immortal = 0
 var enemy_num_left = 1, enemy_still_alive = true // 敌人剩余组数，敌人存活状况
 var Set_EnemyStatus = new Map // 敌人状态表
 var fragile_main = 1, fragile_all = 1 // 主目标脆弱，范围脆弱
@@ -154,7 +161,8 @@ function getResult (multiple, action) {
         if (reverse_position >= 6) reverse_position -= 6
         else if (reverse_position <= 2) reverse_position += 6
       }
-      str_label[i] += (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + lib_language.main_draw_2 + current_data[len_data - 1][1] + ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+      str_label[i] += (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + lib_language.main_draw_2 + current_data[len_data - 1][1]
+      if (totaldamage_buffer > 0) str_label[i] += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
     }
   }
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
@@ -345,13 +353,13 @@ function getDPS () {
       if (Set_Special.get('fairy_skilltime') <= t) {
         if (fairy_no === 7) { // 狙击指令
           recordData(9, t, 0)
-          recordData(9, t, 20000 * explain_fragile('single'))
+          recordData(9, t, 20000 * explain_fgl_ff('single'))
         } else if (fairy_no === 8) { // 炮击指令
           recordData(9, t, 0)
-          recordData(9, t, 1200 * explain_fragile('aoe'))
+          recordData(9, t, 1200 * explain_fgl_ff('aoe'))
         } else if (fairy_no === 9) { // 致命空袭
           recordData(9, t, 0)
-          recordData(9, t, 500 * explain_fragile('aoe'))
+          recordData(9, t, 500 * explain_fgl_ff('aoe'))
         }
         Set_Special.set('fairy_skillon', false)
       }
@@ -488,8 +496,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             dmg_aoe += this_formation(stand_num) * final_crit * (enemy_num - 1) * Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
           }
         }
-        dmg_direct = Math.ceil(dmg_direct * explain_fragile('single'))
-        dmg_aoe = Math.ceil(dmg_aoe * explain_fragile('around_single'))
+        dmg_direct = Math.ceil(dmg_direct * explain_fgl_ff('single'))
+        dmg_aoe = Math.ceil(dmg_aoe * explain_fgl_ff('around_single'))
         final_dmg = dmg_direct + dmg_aoe
         recordData(stand_num, current_time, final_dmg)
       }
@@ -551,7 +559,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
           Set_Special.set('p90_' + stand_num, Set_Special.get('p90_' + stand_num) - 1)
           final_dmg *= current_Info.get('critdmg')
-          final_dmg = Math.ceil(final_dmg * this_formation(stand_num) * explain_fragile('single'))
+          final_dmg = Math.ceil(final_dmg * this_formation(stand_num) * explain_fgl_ff('single'))
           recordData(stand_num, current_time, final_dmg)
         }
         else if (is_this(stand_num, 160) && Set_Special.get('saiga_' + stand_num) > 0) { // saiga-12巨羚号角，必中/无视护甲/不能暴击/无视独头弹/强制三目标
@@ -561,8 +569,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           else if (Set_Special.get('saiga_' + stand_num) === 1) final_dmg *= 3.5
           final_dmg = Math.ceil(this_formation(stand_num) * final_dmg)
           Set_Special.set('saiga_' + stand_num, Set_Special.get('saiga_' + stand_num) - 1)
-          if (enemy_num_left >= 3) final_dmg = final_dmg * explain_fragile('single') + 2 * final_dmg * explain_fragile('around_single')
-          else final_dmg = final_dmg * explain_fragile('single') + (enemy_num_left - 1) * final_dmg * explain_fragile('around_single')
+          if (enemy_num_left >= 3) final_dmg = final_dmg * explain_fgl_ff('single') + 2 * final_dmg * explain_fgl_ff('around_single')
+          else final_dmg = final_dmg * explain_fgl_ff('single') + (enemy_num_left - 1) * final_dmg * explain_fgl_ff('around_single')
           recordData(stand_num, current_time, final_dmg)
         }
         else if (Math.random() <= base_acu / (base_acu + enemy_eva)) { // 否则先判断命中
@@ -683,7 +691,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               }
             }
           }
-          final_dmg = Math.ceil(final_dmg * explain_fragile('single'))
+          final_dmg = Math.ceil(final_dmg * explain_fgl_ff('single'))
           if (fire_status.substr(5) === 'all') final_dmg *= this_formation(stand_num) // 全员攻击
           else if (fire_status.substr(5) === 'four') final_dmg *= this_formation(stand_num) - 1 // 一人释放技能
           if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) { // 多重攻击
@@ -725,7 +733,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var mors_ratio
           if (enemy_type === 'normal') mors_ratio = 45
           else mors_ratio = 3
-          var mors_dmg = this_formation(stand_num) * Math.ceil(mors_ratio * current_Info.get('dmg') * explain_fragile('single'))
+          var mors_dmg = this_formation(stand_num) * Math.ceil(mors_ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
           recordData(stand_num, current_time, mors_dmg)
           Set_Special.set('karm9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
@@ -1361,7 +1369,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   else if (situation === 'dot') {
     var dot_para = status[0][1].split('/')
     var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0])
-    damage_explode = Math.ceil(damage_explode * explain_fragile('aoe'))
+    damage_explode = Math.ceil(damage_explode * explain_fgl_ff('aoe'))
     var current_time = parseInt(dot_para[1])
     recordData(stand_num, current_time, 0)
     recordData(stand_num, current_time, damage_explode)
@@ -1384,10 +1392,10 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var damage_explode = 0
     if (is_this(stand_num, 2002) && parseFloat(grenade_para[0]) === 8) { // 压轴甜点第一次8倍攻击
       damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0])
-      damage_explode = Math.ceil(damage_explode * explain_fragile('single'))
+      damage_explode = Math.ceil(damage_explode * explain_fgl_ff('single'))
     } else {
       damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(grenade_para[0])
-      damage_explode = Math.ceil(damage_explode * explain_fragile('aoe'))
+      damage_explode = Math.ceil(damage_explode * explain_fgl_ff('aoe'))
     }
     var current_time = parseInt(grenade_para[1])
     recordData(stand_num, current_time, 0)
@@ -1404,7 +1412,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     else Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
     var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(grenade_para[0])
-    damage_explode = Math.ceil(damage_explode * explain_fragile('aoe'))
+    damage_explode = Math.ceil(damage_explode * explain_fgl_ff('aoe'))
     var current_time = parseInt(grenade_para[1])
     recordData(stand_num, current_time, 0)
     recordData(stand_num, current_time, damage_explode)
@@ -1429,39 +1437,39 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var damage_snipe_single = 0
     var this_ID = list_tdoll[stand_num][1].ID
     if (this_ID === 180 || this_ID === 192) { // 贯通射击
-      damage_snipe_single = Math.ceil(2 * ratio * current_Info.get('dmg') * explain_fragile('single'))
+      damage_snipe_single = Math.ceil(2 * ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
       if (document.getElementById('special_js05_' + stand_num).checked) {
-        damage_snipe_single += Math.ceil(ratio * current_Info.get('dmg') * explain_fragile('around_aoe'))
+        damage_snipe_single += Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
     } else if (this_ID === 252) { // 震荡冲击弹
-      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fragile('single'))
+      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
       if (document.getElementById('special_KSVK_' + stand_num).checked) {
-        damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fragile('around_aoe'))
+        damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
     } else if (this_ID === 151) { // 终结打击
-      damage_snipe_single = Math.ceil(1000 * explain_fragile('single'))
+      damage_snipe_single = Math.ceil(1000 * explain_fgl_ff('single'))
     } else if (this_ID === 152 || this_ID === 159 || this_ID === 190) { // 2倍震荡打击
-      damage_snipe_single = Math.ceil(2 * current_Info.get('dmg') * explain_fragile('single'))
+      damage_snipe_single = Math.ceil(2 * current_Info.get('dmg') * explain_fgl_ff('single'))
       var damage_snipe_aoe = 0
       if (enemy_num_left >= 3) {
-        damage_snipe_aoe = Math.ceil(2 * 2 * current_Info.get('dmg') * explain_fragile('around_single'))
+        damage_snipe_aoe = Math.ceil(2 * 2 * current_Info.get('dmg') * explain_fgl_ff('around_single'))
         damage_snipe_single += damage_snipe_aoe
       } else {
-        damage_snipe_aoe = Math.ceil((enemy_num_left - 1) * 2 * current_Info.get('dmg') * explain_fragile('around_single'))
+        damage_snipe_aoe = Math.ceil((enemy_num_left - 1) * 2 * current_Info.get('dmg') * explain_fgl_ff('around_single'))
         damage_snipe_single += damage_snipe_aoe
       }
     } else if (this_ID === 153) { // 2.5倍震荡打击
-      damage_snipe_single = Math.ceil(2.5 * current_Info.get('dmg') * explain_fragile('single'))
+      damage_snipe_single = Math.ceil(2.5 * current_Info.get('dmg') * explain_fgl_ff('single'))
       var damage_snipe_aoe = 0
       if (enemy_num_left >= 3) {
-        damage_snipe_aoe = Math.ceil(2 * 2.5 * current_Info.get('dmg') * explain_fragile('around_single'))
+        damage_snipe_aoe = Math.ceil(2 * 2.5 * current_Info.get('dmg') * explain_fgl_ff('around_single'))
         damage_snipe_single += damage_snipe_aoe
       } else {
-        damage_snipe_aoe = Math.ceil((enemy_num_left - 1) * 2.5 * current_Info.get('dmg') * explain_fragile('around_single'))
+        damage_snipe_aoe = Math.ceil((enemy_num_left - 1) * 2.5 * current_Info.get('dmg') * explain_fgl_ff('around_single'))
         damage_snipe_single += damage_snipe_aoe
       }
     } else { // 普通狙击
-      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fragile('single'))
+      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
     }
     if (list_labels[1] != 'armless') { // 有视护甲
       damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
@@ -1475,7 +1483,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     damage_snipe_single = Math.ceil(damage_snipe_single * 5) // edittt
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     recordData(stand_num, current_time, 0)
-    damage_snipe_single = Math.ceil(damage_snipe_single * explain_fragile('single'))
+    damage_snipe_single = Math.ceil(damage_snipe_single * explain_fgl_ff('single'))
     recordData(stand_num, current_time, damage_snipe_single)
     if (is_this(stand_num, 1039) && document.getElementById('special_mosin_skillkill_' + (stand_num + 1)).checked) { // 苍白收割者：沉稳射击击杀目标
       changeStatus(stand_num, 'self', 'rof', '0.3', 5)
@@ -1899,6 +1907,7 @@ function init_loadEnemyInfo () {
     enemy_eva = parseInt(document.getElementById('enemy_eva').value)
     enemy_arm = parseInt(document.getElementById('enemy_arm').value)
     enemy_forcefield = parseInt(document.getElementById('enemy_forcefield').value)
+    enemy_forcefield_max = parseInt(document.getElementById('enemy_forcefield_max').value)
     enemy_num_left = enemy_num
   } else if (display_type === 'suffer') {
     enemy_dmg = parseInt(document.getElementById('enemy_dmg').value)
@@ -1913,6 +1922,7 @@ function init_loadEnemyInfo () {
       enemy_eva_2 = parseInt(document.getElementById('enemy_eva_2').value)
       enemy_arm_2 = parseInt(document.getElementById('enemy_arm_2').value)
       enemy_forcefield_2 = parseInt(document.getElementById('enemy_forcefield_2').value)
+      enemy_forcefield_2_max = parseInt(document.getElementById('enemy_forcefield_2_max').value)
       aoe_num = parseInt(document.getElementById('enemy_aoe'))
       enemy_immortal = parseInt(document.getElementById('enemy_immortal').value)
     } else aoe_num = enemy_num
@@ -1933,16 +1943,26 @@ function is_exist_someone (ID) {
   }
   return false
 }
-function explain_fragile (damage_type) { // single单体, aoe范围, around_aoe溅射
-  if (damage_type === 'single') return fragile_main
-  else if (damage_type === 'around_single') return fragile_all
+function explain_fgl_ff (damage_type) { // single单体, aoe范围, around_aoe溅射
+  var ff_ratio = 1
+  if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
+  else if (display_type === 'suffer') ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
+  if (damage_type === 'single') return fragile_main * ff_ratio
+  else if (damage_type === 'around_single') return fragile_all * ff_ratio
   else if (damage_type === 'aoe') {
-    if (aoe_num <= enemy_num_left) return (fragile_main + (aoe_num - 1) * fragile_all) * enemy_form
-    else return (fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form
+    if (aoe_num <= enemy_num_left) return (fragile_main + (aoe_num - 1) * fragile_all) * enemy_form * ff_ratio
+    else return (fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio
   }
   else if (damage_type === 'around_aoe') {
-    if (aoe_num <= enemy_num_left) return ((aoe_num - 1) * fragile_all) * enemy_form
-    else return ((enemy_num_left - 1) * fragile_all) * enemy_form
+    if (aoe_num <= enemy_num_left) return ((aoe_num - 1) * fragile_all) * enemy_form * ff_ratio
+    else return ((enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio
   }
 }
 function this_formation (stand_num) { return list_tdoll[stand_num][0];}
+function createHF (dmg, dbk, acu, fil) {
+  var HF = {}
+  HF.dmg = dmg
+  HF.dbk = dbk
+  HF.acu = acu
+  HF.fil = fil
+}

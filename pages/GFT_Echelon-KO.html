@@ -121,7 +121,7 @@
                         <div class="tooltip-demo">
                             <h1 class="page-header">대미지 시뮬레이터
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
-                                <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button>
+                                <!-- <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button> -->
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
                             </h1>
                         </div>
@@ -406,27 +406,138 @@
                                                 <div class="tab-pane fade" id="make_hf">
                                                     <div class='col-lg-4'>
                                                         <h4>화력소대(unfinished)</h4>
-                                                        <table class="table_other table-bordered table-hover" style="width:220px">
+                                                        <table class="table_other table-bordered table-hover">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
-                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-1.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                    <td><img id="hfselect_1" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(1)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-1.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
-                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-2.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                    <td><img id="hfselect_2" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(2)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-2.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
-                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-3.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                    <td><img id="hfselect_3" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(3)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-3.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
-                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-4.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                    <td><img id="hfselect_4" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(4)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-4.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="width:55px;height:55px;background:url(../img/echelon/heavyfire/hf-select.png)"></td>
-                                                                    <td style="width:165px;height:55px;background:url(../img/echelon/heavyfire/hf-5.png)"><img src="../img/echelon/heavyfire/hf-pick-no.png" style="cursor: pointer" onclick=''></td>
+                                                                    <td><img id="hfselect_5" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(5)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-5.png)"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class='col-lg-8'>
+                                                        <h4>특성</h4>
+                                                        <table class="table_left table-bordered table-hover">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">200</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro1' value=190 onblur="changeHFPro(1,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">158</span></span></td>
+                                                                    <td style="width:25px;height:28px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">497</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro2' value=329 onblur="changeHFPro(1,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">66</span></span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">418</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro3' value=191 onblur="changeHFPro(1,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">38</span></span></td>
+                                                                    <td style="width:25px;height:28px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">99</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro4' value=46 onblur="changeHFPro(1,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">9</span></span></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">102</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro1' value=106 onblur="changeHFPro(2,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">84</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">80</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro2' value=130 onblur="changeHFPro(2,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">26</span></span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">239</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro3' value=120 onblur="changeHFPro(2,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">465</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro4' value=233 onblur="changeHFPro(2,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">46</span></span></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">202</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro1' value=227 onblur="changeHFPro(3,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">192</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">73</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro2' value=58 onblur="changeHFPro(3,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">15</span></span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">164</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro3' value=90 onblur="changeHFPro(3,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">194</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro4' value=107 onblur="changeHFPro(3,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">154</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro1' value=206 onblur="changeHFPro(4,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">159</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">63</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro2' value=60 onblur="changeHFPro(4,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">147</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro3' value=97 onblur="changeHFPro(4,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">225</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro4' value=148 onblur="changeHFPro(4,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">28</span></span></td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">147</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro1' value=169 onblur="changeHFPro(5,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">120</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">325</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro2' value=261 onblur="changeHFPro(5,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">45</span></span></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">343</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro3' value=190 onblur="changeHFPro(5,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">33</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">161</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro4' value=90 onblur="changeHFPro(5,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -523,24 +634,26 @@
                                                         </tbody>
                                                     </table>
                                                     <h7>&nbsp</h7>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                    <table class="table_other table-bordered table-hover" style="width:350px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 30%">회피</td>
-                                                                <td style="width: 70%">
+                                                                <td style="width: 25%">회피</td>
+                                                                <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="changeEnvironment()">
                                                                 </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 30%">장갑</td>
-                                                                <td style="width: 70%">
+                                                                <td style="width: 25%">장갑</td>
+                                                                <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">왜곡방벽</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 disabled>
+                                                                <td style="width: 25%">왜곡방벽</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 onblur="changeEnvironment()">
+                                                                </td>
+                                                                <td style="width: 25%">왜곡방벽max</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_max' value=0 onblur="changeEnvironment()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -568,7 +681,7 @@
                                                         </tbody>
                                                     </table>
                                                     <h7>&nbsp</h7>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                    <table class="table_other table-bordered table-hover" style="width:350px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 25%">화력</td>
@@ -582,7 +695,7 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                    <table class="table_other table-bordered table-hover" style="width:350px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="changeEnvironment()"> 적의 공격 필중</td>
@@ -593,7 +706,7 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                    <table class="table_other table-bordered table-hover" style="width:350px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 25%">관통</td>
@@ -607,35 +720,39 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                    <table class="table_other table-bordered table-hover" style="width:350px">
                                                         <tbody>
                                                             <tr style="height: 30px">
-                                                                <td>
+                                                                <td style="width: 50%">
                                                                     <input type="checkbox" id="enemy_hp_check" onchange="changeEnvironment()"> 적을 <span style="color:orangered">죽일 수 있음</span>
                                                                 </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
                                                                 <td style="width: 25%">체력</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 onblur="changeEnvironment()" disabled>
                                                                 </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:350px">
+                                                        <tbody>
+                                                            <tr>
                                                                 <td style="width: 25%">회피</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 onblur="changeEnvironment()" disabled>
                                                                 </td>
-                                                            </tr>
-                                                            <tr>
                                                                 <td style="width: 25%">장갑</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 onblur="changeEnvironment()" disabled>
                                                                 </td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td style="width: 25%">왜곡방벽</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="changeEnvironment()" disabled>
+                                                                </td>
+                                                                <td style="width: 25%">왜곡방벽max</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2_max' value=0 onblur="changeEnvironment()" disabled>
                                                                 </td>
                                                             </tr>
                                                             <tr>
