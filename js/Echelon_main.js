@@ -457,9 +457,38 @@ function getDPS () {
       // 重装部队支援是否到达
       for (var hfn = 0; hfn < 5; hfn++) {
         if (list_HF[hfn][0]) {
-          if (Set_Special.get('HF_incoming' + hfn) <= t) {
-            Set_Special.set('HF_incoming' + hfn, t + fil_to_frame(list_HF[hfn][1].v4 + list_HF[hfn][2].v4 + list_HF[hfn][3].v4)) // reloading
-            recordData_HF(hfn, t)
+          if (Set_Special.get('HF_incoming' + hfn) <= t && !Set_Special.get('HF_causedamage' + hfn)) {
+            Set_Special.set('HF_causedamage' + hfn, true)
+            recordData_HF(hfn, t) // cause damage
+          }
+          if (Set_Special.get('HF_reloading' + hfn) <= t) { // 装填完毕
+            var base_filling = this_fil(hfn)
+            if (hfn === 0) {
+              base_filling *= Math.pow(1.08, Set_Special.get('BGM_buff_filling'))
+              Set_Special.set('BGM_buff_filling', Set_Special.get('BGM_buff_filling') + 1)
+              if (Set_Special.get('BGM_supermissile_reload') <= t && !Set_Special.get('BGM_supermissile')) { // 尚未准备超级导弹且此次能够准备
+                Set_Special.set('BGM_supermissile', true)
+              }
+            } else if (hfn === 1) {
+              if (Set_Special.get('AGS_supergrenade_reload') <= t && !Set_Special.get('AGS_supergrenade')) {
+                Set_Special.set('AGS_supergrenade', true)
+              }
+              if (Set_Special.get('AGS_next_dbkbuff') <= t && Set_Special.get('AGS_dbkbuff_num') > 0) {
+                Set_Special.set('AGS_next_dbkbuff', Set_Special.get('AGS_next_dbkbuff') + 30)
+                Set_Special.set('AGS_dbkbuff_num', Set_Special.get('AGS_dbkbuff_num') - 1)
+                if (display_type === 'damage') {
+                  enemy_forcefield -= 0.2 * this_dbk(hfn)
+                  if (enemy_forcefield < 0) enemy_forcefield = 0
+                }
+                else if (display_type === 'suffer') {
+                  enemy_forcefield_2 -= 0.2 * this_dbk(hfn)
+                  if (enemy_forcefield_2 < 0) enemy_forcefield_2 = 0
+                }
+              }
+            }
+            Set_Special.set('HF_reloading' + hfn, t + fil_to_frame(base_filling)) // next reload
+            Set_Special.set('HF_incoming' + hfn, t + 30)
+            Set_Special.set('HF_causedamage' + hfn, false)
           }
         }
       }
@@ -1764,7 +1793,10 @@ function rof_to_frame (num_tn, base_rof, ID) {
   }
   return shootframe
 }
-function fil_to_frame (filling) { return Math.ceil(45000 / (300 + filling)); }
+function fil_to_frame (filling) {
+  if (filling >= 1200) filling = 1200
+  return Math.ceil(45000 / (300 + filling))
+}
 
 function createBase (Area, Info) {
   var Base = {}
@@ -1784,7 +1816,7 @@ function recordData_HF () {
   var command = arguments['2']
   var lastData = (Set_Data_HF.get(hfn))[(Set_Data_HF.get(hfn)).length - 1][1]
   var increment = explain_heavyfire(hfn)
-  if (command === undefined) {
+  if (command === undefined) { // 正常输出
     Set_Data_HF.get(hfn).push([current_time, lastData])
     Set_Data_HF.get(hfn).push([current_time, lastData + increment])
   } else {
@@ -1907,7 +1939,19 @@ function init_loadPrepareStatus () { // 初始化战前属性
   for (var i = 0; i < 5; i++) { // 重装部队数据初始化
     Set_Data_HF.set(i, [[0, 0]])
     if (list_HF[i][0]) { // 支援中的重装设定初始到达时间1s
+      Set_Special.set('HF_causedamage' + i, false)
       Set_Special.set('HF_incoming' + i, 30)
+      Set_Special.set('HF_reloading' + i, fil_to_frame(list_HF[i][1].v4 + list_HF[i][2].v4 + list_HF[i][3].v4))
+      if (i === 0) { // BGM-71 技能
+        Set_Special.set('BGM_supermissile', true) // 充能导弹
+        Set_Special.set('BGM_supermissile_reload', 0)
+        Set_Special.set('BGM_buff_filling', 1) // 装填流程
+        Set_Special.set('BGM_buff_deependmg', 1) // 猎杀趣味
+      }
+      if (i === 1) {
+        Set_Special.set('AGS_supergrenade', true) // 超级榴弹
+        Set_Special.set('AGS_supergrenade_reload', 0)
+      }
     }
   }
   for (var i = 0; i < 9; i++) {
@@ -2080,26 +2124,72 @@ function explain_fgl_ff (damage_type) { // 解释伤害加成，力场减免+AOE
     else return ((enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio
   }
 }
-function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减、额外破防伤害、基础无视力场伤害
-  var damage = list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1
-  var defencebreaking = list_HF[hfn][1].v2 + list_HF[hfn][2].v2 + list_HF[hfn][3].v2
+function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减、是否命中、额外破防伤害、基础无视力场伤害
+  var damage = this_dmg(hfn) * (0.85 + 0.3 * Math.random())
+  var defencebreaking = this_dbk(hfn)
+  var accuracy = this_acu(hfn)
+  var accuracy_rate = 0.4
   var overdbk = 0
+  var main_multi = fragile_main * enemy_form
   var aoe_multi = 1
+  if (aoe_num <= enemy_num_left) aoe_multi = (aoe_num - 1) * fragile_all * enemy_form
+  else aoe_multi = (enemy_num_left - 1) * fragile_all * enemy_form
+  // 通用伤害
+  var damage_main = damage * main_multi
+  var damage_aoe = damage * aoe_multi
+  // 技能效果和AOE杀伤计算
+  if (hfn === 0) {
+    damage_main *= 1.5 * Math.pow(1.1, Set_Special.get('BGM_buff_deependmg'))
+    damage_aoe *= 0.5 * Math.pow(1.1, Set_Special.get('BGM_buff_deependmg'))
+    if (Set_Special.get('BGM_buff_deependmg') < 5) Set_Special.set('BGM_buff_deependmg', Set_Special.get('BGM_buff_deependmg') + 1) // 猎杀趣味叠加
+    if (Set_Special.get('BGM_supermissile')) {
+      damage_main *= 1.8
+      defencebreaking *= 1.6
+      Set_Special.set('BGM_supermissile', false)
+      Set_Special.set('BGM_supermissile_reload', global_frame + 60)
+    }
+  } else if (hfn === 1) {
+    accuracy *= 1.3 // AGS-30 聚焦经验
+    if (Set_Special.get('AGS_supergrenade')) {
+      damage_main *= 2.2
+      damage_aoe *= 2.2
+      Set_Special.set('AGS_supergrenade', false)
+      Set_Special.set('AGS_supergrenade_reload', global_frame + 90)
+    }
+  }
+  // 首先进行破防
   if (display_type === 'damage') {
     enemy_forcefield -= defencebreaking
     overdbk = Math.ceil(Math.max(0, (enemy_forcefield * -0.1))) // 溢出破防
     if (enemy_forcefield < 0) enemy_forcefield = 0
+    accuracy_rate = Math.max(0.4, accuracy / (accuracy + enemy_eva * 8)) // 命中率
   }
   else if (display_type === 'suffer') {
     enemy_forcefield_2 -= defencebreaking
     overdbk = Math.ceil(Math.max(0, (enemy_forcefield_2 * -0.1))) // 溢出破防
     if (enemy_forcefield_2 < 0) enemy_forcefield = 0
+    accuracy_rate = Math.max(0.4, accuracy / (accuracy + enemy_eva_2 * 8)) // 命中率
   }
-  if (aoe_num <= enemy_num_left) aoe_multi = (fragile_main + (aoe_num - 1) * fragile_all) * enemy_form
-  else return (fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form
-  return (damage + overdbk) * aoe_multi
+  // 是否命中
+  if (Math.random() <= accuracy_rate) {
+    if (hfn === 1) { // 穿甲震荡
+      if (Math.random() <= 0.4) {
+        Set_Special.set('AGS_dbkbuff_num', 6)
+        if (Set_Special.get('AGS_next_dbkbuff') === undefined) Set_Special.set('AGS_next_dbkbuff', global_frame + 30)
+      }
+    }
+  } else {
+    damage_main = 0
+    damage_aoe = 0
+    overdbk = 0
+  }
+  return damage_main + damage_aoe + overdbk
 }
-function this_formation (stand_num) { return list_tdoll[stand_num][0];}
+function this_formation (stand_num) { return list_tdoll[stand_num][0]; }
+function this_dmg (hfn) { return list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1; }
+function this_dbk (hfn) { return list_HF[hfn][1].v2 + list_HF[hfn][2].v2 + list_HF[hfn][3].v2; }
+function this_acu (hfn) { return list_HF[hfn][1].v3 + list_HF[hfn][2].v3 + list_HF[hfn][3].v3; }
+function this_fil (hfn) { return list_HF[hfn][1].v4 + list_HF[hfn][2].v4 + list_HF[hfn][3].v4; }
 function createHF (dmg, dbk, acu, fil) {
   var HF = {}
   HF.v1 = dmg
