@@ -466,17 +466,17 @@ function getDPS () {
             if (hfn === 0) {
               base_filling *= Math.pow(1.08, Set_Special.get('BGM_buff_filling'))
               Set_Special.set('BGM_buff_filling', Set_Special.get('BGM_buff_filling') + 1)
-              if (Set_Special.get('BGM_supermissile_reload') <= t && !Set_Special.get('BGM_supermissile')) { // 尚未准备超级导弹且此次能够准备
+              if (Set_Special.get('BGM_supermissile_reload') <= t && !Set_Special.get('BGM_supermissile')) { // 尚未准备超级导弹，且此次能够准备
                 Set_Special.set('BGM_supermissile', true)
               }
             } else if (hfn === 1) {
-              if (Set_Special.get('AGS_supergrenade_reload') <= t && !Set_Special.get('AGS_supergrenade')) {
+              if (Set_Special.get('AGS_supergrenade_reload') <= t && !Set_Special.get('AGS_supergrenade')) { // 尚未准备超级榴弹，且此次能够准备
                 Set_Special.set('AGS_supergrenade', true)
               }
               if (Set_Special.get('AGS_next_dbkbuff') <= t && Set_Special.get('AGS_dbkbuff_num') > 0) {
                 Set_Special.set('AGS_next_dbkbuff', Set_Special.get('AGS_next_dbkbuff') + 30)
                 Set_Special.set('AGS_dbkbuff_num', Set_Special.get('AGS_dbkbuff_num') - 1)
-                if (display_type === 'damage') {
+                if (display_type === 'damage') { // 干扰帷幕生效
                   enemy_forcefield -= 0.2 * this_dbk(hfn)
                   if (enemy_forcefield < 0) enemy_forcefield = 0
                 }
@@ -484,6 +484,10 @@ function getDPS () {
                   enemy_forcefield_2 -= 0.2 * this_dbk(hfn)
                   if (enemy_forcefield_2 < 0) enemy_forcefield_2 = 0
                 }
+              }
+            } else if (hfn === 2) {
+              if (Set_Special.get('2B14_airstrike_reload') <= t && !Set_Special.get('2B14_airstrike')) { // 尚未准备阵地轰炸，且此次能够准备
+                Set_Special.set('2B14_airstrike', true)
               }
             }
             Set_Special.set('HF_reloading' + hfn, t + fil_to_frame(base_filling)) // next reload
@@ -1482,8 +1486,19 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   else if (situation === 'enemy_get' || situation === 'enemy_lost') { // 敌人状态：[type, value>1]，先做掩护压制
     if (situation === 'enemy_get') {
       if (status[0][0].substr(6) === 'eva') enemy_eva = Math.ceil(enemy_eva * status[0][1])
-    } else {
-      if (status[0][0].substr(6) === 'eva') enemy_eva = Math.floor(enemy_eva / status[0][1])
+      if (display_type === 'suffer') {
+        if (status[0][0].substr(6) === 'dmg') enemy_dmg = Math.ceil(enemy_dmg * status[0][1])
+        if (status[0][0].substr(6) === 'acu') enemy_acu = Math.ceil(enemy_acu * status[0][1])
+      }
+    } else if (situation === 'enemy_lost') {
+      if (status[0][0].substr(6) === 'eva') {
+        enemy_eva = Math.floor(enemy_eva / status[0][1])
+        if (status[0][1] === 1) Set_Special.set('2B14buff', true)
+      }
+      if (display_type === 'suffer') {
+        if (status[0][0].substr(6) === 'dmg') enemy_dmg = Math.floor(enemy_dmg / status[0][1])
+        if (status[0][0].substr(6) === 'acu') enemy_eva = Math.floor(enemy_acu / status[0][1])
+      }
     }
   }
   else if (situation === 'dot') {
@@ -1947,10 +1962,13 @@ function init_loadPrepareStatus () { // 初始化战前属性
         Set_Special.set('BGM_supermissile_reload', 0)
         Set_Special.set('BGM_buff_filling', 1) // 装填流程
         Set_Special.set('BGM_buff_deependmg', 1) // 猎杀趣味
-      }
-      if (i === 1) {
+      } else if (i === 1) { // AGS-30技能
         Set_Special.set('AGS_supergrenade', true) // 超级榴弹
         Set_Special.set('AGS_supergrenade_reload', 0)
+      } else if (i === 2) { // 2B-14技能
+        Set_Special.set('2B14_airstrike', true) // 阵地轰炸
+        Set_Special.set('2B14_airstrike_reload', 0)
+        Set_Special.set('2B14buff', true) // 可以施加干扰帷幕buff
       }
     }
   }
@@ -2125,65 +2143,136 @@ function explain_fgl_ff (damage_type) { // 解释伤害加成，力场减免+AOE
   }
 }
 function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减、是否命中、额外破防伤害、基础无视力场伤害
-  var damage = this_dmg(hfn) * (0.85 + 0.3 * Math.random())
+  var damage = this_dmg(hfn)
   var defencebreaking = this_dbk(hfn)
   var accuracy = this_acu(hfn)
   var accuracy_rate = 0.4
   var overdbk = 0
   var main_multi = fragile_main * enemy_form
   var aoe_multi = 1
+  var target_arm = 0, target_eva = 0, target_forcefield = 0
+  if (display_type === 'damage') {
+    target_arm = enemy_arm
+    target_eva = enemy_eva
+    target_forcefield = enemy_forcefield
+  } else if (display_type === 'suffer') {
+    target_arm = enemy_arm_2
+    target_eva = enemy_eva_2
+    target_forcefield = enemy_forcefield_2
+  }
   if (aoe_num <= enemy_num_left) aoe_multi = (aoe_num - 1) * fragile_all * enemy_form
   else aoe_multi = (enemy_num_left - 1) * fragile_all * enemy_form
-  // 通用伤害
   var damage_main = damage * main_multi
   var damage_aoe = damage * aoe_multi
   // 技能效果和AOE杀伤计算
-  if (hfn === 0) {
-    damage_main *= 1.5 * Math.pow(1.1, Set_Special.get('BGM_buff_deependmg'))
-    damage_aoe *= 0.5 * Math.pow(1.1, Set_Special.get('BGM_buff_deependmg'))
-    if (Set_Special.get('BGM_buff_deependmg') < 5) Set_Special.set('BGM_buff_deependmg', Set_Special.get('BGM_buff_deependmg') + 1) // 猎杀趣味叠加
-    if (Set_Special.get('BGM_supermissile')) {
-      damage_main *= 1.8
-      defencebreaking *= 1.6
+  if (hfn === 0) { // BGM-71
+    var is_sm = false
+    accuracy_rate = Math.max(0.4, accuracy / (accuracy + target_eva * 8)) // 命中率
+    if (Set_Special.get('BGM_supermissile')) { // 超级导弹
       Set_Special.set('BGM_supermissile', false)
       Set_Special.set('BGM_supermissile_reload', global_frame + 60)
+      defencebreaking *= 1.6
+      is_sm = true
     }
-  } else if (hfn === 1) {
+    overdbk = do_defencebreaking(defencebreaking) // 破防，并计算溢出破防
+    damage_main += overdbk
+    damage_aoe += overdbk
+    if (is_sm) damage_main *= 1.8 // 超级导弹1.8倍主目标杀伤
+    if (Math.random() <= accuracy_rate) { // 命中
+      damage_main *= 1.5 * Math.pow(1.1, Set_Special.get('BGM_buff_deependmg'))
+      damage_aoe *= 0.5 * Math.pow(1.1, Set_Special.get('BGM_buff_deependmg'))
+      damage_main = Math.max(1, Math.ceil(damage_main * (Math.random() * 0.3 + 0.85) + Math.min(2, 400 - target_arm)))
+      damage_aoe = Math.max(1, Math.ceil(damage_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 400 - target_arm)))
+      if (Set_Special.get('BGM_buff_deependmg') < 5) Set_Special.set('BGM_buff_deependmg', Set_Special.get('BGM_buff_deependmg') + 1) // 猎杀趣味层数叠加
+    } else {
+      damage_main = 0
+      damage_aoe = 0
+    }
+  } else if (hfn === 1) { // AGS-30
     accuracy *= 1.3 // AGS-30 聚焦经验
+    accuracy_rate = Math.max(0.4, accuracy / (accuracy + target_eva * 8)) // 命中率
+    overdbk = do_defencebreaking(defencebreaking) // 破防，并计算溢出破防
     if (Set_Special.get('AGS_supergrenade')) {
-      damage_main *= 2.2
-      damage_aoe *= 2.2
       Set_Special.set('AGS_supergrenade', false)
       Set_Special.set('AGS_supergrenade_reload', global_frame + 90)
+      damage_main *= 2.2
+      damage_aoe *= 2.2
     }
-  }
-  // 首先进行破防
-  if (display_type === 'damage') {
-    enemy_forcefield -= defencebreaking
-    overdbk = Math.ceil(Math.max(0, (enemy_forcefield * -0.1))) // 溢出破防
-    if (enemy_forcefield < 0) enemy_forcefield = 0
-    accuracy_rate = Math.max(0.4, accuracy / (accuracy + enemy_eva * 8)) // 命中率
-  }
-  else if (display_type === 'suffer') {
-    enemy_forcefield_2 -= defencebreaking
-    overdbk = Math.ceil(Math.max(0, (enemy_forcefield_2 * -0.1))) // 溢出破防
-    if (enemy_forcefield_2 < 0) enemy_forcefield = 0
-    accuracy_rate = Math.max(0.4, accuracy / (accuracy + enemy_eva_2 * 8)) // 命中率
-  }
-  // 是否命中
-  if (Math.random() <= accuracy_rate) {
-    if (hfn === 1) { // 穿甲震荡
-      if (Math.random() <= 0.4) {
+    damage_main += overdbk
+    damage_aoe += overdbk
+    if (Math.random() <= accuracy_rate) { // 命中
+      damage_main *= 0.33
+      damage_aoe *= 0.33
+      damage_main = Math.max(1, Math.ceil(damage_main * (Math.random() * 0.3 + 0.85) + Math.min(2, 80 - target_arm)))
+      damage_aoe = Math.max(1, Math.ceil(damage_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 80 - target_arm)))
+      damage_main *= 3
+      damage_aoe *= 3
+      if (Math.random() <= 0.4) { // 穿甲震荡
         Set_Special.set('AGS_dbkbuff_num', 6)
         if (Set_Special.get('AGS_next_dbkbuff') === undefined) Set_Special.set('AGS_next_dbkbuff', global_frame + 30)
       }
+    } else {
+      damage_main = 0
+      damage_aoe = 0
     }
-  } else {
-    damage_main = 0
-    damage_aoe = 0
-    overdbk = 0
+  } else if (hfn === 2) { // 2B-14
+    var extra_main = 0, extra_aoe = 0 // 无场额外杀伤
+    accuracy_rate = Math.max(0.4, accuracy / (accuracy + target_eva * 8)) // 命中率
+    overdbk = do_defencebreaking(defencebreaking) // 破防，并计算溢出破防
+    if (Set_Special.get('2B14_airstrike')) {
+      Set_Special.set('2B14_airstrike', false)
+      Set_Special.set('2B14_airstrike_reload', global_frame + 300)
+      damage_main *= 1.8
+      damage_aoe *= 1.8
+    }
+    if (target_forcefield <= 0) { // 皮肉教训
+      extra_main = damage_main * 0.25
+      extra_aoe = damage_aoe * 0.25
+    }
+    damage_main += overdbk
+    damage_aoe += overdbk
+    if (Math.random() <= accuracy_rate) { // 命中
+      damage_main = Math.max(1, Math.ceil(damage_main * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      damage_aoe = Math.max(1, Math.ceil(damage_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      extra_main = Math.max(1, Math.ceil(extra_main * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      extra_aoe = Math.max(1, Math.ceil(extra_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      if (Math.random() <= 0.4) { // 干扰帷幕
+        if (Set_Special.get('2B14buff')) {
+          Set_Special.set('2B14buff', false)
+          var status_2B14_switch = [['enemy_eva', 1], 150] // 管控防止叠加
+          var status_dmg = [['enemy_dmg', 0.88], 150]
+          var status_acu = [['enemy_acu', 0.88], 150]
+          Set_Status.get(-2).push(status_2B14_switch)
+          Set_Status.get(-2).push(status_dmg)
+          Set_Status.get(-2).push(status_acu)
+          endStatus(-1, status_2B14_switch, 'enemy_get')
+          endStatus(-1, status_dmg, 'enemy_get')
+          endStatus(-1, status_acu, 'enemy_get')
+        }
+      }
+      damage_main += extra_main
+      damage_aoe += extra_aoe
+    } else {
+      damage_main = 0
+      damage_aoe = 0
+    }
   }
-  return damage_main + damage_aoe + overdbk
+
+  return damage_main + damage_aoe
+}
+function do_defencebreaking (defencebreaking) {
+  var overdbk = 0
+  if (display_type === 'damage') {
+    enemy_forcefield -= defencebreaking
+    overdbk = Math.ceil(Math.max(0, (enemy_forcefield * -0.1))) // 溢出破防转化为杀伤
+    if (enemy_forcefield < 0) enemy_forcefield = 0
+  }
+  else if (display_type === 'suffer') {
+    enemy_forcefield_2 -= defencebreaking
+    overdbk = Math.ceil(Math.max(0, (enemy_forcefield_2 * -0.1))) // 溢出破防转化为杀伤
+    if (enemy_forcefield_2 < 0) enemy_forcefield_2 = 0
+  }
+  return overdbk
 }
 function this_formation (stand_num) { return list_tdoll[stand_num][0]; }
 function this_dmg (hfn) { return list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1; }

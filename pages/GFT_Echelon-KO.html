@@ -410,7 +410,7 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="make_hf">
                                                     <div class='col-lg-4'>
-                                                        <h4>화력소대(Normal attack only)</h4>
+                                                        <h4>화력소대</h4>
                                                         <table class="table_other table-bordered table-hover">
                                                             <tbody>
                                                                 <tr>
@@ -426,11 +426,11 @@
                                                                     <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-3.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><img id="hfselect_4" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(4)'></td>
+                                                                    <td><img id="hfselect_4" src="../img/echelon/heavyfire/hf-select-disable.png" style="cursor: default" onclick=''></td>
                                                                     <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-4.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><img id="hfselect_5" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(5)'></td>
+                                                                    <td><img id="hfselect_5" src="../img/echelon/heavyfire/hf-select-disable.png" style="cursor: default" onclick=''></td>
                                                                     <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-5.png)"></td>
                                                                 </tr>
                                                             </tbody>
@@ -438,7 +438,7 @@
                                                     </div>
                                                     <div class='col-lg-8'>
                                                         <h4>특성</h4>
-                                                        <table class="table_left table-bordered table-hover">
+                                                        <table class="table_left table-striped table-bordered table-hover">
                                                             <tbody>
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-dmg.png"></td>
@@ -449,6 +449,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">497</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro2' value=329 onblur="changeHFPro(1,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">66</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp400</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
@@ -459,6 +461,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">99</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro4' value=46 onblur="changeHFPro(1,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">9</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf1_rof">&nbsp3.33s</td>
                                                                 </tr>
 
                                                                 <tr>
@@ -470,6 +474,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">80</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro2' value=130 onblur="changeHFPro(2,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">26</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp80</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
@@ -480,6 +486,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">465</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro4' value=233 onblur="changeHFPro(2,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">46</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf2_rof">&nbsp1.47s</td>
                                                                 </tr>
 
                                                                 <tr>
@@ -491,6 +499,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">73</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro2' value=58 onblur="changeHFPro(3,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">15</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp40</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
@@ -501,6 +511,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">194</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro4' value=107 onblur="changeHFPro(3,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf3_rof">&nbsp2.43s</td>
                                                                 </tr>
 
                                                                 <tr>
@@ -512,6 +524,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">63</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro2' value=60 onblur="changeHFPro(4,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp40</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
@@ -522,6 +536,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">225</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro4' value=148 onblur="changeHFPro(4,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">28</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf4_rof">&nbsp2.17s</td>
                                                                 </tr>
 
                                                                 <tr>
@@ -533,6 +549,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">325</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro2' value=261 onblur="changeHFPro(5,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">45</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp400</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
@@ -543,6 +561,8 @@
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">161</span> +</td>
                                                                     <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro4' value=90 onblur="changeHFPro(5,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf5_rof">&nbsp2.67s</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

@@ -995,6 +995,7 @@ function selectHF (num) {
 
 function changeHFPro (num, type) {
   var input_value = parseInt(document.getElementById('hf' + num + '_pro' + type).value)
+  console.log(input_value)
   // check value
   if (num === 1) {
     if (type === 1 && (isNaN(input_value) || input_value < 0 || input_value > 190)) input_value = 190
@@ -1024,5 +1025,6 @@ function changeHFPro (num, type) {
   }
   // assignment
   document.getElementById('hf' + num + '_pro' + type).value = input_value
-  eval('"list_HF[num - 1][2].v+"+type+"=input_value"')
+  eval('list_HF[num - 1][2].v' + type + '=input_value')
+  document.getElementById('hf' + num + '_rof').innerHTML = '&nbsp' + (Math.ceil(45000 / (300 + list_HF[num - 1][1].v4 + list_HF[num - 1][2].v4 + list_HF[num - 1][3].v4)) / 30).toFixed(2) + 's'
 }
