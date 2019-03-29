@@ -1,3 +1,7 @@
+var chipRepo_shape_5 = [], chipRepo_shape_6 = [] // For make shape only
+var topologyLib_BGM_1 = [], topologyLib_BGM_2 = [], topologyLib_AGS = [], topologyLib_2B14 = [], topologyLib_M2 = [], topologyLib_M2_6x6 = [], topologyLib_M2_6x5n5 = [],topologyLib_AT4_6x6 = []
+var topologyLibRefer_BGM_1 = [], topologyLibRefer_BGM_2 = [], topologyLibRefer_AGS = [], topologyLibRefer_2B14 = [],topologyLibRefer_M2 = [], topologyLibRefer_M2_6x6 = [], topologyLibRefer_M2_6x5n5 = [],topologyLibRefer_AT4_6x6 = []
+
 // Shape only
 chipRepo_shape_5.push(creatChip('55111', 1, 551, 11, 0, 1, 1, 1, 2, 1))
 chipRepo_shape_5.push(creatChip('55112', 1, 551, 12, 0, 1, 1, 1, 2, 1))

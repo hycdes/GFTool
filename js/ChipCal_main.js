@@ -1,3 +1,16 @@
+var HeavyfireType = 1
+var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
+var switch_clear = false, switch_maxall = false, switch_blueall = false, switch_orangeall = false
+var filter_switch = false
+var topologySet = [], solutionSet = [], topologyNum = 0
+var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
+var rules = ['InfinityFrost', 'FatalChapters']
+var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1, block_class = 56, block_shape = 9
+var chipNum = 0
+var chipRepo_data = [], chipRepo_chart = []; // Chip data; Repository information that display at repository-table
+var analyze_switch = 1, ranking_switch = 1; // show_percentage[1=validProperty,-1=validBlocknum] rank_result_by[1~6]
+
 function creatChip (chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
   var chipData = { }
   chipData.chipNum = chipNum // chip number
