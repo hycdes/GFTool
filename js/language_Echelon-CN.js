@@ -86,6 +86,7 @@ lib_language = {
   equipNAME_12: '光瞄',
   equipNAME_14: '全息',
   equipNAME_13: '红点',
+  equipNAME_17: 'APS专用枪托',
   equipNAME_11: '消音器',
   equipNAME_41: '夜视仪',
   equipNAME_31: '外骨骼',

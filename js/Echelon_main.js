@@ -1028,6 +1028,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Skill.get(stand_num)[0][1] = 0 // 重置普攻
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'stechkin') {
+    if (Set_Special.get('stechkinexclusive_' + stand_num) === true) {
+      changeStatus(stand_num, 'all', 'dmg', 0.04, 8)
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'm4') {
     Set_EnemyStatus.set('avenger_mark', true) // 敌人施加伸冤者印记
     if (document.getElementById('special_m4_' + stand_num).checked) { // 使用武器库炮击
@@ -1762,9 +1768,16 @@ function getBaseProperty (num) {
   if (full_property[13] > 0.3) full_property[13] = 0.3
   Info.set('cld', full_property[13])
   for (var i = 0; i < 3; i++) {
-    if ((list_tdoll[num][1].Equip)[i].na === -100) {
-      full_property[14] += 100
-      if (list_tdoll[num][1].ID === 2009) Set_Special.set('clearexclusive_' + num, true)
+    if ((list_tdoll[num][1].Equip)[i].na === -100) { // 夜视能力为负即特殊功能标志
+      if (list_tdoll[num][1].ID === 2009) {
+        Set_Special.set('clearexclusive_' + num, true)
+        full_property[14] += 100
+      } else if (list_tdoll[num][1].ID === 2009) {
+        Set_Special.set('failexclusive_' + num, true)
+        full_property[14] += 100
+      } else if (list_tdoll[num][1].ID === 7) {
+        Set_Special.set('stechkinexclusive_' + num, true)
+      }
     } else full_property[14] += (list_tdoll[num][1].Equip)[i].na
   }
   Info.set('night', full_property[14])

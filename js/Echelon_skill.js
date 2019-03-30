@@ -261,6 +261,11 @@ function describe_falcon_getbullet () {
   Describe.name = 'falcon_getbullet'
   return Describe
 }
+function describe_stechkin () {
+  var Describe = {}
+  Describe.name = 'stechkin'
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -452,6 +457,7 @@ lib_describe.set('python', describe_python()) // 无畏者之拥
 lib_describe.set('contender', describe_contender()) // 断罪者魔弹
 lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
 lib_describe.set('theresa', describe_theresa()) // 圣光制裁
+lib_describe.set('stechkin', describe_stechkin()) // 斯捷奇金专属增强
 
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
@@ -499,7 +505,10 @@ lib_skill.set(1001, [
 ])
 
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
-lib_skill.set(7, [createSkill(6, 12, 8, lib_describe.get('com_rof_22'))])
+lib_skill.set(7, [
+  createSkill(6, 12, 8, lib_describe.get('com_rof_22')),
+  createSkill(6, 12, 0, lib_describe.get('stechkin'))
+])
 lib_skill.set(98, [createSkill(6, 12, 8, lib_describe.get('eva_55_enemy'))]) // 掩护压制 55%
 lib_skill.set(99, [
   createSkill(6, 12, 8, lib_describe.get('com_dmgN_35')),

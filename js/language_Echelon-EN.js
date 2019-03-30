@@ -87,6 +87,7 @@ lib_language = {
   equipNAME_12: 'Telescope Sight',
   equipNAME_14: 'Holographic Sight',
   equipNAME_13: 'Red Dot Sight',
+  equipNAME_17: 'APS exclusive buttstock',
   equipNAME_11: 'Silencer',
   equipNAME_41: 'Night Combat Equipment',
   equipNAME_31: ' Exoskeleton',

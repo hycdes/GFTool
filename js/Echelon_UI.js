@@ -355,6 +355,7 @@ function resetEquipment () {
     var ID = parseInt(document.getElementById('select_tdoll').value)
     if (set_guntype === 1) {
       if (ID === 4) set_equip = [11, 21, 31] // python
+      else if (ID === 7) set_equip = [17, 21, 32] // stechkin
       else if (ID === 1001) set_equip = [11001, 21, 32] // colt mod
       else if (ID === 1002) set_equip = [11, 21002, 31] // m1911 mod
       else if (ID === 1005) set_equip = [11005, 21, 32] // m1895 mod
