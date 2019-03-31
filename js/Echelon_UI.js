@@ -561,6 +561,8 @@ function readStatus () { // 读取已有人形之前的全局环境
   changeAffection('read')
 }
 function addTdoll () { // 添加战术人形
+  document.getElementById('suffer_1').disabled = false
+  document.getElementById('suffer_100').disabled = false
   var reverse_position = num_pickblock
   if (lang_type === 'ko') {
     if (reverse_position >= 7) reverse_position -= 6
@@ -721,6 +723,18 @@ function deleteTdoll () { // 删除战术人形
   pickBlock(-1)
   // 计算影响格
   getBlockAffect()
+  // 人数不足无法承伤计算
+  var have_tdoll = false
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      have_tdoll = true
+      break
+    }
+  }
+  if (!have_tdoll) {
+    document.getElementById('suffer_1').disabled = true
+    document.getElementById('suffer_100').disabled = true
+  }
 }
 function setWidth (command) {
   if (command === 'input') {
@@ -910,7 +924,7 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('enemy_acu').value = '∞'
   } else {
     document.getElementById('enemy_acu').disabled = false
-    document.getElementById('enemy_acu').value = 10
+    if (document.getElementById('enemy_acu').value === '∞') document.getElementById('enemy_acu').value = 10
   }
   if (document.getElementById('enemy_hp_check').checked) {
     document.getElementById('enemy_hp').disabled = false
@@ -935,11 +949,6 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('enemy_forcefield_2_max').disabled = true
     document.getElementById('enemy_aoe').disabled = true
     document.getElementById('enemy_immortal').disabled = true
-  }
-  if (document.getElementById('enemy_acumax').checked) {
-    0
-  } else {
-    0
   }
 }
 function templatePro (type) {
