@@ -174,21 +174,12 @@ function blueAllChip () {
   } else {
     switch_blueall = false
     document.getElementById('alert_maxall').innerHTML = ''
-    var ChipRepoChartId = document.getElementById('ChipRepoChart')
-    ChipRepoChartId.innerHTML = ''
-    var c = chipNum - 1
-    while (c >= 0) {
-      if (chipRepo_data[c].color === 2) {
-        document.getElementById('DeleteSelect').value = c + 1
-        changeRepo(2)
-        c = chipNum - 1
-      } else {
-        c--
-      }
+    var mark_orange = [], code = ''
+    for (var i = 0; i < chipNum; i++) { // stat orange idx
+      if (chipRepo_data[i].color === 2) mark_orange.push(i)
     }
-    changeRepo(1)
-    document.getElementById('DeleteSelect').value = chipNum
-    changeRepo(2)
+    code = createSaveCode()
+    loadSaveCode(code, mark_orange)
   }
 }
 function orangeAllChip () {
@@ -200,21 +191,12 @@ function orangeAllChip () {
   } else {
     switch_orangeall = false
     document.getElementById('alert_maxall').innerHTML = ''
-    var ChipRepoChartId = document.getElementById('ChipRepoChart')
-    ChipRepoChartId.innerHTML = ''
-    var c = chipNum - 1
-    while (c >= 0) {
-      if (chipRepo_data[c].color === 1) {
-        document.getElementById('DeleteSelect').value = c + 1
-        changeRepo(2)
-        c = chipNum - 1
-      } else {
-        c--
-      }
+    var mark_blue = [], code = ''
+    for (var i = 0; i < chipNum; i++) { // stat blue idx
+      if (chipRepo_data[i].color === 1) mark_blue.push(i)
     }
-    changeRepo(1)
-    document.getElementById('DeleteSelect').value = chipNum
-    changeRepo(2)
+    code = createSaveCode()
+    loadSaveCode(code, mark_blue)
   }
 }
 function changeTopology (actionId) {
@@ -226,6 +208,13 @@ function changeTopology (actionId) {
 }
 function getSaveCode () { // 获取存储码
   var SaveAlertId = document.getElementById('SaveAlert')
+  var SaveCodeId = document.getElementById('SaveCode')
+  SaveCodeId.value = createSaveCode()
+  SaveCodeId.select()
+  document.execCommand('Copy')
+  SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_savedone + '</span>'
+}
+function createSaveCode () {
   var code = '[' + rules[0].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + '!'
   for (var i = 0; i < chipRepo_data.length; i++) {
     code += (chipRepo_data[i].chipNum + ',')
@@ -240,11 +229,7 @@ function getSaveCode () { // 获取存储码
     code += (chipRepo_data[i].weight + '&')
   }
   code += '?' + rules[1].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + ']'
-  var SaveCodeId = document.getElementById('SaveCode')
-  SaveCodeId.value = code
-  SaveCodeId.select()
-  document.execCommand('Copy')
-  SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_savedone + '</span>'
+  return code
 }
 function repo_addChart (chipData) {
   // Add chipRepo_chart
@@ -367,15 +352,24 @@ function setValue (elementNum, tempStr) { // get value from savecode
   else if (elementNum === 8) return parseInt(tempStr)
 }
 function loadSaveCode () { // load save
+  var command = arguments['0'], disable_list
+  var need_filter = false
+  var chipIdx = 0
   chipNum = 0
   chipRepo_chart = [], chipRepo_data = [] // reset repository
-  var LoadCode = document.getElementById('LoadCode').value
+  var LoadCode
+  if (command === undefined) LoadCode = document.getElementById('LoadCode').value
+  else {
+    LoadCode = command
+    disable_list = arguments['1']
+    if (disable_list.length > 0) need_filter = true
+  }
   var LoadAlertId = document.getElementById('LoadAlert')
   if (simpleCheck(LoadCode)) {
     document.getElementById('ChipRepoChart').innerHTML = ''
     chipRepo_chart = []; chipRepo_data = []; deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
     resetPage()
-    var scan = 3, elementNum = 0, tempStr = ''
+    var scan = 3, elementNum = 0, tempStr = '', disable_count = 0
     var chipEntry = []
     while (LoadCode[scan] != '?') { // '?' means end of code
       if (LoadCode[scan] === ',') {
@@ -383,11 +377,17 @@ function loadSaveCode () { // load save
         elementNum++
         tempStr = ''
       } else if (LoadCode[scan] === '&') { // '&' means next
-        chipRepo_data.push(creatChip(chipEntry[0], chipEntry[1], chipEntry[2], chipEntry[3], chipEntry[4], chipEntry[5], chipEntry[6], chipEntry[7], chipEntry[8], 1))
-        chipNum++
+        if (need_filter && chipIdx == disable_list[disable_count]) {
+          disable_count++
+          if (disable_count === disable_list.length) need_filter = false
+        } else {
+          chipRepo_data.push(creatChip(chipEntry[0], chipEntry[1], chipEntry[2], chipEntry[3], chipEntry[4], chipEntry[5], chipEntry[6], chipEntry[7], chipEntry[8], 1))
+          chipNum++
+          repo_addChart(chipRepo_data[chipRepo_data.length - 1])
+        }
+        chipIdx++
         elementNum = 0
         tempStr = ''
-        repo_addChart(chipRepo_data[chipRepo_data.length - 1])
         chipEntry = []
       } else tempStr += LoadCode[scan]
       scan++

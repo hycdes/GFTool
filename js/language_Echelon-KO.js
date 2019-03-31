@@ -87,7 +87,7 @@ lib_language = {
   equipNAME_14: '이오텍',
   equipNAME_13: '레드닷',
   equipNAME_11: '소음기',
-  equipNAME_17: 'APS exclusive buttstock',
+  equipNAME_17: 'APS 전용 개머리판',
   equipNAME_41: '야시장비',
   equipNAME_31: '외골격',
   equipNAME_32: '방탄판',
