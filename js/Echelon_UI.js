@@ -887,9 +887,7 @@ function checkEnviInput () { // 纠正非法输入
 function showEnvi () {
   // 妖精图像、天赋
   if (fairy_no > 0) {
-    var fairyidx = document.getElementById('select_fairy').selectedIndex
-    var fairyname = (document.getElementById('select_fairy')[fairyidx].text).split(' ')[1]
-    document.getElementById('envi_fairy').innerHTML = fairyname
+    document.getElementById('envi_fairy').src = '../img/echelon/fairy/icon-f' + fairy_no + '.png'
   } else {
     document.getElementById('envi_fairy').innerHTML = lib_language.fairy_0
   }
