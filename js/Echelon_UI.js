@@ -737,17 +737,13 @@ function deleteTdoll () { // 删除战术人形
   }
 }
 function setWidth (command) {
-  if (command === 'input') {
-    var len = document.getElementById('container_len').value
-    if (len === null || isNaN(len) || (len < 300 || len > 900)) {
-      len = 700
-      document.getElementById('container_len').value = 700
-    }
-    document.getElementById('container').style = 'width: ' + len + 'px'
-  } else {
-    document.getElementById('container_len').value = parseInt(command)
-    document.getElementById('container').style = 'width: ' + parseInt(command) + 'px'
-  }
+  document.getElementById('container').style = 'width: ' + parseInt(command) + 'px'
+  var btn_num = 1
+  if (parseInt(command) === 300) btn_num = 1
+  else if (parseInt(command) === 700) btn_num = 2
+  else if (parseInt(command) === 900) btn_num = 3
+  for (var i = 1; i <= 3; i++) document.getElementById('wid' + i).className = 'btn btn-default'
+  document.getElementById('wid' + btn_num).className = 'btn btn-primary'
   refreshImage('container')
 }
 function changeSunrise (type) {
@@ -760,7 +756,6 @@ function changeSunrise (type) {
     document.getElementById('icon-day').src = '../img/echelon/icon-battle-daytime-no.png'
     document.getElementById('icon-night').src = '../img/echelon/icon-battle-night.png'
   }
-  changeEnvironment()
 }
 function changeFairy () {
   fairy_no = parseInt(document.getElementById('select_fairy').value)
@@ -809,7 +804,6 @@ function changeFairy () {
     eval('var fsn=lib_language.fairy_skillNAME_' + fairy_no)
     document.getElementById('fairy_skill').innerHTML = skillname_str + fsn
   }
-  changeEnvironment()
 }
 function changeTalent (num) {
   if (num === 1) talent_no = parseInt(document.getElementById('select_talent').value)
@@ -817,7 +811,6 @@ function changeTalent (num) {
     document.getElementById('select_talent').value = 0
     talent_no = 0
   }
-  changeEnvironment()
 }
 function inputCheck_k11 (str_id) {
   var str_input = document.getElementById(str_id).value
@@ -840,22 +833,21 @@ function inputCheck_mosin (str_id) {
     document.getElementById(str_id).value = 2
   }
 }
-function changeEnvironment () { // change display of envi-parameters and check value
-  // 伤害测试
+function checkEnviInput () { // 纠正非法输入
   var edit_timeinit = document.getElementById('time_init').value
   if (edit_timeinit === '' || isNaN(edit_timeinit) || parseInt(edit_timeinit) < 0) { // 接敌时间，非负数
     document.getElementById('time_init').value = 0
   }
   var edit_timeall = document.getElementById('time_battle').value
-  if (edit_timeall === '' || isNaN(edit_timeall) || parseInt(edit_timeall) <= 0) { // 战斗时间，正数
+  if (edit_timeall === '' || isNaN(edit_timeall) || parseInt(edit_timeall) <= 0 || edit_timeall > 500) { // 战斗时间，正数，不超过500s
     document.getElementById('time_battle').value = 20
   }
   var edit_eva = document.getElementById('enemy_eva').value
-  if (edit_eva === '' || isNaN(edit_eva) || parseInt(edit_eva) < 0 || (parseFloat(edit_eva) != parseInt(edit_eva))) { // 敌人回避，非负整数
+  if (edit_eva === '' || isNaN(edit_eva) || parseInt(edit_eva) < 0 || (parseFloat(edit_eva) != parseInt(edit_eva)) || edit_eva > 9999) { // 敌人回避，非负整数
     document.getElementById('enemy_eva').value = 0
   }
   var edit_arm = document.getElementById('enemy_arm').value
-  if (edit_arm === '' || isNaN(edit_arm) || parseInt(edit_arm) < 0 || (parseFloat(edit_arm) != parseInt(edit_arm))) { // 敌人护甲，非负整数
+  if (edit_arm === '' || isNaN(edit_arm) || parseInt(edit_arm) < 0 || (parseFloat(edit_arm) != parseInt(edit_arm)) || edit_arm > 9999) { // 敌人护甲，非负整数
     document.getElementById('enemy_arm').value = 0
   }
   var edit_form = document.getElementById('enemy_form').value
@@ -863,26 +855,37 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('enemy_form').value = 1
   }
   var edit_num = document.getElementById('enemy_num').value
-  if (edit_num === '' || isNaN(edit_num) || parseInt(edit_num) <= 0 || (parseFloat(edit_num) != parseInt(edit_num))) { // 敌人组数，正整数
+  if (edit_num === '' || isNaN(edit_num) || parseInt(edit_num) <= 0 || (parseFloat(edit_num) != parseInt(edit_num)) || edit_num > 99) { // 敌人组数，正整数
     document.getElementById('enemy_num').value = 1
   }
   var edit_ff = document.getElementById('enemy_forcefield').value
   var edit_ff_max = document.getElementById('enemy_forcefield_max').value
-  if (edit_ff === '' || isNaN(edit_ff) || parseInt(edit_ff) < 0 || (parseFloat(edit_ff) != parseInt(edit_ff))) { // 敌人力场，非负整数
+  if (edit_ff === '' || isNaN(edit_ff) || parseInt(edit_ff) < 0 || (parseFloat(edit_ff) != parseInt(edit_ff)) || edit_ff > 9999) { // 敌人力场，非负整数
     edit_ff = 0
     document.getElementById('enemy_forcefield').value = 0
   }
-  if (edit_ff_max === '' || isNaN(edit_ff_max) || parseInt(edit_ff_max) < 0 || (parseFloat(edit_ff_max) != parseInt(edit_ff_max)) || parseFloat(edit_ff_max) < parseFloat(edit_ff)) { // 敌人力场max，非负整数，且不能低于设定力场
+  if (edit_ff_max === '' || isNaN(edit_ff_max) || parseInt(edit_ff_max) < 0 || (parseFloat(edit_ff_max) != parseInt(edit_ff_max)) || parseFloat(edit_ff_max) < parseFloat(edit_ff) || edit_ff_max > 9999) { // 敌人力场max，非负整数，且不能低于设定力场
     edit_ff_max = edit_ff
     document.getElementById('enemy_forcefield_max').value = edit_ff
   }
-  if (daytime === 1) {
-    document.getElementById('envi_day').innerHTML = lib_language.daytime // 昼
-    document.getElementById('envi_night').innerHTML = ''
-  } else if (daytime === 2) {
-    document.getElementById('envi_day').innerHTML = ''
-    document.getElementById('envi_night').innerHTML = lib_language.night // 夜
+  if (document.getElementById('enemy_acumax').checked) {
+    document.getElementById('enemy_acu').disabled = true
+    document.getElementById('enemy_acu').value = '∞'
+  } else {
+    document.getElementById('enemy_acu').disabled = false
+    if (document.getElementById('enemy_acu').value === '∞') {
+      document.getElementById('enemy_acu').value = 10
+    }
   }
+  if (document.getElementById('enemy_hp_check').checked) {
+    document.getElementById('enemy_hp').disabled = false
+  } else {
+    document.getElementById('enemy_hp').value = 1000
+    document.getElementById('enemy_hp').disabled = true
+  }
+}
+function showEnvi () {
+  // 妖精图像、天赋
   if (fairy_no > 0) {
     var fairyidx = document.getElementById('select_fairy').selectedIndex
     var fairyname = (document.getElementById('select_fairy')[fairyidx].text).split(' ')[1]
@@ -894,10 +897,20 @@ function changeEnvironment () { // change display of envi-parameters and check v
     var talentidx = document.getElementById('select_talent').selectedIndex
     var talentname = document.getElementById('select_talent')[talentidx].text
     document.getElementById('envi_talent').innerHTML = talentname
-  } else document.getElementById('envi_talent').innerHTML = lib_language.talent_0
+  } else {
+    document.getElementById('envi_talent').innerHTML = lib_language.talent_0
+  }
+  if (document.getElementById('fairyskill_active').checked) eval('var fairy_skillname_str = lib_language.fairy_skillNAME_' + fairy_no)
+  else eval('var fairy_skillname_str = lib_language.fairy_skillNAME_' + 0)
+  document.getElementById('envi_fairyskill').innerHTML = fairy_skillname_str
+  // 全局设定值
+  if (daytime === 1) document.getElementById('envi_day').src = '../img/icon-daytime.png'
+  else if (daytime === 2) document.getElementById('envi_day').src = '../img/icon-night.png'
   document.getElementById('envi_alltime').innerHTML = document.getElementById('time_battle').value
   document.getElementById('envi_contertime').innerHTML = document.getElementById('time_init').value
   document.getElementById('envi_alldmg').innerHTML = totaldamage_buffer
+  document.getElementById('envi_ene_form').innerHTML = document.getElementById('enemy_form').value
+  document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
   if (document.getElementById('switch_normal').checked) {
     document.getElementById('envi_ene_type').innerHTML = lib_language.enemy_normal
     document.getElementById('envi_ene_type').style = 'color:black'
@@ -908,47 +921,36 @@ function changeEnvironment () { // change display of envi-parameters and check v
     document.getElementById('envi_ene_type').innerHTML = 'BOSS'
     document.getElementById('envi_ene_type').style = 'color:red'
   }
-  if (document.getElementById('fairyskill_active').checked) eval('var fairy_skillname_str = lib_language.fairy_skillNAME_' + fairy_no)
-  else eval('var fairy_skillname_str = lib_language.fairy_skillNAME_' + 0)
-  document.getElementById('envi_fairyskill').innerHTML = fairy_skillname_str
-  document.getElementById('envi_ene_eva').innerHTML = document.getElementById('enemy_eva').value
-  document.getElementById('envi_ene_arm').innerHTML = document.getElementById('enemy_arm').value
-  document.getElementById('envi_ene_form').innerHTML = document.getElementById('enemy_form').value
-  document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
-  var ff_str = '' + document.getElementById('enemy_forcefield').value
-  if (parseInt(document.getElementById('enemy_forcefield_max').value) != 0) ff_str += ' (' + (100 * (document.getElementById('enemy_forcefield').value) / (document.getElementById('enemy_forcefield_max').value)).toFixed(2) + '%)'
-  document.getElementById('envi_ene_ff').innerHTML = ff_str
-  // 承伤测试
-  if (document.getElementById('enemy_acumax').checked) {
-    document.getElementById('enemy_acu').disabled = true
-    document.getElementById('enemy_acu').value = '∞'
-  } else {
-    document.getElementById('enemy_acu').disabled = false
-    if (document.getElementById('enemy_acu').value === '∞') document.getElementById('enemy_acu').value = 10
-  }
-  if (document.getElementById('enemy_hp_check').checked) {
-    document.getElementById('enemy_hp').disabled = false
-    document.getElementById('enemy_eva_2').disabled = false
-    document.getElementById('enemy_arm_2').disabled = false
-    document.getElementById('enemy_forcefield_2').disabled = false
-    document.getElementById('enemy_forcefield_2_max').disabled = false
-    document.getElementById('enemy_aoe').disabled = false
-    document.getElementById('enemy_immortal').disabled = false
-  } else {
-    document.getElementById('enemy_hp').value = 1000
-    document.getElementById('enemy_eva_2').value = 10
-    document.getElementById('enemy_arm_2').value = 0
-    document.getElementById('enemy_forcefield_2').value = 0
-    document.getElementById('enemy_forcefield_2_max').value = 0
-    document.getElementById('enemy_aoe').value = parseInt(document.getElementById('enemy_num').value)
-    document.getElementById('enemy_immortal').value = 0
-    document.getElementById('enemy_hp').disabled = true
-    document.getElementById('enemy_eva_2').disabled = true
-    document.getElementById('enemy_arm_2').disabled = true
-    document.getElementById('enemy_forcefield_2').disabled = true
-    document.getElementById('enemy_forcefield_2_max').disabled = true
-    document.getElementById('enemy_aoe').disabled = true
-    document.getElementById('enemy_immortal').disabled = true
+  // 特设值
+  if (display_type === 'damage') {
+    document.getElementById('envi_ene_eva').innerHTML = document.getElementById('enemy_eva').value
+    document.getElementById('envi_ene_arm').innerHTML = document.getElementById('enemy_arm').value
+    var ff_str = '' + document.getElementById('enemy_forcefield').value
+    if (parseInt(document.getElementById('enemy_forcefield_max').value) != 0) ff_str += ' (' + (100 * (document.getElementById('enemy_forcefield').value) / (document.getElementById('enemy_forcefield_max').value)).toFixed(2) + '%)'
+    document.getElementById('envi_ene_ff').innerHTML = ff_str
+    // clear
+    document.getElementById('envi_ene_dmg').innerHTML = '-'
+    document.getElementById('envi_ene_rof').innerHTML = '-'
+    document.getElementById('envi_ene_acu').innerHTML = '-'
+    document.getElementById('envi_ene_ap').innerHTML = '-'
+    document.getElementById('envi_ene_dbk').innerHTML = '-'
+    document.getElementById('envi_ene_hp').innerHTML = '-'
+  } else if (display_type === 'suffer') {
+    document.getElementById('envi_ene_eva').innerHTML = document.getElementById('enemy_eva_2').value
+    document.getElementById('envi_ene_arm').innerHTML = document.getElementById('enemy_arm_2').value
+    document.getElementById('envi_ene_dmg').innerHTML = document.getElementById('enemy_dmg').value
+    document.getElementById('envi_ene_rof').innerHTML = document.getElementById('enemy_rof').value
+    document.getElementById('envi_ene_acu').innerHTML = document.getElementById('enemy_acu').value
+    document.getElementById('envi_ene_ap').innerHTML = document.getElementById('enemy_ap').value
+    document.getElementById('envi_ene_dbk').innerHTML = document.getElementById('enemy_dbk').value
+    var ff_str = '' + document.getElementById('enemy_forcefield_2').value
+    if (parseInt(document.getElementById('enemy_forcefield_2_max').value) != 0) ff_str += ' (' + (100 * (document.getElementById('enemy_forcefield_2').value) / (document.getElementById('enemy_forcefield_2_max').value)).toFixed(2) + '%)'
+    document.getElementById('envi_ene_ff').innerHTML = ff_str
+    if (document.getElementById('enemy_hp_check').checked) {
+      document.getElementById('envi_ene_hp').innerHTML = document.getElementById('enemy_hp').value
+    } else {
+      document.getElementById('envi_ene_hp').innerHTML = '-'
+    }
   }
 }
 function templatePro (type) {

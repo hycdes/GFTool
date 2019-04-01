@@ -16,12 +16,14 @@
     <style type="text/css">
         .table_other {
             padding: 0px;
-            text-align: center
+            text-align: center;
+            background-color: white;
         }
 
         .table_left {
             padding: 0px;
-            text-align: left
+            text-align: left;
+            background-color: white;
         }
 
         .td_affect {
@@ -596,9 +598,9 @@
                                             <tbody>
                                                 <tr>
                                                     <td style="height: 30px">
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>일반</b></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>엘리트</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked><b>일반</b></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite"><span style="color:dodgerblue"><b>엘리트</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss"><span style="color:red"><b>BOSS</b></span></label>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -608,21 +610,21 @@
                                                 <tr>
                                                     <td style="width: 25%">교전 시작</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="checkEnviInput()">
                                                     </td>
                                                     <td style="width: 25%">전투 시간</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 25%">더미 수</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="checkEnviInput()">
                                                     </td>
                                                     <td style="width: 25%">개체 수</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -659,26 +661,26 @@
                                                         </tbody>
                                                     </table>
                                                     <h7>&nbsp</h7>
-                                                    <table class="table_other table-bordered table-hover" style="width:350px">
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 25%">회피</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">장갑</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">왜곡방벽</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">왜곡방벽max</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_max' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -694,100 +696,90 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width:100px; height:40px">——</td>
-                                                                <td style="width:100px; height:40px">——</td>
-                                                                <td style="width:100px; height:40px">——</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px; height:40px">——</td>
-                                                                <td style="width:100px; height:40px">——</td>
-                                                                <td style="width:100px; height:40px">——</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px">-</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                     <h7>&nbsp</h7>
-                                                    <table class="table_other table-bordered table-hover" style="width:350px">
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 25%">화력</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">사속</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=40 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=40 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:350px">
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="changeEnvironment()"> 적의 공격 필중</td>
+                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="checkEnviInput()"> 적의 공격 필중</td>
                                                                 <td style="width: 25%">명중</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:350px">
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 25%">관통</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">파쇄</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:350px">
-                                                        <tbody>
-                                                            <tr style="height: 30px">
-                                                                <td style="width: 50%">
-                                                                    <input type="checkbox" id="enemy_hp_check" onchange="changeEnvironment()"> 적을 <span style="color:orangered">죽일 수 있음</span>
-                                                                </td>
-                                                                <td style="width: 25%">체력</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 onblur="changeEnvironment()" disabled>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:350px">
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 25%">회피</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">장갑</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">왜곡방벽</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">왜곡방벽max</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2_max' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">AOE개체 수</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=1 onblur="changeEnvironment()" disabled>
+                                                                <td style="width: 50%">
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="checkEnviInput()"> 적을<span style="color:orangered">죽일 수 있음</span>
                                                                 </td>
-                                                                <td style="width: 25%">무적 시간</td>
+                                                                <td style="width: 25%">체력</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 onblur="checkEnviInput()" disabled>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -831,41 +823,60 @@
                                     <div class="col-lg-8">
                                         <h4>그래프 출력</h4>
                                         <p>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">모바일(세로)</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(700)">기본</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(900)">최대</button>
+                                            <button type="button" class="btn btn-default" id="wid1" onclick="setWidth(300)">300px</button>
+                                            <button type="button" class="btn btn-primary" id="wid2" onclick="setWidth(700)">700px</button>
+                                            <button type="button" class="btn btn-default" id="wid3" onclick="setWidth(900)">900px</button>
                                         </p>
-                                        <table class="table_other table-bordered table-hover" style="width:200px">
+                                        <table class="table_other table-bordered table-hover" id="table_envi">
                                             <tbody>
-                                                <tr>
-                                                    <td style="width: 50%">너비(300~900)</td>
-                                                    <td style="width: 40%">
-                                                        <input class="form-control input-sm" placeholder="300~900" id="container_len" value=700 onblur="setWidth('input')">
-                                                    </td>
-                                                    <td>px</td>
+                                                <tr style="height:31px">
+                                                    <td style="width:62px"><img src="../img/icon-daytime.png" id="envi_day"></td>
+                                                    <td style="width:100px">교전 <span style="color:green" id='envi_contertime'>-</span>s</td>
+                                                    <td style="width:62px"><span id='envi_fairy'>요정 없음</span></td>
+                                                    <td style="width:100px">특성 <span id='envi_talent' style="color:orangered">-</span></td>
+                                                </tr>
+                                                <tr style="height:31px">
+                                                    <td style="width:62px"></td>
+                                                    <td style="width:100px">전투 <span style="color:green" id='envi_alltime'>-</span>s</td>
+                                                    <td style="width:62px">스킬 <span id='envi_fairyskill' style="color:dodgerblue">-</span></td>
+                                                    <td style="width:100px"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <h5><b>[전투 환경]</b>
-                                            <b><span style="color:darkorange" id='envi_day'>주간전</span><span style="color:darkblue" id='envi_night'></span></b>
-                                            <span id='envi_fairy'>요정 없음</span>
-                                            <span id='envi_talent' style="color:orangered">요정 특성 미발동</span>
-                                            <span id='envi_fairyskill' style="color:dodgerblue">요정 스킬 미사용</span>
-                                            <span style="color: red" id="envi_allpro"></span>
-                                        </h5>
-                                        <h5><b>[적 설정]</b>
-                                            유형 [ <span style="color:black" id='envi_ene_type'>일반</span> ]
-                                            회피 [ <span style="color:green" id='envi_ene_eva'>0</span> ]
-                                            장갑 [ <span style="color:green" id='envi_ene_arm'>0</span> ]
-                                            더미 수 [ <span style="color:rgb(84, 218, 84)" id='envi_ene_form'>1</span> ]
-                                            개체 수 [ <span style="color:green" id='envi_ene_num'>1</span> ]
-                                            왜곡방벽 [ <span style="color:green" id='envi_ene_ff'>0</span> ]
-                                        </h5>
-                                        <h5><b>[전투 데이터]</b>
-                                            총 피해 [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
-                                            전투 시간 [ <span style="color:green" id='envi_alltime'>20</span> ]
-                                            교전 시작 [ <span style="color:green" id='envi_contertime'>0</span> ]
-                                        </h5>
+                                        <table class="table_other table-bordered table-hover">
+                                            <tbody>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">유형 <span style="color:black" id='envi_ene_type'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-atkdmg.png"> <span style="color:green" id='envi_ene_dmg'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-rof.png"> <span style="color:green" id='envi_ene_rof'>-</span></td>
+                                                    <td style="width:150px">&nbsp<img src="../img/icon-hp.png"> <span style="color:green" id='envi_ene_hp'>-</span></td>
+                                                </tr>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">더미 <span style="color:green" id='envi_ene_form'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-eva.png"> <span style="color:green" id='envi_ene_eva'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-atkacu.png"> <span style="color:green" id='envi_ene_acu'>-</span></td>
+                                                    <td style="width:150px">&nbsp<img src="../img/icon-ff.png"> <span style="color:green" id='envi_ene_ff'>-</span></td>
+                                                </tr>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">개체 <span style="color:green" id='envi_ene_num'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-arm.png"> <span style="color:green" id='envi_ene_arm'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-ap.png"> <span style="color:green" id='envi_ene_ap'>-</span></td>
+                                                    <td style="width:150px">&nbsp<img src="../img/icon-dbk.png"> <span style="color:green" id='envi_ene_dbk'>-</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover">
+                                            <tbody>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">총 피해</td>
+                                                    <td style="width:350px">&nbsp&nbsp<b><span style="color:orangered" id='envi_alldmg'>0</span></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>
+                                            <label id="display_controller1" class="checkbox-inline"></label>
+                                            <label id="display_controller2" class="checkbox-inline"></label>
+                                        </p>
                                         <div id="container" style="width: 700px"></div>
                                     </div>
                                 </div>

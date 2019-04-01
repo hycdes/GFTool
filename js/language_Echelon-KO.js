@@ -170,8 +170,8 @@ lib_language = {
   DESCRIBE_252: '모든 개체에 범위 피해 적용',
   DESCRIBE_2006: '대상이 스킬 범위 내에 존재',
 
-  fairy_0: '요정 없음',
-  talent_0: '특성 미설정',
+  fairy_0: '없는',
+  talent_0: '없는',
 
   enemy_normal: '일반',
   enemy_elite: '엘리트',
@@ -227,7 +227,7 @@ lib_language = {
   fairyNAME_21: '도깨비요정',
 
   fairyskillstr: '스킬 ',
-  fairy_skillNAME_0: '스킬 미사용',
+  fairy_skillNAME_0: '없는',
   fairy_skillNAME_1: '전투효율',
   fairy_skillNAME_2: '분노폭발',
   fairy_skillNAME_3: '진압강화',
@@ -249,7 +249,8 @@ lib_language = {
   fairy_skillNAME_19: '긴급배식',
   fairy_skillNAME_20: '늦여름 폭죽',
   fairy_skillNAME_21: '귀신 쫓기',
+  main_makeGraph_3: '체력',
 
-  // new 2
-  main_makeGraph_3: '체력'
+  main_show_dmg: '공격',
+  main_show_inj: '방어'
 }

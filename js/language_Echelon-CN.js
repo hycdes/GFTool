@@ -170,8 +170,8 @@ lib_language = {
   DESCRIBE_252: '溅射所有敌人',
   DESCRIBE_2006: '敌人进入制裁范围',
 
-  fairy_0: '无妖精',
-  talent_0: '无天赋发动',
+  fairy_0: '无',
+  talent_0: '无',
 
   enemy_normal: '普通',
   enemy_elite: '精英',
@@ -227,7 +227,7 @@ lib_language = {
   fairyNAME_21: '年兽妖精',
 
   fairyskillstr: '技能 ',
-  fairy_skillNAME_0: '无技能发动',
+  fairy_skillNAME_0: '无',
   fairy_skillNAME_1: '战斗效率',
   fairy_skillNAME_2: '怒无限强',
   fairy_skillNAME_3: '防暴强化',
@@ -249,7 +249,8 @@ lib_language = {
   fairy_skillNAME_19: '紧急开饭',
   fairy_skillNAME_20: '夏末花火',
   fairy_skillNAME_21: '爆竹惊春',
+  main_makeGraph_3: '生命值',
 
-  // new 2
-  main_makeGraph_3: '生命值'
+  main_show_dmg: '显示输出',
+  main_show_inj: '显示承伤'
 }

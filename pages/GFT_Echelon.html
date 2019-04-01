@@ -16,12 +16,14 @@
     <style type="text/css">
         .table_other {
             padding: 0px;
-            text-align: center
+            text-align: center;
+            background-color: white;
         }
 
         .table_left {
             padding: 0px;
-            text-align: left
+            text-align: left;
+            background-color: white;
         }
 
         .td_affect {
@@ -402,7 +404,7 @@
                                                                     <td id="fairy_skill">技能 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><input type="checkbox" id="fairyskill_active" disabled onchange="changeEnvironment()"> 发动技能</td>
+                                                                    <td><input type="checkbox" id="fairyskill_active" disabled> 发动技能</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -596,9 +598,9 @@
                                             <tbody>
                                                 <tr>
                                                     <td style="height: 30px">
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>普通</b></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>精英</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked><b>普通</b></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite"><span style="color:dodgerblue"><b>精英</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss"><span style="color:red"><b>BOSS</b></span></label>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -608,21 +610,21 @@
                                                 <tr>
                                                     <td style="width: 25%">接敌时间</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="checkEnviInput()">
                                                     </td>
                                                     <td style="width: 25%">战斗时间</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 25%">单组编制</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="checkEnviInput()">
                                                     </td>
                                                     <td style="width: 25%">组数</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="changeEnvironment()">
+                                                        <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -664,21 +666,21 @@
                                                             <tr>
                                                                 <td style="width: 25%">回避</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">护甲</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">力场</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">力场max</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_max' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -711,11 +713,11 @@
                                                             <tr>
                                                                 <td style="width: 25%">伤害</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">射速</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=40 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=40 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -723,10 +725,10 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="changeEnvironment()"> 敌人攻击必中</td>
+                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="checkEnviInput()"> 敌人攻击必中</td>
                                                                 <td style="width: 25%">命中</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -736,24 +738,11 @@
                                                             <tr>
                                                                 <td style="width: 25%">穿甲</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">破防</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="width: 50%">
-                                                                    <input type="checkbox" id="enemy_hp_check" onchange="changeEnvironment()"> 敌人<span style="color:orangered">能够被杀死</span>
-                                                                </td>
-                                                                <td style="width: 25%">生命</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -763,31 +752,34 @@
                                                             <tr>
                                                                 <td style="width: 25%">回避</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">护甲</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">力场</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">力场max</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2_max' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">AOE组数</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=1 onblur="changeEnvironment()" disabled>
+                                                                <td style="width: 50%">
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="checkEnviInput()"> 敌人<span style="color:orangered">能够被杀死</span>
                                                                 </td>
-                                                                <td style="width: 25%">无敌时间</td>
+                                                                <td style="width: 25%">生命</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 onblur="changeEnvironment()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 onblur="checkEnviInput()" disabled>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -831,41 +823,60 @@
                                     <div class="col-lg-8">
                                         <h4>模拟结果曲线</h4>
                                         <p>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">手机竖屏</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(700)">常规</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(900)">最宽</button>
+                                            <button type="button" class="btn btn-default" id="wid1" onclick="setWidth(300)">300px</button>
+                                            <button type="button" class="btn btn-primary" id="wid2" onclick="setWidth(700)">700px</button>
+                                            <button type="button" class="btn btn-default" id="wid3" onclick="setWidth(900)">900px</button>
                                         </p>
-                                        <table class="table_other table-bordered table-hover" style="width:200px">
+                                        <table class="table_other table-bordered table-hover" id="table_envi">
                                             <tbody>
-                                                <tr>
-                                                    <td style="width: 50%">宽度(300~900)</td>
-                                                    <td style="width: 40%">
-                                                        <input class="form-control input-sm" placeholder="输入300~900整数" id="container_len" value=700 onblur="setWidth('input')">
-                                                    </td>
-                                                    <td>px</td>
+                                                <tr style="height:31px">
+                                                    <td style="width:62px"><img src="../img/icon-daytime.png" id="envi_day"></td>
+                                                    <td style="width:100px">接敌 <span style="color:green" id='envi_contertime'>-</span>s</td>
+                                                    <td style="width:62px"><span id='envi_fairy'>无妖精</span></td>
+                                                    <td style="width:100px">天赋 <span id='envi_talent' style="color:orangered">-</span></td>
+                                                </tr>
+                                                <tr style="height:31px">
+                                                    <td style="width:62px"></td>
+                                                    <td style="width:100px">战斗 <span style="color:green" id='envi_alltime'>-</span>s</td>
+                                                    <td style="width:62px">技能 <span id='envi_fairyskill' style="color:dodgerblue">-</span></td>
+                                                    <td style="width:100px"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <h5><b>[战场环境]</b>
-                                            <b><span style="color:darkorange" id='envi_day'>昼战</span><span style="color:darkblue" id='envi_night'></span></b>
-                                            <span id='envi_fairy'>无妖精</span>
-                                            <span id='envi_talent' style="color:orangered">无天赋发动</span>
-                                            <span id='envi_fairyskill' style="color:dodgerblue">无技能发动</span>
-                                            <span style="color: red" id="envi_allpro"></span>
-                                        </h5>
-                                        <h5><b>[敌人属性]</b>
-                                            类型 [ <span style="color:black" id='envi_ene_type'>普通</span> ]
-                                            回避 [ <span style="color:green" id='envi_ene_eva'>0</span> ]
-                                            护甲 [ <span style="color:green" id='envi_ene_arm'>0</span> ]
-                                            单组编制 [ <span style="color:green" id='envi_ene_form'>1</span> ]
-                                            组数 [ <span style="color:green" id='envi_ene_num'>1</span> ]
-                                            力场 [ <span style="color:green" id='envi_ene_ff'>0</span> ]
-                                        </h5>
-                                        <h5><b>[战斗数据]</b>
-                                            总输出 [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
-                                            战斗总时间 [ <span style="color:green" id='envi_alltime'>20</span> ]
-                                            接敌时间 [ <span style="color:green" id='envi_contertime'>0</span> ]
-                                        </h5>
+                                        <table class="table_other table-bordered table-hover">
+                                            <tbody>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">类型 <span style="color:black" id='envi_ene_type'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-atkdmg.png"> <span style="color:green" id='envi_ene_dmg'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-rof.png"> <span style="color:green" id='envi_ene_rof'>-</span></td>
+                                                    <td style="width:150px">&nbsp<img src="../img/icon-hp.png"> <span style="color:green" id='envi_ene_hp'>-</span></td>
+                                                </tr>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">编制 <span style="color:green" id='envi_ene_form'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-eva.png"> <span style="color:green" id='envi_ene_eva'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-atkacu.png"> <span style="color:green" id='envi_ene_acu'>-</span></td>
+                                                    <td style="width:150px">&nbsp<img src="../img/icon-ff.png"> <span style="color:green" id='envi_ene_ff'>-</span></td>
+                                                </tr>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">组数 <span style="color:green" id='envi_ene_num'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-arm.png"> <span style="color:green" id='envi_ene_arm'>-</span></td>
+                                                    <td style="width:100px">&nbsp<img src="../img/icon-ap.png"> <span style="color:green" id='envi_ene_ap'>-</span></td>
+                                                    <td style="width:150px">&nbsp<img src="../img/icon-dbk.png"> <span style="color:green" id='envi_ene_dbk'>-</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover">
+                                            <tbody>
+                                                <tr style="height:31px;text-align:left">
+                                                    <td style="width:100px;text-align:center">总输出</td>
+                                                    <td style="width:350px">&nbsp&nbsp<b><span style="color:orangered" id='envi_alldmg'>0</span></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>
+                                            <label id="display_controller1" class="checkbox-inline"></label>
+                                            <label id="display_controller2" class="checkbox-inline"></label>
+                                        </p>
                                         <div id="container" style="width: 700px"></div>
                                     </div>
                                 </div>

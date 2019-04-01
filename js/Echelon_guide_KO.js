@@ -38,6 +38,8 @@ window.onload = function () {
     loadScript('../js/Echelon_select.js')
     mergeCell('table_property', 0, 2, 0)
     mergeCell('table_affect', 0, 2, 3)
+    mergeCell('table_envi', 0, 1, 0)
+    mergeCell('table_envi', 0, 1, 2)
     Set_Special.set('can_add_python', true)
     Set_Special.set('can_add_karm1891', true)
     Set_Special.set('sunrise', 'day')
