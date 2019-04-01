@@ -880,7 +880,6 @@ function checkEnviInput () { // 纠正非法输入
   if (document.getElementById('enemy_hp_check').checked) {
     document.getElementById('enemy_hp').disabled = false
   } else {
-    document.getElementById('enemy_hp').value = 1000
     document.getElementById('enemy_hp').disabled = true
   }
 }
@@ -988,6 +987,51 @@ function templatePro (type) {
     document.getElementById('enemy_forcefield').value = 2104
     document.getElementById('enemy_forcefield_max').value = 3006
     document.getElementById('switch_normal').checked = true
+  } else if (type === 11) {
+    document.getElementById('enemy_form').value = 5
+    document.getElementById('enemy_num').value = 5
+    document.getElementById('enemy_dmg').value = 8
+    document.getElementById('enemy_rof').value = 40
+    document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').value = 17
+    document.getElementById('enemy_ap').value = 0
+    document.getElementById('enemy_dbk').value = 0
+    document.getElementById('enemy_eva_2').value = 8
+    document.getElementById('enemy_arm_2').value = 0
+    document.getElementById('enemy_forcefield_2').value = 0
+    document.getElementById('enemy_forcefield_2_max').value = 0
+    document.getElementById('enemy_hp').value = 769
+    document.getElementById('switch_normal').checked = true
+  } else if (type === 12) {
+    document.getElementById('enemy_form').value = 1
+    document.getElementById('enemy_num').value = 1
+    document.getElementById('enemy_dmg').value = 45
+    document.getElementById('enemy_rof').value = 40
+    document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').value = 80
+    document.getElementById('enemy_ap').value = 0
+    document.getElementById('enemy_dbk').value = 0
+    document.getElementById('enemy_eva_2').value = 30
+    document.getElementById('enemy_arm_2').value = 0
+    document.getElementById('enemy_forcefield_2').value = 0
+    document.getElementById('enemy_forcefield_2_max').value = 0
+    document.getElementById('enemy_hp').value = 220000
+    document.getElementById('switch_boss').checked = true
+  } else if (type === 13) {
+    document.getElementById('enemy_form').value = 1
+    document.getElementById('enemy_num').value = 1
+    document.getElementById('enemy_dmg').value = 95
+    document.getElementById('enemy_rof').value = 40
+    document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').value = 60
+    document.getElementById('enemy_ap').value = 20
+    document.getElementById('enemy_dbk').value = 0
+    document.getElementById('enemy_eva_2').value = 30
+    document.getElementById('enemy_arm_2').value = 10
+    document.getElementById('enemy_forcefield_2').value = 0
+    document.getElementById('enemy_forcefield_2_max').value = 0
+    document.getElementById('enemy_hp').value = 320000
+    document.getElementById('switch_boss').checked = true
   }
 }
 
