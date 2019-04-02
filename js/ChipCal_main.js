@@ -240,6 +240,8 @@ function repo_addChart (chipData) {
   var Repo_Fil
   var Repo_Dmg
   var Repo_Dbk
+  block_class = chipData.classNum
+  block_shape = chipData.typeNum
   if (block_class === 551 && (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132)) {
     Repo_Acu = Math.ceil(stren_parameter * Math.ceil(chipData.bAcu * 0.92 * 7.1))
     Repo_Fil = Math.ceil(stren_parameter * Math.ceil(chipData.bFil * 0.92 * 5.7))

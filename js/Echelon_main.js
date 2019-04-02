@@ -206,8 +206,8 @@ function getResult (multiple, action) {
     }
   }
   if (display_type === 'suffer') {
-    document.getElementById('display_controller1').innerHTML = '<input type="checkbox" id="display_showDPS" onclick="exchangeDisplayImage()" checked>'+lib_language.main_show_dmg+'&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
-    document.getElementById('display_controller2').innerHTML = '<input type="checkbox" id="display_showINJ" onclick="exchangeDisplayImage()" checked>'+lib_language.main_show_inj
+    document.getElementById('display_controller1').innerHTML = '<input type="checkbox" id="display_showDPS" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_dmg + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+    document.getElementById('display_controller2').innerHTML = '<input type="checkbox" id="display_showINJ" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_inj
   } else {
     document.getElementById('display_controller1').innerHTML = ''
     document.getElementById('display_controller2').innerHTML = ''
@@ -1300,6 +1300,20 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     // 套盾没写
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'ffshield') {
+    var ff = (s_t[0].Describe).ff
+    var ffmax = (s_t[0].Describe).ffmax
+    var decline = (s_t[0].Describe).decline
+    var decline_interval = 0
+    if (decline != 0) {
+      decline_interval = (s_t[0].Describe).decline_interval
+      Set_Special.set()
+    }
+    Set_Special.set('ffmax' + stand_num, ffmax)
+    Set_Special.set('ffshield_ending' + stand_num, current_time + 30 * s_t[0].duration)
+    Set_Base.get(stand_num).Info.set('ff', ff)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
 }
 

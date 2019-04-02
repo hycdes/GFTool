@@ -266,6 +266,15 @@ function describe_stechkin () {
   Describe.name = 'stechkin'
   return Describe
 }
+function describe_ffshield (ff, ffmax, decline, decline_interval) {
+  var Describe = {}
+  Describe.name = 'ffshield'
+  Describe.ff = ff
+  Describe.ffmax = ffmax
+  Describe.decline = decline
+  Describe.decline = decline_interval
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -401,6 +410,9 @@ lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.3
 lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) // 狩猎示范
 lib_describe.set('evaacu_4', describe_property(['self'], ['eva/acu'], ['0.8/0.5'])) // 隐秘专注-4星
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
+
+lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
+lib_describe.set('m870',describe_ffshield(1000,1000,100,1)) // 地狱公路
 
 lib_describe.set('addclip_10', describe_addclip(10)) // 弹量+10
 lib_describe.set('addclip_4', describe_addclip(4)) // 弹量+4
@@ -650,11 +662,11 @@ lib_skill.set(133, [createSkill(5, 16, 15, lib_describe.get('acu_500'))])
 
 // SMG
 
-lib_skill.set(16, []) //
+lib_skill.set(16, [createSkill(8, 16, 4, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('incendiary_7'))])
 lib_skill.set(28, []) //
 lib_skill.set(59, []) //
-lib_skill.set(104, []) //
+lib_skill.set(104, [createSkill(8, 16, 4, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(115, []) //
 lib_skill.set(127, []) //
 lib_skill.set(135, [createSkill(4, 8, 5, lib_describe.get('dmg_260'))])
@@ -668,7 +680,7 @@ lib_skill.set(251, [createSkill(4, 8, 5, lib_describe.get('x95'))])
 lib_skill.set(1103, []) //
 
 lib_skill.set(23, []) //
-lib_skill.set(26, []) //
+lib_skill.set(26, [createSkill(8, 16, 3, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(101, []) //
 lib_skill.set(102, [createSkill(1, 2, 0, lib_describe.get('ump40'))])
 lib_skill.set(103, []) //
@@ -912,7 +924,7 @@ lib_skill.set(163, [ // 酮血症
 ])
 lib_skill.set(164, []) //
 lib_skill.set(188, []) //
-lib_skill.set(229, []) //
+lib_skill.set(229, [createSkill(8, 16, 4, lib_describe.get('m870'))]) // 地狱公路
 
 lib_skill.set(153, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(155, []) //
