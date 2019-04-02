@@ -784,6 +784,15 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 35%"><label class="radio-inline"><input type="radio" name="inj_type" id="inj_type1" onchange="checkEnviInput()" checked><b>按顺序承伤</b></label></td>
+                                                                <td style="width: 30%"><input class="form-control input-sm" placeholder="输入顺序" id='inj_order' value=639528417 onblur="checkEnviInput()"></td>
+                                                                <td style="width: 35%"><label class="radio-inline"><input type="radio" name="inj_type" id="inj_type2" onchange="checkEnviInput()"><b>全体承伤</b></label></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                     <h4>承伤计算</h4>
                                                     <p>
                                                         <button type="button" class="btn btn-outline btn-warning" id="suffer_1" onclick="getResult(1,'suffer')" disabled>计算1次</button>

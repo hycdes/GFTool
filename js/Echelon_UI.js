@@ -882,6 +882,9 @@ function checkEnviInput () { // 纠正非法输入
   } else {
     document.getElementById('enemy_hp').disabled = true
   }
+  if (document.getElementById('inj_type1').checked) document.getElementById('inj_order').disabled = false
+  else document.getElementById('inj_order').disabled = true
+  check_inj_order()
 }
 function showEnvi () {
   // 妖精图像、天赋
@@ -1081,4 +1084,24 @@ function changeHFPro (num, type) {
   document.getElementById('hf' + num + '_pro' + type).value = input_value
   eval('list_HF[num - 1][2].v' + type + '=input_value')
   document.getElementById('hf' + num + '_rof').innerHTML = '&nbsp' + (Math.ceil(45000 / (300 + list_HF[num - 1][1].v4 + list_HF[num - 1][2].v4 + list_HF[num - 1][3].v4)) / 30).toFixed(2) + 's'
+}
+function check_inj_order() {
+  var orderinput = parseInt(document.getElementById('inj_order').value) + ''
+  var is_invalid = false
+  var num_table = [false, false, false, false, false, false, false, false, false]
+  if (orderinput.length != 9 && orderinput != 'undefined') is_invalid = true
+  for (var i = 0; i < 9; i++){
+    if (parseInt(orderinput[i]) >= 1 && parseInt(orderinput[i]) <= 9) num_table[orderinput[i] - 1] = true
+  }
+  for (var i = 0; i < 9; i++){
+    if (!num_table[i]) {
+      is_invalid = true
+      break
+    }
+  }
+  if (is_invalid) { // 非法
+    if (lang_type === 'ko') document.getElementById('inj_order').value = '693582471'
+    else document.getElementById('inj_order').value = '639528417'
+  }
+  inj_order = document.getElementById('inj_order').value
 }

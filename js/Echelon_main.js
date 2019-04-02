@@ -7,6 +7,7 @@ var set_guntype = 1 // 枪种：1=hg, 2=ar, 3=smg, 4=rf, 5=mg, 6=sg
 var set_equip = [0, 0, 0] // 装备代号，开头：1=配件, 2=子弹, 3=人形装备, 4=夜战装备
 var num_star = 5, affection = 'love' // 星级，好感度
 // Echelon and global
+var queue_tdoll = []
 var time = 20, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0 // 全局变量默认值：时间20s，接敌0s，昼战，无妖精，无天赋
 var global_frame = 0 // 当前帧，时间测算和特殊buff发动
 var global_total_dmg = 0 // 全局总伤害，决定结束战斗的时间
@@ -25,11 +26,12 @@ var list_HF = [ // 重装部队属性: 支援与否，基础，芯片，同色�
 ]
 // Enemy
 var enemy_arm = 0, enemy_eva = 0, enemy_form = 1, enemy_num = 1, enemy_type = 'normal', enemy_forcefield = 0, enemy_forcefield_max = 0 // 输出测试属性：敌人护甲，回避，编制，组数，类型，力场
-var enemy_dmg = 10, enemy_rof = 40, enemy_acu = 10, enemy_ap = 0, enemy_dbk = 0, enemy_hp = 1000, enemy_eva_2 = 10, enemy_arm_2 = 0, enemy_forcefield_2 = 0, enemy_forcefield_2_max = 0, aoe_num = 1, enemy_immortal = 0
+var enemy_dmg = 10, enemy_rof = 40, enemy_acu = 10, enemy_ap = 0, enemy_dbk = 0, enemy_hp = 1000, enemy_eva_2 = 10, enemy_arm_2 = 0, enemy_forcefield_2 = 0, enemy_forcefield_2_max = 0, aoe_num = 1
 var enemy_num_left = 1, enemy_still_alive = true // 敌人剩余组数，敌人存活状况
 var Set_EnemyStatus = new Map // 敌人状态表
 var fragile_main = 1, fragile_all = 1 // 主目标脆弱，范围脆弱
 var last_DPS = 0
+var inj_order = '639528417'
 // Graph
 var x_max_buffer = 0, y_max_buffer = 0,y2_max_buffer = 0, str_label_buffer = [],str_label_buffer_nameonly = [], totaldamage_buffer = 0 // 更改宽度和显示模式的缓存值
 var display_type = 'damage' // 模拟类型
@@ -463,6 +465,7 @@ function reactAllSkill (command, current_time) {
       }
     }
   }
+  // 状态时间结算
   for (var [k, v] of Set_Status) { // 状态消逝，k = stand_num, v = [ [ [type, value(>1)] ,left_frame ] ... ] 的数组
     if (Set_Special.get('fragile_40') != undefined && Set_Special.get('fragile_40') < global_frame) { // 断罪者魔弹
       fragile_main /= 1.4
@@ -496,6 +499,20 @@ function reactAllSkill (command, current_time) {
         if (true) { // 没设计破盾
           changeStatus(k, 'all', 'dmg', 0.35, 5)
           changeStatus(k, 'all', 'acu', 0.35, 5)
+        }
+      }
+    }
+    if (Set_Special.get('ffmax' + k) != undefined) {
+      if (Set_Special.get('ffshield_ending' + k) <= current_time) {
+        Set_Base.get(k).Info.set('ff', 0)
+        Set_Special.delete('ffmax' + k)
+      }
+      if (Set_Special.get('ff_decline' + k) > 0) {
+        if (Set_Special.get('ff_decline_at' + k) <= current_time) {
+          var last_ff = Set_Base.get(k).Info.get('ff')
+          last_ff -= Set_Special.get('ff_decline' + k)
+          Set_Base.get(k).Info.set('ff', last_ff)
+          Set_Special.set('ff_decline_at' + k, Set_Special.get('ff_decline_at' + k))
         }
       }
     }
@@ -1306,9 +1323,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var ffmax = (s_t[0].Describe).ffmax
     var decline = (s_t[0].Describe).decline
     var decline_interval = 0
+    Set_Special.set('ff_decline' + stand_num, decline)
     if (decline != 0) {
       decline_interval = (s_t[0].Describe).decline_interval
-      Set_Special.set()
+      Set_Special.set('ff_decline_at' + stand_num, current_time + 30 * decline_interval)
     }
     Set_Special.set('ffmax' + stand_num, ffmax)
     Set_Special.set('ffshield_ending' + stand_num, current_time + 30 * s_t[0].duration)
@@ -1630,49 +1648,83 @@ function reactInjury () {
   if (enemy_still_alive) {
     if (Set_EnemyStatus.get('attackframe') === undefined) Set_EnemyStatus.set('attackframe', rof_to_frame_enemy(enemy_rof)) // init attack
     if (Set_EnemyStatus.get('attackframe') <= global_frame) { // 敌人发起进攻
-      Set_EnemyStatus.set('attackframe', rof_to_frame_enemy(enemy_rof) + global_frame)
       var shoot_target = get_attack_target() // 找个人打
-      var current_Info = Set_Base.get(shoot_target).Info
-      var accuracy_rate = enemy_acu / (enemy_acu + current_Info.get('eva'))
-      var single_hp = current_Info.get('hp') / 5
-      var suffer_hp = get_left_hp(shoot_target, single_hp)
-      recordData_suffer(shoot_target, global_frame, 0)
-      for (var i = 0; i < enemy_num_left * enemy_form; i++) {
-        if (!is_protected(shoot_target) && (Math.random() <= accuracy_rate || Set_Special.get('enemy_maxacu') === true)) {
-          var record_dmg = Math.max(1, Math.ceil(enemy_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, enemy_ap - current_Info.get('arm'))))
-          var record_limit = suffer_hp
-          suffer_hp -= record_dmg
-          if (is_activate_protect(suffer_hp, single_hp, shoot_target)) { // 当次攻击会触发大破保护
-            var new_protect_status = Set_Special.get('damage_protect') // 触发保护
-            Set_Special.set('damage_protect_time' + shoot_target, global_frame + 45) // 无敌1.5秒
-            new_protect_status[shoot_target] = false
-            Set_Special.set('damage_protect', new_protect_status)
-            suffer_hp = Math.ceil(single_hp * 0.5)
-            record_dmg = get_left_hp(shoot_target, single_hp) - suffer_hp
-          } else {
-            if (suffer_hp <= 0) { // 掉人
-              list_tdoll[shoot_target][0] -= 1
-              record_dmg = record_limit
-              suffer_hp = single_hp
-            }
-          }
-          recordData_suffer(shoot_target, global_frame, record_dmg) // 记录伤害
-          if (list_tdoll[shoot_target][0] === 0) { // 当前目标被打死
-            shoot_target = get_attack_target() // 换个人打
-            if (shoot_target === -1) { // 没人可打
-              enemy_still_alive = false // 终止模拟
-              break // 没人可打
-            } else {
-              current_Info = Set_Base.get(shoot_target).Info
-              accuracy_rate = enemy_acu / (enemy_acu + current_Info.eva)
-              single_hp = current_Info.hp / 5, suffer_hp = single_hp
+      if (shoot_target === 9) {
+        for (stn of queue_tdoll) {
+          injury(stn)
+        }
+      } else {
+        shoot_target = injury(shoot_target)
+      }
+      Set_EnemyStatus.set('attackframe', rof_to_frame_enemy(enemy_rof) + global_frame)
+    }
+  }
+}
+
+function injury (shoot_target) {
+  var current_Info = Set_Base.get(shoot_target).Info
+  var accuracy_rate = enemy_acu / (enemy_acu + current_Info.get('eva'))
+  var single_hp = current_Info.get('hp') / 5
+  var suffer_hp = get_left_hp(shoot_target, single_hp)
+  recordData_suffer(shoot_target, global_frame, 0)
+  for (var i = 0; i < enemy_num_left * enemy_form; i++) {
+    if (!is_protected(shoot_target) && (Math.random() <= accuracy_rate || Set_Special.get('enemy_maxacu') === true)) { // 该次攻击命中
+      var record_dmg = Math.max(1, Math.ceil(enemy_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, enemy_ap - current_Info.get('arm'))))
+      if (Set_Special.get('ffmax' + shoot_target) != undefined) { // 存在力场
+        var overdbk = 0
+        var ff_target = current_Info.get('ff') - enemy_dbk // 力场损毁
+        if (ff_target < 0) { // 破防和溢出破防
+          overdbk = Math.abs(ff_target)
+          ff_target = 0
+        }
+        current_Info.set('ff', ff_target)
+        var ff_ratio = 1 - current_Info.get('ff') / Set_Special.get('ffmax' + shoot_target)
+        record_dmg = Math.ceil(record_dmg * ff_ratio + overdbk / 10)
+      } else {
+        record_dmg += Math.ceil(enemy_dbk / 10)
+      }
+      var record_limit = suffer_hp
+      suffer_hp -= record_dmg
+      if (is_activate_protect(suffer_hp, single_hp, shoot_target)) { // 当次攻击会触发大破保护
+        var new_protect_status = Set_Special.get('damage_protect') // 触发保护
+        Set_Special.set('damage_protect_time' + shoot_target, global_frame + 45) // 无敌1.5秒
+        new_protect_status[shoot_target] = false
+        Set_Special.set('damage_protect', new_protect_status)
+        suffer_hp = Math.ceil(single_hp * 0.5)
+        record_dmg = get_left_hp(shoot_target, single_hp) - suffer_hp
+      } else {
+        if (suffer_hp <= 0) { // 掉人
+          list_tdoll[shoot_target][0] -= 1
+          record_dmg = record_limit
+          suffer_hp = single_hp
+        }
+      }
+      recordData_suffer(shoot_target, global_frame, record_dmg) // 记录伤害
+      if (list_tdoll[shoot_target][0] === 0) { // 当前目标被打死
+        shoot_target = get_attack_target() // 换个人打
+        if (shoot_target === -1) { // 没人可打
+          enemy_still_alive = false // 终止模拟
+          break // 没人可打
+        } else if (shoot_target === 9) {
+          var all_dead = true
+          for (var stn of queue_tdoll) {
+            if (list_tdoll[stn][0] > 0) {
+              all_dead = false
               break
             }
           }
+          if (all_dead) enemy_still_alive = false // 终止模拟
+          break
+        } else {
+          current_Info = Set_Base.get(shoot_target).Info
+          accuracy_rate = enemy_acu / (enemy_acu + current_Info.get('eva'))
+          single_hp = current_Info.get('hp') / 5, suffer_hp = single_hp
+          break
         }
       }
     }
   }
+  return shoot_target
 }
 
 function getBaseProperty (num) {
@@ -2046,11 +2098,15 @@ function get_g36_standblo (stand_num) {
 
 // 初始化函数
 function init_resetAllConfig () { // 重置所有数据
+  queue_tdoll = [] // 清空站位队列
   global_total_dmg = 0 // 总伤害重置
   last_DPS = 0
   not_init = false // 此阶段所有buff皆不可复读
   Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear(); Set_Data_HF.clear(); Set_Data_S.clear()
-  for (var i = 0; i < 9; i++) list_tdoll[i][0] = 5 // 恢复编制
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) queue_tdoll.push(i) // 统计战术人形站位
+    list_tdoll[i][0] = 5 // 恢复编制
+  }
   fragile_main = 1; fragile_all = 1
   Set_Special.set('can_add_python', true)
   Set_Special.set('can_add_karm1891', true)
@@ -2064,6 +2120,11 @@ function init_resetAllConfig () { // 重置所有数据
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
 }
 function init_loadPrepareStatus () { // 初始化战前属性
+  // 承伤顺序
+  if (display_type === 'suffer') {
+    if (document.getElementById('inj_type1').checked) inj_order = '' + document.getElementById('inj_order').value
+    else inj_order = 'all'
+  }
   // 出战属性和初始状态
   for (var i = 0; i < 10; i++) Set_Data.set(i, [[0, 0]]) // 包括妖精在内的输出数据初始化
   for (var i = 0; i < 9; i++) Set_Data_S.set(i, [[0, 0]]) // 生命值初始化
@@ -2571,11 +2632,25 @@ function get_common_position () {
   return common_position
 }
 function get_attack_target () {
-  var order = [5, 2, 8, 4, 1, 7, 3, 0, 6]
-  for (var num of order) {
-    if (list_tdoll[num][1] != null && list_tdoll[num][0] > 0) return num
+  var order = [5, 2, 8, 4, 1, 7, 3, 0, 6] // default
+  if (inj_order != 'all') {
+    if (lang_type === 'ko') {
+      for (var i = 0; i < 9; i++) {
+        var temp_v = parseInt(inj_order[i])
+        if (temp_v >= 7) temp_v -= 6
+        else if (temp_v <= 3) temp_v += 6
+        order[i] = temp_v - 1
+      }
+    } else {
+      for (var i = 0; i < 9; i++) order[i] = parseInt(inj_order[i]) - 1
+    }
+    for (var num of order) {
+      if (list_tdoll[num][1] != null && list_tdoll[num][0] > 0) return num
+    }
+    return -1
+  } else {
+    return 9
   }
-  return -1
 }
 function get_left_hp (stand_num, single_hp) {
   var all_left_hp = Set_Data_S.get(stand_num)[Set_Data_S.get(stand_num).length - 1][1]
