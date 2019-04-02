@@ -275,6 +275,17 @@ function describe_ffshield (ff, ffmax, decline, decline_interval) {
   Describe.decline = decline_interval
   return Describe
 }
+function describe_aks () {
+  var Describe = {}
+  Describe.name = 'aks'
+  return Describe
+}
+function describe_flash (duration) {
+  var Describe = {}
+  Describe.name = 'flash'
+  Describe.duration = duration
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -321,6 +332,7 @@ lib_describe.set('p22', describe_property(
 lib_describe.set('lbll', describe_property(['bloall'], ['dmg/rof/acu'], ['0.25/0.25/0.25'])) // 猩红回响
 lib_describe.set('g36_eva', describe_property(['bloall'], ['eva'], ['0.25'])) // 弧光契约闪避
 
+lib_describe.set('dmg_25_enemy', describe_property(['enemy'], ['dmg'], ['-0.25'])) // 火力压制 25%
 lib_describe.set('eva_55_enemy', describe_property(['enemy'], ['eva'], ['-0.55'])) // 掩护压制 55%
 lib_describe.set('eva_46_enemy', describe_property(['enemy'], ['eva'], ['-0.46'])) // 掩护压制 46%
 lib_describe.set('eva_40_enemy', describe_property(['enemy'], ['eva'], ['-0.4'])) // 掩护压制 40%
@@ -366,6 +378,7 @@ lib_describe.set('rof_50', describe_property(['self'], ['rof'], ['0.5'])) // 突
 lib_describe.set('rof_45', describe_property(['self'], ['rof'], ['0.45'])) // 突击专注 45%
 lib_describe.set('rof_40', describe_property(['self'], ['rof'], ['0.4'])) // 突击专注 40%
 lib_describe.set('rof_25', describe_property(['self'], ['rof'], ['0.25'])) // 自我气焰 25%
+lib_describe.set('mp7_rof', describe_property(['self'], ['rof'], ['-0.2'])) // 弦月舞者 -20%
 lib_describe.set('rofN_100', describe_propertyN(['self'], ['rof'], ['1'])) // 突击专注N 100%
 lib_describe.set('rofND_32', describe_propertyND(['self'], ['rof'], ['0.32'])) // 突击专注ND 32%
 lib_describe.set('rofN_90', describe_propertyN(['self'], ['rof'], ['0.9'])) // 突击专注N 90%
@@ -380,7 +393,10 @@ lib_describe.set('acuN_80', describe_propertyN(['self'], ['acu'], ['0.8'])) // �
 lib_describe.set('acuND_40', describe_propertyND(['self'], ['acu'], ['0.4'])) // 白夜独奏曲ND 40%
 lib_describe.set('acuN_70', describe_propertyN(['self'], ['acu'], ['0.7'])) // 猎杀冲动N 70%
 lib_describe.set('acuND_20', describe_propertyND(['self'], ['acu'], ['0.2'])) // 猎杀冲动ND 20%
+lib_describe.set('eva_180', describe_property(['self'], ['eva'], ['1.8'])) // 弦月舞者 180%
+lib_describe.set('eva_150', describe_property(['self'], ['eva'], ['1.5'])) // 掩护专注 150%
 lib_describe.set('eva_130', describe_property(['self'], ['eva'], ['1.3'])) // 掩护专注 130%
+lib_describe.set('eva_70', describe_property(['self'], ['eva'], ['0.7'])) // 心智威慑 70%
 lib_describe.set('rof_15', describe_property(['self'], ['rof'], ['0.15'])) // 凛冽斗志 15%
 lib_describe.set('cz2000_N', describe_propertyN(['self'], ['acu/rof'], ['0.4/0.5'])) // 黎明气焰-N
 lib_describe.set('cz2000_ND', describe_propertyND(['self'], ['dmg/crit'], ['0.65/0.25'])) // 黎明气焰-ND
@@ -412,7 +428,13 @@ lib_describe.set('evaacu_4', describe_property(['self'], ['eva/acu'], ['0.8/0.5'
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
 
 lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
-lib_describe.set('m870',describe_ffshield(1000,1000,100,1)) // 地狱公路
+lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
+
+lib_describe.set('aks', describe_aks()) // 排斥反应
+
+lib_describe.set('flash_5', describe_flash(4.5)) // 闪光弹-5星
+lib_describe.set('flash_4', describe_flash(4)) // 闪光弹-4星
+lib_describe.set('flash_3', describe_flash(3.2)) // 闪光弹-3星
 
 lib_describe.set('addclip_10', describe_addclip(10)) // 弹量+10
 lib_describe.set('addclip_4', describe_addclip(4)) // 弹量+4
@@ -535,7 +557,7 @@ lib_skill.set(1002, [createSkill(1, 12, 0, lib_describe.get('m1911'))])
 lib_skill.set(1005, []) // 纳甘左轮被动实现于特殊变量表
 lib_skill.set(1091, [createSkill(6, 12, 4, lib_describe.get('mp446'))])
 
-lib_skill.set(3, []) //
+lib_skill.set(3, [createSkill(7, 12, 0, lib_describe.get('flash_3'))]) // 闪光弹
 lib_skill.set(6, [createSkill(6, 12, 8, lib_describe.get('com_eva_55'))]) // 掩护号令 55%
 lib_skill.set(8, []) // 精确压制
 lib_skill.set(11, [
@@ -607,7 +629,7 @@ lib_skill.set(1064, [
   createSkill(4, 16, 5, lib_describe.get('g36_eva'))
 ]) // 弧光契约，射速在react实现
 
-lib_skill.set(54, []) // 闪光弹
+lib_skill.set(54, [createSkill(7, 16, 0, lib_describe.get('flash_4'))]) // 闪光弹
 lib_skill.set(55, [createSkill(4, 16, 10, lib_describe.get('dmg_70'))])
 lib_skill.set(56, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
 lib_skill.set(57, [createSkill(4, 16, 15, lib_describe.get('rof_45'))])
@@ -663,14 +685,20 @@ lib_skill.set(133, [createSkill(5, 16, 15, lib_describe.get('acu_500'))])
 // SMG
 
 lib_skill.set(16, [createSkill(8, 16, 4, lib_describe.get('ffs'))]) // 力场盾
-lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('incendiary_7'))])
-lib_skill.set(28, []) //
-lib_skill.set(59, []) //
+lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('incendiary_7'))]) // 燃烧弹
+lib_skill.set(28, [
+  createSkill(6, 8, 5, lib_describe.get('mp7_rof')), // 弦月舞者
+  createSkill(6, 8, 5, lib_describe.get('eva_180'))
+]) //
+lib_skill.set(59, [createSkill(6, 16, 5, lib_describe.get('aks'))]) // 排斥反应
 lib_skill.set(104, [createSkill(8, 16, 4, lib_describe.get('ffs'))]) // 力场盾
-lib_skill.set(115, []) //
-lib_skill.set(127, []) //
+lib_skill.set(115, [createSkill(6, 8, 5, lib_describe.get('eva_150'))]) // 掩护专注
+lib_skill.set(127, [createSkill(7, 16, 0, lib_describe.get('flash_5'))]) // 闪光弹
 lib_skill.set(135, [createSkill(4, 8, 5, lib_describe.get('dmg_260'))])
-lib_skill.set(143, []) //
+lib_skill.set(143, [
+  createSkill(3, 12, 5, lib_describe.get('eva_70')), // 心智威慑
+  createSkill(3, 12, 5, lib_describe.get('dmg_25_enemy'))
+]) //
 lib_skill.set(213, []) // 心情链环由特殊设置决定
 lib_skill.set(224, []) //
 lib_skill.set(228, [createSkill(13, 16, 5, lib_describe.get('type100'))]) // 暂时不做护盾
@@ -681,7 +709,7 @@ lib_skill.set(1103, []) //
 
 lib_skill.set(23, []) //
 lib_skill.set(26, [createSkill(8, 16, 3, lib_describe.get('ffs'))]) // 力场盾
-lib_skill.set(101, []) //
+lib_skill.set(101, [createSkill(7, 16, 0, lib_describe.get('flash_4'))]) // 闪光弹
 lib_skill.set(102, [createSkill(1, 2, 0, lib_describe.get('ump40'))])
 lib_skill.set(103, []) //
 lib_skill.set(136, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // pp-19

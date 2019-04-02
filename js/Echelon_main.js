@@ -652,6 +652,11 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         }
         else if (Math.random() <= base_acu / (base_acu + enemy_eva)) { // 否则先判断命中
           var base_dmg = current_Info.get('dmg')
+          if (is_this(stand_num, 59)) { // AK-74U 排斥反应
+            if (Set_Special.get('aks' + stand_num) >= current_time) {
+              Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
+            }
+          }
           if (is_this(stand_num, 1039)) { // 苍白收割者buff是否存在，是否能够触发buff
             if (Set_Special.get('mosin_bufftime_' + stand_num) >= global_frame) {
               base_dmg *= 1.2
@@ -1318,7 +1323,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  else if (skillname === 'ffshield') {
+  else if (skillname === 'ffshield') { // 力场盾
     var ff = (s_t[0].Describe).ff
     var ffmax = (s_t[0].Describe).ffmax
     var decline = (s_t[0].Describe).decline
@@ -1332,6 +1337,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('ffshield_ending' + stand_num, current_time + 30 * s_t[0].duration)
     Set_Base.get(stand_num).Info.set('ff', ff)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'aks') { // 排斥反应
+    Set_Special.set('aks' + stand_num, current_time + 150)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'flash') { // 闪光弹
+    var stun_time = (s_t[0].Describe).duration
+    if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame + 30 * stun_time) {
+      Set_EnemyStatus.set('stopfire', global_frame + 30 * stun_time)
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 }
 
@@ -1651,10 +1667,10 @@ function reactInjury () {
       var shoot_target = get_attack_target() // 找个人打
       if (shoot_target === 9) {
         for (stn of queue_tdoll) {
-          injury(stn)
+          if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame) injury(stn)
         }
       } else {
-        shoot_target = injury(shoot_target)
+        if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame) shoot_target = injury(shoot_target)
       }
       Set_EnemyStatus.set('attackframe', rof_to_frame_enemy(enemy_rof) + global_frame)
     }
@@ -1663,13 +1679,24 @@ function reactInjury () {
 
 function injury (shoot_target) {
   var current_Info = Set_Base.get(shoot_target).Info
-  var accuracy_rate = enemy_acu / (enemy_acu + current_Info.get('eva'))
+  var accuracy = enemy_acu
+  var damage = enemy_dmg
+  if (is_this(shoot_target, 59) && Set_EnemyStatus.get('aks_debuff' + shoot_target) >= global_frame) { // 如果攻击AK-74U且排斥反应生效
+    if (enemy_type === 'normal') {
+      accuracy *= 0.5
+      damage *= 0.5
+    } else {
+      accuracy *= 0.75
+      damage *= 0.75
+    }
+  }
+  var accuracy_rate = accuracy / (accuracy + current_Info.get('eva'))
   var single_hp = current_Info.get('hp') / 5
   var suffer_hp = get_left_hp(shoot_target, single_hp)
   recordData_suffer(shoot_target, global_frame, 0)
   for (var i = 0; i < enemy_num_left * enemy_form; i++) {
     if (!is_protected(shoot_target) && (Math.random() <= accuracy_rate || Set_Special.get('enemy_maxacu') === true)) { // 该次攻击命中
-      var record_dmg = Math.max(1, Math.ceil(enemy_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, enemy_ap - current_Info.get('arm'))))
+      var record_dmg = Math.max(1, Math.ceil(damage * (Math.random() * 0.3 + 0.85) + Math.min(2, enemy_ap - current_Info.get('arm'))))
       if (Set_Special.get('ffmax' + shoot_target) != undefined) { // 存在力场
         var overdbk = 0
         var ff_target = current_Info.get('ff') - enemy_dbk // 力场损毁
@@ -1716,9 +1743,6 @@ function injury (shoot_target) {
           if (all_dead) enemy_still_alive = false // 终止模拟
           break
         } else {
-          current_Info = Set_Base.get(shoot_target).Info
-          accuracy_rate = enemy_acu / (enemy_acu + current_Info.get('eva'))
-          single_hp = current_Info.get('hp') / 5, suffer_hp = single_hp
           break
         }
       }
