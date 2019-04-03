@@ -56,7 +56,7 @@ lib_affect.set(2, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.2, 0.5])) /
 lib_affect.set(3, createAffect('lu/l/r/ld/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // M9
 lib_affect.set(4, createAffect('u/ru/l/r/ld/d/', 'all', ['dmg', 'crit'], [0.3, 0.2])) // 蟒蛇
 lib_affect.set(5, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.32, 0.16])) // 纳甘左轮
-lib_affect.set(6, createAffect('lu/l/r/ld/', 'all', ['rof', 'acu'], [0.2, 0.5])) // 托卡列夫
+lib_affect.set(6, createAffect('u/ru/d/rd/', 'all', ['rof', 'acu'], [0.2, 0.5])) // 托卡列夫
 lib_affect.set(7, createAffect('u/ru/d/rd/', 'all', ['dmg', 'rof'], [0.12, 0.24])) // 斯捷奇金
 lib_affect.set(8, createAffect('lu/l/r/ld/', 'all', ['dmg', 'rof'], [0.2, 0.12])) // 马卡洛夫
 lib_affect.set(9, createAffect('u/ru/d/rd/', 'all', ['rof', 'acu'], [0.14, 0.56])) // P38
