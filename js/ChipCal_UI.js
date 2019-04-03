@@ -6,6 +6,8 @@ function resetBlock () {
 }
 function resetPage () {
   mul_property = 1
+  color = 1, block_class = 56, block_shape = 9
+  changeProperty('class')
   document.getElementById('ChipLevel').value = 0
   refreshPreview()
   resetBlock()

@@ -403,6 +403,7 @@ function loadSaveCode () { // load save
   } else {
     LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_loaderror + '</span>'
   }
+  resetPage()
 }
 function manageDeleteButton () {
   var DeleteSelectId = document.getElementById('DeleteSelect')
