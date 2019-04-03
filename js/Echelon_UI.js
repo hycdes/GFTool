@@ -1035,6 +1035,21 @@ function templatePro (type) {
     document.getElementById('enemy_forcefield_2_max').value = 0
     document.getElementById('enemy_hp').value = 320000
     document.getElementById('switch_boss').checked = true
+  } else if (type === 14) {
+    document.getElementById('enemy_form').value = 5
+    document.getElementById('enemy_num').value = 3
+    document.getElementById('enemy_dmg').value = 29
+    document.getElementById('enemy_rof').value = 80
+    document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').value = 37
+    document.getElementById('enemy_ap').value = 44
+    document.getElementById('enemy_dbk').value = 0
+    document.getElementById('enemy_eva_2').value = 24
+    document.getElementById('enemy_arm_2').value = 0
+    document.getElementById('enemy_forcefield_2').value = 0
+    document.getElementById('enemy_forcefield_2_max').value = 0
+    document.getElementById('enemy_hp').value = 1855
+    document.getElementById('switch_normal').checked = true
   }
 }
 
@@ -1085,15 +1100,15 @@ function changeHFPro (num, type) {
   eval('list_HF[num - 1][2].v' + type + '=input_value')
   document.getElementById('hf' + num + '_rof').innerHTML = '&nbsp' + (Math.ceil(45000 / (300 + list_HF[num - 1][1].v4 + list_HF[num - 1][2].v4 + list_HF[num - 1][3].v4)) / 30).toFixed(2) + 's'
 }
-function check_inj_order() {
+function check_inj_order () {
   var orderinput = parseInt(document.getElementById('inj_order').value) + ''
   var is_invalid = false
   var num_table = [false, false, false, false, false, false, false, false, false]
   if (orderinput.length != 9 && orderinput != 'undefined') is_invalid = true
-  for (var i = 0; i < 9; i++){
+  for (var i = 0; i < 9; i++) {
     if (parseInt(orderinput[i]) >= 1 && parseInt(orderinput[i]) <= 9) num_table[orderinput[i] - 1] = true
   }
-  for (var i = 0; i < 9; i++){
+  for (var i = 0; i < 9; i++) {
     if (!num_table[i]) {
       is_invalid = true
       break

@@ -302,6 +302,7 @@ lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) //
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
 lib_describe.set('com_rof_20', describe_property(['all'], ['rof'], ['0.20'])) // 突击号令 20%
 lib_describe.set('com_acu_100', describe_property(['all'], ['acu'], ['1'])) // 精确号令 100%
+lib_describe.set('com_eva_60', describe_property(['all'], ['eva'], ['0.6'])) // 掩护号令 60%
 lib_describe.set('com_eva_55', describe_property(['all'], ['eva'], ['0.55'])) // 掩护号令 55%
 lib_describe.set('com_evaN_85', describe_propertyN(['all'], ['eva'], ['0.85'])) // 掩护号令N 85%
 lib_describe.set('com_evaND_35', describe_propertyND(['all'], ['eva'], ['0.35'])) // 掩护号令ND 35%
@@ -333,13 +334,24 @@ lib_describe.set('lbll', describe_property(['bloall'], ['dmg/rof/acu'], ['0.25/0
 lib_describe.set('g36_eva', describe_property(['bloall'], ['eva'], ['0.25'])) // 弧光契约闪避
 
 lib_describe.set('dmg_25_enemy', describe_property(['enemy'], ['dmg'], ['-0.25'])) // 火力压制 25%
+lib_describe.set('dmgN_40_enemy', describe_propertyN(['enemy'], ['dmg'], ['-0.4'])) // 火力压制N 40%
+lib_describe.set('dmgN_35_enemy', describe_propertyN(['enemy'], ['dmg'], ['-0.35'])) // 火力压制N 35%
+lib_describe.set('dmgND_25_enemy', describe_propertyND(['enemy'], ['dmg'], ['-0.25'])) // 火力压制ND 25%
+lib_describe.set('dmgND_22_enemy', describe_propertyND(['enemy'], ['dmg'], ['-0.22'])) // 火力压制ND 22%
+lib_describe.set('dmgND_20_enemy', describe_propertyND(['enemy'], ['dmg'], ['-0.2'])) // 火力压制ND 20%
+lib_describe.set('rof_40_enemy', describe_property(['enemy'], ['rof'], ['-0.4'])) // 烟雾弹 40%
+lib_describe.set('rof_36_enemy', describe_property(['enemy'], ['rof'], ['-0.36'])) // 烟雾弹 36%
+lib_describe.set('rof_30_enemy', describe_property(['enemy'], ['rof'], ['-0.3'])) // 突击压制 30%
+lib_describe.set('rof_28_enemy', describe_property(['enemy'], ['rof'], ['-0.28'])) // 突击压制 28%
+lib_describe.set('rof_25_enemy', describe_property(['enemy'], ['rof'], ['-0.25'])) // 突击压制 25%
+lib_describe.set('rof_22_enemy', describe_property(['enemy'], ['rof'], ['-0.22'])) // 突击压制 22%
 lib_describe.set('eva_55_enemy', describe_property(['enemy'], ['eva'], ['-0.55'])) // 掩护压制 55%
 lib_describe.set('eva_46_enemy', describe_property(['enemy'], ['eva'], ['-0.46'])) // 掩护压制 46%
 lib_describe.set('eva_40_enemy', describe_property(['enemy'], ['eva'], ['-0.4'])) // 掩护压制 40%
 lib_describe.set('evaN_75_enemy', describe_propertyN(['enemy'], ['eva'], ['-0.75'])) // 掩护压制N 75%
 lib_describe.set('evaND_40_enemy', describe_propertyND(['enemy'], ['eva'], ['-0.4'])) // 掩护压制ND 40%
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
-lib_describe.set('rof_30_enemy', describe_property(['enemy'], ['rof'], ['-0.3'])) // 突击压制 30%
+lib_describe.set('acu_36_enemy', describe_property(['enemy'], ['acu'], ['-0.36'])) // 精确压制 36%
 
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
 lib_describe.set('dmgeva_16040', describe_property(['self'], ['dmg/eva'], ['1.6/0.4'])) // 机动专注 160%/40%
@@ -425,6 +437,8 @@ lib_describe.set('rfb', describe_property(['self'], ['dmg/acu'], ['0.8/0.4'])) /
 lib_describe.set('ak12', describe_property(['self'], ['dmg/rof/acu/crit'], ['0.35/0.35/0.35/0.35'])) // 雪狼之眼
 lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) // 狩猎示范
 lib_describe.set('evaacu_4', describe_property(['self'], ['eva/acu'], ['0.8/0.5'])) // 隐秘专注-4星
+lib_describe.set('pm06N', describe_propertyN(['self'], ['eva/acu'], ['1.5/0.8'])) // 隐秘专注N
+lib_describe.set('pm06ND', describe_propertyND(['self'], ['eva/acu'], ['0.5/0.4'])) // 隐秘专注ND
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
 
 lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
@@ -526,7 +540,7 @@ lib_skill.set(4, [createSkill(6, 12, 5, lib_describe.get('python'))]) // 被动�
 lib_skill.set(96, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
 lib_skill.set(97, [createSkill(6, 12, 8, lib_describe.get('com_rof_25'))])
 lib_skill.set(114, [createSkill(6, 12, 6, lib_describe.get('acu_45_enemy'))])
-lib_skill.set(126, [createSkill(6, 12, 8, lib_describe.get('rof_30_enemy'))])
+lib_skill.set(126, [createSkill(6, 12, 8, lib_describe.get('rof_30_enemy'))]) // 突击压制
 lib_skill.set(142, [createSkill(6, 12, 8, lib_describe.get('com_rofcrit_5'))])
 lib_skill.set(166, [createSkill(6, 12, 0, lib_describe.get('cz75'))])
 lib_skill.set(183, [createSkill(6, 12, 0, lib_describe.get('contender'))])
@@ -548,18 +562,27 @@ lib_skill.set(99, [
   createSkill(6, 12, 8, lib_describe.get('com_dmgN_35')),
   createSkill(6, 12, 5, lib_describe.get('com_dmgND_20'))
 ]) // 火N
-lib_skill.set(100, []) // 掩护号令
-lib_skill.set(168, []) //
+lib_skill.set(100, [createSkill(6, 12, 8, lib_describe.get('com_eva_60'))]) // 掩护号令
+lib_skill.set(168, [createSkill(6, 12, 8, lib_describe.get('rof_28_enemy'))]) // 突击压制
 lib_skill.set(202, [createSkill(4, 12, 0, lib_describe.get('thunder'))]) // 雷电
 lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
 lib_skill.set(248, [createSkill(6, 12, 8, lib_describe.get('jericho'))]) // 被动单独判断 
-lib_skill.set(1002, [createSkill(1, 12, 0, lib_describe.get('m1911'))])
-lib_skill.set(1005, []) // 纳甘左轮被动实现于特殊变量表
-lib_skill.set(1091, [createSkill(6, 12, 4, lib_describe.get('mp446'))])
+lib_skill.set(1002, [
+  createSkill(1, 12, 0, lib_describe.get('m1911')), // 绝境神枪手
+  createSkill(1, 12, 4, lib_describe.get('rof_40_enemy')) // 烟雾弹 40%
+])
+lib_skill.set(1005, [ // 纳甘左轮被动实现于特殊变量表
+  createSkill(6, 12, 8, lib_describe.get('dmgN_40_enemy')),
+  createSkill(6, 12, 5, lib_describe.get('dmgND_25_enemy'))
+])
+lib_skill.set(1091, [
+  createSkill(6, 12, 8, lib_describe.get('rof_28_enemy')),
+  createSkill(6, 12, 4, lib_describe.get('mp446')) // 潮音侵袭
+])
 
 lib_skill.set(3, [createSkill(7, 12, 0, lib_describe.get('flash_3'))]) // 闪光弹
 lib_skill.set(6, [createSkill(6, 12, 8, lib_describe.get('com_eva_55'))]) // 掩护号令 55%
-lib_skill.set(8, []) // 精确压制
+lib_skill.set(8, [createSkill(6, 12, 6, lib_describe.get('acu_36_enemy'))]) // 精确压制
 lib_skill.set(11, [
   createSkill(6, 12, 8, lib_describe.get('com_evaN_85')),
   createSkill(6, 12, 5, lib_describe.get('com_evaND_35'))
@@ -567,7 +590,7 @@ lib_skill.set(11, [
 lib_skill.set(12, [createSkill(3, 16, 15, lib_describe.get('com_acuN_100'))])
 lib_skill.set(13, [createSkill(6, 12, 8, lib_describe.get('com_dmgrof_3'))]) // 冲锋号令-3星
 lib_skill.set(14, [createSkill(6, 12, 8, lib_describe.get('com_rof_20'))])
-lib_skill.set(15, []) //
+lib_skill.set(15, [createSkill(6, 12, 8, lib_describe.get('dmg_25_enemy'))]) // 火力压制 25%
 lib_skill.set(113, [createSkill(6, 12, 8, lib_describe.get('com_dmg_20'))]) // 火力号令 20%
 lib_skill.set(123, [createSkill(6, 12, 8, lib_describe.get('com_eva_55'))]) // 掩护号令 55%
 lib_skill.set(132, [
@@ -576,19 +599,25 @@ lib_skill.set(132, [
 ])
 lib_skill.set(140, [createSkill(6, 12, 8, lib_describe.get('com_acueva_3'))]) // 隐秘号令-3星
 lib_skill.set(167, [createSkill(6, 12, 8, lib_describe.get('com_dmgacu_3'))]) // 强袭号令-3星
-lib_skill.set(186, []) //
+lib_skill.set(186, [createSkill(6, 12, 8, lib_describe.get('rof_25_enemy'))]) // 突击压制 25%
 lib_skill.set(210, [createSkill(6, 12, 8, lib_describe.get('com_dmg_20'))]) // 火力号令 20%
-lib_skill.set(220, []) //
+lib_skill.set(220, [createSkill(6, 12, 8, lib_describe.get('dmg_25_enemy'))]) // 火力压制 25%
 lib_skill.set(221, [createSkill(6, 12, 6, lib_describe.get('gsh18'))])
 lib_skill.set(232, [createSkill(6, 12, 8, lib_describe.get('eva_46_enemy'))]) // 掩护压制 46%
-lib_skill.set(244, []) //
+lib_skill.set(244, [
+  createSkill(6, 12, 8, lib_describe.get('dmgN_40_enemy')),
+  createSkill(6, 12, 5, lib_describe.get('dmgND_22_enemy'))
+])
 
-lib_skill.set(2, []) //
-lib_skill.set(5, []) //
+lib_skill.set(2, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) // 烟雾弹 36%
+lib_skill.set(5, [
+  createSkill(6, 12, 8, lib_describe.get('dmgN_35_enemy')),
+  createSkill(6, 12, 5, lib_describe.get('dmgND_20_enemy'))
+])
 lib_skill.set(9, [createSkill(3, 16, 15, lib_describe.get('com_acuN_90'))])
 lib_skill.set(10, [createSkill(6, 12, 8, lib_describe.get('com_dmgcrit_2'))]) // 歼灭号令-2星
 lib_skill.set(90, [createSkill(6, 12, 8, lib_describe.get('eva_40_enemy'))])
-lib_skill.set(91, []) //
+lib_skill.set(91, [createSkill(6, 12, 8, lib_describe.get('rof_22_enemy'))]) // 突击压制 22%
 lib_skill.set(139, [createSkill(6, 12, 8, lib_describe.get('com_dmg_18'))])
 lib_skill.set(141, [createSkill(6, 12, 8, lib_describe.get('com_acu_100'))])
 
@@ -623,7 +652,7 @@ lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('m4'))
 ])
 lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
-lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚可以单独在普攻实现，无需制作
+lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚单独在普攻实现
 lib_skill.set(1064, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 5, lib_describe.get('g36_eva'))
@@ -700,7 +729,10 @@ lib_skill.set(143, [
   createSkill(3, 12, 5, lib_describe.get('dmg_25_enemy'))
 ]) //
 lib_skill.set(213, []) // 心情链环由特殊设置决定
-lib_skill.set(224, []) //
+lib_skill.set(224, [ // 隐秘专注N
+  createSkill(4, 16, 10, lib_describe.get('pm06N')),
+  createSkill(4, 16, 10, lib_describe.get('pm06ND'))
+])
 lib_skill.set(228, [createSkill(13, 16, 5, lib_describe.get('type100'))]) // 暂时不做护盾
 lib_skill.set(234, [createSkill(6, 8, 5, lib_describe.get('js9'))])
 lib_skill.set(245, [createSkill(6, 12, 5, lib_describe.get('p90'))])

@@ -1478,6 +1478,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       if (status[0][0].substr(6) === 'eva') enemy_eva = Math.ceil(enemy_eva * status[0][1])
       if (display_type === 'suffer') {
         if (status[0][0].substr(6) === 'dmg') enemy_dmg = Math.ceil(enemy_dmg * status[0][1])
+        if (status[0][0].substr(6) === 'rof') enemy_rof = Math.ceil(enemy_rof * status[0][1])
         if (status[0][0].substr(6) === 'acu') enemy_acu = Math.ceil(enemy_acu * status[0][1])
       }
     } else if (situation === 'enemy_lost') {
@@ -1487,6 +1488,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       }
       if (display_type === 'suffer') {
         if (status[0][0].substr(6) === 'dmg') enemy_dmg = Math.floor(enemy_dmg / status[0][1])
+        if (status[0][0].substr(6) === 'rof') enemy_rof = Math.floor(enemy_rof / status[0][1])
         if (status[0][0].substr(6) === 'acu') enemy_eva = Math.floor(enemy_acu / status[0][1])
       }
     }
@@ -1681,7 +1683,8 @@ function injury (shoot_target) {
   var current_Info = Set_Base.get(shoot_target).Info
   var accuracy = enemy_acu
   var damage = enemy_dmg
-  if (is_this(shoot_target, 59) && Set_EnemyStatus.get('aks_debuff' + shoot_target) >= global_frame) { // 如果攻击AK-74U且排斥反应生效
+  // is_this(shoot_target, 59) && 
+  if (Set_EnemyStatus.get('aks_debuff' + shoot_target) >= global_frame) { // 如果攻击AK-74U且排斥反应生效
     if (enemy_type === 'normal') {
       accuracy *= 0.5
       damage *= 0.5
@@ -1929,6 +1932,7 @@ function recordData_HF () {
   } else {
     Set_Data_HF.get(hfn).push([current_time, lastData])
   }
+  global_total_dmg += increment
 }
 function recordData_suffer (stand_num, current_time, decrement) {
   var lastData = (Set_Data_S.get(stand_num))[(Set_Data_S.get(stand_num)).length - 1][1]
