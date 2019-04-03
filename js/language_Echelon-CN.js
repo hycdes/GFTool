@@ -7,6 +7,8 @@ lib_language = {
   main_makeGraph_2: '伤害',
   UI_affect: '影响',
   UI_num: '号位',
+  UI_dmg: '输出',
+  UI_inj: '承伤',
   UI_putsee: '放置人形后才能显示受到的增益',
   UI_pickblock: '请点选一个<b><span style="color: red">九宫格</span></b>',
   UI_not_2_python: ' *不能添加两个蟒蛇',

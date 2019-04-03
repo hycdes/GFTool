@@ -7,6 +7,8 @@ lib_language = {
   main_makeGraph_2: '피해',
   UI_affect: '',
   UI_num: '번 자리',
+  UI_dmg: '공격',
+  UI_inj: '방어',
   UI_putsee: '여기에 받고 있는 진형 버프가 표시됩니다',
   UI_pickblock: '<b><span style="color: red">배치할 자리</span></b> 를 선택해 주세요',
   UI_not_2_python: ' *파이슨을 2기 이상 추가할 수 없습니다.',

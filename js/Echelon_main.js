@@ -210,13 +210,13 @@ function getResult (multiple, action) {
       }
     }
   }
-  if (display_type === 'suffer') {
-    document.getElementById('display_controller1').innerHTML = '<input type="checkbox" id="display_showDPS" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_dmg + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
-    document.getElementById('display_controller2').innerHTML = '<input type="checkbox" id="display_showINJ" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_inj
-  } else {
-    document.getElementById('display_controller1').innerHTML = ''
-    document.getElementById('display_controller2').innerHTML = ''
-  }
+  // if (display_type === 'suffer') {
+  //   document.getElementById('display_controller1').innerHTML = '<input type="checkbox" id="display_showDPS" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_dmg + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
+  //   document.getElementById('display_controller2').innerHTML = '<input type="checkbox" id="display_showINJ" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_inj
+  // } else {
+  //   document.getElementById('display_controller1').innerHTML = ''
+  //   document.getElementById('display_controller2').innerHTML = ''
+  // }
   // 场次平均
   for (var i = 0; i < 9; i++) {
     var this_data = Set_Data_Buffer.get(i)
@@ -335,6 +335,8 @@ function getResult (multiple, action) {
     eval('str_label[9]=lib_language.fairyNAME_' + fairy_no + '+lib_language.main_draw_2+current_data[len_data - 1][1]+"("+((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + "%)"')
   }
   x_max_buffer = x_max, y_max_buffer = y_max, y2_max_buffer = y_max_suffer, str_label_buffer = str_label, str_label_buffer_nameonly = str_label_nameonly
+  document.getElementById('table_showhide').innerHTML = ''
+  initShowhide()
   makeGraph(x_max, y_max, str_label)
   showEnvi()
 }

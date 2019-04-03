@@ -14,7 +14,12 @@ function makeGraph (x_max, y_max, str_label) {
   var base_data = []
   var base_yaxis = []
   for (var i = 0; i < 9; i++) { // 人形输出数据
-    if (list_show[i] && gs_tdoll[i]) base_data.push({ data: Set_Data.get(i), label: str_label[i], color: list_color[i],yaxis: 1})
+    if (list_show[i] && gs_tdoll[i]) base_data.push({
+        data: Set_Data.get(i),
+        label: str_label[i],
+        color: list_color[i],
+        yaxis: 1
+      })
   }
   if (gs_fairy && list_show[9]) base_data.push({ data: Set_Data.get(9), label: str_label[9], color: list_color[9],yaxis: 1}) // 妖精输出数据
   for (var i = 0; i < 5; i++) {

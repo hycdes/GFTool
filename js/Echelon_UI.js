@@ -1120,3 +1120,155 @@ function check_inj_order () {
   }
   inj_order = document.getElementById('inj_order').value
 }
+function trans_if_need (num) {
+  if (lang_type === 'ko') {
+    if (num >= 7) num -= 6
+    else if (num <= 3) num += 6
+  }
+  return num
+}
+
+function initShowhide () {
+  document.getElementById('title_showhide').innerHTML = '显示设置'
+  var tableID = document.getElementById('table_showhide')
+  var tableHTML = ''
+  var h = 35
+  if (display_type === 'damage') h = 70
+  tableHTML += '<tbody>'
+  for (var row = 0; row < 3; row++) {
+    tableHTML += '<tr style="height:' + h + 'px">'
+    for (var col = 0; col < 3; col++) {
+      tableHTML += '<td style="width:90px">'
+      if (list_tdoll[3 * row + col][1] != null) {
+        tableHTML += '<button type="button" class="btn btn-primary" id="show'
+        tableHTML += (3 * row + col) + '" style="width:70px;padding:2px" onclick="show_hide('
+        tableHTML += (3 * row + col) + ',0)">' + trans_if_need(1 + (3 * row + col)) + lib_language.UI_num + '</button>'
+      } else {
+        tableHTML += ''
+      }
+      tableHTML += '</td>'
+    }
+    tableHTML += '</tr>'
+    if (display_type === 'suffer') {
+      tableHTML += '<tr style="height:35px">'
+      for (var col = 0; col < 3; col++) {
+        tableHTML += '<td style="width:90px">'
+        if (list_tdoll[3 * row + col][1] != null) {
+          tableHTML += '<button type="button" class="btn btn-primary" id="show'
+          tableHTML += (3 * row + col) + '_1" style="width:38px;padding:2px" onclick="show_hide(' + (3 * row + col) + ',1)">' + lib_language.UI_dmg + '</button>&nbsp'
+          tableHTML += '<button type="button" class="btn btn-primary" id="show'
+          tableHTML += (3 * row + col) + '_2" style="width:38px;padding:2px" onclick="show_hide(' + (3 * row + col) + ',2)">' + lib_language.UI_inj + '</button>'
+        } else {
+          tableHTML += ''
+        }
+        tableHTML += '</td>'
+      }
+      tableHTML += '</tr>'
+    }
+  }
+  tableHTML += '</tbody>'
+  tableID.innerHTML = tableHTML
+  if (display_type === 'suffer') {
+    var acHTML = ''
+    acHTML += '<button type="button" class="btn btn-success" id="show_dmg" onclick="show_hide(1,3)">' + lib_language.main_show_dmg + '</button>&nbsp'
+    acHTML += '<button type="button" class="btn btn-success" id="show_inj" onclick="show_hide(2,3)">' + lib_language.main_show_inj + '</button>'
+    document.getElementById('allcontrol_showhide').innerHTML = acHTML
+    for (var row = 0; row < 3; row++) {
+      for (var col = 2; col >= 0; col--) {
+        if (list_tdoll[3 * row + col][1] === null) mergeCell('table_showhide', 2 * row, 2 * row + 1, col)
+      }
+    }
+  }
+}
+function show_hide (stand_num, command) {
+  if (command === 0) {
+    if (display_type === 'damage') {
+      if (list_show[stand_num]) {
+        list_show[stand_num] = false
+        document.getElementById('show' + stand_num).className = 'btn btn-default'
+      } else {
+        list_show[stand_num] = true
+        document.getElementById('show' + stand_num).className = 'btn btn-primary'
+      }
+    } else if (display_type === 'suffer') {
+      if (list_show[stand_num] || list_show[stand_num + 10]) {
+        list_show[stand_num] = false
+        list_show[stand_num + 10] = false
+        document.getElementById('show' + stand_num).className = 'btn btn-default'
+        document.getElementById('show' + stand_num + '_1').className = 'btn btn-default'
+        document.getElementById('show' + stand_num + '_2').className = 'btn btn-default'
+      } else {
+        list_show[stand_num] = true
+        list_show[stand_num + 10] = true
+        document.getElementById('show' + stand_num).className = 'btn btn-primary'
+        document.getElementById('show' + stand_num + '_1').className = 'btn btn-primary'
+        document.getElementById('show' + stand_num + '_2').className = 'btn btn-primary'
+      }
+    }
+  } else if (command === 1) {
+    if (list_show[stand_num]) {
+      list_show[stand_num] = false
+      document.getElementById('show' + stand_num + '_1').className = 'btn btn-default'
+    } else {
+      list_show[stand_num] = true
+      document.getElementById('show' + stand_num + '_1').className = 'btn btn-primary'
+    }
+    if (list_show[stand_num] || list_show[stand_num + 10]) {
+      document.getElementById('show' + stand_num).className = 'btn btn-primary'
+    } else {
+      document.getElementById('show' + stand_num).className = 'btn btn-default'
+    }
+  } else if (command === 2) {
+    if (list_show[stand_num + 10]) {
+      list_show[stand_num + 10] = false
+      document.getElementById('show' + stand_num + '_2').className = 'btn btn-default'
+    } else {
+      list_show[stand_num + 10] = true
+    }
+    if (list_show[stand_num] || list_show[stand_num + 10]) {
+      document.getElementById('show' + stand_num).className = 'btn btn-primary'
+    } else {
+      document.getElementById('show' + stand_num).className = 'btn btn-default'
+    }
+  } else if (command === 3) {
+    if (stand_num === 1) {
+      if (document.getElementById('show_dmg').className === 'btn btn-success') {
+        for (var i = 0; i < 9; i++) {
+          if (list_tdoll[i][1] != null) {
+            list_show[i] = false
+            document.getElementById('show' + i + '_1').className = 'btn btn-default'
+          }
+        }
+        document.getElementById('show_dmg').className = 'btn btn-default'
+      } else {
+        for (var i = 0; i < 9; i++) {
+          if (list_tdoll[i][1] != null) {
+            list_show[i] = true
+            document.getElementById('show' + i + '_1').className = 'btn btn-primary'
+          }
+        }
+        document.getElementById('show_dmg').className = 'btn btn-success'
+      }
+    } else if (stand_num === 2) {
+      if (document.getElementById('show_inj').className === 'btn btn-success') {
+        for (var i = 0; i < 9; i++) {
+          if (list_tdoll[i][1] != null) {
+            list_show[i + 10] = false
+            document.getElementById('show' + i + '_2').className = 'btn btn-default'
+          }
+        }
+        document.getElementById('show_inj').className = 'btn btn-default'
+      } else {
+        for (var i = 0; i < 9; i++) {
+          if (list_tdoll[i][1] != null) {
+            list_show[i + 10] = true
+            document.getElementById('show' + i + '_2').className = 'btn btn-primary'
+          }
+        }
+        document.getElementById('show_inj').className = 'btn btn-success'
+      }
+    }
+  }
+
+  makeGraph(x_max_buffer, y_max_buffer, str_label_buffer)
+}
