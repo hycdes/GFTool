@@ -35,6 +35,7 @@ window.onload = function () {
     loadScript('../js/Echelon_property.js')
     loadScript('../js/Echelon_skill.js')
     loadScript('../js/Echelon_UI.js')
+    loadScript('../js/Echelon_graph.js')
     loadScript('../js/Echelon_select.js')
     mergeCell('table_property', 0, 2, 0)
     mergeCell('table_affect', 0, 2, 3)

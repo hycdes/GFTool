@@ -41,6 +41,9 @@ var Set_Data_S = new Map // 承伤数据
 var Set_Data_S_Buffer = new Map // 承伤数据缓存
 var Set_Data_HF = new Map // 重装部队输出数据
 var Set_Data_HF_Buffer = new Map // 重装部队输出数据缓存
+var gs_tdoll = [false, false, false, false, false, false, false, false, false]
+var gs_fairy = false
+var gs_HF = [false, false, false, false, false]
 // special variations
 var not_init = false // 控制蟒蛇能够开始复读的开关
 
@@ -1941,176 +1944,6 @@ function recordData_suffer (stand_num, current_time, decrement) {
 
 function formater_DPS (e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
 function formater_ALL (e) { return 'x=' + e.x + ', y=' + e.y }
-function makeGraph (x_max, y_max, str_label) {
-  var container = document.getElementById('container')
-  if (display_type === 'damage') {
-    graph = Flotr.draw(container, [
-      { data: Set_Data.get(0), label: str_label[0]},
-      { data: Set_Data.get(1), label: str_label[1]},
-      { data: Set_Data.get(2), label: str_label[2]},
-      { data: Set_Data.get(3), label: str_label[3]},
-      { data: Set_Data.get(4), label: str_label[4]},
-      { data: Set_Data.get(5), label: str_label[5]},
-      { data: Set_Data.get(6), label: str_label[6]},
-      { data: Set_Data.get(7), label: str_label[7]},
-      { data: Set_Data.get(8), label: str_label[8]},
-      { data: Set_Data.get(9), label: str_label[9]},
-      { data: Set_Data_HF.get(0), label: str_label[19]},
-      { data: Set_Data_HF.get(1), label: str_label[20]},
-      { data: Set_Data_HF.get(2), label: str_label[21]},
-      { data: Set_Data_HF.get(3), label: str_label[22]},
-      { data: Set_Data_HF.get(4),label: str_label[23]}
-    ], {
-      colors: [
-        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
-        '#666666',
-        '#8001A0', '#FF9900', '#FFFF00', '#CC00FF', '#FFCCFF'
-      ],
-      xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
-      yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
-      mouse: { track: true, relative: true, trackFormatter: formater_DPS },
-      points: { show: false },
-      HtmlText: false,
-      grid: { verticalLines: false },
-      legend: {
-        position: 'nw',
-        backgroundColor: '#FFFFFF'
-      }
-    })
-  } else if (display_type === 'suffer') {
-    graph = Flotr.draw(container, [
-      { data: Set_Data.get(0), label: str_label[0]},
-      { data: Set_Data.get(1), label: str_label[1]},
-      { data: Set_Data.get(2), label: str_label[2]},
-      { data: Set_Data.get(3), label: str_label[3]},
-      { data: Set_Data.get(4), label: str_label[4]},
-      { data: Set_Data.get(5), label: str_label[5]},
-      { data: Set_Data.get(6), label: str_label[6]},
-      { data: Set_Data.get(7), label: str_label[7]},
-      { data: Set_Data.get(8), label: str_label[8]},
-      { data: Set_Data.get(9), label: str_label[9]},
-      { data: Set_Data_S.get(0), label: str_label[10], yaxis: 2},
-      { data: Set_Data_S.get(1), label: str_label[11], yaxis: 2},
-      { data: Set_Data_S.get(2), label: str_label[12], yaxis: 2},
-      { data: Set_Data_S.get(3), label: str_label[13], yaxis: 2},
-      { data: Set_Data_S.get(4), label: str_label[14], yaxis: 2},
-      { data: Set_Data_S.get(5), label: str_label[15], yaxis: 2},
-      { data: Set_Data_S.get(6), label: str_label[16], yaxis: 2},
-      { data: Set_Data_S.get(7), label: str_label[17], yaxis: 2},
-      { data: Set_Data_S.get(8), label: str_label[18], yaxis: 2 },
-      { data: Set_Data_HF.get(0), label: str_label[19]},
-      { data: Set_Data_HF.get(1), label: str_label[20]},
-      { data: Set_Data_HF.get(2), label: str_label[21]},
-      { data: Set_Data_HF.get(3), label: str_label[22]},
-      { data: Set_Data_HF.get(4),label: str_label[23]}
-    ], {
-      colors: [
-        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099', '#666666',
-        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
-        '#8001A0', '#FF9900', '#FFFF00', '#CC00FF', '#FFCCFF'
-      ],
-      xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
-      yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
-      y2axis: { color: '#FF0000', title: lib_language.main_makeGraph_3,  max: y2_max_buffer, min: 0},
-      mouse: { track: true, relative: true, trackFormatter: formater_ALL },
-      points: { show: false },
-      HtmlText: false,
-      grid: { verticalLines: false },
-      legend: {
-        position: 'nw',
-        backgroundColor: '#FFFFFF'
-      }
-    })
-  } else if (display_type == 'suffer_only') {
-    graph = Flotr.draw(container, [
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: str_label[9]},
-      { data: Set_Data_S.get(0), label: str_label[0], yaxis: 2},
-      { data: Set_Data_S.get(1), label: str_label[1], yaxis: 2},
-      { data: Set_Data_S.get(2), label: str_label[2], yaxis: 2},
-      { data: Set_Data_S.get(3), label: str_label[3], yaxis: 2},
-      { data: Set_Data_S.get(4), label: str_label[4], yaxis: 2},
-      { data: Set_Data_S.get(5), label: str_label[5], yaxis: 2},
-      { data: Set_Data_S.get(6), label: str_label[6], yaxis: 2},
-      { data: Set_Data_S.get(7), label: str_label[7], yaxis: 2},
-      { data: Set_Data_S.get(8), label: str_label[8], yaxis: 2},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [],label: ''}
-    ], {
-      colors: [
-        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099', '#666666',
-        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
-        '#8001A0', '#FF9900', '#FFFF00', '#CC00FF', '#FFCCFF'
-      ],
-      xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
-      yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
-      y2axis: { color: '#FF0000', title: lib_language.main_makeGraph_3,  max: y2_max_buffer, min: 0},
-      mouse: { track: true, relative: true, trackFormatter: formater_ALL },
-      points: { show: false },
-      HtmlText: false,
-      grid: { verticalLines: false },
-      legend: {
-        position: 'nw',
-        backgroundColor: '#FFFFFF'
-      }
-    })
-  } else if (display_type === 'nothing') {
-    graph = Flotr.draw(container, [
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: '', yaxis: 2},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [], label: ''},
-      { data: [],label: ''}
-    ], {
-      colors: [
-        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099', '#666666',
-        '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
-        '#8001A0', '#FF9900', '#FFFF00', '#CC00FF', '#FFCCFF'
-      ],
-      xaxis: { title: lib_language.main_makeGraph_1, max: x_max, min: 0 },
-      yaxis: { title: lib_language.main_makeGraph_2, max: y_max, min: 0 },
-      y2axis: { color: '#FF0000', title: lib_language.main_makeGraph_3,  max: y2_max_buffer, min: 0},
-      mouse: { track: true, relative: true, trackFormatter: formater_ALL },
-      points: { show: false },
-      HtmlText: false,
-      grid: { verticalLines: false },
-      legend: {
-        position: 'nw',
-        backgroundColor: '#FFFFFF'
-      }
-    })
-  }
-}
 
 function get_g36_standblo (stand_num) {
   var num_all = 0
@@ -2135,6 +1968,7 @@ function init_resetAllConfig () { // 重置所有数据
     if (list_tdoll[i][1] != null) queue_tdoll.push(i) // 统计战术人形站位
     list_tdoll[i][0] = 5 // 恢复编制
   }
+  for (var i = 0; i < 24; i++) list_show[i] = true
   fragile_main = 1; fragile_all = 1
   Set_Special.set('can_add_python', true)
   Set_Special.set('can_add_karm1891', true)
@@ -2159,6 +1993,7 @@ function init_loadPrepareStatus () { // 初始化战前属性
   for (var i = 0; i < 5; i++) { // 重装部队数据初始化
     Set_Data_HF.set(i, [[0, 0]])
     if (list_HF[i][0]) { // 支援中的重装设定初始到达时间1s
+      gs_HF[i] = true
       Set_Special.set('HF_causedamage' + i, false)
       Set_Special.set('HF_incoming' + i, 30)
       Set_Special.set('HF_reloading' + i, fil_to_frame(list_HF[i][1].v4 + list_HF[i][2].v4 + list_HF[i][3].v4))
@@ -2179,6 +2014,7 @@ function init_loadPrepareStatus () { // 初始化战前属性
   }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
+      gs_tdoll[i] = true
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
       if (display_type === 'suffer') { // 初始化生命值
         Set_Data_S.set(i, [[0, Set_Base.get(i).Info.get('hp')]])
@@ -2268,6 +2104,7 @@ function init_loadPrepareStatus () { // 初始化战前属性
   }
   // 妖精属性和不可复读buff
   if (fairy_no > 0) {
+    gs_fairy = true
     var fairy_info = lib_fairy.get(fairy_no)
     var list_property = (fairy_info.property).split('/')
     var list_value = (fairy_info.value).split('/')
@@ -2458,17 +2295,17 @@ function refreshImage () { makeGraph(x_max_buffer, y_max_buffer, str_label_buffe
 function exchangeDisplayImage () {
   var s_dmg = document.getElementById('display_showDPS').checked
   var s_inj = document.getElementById('display_showINJ').checked
+  for (i = 0; i < 24; i++) list_show[i] = true
   if (s_dmg && s_inj) {
-    display_type = 'suffer'
     makeGraph(x_max_buffer, y_max_buffer, str_label_buffer)
   } else if (s_dmg && !s_inj) {
-    display_type = 'damage'
+    for (i = 10; i < 19; i++) list_show[i] = false
     makeGraph(x_max_buffer, y_max_buffer, str_label_buffer)
   } else if (!s_dmg && s_inj) {
-    display_type = 'suffer_only'
+    for (i = 0; i < 10; i++) list_show[i] = false
     makeGraph(x_max_buffer, y_max_buffer, str_label_buffer_nameonly)
   } else {
-    display_type = 'nothing'
+    for (i = 0; i < 24; i++) list_show[i] = false
     makeGraph(x_max_buffer, y_max_buffer, str_label_buffer_nameonly)
   }
 }

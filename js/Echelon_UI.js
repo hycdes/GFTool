@@ -737,14 +737,14 @@ function deleteTdoll () { // 删除战术人形
   }
 }
 function setWidth (command) {
-  document.getElementById('container').style = 'width: ' + parseInt(command) + 'px'
+  document.getElementById('placeholder').style = 'width: ' + parseInt(command) + 'px;height:400px'
   var btn_num = 1
   if (parseInt(command) === 300) btn_num = 1
   else if (parseInt(command) === 700) btn_num = 2
   else if (parseInt(command) === 900) btn_num = 3
   for (var i = 1; i <= 3; i++) document.getElementById('wid' + i).className = 'btn btn-default'
   document.getElementById('wid' + btn_num).className = 'btn btn-primary'
-  refreshImage('container')
+  refreshImage('placeholder')
 }
 function changeSunrise (type) {
   if (type === 1) {
