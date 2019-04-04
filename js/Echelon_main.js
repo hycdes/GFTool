@@ -33,7 +33,10 @@ var fragile_main = 1, fragile_all = 1 // 主目标脆弱，范围脆弱
 var last_DPS = 0
 var inj_order = '639528417'
 // Graph
-var x_max_buffer = 0, y_max_buffer = 0,y2_max_buffer = 0, str_label_buffer = [],str_label_buffer_nameonly = [], totaldamage_buffer = 0 // 更改宽度和显示模式的缓存值
+var Glabel_name = new Map
+var Glabel_dmg = new Map
+var Glabel_inj = new Map
+var x_max_buffer = 0, y_max_buffer = 0, y2_max_buffer = 0, y2_min_buffer = 0, totaldamage_buffer = 0 // 更改宽度和显示模式的缓存值
 var display_type = 'damage' // 模拟类型
 var Set_Data = new Map // 输出数据
 var Set_Data_Buffer = new Map // 输出数据缓存
@@ -41,7 +44,7 @@ var Set_Data_S = new Map // 承伤数据
 var Set_Data_S_Buffer = new Map // 承伤数据缓存
 var Set_Data_HF = new Map // 重装部队输出数据
 var Set_Data_HF_Buffer = new Map // 重装部队输出数据缓存
-var gs_tdoll = [false, false, false, false, false, false, false, false, false]
+var gs_tdoll = [false, false, false, false, false, false, false, false, false] // 是否上场开关
 var gs_fairy = false
 var gs_HF = [false, false, false, false, false]
 // special variations
@@ -210,13 +213,6 @@ function getResult (multiple, action) {
       }
     }
   }
-  // if (display_type === 'suffer') {
-  //   document.getElementById('display_controller1').innerHTML = '<input type="checkbox" id="display_showDPS" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_dmg + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'
-  //   document.getElementById('display_controller2').innerHTML = '<input type="checkbox" id="display_showINJ" onclick="exchangeDisplayImage()" checked>' + lib_language.main_show_inj
-  // } else {
-  //   document.getElementById('display_controller1').innerHTML = ''
-  //   document.getElementById('display_controller2').innerHTML = ''
-  // }
   // 场次平均
   for (var i = 0; i < 9; i++) {
     var this_data = Set_Data_Buffer.get(i)
@@ -247,16 +243,6 @@ function getResult (multiple, action) {
   // 绘图
   var x_max = Math.ceil(time / 30)
   var y_max = 0
-  var str_label = [
-    '', '', '', '', '', '', '', '', '', '', // echelon*9 + fairy
-    '', '', '', '', '', '', '', '', '', // echelon hp*9
-    '', '', '', '', '', '' // heavyfire
-  ]
-  var str_label_nameonly = [
-    '', '', '', '', '', '', '', '', '', '', // echelon*9 + fairy
-    '', '', '', '', '', '', '', '', '', // echelon hp*9
-    '', '', '', '', '', '' // heavyfire
-  ]
   totaldamage_buffer = 0
   // 总伤害
   for (var i = 0; i < 9; i++) {
@@ -278,53 +264,63 @@ function getResult (multiple, action) {
     recordData(9, time, 0)
   }
   totaldamage_buffer += Set_Data.get(9)[Set_Data.get(9).length - 1][1]
-  // 梯队伤害统计百分比
+  // Tdoll-dmg percentage
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data.get(i)
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
-      var reverse_position = i
-      if (lang_type === 'ko') {
-        if (reverse_position >= 6) reverse_position -= 6
-        else if (reverse_position <= 2) reverse_position += 6
-      }
-      str_label[i] += (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + lib_language.main_draw_2 + current_data[len_data - 1][1]
-      str_label_nameonly[i] += (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name
-      if (totaldamage_buffer > 0) str_label[i] += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+      var reverse_position = trans_if_need(i)
+      var temp_name = (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + ' '
+      var temp_dmg = lib_language.main_draw_2 + current_data[len_data - 1][1]
+      if (totaldamage_buffer > 0) temp_dmg += '(' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+      temp_dmg += ' '
+      Glabel_name.set(i, temp_name);Glabel_dmg.set(i, temp_dmg)
     }
   }
-  // 重装部队伤害统计百分比
+  // HF-dmg percentage
   for (var i = 0; i < 5; i++) {
     if (list_HF[i][0]) {
       var current_data = Set_Data_HF.get(i)
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data_HF.get(i)[d][0] = (Set_Data_HF.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data_HF.get(i)[len_data - 1][1] > y_max) y_max = Set_Data_HF.get(i)[len_data - 1][1]
-      var HF_name = ''
-      if (i === 0) HF_name = 'BGM-71'
-      else if (i === 1) HF_name = 'AGS-30'
-      else if (i === 2) HF_name = '2B-14'
-      else if (i === 3) HF_name = 'M2'
-      else if (i === 4) HF_name = 'AT4'
-      str_label[i + 19] += HF_name + lib_language.main_draw_2 + current_data[len_data - 1][1]
-      str_label_nameonly[i + 19] += HF_name
-      if (totaldamage_buffer > 0) str_label[i + 19] += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+      var temp_name = ''
+      if (i === 0) temp_name = 'BGM-71'
+      else if (i === 1) temp_name = 'AGS-30'
+      else if (i === 2) temp_name = '2B-14'
+      else if (i === 3) temp_name = 'M2'
+      else if (i === 4) temp_name = 'AT4'
+      temp_name += ' '
+      var temp_dmg = lib_language.main_draw_2 + current_data[len_data - 1][1]
+      if (totaldamage_buffer > 0) temp_dmg += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+      Glabel_name.set('HF' + i, temp_name);Glabel_dmg.set('HF' + i, temp_dmg)
     }
   }
-  // 承伤最大值
+  // Tdoll-inj stat
   var y_max_suffer = 0
+  var y_min_suffer = 9999
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data_S.get(i)
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data_S.get(i)[d][0] = (Set_Data_S.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data_S.get(i)[0][1] > y_max_suffer) y_max_suffer = Set_Data_S.get(i)[0][1]
+      if (Set_Data_S.get(i)[len_data - 1][1] < y_min_suffer) y_min_suffer = Set_Data_S.get(i)[len_data - 1][1]
       if (lang_type === 'ko') {
         if (reverse_position >= 6) reverse_position -= 6
         else if (reverse_position <= 2) reverse_position += 6
       }
+      var last_hp = current_data[len_data - 1][1]
+      var temp_inj = ''
+      if (last_hp <= 0) temp_inj += lib_language.main_makeGraph_dead
+      else {
+        var hp_ratio = last_hp / list_tdoll[i][1].Property.hp
+        temp_inj += lib_language.main_makeGraph_3 + '=' + last_hp
+        temp_inj += '(' + lib_language.form + Math.ceil(5 * hp_ratio) + ', ' + (100 * hp_ratio).toFixed(2) + '%)'
+      }
+      Glabel_inj.set(i, temp_inj)
     }
   }
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
@@ -332,12 +328,15 @@ function getResult (multiple, action) {
     var len_data = current_data.length
     for (var d = 0; d < len_data; d++) Set_Data.get(9)[d][0] = (Set_Data.get(9)[d][0] / 30).toFixed(1)
     if (y_max < Set_Data.get(9)[Set_Data.get(9).length - 1][1]) y_max = Set_Data.get(9)[Set_Data.get(9).length - 1][1]
-    eval('str_label[9]=lib_language.fairyNAME_' + fairy_no + '+lib_language.main_draw_2+current_data[len_data - 1][1]+"("+((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + "%)"')
+    var temp_dmg = ''
+    eval('Glabel_name.set("fairy",lib_language.fairyNAME_' + fairy_no + '+" ")')
+    temp_dmg = lib_language.main_draw_2 + current_data[len_data - 1][1] + '(' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+    Glabel_dmg.set('fairy', temp_dmg)
   }
-  x_max_buffer = x_max, y_max_buffer = y_max, y2_max_buffer = y_max_suffer, str_label_buffer = str_label, str_label_buffer_nameonly = str_label_nameonly
+  x_max_buffer = x_max, y_max_buffer = y_max, y2_max_buffer = y_max_suffer, y2_min_buffer = y_min_suffer
   document.getElementById('table_showhide').innerHTML = ''
   initShowhide()
-  makeGraph(x_max, y_max, str_label)
+  makeGraph()
   showEnvi()
 }
 
@@ -1963,6 +1962,10 @@ function get_g36_standblo (stand_num) {
 function init_resetAllConfig () { // 重置所有数据
   queue_tdoll = [] // 清空站位队列
   global_total_dmg = 0 // 总伤害重置
+  // 重置存在开关
+  for (var i = 0; i < 9; i++) gs_tdoll[i] = false
+  for (var i = 0; i < 5; i++) gs_HF[i] = false
+  gs_fairy = false
   last_DPS = 0
   not_init = false // 此阶段所有buff皆不可复读
   Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear(); Set_Data_HF.clear(); Set_Data_S.clear()
@@ -1970,7 +1973,7 @@ function init_resetAllConfig () { // 重置所有数据
     if (list_tdoll[i][1] != null) queue_tdoll.push(i) // 统计战术人形站位
     list_tdoll[i][0] = 5 // 恢复编制
   }
-  for (var i = 0; i < 24; i++) list_show[i] = true
+  for (var i = 0; i < 24; i++) list_show[i] = true // 初始化全体显示
   fragile_main = 1; fragile_all = 1
   Set_Special.set('can_add_python', true)
   Set_Special.set('can_add_karm1891', true)
@@ -1983,7 +1986,19 @@ function init_resetAllConfig () { // 重置所有数据
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
 }
-function init_loadPrepareStatus () { // 初始化战前属性
+function init_loadPrepareStatus() { // 初始化战前属性
+  // 存在性和图形显示管理
+  if (display_type === 'damage') {
+    for (var i = 0; i < 9; i++) {
+      if (list_tdoll[i][1] != null) gs_tdoll[i] = true
+      list_show[i + 10] = false
+    }
+  } else if (display_type === 'suffer') {
+    for (var i = 0; i < 9; i++) {
+      if (list_tdoll[i][1] != null) gs_tdoll[i] = true
+    }
+  }
+  if (fairy_no > 0) gs_fairy = true
   // 承伤顺序
   if (display_type === 'suffer') {
     if (document.getElementById('inj_type1').checked) inj_order = '' + document.getElementById('inj_order').value
@@ -1995,7 +2010,6 @@ function init_loadPrepareStatus () { // 初始化战前属性
   for (var i = 0; i < 5; i++) { // 重装部队数据初始化
     Set_Data_HF.set(i, [[0, 0]])
     if (list_HF[i][0]) { // 支援中的重装设定初始到达时间1s
-      gs_HF[i] = true
       Set_Special.set('HF_causedamage' + i, false)
       Set_Special.set('HF_incoming' + i, 30)
       Set_Special.set('HF_reloading' + i, fil_to_frame(list_HF[i][1].v4 + list_HF[i][2].v4 + list_HF[i][3].v4))
@@ -2016,7 +2030,6 @@ function init_loadPrepareStatus () { // 初始化战前属性
   }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
-      gs_tdoll[i] = true
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
       if (display_type === 'suffer') { // 初始化生命值
         Set_Data_S.set(i, [[0, Set_Base.get(i).Info.get('hp')]])
@@ -2106,7 +2119,6 @@ function init_loadPrepareStatus () { // 初始化战前属性
   }
   // 妖精属性和不可复读buff
   if (fairy_no > 0) {
-    gs_fairy = true
     var fairy_info = lib_fairy.get(fairy_no)
     var list_property = (fairy_info.property).split('/')
     var list_value = (fairy_info.value).split('/')

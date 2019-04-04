@@ -193,6 +193,7 @@ lib_language = {
   cld: '冷却',
   night: '夜战',
   daytime: '昼战',
+  form: '编制',
 
   skillNAME_256: '夕阳隼',
   DESCRIBE_256: '不使用特殊子弹',
@@ -254,5 +255,6 @@ lib_language = {
   main_makeGraph_3: '生命值',
 
   main_show_dmg: '显示输出',
-  main_show_inj: '显示承伤'
+  main_show_inj: '显示承伤',
+  main_makeGraph_dead: '阵亡'
 }

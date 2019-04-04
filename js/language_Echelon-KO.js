@@ -193,6 +193,7 @@ lib_language = {
   cld: '쿨타임',
   night: '야간전',
   daytime: '주간전',
+  form: '더미',
 
   skillNAME_256: '석양의 송골매',
   DESCRIBE_256: '특수탄 사용 안함',
@@ -254,5 +255,6 @@ lib_language = {
   main_makeGraph_3: '체력',
 
   main_show_dmg: '공격',
-  main_show_inj: '방어'
+  main_show_inj: '방어',
+  main_makeGraph_dead: '阵亡'
 }
