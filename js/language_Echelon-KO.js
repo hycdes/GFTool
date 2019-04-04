@@ -1,8 +1,8 @@
 lib_language = {
   main_draw_1: '번 자리:',
   main_draw_2: '  피해=',
-  main_formatDPS_1: '시간=',
-  main_formatDPS_2: 's, 피해=',
+  main_formatDPS_1: '시간',
+  main_formatDPS_2: '피해',
   main_makeGraph_1: '시간',
   main_makeGraph_2: '피해',
   UI_affect: '',
@@ -256,5 +256,5 @@ lib_language = {
 
   main_show_dmg: '공격',
   main_show_inj: '방어',
-  main_makeGraph_dead: '阵亡'
+  main_makeGraph_dead: '타락한'
 }

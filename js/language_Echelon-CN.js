@@ -1,8 +1,8 @@
 lib_language = {
   main_draw_1: '号位:',
   main_draw_2: '  输出=',
-  main_formatDPS_1: '时间=',
-  main_formatDPS_2: 's, 输出=',
+  main_formatDPS_1: '时间',
+  main_formatDPS_2: '输出',
   main_makeGraph_1: '时间',
   main_makeGraph_2: '伤害',
   UI_affect: '影响',

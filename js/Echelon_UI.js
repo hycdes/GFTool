@@ -744,7 +744,7 @@ function setWidth (command) {
   else if (parseInt(command) === 900) btn_num = 3
   for (var i = 1; i <= 3; i++) document.getElementById('wid' + i).className = 'btn btn-default'
   document.getElementById('wid' + btn_num).className = 'btn btn-primary'
-  refreshImage('placeholder')
+  makeGraph()
 }
 function changeSunrise (type) {
   if (type === 1) {
@@ -1188,30 +1188,30 @@ function show_hide (stand_num, command) {
     if (display_type === 'damage') {
       list_show[stand_num] = !list_show[stand_num]
     } else if (display_type === 'suffer') {
-      if (list_show[stand_num] || list_show[stand_num + 10]) {
+      if (list_show[stand_num] || list_show[stand_num + 9]) {
         list_show[stand_num] = false
         list_show[stand_num + 10] = false
       } else {
         list_show[stand_num] = true
-        list_show[stand_num + 10] = true
+        list_show[stand_num + 9] = true
       }
     }
   }
   else if (command === 1) list_show[stand_num] = !list_show[stand_num]
-  else if (command === 2) list_show[stand_num + 10] = !list_show[stand_num + 10]
+  else if (command === 2) list_show[stand_num + 9] = !list_show[stand_num + 9]
   else if (command === 3) {
     for (var i = 0; i < 9; i++) {
       if (list_tdoll[i][1] != null) {
         if (list_show[i]) least_dmg = true
-        if (list_show[i + 10]) least_inj = true
+        if (list_show[i + 9]) least_inj = true
       }
     }
     if (stand_num === 1) {
       if (least_dmg) for (var i = 0; i < 9; i++) list_show[i] = false
       else for (var i = 0; i < 9; i++) list_show[i] = true
     } else if (stand_num === 2) {
-      if (least_inj) for (var i = 0; i < 9; i++) list_show[i + 10] = false
-      else for (var i = 0; i < 9; i++) list_show[i + 10] = true
+      if (least_inj) for (var i = 0; i < 9; i++) list_show[i + 9] = false
+      else for (var i = 0; i < 9; i++) list_show[i + 9] = true
     }
   }
   // refresh UI
@@ -1227,9 +1227,9 @@ function show_hide (stand_num, command) {
       if (list_tdoll[i][1] != null) {
         if (list_show[i]) document.getElementById('show' + i + '_1').className = yes
         else document.getElementById('show' + i + '_1').className = no
-        if (list_show[i + 10]) document.getElementById('show' + i + '_2').className = yes
+        if (list_show[i + 9]) document.getElementById('show' + i + '_2').className = yes
         else document.getElementById('show' + i + '_2').className = no
-        if (list_show[i] || list_show[i + 10]) document.getElementById('show' + i).className = yes
+        if (list_show[i] || list_show[i + 9]) document.getElementById('show' + i).className = yes
         else document.getElementById('show' + i).className = no
       }
     }
@@ -1237,7 +1237,7 @@ function show_hide (stand_num, command) {
     for (var i = 0; i < 9; i++) {
       if (list_tdoll[i][1] != null) {
         if (list_show[i]) least_dmg = true
-        if (list_show[i + 10]) least_inj = true
+        if (list_show[i + 9]) least_inj = true
       }
     }
     if (least_dmg) document.getElementById('show_dmg').className = yes_all

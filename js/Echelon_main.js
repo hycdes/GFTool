@@ -101,115 +101,23 @@ function getResult (multiple, action) {
   Set_Data_HF_Buffer.clear()
   Set_Data_S_Buffer.clear()
   display_type = action
-  for (var n = 0; n < multiple; n++) {
-    getDPS()
-    // 梯队伤害统计
-    for (var i = 0; i < 9; i++) {
-      var final_data = []
+  for (var n = 0; n < multiple; n++) { // 多次模拟
+    getDPS() // 执行一次模拟
+    for (var i = 0; i < 9; i++) { // 梯队伤害统计
       var this_data = Set_Data_Buffer.get(i)
       var new_data = Set_Data.get(i)
-      if (this_data === undefined) {
-        final_data = new_data
-      } else {
-        var len_this = this_data.length, len_new = new_data.length
-        var i_this = 0, i_new = 0
-        while (true) {
-          if (i_this < len_this && i_new < len_new) {
-            if (this_data[i_this][0] === new_data[i_new][0]) { // 同一个x坐标
-              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new][1]])
-              i_this++
-              i_new++
-            } else if (this_data[i_this][0] > new_data[i_new][0]) { // 新数据靠前
-              final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
-              i_new++
-            } else if (this_data[i_this][0] < new_data[i_new][0]) {
-              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
-              i_this++
-            }
-          } else if (i_this === len_this && i_new < len_new) {
-            final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
-            i_new++
-          } else if (i_this < len_this && i_new === len_new) {
-            final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
-            i_this++
-          } else {
-            break
-          }
-        }
-      }
-      Set_Data_Buffer.set(i, final_data)
+      Set_Data_Buffer.set(i, do_datasum(this_data, new_data))
     }
-    // 重装部队伤害统计
-    for (var i = 0; i < 5; i++) {
-      var final_data = []
+    for (var i = 0; i < 5; i++) { // 重装部队伤害统计
       var this_data = Set_Data_HF_Buffer.get(i)
       var new_data = Set_Data_HF.get(i)
-      if (this_data === undefined) {
-        final_data = new_data
-      } else {
-        var len_this = this_data.length, len_new = new_data.length
-        var i_this = 0, i_new = 0
-        while (true) {
-          if (i_this < len_this && i_new < len_new) {
-            if (this_data[i_this][0] === new_data[i_new][0]) { // 同一个x坐标
-              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new][1]])
-              i_this++
-              i_new++
-            } else if (this_data[i_this][0] > new_data[i_new][0]) { // 新数据靠前
-              final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
-              i_new++
-            } else if (this_data[i_this][0] < new_data[i_new][0]) {
-              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
-              i_this++
-            }
-          } else if (i_this === len_this && i_new < len_new) {
-            final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
-            i_new++
-          } else if (i_this < len_this && i_new === len_new) {
-            final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
-            i_this++
-          } else {
-            break
-          }
-        }
-      }
-      Set_Data_HF_Buffer.set(i, final_data)
+      Set_Data_HF_Buffer.set(i, do_datasum(this_data, new_data))
     }
     if (display_type === 'suffer') { // 承伤统计
       for (var i = 0; i < 9; i++) {
-        var final_data = []
         var this_data = Set_Data_S_Buffer.get(i)
         var new_data = Set_Data_S.get(i)
-        if (this_data === undefined) {
-          final_data = new_data
-        } else {
-          var len_this = this_data.length, len_new = new_data.length
-          var i_this = 0, i_new = 0
-          while (true) {
-            if (i_this < len_this && i_new < len_new) {
-              if (this_data[i_this][0] === new_data[i_new][0]) { // 同一个x坐标
-                final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new][1]])
-                i_this++
-                i_new++
-              } else if (this_data[i_this][0] > new_data[i_new][0]) { // 新数据靠前
-                final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
-                i_new++
-              } else if (this_data[i_this][0] < new_data[i_new][0]) {
-                final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
-                i_this++
-              }
-            } else if (i_this === len_this && i_new < len_new) {
-              final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
-              i_new++
-            } else if (i_this < len_this && i_new === len_new) {
-              final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
-              i_this++
-            } else {
-              break
-            }
-          }
-        }
-        Set_Data_S_Buffer.set(i, final_data)
+        Set_Data_S_Buffer.set(i, do_datasum(this_data, new_data))
       }
     }
   }
@@ -241,8 +149,7 @@ function getResult (multiple, action) {
     }
   }
   // 绘图
-  var x_max = Math.ceil(time / 30)
-  var y_max = 0
+  var x_max = Math.ceil(time / 30), y_max = 0
   totaldamage_buffer = 0
   // 总伤害
   for (var i = 0; i < 9; i++) {
@@ -295,7 +202,7 @@ function getResult (multiple, action) {
       temp_name += ' '
       var temp_dmg = lib_language.main_draw_2 + current_data[len_data - 1][1]
       if (totaldamage_buffer > 0) temp_dmg += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
-      Glabel_name.set('HF' + i, temp_name);Glabel_dmg.set('HF' + i, temp_dmg)
+      Glabel_name.set('HF' + i, temp_name); Glabel_dmg.set('HF' + i, temp_dmg)
     }
   }
   // Tdoll-inj stat
@@ -445,7 +352,7 @@ function getDPS () {
   for (var i = 0; i < 9; i++) if (list_tdoll[i][1] != null) recordData(i, time, 0) // 末尾填补数据防断档
   for (var i = 0; i < 9; i++) if (list_tdoll[i][1] != null) recordData_suffer(i, time, 0) // 末尾填补数据防断档
   for (var i = 0; i < 5; i++) if (list_HF[i][0]) recordData_HF(i, time, 'lastrecord')
-  if (fairy_no != 12 && fairy_no != 13) recordData(9, time, 0)
+  if (fairy_no != 12 && fairy_no != 13) recordData(9, time, 0) // 除了布雷和火箭外补档
 }
 
 // 处理所有技能，并更新所有状态
@@ -464,6 +371,7 @@ function reactAllSkill (command, current_time) {
           if (Set_Special.get('reloading_' + k) != undefined) true // 换弹不准开技能
           else {
             if (this_formation(k) > 0) react(s_t, k, current_time) // 如果活着，则解释技能
+            else Set_Status.set(k, []) // 清空状态
           }
         }
       }
@@ -1973,7 +1881,9 @@ function init_resetAllConfig () { // 重置所有数据
     if (list_tdoll[i][1] != null) queue_tdoll.push(i) // 统计战术人形站位
     list_tdoll[i][0] = 5 // 恢复编制
   }
-  for (var i = 0; i < 24; i++) list_show[i] = true // 初始化全体显示
+  for (var i = 0; i < 18; i++) list_show[i] = true // 初始化人形显示
+  for (var i = 0; i < 2; i++) list_show_fairy[i] = true // 初始化妖精显示
+  for (var i = 0; i < 5; i++) list_show_HF[i] = true // 初始化重装部队显示
   fragile_main = 1; fragile_all = 1
   Set_Special.set('can_add_python', true)
   Set_Special.set('can_add_karm1891', true)
@@ -1986,12 +1896,12 @@ function init_resetAllConfig () { // 重置所有数据
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
 }
-function init_loadPrepareStatus() { // 初始化战前属性
+function init_loadPrepareStatus () { // 初始化战前属性
   // 存在性和图形显示管理
   if (display_type === 'damage') {
     for (var i = 0; i < 9; i++) {
       if (list_tdoll[i][1] != null) gs_tdoll[i] = true
-      list_show[i + 10] = false
+      list_show[i + 9] = false
     }
   } else if (display_type === 'suffer') {
     for (var i = 0; i < 9; i++) {
@@ -1999,6 +1909,7 @@ function init_loadPrepareStatus() { // 初始化战前属性
     }
   }
   if (fairy_no > 0) gs_fairy = true
+  for (var i = 0; i < 5; i++) if (list_HF[i][0]) gs_HF[i] = true
   // 承伤顺序
   if (display_type === 'suffer') {
     if (document.getElementById('inj_type1').checked) inj_order = '' + document.getElementById('inj_order').value
@@ -2176,14 +2087,22 @@ function init_loadFairy (common_position) {
     } else if (fairy_no === 2) { // 怒无限强
       changeStatus(common_position, 'all', 'acu', '0.5', 20)
       changeStatus(common_position, 'all', 'crit', '0.25', 20)
-    } else if (fairy_no === 3) { // 防暴强化（暂时没做）
-      //
-    } else if (fairy_no === 4) { // 能量护盾（暂时没做）
-      //
-    } else if (fairy_no === 5) { // 临时装甲（暂时没做）
-      //
-    } else if (fairy_no === 6) { // 嘲讽靶机（暂时没做）
-      //
+    } else if (fairy_no === 3) { // 防暴强化
+      for (var i = 0; i < 9; i++) {
+        if (gs_tdoll[i] && is_this_type(i, 6)) {
+          changeStatus(i, 'self', 'arm', '1.5', 20)
+        }
+      }
+    } else if (fairy_no === 4) { // 能量护盾
+      for (var i = 0; i < 9; i++) {
+        if (gs_tdoll[i] && is_this_type(i, 3)) {
+          Set_Base.get(i).Info.set('shield', 150)
+        }
+      }
+    } else if (fairy_no === 5) { // 临时装甲
+      Set_Status.set('temp_defence', 600)
+    } else if (fairy_no === 6) { // 嘲讽靶机
+      Set_Special.set('provoke', 1600)
     } else if (fairy_no === 7) { // 狙击指令
       Set_Special.set('fairy_skillon', true)
       Set_Special.set('fairy_skilltime', 300)
@@ -2305,28 +2224,14 @@ function init_loadFairy (common_position) {
 }
 
 // 基本语义性函数
-function refreshImage () { makeGraph(x_max_buffer, y_max_buffer, str_label_buffer) }
-function exchangeDisplayImage () {
-  var s_dmg = document.getElementById('display_showDPS').checked
-  var s_inj = document.getElementById('display_showINJ').checked
-  for (i = 0; i < 24; i++) list_show[i] = true
-  if (s_dmg && s_inj) {
-    makeGraph(x_max_buffer, y_max_buffer, str_label_buffer)
-  } else if (s_dmg && !s_inj) {
-    for (i = 10; i < 19; i++) list_show[i] = false
-    makeGraph(x_max_buffer, y_max_buffer, str_label_buffer)
-  } else if (!s_dmg && s_inj) {
-    for (i = 0; i < 10; i++) list_show[i] = false
-    makeGraph(x_max_buffer, y_max_buffer, str_label_buffer_nameonly)
-  } else {
-    for (i = 0; i < 24; i++) list_show[i] = false
-    makeGraph(x_max_buffer, y_max_buffer, str_label_buffer_nameonly)
-  }
-}
 function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
 function is_property (str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield');}
 function is_in_affect_of (stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
 function is_this (stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
+function is_this_type (stand_num, type) {
+  if (list_tdoll[stand_num][1].Type === type) return true
+  return false
+}
 function is_exist_someone (ID) {
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
@@ -2494,6 +2399,39 @@ function do_defencebreaking (defencebreaking) {
     if (enemy_forcefield_2 < 0) enemy_forcefield_2 = 0
   }
   return overdbk
+}
+function do_datasum (this_data, new_data) {
+  var final_data = []
+  if (this_data === undefined) {
+    final_data = new_data
+  } else {
+    var len_this = this_data.length, len_new = new_data.length
+    var i_this = 0, i_new = 0
+    while (true) {
+      if (i_this < len_this && i_new < len_new) {
+        if (this_data[i_this][0] === new_data[i_new][0]) { // 同一个x坐标
+          final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new][1]])
+          i_this++
+          i_new++
+        } else if (this_data[i_this][0] > new_data[i_new][0]) { // 新数据靠前
+          final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
+          i_new++
+        } else if (this_data[i_this][0] < new_data[i_new][0]) {
+          final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
+          i_this++
+        }
+      } else if (i_this === len_this && i_new < len_new) {
+        final_data.push([new_data[i_new][0], new_data[i_new][1] + this_data[i_this - 1][1]])
+        i_new++
+      } else if (i_this < len_this && i_new === len_new) {
+        final_data.push([this_data[i_this][0], this_data[i_this][1] + new_data[i_new - 1][1]])
+        i_this++
+      } else {
+        break
+      }
+    }
+  }
+  return final_data
 }
 function this_formation (stand_num) { return list_tdoll[stand_num][0]; }
 function this_dmg (hfn) { return list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1; }
