@@ -178,9 +178,9 @@ function getResult (multiple, action) {
       var len_data = (current_data).length
       for (var d = 0; d < len_data; d++) Set_Data.get(i)[d][0] = (Set_Data.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
-      var reverse_position = trans_if_need(i)
-      var temp_name = (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name + ' '
-      var temp_dmg = lib_language.main_draw_2 + current_data[len_data - 1][1]
+      var reverse_position = trans_if_need_idx(i)
+      var temp_name = (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name
+      var temp_dmg = lib_language.main_draw_2 + '=' + current_data[len_data - 1][1]
       if (totaldamage_buffer > 0) temp_dmg += '(' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
       temp_dmg += ' '
       Glabel_name.set(i, temp_name);Glabel_dmg.set(i, temp_dmg)

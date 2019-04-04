@@ -19,11 +19,11 @@ function makeGraph () {
       var temp_label = ''
       if (list_show[i] || list_show[i + 9]) {
         if (list_show[i]) {
-          temp_label = Glabel_name.get(i) + lib_language.main_makeGraph_2 // Glabel_dmg.get(i)
+          temp_label = Glabel_name.get(i) + 'd'
           Set_Label.set(i, temp_label)
         }
         if (list_show[i + 9]) {
-          temp_label = Glabel_name.get(i) + lib_language.main_makeGraph_3 // Glabel_inj.get(i)
+          temp_label = Glabel_name.get(i) + 'i'
           Set_Label.set('inj' + i, temp_label)
         }
       }
@@ -55,7 +55,7 @@ function makeGraph () {
       } else {
         base_data.push({
           data: Set_Data_S.get(i),
-          label: Set_Label.get(i),
+          label: Set_Label.get('inj' + i),
           color: list_color[i],
           yaxis: 2
         })
@@ -105,6 +105,7 @@ function makeGraph () {
       yaxes: base_yaxis,
       legend: {
         show: true,
+        labelFormatter: label_string,
         labelBoxBorderColor: '#ffffff',
         position: 'nw',
         margin: [10, 10],
@@ -116,7 +117,7 @@ function makeGraph () {
       },
       tooltip: true,
       tooltipOpts: {
-        content: lib_language.main_formatDPS_1 + ':%x' + 's, ' + '%s:' + '%y',
+        content: tooltip_string,
         shifts: {
           x: -60,
           y: 25
@@ -124,5 +125,24 @@ function makeGraph () {
       }
     })
 }
-// 时间：main_formatDPS_1
-// 输出：main_formatDPS_2
+function tooltip_string (label, x, y) {
+  var name = label.substr(0, label.length - 1)
+  var position = trans_if_need(parseInt(label[0])) - 1
+  var datatype = label[label.length - 1]
+  if (datatype === 'd') { // dmg data
+    return '[' + name + '] ' + lib_language.main_formatDPS_1 + ':%xs, ' + lib_language.main_formatDPS_2 + ':%y'
+  } else if (datatype === 'i') { // inj data
+    return '[' + name + '] ' + lib_language.main_formatDPS_1 + ':%xs, ' + lib_language.main_makeGraph_3 + ':%y, ' + lib_language.form + ':' + Math.ceil(5 * y / list_tdoll[position][1].Property.hp)
+  }
+}
+function label_string (label) {
+  var datatype = label[label.length - 1]
+  if (datatype === 'd') { // dmg data
+    return label.substr(0, label.length - 1) + ' ' + lib_language.UI_dmg
+  } else if (datatype === 'i') { // inj data
+    return label.substr(0, label.length - 1) + ' ' + lib_language.UI_inj
+  }
+  return label.substr(0, label.length - 1)
+}
+// 时间 main_formatDPS_1
+// 输出 main_formatDPS_2

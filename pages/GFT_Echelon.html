@@ -830,63 +830,80 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h4>模拟结果曲线</h4>
-                                        <p>
-                                            <button type="button" class="btn btn-default" id="wid1" onclick="setWidth(300)">300px</button>
-                                            <button type="button" class="btn btn-primary" id="wid2" onclick="setWidth(700)">700px</button>
-                                            <button type="button" class="btn btn-default" id="wid3" onclick="setWidth(900)">900px</button>
-                                        </p>
-                                        <table class="table_other table-bordered table-hover" id="table_envi">
-                                            <tbody>
-                                                <tr style="height:31px">
-                                                    <td style="width:62px"><img src="../img/icon-daytime.png" id="envi_day"></td>
-                                                    <td style="width:100px">接敌 <span style="color:green" id='envi_contertime'>-</span>s</td>
-                                                    <td style="width:62px"><img src="../img/echelon/fairy/icon-f0.png" id="envi_fairy"></td>
-                                                    <td style="width:100px">天赋 <span id='envi_talent' style="color:orangered">-</span></td>
-                                                </tr>
-                                                <tr style="height:31px">
-                                                    <td style="width:62px"></td>
-                                                    <td style="width:100px">战斗 <span style="color:green" id='envi_alltime'>-</span>s</td>
-                                                    <td style="width:62px">技能 <span id='envi_fairyskill' style="color:dodgerblue">-</span></td>
-                                                    <td style="width:100px"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table_other table-bordered table-hover">
-                                            <tbody>
-                                                <tr style="height:31px;text-align:left">
-                                                    <td style="width:100px;text-align:center">类型 <span style="color:black" id='envi_ene_type'>-</span></td>
-                                                    <td style="width:100px">&nbsp<img src="../img/icon-atkdmg.png"> <span style="color:green" id='envi_ene_dmg'>-</span></td>
-                                                    <td style="width:100px">&nbsp<img src="../img/icon-rof.png"> <span style="color:green" id='envi_ene_rof'>-</span></td>
-                                                    <td style="width:150px">&nbsp<img src="../img/icon-hp.png"> <span style="color:green" id='envi_ene_hp'>-</span></td>
-                                                </tr>
-                                                <tr style="height:31px;text-align:left">
-                                                    <td style="width:100px;text-align:center">编制 <span style="color:green" id='envi_ene_form'>-</span></td>
-                                                    <td style="width:100px">&nbsp<img src="../img/icon-eva.png"> <span style="color:green" id='envi_ene_eva'>-</span></td>
-                                                    <td style="width:100px">&nbsp<img src="../img/icon-atkacu.png"> <span style="color:green" id='envi_ene_acu'>-</span></td>
-                                                    <td style="width:150px">&nbsp<img src="../img/icon-ff.png"> <span style="color:green" id='envi_ene_ff'>-</span></td>
-                                                </tr>
-                                                <tr style="height:31px;text-align:left">
-                                                    <td style="width:100px;text-align:center">组数 <span style="color:green" id='envi_ene_num'>-</span></td>
-                                                    <td style="width:100px">&nbsp<img src="../img/icon-arm.png"> <span style="color:green" id='envi_ene_arm'>-</span></td>
-                                                    <td style="width:100px">&nbsp<img src="../img/icon-ap.png"> <span style="color:green" id='envi_ene_ap'>-</span></td>
-                                                    <td style="width:150px">&nbsp<img src="../img/icon-dbk.png"> <span style="color:green" id='envi_ene_dbk'>-</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table_other table-bordered table-hover">
-                                            <tbody>
-                                                <tr style="height:31px;text-align:left">
-                                                    <td style="width:100px;text-align:center">总输出</td>
-                                                    <td style="width:350px">&nbsp&nbsp<b><span style="color:orangered" id='envi_alldmg'>0</span></b></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <div class="panel-body">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#Table_stat" data-toggle="tab">统计数据</a>
+                                                </li>
+                                                <li><a href="#Table_set" data-toggle="tab">显示设置</a>
+                                                </li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade in active" id="Table_stat">
+                                                    <h4>测试结果</h4>
+                                                    <table class="table_other table-bordered table-hover" id="table_envi">
+                                                        <tbody>
+                                                            <tr style="height:31px">
+                                                                <td style="width:62px"><img src="../img/icon-daytime.png" id="envi_day"></td>
+                                                                <td style="width:100px">接敌 <span style="color:green" id='envi_contertime'>-</span>s</td>
+                                                                <td style="width:62px"><img src="../img/echelon/fairy/icon-f0.png" id="envi_fairy"></td>
+                                                                <td style="width:100px">天赋 <span id='envi_talent' style="color:orangered">-</span></td>
+                                                            </tr>
+                                                            <tr style="height:31px">
+                                                                <td style="width:62px"></td>
+                                                                <td style="width:100px">战斗 <span style="color:green" id='envi_alltime'>-</span>s</td>
+                                                                <td style="width:62px">技能 <span id='envi_fairyskill' style="color:dodgerblue">-</span></td>
+                                                                <td style="width:100px"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">类型 <span style="color:black" id='envi_ene_type'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-atkdmg.png"> <span style="color:green" id='envi_ene_dmg'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-rof.png"> <span style="color:green" id='envi_ene_rof'>-</span></td>
+                                                                <td style="width:150px">&nbsp<img src="../img/icon-hp.png"> <span style="color:green" id='envi_ene_hp'>-</span></td>
+                                                            </tr>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">编制 <span style="color:green" id='envi_ene_form'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-eva.png"> <span style="color:green" id='envi_ene_eva'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-atkacu.png"> <span style="color:green" id='envi_ene_acu'>-</span></td>
+                                                                <td style="width:150px">&nbsp<img src="../img/icon-ff.png"> <span style="color:green" id='envi_ene_ff'>-</span></td>
+                                                            </tr>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">组数 <span style="color:green" id='envi_ene_num'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-arm.png"> <span style="color:green" id='envi_ene_arm'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-ap.png"> <span style="color:green" id='envi_ene_ap'>-</span></td>
+                                                                <td style="width:150px">&nbsp<img src="../img/icon-dbk.png"> <span style="color:green" id='envi_ene_dbk'>-</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">总输出</td>
+                                                                <td style="width:350px">&nbsp&nbsp<b><span style="color:orangered" id='envi_alldmg'>0</span></b></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="Table_set">
+                                                    <h4>显示设置</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-default" id="wid1" onclick="setWidth(300)">300px</button>
+                                                        <button type="button" class="btn btn-primary" id="wid2" onclick="setWidth(700)">700px</button>
+                                                        <button type="button" class="btn btn-default" id="wid3" onclick="setWidth(900)">900px</button>
+                                                    </p>
+                                                    <p id="allcontrol_showhide"></p>
+                                                    <table class="table_other table-bordered table-hover" id="table_showhide">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>图表</h4>
                                         <div id="placeholder" style="width:700px;height:400px"></div>
-                                        <h4 id="title_showhide"></h4>
-                                        <p id="allcontrol_showhide"></p>
-                                        <table class="table_other table-bordered table-hover" id="table_showhide">
-                                        </table>
                                     </div>
                                 </div>
                             </div>

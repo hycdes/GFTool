@@ -1127,9 +1127,15 @@ function trans_if_need (num) {
   }
   return num
 }
+function trans_if_need_idx(num) {
+  if (lang_type === 'ko') {
+    if (num >= 6) num -= 6
+    else if (num <= 2) num += 6
+  }
+  return num
+}
 
 function initShowhide () {
-  document.getElementById('title_showhide').innerHTML = '显示设置'
   document.getElementById('allcontrol_showhide').innerHTML = ''
   var tableID = document.getElementById('table_showhide')
   var tableHTML = ''
@@ -1190,7 +1196,7 @@ function show_hide (stand_num, command) {
     } else if (display_type === 'suffer') {
       if (list_show[stand_num] || list_show[stand_num + 9]) {
         list_show[stand_num] = false
-        list_show[stand_num + 10] = false
+        list_show[stand_num + 9] = false
       } else {
         list_show[stand_num] = true
         list_show[stand_num + 9] = true

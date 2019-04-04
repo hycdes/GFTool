@@ -1,6 +1,6 @@
 lib_language = {
   main_draw_1: '번 자리:',
-  main_draw_2: '  피해=',
+  main_draw_2: '피해',
   main_formatDPS_1: '시간',
   main_formatDPS_2: '피해',
   main_makeGraph_1: '시간',
