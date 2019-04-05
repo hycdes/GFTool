@@ -410,22 +410,6 @@ function manageDeleteButton () {
   if (parseInt(DeleteSelectId.value) > 0) document.getElementById('deleteChipButton').disabled = false
   else document.getElementById('deleteChipButton').disabled = true
 }
-function addBlock (typeInfo) { // 增加格数
-  if (typeInfo === 1) block_dmg++
-  else if (typeInfo === 2) block_dbk++
-  else if (typeInfo === 3) block_acu++
-  else if (typeInfo === 4) block_fil++
-  refreshPreview()
-  manageButton()
-}
-function subBlock (typeInfo) { // 减少格数
-  if (typeInfo === 1) block_dmg--
-  else if (typeInfo === 2) block_dbk--
-  else if (typeInfo === 3) block_acu--
-  else if (typeInfo === 4) block_fil--
-  refreshPreview()
-  manageButton()
-}
 function changeProperty (command) { // for change color/chipClass/chipShape
   if (command === 'color_b') { // color=blue
     color = 1
@@ -453,11 +437,11 @@ function changeProperty (command) { // for change color/chipClass/chipShape
       SL3.innerHTML = SL3_html
       SL4.innerHTML = SL4_html
     } else if (block_class === 551) {
+      SL1_html += '<td style="width:50px">' + lib_lang.cs_551 + '</td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-12.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-12")' + "'" + '></td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-11.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-11")' + "'" + '></td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-4.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-4")' + "'" + '></td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-6.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-6")' + "'" + '></td>'
-      SL1_html += '<td style="width:50px"></td>'
       SL1.innerHTML = SL1_html
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-31.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-31")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-32.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-32")' + "'" + '></td>'
@@ -465,11 +449,11 @@ function changeProperty (command) { // for change color/chipClass/chipShape
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-22.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-22")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-5.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-5")' + "'" + '></td>'
       SL2.innerHTML = SL2_html
+      SL3_html += '<td style="width:50px">' + lib_lang.cs_552 + '</td>'
       SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-81.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-81")' + "'" + '></td>'
       SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-82.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-82")' + "'" + '></td>'
       SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-9.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-9")' + "'" + '></td>'
       SL3_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-10.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-10")' + "'" + '></td>'
-      SL3_html += '<td style="width:50px"></td>'
       SL3.innerHTML = SL3_html
       SL4_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-111.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-111")' + "'" + '></td>'
       SL4_html += '<td style="width:50px"><img src="../img/chip/shapebutton/5-112.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("5-112")' + "'" + '></td>'
@@ -647,7 +631,7 @@ function chartBack (typeInfo) {
       Process_Text_Dmg.innerHTML = '0/206'
       Process_Text_Dbk.innerHTML = '0/60'
       Process_Text_Acu.innerHTML = '0/97'
-      Process_Text_Fil.innerHTML = '0/146'
+      Process_Text_Fil.innerHTML = '0/148'
       line1.innerHTML = '<td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_blueback">'
       line2.innerHTML = '<td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback">'
       line3.innerHTML = '<td class="td_black"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_black"><td class="td_blueback"><td class="td_blueback"><td class="td_blueback">'
@@ -1046,7 +1030,7 @@ function showAnalyze () {
       if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
       else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
-      else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+      else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
       else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
       for (var c = 0; c < c_num; c++) {
         dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg
@@ -1169,7 +1153,7 @@ function showAnalyze () {
       if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
       else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
-      else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+      else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
       else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
       Process_Text_Dmg.innerHTML = 0 + '/' + dmg_max
       DmgAlert.innerHTML = ''
@@ -1324,7 +1308,7 @@ function compare_sumpro (solu_a, solu_b) {
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
-  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
@@ -1431,7 +1415,7 @@ function compare_fil (solu_a, solu_b) {
   if (HeavyfireType === 1) fil_max = 46
   else if (HeavyfireType === 2) fil_max = 233
   else if (HeavyfireType === 3) fil_max = 107
-  else if (HeavyfireType === 4) fil_max = 146
+  else if (HeavyfireType === 4) fil_max = 148
   else if (HeavyfireType === 5) fil_max = 90
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
@@ -1512,7 +1496,7 @@ function sortSolution (sortType) {
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
-  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
+  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
   var SolutionSelect = document.getElementById('SolutionSelect')
   var SSText = ''
@@ -1697,10 +1681,7 @@ function setBestNum () {
   if ((best_num.value).length === 0) best_num.value = 10
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
-function getHelp () {
-  if (lang_type === 'cn') window.open('../img/CC-tutorial.png')
-  else if (lang_type === 'ko') window.open('../img/CC-tutorial-KO.png')
-}
+function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png')}
 
 // ====================================================================
 
@@ -1714,7 +1695,7 @@ function value_sumpro_of_HeavyfireType (HeavyfireType) {
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
   else if (HeavyfireType === 2) { dmg_max = 106; dbk_max = 130; acu_max = 120; fil_max = 233; }
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
-  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 146; }
+  else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
 
   // get value for a solution

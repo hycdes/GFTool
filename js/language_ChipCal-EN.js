@@ -38,5 +38,8 @@ lib_lang = {
   have: 'here are',
   type_of_combi: 'valid combinations',
   showall: ' [Show all] output each combination of each topology (few seconds)',
-  showsort: ' [Sort all] output specified number of solutions (few minutes)'
+  showsort: ' [Sort all] output specified number of solutions (few minutes)',
+
+  cs_551: 'General chips',
+  cs_552: 'For <b><span style="color:#FF0066">M2 ONLY</span></b>'
 }

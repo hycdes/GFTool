@@ -1,3 +1,4 @@
+var lang_type = 'en'
 var deleteSelectHTML = ['<option value=0 selected>Select number</option>']
 var lib_lang
 function loadScript (url) {

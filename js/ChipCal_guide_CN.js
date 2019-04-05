@@ -1,3 +1,4 @@
+var lang_type = 'cn'
 var deleteSelectHTML = ['<option value=0 selected>选择编号</option>']
 var lib_lang
 function loadScript (url) {

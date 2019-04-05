@@ -1,3 +1,4 @@
+var lang_type = 'ko'
 var deleteSelectHTML = ['<option value=0 selected>번호 선택</option>']
 var lib_lang
 function loadScript (url) {
