@@ -839,7 +839,7 @@ function checkEnviInput () { // 纠正非法输入
     document.getElementById('time_init').value = 0
   }
   var edit_timeall = document.getElementById('time_battle').value
-  if (edit_timeall === '' || isNaN(edit_timeall) || parseInt(edit_timeall) <= 0 || edit_timeall > 500) { // 战斗时间，正数，不超过500s
+  if (edit_timeall === '' || isNaN(edit_timeall) || parseInt(edit_timeall) <= 0 || edit_timeall > 999) { // 战斗时间，正数，不超过500s
     document.getElementById('time_battle').value = 20
   }
   var edit_eva = document.getElementById('enemy_eva').value
@@ -885,6 +885,51 @@ function checkEnviInput () { // 纠正非法输入
   if (document.getElementById('inj_type1').checked) document.getElementById('inj_order').disabled = false
   else document.getElementById('inj_order').disabled = true
   check_inj_order()
+  // 承伤测试值
+  var edit_dmg = document.getElementById('enemy_dmg').value
+  if (edit_dmg === '' || isNaN(edit_dmg) || parseInt(edit_dmg) < 0 || (parseFloat(edit_dmg) != parseInt(edit_dmg)) || edit_dmg > 9999) { // 伤害，0~9999
+    document.getElementById('enemy_dmg').value = 10
+  }
+  var edit_rof = document.getElementById('enemy_rof').value
+  if (edit_rof === '' || isNaN(edit_rof) || parseInt(edit_rof) < 15 || (parseFloat(edit_rof) != parseInt(edit_rof)) || edit_rof > 120) { // 射速，15~120
+    document.getElementById('enemy_rof').value = 40
+  }
+  if (document.getElementById('enemy_acumax').checked === false) {
+    var edit_acu = document.getElementById('enemy_acu').value
+    if (edit_acu === '' || isNaN(edit_acu) || parseInt(edit_acu) < 0 || (parseFloat(edit_acu) != parseInt(edit_acu)) || edit_acu > 9999) { // 命中，0~9999
+      document.getElementById('enemy_acu').value = 10
+    }
+  }
+  var edit_ap = document.getElementById('enemy_ap').value
+  if (edit_ap === '' || isNaN(edit_ap) || parseInt(edit_ap) < 0 || (parseFloat(edit_ap) != parseInt(edit_ap)) || edit_ap > 9999) { // 穿甲，0~9999
+    document.getElementById('enemy_ap').value = 0
+  }
+  var edit_dbk = document.getElementById('enemy_dbk').value
+  if (edit_dbk === '' || isNaN(edit_dbk) || parseInt(edit_dbk) < 0 || (parseFloat(edit_dbk) != parseInt(edit_dbk)) || edit_dbk > 9999) { // 破防，0~9999
+    document.getElementById('enemy_dbk').value = 0
+  }
+  var edit_eva_2 = document.getElementById('enemy_eva_2').value
+  if (edit_eva_2 === '' || isNaN(edit_eva_2) || parseInt(edit_eva_2) < 0 || (parseFloat(edit_eva_2) != parseInt(edit_eva_2)) || edit_eva_2 > 9999) { // 回避，非负整数
+    document.getElementById('enemy_eva_2').value = 10
+  }
+  var edit_arm_2 = document.getElementById('enemy_arm_2').value
+  if (edit_arm_2 === '' || isNaN(edit_arm_2) || parseInt(edit_arm_2) < 0 || (parseFloat(edit_arm_2) != parseInt(edit_arm_2)) || edit_arm_2 > 9999) { // 护甲，非负整数
+    document.getElementById('enemy_arm_2').value = 0
+  }
+  var edit_ff_2 = document.getElementById('enemy_forcefield_2').value
+  var edit_ff_2_max = document.getElementById('enemy_forcefield_2_max').value
+  if (edit_ff_2 === '' || isNaN(edit_ff_2) || parseInt(edit_ff_2) < 0 || (parseFloat(edit_ff_2) != parseInt(edit_ff_2)) || edit_ff_2 > 9999) { // 力场，非负整数
+    edit_ff_2 = 0
+    document.getElementById('enemy_forcefield_2').value = 0
+  }
+  if (edit_ff_2_max === '' || isNaN(edit_ff_2_max) || parseInt(edit_ff_2_max) < 0 || (parseFloat(edit_ff_2_max) != parseInt(edit_ff_2_max)) || parseFloat(edit_ff_2_max) < parseFloat(edit_ff_2) || edit_ff_2_max > 9999) { // 力场max，非负整数，且不能低于设定力场
+    edit_ff_max = edit_ff_2
+    document.getElementById('enemy_forcefield_2_max').value = edit_ff_2
+  }
+  var edit_hp = document.getElementById('enemy_hp').value
+  if (edit_hp === '' || isNaN(edit_hp) || parseInt(edit_hp) < 1 || (parseFloat(edit_hp) != parseInt(edit_hp)) || edit_hp > 9999999) { // 生命值，1~9,999,999
+    document.getElementById('enemy_hp').value = 1000
+  }
 }
 function showEnvi () {
   // 妖精图像、天赋
@@ -996,6 +1041,7 @@ function templatePro (type) {
     document.getElementById('enemy_dmg').value = 8
     document.getElementById('enemy_rof').value = 40
     document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').disabled = false
     document.getElementById('enemy_acu').value = 17
     document.getElementById('enemy_ap').value = 0
     document.getElementById('enemy_dbk').value = 0
@@ -1011,6 +1057,7 @@ function templatePro (type) {
     document.getElementById('enemy_dmg').value = 45
     document.getElementById('enemy_rof').value = 40
     document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').disabled = false
     document.getElementById('enemy_acu').value = 80
     document.getElementById('enemy_ap').value = 0
     document.getElementById('enemy_dbk').value = 0
@@ -1026,6 +1073,7 @@ function templatePro (type) {
     document.getElementById('enemy_dmg').value = 95
     document.getElementById('enemy_rof').value = 40
     document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').disabled = false
     document.getElementById('enemy_acu').value = 60
     document.getElementById('enemy_ap').value = 20
     document.getElementById('enemy_dbk').value = 0
@@ -1041,6 +1089,7 @@ function templatePro (type) {
     document.getElementById('enemy_dmg').value = 29
     document.getElementById('enemy_rof').value = 80
     document.getElementById('enemy_acumax').checked = false
+    document.getElementById('enemy_acu').disabled = false
     document.getElementById('enemy_acu').value = 37
     document.getElementById('enemy_ap').value = 44
     document.getElementById('enemy_dbk').value = 0
@@ -1067,7 +1116,6 @@ function selectHF (num) {
 
 function changeHFPro (num, type) {
   var input_value = parseInt(document.getElementById('hf' + num + '_pro' + type).value)
-  console.log(input_value)
   // check value
   if (num === 1) {
     if (type === 1 && (isNaN(input_value) || input_value < 0 || input_value > 190)) input_value = 190

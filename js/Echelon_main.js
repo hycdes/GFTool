@@ -309,33 +309,54 @@ function getDPS () {
             Set_Special.set('HF_causedamage' + hfn, true)
             recordData_HF(hfn, t) // cause damage
           }
+          // AGS-30 穿甲震荡
+          if (Set_Special.get('AGS_next_dbkbuff') <= t && Set_Special.get('AGS_dbkbuff_num') > 0) {
+            Set_Special.set('AGS_next_dbkbuff', Set_Special.get('AGS_next_dbkbuff') + 30)
+            Set_Special.set('AGS_dbkbuff_num', Set_Special.get('AGS_dbkbuff_num') - 1)
+            if (display_type === 'damage') { // 穿甲震荡生效
+              enemy_forcefield -= 0.2 * this_dbk(hfn)
+              if (enemy_forcefield < 0) enemy_forcefield = 0
+            }
+            else if (display_type === 'suffer') {
+              enemy_forcefield_2 -= 0.2 * this_dbk(hfn)
+              if (enemy_forcefield_2 < 0) enemy_forcefield_2 = 0
+            }
+          }
+          // AT4 烈性灼烧
+          if (Set_Special.get('AT4_burn_next') === global_frame) {
+            var aoe_multi = 1
+            if (aoe_num <= enemy_num_left) aoe_multi = (aoe_num - 1) * fragile_all * enemy_form
+            else aoe_multi = (enemy_num_left - 1) * fragile_all * enemy_form
+            var burn_aoe = 0.2 * this_dmg(hfn) * (fragile_main * enemy_form + aoe_multi)
+            if (Set_Special.get('AT4_burn_leftnum') > 0) {
+              Set_Special.set('AT4_burn_leftnum', Set_Special.get('AT4_burn_leftnum') - 1)
+              Set_Special.set('AT4_burn_next', global_frame + 15)
+              recordData_HF(4, global_frame, 'AT4_burn', burn_aoe)
+            }
+          }
           if (Set_Special.get('HF_reloading' + hfn) <= t) { // 装填完毕
             var base_filling = this_fil(hfn)
             if (hfn === 0) {
               base_filling *= Math.pow(1.08, Set_Special.get('BGM_buff_filling'))
               Set_Special.set('BGM_buff_filling', Set_Special.get('BGM_buff_filling') + 1)
-              if (Set_Special.get('BGM_supermissile_reload') <= t && !Set_Special.get('BGM_supermissile')) { // 尚未准备超级导弹，且此次能够准备
+              if (Set_Special.get('BGM_supermissile_reload') <= 0 && !Set_Special.get('BGM_supermissile')) { // 尚未准备超级导弹，且此次能够准备
                 Set_Special.set('BGM_supermissile', true)
+              } else {
+                Set_Special.set('BGM_supermissile_reload', Set_Special.get('BGM_supermissile_reload') - 1)
               }
             } else if (hfn === 1) {
               if (Set_Special.get('AGS_supergrenade_reload') <= t && !Set_Special.get('AGS_supergrenade')) { // 尚未准备超级榴弹，且此次能够准备
                 Set_Special.set('AGS_supergrenade', true)
               }
-              if (Set_Special.get('AGS_next_dbkbuff') <= t && Set_Special.get('AGS_dbkbuff_num') > 0) {
-                Set_Special.set('AGS_next_dbkbuff', Set_Special.get('AGS_next_dbkbuff') + 30)
-                Set_Special.set('AGS_dbkbuff_num', Set_Special.get('AGS_dbkbuff_num') - 1)
-                if (display_type === 'damage') { // 干扰帷幕生效
-                  enemy_forcefield -= 0.2 * this_dbk(hfn)
-                  if (enemy_forcefield < 0) enemy_forcefield = 0
-                }
-                else if (display_type === 'suffer') {
-                  enemy_forcefield_2 -= 0.2 * this_dbk(hfn)
-                  if (enemy_forcefield_2 < 0) enemy_forcefield_2 = 0
-                }
-              }
             } else if (hfn === 2) {
               if (Set_Special.get('2B14_airstrike_reload') <= t && !Set_Special.get('2B14_airstrike')) { // 尚未准备阵地轰炸，且此次能够准备
                 Set_Special.set('2B14_airstrike', true)
+              }
+            } else if (hfn === 3) {
+              if (Set_Special.get('M2_curveattack_reload') <= 0 && !Set_Special.get('M2_curveattack')) { // 尚未准备曲线雷击，且此次能够准备
+                Set_Special.set('M2_curveattack', true)
+              } else {
+                Set_Special.set('M2_curveattack_reload', Set_Special.get('M2_curveattack_reload') - 1)
               }
             }
             Set_Special.set('HF_reloading' + hfn, t + fil_to_frame(base_filling)) // next reload
@@ -1372,15 +1393,22 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       var this_info = (Set_Base.get(stand_num)).Info
       var new_property = (this_info).get(status[0][0])
       if (situation === 'get') new_property = new_property * status[0][1]
-      else if (situation === 'lost') new_property = new_property / status[0][1]
-      if (status[0][0] === 'critdmg' && status[0][1] === 1) { // 杰里科被动消失一层
-        if (Set_Special.get('jericho_buff_' + stand_num) > 0) {
-          Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) - 1)
+      else if (situation === 'lost') {
+        new_property = new_property / status[0][1]
+        if (status[0][0] === 'critdmg' && status[0][1] === 1) { // 杰里科被动消失一层
+          if (Set_Special.get('jericho_buff_' + stand_num) > 0) {
+            Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) - 1)
+          }
         }
-      }
-      if (status[0][0] === 'rof' && status[0][1] === 1) { // 玛尔斯号角被动消失一层
-        if (Set_Special.get('karm1891') > 0) {
-          Set_Special.set('karm1891', Set_Special.get('karm1891') - 1)
+        if (status[0][0] === 'rof' && status[0][1] === 1) { // 玛尔斯号角被动消失一层
+          if (Set_Special.get('karm1891') > 0) {
+            Set_Special.set('karm1891', Set_Special.get('karm1891') - 1)
+          }
+        }
+        if (status[0][0] === 'acu' && status[0][1] === 1) { // M2致命干扰消失一层
+          if (Set_Special.get('M2_buff' + stand_num) > 0) {
+            Set_Special.set('M2_buff' + stand_num, Set_Special.get('M2_buff' + stand_num) - 1)
+          }
         }
       }
       this_info.set(status[0][0], new_property)
@@ -1402,7 +1430,10 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       if (display_type === 'suffer') {
         if (status[0][0].substr(6) === 'dmg') enemy_dmg = Math.floor(enemy_dmg / status[0][1])
         if (status[0][0].substr(6) === 'rof') enemy_rof = Math.floor(enemy_rof / status[0][1])
-        if (status[0][0].substr(6) === 'acu') enemy_eva = Math.floor(enemy_acu / status[0][1])
+        if (status[0][0].substr(6) === 'acu') {
+          if (status[0][1] === 1) Set_Special.set('AT4_buff', true)
+          enemy_acu = Math.floor(enemy_acu / status[0][1])
+        }
       }
     }
   }
@@ -1838,12 +1869,16 @@ function recordData_HF () {
   var current_time = arguments['1']
   var command = arguments['2']
   var lastData = (Set_Data_HF.get(hfn))[(Set_Data_HF.get(hfn)).length - 1][1]
-  var increment = explain_heavyfire(hfn)
+  var increment = 0
   if (command === undefined) { // 正常输出
+    increment = explain_heavyfire(hfn)
     Set_Data_HF.get(hfn).push([current_time, lastData])
     Set_Data_HF.get(hfn).push([current_time, lastData + increment])
-  } else {
+  } else if (command === 'lastrecord') {
     Set_Data_HF.get(hfn).push([current_time, lastData])
+  } else if (command === 'AT4_burn') {
+    Set_Data_HF.get(hfn).push([current_time, lastData])
+    Set_Data_HF.get(hfn).push([current_time, lastData + arguments['3']])
   }
   global_total_dmg += increment
 }
@@ -1937,6 +1972,14 @@ function init_loadPrepareStatus () { // 初始化战前属性
         Set_Special.set('2B14_airstrike', true) // 阵地轰炸
         Set_Special.set('2B14_airstrike_reload', 0)
         Set_Special.set('2B14buff', true) // 可以施加干扰帷幕buff
+      } else if (i === 3) {
+        Set_Special.set('M2_curveattack', true) // 曲线雷击
+        Set_Special.set('M2_curveattack_reload', 0)
+        Set_Special.set('M2_buff_accuracy', 0) // 装填惯性
+      } else if (i === 4) {
+        Set_Special.set('AT4_buff', true) // 可以施加致盲闪光buff
+        Set_Special.set('AT4_burn_next', -1) // 烈性灼烧buff生效时间
+        Set_Special.set('AT4_burn_leftnum', 0) // 烈性灼烧buff剩余次数
       }
     }
   }
@@ -2289,15 +2332,15 @@ function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减
   }
   if (aoe_num <= enemy_num_left) aoe_multi = (aoe_num - 1) * fragile_all * enemy_form
   else aoe_multi = (enemy_num_left - 1) * fragile_all * enemy_form
-  var damage_main = damage * main_multi
-  var damage_aoe = damage * aoe_multi
+  var damage_main = damage
+  var damage_aoe = damage
   // 技能效果和AOE杀伤计算
   if (hfn === 0) { // BGM-71
     var is_sm = false
     accuracy_rate = Math.max(0.4, accuracy / (accuracy + target_eva * 8)) // 命中率
     if (Set_Special.get('BGM_supermissile')) { // 超级导弹
       Set_Special.set('BGM_supermissile', false)
-      Set_Special.set('BGM_supermissile_reload', global_frame + 60)
+      Set_Special.set('BGM_supermissile_reload', 2)
       defencebreaking *= 1.6
       is_sm = true
     }
@@ -2383,8 +2426,93 @@ function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减
       damage_main = 0
       damage_aoe = 0
     }
+  } else if (hfn === 3) {
+    var is_curve = false
+    accuracy *= Math.pow(1.1, Set_Special.get('M2_buff_accuracy')) // M2 装填惯性
+    if (Set_Special.get('M2_buff_accuracy') < 3) {
+      Set_Special.set('M2_buff_accuracy', Set_Special.get('M2_buff_accuracy') + 1)
+    }
+    accuracy_rate = Math.max(0.4, accuracy / (accuracy + target_eva * 8)) // 命中率
+    if (Set_Special.get('M2_curveattack')) { // 曲线雷击
+      Set_Special.set('M2_curveattack', false)
+      Set_Special.set('M2_curveattack_reload', 2)
+      defencebreaking *= 1.6
+      is_curve = true
+    }
+    overdbk = do_defencebreaking(defencebreaking) // 破防，并计算溢出破防
+    damage_main += overdbk
+    damage_aoe += overdbk
+    if (is_curve) {
+      damage_main *= 1.2
+      damage_aoe *= 1.2
+    }
+    // 致命干扰 回避buff计算
+    var list_random = []
+    for (var i = 0; i < 9; i++) {
+      if (gs_tdoll[i]) list_random.push(i)
+    }
+    var len_random = list_random.length
+    if (len_random > 0) {
+      for (var i = 0; i < enemy_num_left; i++) { // 每存在一组敌方单位增加一个buff
+        var luck_girl = list_random[Math.floor(Math.random() * len_random)]
+        if (Set_Special.get('M2_buff' + luck_girl) === undefined) {
+          Set_Special.set('M2_buff' + luck_girl, 1)
+          changeStatus(luck_girl, 'self', 'eva', 0.1, 5)
+          changeStatus(luck_girl, 'self', 'acu', 0.1, 5)
+          changeStatus(luck_girl, 'self', 'acu', 0, 5) // 标识状态结束
+        } else if (Set_Special.get('M2_buff' + luck_girl) < 3) {
+          Set_Special.set('M2_buff' + luck_girl, Set_Special.get('M2_buff' + luck_girl) + 1)
+          changeStatus(luck_girl, 'self', 'eva', 0.1, 5)
+          changeStatus(luck_girl, 'self', 'acu', 0.1, 5)
+          changeStatus(luck_girl, 'self', 'acu', 0, 5) // 标识状态结束
+        }
+      }
+    }
+    if (Math.random() <= accuracy_rate) { // 命中
+      damage_main = Math.max(1, Math.ceil(damage_main * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      damage_aoe = Math.max(1, Math.ceil(damage_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+    } else {
+      damage_main = 0
+      damage_aoe = 0
+    }
+  } else if (hfn === 4) {
+    var is_ff_enemy = false
+    var extra_aoe = 0 // 溅射额外杀伤
+    accuracy_rate = Math.max(0.4, accuracy / (accuracy + target_eva * 8)) // 命中率
+    if (display_type === 'damage') {
+      if (enemy_forcefield > 0) is_ff_enemy = true
+    } else if (display_type === 'suffer') {
+      if (enemy_forcefield_2 > 0) is_ff_enemy = true
+    }
+    overdbk = do_defencebreaking(defencebreaking) // 破防，并计算溢出破防
+    if (is_ff_enemy) extra_aoe = 2 * damage_aoe
+    if (Math.random() <= accuracy_rate) { // 命中
+      if (Set_Special.get('AT4_buff') === true) { // 致盲闪光
+        Set_Special.set('AT4_buff', false)
+        var status_AT4_switch = [['enemy_acu', 1], 180] // 管控防止叠加
+        var status_acu = [['enemy_acu', 0.8], 180]
+        Set_Status.get(-2).push(status_AT4_switch)
+        Set_Status.get(-2).push(status_acu)
+        endStatus(-1, status_AT4_switch, 'enemy_get')
+        endStatus(-1, status_acu, 'enemy_get')
+      }
+      if (Set_Special.get('AT4_burn_leftnum') <= 0) { // 烈性灼烧重燃
+        Set_Special.set('AT4_burn_next', global_frame + 15)
+      }
+      Set_Special.set('AT4_burn_leftnum', 10) // 烈性灼烧次数重置
+      damage_main *= 1.5
+      damage_aoe *= 0.5
+      damage_main = Math.max(1, Math.ceil(damage_main * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      damage_aoe = Math.max(1, Math.ceil(damage_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      extra_aoe = Math.max(1, Math.ceil(extra_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 40 - target_arm)))
+      damage_aoe += extra_aoe
+    } else {
+      damage_main = 0
+      damage_aoe = 0
+    }
   }
-
+  damage_main *= main_multi
+  damage_aoe *= aoe_multi
   return damage_main + damage_aoe
 }
 function do_defencebreaking (defencebreaking) {
