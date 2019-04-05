@@ -2,6 +2,7 @@
 by FatalChapter(命运の乐章)<br>
 <br>
 This is a tool page for mobile game Girls' Frontline, including:<br>
+<<<<<<< HEAD
 ### Index(首页)<br>
 Update info, and supporters about this website.<br>
 ### Database(资料库)<br>
