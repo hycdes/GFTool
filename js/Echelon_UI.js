@@ -908,7 +908,7 @@ function showEnvi () {
   else if (daytime === 2) document.getElementById('envi_day').src = '../img/icon-night.png'
   document.getElementById('envi_alltime').innerHTML = document.getElementById('time_battle').value
   document.getElementById('envi_contertime').innerHTML = document.getElementById('time_init').value
-  document.getElementById('envi_alldmg').innerHTML = totaldamage_buffer
+  document.getElementById('envi_alldmg').innerHTML = seperate_thousands(totaldamage_buffer)
   document.getElementById('envi_ene_form').innerHTML = document.getElementById('enemy_form').value
   document.getElementById('envi_ene_num').innerHTML = document.getElementById('enemy_num').value
   if (document.getElementById('switch_normal').checked) {
@@ -1127,7 +1127,7 @@ function trans_if_need (num) {
   }
   return num
 }
-function trans_if_need_idx(num) {
+function trans_if_need_idx (num) {
   if (lang_type === 'ko') {
     if (num >= 6) num -= 6
     else if (num <= 2) num += 6
@@ -1252,4 +1252,54 @@ function show_hide (stand_num, command) {
     else document.getElementById('show_inj').className = no
   }
   makeGraph()
+}
+function showStat () {
+  var statID = document.getElementById('envi_stat')
+  var stat_str = ''
+  var stat_pair = []
+  for (var i = 0; i < 9; i++) {
+    if (gs_tdoll[i]) {
+      stat_pair.push([i, parseInt(((Glabel_dmg.get(i)).split(' '))[0])])
+    }
+  }
+  if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
+    stat_pair.push([9, parseInt(((Glabel_dmg.get('fairy')).split(' '))[0])])
+  }
+  for (var i = 0; i < 5; i++) {
+    if (gs_HF[i]) {
+      stat_pair.push([10 + i, parseInt(((Glabel_dmg.get('HF' + i)).split(' '))[0])])
+    }
+  }
+  stat_pair.sort(function (a, b) { return b[1] - a[1]})
+  for (var pair of stat_pair) {
+    var idx = pair[0]
+    stat_str += '<tr style="height:31px">'
+    stat_str += '<td style="width:225px;text-align:left">'
+    stat_str += '<span style="color:'
+    if (idx <= 9) stat_str += list_color[idx]
+    else if (idx > 10) stat_str += list_color_HF[idx - 10]
+    if (idx === 9) idx = 'fairy'
+    else if (idx > 10) idx = 'HF' + (idx - 10)
+    stat_str += '">&nbsp◕ </span>'
+    stat_str += Glabel_name.get(idx)
+    stat_str += '</td>'
+    stat_str += '<td style="width:225px">'
+    stat_str += '<span style="color:red"><b>' + seperate_thousands(((Glabel_dmg.get(idx)).split(' '))[0]) + '</b></span>'
+    stat_str += ' ' + ((Glabel_dmg.get(idx)).split(' '))[1]
+    stat_str += '</td>'
+    stat_str += '</tr>'
+  }
+  statID.innerHTML = stat_str
+}
+function seperate_thousands (num) {
+  var new_format = num + ''
+  var count = 0
+  for (var i = new_format.length - 1; i > 0; i--) {
+    if (count < 2) count++
+    else {
+      new_format = new_format.substr(0, i) + ',' + new_format.substr(i)
+      count = 0
+    }
+  }
+  return new_format
 }

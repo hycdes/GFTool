@@ -180,8 +180,8 @@ function getResult (multiple, action) {
       if (Set_Data.get(i)[len_data - 1][1] > y_max) y_max = Set_Data.get(i)[len_data - 1][1]
       var reverse_position = trans_if_need_idx(i)
       var temp_name = (reverse_position + 1) + lib_language.main_draw_1 + list_tdoll[i][1].Name
-      var temp_dmg = lib_language.main_draw_2 + '=' + current_data[len_data - 1][1]
-      if (totaldamage_buffer > 0) temp_dmg += '(' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+      var temp_dmg = current_data[len_data - 1][1]
+      if (totaldamage_buffer > 0) temp_dmg += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
       temp_dmg += ' '
       Glabel_name.set(i, temp_name);Glabel_dmg.set(i, temp_dmg)
     }
@@ -200,7 +200,7 @@ function getResult (multiple, action) {
       else if (i === 3) temp_name = 'M2'
       else if (i === 4) temp_name = 'AT4'
       temp_name += ' '
-      var temp_dmg = lib_language.main_draw_2 + current_data[len_data - 1][1]
+      var temp_dmg = current_data[len_data - 1][1]
       if (totaldamage_buffer > 0) temp_dmg += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
       Glabel_name.set('HF' + i, temp_name); Glabel_dmg.set('HF' + i, temp_dmg)
     }
@@ -237,7 +237,7 @@ function getResult (multiple, action) {
     if (y_max < Set_Data.get(9)[Set_Data.get(9).length - 1][1]) y_max = Set_Data.get(9)[Set_Data.get(9).length - 1][1]
     var temp_dmg = ''
     eval('Glabel_name.set("fairy",lib_language.fairyNAME_' + fairy_no + '+" ")')
-    temp_dmg = lib_language.main_draw_2 + current_data[len_data - 1][1] + '(' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
+    temp_dmg = current_data[len_data - 1][1] + ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
     Glabel_dmg.set('fairy', temp_dmg)
   }
   x_max_buffer = x_max, y_max_buffer = y_max, y2_max_buffer = y_max_suffer, y2_min_buffer = y_min_suffer
@@ -245,6 +245,7 @@ function getResult (multiple, action) {
   initShowhide()
   makeGraph()
   showEnvi()
+  showStat()
 }
 
 // MAIN, 攻击优先于所有

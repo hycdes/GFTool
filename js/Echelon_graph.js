@@ -32,27 +32,15 @@ function makeGraph () {
   // t-doll dmg-data and inj-data
   for (var i = 0; i < 9; i++) {
     if (gs_tdoll[i]) {
-      if (list_show[i] && list_show[i + 9]) {
+      if (list_show[i]) {
         base_data.push({
           data: Set_Data.get(i),
           label: Set_Label.get(i),
           color: list_color[i],
           yaxis: 1
         })
-        base_data.push({
-          data: Set_Data_S.get(i),
-          label: Set_Label.get('inj' + i),
-          color: list_color[i],
-          yaxis: 2
-        })
-      } else if (list_show[i]) {
-        base_data.push({
-          data: Set_Data.get(i),
-          label: Set_Label.get(i),
-          color: list_color[i],
-          yaxis: 1
-        })
-      } else {
+      }
+      if (list_show[i + 9]) {
         base_data.push({
           data: Set_Data_S.get(i),
           label: Set_Label.get('inj' + i),
@@ -65,7 +53,7 @@ function makeGraph () {
   // fairy data
   if (gs_fairy && list_show_fairy[0]) {
     base_data.push({ data: Set_Data.get(9),
-      label: Glabel_name.get('fairy') + Glabel_dmg.get('fairy'),
+      label: Glabel_name.get('fairy') + 'd',
       color: list_color[9],
       yaxis: 1
     })
@@ -75,7 +63,7 @@ function makeGraph () {
     if (gs_HF[i] && list_show_HF[i]) {
       base_data.push({
         data: Set_Data_HF.get(i),
-        label: Glabel_name.get('HF' + i) + Glabel_dmg.get('HF' + i),
+        label: Glabel_name.get('HF' + i) + 'd',
         color: list_color_HF[i],
         yaxis: 1
       })
