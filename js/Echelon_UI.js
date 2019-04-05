@@ -1279,7 +1279,7 @@ function showStat () {
     if (idx <= 9) stat_str += list_color[idx]
     else if (idx > 10) stat_str += list_color_HF[idx - 10]
     if (idx === 9) idx = 'fairy'
-    else if (idx > 10) idx = 'HF' + (idx - 10)
+    else if (idx >= 10) idx = 'HF' + (idx - 10)
     stat_str += '">&nbsp◕ </span>'
     stat_str += Glabel_name.get(idx)
     stat_str += '</td>'
