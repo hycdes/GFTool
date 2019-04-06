@@ -119,7 +119,7 @@ function maxAllChip () {
   switch_orangeall = false
   if (switch_maxall === false) {
     switch_maxall = true
-    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang_maxall
+    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang.btn_maxall
   } else {
     switch_maxall = false
     document.getElementById('alert_maxall').innerHTML = ''
