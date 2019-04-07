@@ -5,6 +5,11 @@ lib_language = {
   main_formatDPS_2: '输出',
   main_makeGraph_1: '时间',
   main_makeGraph_2: '伤害',
+  main_makeGraph_3: '生命值',
+  main_show_dmg: '显示输出',
+  main_show_inj: '显示承伤',
+  main_makeGraph_dead: '阵亡',
+
   UI_affect: '影响',
   UI_num: '号位',
   UI_dmg: '输出',
@@ -13,6 +18,8 @@ lib_language = {
   UI_pickblock: '请点选一个<b><span style="color: red">九宫格</span></b>',
   UI_not_2_python: ' *不能添加两个蟒蛇',
   UI_not_2_carcano: ' *不能添加两个CarcanoM1891',
+  UI_fairydmg: '妖精伤害',
+  UI_fairyinj: '妖精承伤',
 
   NAME_1: '柯尔特左轮',
   NAME_4: '蟒蛇',
@@ -145,6 +152,7 @@ lib_language = {
   skillNAME_238: '懒惰的怒火',
   skillNAME_243: '未来预警',
   skillNAME_252: '震荡冲击弹',
+  skillNAME_256: '夕阳隼',
   skillNAME_2006: '圣光制裁',
   DESCRIBE_39_1: '每',
   DESCRIBE_39_2: '次普攻击杀敌人',
@@ -170,6 +178,7 @@ lib_language = {
   DESCRIBE_243_2: '护盾25',
   DESCRIBE_251: '花之锁增伤',
   DESCRIBE_252: '溅射所有敌人',
+  DESCRIBE_256: '不使用特殊子弹',
   DESCRIBE_2006: '敌人进入制裁范围',
 
   fairy_0: '无',
@@ -195,11 +204,6 @@ lib_language = {
   daytime: '昼战',
   form: '编制',
 
-  skillNAME_256: '夕阳隼',
-  DESCRIBE_256: '不使用特殊子弹',
-
-  // new
-
   fairyNAME_1: '勇士妖精',
   fairyNAME_2: '暴怒妖精',
   fairyNAME_3: '盾甲妖精',
@@ -219,13 +223,6 @@ lib_language = {
   fairyNAME_17: '照明妖精',
   fairyNAME_18: '黄金妖精',
   fairyNAME_19: '炊事妖精',
-  fairyDESCRIBE_19: '紧急开饭开什么饭？',
-  fairyDESCRIBE_19_0: '随便什么都行(随机)',
-  fairyDESCRIBE_19_1: '麻辣味(+20%伤害)',
-  fairyDESCRIBE_19_2: '酸辣味(+20%射速)',
-  fairyDESCRIBE_19_3: '甜的(+30%命中)',
-  fairyDESCRIBE_19_4: '咸的(+25%回避)',
-  fairyDESCRIBE_19_5: '…煮糊了(-0%伤害)',
   fairyNAME_20: '花火妖精',
   fairyNAME_21: '年兽妖精',
 
@@ -252,9 +249,18 @@ lib_language = {
   fairy_skillNAME_19: '紧急开饭',
   fairy_skillNAME_20: '夏末花火',
   fairy_skillNAME_21: '爆竹惊春',
-  main_makeGraph_3: '生命值',
+  fairyDESCRIBE_19: '紧急开饭开什么饭？',
+  fairyDESCRIBE_19_0: '随便什么都行(随机)',
+  fairyDESCRIBE_19_1: '麻辣味(+20%伤害)',
+  fairyDESCRIBE_19_2: '酸辣味(+20%射速)',
+  fairyDESCRIBE_19_3: '甜的(+30%命中)',
+  fairyDESCRIBE_19_4: '咸的(+25%回避)',
+  fairyDESCRIBE_19_5: '…煮糊了(-0%伤害)',
 
-  main_show_dmg: '显示输出',
-  main_show_inj: '显示承伤',
-  main_makeGraph_dead: '阵亡'
+  hfNAME_0: 'BGM-71',
+  hfNAME_1: 'AGS-30',
+  hfNAME_2: '2B-14',
+  hfNAME_3: 'M2',
+  hfNAME_4: 'AT4'
+
 }

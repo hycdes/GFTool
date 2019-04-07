@@ -40,7 +40,8 @@ var x_max_buffer = 0, y_max_buffer = 0, y2_max_buffer = 0, y2_min_buffer = 0, to
 var display_type = 'damage' // 模拟类型
 var Set_Data = new Map // 输出数据
 var Set_Data_Buffer = new Map // 输出数据缓存
-var Set_Data_S = new Map // 承伤数据
+var Set_Data_S = new Map // 承伤数据，血量值
+var Set_Data_S_Percentage = new Map // 承伤数据，血量百分比
 var Set_Data_S_Buffer = new Map // 承伤数据缓存
 var Set_Data_HF = new Map // 重装部队输出数据
 var Set_Data_HF_Buffer = new Map // 重装部队输出数据缓存
@@ -139,13 +140,25 @@ function getResult (multiple, action) {
     Set_Data_HF.set(i, this_data)
   }
   if (display_type === 'suffer') {
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 9; i++) { // 生命值统计
       var this_data = Set_Data_S_Buffer.get(i)
       var len = this_data.length
       for (var x = 0; x < len; x++) {
         this_data[x][1] = Math.ceil(this_data[x][1] / multiple)
       }
       Set_Data_S.set(i, this_data)
+    }
+    for (var i = 0; i < 9; i++) { // 生命百分比统计
+      if (gs_tdoll[i]) {
+        var this_data = Set_Data_S_Buffer.get(i)
+        var len = this_data.length
+        var hp_max = list_tdoll[i][1].Property.hp
+        var percent_data = []
+        for (var n = 0; n < len; n++) {
+          percent_data.push([this_data[n][0] / 30, this_data[n][1] / hp_max])
+        }
+        Set_Data_S_Percentage.set(i, percent_data)
+      }
     }
   }
   // 绘图
@@ -208,6 +221,7 @@ function getResult (multiple, action) {
   // Tdoll-inj stat
   var y_max_suffer = 0
   var y_min_suffer = 9999
+  var y_min_per_suffer = 1
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var current_data = Set_Data_S.get(i)
@@ -215,6 +229,7 @@ function getResult (multiple, action) {
       for (var d = 0; d < len_data; d++) Set_Data_S.get(i)[d][0] = (Set_Data_S.get(i)[d][0] / 30).toFixed(1)
       if (Set_Data_S.get(i)[0][1] > y_max_suffer) y_max_suffer = Set_Data_S.get(i)[0][1]
       if (Set_Data_S.get(i)[len_data - 1][1] < y_min_suffer) y_min_suffer = Set_Data_S.get(i)[len_data - 1][1]
+      if (Set_Data_S_Percentage.get(i)[len_data - 1][1] < y_min_per_suffer) y_min_per_suffer = Set_Data_S_Percentage.get(i)[len_data - 1][1]
       if (lang_type === 'ko') {
         if (reverse_position >= 6) reverse_position -= 6
         else if (reverse_position <= 2) reverse_position += 6
@@ -239,8 +254,13 @@ function getResult (multiple, action) {
     eval('Glabel_name.set("fairy",lib_language.fairyNAME_' + fairy_no + '+" ")')
     temp_dmg = current_data[len_data - 1][1] + ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
     Glabel_dmg.set('fairy', temp_dmg)
+  } else {
+    list_show_fairy[0] = false
   }
-  x_max_buffer = x_max, y_max_buffer = y_max, y2_max_buffer = y_max_suffer, y2_min_buffer = y_min_suffer
+  x_max_buffer = x_max
+  y_max_buffer = y_max
+  y2_max_buffer = y_max_suffer, y2_min_buffer = y_min_suffer
+  y2_max_per_buffer = 1, y2_min_per_buffer = y_min_per_suffer
   document.getElementById('table_showhide').innerHTML = ''
   initShowhide()
   makeGraph()
@@ -1940,6 +1960,9 @@ function init_loadPrepareStatus () { // 初始化战前属性
       list_show[i + 9] = false
     }
   } else if (display_type === 'suffer') {
+    for (var i = 0; i < 9; i++) list_show[i] = false
+    list_show_fairy[0] = false
+    for (i = 0; i < 5; i++) list_show_HF[i] = false
     for (var i = 0; i < 9; i++) {
       if (list_tdoll[i][1] != null) gs_tdoll[i] = true
     }

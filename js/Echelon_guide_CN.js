@@ -21,6 +21,7 @@ function mergeCell (table1, startRow, endRow, col) {
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
   }
 }
+
 function loadScript (url) {
   var script = document.createElement('script')
   script.type = 'text/javascript'

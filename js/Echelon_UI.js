@@ -1187,34 +1187,34 @@ function initShowhide () {
   document.getElementById('allcontrol_showhide').innerHTML = ''
   var tableID = document.getElementById('table_showhide')
   var tableHTML = ''
-  var h = 35
-  if (display_type === 'damage') h = 70
   tableHTML += '<tbody>'
-  for (var row = 0; row < 3; row++) {
-    tableHTML += '<tr style="height:' + h + 'px">'
-    for (var col = 0; col < 3; col++) {
-      tableHTML += '<td style="width:90px">'
-      if (list_tdoll[3 * row + col][1] != null) {
-        tableHTML += '<button type="button" class="btn btn-primary" id="show'
-        tableHTML += (3 * row + col) + '" style="width:70px;padding:2px" onclick="show_hide('
-        tableHTML += (3 * row + col) + ',0)">' + trans_if_need(1 + (3 * row + col)) + lib_language.UI_num + '</button>'
-      } else {
-        tableHTML += ''
+  for (var row = 0; row < 3; row++) { // t-doll switch
+    if (display_type === 'damage') {
+      tableHTML += '<tr style="height:70px">'
+      for (var col = 0; col < 3; col++) {
+        tableHTML += '<td style="width:70px">'
+        if (list_tdoll[3 * row + col][1] != null) {
+          tableHTML += '<img id="show' + (3 * row + col) + '" src="../img/echelon/button/show_' + trans_if_need((3 * row + col) + 1) + '_dmg.png" style="cursor:pointer" onclick="show_hide(' + (3 * row + col) + ',0)">'
+        }
+        tableHTML += '</td>'
       }
-      tableHTML += '</td>'
-    }
-    tableHTML += '</tr>'
-    if (display_type === 'suffer') {
+      tableHTML += '</tr>'
+    } else if (display_type === 'suffer') {
       tableHTML += '<tr style="height:35px">'
       for (var col = 0; col < 3; col++) {
-        tableHTML += '<td style="width:90px">'
+        tableHTML += '<td style="width:70px">'
         if (list_tdoll[3 * row + col][1] != null) {
-          tableHTML += '<button type="button" class="btn btn-primary" id="show'
-          tableHTML += (3 * row + col) + '_1" style="width:38px;padding:2px" onclick="show_hide(' + (3 * row + col) + ',1)">' + lib_language.UI_dmg + '</button>&nbsp'
-          tableHTML += '<button type="button" class="btn btn-primary" id="show'
-          tableHTML += (3 * row + col) + '_2" style="width:38px;padding:2px" onclick="show_hide(' + (3 * row + col) + ',2)">' + lib_language.UI_inj + '</button>'
-        } else {
-          tableHTML += ''
+          tableHTML += '<img id="show' + (3 * row + col) + '" src="../img/echelon/button/show_' + trans_if_need((3 * row + col) + 1) + '.png" style="cursor:pointer" onclick="show_hide(' + (3 * row + col) + ',0)">'
+        }
+        tableHTML += '</td>'
+      }
+      tableHTML += '</tr>'
+      tableHTML += '<tr style="height:35px">'
+      for (var col = 0; col < 3; col++) {
+        tableHTML += '<td style="width:70px">'
+        if (list_tdoll[3 * row + col][1] != null) {
+          tableHTML += '<img id="show' + (3 * row + col) + '_1" src="../img/echelon/button/show_dmg.png" style="cursor:pointer" onclick="show_hide(' + (3 * row + col) + ',1)">'
+          tableHTML += '<img id="show' + (3 * row + col) + '_2" src="../img/echelon/button/show_inj.png" style="cursor:pointer" onclick="show_hide(' + (3 * row + col) + ',2)">'
         }
         tableHTML += '</td>'
       }
@@ -1223,10 +1223,12 @@ function initShowhide () {
   }
   tableHTML += '</tbody>'
   tableID.innerHTML = tableHTML
+  // all control switch
   if (display_type === 'suffer') {
     var acHTML = ''
-    acHTML += '<button type="button" class="btn btn-success" id="show_dmg" onclick="show_hide(1,3)">' + lib_language.main_show_dmg + '</button>&nbsp'
-    acHTML += '<button type="button" class="btn btn-success" id="show_inj" onclick="show_hide(2,3)">' + lib_language.main_show_inj + '</button>'
+    acHTML += '<td><img id="show_dmg" src="../img/echelon/button/show_alldmg_' + lang_type + '.png" style="cursor:pointer" onclick="show_hide(1,3)"></td>'
+    acHTML += '<td><img id="show_inj" src="../img/echelon/button/show_allinj_' + lang_type + '.png" style="cursor:pointer" onclick="show_hide(2,3)"></td>'
+    acHTML += '<td><img id="show_inj_value" src="../img/echelon/button/show_inj_value.png" style="cursor:pointer" onclick="show_hide(3,3)"></td>'
     document.getElementById('allcontrol_showhide').innerHTML = acHTML
     for (var row = 0; row < 3; row++) {
       for (var col = 2; col >= 0; col--) {
@@ -1234,11 +1236,36 @@ function initShowhide () {
       }
     }
   }
+  // fairy and hf
+  var fhfHTML = ''
+  if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) { // fairy switch
+    fhfHTML += '<td><img id="show_fairydmg" src="../img/echelon/button/show_fairydmg.png" style="cursor:pointer" onclick="show_hide(1,4)"></td>'
+  }
+  // fairy inj
+  for (var i = 0; i < 5; i++) { // HF
+    if (gs_HF[i]) {
+      fhfHTML += '<td><img id="show_HF' + i + '" src="../img/echelon/button/show_hf' + (i + 1) + '.png" style="cursor:pointer" onclick="show_hide(' + i + ',5)"></td>'
+    }
+  }
+  document.getElementById('fairyHF_showhide').innerHTML = fhfHTML
+  show_hide(-1, -1)
 }
 function show_hide (stand_num, command) {
-  var yes = 'btn btn-primary', no = 'btn btn-default', yes_all = 'btn btn-success'
+  var is_fairydmg = false, is_fairyinj = false
   var least_dmg = false, least_inj = false
-  if (command === 0) {
+  // judge
+  if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) is_fairydmg = true
+  for (var i = 0; i < 5; i++) {
+    if (gs_HF[i]) {
+      is_hfdmg = true
+      break
+    }
+  }
+  // reacting
+  if (command === -1) { // just refresh, do nothing
+    true
+  }
+  else if (command === 0) { // show position
     if (display_type === 'damage') {
       list_show[stand_num] = !list_show[stand_num]
     } else if (display_type === 'suffer') {
@@ -1251,53 +1278,64 @@ function show_hide (stand_num, command) {
       }
     }
   }
-  else if (command === 1) list_show[stand_num] = !list_show[stand_num]
-  else if (command === 2) list_show[stand_num + 9] = !list_show[stand_num + 9]
-  else if (command === 3) {
-    for (var i = 0; i < 9; i++) {
-      if (list_tdoll[i][1] != null) {
-        if (list_show[i]) least_dmg = true
-        if (list_show[i + 9]) least_inj = true
-      }
-    }
+  else if (command === 1) list_show[stand_num] = !list_show[stand_num] // show position-dmg
+  else if (command === 2) list_show[stand_num + 9] = !list_show[stand_num + 9] // show position-inj
+  else if (command === 3) { // show all
     if (stand_num === 1) {
-      if (least_dmg) for (var i = 0; i < 9; i++) list_show[i] = false
-      else for (var i = 0; i < 9; i++) list_show[i] = true
+      least_dmg = is_dmg_on()
+      if (least_dmg) {
+        for (var i = 0; i < 9; i++) list_show[i] = false
+        if (is_fairydmg) list_show_fairy[0] = false
+        for (var i = 0; i < 5; i++) list_show_HF[i] = false
+      } else {
+        for (var i = 0; i < 9; i++) list_show[i] = true
+        if (is_fairydmg) list_show_fairy[0] = true
+        for (var i = 0; i < 5; i++) list_show_HF[i] = true
+      }
     } else if (stand_num === 2) {
+      least_inj = is_inj_on()
       if (least_inj) for (var i = 0; i < 9; i++) list_show[i + 9] = false
       else for (var i = 0; i < 9; i++) list_show[i + 9] = true
+    } else if (stand_num === 3) {
+      if (inj_label_style === 'hp_value') inj_label_style = 'hp_percentage'
+      else inj_label_style = 'hp_value'
     }
   }
-  // refresh UI
+  else if (command === 4) { // show fairy
+    if (stand_num === 1) list_show_fairy[0] = !list_show_fairy[0]
+    else if (stand_num === 2) list_show_fairy[1] = !list_show_fairy[1]
+  }
+  else if (command === 5) list_show_HF[stand_num] = !list_show_HF[stand_num]
+  // refresh UI and graph
+  if (is_fairydmg) {
+    document.getElementById('show_fairydmg').src = reverse_className(4, 1, list_show_fairy[0])
+  }
+  for (var i = 0; i < 5; i++) {
+    if (gs_HF[i]) {
+      document.getElementById('show_HF' + i).src = reverse_className(5, i, list_show_HF[i])
+    }
+  }
   if (display_type === 'damage') {
     for (var i = 0; i < 9; i++) {
       if (list_tdoll[i][1] != null) {
-        if (list_show[i]) document.getElementById('show' + i).className = yes
-        else document.getElementById('show' + i).className = no
+        document.getElementById('show' + i).src = reverse_className(0, i, list_show[i])
       }
     }
   } else if (display_type === 'suffer') {
     for (var i = 0; i < 9; i++) {
       if (list_tdoll[i][1] != null) {
-        if (list_show[i]) document.getElementById('show' + i + '_1').className = yes
-        else document.getElementById('show' + i + '_1').className = no
-        if (list_show[i + 9]) document.getElementById('show' + i + '_2').className = yes
-        else document.getElementById('show' + i + '_2').className = no
-        if (list_show[i] || list_show[i + 9]) document.getElementById('show' + i).className = yes
-        else document.getElementById('show' + i).className = no
+        document.getElementById('show' + i + '_1').src = reverse_className(1, i, list_show[i])
+        document.getElementById('show' + i + '_2').src = reverse_className(2, i, list_show[i + 9])
+        document.getElementById('show' + i).src = reverse_className(0, i, list_show[i] || list_show[i + 9])
       }
     }
-    least_dmg = false, least_inj = false
-    for (var i = 0; i < 9; i++) {
-      if (list_tdoll[i][1] != null) {
-        if (list_show[i]) least_dmg = true
-        if (list_show[i + 9]) least_inj = true
-      }
-    }
-    if (least_dmg) document.getElementById('show_dmg').className = yes_all
-    else document.getElementById('show_dmg').className = no
-    if (least_inj) document.getElementById('show_inj').className = yes_all
-    else document.getElementById('show_inj').className = no
+    least_dmg = is_dmg_on()
+    least_inj = is_inj_on()
+    document.getElementById('show_dmg').src = reverse_className(3, 1, least_dmg)
+    document.getElementById('show_inj').src = reverse_className(3, 2, least_inj)
+    var inj_bol = true
+    if (inj_label_style === 'hp_percentage') inj_bol = false
+    document.getElementById('show_inj_value').src = reverse_className(3, 3, inj_bol)
   }
   makeGraph()
 }
@@ -1350,4 +1388,44 @@ function seperate_thousands (num) {
     }
   }
   return new_format
+}
+function is_dmg_on () {
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null && list_show[i]) return true
+  }
+  if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
+    if (list_show_fairy[0]) return true
+  }
+  for (var i = 0; i < 5; i++) if (gs_HF[i] && list_show_HF[i]) return true
+  return false
+}
+function is_inj_on () {
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null && list_show[i + 9]) return true
+  }
+  // fairy judge
+  return false
+}
+function reverse_className (command, stand_num, boolean) {
+  var str_name = '../img/echelon/button/'
+  if (command === 0) {
+    var stand_name = trans_if_need(stand_num + 1)
+    str_name += 'show_' + stand_name
+    if (display_type === 'damage') str_name += '_dmg'
+  } else if (command === 1) {
+    str_name += 'show_dmg'
+  } else if (command === 2) {
+    str_name += 'show_inj'
+  } else if (command === 3) {
+    if (stand_num === 1) str_name += 'show_alldmg_' + lang_type
+    else if (stand_num === 2) str_name += 'show_allinj_' + lang_type
+    else if (stand_num === 3) str_name += 'show_inj_value'
+  } else if (command === 4) {
+    if (stand_num === 1) str_name += 'show_fairydmg'
+  } else if (command === 5) {
+    str_name += 'show_hf' + (stand_num + 1)
+  }
+  if (!boolean) str_name += '-no'
+  str_name += '.png'
+  return str_name
 }

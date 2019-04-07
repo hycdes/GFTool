@@ -5,6 +5,11 @@ lib_language = {
   main_formatDPS_2: '피해',
   main_makeGraph_1: '시간',
   main_makeGraph_2: '피해',
+  main_makeGraph_3: '체력',
+  main_show_dmg: '공격',
+  main_show_inj: '방어',
+  main_makeGraph_dead: '타락한',
+
   UI_affect: '',
   UI_num: '번 자리',
   UI_dmg: '공격',
@@ -13,6 +18,8 @@ lib_language = {
   UI_pickblock: '<b><span style="color: red">배치할 자리</span></b> 를 선택해 주세요',
   UI_not_2_python: ' *파이슨을 2기 이상 추가할 수 없습니다.',
   UI_not_2_carcano: ' *CarcanoM1891을 2기 이상 추가할 수 없습니다',
+  UI_fairydmg: '요정공격',
+  UI_fairyinj: '요정방어',
 
   NAME_1: '콜트 리볼버',
   NAME_4: '콜트 파이슨',
@@ -198,8 +205,6 @@ lib_language = {
   skillNAME_256: '석양의 송골매',
   DESCRIBE_256: '특수탄 사용 안함',
 
-  // new
-
   fairyNAME_1: '용사요정',
   fairyNAME_2: '격노요정',
   fairyNAME_3: '방패요정',
@@ -252,9 +257,10 @@ lib_language = {
   fairy_skillNAME_19: '긴급배식',
   fairy_skillNAME_20: '늦여름 폭죽',
   fairy_skillNAME_21: '귀신 쫓기',
-  main_makeGraph_3: '체력',
 
-  main_show_dmg: '공격',
-  main_show_inj: '방어',
-  main_makeGraph_dead: '타락한'
+  hfNAME_0: 'BGM-71',
+  hfNAME_1: 'AGS-30',
+  hfNAME_2: '2B-14',
+  hfNAME_3: 'M2',
+  hfNAME_4: 'AT4'
 }

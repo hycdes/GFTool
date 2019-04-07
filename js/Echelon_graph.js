@@ -1,3 +1,4 @@
+var inj_label_style = 'hp_value'
 var list_color = [
   '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
   '#666666'
@@ -41,8 +42,11 @@ function makeGraph () {
         })
       }
       if (list_show[i + 9]) {
+        var data_select
+        if (inj_label_style === 'hp_value') data_select = Set_Data_S.get(i)
+        else if (inj_label_style === 'hp_percentage') data_select = Set_Data_S_Percentage.get(i)
         base_data.push({
-          data: Set_Data_S.get(i),
+          data: data_select,
           label: Set_Label.get('inj' + i),
           color: list_color[i],
           yaxis: 2
@@ -75,12 +79,22 @@ function makeGraph () {
     position: 'right', axisLabel: lib_language.main_makeGraph_2
   })
   // yaxis2
-  var y2min = y2_min_buffer * 0.9
-  if (y2_max_buffer - y2min < 50) y2min = 0.9 * y2_max_buffer
-  if (y2min < 50) y2min = 0
+  var y2max
+  var y2min
+  if (inj_label_style === 'hp_value') {
+    y2max = 1.1 * y2_max_buffer
+    y2min = 0.9 * y2_min_buffer
+    if (y2_max_buffer - y2min < 50) y2min = 0.9 * y2_max_buffer
+    if (y2min < 50) y2min = 0
+  } else if (inj_label_style === 'hp_percentage') {
+    y2max = 1.1 * y2_max_per_buffer
+    y2min = 0.9 * y2_min_per_buffer
+    if (y2min < 0.1) y2min = 0
+  }
+
   if (display_type === 'suffer') {
     base_yaxis.push({
-      min: y2min, max: y2_max_buffer * 1.1,
+      min: y2min, max: y2max,
       position: 'left', axisLabel: lib_language.main_makeGraph_3, showTickLabels: 'none'
     })
   }
@@ -120,7 +134,10 @@ function tooltip_string (label, x, y) {
   if (datatype === 'd') { // dmg data
     return '[' + name + '] ' + lib_language.main_formatDPS_1 + ':%xs, ' + lib_language.main_formatDPS_2 + ':%y'
   } else if (datatype === 'i') { // inj data
-    return '[' + name + '] ' + lib_language.main_formatDPS_1 + ':%xs, ' + lib_language.main_makeGraph_3 + ':%y, ' + lib_language.form + ':' + Math.ceil(5 * y / list_tdoll[position][1].Property.hp)
+    if (inj_label_style === 'hp_value')
+      return '[' + name + '] ' + lib_language.main_formatDPS_1 + ':%xs, ' + lib_language.main_makeGraph_3 + ':%y, ' + lib_language.form + ':' + Math.ceil(5 * y / list_tdoll[position][1].Property.hp)
+    else if (inj_label_style === 'hp_percentage')
+      return '[' + name + '] ' + lib_language.main_formatDPS_1 + ':%xs, ' + lib_language.main_makeGraph_3 + (100 * y).toFixed(2) + '%, ' + lib_language.form + ':' + Math.ceil(5 * y)
   }
 }
 function label_string (label) {
