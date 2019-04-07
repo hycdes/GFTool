@@ -1,9 +1,9 @@
 var inj_label_style = 'hp_value'
 var list_color = [
-  '#FF9999', '#FF0000', '#760101', '#C2FE9A', '#00FF00', '#006600', '#66CCFF', '#0000FF', '#000099',
+  '#CC00FF', '#FF0000', '#FEB4B4', '#33FF00', '#00FF99', '#FFFF00', '#92DEFE', '#6600FF', '#000000',
   '#666666'
 ]
-var list_color_HF = ['#8001A0', '#FF9900', '#FFFF00', '#CC00FF', '#FFCCFF']
+var list_color_HF = ['#8001A0', '#FF6600', '#FF9900', '#CC00FF', '#FFCCFF']
 var list_show = [
   true, true, true, true, true, true, true, true, true,
   true, true, true, true, true, true, true, true, true
