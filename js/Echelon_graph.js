@@ -149,5 +149,3 @@ function label_string (label) {
   }
   return label.substr(0, label.length - 1)
 }
-// 时间 main_formatDPS_1
-// 输出 main_formatDPS_2

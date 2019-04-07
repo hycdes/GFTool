@@ -97,7 +97,7 @@ function getBlockAffect () {
   }
 }
 
-function getResult (multiple, action) {
+function getResult(multiple, action) {
   Set_Data_Buffer.clear()
   Set_Data_HF_Buffer.clear()
   Set_Data_S_Buffer.clear()
@@ -196,7 +196,7 @@ function getResult (multiple, action) {
       var temp_dmg = current_data[len_data - 1][1]
       if (totaldamage_buffer > 0) temp_dmg += ' (' + ((current_data[len_data - 1][1] / totaldamage_buffer) * 100).toFixed(2) + '%)'
       temp_dmg += ' '
-      Glabel_name.set(i, temp_name);Glabel_dmg.set(i, temp_dmg)
+      Glabel_name.set(i, temp_name); Glabel_dmg.set(i, temp_dmg)
     }
   }
   // HF-dmg percentage
@@ -219,6 +219,7 @@ function getResult (multiple, action) {
     }
   }
   // Tdoll-inj stat
+  if(display_type==='suffer'){
   var y_max_suffer = 0
   var y_min_suffer = 9999
   var y_min_per_suffer = 1
@@ -245,6 +246,7 @@ function getResult (multiple, action) {
       Glabel_inj.set(i, temp_inj)
     }
   }
+}
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
     var current_data = Set_Data.get(9)
     var len_data = current_data.length
@@ -421,6 +423,7 @@ function reactAllSkill (command, current_time) {
   }
   // 状态时间结算
   for (var [k, v] of Set_Status) { // 状态消逝，k = stand_num, v = [ [ [type, value(>1)] ,left_frame ] ... ] 的数组
+    // 脆弱类状态
     if (Set_Special.get('fragile_40') != undefined && Set_Special.get('fragile_40') < global_frame) { // 断罪者魔弹
       fragile_main /= 1.4
       Set_Special.delete('fragile_40')
@@ -444,6 +447,14 @@ function reactAllSkill (command, current_time) {
       }
       Set_Special.delete('64howa_' + k)
     }
+    // 减伤类状态
+    // Set_Special.set('temp_defence', 600)
+    if (Set_Special.get('temp_defence') < global_frame) {
+      for (var i = 0; i < 9; i++) {
+        if (gs_tdoll[i]) Set_Special.set('reduce_dmg' + i, Set_Special.get('reduce_dmg' + i) / 0.7)
+      }
+    }
+
     if (Set_Special.get('multi_' + k) != undefined && Set_Special.get('multi_' + k)[1] < global_frame) {
       Set_Special.delete('multi_' + k)
     }
@@ -1677,8 +1688,24 @@ function injury (shoot_target) {
       } else {
         record_dmg += Math.ceil(enemy_dbk / 10)
       }
+      if (Set_Special.get('reduce_dmg' + shoot_target) != undefined) {
+        record_dmg = Math.ceil(record_dmg * Set_Special.get('reduce_dmg' + shoot_target))
+      }
       var record_limit = suffer_hp
-      suffer_hp -= record_dmg
+      var shield_value = current_Info.get('shield')
+      if (shield_value > 0) {
+        shield_value -= record_dmg
+        if (shield_value < 0) {
+          record_dmg = Math.abs(shield_value)
+          suffer_hp += shield_value
+          shield_value = 0
+        } else {
+          record_dmg = 0
+        }
+        current_Info.set('shield', shield_value)
+      } else {
+        suffer_hp -= record_dmg
+      }
       if (is_activate_protect(suffer_hp, single_hp, shoot_target)) { // 当次攻击会触发大破保护
         var new_protect_status = Set_Special.get('damage_protect') // 触发保护
         Set_Special.set('damage_protect_time' + shoot_target, global_frame + 45) // 无敌1.5秒
@@ -1932,7 +1959,7 @@ function init_resetAllConfig () { // 重置所有数据
   gs_fairy = false
   last_DPS = 0
   not_init = false // 此阶段所有buff皆不可复读
-  Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear(); Set_Data_HF.clear(); Set_Data_S.clear()
+  Set_Status.clear(); Set_Skill.clear(); Set_Base.clear(); Set_Special.clear(); Set_EnemyStatus.clear(); Set_Data.clear(); Set_Data_HF.clear(); Set_Data_S.clear(); Set_Data_S_Percentage.clear()
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) queue_tdoll.push(i) // 统计战术人形站位
     list_tdoll[i][0] = 5 // 恢复编制
@@ -1976,7 +2003,10 @@ function init_loadPrepareStatus () { // 初始化战前属性
   }
   // 出战属性和初始状态
   for (var i = 0; i < 10; i++) Set_Data.set(i, [[0, 0]]) // 包括妖精在内的输出数据初始化
-  for (var i = 0; i < 9; i++) Set_Data_S.set(i, [[0, 0]]) // 生命值初始化
+  for (var i = 0; i < 9; i++) {
+    Set_Data_S.set(i, [[0, 0]]) // 生命值初始化
+    Set_Data_S_Percentage.set(i, [[0, 0]])
+  }
   for (var i = 0; i < 5; i++) { // 重装部队数据初始化
     Set_Data_HF.set(i, [[0, 0]])
     if (list_HF[i][0]) { // 支援中的重装设定初始到达时间1s
@@ -2011,6 +2041,7 @@ function init_loadPrepareStatus () { // 初始化战前属性
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
       if (display_type === 'suffer') { // 初始化生命值
         Set_Data_S.set(i, [[0, Set_Base.get(i).Info.get('hp')]])
+        Set_Data_S_Percentage.set(i, [[0, 1]])
       }
       Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
       if (is_this(i, 194)) { // K2热力过载
@@ -2167,7 +2198,10 @@ function init_loadFairy (common_position) {
         }
       }
     } else if (fairy_no === 5) { // 临时装甲
-      Set_Status.set('temp_defence', 600)
+      Set_Special.set('temp_defence', 600)
+      for (var i = 0; i < 9; i++) {
+        if (gs_tdoll[i]) Set_Special.set('reduce_dmg' + i, 0.7)
+      }
     } else if (fairy_no === 6) { // 嘲讽靶机
       Set_Special.set('provoke', 1600)
     } else if (fairy_no === 7) { // 狙击指令
@@ -2241,7 +2275,7 @@ function init_loadFairy (common_position) {
     else if (talent_no === 11) changeStatus(common_position, 'all', 'crit', '0.5', -1) // 必2
     else if (talent_no === 12) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 3) { // 
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 3) { // 冲锋型
           changeStatus(i, 'self', 'dmg', '0.08', -1)
           changeStatus(i, 'self', 'eva', '0.12', -1)
         }
@@ -2265,7 +2299,7 @@ function init_loadFairy (common_position) {
     }
     else if (talent_no === 15) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 6) { // 
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 6) { // 坚韧型
           changeStatus(i, 'self', 'arm', '0.08', -1)
           changeStatus(i, 'self', 'crit', '0.2', -1)
         }
@@ -2281,7 +2315,7 @@ function init_loadFairy (common_position) {
     }
     else if (talent_no === 17) {
       for (var i = 0; i < 9; i++) {
-        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 1) {
+        if (list_tdoll[i][1] != null && list_tdoll[i][1].Type === 1) { // 敏锐型
           changeStatus(i, 'self', 'eva', '0.1', -1)
           changeStatus(i, 'self', 'crit', '0.3', -1)
         }

@@ -99,7 +99,7 @@ lib_language = {
   equipNAME_17: 'APS 전용 개머리판',
   equipNAME_41: '야시장비',
   equipNAME_31: '외골격',
-  equipNAME_32: '방탄판',
+  equipNAME_33: '방탄판',
   equipNAME_21: 'ILM HP탄',
   equipNAME_23: 'Mk211 고폭철갑탄',
   equipNAME_22: 'APCR 고속탄',

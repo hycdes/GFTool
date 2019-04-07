@@ -10,7 +10,6 @@ function createSkill (init_cld, cld, duration, Describe) {
   Skill.Describe = Describe
   return Skill
 }
-
 // 描述类，属性：描述名、通用化特定属性
 // 特定技能没有通用属性，根据描述名在react单独处理
 function describe_attack () { // 普通攻击
@@ -43,19 +42,16 @@ function describe_propertyND (list_target, list_pro, list_value) { // 属性增�
   Describe.list_value = list_value
   return Describe
 }
-
 function describe_colt () { // 决斗幸存者
   var Describe = {}
   Describe.name = 'colt'
   return Describe
 }
-
 function describe_m1911 () { // 绝境神枪手
   var Describe = {}
   Describe.name = 'm1911'
   return Describe
 }
-
 function describe_bomb (direct_ratio, dot_ratio, dot_per_second, dot_time) { // 投掷物，实际执行榴弹+AOE单独计算
   var Describe = {}
   Describe.name = 'bomb'
@@ -65,14 +61,12 @@ function describe_bomb (direct_ratio, dot_ratio, dot_per_second, dot_time) { // 
   Describe.dot_time = dot_time
   return Describe
 }
-
 function describe_grenade (ratio) { // 榴弹
   var Describe = {}
   Describe.name = 'grenade'
   Describe.ratio = ratio
   return Describe
 }
-
 function describe_snipe (ratio, time_init, time_interval, snipe_num, labels) { // 狙击：倍率、初始时间、瞄准间隔、狙击次数，特殊说明
   var Describe = {}
   Describe.name = 'snipe'
@@ -112,7 +106,6 @@ function describe_falcon (ratio, time_init, time_interval, snipe_num, labels) { 
   Describe.labels = labels
   return Describe
 }
-
 function describe_karm1891 () {
   var Describe = {}
   Describe.name = 'karm1891'
@@ -123,13 +116,11 @@ function describe_karm9138 () {
   Describe.name = 'karm9138'
   return Describe
 }
-
 function describe_hs2000 () {
   var Describe = {}
   Describe.name = 'hs2000'
   return Describe
 }
-
 function describe_k11 () { // 恐惧榴弹
   var Describe = {}
   Describe.name = 'k11'
@@ -145,19 +136,16 @@ function describe_sop2 () { // 狂乱马戏
   Describe.name = 'sop2'
   return Describe
 }
-
 function describe_contender () {
   var Describe = {}
   Describe.name = 'contender'
   return Describe
 }
-
 function describe_python () { // 蟒蛇_主动
   var Describe = {}
   Describe.name = 'python'
   return Describe
 }
-
 function describe_aug () { // AUG
   var Describe = {}
   Describe.name = 'aug'
@@ -284,6 +272,13 @@ function describe_flash (duration) {
   var Describe = {}
   Describe.name = 'flash'
   Describe.duration = duration
+  return Describe
+}
+function describe_shield (value, duration, label) {
+  var Describe = {}
+  Describe.value = value
+  Describe.duration = duration
+  Describe.label = label
   return Describe
 }
 
@@ -439,10 +434,16 @@ lib_describe.set('srs', describe_property(['self'], ['dmg/acu'], ['0.6/0.4'])) /
 lib_describe.set('evaacu_4', describe_property(['self'], ['eva/acu'], ['0.8/0.5'])) // 隐秘专注-4星
 lib_describe.set('pm06N', describe_propertyN(['self'], ['eva/acu'], ['1.5/0.8'])) // 隐秘专注N
 lib_describe.set('pm06ND', describe_propertyND(['self'], ['eva/acu'], ['0.5/0.4'])) // 隐秘专注ND
+lib_describe.set('arm_70', describe_property(['self'], ['arm'], ['0.7'])) // 防护专注-4星
+lib_describe.set('arm_60', describe_property(['self'], ['arm'], ['0.6'])) // 防护专注-3星
+lib_describe.set('armeva_5', describe_property(['self'], ['arm/eva'], ['0.6/0.6'])) // 生存本能-5星
+lib_describe.set('armeva_4', describe_property(['self'], ['arm/eva'], ['0.5/0.55'])) // 生存本能-4星
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
 
 lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
+
+lib_describe.set('sat8', describe_shield(35, 5, 'col1'))
 
 lib_describe.set('aks', describe_aks()) // 排斥反应
 
@@ -465,6 +466,7 @@ lib_describe.set('bronya', describe_bomb(0.2, 0.2, 1, 5)) // 黑洞触媒
 lib_describe.set('hand_grenade_6.5', describe_bomb(6.5, 0, 0, 0)) // 手榴弹-4星
 lib_describe.set('hand_grenade_6', describe_bomb(6, 0, 0, 0)) // 手榴弹-3星
 lib_describe.set('hand_grenade_5.5', describe_bomb(5.5, 0, 0, 0)) // 手榴弹-2星
+lib_describe.set('fp6_dmg', describe_bomb(0.8, 0, 0, 0)) // 失乐园
 
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
@@ -976,19 +978,22 @@ lib_skill.set(111, [
 // SG
 
 lib_skill.set(151, [createSkill(15, 16, 0, lib_describe.get('m1887'))]) // 终结打击
-lib_skill.set(157, []) //
+lib_skill.set(157, [createSkill(10, 16, 6, lib_describe.get('armeva_5'))]) // 生存本能-5星
 lib_skill.set(160, [createSkill(8, 16, 0, lib_describe.get('saiga'))]) // 巨羚号角
 lib_skill.set(163, [ // 酮血症
   createSkill(8, 16, 8, lib_describe.get('rof_80')),
   createSkill(8, 16, 0, lib_describe.get('addclip_10'))
 ])
-lib_skill.set(164, []) //
-lib_skill.set(188, []) //
+lib_skill.set(164, [
+  // 
+  createSkill(10, 16, 0, lib_describe.get('fp6_dmg'))
+]) //
+lib_skill.set(188, [createSkill(2, 8, 5, lib_describe.get('sat8'))]) // 坚壁理论
 lib_skill.set(229, [createSkill(8, 16, 4, lib_describe.get('m870'))]) // 地狱公路
 
 lib_skill.set(153, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
-lib_skill.set(155, []) //
-lib_skill.set(156, []) //
+lib_skill.set(155, [createSkill(10, 16, 6, lib_describe.get('arm_70'))]) // 防护专注-4星
+lib_skill.set(156, [createSkill(10, 16, 6, lib_describe.get('armeva_4'))]) // 生存本能-4星
 lib_skill.set(161, [
   createSkill(8, 16, 8, lib_describe.get('dmg_120')),
   createSkill(8, 16, 8, lib_describe.get('aimupto_5'))
@@ -1004,7 +1009,7 @@ lib_skill.set(189, [
 ])
 
 lib_skill.set(152, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
-lib_skill.set(154, []) //
+lib_skill.set(154, [createSkill(10, 16, 6, lib_describe.get('arm_60'))]) // 防护专注-3星
 lib_skill.set(158, [ // 火力专注SG
   createSkill(8, 16, 8, lib_describe.get('dmg_120')),
   createSkill(8, 16, 8, lib_describe.get('aimupto_5'))

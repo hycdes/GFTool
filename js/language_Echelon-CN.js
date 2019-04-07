@@ -99,7 +99,7 @@ lib_language = {
   equipNAME_11: '消音器',
   equipNAME_41: '夜视仪',
   equipNAME_31: '外骨骼',
-  equipNAME_32: '防弹插板',
+  equipNAME_33: '防弹插板',
   equipNAME_21: 'ILM空尖弹',
   equipNAME_23: 'Mk211高爆穿甲弹',
   equipNAME_22: 'APCR高速弹',
