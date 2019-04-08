@@ -395,23 +395,33 @@
                                                 </div>
                                                 <h4>조합 출력 설정</h4>
                                                 <div class="col-lg-12">
-                                                    <h5 id="best_alert"> 【전체 조합】가능한 모든 조합을 제공합니다.(매우 빠름 + 필요한 것을 찾기 힘들 수 있습니다)</h5>
-                                                    <p>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>전체 조합</label>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">최적 조합</span></label>
-                                                    </p>
-                                                    <div class="form-group input-group">
-                                                        <span class="input-group-addon">번호</span>
-                                                        <input type="text" class="form-control input-sm" placeholder="integer" id="best_num" value=10 style="width:150px" onblur="setBestNum()" disabled>
-                                                    </div>
-                                                    <p id="best_sort">
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(1)" checked>최대 유효 스탯</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(2)">최대 유효 포인트</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(3)">최고 살상</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(4)">최고 파쇄</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(5)">최고 정밀</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(6)">최고 장전</label>
-                                                    </p>
+                                                    <span style="color:blueviolet">
+                                                        <p id="best_alert"> 【전체 조합】가능한 모든 조합을 제공합니다.(매우 빠름 + 필요한 것을 찾기 힘들 수 있습니다)</p>
+                                                    </span>
+                                                    <table class="table_other">
+                                                        <tbody>
+                                                            <tr style="height:30px">
+                                                                <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>전체 조합</label></td>
+                                                                <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">최적 조합 번호: </span></label></td>
+                                                                <td style="width:80px">
+                                                                    <input type="text" class="form-control input-sm" placeholder="integer" id="best_num" value=10 onblur="setBestNum()" disabled>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h8>&nbsp</h8>
+                                                    <table class="table_other table-bordered">
+                                                        <tbody>
+                                                            <tr style="height:50px">
+                                                                <td style="width:40px">최대</td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s5-no.png" style="cursor:pointer" onclick='setBestSort(5)' id="sbs_5"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s6-no.png" style="cursor:pointer" onclick='setBestSort(6)' id="sbs_6"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="SortOption_advanced">

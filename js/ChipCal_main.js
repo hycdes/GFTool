@@ -1669,13 +1669,21 @@ function setBest (typeInfo) {
     filter_switch = false
     document.getElementById('best_num').disabled = true
     document.getElementById('best_alert').innerHTML = lib_lang.showall
-  }else {
+  } else {
     filter_switch = true
     document.getElementById('best_num').disabled = false
     document.getElementById('best_alert').innerHTML = lib_lang.showsort
   }
 }
-function setBestSort (typeInfo) { ranking_switch = typeInfo; }
+function setBestSort (typeInfo) {
+  document.getElementById('sbs_1').src = '../img/chip/btn-s1-no.png'
+  document.getElementById('sbs_3').src = '../img/chip/btn-s3-no.png'
+  document.getElementById('sbs_4').src = '../img/chip/btn-s4-no.png'
+  document.getElementById('sbs_5').src = '../img/chip/btn-s5-no.png'
+  document.getElementById('sbs_6').src = '../img/chip/btn-s6-no.png'
+  ranking_switch = typeInfo
+  document.getElementById('sbs_' + typeInfo).src = '../img/chip/btn-s' + typeInfo + '.png'
+}
 function setBestNum () {
   var best_num = document.getElementById('best_num')
   if ((best_num.value).length === 0) best_num.value = 10

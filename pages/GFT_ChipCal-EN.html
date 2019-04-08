@@ -394,23 +394,33 @@
                                                 </div>
                                                 <h4>Result setting</h4>
                                                 <div class="col-lg-12">
-                                                    <h5 id="best_alert"> [Show all] output each combination of each topology (few seconds)</h5>
-                                                    <p>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>Show all</label>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">Sort all</span></label>
-                                                    </p>
-                                                    <div class="form-group input-group">
-                                                        <span class="input-group-addon">Output number</span>
-                                                        <input type="text" class="form-control input-sm" placeholder="Integer" id="best_num" value=10 style="width:150px" onblur="setBestNum()" disabled>
-                                                    </div>
-                                                    <p id="best_sort">
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(1)" checked>Best total valid properties</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(2)">Best total valid blocknum</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(3)">Best DMG</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(4)">Best DBK</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(5)">Best ACU</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(6)">Best FIL</label>
-                                                    </p>
+                                                    <span style="color:blueviolet">
+                                                        <p id="best_alert"> [Show all] output each combination of each topology (few seconds)</p>
+                                                    </span>
+                                                    <table class="table_other">
+                                                        <tbody>
+                                                            <tr style="height:30px">
+                                                                <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>Show all</label></td>
+                                                                <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">Ranking top: </span></label></td>
+                                                                <td style="width:80px">
+                                                                    <input type="text" class="form-control input-sm" placeholder="Integer" id="best_num" value=10 onblur="setBestNum()" disabled>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h8>&nbsp</h8>
+                                                    <table class="table_other table-bordered">
+                                                        <tbody>
+                                                            <tr style="height:50px">
+                                                                <td style="width:40px">Ranking as</td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s5-no.png" style="cursor:pointer" onclick='setBestSort(5)' id="sbs_5"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s6-no.png" style="cursor:pointer" onclick='setBestSort(6)' id="sbs_6"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="SortOption_advanced">

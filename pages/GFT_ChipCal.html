@@ -286,8 +286,8 @@
                                             </table>
                                             <p id="errorInfo"></p>
                                             <p>
-                                                <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton" disabled>将芯片添加进仓库</button>
-                                                <button type="button" class="btn btn-danger" onclick="resetPage()">重置芯片属性</button>
+                                                <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton" disabled>添加进仓库</button>
+                                                <button type="button" class="btn btn-danger" onclick="resetPage()">重置属性</button>
                                             </p>
                                         </div>
                                         <div class="col-lg-8">
@@ -299,13 +299,13 @@
                                                             <option value=0 selected>选择编号</option>
                                                         </select>
                                                     </td>
-                                                    <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该编号</button></td>
-                                                    <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清空仓库</button></td>
+                                                    <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>删除该号</button></td>
+                                                    <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>清仓</button></td>
                                                     <td>&nbsp<span style="color:#FF0066"><b id="alert_clear"></b></span></td>
                                                 </tr>
                                             </table>
                                             <p>
-                                                <button type="button" class="btn btn-outline btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强化</button>
+                                                <button type="button" class="btn btn-outline btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>全部满强</button>
                                                 <button type="button" class="btn btn-outline btn-primary" onclick="blueAllChip()" id="blueAllButton" disabled>只留蓝色</button>
                                                 <button type="button" class="btn btn-outline btn-warning" onclick="orangeAllChip()" id="orangeAllButton" disabled>只留橙色</button>
                                                 <span style="color:#FF0066"><b id="alert_maxall"></b></span>
@@ -338,14 +338,14 @@
                                     <!--SAVELOAD-->
                                     <div class="tab-pane fade" id="SaveLoad">
                                         <div class="col-lg-6">
-                                            <h4>存档芯片仓库数据</h4>
+                                            <h4>存档仓库数据</h4>
                                             <div class="form-group">
                                                 <textarea class="form-control" rows="7" placeholder="存储码将在这里显示" id="SaveCode" style="width:70%" readonly></textarea>
                                             </div>
                                             <p><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>复制存储码</button><b id="SaveAlert"></b></p>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>读取存档</h4>
+                                            <h4>读档</h4>
                                             <div class="form-group">
                                                 <textarea class="form-control" rows="7" placeholder="将存储码粘贴在此，仓库将复现之前的结果" id="LoadCode" style="width:70%"></textarea>
                                             </div>
@@ -364,7 +364,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default" style="background:url(../img/CC-WAVE.png) no-repeat right 100px top 100px;">
                             <div class="panel-heading">
-                                拼接结果
+                                结果
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -381,7 +381,7 @@
                                         <!-- Tab panes -->
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active" id="SortOption_basic">
-                                                <h4>重装部队类型</h4>
+                                                <h4>重装类型</h4>
                                                 <div class="col-lg-12">
                                                     <p>
                                                         <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
@@ -394,72 +394,71 @@
                                                 </div>
                                                 <h4>求解设置</h4>
                                                 <div class="col-lg-12">
-                                                    <h5 id="best_alert"> 【全部方案】给出所有可行图解的所有可能和组合(速度很快)</h5>
-                                                    <p>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>全部方案</label>
-                                                        <label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">最优解</span></label>
-                                                    </p>
-                                                    <div class="form-group input-group">
-                                                        <span class="input-group-addon">挑选个数</span>
-                                                        <input type="text" class="form-control input-sm" placeholder="输入整数" id="best_num" value=10 style="width:150px" onblur="setBestNum()" disabled>
-                                                    </div>
-                                                    <p id="best_sort">
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(1)" checked>最高有效总值</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(2)">最高有效格数</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(3)">最高杀伤</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(4)">最高破防</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(5)">最高精度</label>
-                                                        <label class="radio-inline"><input type="radio" name="BRSwitch" onclick="setBestSort(6)">最高装填</label>
-                                                    </p>
+                                                    <span style="color:blueviolet">
+                                                        <p id="best_alert"> 【全部方案】给出所有可行图解的所有可能和组合(速度很快)</p>
+                                                    </span>
+                                                    <table class="table_other">
+                                                        <tbody>
+                                                            <tr style="height:30px">
+                                                                <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>全部方案</label></td>
+                                                                <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">最优解, 个数: </span></label></td>
+                                                                <td style="width:80px">
+                                                                    <input type="text" class="form-control input-sm" placeholder="输入整数" id="best_num" value=10 onblur="setBestNum()" disabled>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h8>&nbsp</h8>
+                                                    <table class="table_other table-bordered">
+                                                        <tbody>
+                                                            <tr style="height:50px">
+                                                                <td style="width:40px">排序顺序</td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s5-no.png" style="cursor:pointer" onclick='setBestSort(5)' id="sbs_5"></td>
+                                                                <td style="width:50px"><img src="../img/chip/btn-s6-no.png" style="cursor:pointer" onclick='setBestSort(6)' id="sbs_6"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="SortOption_advanced">
-                                                <div class="tooltip-demo">
-                                                    <h4>设定溢出上限 <button type="button" data-toggle="tooltip" data-placement="bottom" title="以下值溢出超过设定值则放弃" class="btn btn-outline btn-default">?</button></h4>
-                                                </div>
+                                                <h4>设定溢出上限</h4>
+                                                <h5>* 一个方案的属性超过勾选项目 [上限+设定值] 将被舍弃</h5>
                                                 <div class="col-lg-12">
                                                     <p>
                                                         <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">全选</button>
                                                         <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">全不选</button>
-                                                    </p>
-                                                    <p>
                                                         <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(3)" id="">BGM-71</button>
                                                         <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(4)" id="">AGS-30</button>
                                                         <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(5)" id="">2B-14</button>
                                                     </p>
-                                                    <table class="table table-bordered table-hover" style="width:240px">
+                                                    <table class="table table-bordered table-hover" style="width:360px">
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width:100px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> 杀伤值</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgmax" value=0 disabled></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgmax" value=0 disabled></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> 杀伤格</label></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgblomax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width:100px"><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> 破防值</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkmax" value=0 disabled></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkmax" value=0 disabled></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> 破防格</label></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkblomax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width:100px"><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> 精度值</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acumax" value=0 disabled></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acumax" value=0 disabled></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> 精度格</label></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acublomax" value=0 disabled></td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width:100px"><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> 装填值</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filmax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> 杀伤格数</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgblomax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> 破防格数</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkblomax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> 精度格数</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acublomax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> 装填格数</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filblomax" value=0 disabled></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filmax" value=0 disabled></td>
+                                                                <td style="width:100px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> 装填格</label></td>
+                                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filblomax" value=0 disabled></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -619,21 +618,18 @@
                                         </p>
                                     </div>
                                     <div class="col-lg-8">
-                                        <div class="tooltip-demo">
-                                            <h4>该图解下组合的排序基准 <button type="button" data-toggle="tooltip" data-placement="bottom" title="将所属同一图解的组合按条件排序 仅用于【全部方案】" class="btn btn-outline btn-default">?</button></h4>
-                                        </div>
+                                        <h4>等价拓扑排序</h4>
+                                        <h5>* 以下按钮用于【全部方案】相同图解下方案的排序</h5>
                                         <p>
                                             <button type="button" class="btn btn-outline btn-danger" onclick="changeRankingSwitch(1)" id="SortButton_AllPro" disabled>有效总属性</button>
                                             <button type="button" class="btn btn-outline btn-warning" onclick="changeRankingSwitch(2)" id="SortButton_Block" disabled>有效格</button>
-                                        </p>
-                                        <p>
                                             <button type="button" class="btn btn-default" onclick="changeRankingSwitch(3)" id="SortButton_Dmg" disabled>杀伤</button>
                                             <button type="button" class="btn btn-default" onclick="changeRankingSwitch(4)" id="SortButton_Dbk" disabled>破防</button>
                                             <button type="button" class="btn btn-default" onclick="changeRankingSwitch(5)" id="SortButton_Acu" disabled>精度</button>
                                             <button type="button" class="btn btn-default" onclick="changeRankingSwitch(6)" id="SortButton_Fil" disabled>装填</button>
                                         </p>
-                                        <h4>方案选择</h4>
                                         <h5 id="SortInfo"></h5>
+                                        <h4>方案选择</h4>
                                         <table class="table table-bordered table-hover" style='width:400px'>
                                             <tbody>
                                                 <tr>
