@@ -10,6 +10,8 @@ var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_p
 var chipNum = 0
 var chipRepo_data = [], chipRepo_chart = []; // Chip data; Repository information that display at repository-table
 var analyze_switch = 1, ranking_switch = 1; // show_percentage[1=validProperty,-1=validBlocknum] rank_result_by[1~6]
+var global_workdone = false, global_process = 0, global_totalwork = 0, allCombi = 0
+var global_refresher
 
 function creatChip (chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
   var chipData = { }
@@ -659,7 +661,7 @@ function chartBack (typeInfo) {
       break
   }
 }
-function countMS (td1, td2) { return ((60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
+function countMS (td1, td2, timeclip) { return (timeclip + (60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
 function notIn (num, rank) {
   var ranklen = rank.length
   for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false
@@ -667,7 +669,8 @@ function notIn (num, rank) {
 }
 function getTopology () {
   globaltime[0] = 0
-  var td1 = new Date()
+  global_workdone = false
+  global_process = 0
   topologySet = [], solutionSet = []
   var validSet
   var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]]
@@ -732,48 +735,17 @@ function getTopology () {
     }
     else if (HeavyfireType === 5) topologySet.push(topologyLib_AT4_6x6[validSet[num_topo]])
   }
+  allCombi = 0
   if (topologySet.length > 0) {
     if (filter_switch) { // show sort
+      global_refresher = setInterval(refresh_timebar, 100)
       buffer_solu = [], buffer_topo = []
       buffer_num = parseInt(document.getElementById('best_num').value)
       document.getElementById('TopologySelect').disabled = true
       document.getElementById('TopologySelect').innerHTML = '<option value=0 selected>' + lib_lang.sele_selebest + '</option>'
       var topoNum = topologySet.length
-      for (var t = 0; t < topoNum; t++) {
-        solutionSet = getSolution(topologySet[t])
-        sortSolution(ranking_switch)
-        if (solutionSet.length > 0) {
-          buffer_solu.push(solutionSet[0].concat(((t + '') + 't')))
-        }
-      }
-      solutionSet = buffer_solu
-      sortSolution(ranking_switch)
-      if (solutionSet.length > buffer_num) {
-        var buffer_solu_cut = []
-        for (var i = 0; i < buffer_num; i++) buffer_solu_cut.push(solutionSet[i])
-        solutionSet = buffer_solu_cut
-      }
-      var bufferlen = solutionSet.length
-      for (var i = 0; i < bufferlen; i++) {
-        var topoString = solutionSet[i].pop()
-        topoString = topoString.substr(0, topoString.length - 1)
-        buffer_topo.push(topologySet[parseInt(topoString)])
-      }
-      var SSText = ''
-      if (bufferlen > 0) {
-        for (var i = 0; i < bufferlen; i++) {
-          SSText += '<option value=' + i + '>' + lib_lang.num + ' '
-          var c_num = solutionSet[i].length
-          for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + ' ')
-          SSText += '</option>'
-        }
-      } else {
-        SSText = '<option value=-1>' + lib_lang.sele_noresult + '</option>'
-      }
-      document.getElementById('SortInfo').innerHTML = ''
-      SolutionSelect.innerHTML = SSText
-      showAnalyze()
-      SolutionSelect.disabled = false
+      global_totalwork = topoNum
+      check_if_done()
     } else { // show all
       buffer_num = -1
       var soluNum = topologySet.length
@@ -796,10 +768,76 @@ function getTopology () {
     TopologySelect.disabled = true
     var RTText = '<option value=1 selected>' + lib_lang.toponum + '</option>'
   }
-  var td2 = new Date()
-  globaltime[0] += countMS(td1, td2)
-  document.getElementById('timeText').innerHTML = lib_lang.totaltime + (globaltime[0] / 1000).toFixed(2) + 's'
 }
+
+function check_if_done () {
+  if (global_workdone) {
+    solutionSet = buffer_solu
+    sortSolution(ranking_switch)
+    if (solutionSet.length > buffer_num) {
+      var buffer_solu_cut = []
+      for (var i = 0; i < buffer_num; i++) buffer_solu_cut.push(solutionSet[i])
+      solutionSet = buffer_solu_cut
+    }
+    var bufferlen = solutionSet.length
+    for (var i = 0; i < bufferlen; i++) {
+      var topoString = solutionSet[i].pop()
+      topoString = topoString.substr(0, topoString.length - 1)
+      buffer_topo.push(topologySet[parseInt(topoString)])
+    }
+    var SSText = ''
+    if (bufferlen > 0) {
+      for (var i = 0; i < bufferlen; i++) {
+        SSText += '<option value=' + i + '>' + lib_lang.num + ' '
+        var c_num = solutionSet[i].length
+        for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + ' ')
+        SSText += '</option>'
+      }
+    } else {
+      SSText = '<option value=-1>' + lib_lang.sele_noresult + '</option>'
+    }
+    document.getElementById('SortInfo').innerHTML = ''
+    SolutionSelect.innerHTML = SSText
+    refresh_timebar()
+    showAnalyze()
+    SolutionSelect.disabled = false
+  } else {
+    var td1 = new Date()
+    solutionSet = getSolution(topologySet[global_process])
+    allCombi += solutionSet.length
+    sortSolution(ranking_switch)
+    if (solutionSet.length > 0) {
+      buffer_solu.push(solutionSet[0].concat(((global_process + '') + 't')))
+    }
+    global_process++
+    if (global_process === global_totalwork) {
+      global_workdone = true
+      clearInterval(global_refresher)
+    }
+    var td2 = new Date()
+    globaltime[0] += countMS(td1, td2, 10)
+    setTimeout(check_if_done, 10)
+  }
+}
+function refresh_timebar () {
+  document.getElementById('soluText').innerHTML = seperate_thousands(allCombi)
+  document.getElementById('timeText').innerHTML = lib_lang.totaltime + (globaltime[0] / 1000).toFixed(2) + 's'
+  document.getElementById('processText').innerHTML = Math.ceil(100 * global_process / global_totalwork)
+  document.getElementById('Process_Bar_Time').style = 'width:' + Math.ceil(100 * global_process / global_totalwork) + '%'
+}
+function seperate_thousands (num) {
+  var new_format = num + ''
+  var count = 0
+  for (var i = new_format.length - 1; i > 0; i--) {
+    if (count < 2) count++
+    else {
+      new_format = new_format.substr(0, i) + ',' + new_format.substr(i)
+      count = 0
+    }
+  }
+  return new_format
+}
+
 function isPossible (chipShape_65, chipRefer, border) {
   for (var i = 0; i < border; i++) if (parseInt(chipRefer[i]) > chipShape_65[i][1]) return false
   return true
@@ -1689,7 +1727,7 @@ function setBestNum () {
   if ((best_num.value).length === 0) best_num.value = 10
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
-function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png')}
+function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png') }
 
 // ====================================================================
 

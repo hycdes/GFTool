@@ -483,8 +483,18 @@
                                 <div class="col-lg-12">
                                     <div class="col-lg-4">
                                         <h4>그림</h4>
-                                        <h5>ChipCal_v6.0 hycdes_DLX with kirA_sortSln</h5>
-                                        <h5 id="timeText"></h5>
+                                        <div style="width:220px">
+                                            <p>
+                                                <strong>Processing </strong><strong id="soluText">0</strong><strong> (</strong><strong id="processText">0</strong><strong>%)</strong>
+                                            </p>
+                                            <p>
+                                                <strong id="timeText"></strong>
+                                            </p>
+                                            <div class="progress progress-striped active">
+                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%" id="Process_Bar_Time">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table_other table-bordered table-hover" style="width:240px; height:240px;overflow:hidden">
                                                 <tbody>
