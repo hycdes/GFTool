@@ -97,7 +97,7 @@ function getBlockAffect () {
   }
 }
 
-function getResult(multiple, action) {
+function getResult (multiple, action) {
   Set_Data_Buffer.clear()
   Set_Data_HF_Buffer.clear()
   Set_Data_S_Buffer.clear()
@@ -219,34 +219,34 @@ function getResult(multiple, action) {
     }
   }
   // Tdoll-inj stat
-  if(display_type==='suffer'){
-  var y_max_suffer = 0
-  var y_min_suffer = 9999
-  var y_min_per_suffer = 1
-  for (var i = 0; i < 9; i++) {
-    if (list_tdoll[i][1] != null) {
-      var current_data = Set_Data_S.get(i)
-      var len_data = (current_data).length
-      for (var d = 0; d < len_data; d++) Set_Data_S.get(i)[d][0] = (Set_Data_S.get(i)[d][0] / 30).toFixed(1)
-      if (Set_Data_S.get(i)[0][1] > y_max_suffer) y_max_suffer = Set_Data_S.get(i)[0][1]
-      if (Set_Data_S.get(i)[len_data - 1][1] < y_min_suffer) y_min_suffer = Set_Data_S.get(i)[len_data - 1][1]
-      if (Set_Data_S_Percentage.get(i)[len_data - 1][1] < y_min_per_suffer) y_min_per_suffer = Set_Data_S_Percentage.get(i)[len_data - 1][1]
-      if (lang_type === 'ko') {
-        if (reverse_position >= 6) reverse_position -= 6
-        else if (reverse_position <= 2) reverse_position += 6
+  if (display_type === 'suffer') {
+    var y_max_suffer = 0
+    var y_min_suffer = 9999
+    var y_min_per_suffer = 1
+    for (var i = 0; i < 9; i++) {
+      if (list_tdoll[i][1] != null) {
+        var current_data = Set_Data_S.get(i)
+        var len_data = (current_data).length
+        for (var d = 0; d < len_data; d++) Set_Data_S.get(i)[d][0] = (Set_Data_S.get(i)[d][0] / 30).toFixed(1)
+        if (Set_Data_S.get(i)[0][1] > y_max_suffer) y_max_suffer = Set_Data_S.get(i)[0][1]
+        if (Set_Data_S.get(i)[len_data - 1][1] < y_min_suffer) y_min_suffer = Set_Data_S.get(i)[len_data - 1][1]
+        if (Set_Data_S_Percentage.get(i)[len_data - 1][1] < y_min_per_suffer) y_min_per_suffer = Set_Data_S_Percentage.get(i)[len_data - 1][1]
+        if (lang_type === 'ko') {
+          if (reverse_position >= 6) reverse_position -= 6
+          else if (reverse_position <= 2) reverse_position += 6
+        }
+        var last_hp = current_data[len_data - 1][1]
+        var temp_inj = ''
+        if (last_hp <= 0) temp_inj += lib_language.main_makeGraph_dead
+        else {
+          var hp_ratio = last_hp / list_tdoll[i][1].Property.hp
+          temp_inj += lib_language.main_makeGraph_3 + '=' + last_hp
+          temp_inj += '(' + lib_language.form + Math.ceil(5 * hp_ratio) + ', ' + (100 * hp_ratio).toFixed(2) + '%)'
+        }
+        Glabel_inj.set(i, temp_inj)
       }
-      var last_hp = current_data[len_data - 1][1]
-      var temp_inj = ''
-      if (last_hp <= 0) temp_inj += lib_language.main_makeGraph_dead
-      else {
-        var hp_ratio = last_hp / list_tdoll[i][1].Property.hp
-        temp_inj += lib_language.main_makeGraph_3 + '=' + last_hp
-        temp_inj += '(' + lib_language.form + Math.ceil(5 * hp_ratio) + ', ' + (100 * hp_ratio).toFixed(2) + '%)'
-      }
-      Glabel_inj.set(i, temp_inj)
     }
   }
-}
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
     var current_data = Set_Data.get(9)
     var len_data = current_data.length
@@ -458,12 +458,14 @@ function reactAllSkill (command, current_time) {
     if (Set_Special.get('multi_' + k) != undefined && Set_Special.get('multi_' + k)[1] < global_frame) {
       Set_Special.delete('multi_' + k)
     }
-    if (k > 0 && list_tdoll[k][1] != null) { // 需要时延相应被蟒蛇复读的all类技能
+    if (k > 0 && gs_tdoll[k]) { // 需要时延相应被蟒蛇复读的all类技能
       if (is_this(k, 250) && global_frame >= Set_Special.get('hs2000_shield') && Set_Special.get('hs2000_can_active')) {
         Set_Special.set('hs2000_can_active', false)
-        if (true) { // 没设计破盾
-          changeStatus(k, 'all', 'dmg', 0.35, 5)
-          changeStatus(k, 'all', 'acu', 0.35, 5)
+        for (var stn = 0; stn < 9; stn++) {
+          if (gs_tdoll[stn] && Set_Base.get(stn).Info.get('shield') > 0) {
+            changeStatus(stn, 'self', 'dmg', 0.35, 5)
+            changeStatus(stn, 'self', 'acu', 0.35, 5)
+          }
         }
       }
     }
@@ -1284,7 +1286,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     if (Set_Special.get('hs2000_shield') === undefined || Set_Special.get('hs2000_shield') < current_time - 150) {
       Set_Special.set('hs2000_can_active', true)
       Set_Special.set('hs2000_shield', current_time + 90)
-    // 套盾没写
+      changeStatus(stand_num, 'all', 'shield', 42, 6)
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
@@ -1314,6 +1316,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'shield') {
+    var value = (s_t[0].Describe).value
+    var duration = (s_t[0].Describe).duration
+    var label = (s_t[0].Describe).label
+    if (label === 'col1') { // 坚壁理论
+      if (gs_tdoll[2]) changeStatus(2, 'self', 'shield', value, duration)
+      if (gs_tdoll[5]) changeStatus(5, 'self', 'shield', value, duration)
+      if (gs_tdoll[8]) changeStatus(8, 'self', 'shield', value, duration)
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -1327,7 +1340,12 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
         changeStatus(stand_num, 'python_buff_' + type, type, null, 3)
       }
     }
-    var new_status = [[type, 1 + parseFloat(value)], frame]
+    var new_status
+    if (type === 'shield') {
+      new_status = [[type, parseFloat(value)], frame]
+    } else {
+      new_status = [[type, 1 + parseFloat(value)], frame]
+    }
     var list_status = Set_Status.get(-1)
     list_status.push(new_status)
     Set_Status.set(-1, list_status)
@@ -1341,7 +1359,12 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
         changeStatus(stand_num, 'python_buff_' + type, type, null, 3)
       }
     }
-    var new_status = [[type, 1 + parseFloat(value)], frame]
+    var new_status
+    if (type === 'shield') {
+      new_status = [[type, parseFloat(value)], frame]
+    } else {
+      new_status = [[type, 1 + parseFloat(value)], frame]
+    }
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
@@ -1412,20 +1435,44 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   if (situation === 'get' || situation === 'lost') {
     if (stand_num === -1) { // 全体属性变化
       for (var i = 0; i < 9; i++) {
-        if (Set_Base.get(i) != undefined) {
+        if (gs_tdoll[i]) {
           var this_info = (Set_Base.get(i)).Info
           var new_property = (this_info).get(status[0][0])
-          if (situation === 'get') new_property = new_property * status[0][1]
-          else if (situation === 'lost') new_property = new_property / status[0][1]
+          if (situation === 'get') {
+            if (status[0][0] === 'shield') {
+              new_property += status[0][1]
+            } else {
+              new_property = new_property * status[0][1]
+            }
+          }
+          else if (situation === 'lost') {
+            if (status[0][0] === 'shield') {
+              if (new_property >= status[0][1]) new_property -= status[0][1]
+              else new_property = 0
+            } else {
+              new_property = new_property / status[0][1]
+            }
+          }
           this_info.set(status[0][0], new_property)
         }
       }
     } else { // 某一人属性变化
       var this_info = (Set_Base.get(stand_num)).Info
       var new_property = (this_info).get(status[0][0])
-      if (situation === 'get') new_property = new_property * status[0][1]
+      if (situation === 'get') {
+        if (status[0][0] === 'shield') {
+          new_property += status[0][1]
+        } else {
+          new_property = new_property * status[0][1]
+        }
+      }
       else if (situation === 'lost') {
-        new_property = new_property / status[0][1]
+        if (status[0][0] === 'shield') {
+          if (new_property >= status[0][1]) new_property -= status[0][1]
+          else new_property = 0
+        } else {
+          new_property = new_property / status[0][1]
+        }
         if (status[0][0] === 'critdmg' && status[0][1] === 1) { // 杰里科被动消失一层
           if (Set_Special.get('jericho_buff_' + stand_num) > 0) {
             Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) - 1)
@@ -1693,6 +1740,7 @@ function injury (shoot_target) {
       }
       var record_limit = suffer_hp
       var shield_value = current_Info.get('shield')
+      // 结算护盾
       if (shield_value > 0) {
         shield_value -= record_dmg
         if (shield_value < 0) {

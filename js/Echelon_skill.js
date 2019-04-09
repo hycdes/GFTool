@@ -276,6 +276,7 @@ function describe_flash (duration) {
 }
 function describe_shield (value, duration, label) {
   var Describe = {}
+  Describe.name = 'shield'
   Describe.value = value
   Describe.duration = duration
   Describe.label = label
@@ -443,7 +444,7 @@ lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3']))
 lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
 
-lib_describe.set('sat8', describe_shield(35, 5, 'col1'))
+lib_describe.set('sat8', describe_shield(35, 5, 'col1')) // 坚壁理论
 
 lib_describe.set('aks', describe_aks()) // 排斥反应
 
