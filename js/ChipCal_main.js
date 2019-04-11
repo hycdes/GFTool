@@ -359,8 +359,6 @@ function loadSaveCode () { // load save
   var command = arguments['0'], disable_list
   var need_filter = false
   var chipIdx = 0
-  chipNum = 0
-  chipRepo_chart = [], chipRepo_data = [] // reset repository
   var LoadCode
   if (command === undefined) LoadCode = document.getElementById('LoadCode').value
   else {
@@ -370,6 +368,9 @@ function loadSaveCode () { // load save
   }
   var LoadAlertId = document.getElementById('LoadAlert')
   if (simpleCheck(LoadCode)) {
+    // reset repository
+    chipNum = 0
+    chipRepo_chart = [], chipRepo_data = []
     document.getElementById('ChipRepoChart').innerHTML = ''
     chipRepo_chart = []; chipRepo_data = []; deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
     resetPage()
@@ -398,10 +399,6 @@ function loadSaveCode () { // load save
     }
     LoadAlertId.innerHTML = ''
     document.getElementById('SaveAlert').innerHTML = ''
-    document.getElementById('panelS').className = 'active'
-    document.getElementById('panelSL').className = ''
-    document.getElementById('ChipSetting').className = 'tab-pane fade in active'
-    document.getElementById('SaveLoad').className = 'tab-pane fade'
   } else {
     LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_loaderror + '</span>'
   }
@@ -575,6 +572,13 @@ function changeBigImg (command) { // change preview and change property
 
 function chartBack (typeInfo) {
   HeavyfireType = typeInfo
+  document.getElementById('HFSwitch1').className = 'btn btn-outline btn-primary'
+  document.getElementById('HFSwitch2').className = 'btn btn-outline btn-warning'
+  document.getElementById('HFSwitch3').className = 'btn btn-outline btn-warning'
+  document.getElementById('HFSwitch4').className = 'btn btn-outline btn-primary'
+  document.getElementById('HFSwitch5').className = 'btn btn-outline btn-primary'
+  var name_str = (document.getElementById('HFSwitch' + HeavyfireType).className).split(' ')
+  document.getElementById('HFSwitch' + HeavyfireType).className = name_str[0] + ' ' + name_str[2]
   var line1 = document.getElementById('solutionLine1')
   var line2 = document.getElementById('solutionLine2')
   var line3 = document.getElementById('solutionLine3')
@@ -1706,11 +1710,9 @@ function setBest (typeInfo) {
   if (typeInfo === 1) {
     filter_switch = false
     document.getElementById('best_num').disabled = true
-    document.getElementById('best_alert').innerHTML = lib_lang.showall
   } else {
     filter_switch = true
     document.getElementById('best_num').disabled = false
-    document.getElementById('best_alert').innerHTML = lib_lang.showsort
   }
 }
 function setBestSort (typeInfo) {
@@ -1727,7 +1729,6 @@ function setBestNum () {
   if ((best_num.value).length === 0) best_num.value = 10
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
 }
-function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png') }
 
 // ====================================================================
 

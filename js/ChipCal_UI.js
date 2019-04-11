@@ -122,3 +122,4 @@ function changeBlock (type, blocknum) {
   manageButton()
 }
 function allblo () { return block_dmg + block_dbk + block_acu + block_fil;}
+function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png') }

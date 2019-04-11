@@ -1429,3 +1429,4 @@ function reverse_className (command, stand_num, boolean) {
   str_name += '.png'
   return str_name
 }
+function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png') }

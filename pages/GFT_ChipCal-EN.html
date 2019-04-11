@@ -140,218 +140,202 @@
                         </script>
                     </div>
                     <div class="col-lg-12">
-                        <div class="panel panel-default" style="background:url(../img/CC-Heavyfire.png) no-repeat right 50px top 120px;">
+                        <div class="panel panel-default" style="background:url(../img/CC-Heavyfire.png) no-repeat right 50px top 70px;">
                             <div class="panel-heading">
-                                Chip input
+                                Chip input <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(1)">Input tutorial</button>
                             </div>
                             <div class="panel-body">
-                                <ul class="nav nav-tabs">
-                                    <li class="active" id="panelS">
-                                        <a href="#ChipSetting" data-toggle="tab">Chip setting</a>
-                                    </li>
-                                    <li id="panelSL">
-                                        <a href="#SaveLoad" data-toggle="tab">Save/Load data</a>
-                                    </li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <!--CHIPSETTING-->
-                                    <div class="tab-pane fade in active" id="ChipSetting">
-                                        <div class="col-lg-4">
-                                            <h4>Shape and color <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(1)">Tutorial</button></h4>
-                                            <table class="table_other table-bordered" style="width:250px; height:100px;overflow:hidden" id="ImgChart_preview">
-                                                <tbody>
-                                                    <tr style="height:50px">
-                                                        <td style="width:100px"><img src="../img/chip/bigsample/b_56-9-0.png" id="bigsample"></td>
-                                                        <td style="width:50px"><img src="../img/chip/bigsample/add-block-dis.png" style="cursor:default" onclick='changeBigImg("addblo")' id="AddBloBtn"></td>
-                                                        <td style="width:50px"><img src="../img/chip/bigsample/turn-left.png" style="cursor:pointer" onclick='changeBigImg("left")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/bigsample/blue-select.png" style="cursor:pointer" onclick="changeBigImg('blue')" id="bigsample_blue"></td>
+                                <div class="col-lg-4">
+                                    <h4>Shape and color</h4>
+                                    <table class="table_other table-bordered" style="width:250px; height:100px;overflow:hidden" id="ImgChart_preview">
+                                        <tbody>
+                                            <tr style="height:50px">
+                                                <td style="width:100px"><img src="../img/chip/bigsample/b_56-9-0.png" id="bigsample"></td>
+                                                <td style="width:50px"><img src="../img/chip/bigsample/add-block-dis.png" style="cursor:default" onclick='changeBigImg("addblo")' id="AddBloBtn"></td>
+                                                <td style="width:50px"><img src="../img/chip/bigsample/turn-left.png" style="cursor:pointer" onclick='changeBigImg("left")'></td>
+                                                <td style="width:50px"><img src="../img/chip/bigsample/blue-select.png" style="cursor:pointer" onclick="changeBigImg('blue')" id="bigsample_blue"></td>
+                                            </tr>
+                                            <tr style="height:50px">
+                                                <td style="width:100px"></td>
+                                                <td style="width:50px"><img src="../img/chip/bigsample/sub-block.png" style="cursor:pointer" onclick='changeBigImg("subblo")' id="SubBloBtn"></td>
+                                                <td style="width:50px"><img src="../img/chip/bigsample/turn-right.png" style="cursor:pointer" onclick='changeBigImg("right")'></td>
+                                                <td style="width:50px"><img src="../img/chip/bigsample/orange-noselect.png" style="cursor:pointer" onclick="changeBigImg('orange')" id="bigsample_orange"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table_other table-bordered" style="width:250px; height:100px;overflow:hidden">
+                                        <tbody>
+                                            <tr style="height:50px" id="ShapeLine1">
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-9.png" style="cursor:pointer" onclick='changeBigImg("6-9")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-8.png" style="cursor:pointer" onclick='changeBigImg("6-8")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-7.png" style="cursor:pointer" onclick='changeBigImg("6-7")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-6.png" style="cursor:pointer" onclick='changeBigImg("6-6")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-5.png" style="cursor:pointer" onclick='changeBigImg("6-5")'></td>
+                                            </tr>
+                                            <tr style="height:50px" id="ShapeLine2">
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-41.png" style="cursor:pointer" onclick='changeBigImg("6-41")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-42.png" style="cursor:pointer" onclick='changeBigImg("6-42")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-3.png" style="cursor:pointer" onclick='changeBigImg("6-3")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-2.png" style="cursor:pointer" onclick='changeBigImg("6-2")'></td>
+                                                <td style="width:50px"><img src="../img/chip/shapebutton/6-1.png" style="cursor:pointer" onclick='changeBigImg("6-1")'></td>
+                                            </tr>
+                                            <tr style="height:50px" id="ShapeLine3">
+                                            </tr>
+                                            <tr style="height:50px" id="ShapeLine4">
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h4>Strengthen and blocknum</h4>
+                                    <table class="table table-bordered table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:30%">
+                                                    <select class="form-control input-sm" id="ChipLevel" onchange="changeProperty('level')">
+                                                        <option value=0 selected>+0</option>
+                                                        <option value=1>+1</option>
+                                                        <option value=2>+2</option>
+                                                        <option value=3>+3</option>
+                                                        <option value=4>+4</option>
+                                                        <option value=5>+5</option>
+                                                        <option value=6>+6</option>
+                                                        <option value=7>+7</option>
+                                                        <option value=8>+8</option>
+                                                        <option value=9>+9</option>
+                                                        <option value=10>+10</option>
+                                                        <option value=11>+11</option>
+                                                        <option value=12>+12</option>
+                                                        <option value=13>+13</option>
+                                                        <option value=14>+14</option>
+                                                        <option value=15>+15</option>
+                                                        <option value=16>+16</option>
+                                                        <option value=17>+17</option>
+                                                        <option value=18>+18</option>
+                                                        <option value=19>+19</option>
+                                                        <option value=20>+20(max)</option>
+                                                    </select>
+                                                </td>
+                                                <td style="width:70%">
+                                                    <button type="button" class="btn btn-outline btn-primary" onclick="editLevel(1)" id="AdLv">+</button>
+                                                    <button type="button" class="btn btn-outline btn-danger" onclick="editLevel(2)" id="SbLv" disabled>-&nbsp</button>
+                                                    <button type="button" class="btn btn-outline btn-success" onclick="editLevel(3)" id="MaxLv">max</button>
+                                                    <button type="button" class="btn btn-outline btn-warning" onclick="editLevel(4)" id="TenLv">Lv10</button>
+                                                    <button type="button" class="btn btn-outline btn-warning" onclick="editLevel(5)" id="MinLv">Lv0</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-bordered table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:30%"><img src="../img/icon-dmg.png">Damage</td>
+                                                <td>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(1,0)" id="dmg0">0</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,1)" id="dmg1">5</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,2)" id="dmg2">9</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,3)" id="dmg3">14</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,4)" id="dmg4">18</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,5)" id="dmg5">22</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:30%"><img src="../img/icon-dbk.png">Defencebreak</td>
+                                                <td>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(2,0)" id="dbk0">0</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,1)" id="dbk1">13</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,2)" id="dbk2">26</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,3)" id="dbk3">39</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,4)" id="dbk4">51</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,5)" id="dbk5">64</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:30%"><img src="../img/icon-acu.png">Accuracy</td>
+                                                <td>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(3,0)" id="acu0">0</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,1)" id="acu1">8</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,2)" id="acu2">15</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,3)" id="acu3">22</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,4)" id="acu4">29</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,5)" id="acu5">36</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:30%"><img src="../img/icon-fil.png">Filling</td>
+                                                <td>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(4,0)" id="fil0">0</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,1)" id="fil1">6</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,2)" id="fil2">12</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,3)" id="fil3">18</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,4)" id="fil4">23</button>
+                                                    <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,5)" id="fil5">29</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p id="errorInfo"></p>
+                                    <p>
+                                        <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton" disabled>Add chip</button>
+                                        <button type="button" class="btn btn-danger" onclick="resetPage()">Reset property</button>
+                                    </p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <h4>Chip repository</h4>
+                                    <table class="table_other">
+                                        <tr>
+                                            <td style="width:120px;height:40px">
+                                                <select class="form-control" id="DeleteSelect" onchange="manageDeleteButton()">
+                                                    <option value=0 selected>Select number</option>
+                                                </select>
+                                            </td>
+                                            <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>Delete</button></td>
+                                            <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>Delete all</button></td>
+                                            <td>&nbsp<span style="color:#FF0066"><b id="alert_clear"></b></span></td>
+                                        </tr>
+                                    </table>
+                                    <p>
+                                        <button type="button" class="btn btn-outline btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>Max all</button>
+                                        <button type="button" class="btn btn-outline btn-primary" onclick="blueAllChip()" id="blueAllButton" disabled>Blue only</button>
+                                        <button type="button" class="btn btn-outline btn-warning" onclick="orangeAllChip()" id="orangeAllButton" disabled>Orange only</button>
+                                        <span style="color:#FF0066"><b id="alert_maxall"></b></span>
+                                    </p>
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:13%">Num</th>
+                                                        <th style="width:22%">Type</th>
+                                                        <th style="width:13%">Stren. level</th>
+                                                        <th style="width:13%"><img src="../img/icon-acu.png"></th>
+                                                        <th style="width:13%"><img src="../img/icon-fil.png"></th>
+                                                        <th style="width:13%"><img src="../img/icon-dmg.png"></th>
+                                                        <th style="width:13%"><img src="../img/icon-dbk.png"></th>
                                                     </tr>
-                                                    <tr style="height:50px">
-                                                        <td style="width:100px"></td>
-                                                        <td style="width:50px"><img src="../img/chip/bigsample/sub-block.png" style="cursor:pointer" onclick='changeBigImg("subblo")' id="SubBloBtn"></td>
-                                                        <td style="width:50px"><img src="../img/chip/bigsample/turn-right.png" style="cursor:pointer" onclick='changeBigImg("right")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/bigsample/orange-noselect.png" style="cursor:pointer" onclick="changeBigImg('orange')" id="bigsample_orange"></td>
-                                                    </tr>
-                                                </tbody>
+                                                </thead>
                                             </table>
-                                            <table class="table_other table-bordered" style="width:250px; height:100px;overflow:hidden">
-                                                <tbody>
-                                                    <tr style="height:50px" id="ShapeLine1">
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-9.png" style="cursor:pointer" onclick='changeBigImg("6-9")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-8.png" style="cursor:pointer" onclick='changeBigImg("6-8")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-7.png" style="cursor:pointer" onclick='changeBigImg("6-7")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-6.png" style="cursor:pointer" onclick='changeBigImg("6-6")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-5.png" style="cursor:pointer" onclick='changeBigImg("6-5")'></td>
-                                                    </tr>
-                                                    <tr style="height:50px" id="ShapeLine2">
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-41.png" style="cursor:pointer" onclick='changeBigImg("6-41")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-42.png" style="cursor:pointer" onclick='changeBigImg("6-42")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-3.png" style="cursor:pointer" onclick='changeBigImg("6-3")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-2.png" style="cursor:pointer" onclick='changeBigImg("6-2")'></td>
-                                                        <td style="width:50px"><img src="../img/chip/shapebutton/6-1.png" style="cursor:pointer" onclick='changeBigImg("6-1")'></td>
-                                                    </tr>
-                                                    <tr style="height:50px" id="ShapeLine3">
-                                                    </tr>
-                                                    <tr style="height:50px" id="ShapeLine4">
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <h4>Strengthen and blocknum</h4>
-                                            <table class="table table-bordered table-hover">
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="width:30%">
-                                                            <select class="form-control input-sm" id="ChipLevel" onchange="changeProperty('level')">
-                                                                <option value=0 selected>+0</option>
-                                                                <option value=1>+1</option>
-                                                                <option value=2>+2</option>
-                                                                <option value=3>+3</option>
-                                                                <option value=4>+4</option>
-                                                                <option value=5>+5</option>
-                                                                <option value=6>+6</option>
-                                                                <option value=7>+7</option>
-                                                                <option value=8>+8</option>
-                                                                <option value=9>+9</option>
-                                                                <option value=10>+10</option>
-                                                                <option value=11>+11</option>
-                                                                <option value=12>+12</option>
-                                                                <option value=13>+13</option>
-                                                                <option value=14>+14</option>
-                                                                <option value=15>+15</option>
-                                                                <option value=16>+16</option>
-                                                                <option value=17>+17</option>
-                                                                <option value=18>+18</option>
-                                                                <option value=19>+19</option>
-                                                                <option value=20>+20(max)</option>
-                                                            </select>
-                                                        </td>
-                                                        <td style="width:70%">
-                                                            <button type="button" class="btn btn-outline btn-primary" onclick="editLevel(1)" id="AdLv">+</button>
-                                                            <button type="button" class="btn btn-outline btn-danger" onclick="editLevel(2)" id="SbLv" disabled>-&nbsp</button>
-                                                            <button type="button" class="btn btn-outline btn-success" onclick="editLevel(3)" id="MaxLv">max</button>
-                                                            <button type="button" class="btn btn-outline btn-warning" onclick="editLevel(4)" id="TenLv">Lv10</button>
-                                                            <button type="button" class="btn btn-outline btn-warning" onclick="editLevel(5)" id="MinLv">Lv0</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <table class="table table-bordered table-hover">
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="width:30%"><img src="../img/icon-dmg.png">Damage</td>
-                                                        <td>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(1,0)" id="dmg0">0</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,1)" id="dmg1">5</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,2)" id="dmg2">9</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,3)" id="dmg3">14</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,4)" id="dmg4">18</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(1,5)" id="dmg5">22</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width:30%"><img src="../img/icon-dbk.png">Defencebreak</td>
-                                                        <td>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(2,0)" id="dbk0">0</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,1)" id="dbk1">13</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,2)" id="dbk2">26</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,3)" id="dbk3">39</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,4)" id="dbk4">51</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(2,5)" id="dbk5">64</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width:30%"><img src="../img/icon-acu.png">Accuracy</td>
-                                                        <td>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(3,0)" id="acu0">0</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,1)" id="acu1">8</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,2)" id="acu2">15</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,3)" id="acu3">22</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,4)" id="acu4">29</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(3,5)" id="acu5">36</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td style="width:30%"><img src="../img/icon-fil.png">Filling</td>
-                                                        <td>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-primary" onclick="changeBlock(4,0)" id="fil0">0</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,1)" id="fil1">6</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,2)" id="fil2">12</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,3)" id="fil3">18</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,4)" id="fil4">23</button>
-                                                            <button style="width:38px;padding:5px" type="button" class="btn btn-outline btn-primary" onclick="changeBlock(4,5)" id="fil5">29</button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <p id="errorInfo"></p>
-                                            <p>
-                                                <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton" disabled>Add chip</button>
-                                                <button type="button" class="btn btn-danger" onclick="resetPage()">Reset property</button>
-                                            </p>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <h4>Chip repository</h4>
-                                            <table class="table_other">
-                                                <tr>
-                                                    <td style="width:120px;height:40px">
-                                                        <select class="form-control" id="DeleteSelect" onchange="manageDeleteButton()">
-                                                            <option value=0 selected>Select number</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>Delete</button></td>
-                                                    <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>Delete all</button></td>
-                                                    <td>&nbsp<span style="color:#FF0066"><b id="alert_clear"></b></span></td>
-                                                </tr>
+                                        <div class="table-responsive" style='height:400px; overflow-y:scroll'>
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <tbody id="ChipRepoChart">
+                                                </tbody>
                                             </table>
-                                            <p>
-                                                <button type="button" class="btn btn-outline btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>Max all</button>
-                                                <button type="button" class="btn btn-outline btn-primary" onclick="blueAllChip()" id="blueAllButton" disabled>Blue only</button>
-                                                <button type="button" class="btn btn-outline btn-warning" onclick="orangeAllChip()" id="orangeAllButton" disabled>Orange only</button>
-                                                <span style="color:#FF0066"><b id="alert_maxall"></b></span>
-                                            </p>
-                                            <div class="col-lg-12">
-                                                <div class="table-responsive">
-                                                    <table class="table table-striped table-bordered table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="width:13%">Num</th>
-                                                                <th style="width:22%">Type</th>
-                                                                <th style="width:13%">Stren. level</th>
-                                                                <th style="width:13%"><img src="../img/icon-acu.png"></th>
-                                                                <th style="width:13%"><img src="../img/icon-fil.png"></th>
-                                                                <th style="width:13%"><img src="../img/icon-dmg.png"></th>
-                                                                <th style="width:13%"><img src="../img/icon-dbk.png"></th>
-                                                            </tr>
-                                                        </thead>
-                                                    </table>
-                                                </div>
-                                                <div class="table-responsive" style='height:400px; overflow-y:scroll'>
-                                                    <table class="table table-striped table-bordered table-hover">
-                                                        <tbody id="ChipRepoChart">
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
-                                    <!--SAVELOAD-->
-                                    <div class="tab-pane fade" id="SaveLoad">
-                                        <div class="col-lg-6">
-                                            <h4>Save chip data</h4>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="7" placeholder="Save code here" id="SaveCode" style="width:70%" readonly></textarea>
-                                            </div>
-                                            <p><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>Copy savecode</button><b id="SaveAlert"></b></p>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>Load savecode</h4>
-                                            <div class="form-group">
-                                                <textarea class="form-control" rows="7" placeholder="Paste savecode here to load" id="LoadCode" style="width:70%"></textarea>
-                                            </div>
-                                            <p><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">Load savecode</button><b id="LoadAlert"></b></p>
-                                        </div>
-                                    </div>
+                                    <h8>&nbsp</h8>
+                                    <table class="table_other">
+                                        <tbody>
+                                            <tr style="height:40px">
+                                                <td style="width:100px"><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>Save data</button></td>
+                                                <td><input class="form-control" placeholder="Savecode here" id="SaveCode" readonly></td>
+                                                <td><b id="SaveAlert"></td>
+                                            </tr>
+                                            <tr style="height:40px">
+                                                <td style="width:100px"><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">Load data</button></td>
+                                                <td><input class="form-control" placeholder="Paste here to load" id="LoadCode"></td>
+                                                <td><b id="LoadAlert"></b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -364,122 +348,84 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default" style="background:url(../img/CC-WAVE.png) no-repeat right 100px top 100px;">
                             <div class="panel-heading">
-                                Calculate result
+                                Calculate result <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(2)">Configure tutorial
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="col-lg-6">
-                                    <div class="panel-body">
-                                        <ul class="nav nav-tabs">
-                                            <li class="active" id="panelS">
-                                                <a href="#SortOption_basic" data-toggle="tab">Basic setting</a>
-                                            </li>
-                                            <li id="panelSL">
-                                                <a href="#SortOption_advanced" data-toggle="tab">Filter setting</a>
-                                            </li>
-                                        </ul>
-                                        <!-- Tab panes -->
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="SortOption_basic">
-                                                <h4>Heavy-fire force type</h4>
-                                                <div class="col-lg-12">
-                                                    <p>
-                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch1" value=1 onclick="chartBack(1)" checked><span style="color:darkblue"><b>BGM-71</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch2" value=2 onclick="chartBack(2)"><span style="color:darkorange"><b>AGS-30</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch3" value=3 onclick="chartBack(3)"><span style="color:darkorange"><b>2B-14</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch4" value=4 onclick="chartBack(4)"><span style="color:darkblue"><b>M2</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="HFSwitch" id="HFSwitch5" value=5 onclick="chartBack(5)"><span style="color:darkblue"><b>AT4</b></span></label>
-                                                    </p>
-                                                    <p id="M2_options"></p>
-                                                </div>
-                                                <h4>Result setting</h4>
-                                                <div class="col-lg-12">
-                                                    <span style="color:blueviolet">
-                                                        <p id="best_alert"> [Show all] output each combination of each topology (few seconds)</p>
-                                                    </span>
-                                                    <table class="table_other">
-                                                        <tbody>
-                                                            <tr style="height:30px">
-                                                                <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>Show all</label></td>
-                                                                <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">Ranking top: </span></label></td>
-                                                                <td style="width:80px">
-                                                                    <input type="text" class="form-control input-sm" placeholder="Integer" id="best_num" value=10 onblur="setBestNum()" disabled>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <h8>&nbsp</h8>
-                                                    <table class="table_other table-bordered">
-                                                        <tbody>
-                                                            <tr style="height:50px">
-                                                                <td style="width:40px">Ranking as</td>
-                                                                <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
-                                                                <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
-                                                                <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
-                                                                <td style="width:50px"><img src="../img/chip/btn-s5-no.png" style="cursor:pointer" onclick='setBestSort(5)' id="sbs_5"></td>
-                                                                <td style="width:50px"><img src="../img/chip/btn-s6-no.png" style="cursor:pointer" onclick='setBestSort(6)' id="sbs_6"></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="SortOption_advanced">
-                                                <div class="tooltip-demo">
-                                                    <h4>Overflow limitation <button type="button" data-toggle="tooltip" data-placement="bottom" title="Discard if overflow more than setting value" class="btn btn-outline btn-default">?</button></h4>
-                                                </div>
-                                                <div class="col-lg-12">
-                                                    <p>
-                                                        <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">Select all</button>
-                                                        <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">Cancel all selection</button>
-                                                    </p>
-                                                    <p>
-                                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(3)" id="">BGM-71</button>
-                                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(4)" id="">AGS-30</button>
-                                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(5)" id="">2B-14</button>
-                                                    </p>
-                                                    <table class="table table-bordered table-hover" style="width:240px">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> DMG</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgmax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> DBK</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkmax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> ACU</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acumax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> FIL</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filmax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> DMG-block</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgblomax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> DBK-block</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkblomax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> ACU-block</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acublomax" value=0 disabled></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:100px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> FIL-block</label></td>
-                                                                <td style="width:140px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filblomax" value=0 disabled></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
+                                <div class="col-lg-4">
+                                    <h4>Basic setting</h4>
+                                    <p>
+                                        <button type="button" style="width:70px;padding:3px" class="btn btn-primary" onclick="chartBack(1)" id="HFSwitch1">BGM-71</button>
+                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-warning" onclick="chartBack(2)" id="HFSwitch2">AGS-30</button>
+                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-warning" onclick="chartBack(3)" id="HFSwitch3">2B-14</button>
+                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-primary" onclick="chartBack(4)" id="HFSwitch4">M2</button>
+                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-primary" onclick="chartBack(5)" id="HFSwitch5">AT4</button>
+                                    </p>
+                                    <p id="M2_options"></p>
+                                    <table class="table_other">
+                                        <tbody>
+                                            <tr style="height:30px">
+                                                <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>Show all</label></td>
+                                                <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">Show top: </span></label></td>
+                                                <td style="width:80px">
+                                                    <input type="text" class="form-control input-sm" placeholder="integer" id="best_num" value=10 onblur="setBestNum()" disabled>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h8>&nbsp</h8>
+                                    <table class="table_other table-bordered">
+                                        <tbody>
+                                            <tr style="height:50px">
+                                                <td style="width:40px">Ranking as</td>
+                                                <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
+                                                <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
+                                                <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
+                                                <td style="width:50px"><img src="../img/chip/btn-s5-no.png" style="cursor:pointer" onclick='setBestSort(5)' id="sbs_5"></td>
+                                                <td style="width:50px"><img src="../img/chip/btn-s6-no.png" style="cursor:pointer" onclick='setBestSort(6)' id="sbs_6"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h8>&nbsp</h8>
                                     <p><button type="button" class="btn btn-primary" onclick="getTopology()">Calculate</button><b id="NoResultText"></b></p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <h4>Filter</h4>
+                                    <p>
+                                        <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">Select all</button>
+                                        <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">Cancel all</button>
+                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(3)" id="">BGM-71</button>
+                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(4)" id="">AGS-30</button>
+                                        <button type="button" class="btn btn-outline btn-default" onclick="allIgnore(5)" id="">2B-14</button>
+                                    </p>
+                                    <table class="table_other table-bordered table-hover" style="width:320px">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> <img src="../img/icon-dmg.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_dmgmax" value=0 disabled></td>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> <img src="../img/icon-dmgblo.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_dmgblomax" value=0 disabled></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> <img src="../img/icon-dbk.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_dbkmax" value=0 disabled></td>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> <img src="../img/icon-dbkblo.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_dbkblomax" value=0 disabled></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> <img src="../img/icon-acu.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_acumax" value=0 disabled></td>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> <img src="../img/icon-acublo.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_acublomax" value=0 disabled></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> <img src="../img/icon-fil.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_filmax" value=0 disabled></td>
+                                                <td style="width:80px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> <img src="../img/icon-filblo.png"></td>
+                                                <td style="width:80px"><input class="form-control input-sm" placeholder="integer" id="ignore_filblomax" value=0 disabled></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="col-lg-4">
