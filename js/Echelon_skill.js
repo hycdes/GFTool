@@ -440,6 +440,7 @@ lib_describe.set('arm_60', describe_property(['self'], ['arm'], ['0.6'])) // 防
 lib_describe.set('armeva_5', describe_property(['self'], ['arm/eva'], ['0.6/0.6'])) // 生存本能-5星
 lib_describe.set('armeva_4', describe_property(['self'], ['arm/eva'], ['0.5/0.55'])) // 生存本能-4星
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
+lib_describe.set('pm9_buff', describe_property(['self'], ['eva/dmg/acu'], ['1/-0.3/-0.3'])) // 幻重暗劲-闪避+100%，火力命中-30%
 
 lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
@@ -525,6 +526,7 @@ lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 lib_describe.set('an94', describe_multihit(2)) // 人偶扳机
 lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('gsh18', describe_multihit(2)) // 锁链冲击
+lib_describe.set('pm9', describe_multihit(2)) // 幻重暗劲
 
 lib_describe.set('aug', describe_aug()) // 葬仪之雨
 lib_describe.set('fal', describe_fal()) // 榴弹践踏
@@ -740,6 +742,10 @@ lib_skill.set(228, [createSkill(13, 16, 5, lib_describe.get('type100'))]) // 暂
 lib_skill.set(234, [createSkill(6, 8, 5, lib_describe.get('js9'))])
 lib_skill.set(245, [createSkill(6, 12, 5, lib_describe.get('p90'))])
 lib_skill.set(251, [createSkill(4, 8, 5, lib_describe.get('x95'))])
+lib_skill.set(259, [
+  createSkill(6, 8, 5, lib_describe.get('pm9')),
+  createSkill(6, 8, 5, lib_describe.get('pm9_buff'))
+])
 lib_skill.set(1103, []) //
 
 lib_skill.set(23, []) //

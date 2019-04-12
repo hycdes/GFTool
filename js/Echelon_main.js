@@ -360,7 +360,7 @@ function getDPS () {
             var base_filling = this_fil(hfn)
             if (hfn === 0) {
               base_filling *= Math.pow(1.08, Set_Special.get('BGM_buff_filling'))
-              if(Set_Special.get('BGM_buff_filling')<5) Set_Special.set('BGM_buff_filling', Set_Special.get('BGM_buff_filling') + 1)
+              if (Set_Special.get('BGM_buff_filling') < 5) Set_Special.set('BGM_buff_filling', Set_Special.get('BGM_buff_filling') + 1)
               if (Set_Special.get('BGM_supermissile_reload') <= 0 && !Set_Special.get('BGM_supermissile')) { // 尚未准备超级导弹，且此次能够准备
                 Set_Special.set('BGM_supermissile', true)
               } else {

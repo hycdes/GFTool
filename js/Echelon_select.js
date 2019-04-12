@@ -146,6 +146,7 @@ function changeSelectItems () {
       str_items += '<option value=234>No.234 JS 9</option>'
       str_items += '<option value=245>No.245 P90</option>'
       str_items += '<option value=251>No.251 X95</option>'
+      str_items += '<option value=259>No.259 PM-9</option>'
       str_items += '<option value=1103>No.103 [MOD] UMP45</option>'
     } else if (num_star === 4) {
       str_items += '<option value=23 selected>No.23 PP-90</option>'
