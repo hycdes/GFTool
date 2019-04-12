@@ -360,7 +360,7 @@ function getDPS () {
             var base_filling = this_fil(hfn)
             if (hfn === 0) {
               base_filling *= Math.pow(1.08, Set_Special.get('BGM_buff_filling'))
-              Set_Special.set('BGM_buff_filling', Set_Special.get('BGM_buff_filling') + 1)
+              if(Set_Special.get('BGM_buff_filling')<5) Set_Special.set('BGM_buff_filling', Set_Special.get('BGM_buff_filling') + 1)
               if (Set_Special.get('BGM_supermissile_reload') <= 0 && !Set_Special.get('BGM_supermissile')) { // 尚未准备超级导弹，且此次能够准备
                 Set_Special.set('BGM_supermissile', true)
               } else {
@@ -438,12 +438,23 @@ function reactAllSkill (command, current_time) {
       fragile_all /= 2
       Set_Special.delete('fragile_100')
     }
+    if (Set_Special.get('m200_end' + k) != undefined) {
+      if (Set_Special.get('m200_end' + k) < global_frame) {
+        Set_Special.delete('m200_end' + k)
+        Set_Special.set('attack_permission_' + k, 'fire_all')
+      }
+    }
     if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) { // 未来预警发动
       if (document.getElementById('special_64howa_' + (k + 1) + '_0').checked) {
         changeStatus(k, 'self', 'dmg', '0.55', 5)
         react([createSkill(0, 0, 5, describe_property(['bloall'], ['dmg'], ['0.55'])), 0], k, global_frame)
       } else {
-        // 护盾暂时不做
+        if (k === 0 || k === 1 || k === 3 || k === 4) {
+          if (gs_tdoll[k + 1]) changeStatus(k + 1, 'self', 'shield', 25, 5)
+          if (gs_tdoll[k + 3]) changeStatus(k + 3, 'self', 'shield', 25, 5)
+        } else if (k === 6 || k === 7) {
+          if (gs_tdoll[k + 1]) changeStatus(k + 1, 'self', 'shield', 25, 5)
+        }
       }
       Set_Special.delete('64howa_' + k)
     }
@@ -1038,9 +1049,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       var ratio = (s_t[0].Describe).ratio
       var snipe_num = (s_t[0].Describe).snipe_num
       var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
-      var time_interval = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval
+      var time_interval = ((1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval).toFixed(2)
+      if (is_this(stand_num, 257)) {
+        time_init = 1.5
+        var frame_interval = Math.ceil(time_interval * 30)
+        var time_block
+        if (frame_interval === 45) { snipe_num = 6; time_block = 9 }
+        else if (frame_interval === 41) { snipe_num = 7; time_block = 9.7 }
+        else if (frame_interval === 36) { snipe_num = 7; time_block = 9 }
+        Set_Special.set('m200_end' + stand_num, current_time + time_block * 30)
+      }
       var labels = (s_t[0].Describe).labels
-      if (snipe_num < 0) snipe_num = Math.floor(s_t[0].duration / time_interval)
       Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
       Set_Special.set('snipe_num_' + stand_num, snipe_num)
       Set_Special.set('snipe_interval_' + stand_num, time_interval)
@@ -1171,8 +1190,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     if (stand_num === 2 || stand_num === 5 || stand_num === 8) {
       changeStatus(stand_num, 'self', 'dmg', '0.45', 10)
       changeStatus(stand_num, 'self', 'rof', '0.22', 10)
-    } else if (list_tdoll[stand_num + 1][1] != null) {
-      // 贴膜
+    } else if (gs_tdoll[stand_num + 1]) {
+      changeStatus(stand_num + 1, 'self', 'shield', 40, 10)
+      changeStatus(stand_num + 1, 'self', 'eva', 0.8, 10)
     } else {
       changeStatus(stand_num, 'self', 'dmg', '0.45', 10)
       changeStatus(stand_num, 'self', 'rof', '0.22', 10)
@@ -1629,7 +1649,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     if (list_labels[3] != 'evaless') { // 可以回避
       if (Math.random() > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
     }
-    damage_snipe_single = Math.ceil(damage_snipe_single * 5) // edittt
+    damage_snipe_single = Math.ceil(damage_snipe_single * this_formation(stand_num))
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     recordData(stand_num, current_time, 0)
     damage_snipe_single = Math.ceil(damage_snipe_single * explain_fgl_ff('single'))
@@ -1666,7 +1686,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       }
     }
     if (num_leftsnipe === 0) { // 狙击次数完毕
-      Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+      if (!is_this(stand_num, 257)) Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     } else {
       var new_n = labels.length
       for (var nn = 0; nn < new_n; nn++) {
