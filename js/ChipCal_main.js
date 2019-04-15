@@ -427,8 +427,8 @@ function changeProperty (command) { // for change color/chipClass/chipShape
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-6.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-6")' + "'" + '></td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-5.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-5")' + "'" + '></td>'
       SL1.innerHTML = SL1_html
-      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-41.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-41")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-42.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-42")' + "'" + '></td>'
+      SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-41.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-41")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-3.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-3")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-2.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-2")' + "'" + '></td>'
       SL2_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-1.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-1")' + "'" + '></td>'
