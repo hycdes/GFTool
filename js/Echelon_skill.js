@@ -835,7 +835,7 @@ lib_skill.set(235, [
   createSkill(8, 16, 0, lib_describe.get('snipe_5.5')),
   createSkill(8, 16, 5, lib_describe.get('rof_25'))
 ])
-lib_skill.set(247, [createSkill(5, 8, 5, lib_describe.get('k31'))])
+lib_skill.set(247, [createSkill(6, 8, 5, lib_describe.get('k31'))])
 lib_skill.set(252, [createSkill(10, 16, 0, lib_describe.get('snipe_4'))])
 lib_skill.set(1037, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
