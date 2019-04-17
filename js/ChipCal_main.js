@@ -1480,7 +1480,7 @@ function ignoreSolution (dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_
   var solulen = solutionSet.length
   for (var i = 0; i < solulen; i++) {
     var combinelen = solutionSet[i].length
-    if (ranking_switch) combinelen--
+    if (filter_switch) combinelen--
     if (document.getElementById('ignore_dmg').checked) {
       var dmg = 0
       for (var n = 0; n < combinelen; n++) dmg += chipRepo_chart[solutionSet[i][n] - 1].Dmg
