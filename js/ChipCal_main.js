@@ -671,7 +671,29 @@ function notIn (num, rank) {
   for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false
   return true
 }
+function refresh_displayUI () {
+  chartBack(HeavyfireType)
+  document.getElementById('ChipComboChart').innerHTML = ''
+  document.getElementById('sort_btn_content').innerHTML = ''
+  document.getElementById('TopologySelect').innerHTML = ''
+  document.getElementById('TopologySelect').disabled = true
+  document.getElementById('SolutionSelect').innerHTML = ''
+  document.getElementById('SolutionSelect').disabled = true
+  document.getElementById('Process_Bar_Dmg').style = 'width:0%'
+  document.getElementById('Process_Bar_Dbk').style = 'width:0%'
+  document.getElementById('Process_Bar_Acu').style = 'width:0%'
+  document.getElementById('Process_Bar_Fil').style = 'width:0%'
+  document.getElementById('AnalyzeSwitch').disabled = true
+  document.getElementById('AdTp').disabled = true
+  document.getElementById('SbTp').disabled = true
+  document.getElementById('AdCo').disabled = true
+  document.getElementById('SbCo').disabled = true
+  document.getElementById('SortInfo').innerHTML = ''
+}
 function getTopology () {
+  // img init
+  refresh_displayUI()
+  // calculate
   globaltime[0] = 0
   global_workdone = false
   global_process = 0
@@ -1010,21 +1032,22 @@ function showAnalyze () {
     document.getElementById('AnalyzeSwitch').disabled = false
     // show topology image
     if (filter_switch) {
-      document.getElementById('SortButton_AllPro').disabled = true
-      document.getElementById('SortButton_Block').disabled = true
-      document.getElementById('SortButton_Dmg').disabled = true
-      document.getElementById('SortButton_Dbk').disabled = true
-      document.getElementById('SortButton_Acu').disabled = true
-      document.getElementById('SortButton_Fil').disabled = true
       showTopology(buffer_topo[SSNum], HeavyfireType)
-    }else {
+      document.getElementById('sort_btn_content').innerHTML = ''
+    } else {
+      showTopology(topologySet[topologyNum], HeavyfireType)
+      var sbcHTML = ''
+      sbcHTML += '<button type="button" class="btn btn-outline btn-danger" style="height:35px;width:130px;padding:0px" onclick="changeRankingSwitch(1)" id="SortButton_AllPro"><img src="../img/icon-allhfpro.png"></button>'
+      sbcHTML += ' <button type="button" class="btn btn-default" style="height:35px;width:40px;padding:0px" onclick="changeRankingSwitch(3)" id="SortButton_Dmg"><img src="../img/icon-dmg.png"></button>'
+      sbcHTML += ' <button type="button" class="btn btn-default" style="height:35px;width:40px;padding:0px" onclick="changeRankingSwitch(4)" id="SortButton_Dbk"><img src="../img/icon-dbk.png"></button>'
+      sbcHTML += ' <button type="button" class="btn btn-default" style="height:35px;width:40px;padding:0px" onclick="changeRankingSwitch(5)" id="SortButton_Acu"><img src="../img/icon-acu.png"></button>'
+      sbcHTML += ' <button type="button" class="btn btn-default" style="height:35px;width:40px;padding:0px" onclick="changeRankingSwitch(6)" id="SortButton_Fil"><img src="../img/icon-fil.png"></button>'
+      document.getElementById('sort_btn_content').innerHTML = sbcHTML
       document.getElementById('SortButton_AllPro').disabled = false
-      document.getElementById('SortButton_Block').disabled = false
       document.getElementById('SortButton_Dmg').disabled = false
       document.getElementById('SortButton_Dbk').disabled = false
       document.getElementById('SortButton_Acu').disabled = false
       document.getElementById('SortButton_Fil').disabled = false
-      showTopology(topologySet[topologyNum], HeavyfireType)
     }
     // show pick chips in chart
     var ChipComboChart = document.getElementById('ChipComboChart')
@@ -1170,12 +1193,7 @@ function showAnalyze () {
       }
     }
   } else {
-    document.getElementById('SortButton_AllPro').disabled = true
-    document.getElementById('SortButton_Block').disabled = true
-    document.getElementById('SortButton_Dmg').disabled = true
-    document.getElementById('SortButton_Dbk').disabled = true
-    document.getElementById('SortButton_Acu').disabled = true
-    document.getElementById('SortButton_Fil').disabled = true
+    document.getElementById('sort_btn_content').innerHTML = ''
     // show topology(no result) image
     showTopology(topology_noresult, HeavyfireType)
     // show pick chips in chart
