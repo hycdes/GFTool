@@ -279,7 +279,7 @@ lib_affect.set(232, createAffect('u/lu/l/d/ld/', 'all', ['dmg', 'rof'], [0.12, 0
 lib_affect.set(233, createAffect('l/ld/d/ldd/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // Px4 风暴
 lib_affect.set(234, createAffect('l/ld/ldd/', 'ar', ['rof', 'crit'], [0.18, 0.3])) // JS 9
 lib_affect.set(235, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // SPR A3G
-lib_affect.set(236, createAffect('ru/rd/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // K11
+lib_affect.set(236, createAffect('ru/rd/r/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // K11
 lib_affect.set(237, createAffect('ru/r/rd/', 'smg', ['dmg', 'acu'], [0.2, 0.55])) // SAR-21
 lib_affect.set(238, createAffect('rruu/rru/rr/', 'sg', ['acu', 'arm'], [0.1, 0.15])) // 88式
 lib_affect.set(239, createAffect('r/', 'smg', ['dmg', 'eva'], [0.12, 0.12])) // 03式
