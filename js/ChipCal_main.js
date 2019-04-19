@@ -672,7 +672,6 @@ function notIn (num, rank) {
   return true
 }
 function refresh_displayUI () {
-  chartBack(HeavyfireType)
   document.getElementById('ChipComboChart').innerHTML = ''
   document.getElementById('sort_btn_content').innerHTML = ''
   document.getElementById('TopologySelect').innerHTML = ''
