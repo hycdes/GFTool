@@ -201,6 +201,8 @@ lib_language = {
   night: '야간전',
   daytime: '주간전',
   form: '더미',
+  na: 'Night-ability',
+  skillstren: '스킬+',
 
   skillNAME_256: '석양의 송골매',
   DESCRIBE_256: '특수탄 사용 안함',

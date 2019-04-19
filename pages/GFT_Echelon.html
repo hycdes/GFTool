@@ -137,12 +137,11 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    梯队设置
+                                    梯队设置 <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(1)">设置教程</button>
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
                                         <h4>梯队预览<span style="color:red" id="alert_display"></span></h4>
-                                        <h5>点击格点<span style="color:orangered">增删人形</span>，修改人形直接<span style="color:orangered">添加即可覆盖</span></h5>
                                         <div class="table-responsive">
                                             <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                                 <tbody>
@@ -182,7 +181,6 @@
                                                 <div class="tab-pane fade in active" id="make_tdoll">
                                                     <div class="col-lg-6">
                                                         <h4>人形信息</h4>
-                                                        <h5>点击预览图标<span style="color:orangered">改变好感度</span></h5>
                                                         <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
                                                             <tr>
                                                                 <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
@@ -285,7 +283,6 @@
                                                             </tbody>
                                                         </table>
                                                         <h4>装备</h4>
-                                                        <h5>选择一个装备栏<span style="color:orangered">更改装备</span></h5>
                                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                                             <tbody>
                                                                 <tr>
@@ -307,8 +304,14 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <h5>修改人形属性后<span style="color:orangered">添加人形</span>直接覆盖修改</h5>
-                                                        <h5>部分人形技能如何表现在<span style="color:orangered">特殊设定</span>中修改</h5>
+                                                        <table class="table_other table-bordered table-hover" style="width:228px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td id='equip_info'></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h8>&nbsp</h8>
                                                         <p>
                                                             <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>添加人形</button>
                                                             <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>删除人形</button>

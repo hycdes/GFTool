@@ -203,6 +203,8 @@ lib_language = {
   night: '夜战',
   daytime: '昼战',
   form: '编制',
+  na: '夜视能力',
+  skillstren: '技能增强',
 
   fairyNAME_1: '勇士妖精',
   fairyNAME_2: '暴怒妖精',

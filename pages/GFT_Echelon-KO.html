@@ -137,12 +137,11 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    제대 설정
+                                    제대 설정 <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(1)">간단 튜토리얼
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
                                         <h4>제대 미리보기<span style="color:red" id="alert_display"></span></h4>
-                                        <h5>아래 칸을 선택하여 <span style="color:orangered">인형을 추가/제거</span>하세요. 인형 정보 수정 시 <span style="color:orangered">인형 추가</span> 를 통해 덮어쓰기를 하세요.</h5>
                                         <div class="table-responsive">
                                             <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                                 <tbody>
@@ -182,7 +181,6 @@
                                                 <div class="tab-pane fade in active" id="make_tdoll">
                                                     <div class="col-lg-6">
                                                         <h4>인형 정보</h4>
-                                                        <h5>미리보기 창을 클릭하여 <span style="color:orangered">호감도 변경</span></h5>
                                                         <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
                                                             <tr>
                                                                 <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
@@ -285,7 +283,6 @@
                                                             </tbody>
                                                         </table>
                                                         <h4>장비</h4>
-                                                        <h5>아래 장비 아이콘을 클릭하여 <span style="color:orangered">장비 변경</span></h5>
                                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                                             <tbody>
                                                                 <tr>
@@ -307,14 +304,19 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <h5>인형의 설정을 변경한 후 <span style="color:orangered">인형 추가</span> 를 통해 인형을 배치할 수 있습니다</h5>
-                                                        <h5>일부 특수한 스킬을 가진 인형의 경우 <span style="color:orangered">특수 설정</span> 에서 스킬 설정을 변경할 수 있습니다</h5>
+                                                        <table class="table_other table-bordered table-hover" style="width:228px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td id='equip_info'></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h8>&nbsp</h8>
                                                         <p>
                                                             <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>인형 추가</button>
                                                             <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>인형 삭제</button>
                                                         </p>
                                                     </div>
-
                                                 </div>
                                                 <div class="tab-pane fade" id="make_fairy">
                                                     <div class='col-lg-4'>

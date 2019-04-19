@@ -482,4 +482,5 @@ function changeEquip () {
   }
   selectID.innerHTML = str_items
   selectID.value = set_equip[num_pickequip - 1]
+  showEquip(parseInt(selectID.value))
 }

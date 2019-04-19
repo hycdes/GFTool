@@ -150,6 +150,68 @@ function showAffect () {
     document.getElementById('a_have').innerHTML = str_a_have
   }
 }
+function showEquip (value) {
+  var showID = document.getElementById('equip_info')
+  var equip_str = ''
+  if (value >= 0) {
+    var equip_info = lib_property_equip.get(value)
+    if (equip_info.dmg != 0) {
+      equip_str += lib_language.dmg
+      if (equip_info.dmg > 0) {
+        if (equip_info.dmg === 2.01) equip_str += '<span style="color:blue">x3</span> 目标<span style="color:red">-2 </span>'
+        else equip_str += '<span style="color:green">+' + equip_info.dmg + ' ' + '</span>'
+      } else equip_str += '<span style="color:red">' + equip_info.dmg + ' ' + '</span>'
+    }
+    if (equip_info.acu != 0) {
+      equip_str += lib_language.acu
+      if (equip_info.acu > 0) equip_str += '<span style="color:green">+' + equip_info.acu + ' ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.acu + ' ' + '</span>'
+    }
+    if (equip_info.eva != 0) {
+      equip_str += lib_language.eva
+      if (equip_info.eva > 0) equip_str += '<span style="color:green">+' + equip_info.eva + ' ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.eva + ' ' + '</span>'
+    }
+    if (equip_info.rof != 0) {
+      equip_str += lib_language.rof
+      if (equip_info.rof > 0) equip_str += '<span style="color:green">+' + equip_info.rof + ' ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.rof + ' ' + '</span>'
+    }
+    if (equip_info.arm != 0) {
+      equip_str += lib_language.arm
+      if (equip_info.arm > 0) equip_str += '<span style="color:green">+' + equip_info.arm + ' ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.arm + ' ' + '</span>'
+    }
+    if (equip_info.crit != 0) {
+      equip_str += lib_language.crit
+      if (equip_info.crit > 0) equip_str += '<span style="color:green">+' + equip_info.crit * 100 + '% ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.crit * 100 + '% ' + '</span>'
+    }
+    if (equip_info.critdmg != 0) {
+      equip_str += lib_language.critdmg
+      if (equip_info.critdmg > 0) equip_str += '<span style="color:green">+' + equip_info.critdmg * 100 + '% ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.critdmg * 100 + '% ' + '</span>'
+    }
+    if (equip_info.cs != 0) {
+      equip_str += lib_language.cs
+      if (equip_info.cs > 0) equip_str += '<span style="color:green">+' + equip_info.cs + ' ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.cs + ' ' + '</span>'
+    }
+    if (equip_info.ap != 0) {
+      equip_str += lib_language.ap
+      if (equip_info.ap > 0) equip_str += '<span style="color:green">+' + equip_info.ap + ' ' + '</span>'
+      else equip_str += '<span style="color:red">' + equip_info.ap + ' ' + '</span>'
+    }
+    if (equip_info.na != 0) {
+      if (equip_info.na > 0) equip_str += lib_language.na + '<span style="color:green">+' + equip_info.na + '% ' + '</span>'
+      else {
+        if (value === 42009 || value === 42010) equip_str += lib_language.na + '<span style="color:green">+100% </span>'
+        equip_str += '<br><span style="color:red">' + lib_language.skillstren + '</span>'
+      }
+    }
+  }
+  showID.innerHTML = equip_str
+}
 
 function pickBlock (num) { // 选定格子，只有选定状态才能激活UI，管理全局变量switch_operate和num_pickblock
   if (num_pickblock === num) num_pickblock = -1 // 点已选定的格子，取消选定
@@ -546,6 +608,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     buffer_last = [set_guntype, num_star, ID, set_equip, affection, e_affection]
   }
   showAffect()
+  showEquip(parseInt(selectID_equip.value))
 }
 function readStatus () { // 读取已有人形之前的全局环境
   var this_buffer = buffer_table.get(num_pickblock)
@@ -1429,4 +1492,4 @@ function reverse_className (command, stand_num, boolean) {
   str_name += '.png'
   return str_name
 }
-function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png') }
+function getHelp (helpnum) { window.open('../img/chip/tutorial/es-' + helpnum + '-' + lang_type + '.png') }

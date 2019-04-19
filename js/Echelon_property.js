@@ -264,7 +264,7 @@ lib_affect.set(216, createAffect('ru/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // 
 lib_affect.set(217, createAffect('u/d/', 'hg', ['cld'], [0.12])) // SM-1
 lib_affect.set(218, createAffect('lu/l/ld/', 'ar', ['rof'], [0.12])) // T77
 lib_affect.set(220, createAffect('ru/u/r/rd/d/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // MP-443
-lib_affect.set(221, createAffect('u/ru/r/d/rd/', 'all', ['dmg', 'acu'], [0.24, 0.4])) // GSh-18
+lib_affect.set(221, createAffect('u/lu/l/d/ld/', 'all', ['dmg', 'acu'], [0.24, 0.4])) // GSh-18
 lib_affect.set(222, createAffect('r/rd/', 'hg', ['cld'], [0.18])) // TAC-50
 lib_affect.set(223, createAffect('r/rd/', 'smg', ['dmg', 'acu'], [0.15, 0.25])) // Model L
 lib_affect.set(224, createAffect('lu/ld/', 'ar', ['dmg', 'acu'], [0.12, 0.35])) // PM-06
