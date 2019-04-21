@@ -30,6 +30,13 @@
 </head>
 
 <body>
+    <script src="../js/language_index.js"></script>
+    <script>
+        setTimeout(function () {
+            load_indexinfo('en');
+        }, 50);
+    </script>
+
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -73,140 +80,63 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">Index
+                            <h1 class="page-header"><span id="title_page"></span>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
                             </h1>
                         </div>
                     </div>
-                    <!-- Multi-page Panel -->
                     <div class="col-lg-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Nice to meet you!
-                            </div>
-                            <!-- /.panel-heading -->
+                            <div class="panel-heading" id="title_panel"></div>
                             <div class="panel-body">
-                                <!-- Nav tabs -->
                                 <ul class="nav nav-pills">
                                     <li class="active">
-                                        <a href="#index-history" data-toggle="tab">Update history</a>
+                                        <a href="#index-history" data-toggle="tab" id="title_tab1"></a>
                                     </li>
                                     <li>
-                                        <a href="#index-about" data-toggle="tab">Notice</a>
+                                        <a href="#index-about" data-toggle="tab" id="title_tab2"></a>
                                     </li>
                                     <li>
-                                        <a href="#index-supporter" data-toggle="tab">Supporters</a>
-                                    </li>
-                                    <li>
-                                        <a href="#index-link" data-toggle="tab">Related links</a>
+                                        <a href="#index-link" data-toggle="tab" id="title_tab3"></a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="index-history" style="background:url(../img/GK-small.png) no-repeat right top;">
-                                        <h4>Update history</h4>
-                                        <p>
-                                            <b>GF Tools v6.5 [2019.04.12] </b>
-                                        </p>
-                                        <h5><span style="color:deeppink">Echelon simulator </span>released<span style="color:deeppink"> ver4.0</span>, update PM-9</h5>
-                                        <h5><span style="color:deeppink">Chip calculator </span>released<span style="color:deeppink"> ver3.0</span>, new UI</h5>
-                                        <p>
-                                            GF Tool v5.0 [2019.02.22] + Chip Calculator
-                                        </p>
-                                        <p>
-                                            GF Tool v4.0 [2019.01.05] + IOP Simulator
-                                        </p>
-                                        <p>
-                                            GF Tool v3.0 [2018.12.27] + Levelup Calculator
-                                        </p>
-                                        <p>
-                                            GF Tool v2.0 [2018.12.25] + Database + Logistics Ranking
-                                        </p>
-                                        <p>
-                                            GF Tool v1.0 [2018.12.16] + Database
-                                        </p>
+                                        <h4 id="content_1_1"></h4>
+                                        <h5 id="content_1_2_1"></h5>
+                                        <h5 id="content_1_2_2"></h5>
+                                        <h5 id="content_1_3_1"></h5>
+                                        <h5 id="content_1_3_2"></h5>
+                                        <h4 id="content_1_4"></h4>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[e-mail] <span style="color:dodgerblue">hycdes@qq.com</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[QQ-group] <span style="color:dodgerblue">693606343</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[Bilibili] <span style="color:dodgerblue">命运の乐章</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[github] <span style="color:dodgerblue">Hycdes Mactavish</span></h5>
                                     </div>
                                     <div class="tab-pane fade" id="index-about" style="background:url(../img/DEFY.png) no-repeat right top;">
                                         <h4>the PRINCIPLE</h4>
-                                        <p>
-                                            1. This website public welfare, operated by <span style="color:#FF0066">FatalChapter</span>.
-                                        </p>
-                                        <p>
-                                            2. All code and material of this site are OPEN SOURCE, please get the source code at <a href="https://github.com/hycdes/GFTool" target="_blank"><u><span style="color:dodgerblue">here</span></u></a>.
-                                        </p>
-                                        <p>
-                                            3. Reprint please indicate the source, but <span style="color:#FF0066">forbidden for commercial use</span>.
-                                        </p>
-                                        <p>
-                                            4. Connect me:
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[e-mail] <span style="color:dodgerblue">hycdes@qq.com</span>
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[QQ-group] <span style="color:dodgerblue">693606343</span>
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[Bilibili] <span style="color:dodgerblue">命运の乐章</span>
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[github] <span style="color:dodgerblue">Hycdes Mactavish</span>
-                                        </p>
+                                        <h5 id="content_2_1_1"></h5>
+                                        <h5 id="content_2_1_2"></h5>
+                                        <h5 id="content_2_1_3"></h5>
+                                        <h4 id="content_2_2"></h4>
+                                        <h5 id="content_2_3"></h5>
                                     </div>
-                                    <div class="tab-pane fade" id="index-supporter" style="background:url(../img/404.png) no-repeat right top;">
-                                        <h4>"Your name is known, and your achievements will last forever."</h4>
-                                        <p><b>Website-develope/Domain-purchase/Update/Data-production</b>: FatalChapter</p>
-                                        <p><b>Korean translatiion</b>: @pohcy @marty @KOZ39</p>
-                                        <p><b>JavaScript guide</b>：Damien丶泽宇</p>
-                                        <p><b>Algorithm and mathematics guide</b>: Simon</p>
-                                        <p><b>Algorithm update support</b>：@kirA</p>
-                                        <p><b>Debug</b>: @白金·世界 @矩形波导[b站] @普鲁露特酱poi[b站] @AsLegend[b站] @笑笑哭笑笑[b站] @IIdf[NGA]</p>
-                                        <p><b>Suggestions</b>: @天后号驱逐舰[b站] @這世界需要更多狗糧 @蕾米利亚、斯卡雷特[b站] @johnchen902[github]</p>
-                                        <p><b>Data support</b>: @白金·世界</p>
-                                        <p><b>Resource support</b>: @HelenCromwell[b站]</p>
-                                        <p><b>Communicate</b>: @色图 @AsLegend[b站] @Map</p>
-                                        <p><b>Testing</b>: @白金·世界 @AsLegend[b站] @色图 @涯余雨花[NGA]</p>
-                                    </div>
-                                    <div class="tab-pane fade" id="index-link" style="background:url(../img/AntiRain.png) no-repeat right top;">
-                                        <h4>Author and related links(Chinese language)</h4>
-                                        <p><b>命运の乐章 Bilibili个人主页</b>：<u><a href="https://space.bilibili.com/8453668?from=search&seid=13316075775738855741" target="_blank"><span style="color:#FF0066">Bilibili空间链接</span></a></u></p>
-                                        <p><b>Damien丶泽宇 个人主页</b>：<u><a href="https://blog.damien.ink" target="_blank"><span style="color:#FF0066">主页链接</span></a></u></p>
-                                        <p><b>少女前线全剧情解说-相关BGM歌单</b>：<u><a href="https://music.163.com/playlist?id=2551379155&userid=505710148" target="_blank"><span style="color:#FF0066">网易云音乐链接</span></a></u></p>
-                                        <p><b>全面靠谱的攻略</b>：<u><a href="https://bbs.nga.cn/thread.php?fid=-547859" target="_blank"><span style="color:#FF0066">NGA-16Lab链接线路</span></a></u></p>
-                                        <p><b>详细考究的百科</b>：<u><a href="https://zh.moegirl.org/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF" target="_blank"><span style="color:#FF0066">萌娘百科-少女前线</span></a></u></p>
+                                    <div class="tab-pane fade" id="index-link" style="background:url(../img/404.png) no-repeat right top;">
+                                        <h8>&nbsp</h8>
+                                        <p><b>命运の乐章</b>: <u><a href="https://space.bilibili.com/8453668?from=search&seid=13316075775738855741" target="_blank"><span style="color:#FF0066">Bilibili space</span></a></u></p>
+                                        <p><b>Damien丶泽宇</b>: <u><a href="https://blog.damien.ink" target="_blank"><span style="color:#FF0066">Personal index</span></a></u></p>
+                                        <p><b>少女前线全剧情解说</b>: <u><a href="https://music.163.com/playlist?id=2551379155&userid=505710148" target="_blank"><span style="color:#FF0066">Netease music link</span></a></u></p>
+                                        <p><b>攻略</b>: <u><a href="https://bbs.nga.cn/thread.php?fid=-547859" target="_blank"><span style="color:#FF0066">NGA-16Lab链接线路</span></a></u></p>
+                                        <p><b>百科</b>: <u><a href="https://zh.moegirl.org/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF" target="_blank"><span style="color:#FF0066">萌娘百科-少女前线</span></a></u></p>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
-                    <!-- <div class="col-lg-3">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                随机数生成器（2月19日抽奖用）
-                            </div>
-                            <div class="panel-body">
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon">随机数上限</span>
-                                    <input type="text" class="form-control" placeholder="输入整数" id="NumMax" value=10>
-                                </div>
-                                <p>
-                                    <button type="button" class="btn btn-default" onclick="getValue()">生成随机数</button>
-                                </p>
-                                <h5>随机结果</h5>
-                                <div class="form-group">
-                                    <textarea class="form-control" rows="6" placeholder="随机结果" id="RanResult" readonly></textarea>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div> -->
-
                 </div>
-
             </div>
         </div>
     </div>

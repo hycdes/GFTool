@@ -30,6 +30,12 @@
 </head>
 
 <body>
+    <script src="../js/language_index.js"></script>
+    <script>
+        setTimeout(function () {
+            load_indexinfo('cn');
+        }, 50);
+    </script>
 
     <div id="wrapper">
         <!-- Navigation -->
@@ -67,116 +73,63 @@
                 </div>
             </div>
         </nav>
-
         <!-- Main Pages -->
         <div id="page-wrapper" style="background:url(../img/ro-orchestra.png) no-repeat right bottom;">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">首页
+                            <h1 class="page-header"><span id="title_page"></span>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
                             </h1>
                         </div>
                     </div>
-                    <!-- Multi-page Panel -->
                     <div class="col-lg-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                万千过客，感谢你与我邂逅
-                            </div>
-                            <!-- /.panel-heading -->
+                            <div class="panel-heading" id="title_panel"></div>
                             <div class="panel-body">
-                                <!-- Nav tabs -->
                                 <ul class="nav nav-pills">
                                     <li class="active">
-                                        <a href="#index-history" data-toggle="tab">更新历史</a>
+                                        <a href="#index-history" data-toggle="tab" id="title_tab1"></a>
                                     </li>
                                     <li>
-                                        <a href="#index-about" data-toggle="tab">使用须知</a>
+                                        <a href="#index-about" data-toggle="tab" id="title_tab2"></a>
                                     </li>
                                     <li>
-                                        <a href="#index-supporter" data-toggle="tab">贡献者们</a>
-                                    </li>
-                                    <li>
-                                        <a href="#index-link" data-toggle="tab">相关链接</a>
+                                        <a href="#index-link" data-toggle="tab" id="title_tab3"></a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active" id="index-history" style="background:url(../img/GK-small.png) no-repeat right top;">
-                                        <h4>更新公告</h4>
-                                        <p>
-                                            <b>少女前线工具 v6.5 [2019.04.12] </b>
-                                        </p>
-                                        <h5><span style="color:deeppink">阵形模拟器</span>现已更新<span style="color:deeppink">4.0 版本</span>，更新PM-9</h5>
-                                        <h5><span style="color:deeppink">芯片计算器</span>现已更新<span style="color:deeppink">3.0 版本</span>，全新UI</h5>
-                                        <p>
-                                            少女前线工具 v5.0 [2019.02.22] + 芯片计算器
-                                        </p>
-                                        <p>
-                                            少女前线工具 v4.0 [2019.01.05] + 资料库 + 建造模拟器 + 练级计算器
-                                        </p>
-                                        <p>
-                                            少女前线工具 v3.0 [2018.12.27] + 建造模拟器
-                                        </p>
-                                        <p>
-                                            少女前线工具 v2.0 [2018.12.25] + 后勤排序器 + 练级计算器
-                                        </p>
-                                        <p>
-                                            少女前线工具 v1.0 [2018.12.16] + 诞生！
-                                        </p>
+                                        <h4 id="content_1_1"></h4>
+                                        <h5 id="content_1_2_1"></h5>
+                                        <h5 id="content_1_2_2"></h5>
+                                        <h5 id="content_1_3_1"></h5>
+                                        <h5 id="content_1_3_2"></h5>
+                                        <h4 id="content_1_4"></h4>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[e-mail] <span style="color:dodgerblue">hycdes@qq.com</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[QQ-group] <span style="color:dodgerblue">693606343</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[Bilibili] <span style="color:dodgerblue">命运の乐章</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[github] <span style="color:dodgerblue">Hycdes Mactavish</span></h5>
                                     </div>
                                     <div class="tab-pane fade" id="index-about" style="background:url(../img/DEFY.png) no-repeat right top;">
                                         <h4>the PRINCIPLE</h4>
-                                        <p>
-                                            1. 本站纯公益，由<span style="color:#FF0066">命运の乐章</span>运营 (=・ω・=)
-                                        </p>
-                                        <p>
-                                            2. 本站全部代码和素材开源，获取源码请前往 <a href="https://github.com/hycdes/GFTool" target="_blank"><u><span style="color:dodgerblue">GFTool-github仓库 </span></u></a> Σ( ￣□￣||)
-                                        </p>
-                                        <p>
-                                            3. 资料内容或工具内容转载请注明出处，但<span style="color:#FF0066">禁止将其用于商业</span> (●￣(ｴ)￣●)
-                                        </p>
-                                        <p>
-                                            4. 联系方式：
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[e-mail] <span style="color:dodgerblue">hycdes@qq.com</span>
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[QQ群] <span style="color:dodgerblue">693606343</span>
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[Bilibili] <span style="color:dodgerblue">命运の乐章</span>
-                                        </p>
-                                        <p>
-                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[github] <span style="color:dodgerblue">Hycdes Mactavish</span>
-                                        </p>
+                                        <h5 id="content_2_1_1"></h5>
+                                        <h5 id="content_2_1_2"></h5>
+                                        <h5 id="content_2_1_3"></h5>
+                                        <h4 id="content_2_2"></h4>
+                                        <h5 id="content_2_3"></h5>
                                     </div>
-                                    <div class="tab-pane fade" id="index-supporter" style="background:url(../img/404.png) no-repeat right top;">
-                                        <h4>“你的名字有人知晓，你的功绩永世长存”</h4>
-                                        <p><b>建站/域名购买/开发/资料制作</b>：命运の乐章</p>
-                                        <p><b>韩文翻译</b>: @pohcy @marty @KOZ39</p>
-                                        <p><b>JavaScript指导</b>：Damien丶泽宇</p>
-                                        <p><b>算法和数学指导</b>：Simon</p>
-                                        <p><b>算法优化帮助</b>：@kirA</p>
-                                        <p><b>查错贡献</b>：@白金·世界 @矩形波导[b站] @普鲁露特酱poi[b站] @AsLegend[b站] @笑笑哭笑笑[b站] @IIdf[NGA]</p>
-                                        <p><b>改良建议</b>：@天后号驱逐舰[b站] @這世界需要更多狗糧 @蕾米利亚、斯卡雷特[b站] @johnchen902[github]</p>
-                                        <p><b>数据援助</b>：@白金·世界</p>
-                                        <p><b>素材援助</b>：@HelenCromwell[b站]</p>
-                                        <p><b>内容探讨</b>：@色图 @AsLegend[b站] @Map</p>
-                                        <p><b>测试排错</b>：@白金·世界 @AsLegend[b站] @色图 @涯余雨花[NGA] @a232430[NGA]</p>
-                                    </div>
-                                    <div class="tab-pane fade" id="index-link" style="background:url(../img/AntiRain.png) no-repeat right top;">
-                                        <h4>作者和其他相关链接</h4>
-                                        <p><b>命运の乐章 Bilibili个人主页</b>：<u><a href="https://space.bilibili.com/8453668?from=search&seid=13316075775738855741" target="_blank"><span style="color:#FF0066">Bilibili空间链接</span></a></u></p>
-                                        <p><b>Damien丶泽宇 个人主页</b>：<u><a href="https://blog.damien.ink" target="_blank"><span style="color:#FF0066">主页链接</span></a></u></p>
-                                        <p><b>少女前线全剧情解说-相关BGM歌单</b>：<u><a href="https://music.163.com/playlist?id=2551379155&userid=505710148" target="_blank"><span style="color:#FF0066">网易云音乐链接</span></a></u></p>
-                                        <p><b>全面靠谱的攻略</b>：<u><a href="https://bbs.nga.cn/thread.php?fid=-547859" target="_blank"><span style="color:#FF0066">NGA-16Lab链接线路</span></a></u></p>
-                                        <p><b>详细考究的百科</b>：<u><a href="https://zh.moegirl.org/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF" target="_blank"><span style="color:#FF0066">萌娘百科-少女前线</span></a></u></p>
+                                    <div class="tab-pane fade" id="index-link" style="background:url(../img/404.png) no-repeat right top;">
+                                        <h8>&nbsp</h8>
+                                        <p><b>命运の乐章</b>: <u><a href="https://space.bilibili.com/8453668?from=search&seid=13316075775738855741" target="_blank"><span style="color:#FF0066">Bilibili space</span></a></u></p>
+                                        <p><b>Damien丶泽宇</b>: <u><a href="https://blog.damien.ink" target="_blank"><span style="color:#FF0066">Personal index</span></a></u></p>
+                                        <p><b>少女前线全剧情解说</b>: <u><a href="https://music.163.com/playlist?id=2551379155&userid=505710148" target="_blank"><span style="color:#FF0066">Netease music link</span></a></u></p>
+                                        <p><b>攻略</b>: <u><a href="https://bbs.nga.cn/thread.php?fid=-547859" target="_blank"><span style="color:#FF0066">NGA-16Lab链接线路</span></a></u></p>
+                                        <p><b>百科</b>: <u><a href="https://zh.moegirl.org/%E5%B0%91%E5%A5%B3%E5%89%8D%E7%BA%BF" target="_blank"><span style="color:#FF0066">萌娘百科-少女前线</span></a></u></p>
                                     </div>
                                 </div>
                             </div>
