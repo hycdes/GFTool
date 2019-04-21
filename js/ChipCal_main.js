@@ -1,7 +1,7 @@
 var HeavyfireType = 1
 var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
 var switch_clear = false, switch_maxall = false, switch_blueall = false, switch_orangeall = false
-var filter_switch = false
+var filter_switch = false, filter_switch_finalpick = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
@@ -695,6 +695,7 @@ function getTopology () {
   // calculate
   globaltime[0] = 0
   global_workdone = false
+  filter_switch_finalpick = false // 当所有组合都筛选完才能进进入总筛选
   global_process = 0
   topologySet = [], solutionSet = []
   var validSet
@@ -797,6 +798,7 @@ function getTopology () {
 
 function check_if_done () {
   if (global_workdone) {
+    filter_switch_finalpick = true
     solutionSet = buffer_solu
     sortSolution(ranking_switch)
     if (solutionSet.length > buffer_num) {
@@ -1392,38 +1394,6 @@ function compare_sumpro (solu_a, solu_b) {
   value_b = (dmg_b / dmg_max) + (dbk_b / dbk_max) + (acu_b / acu_max) + (fil_b / fil_max)
   return value_b - value_a
 }
-function compare_sumblo (solu_a, solu_b) {
-  var value_a = 0, value_b = 0
-  var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0
-  var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0
-  if (HeavyfireType === 1) { dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
-  else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
-  else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
-  else if (HeavyfireType === 4) { dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
-  else if (HeavyfireType === 5) { dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
-  var looplen_a = solu_a.length, looplen_b = solu_b.length
-  if (isNaN(solu_a[looplen_a - 1])) looplen_a--
-  if (isNaN(solu_b[looplen_b - 1])) looplen_b--
-  for (var n = 0; n < looplen_a; n++) {
-    dmg_a += chipRepo_data[solu_a[n] - 1].bDmg
-    dbk_a += chipRepo_data[solu_a[n] - 1].bDbk
-    acu_a += chipRepo_data[solu_a[n] - 1].bAcu
-    fil_a += chipRepo_data[solu_a[n] - 1].bFil
-  }
-  for (var n = 0; n < looplen_b; n++) {
-    dmg_b += chipRepo_data[solu_b[n] - 1].bDmg
-    dbk_b += chipRepo_data[solu_b[n] - 1].bDbk
-    acu_b += chipRepo_data[solu_b[n] - 1].bAcu
-    fil_b += chipRepo_data[solu_b[n] - 1].bFil
-  }
-  if (dmg_a > dmgblo_max) dmg_a = dmgblo_max; if (dmg_b > dmgblo_max) dmg_b = dmgblo_max
-  if (dbk_a > dbkblo_max) dbk_a = dbkblo_max; if (dbk_b > dbkblo_max) dbk_b = dbkblo_max
-  if (acu_a > acublo_max) acu_a = acublo_max; if (acu_b > acublo_max) acu_b = acublo_max
-  if (fil_a > filblo_max) fil_a = filblo_max; if (fil_b > filblo_max) fil_b = filblo_max
-  value_a = dmg_a + dbk_a + acu_a + fil_a
-  value_b = dmg_b + dbk_b + acu_b + fil_b
-  return value_b - value_a
-}
 function compare_dmg (solu_a, solu_b) {
   var dmg_a = 0, dmg_b = 0, dmg_max = 0
   if (HeavyfireType === 1) dmg_max = 190
@@ -1497,7 +1467,7 @@ function ignoreSolution (dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_
   var solulen = solutionSet.length
   for (var i = 0; i < solulen; i++) {
     var combinelen = solutionSet[i].length
-    if (filter_switch) combinelen--
+    if (filter_switch && filter_switch_finalpick) combinelen--
     if (document.getElementById('ignore_dmg').checked) {
       var dmg = 0
       for (var n = 0; n < combinelen; n++) dmg += chipRepo_chart[solutionSet[i][n] - 1].Dmg
@@ -1563,11 +1533,8 @@ function sortSolution (sortType) {
   switch (ranking_switch) {
     case 1: // All property
       document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_value + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
+      // solutionSet.sort(compare_sumpro)
       solutionSet = selectOptimal(solutionSet, buffer_num, value_sumpro_of_HeavyfireType(HeavyfireType))
-      break
-    case 2: // All blockNum
-      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_block + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
-      solutionSet = selectOptimal(solutionSet, buffer_num, value_sumblo_of_HeavyfireType(HeavyfireType))
       break
     case 3: // Dmg
       document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dmg + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
