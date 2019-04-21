@@ -419,6 +419,7 @@ lib_describe.set('mk12', describe_property(['self'], ['rof/critdmg'], ['0.3/0.3'
 lib_describe.set('critdmg_10', describe_property(['self'], ['critdmg'], ['0.1'])) // 明澈斗志 10%
 lib_describe.set('art556', describe_property(['self'], ['dmg/rof'], ['0.85/0.25'])) // 冲锋专注 85%/25%
 lib_describe.set('tar21', describe_property(['self'], ['dmg/rof'], ['0.75/0.25'])) // 冲锋专注 75%/25%
+lib_describe.set('magal', describe_property(['self'], ['dmg/rof'], ['0.5/0.2'])) // 冲锋专注 50%/20%
 lib_describe.set('l85a1', describe_property(['self'], ['dmg/rof'], ['0.35/0.15'])) // 冲锋专注 35%/15%
 lib_describe.set('t91N', describe_propertyN(['self'], ['dmg/crit'], ['1.2/0.5'])) // 歼灭专注N 120%/50%
 lib_describe.set('t91ND', describe_propertyND(['self'], ['dmg/crit'], ['0.5/0.25'])) // 歼灭专注ND 50%/25%
@@ -708,6 +709,7 @@ lib_skill.set(193, [
 ])
 lib_skill.set(223, [createSkill(5, 8, 5, lib_describe.get('modelL'))])
 lib_skill.set(239, [createSkill(6, 8, 5, lib_describe.get('dmgcrit_3'))])
+lib_skill.set(258, [createSkill(6, 16, 10, lib_describe.get('magal'))])
 
 lib_skill.set(63, [createSkill(8, 16, 0, lib_describe.get('grenade_10'))])
 lib_skill.set(68, [createSkill(6, 8, 5, lib_describe.get('l85a1'))])

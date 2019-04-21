@@ -80,6 +80,7 @@ lib_language = {
   NAME_253: '루이스',
   NAME_255: '스카웃',
   NAME_256: '팔콘',
+  NAME_255: 'Magal',
   NAME_2001: '노엘',
   NAME_2002: '엘펠트',
   NAME_2003: '키아나',
