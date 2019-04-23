@@ -122,11 +122,11 @@ lib_affect.set(71, createAffect('r/', 'smg', ['acu', 'eva'], [0.5, 0.1])) // 加
 lib_affect.set(72, createAffect('ru/rd/', 'smg', ['eva'], [0.18])) // TAR-21
 lib_affect.set(73, createAffect('ru/u/r/rd/d/', 'all', ['dmg', 'acu'], [0.12, 0.2])) // AUG
 lib_affect.set(74, createAffect('ru/rd/', 'smg', ['dmg', 'rof'], [0.2, 0.1])) // SIG-510
-lib_affect.set(75, createAffect('rr/', 'sg', ['dmg', 'cld'], [0.15, 0.1])) // M1918
+lib_affect.set(75, createAffect('rr/', 'sg', ['dmg', 'arm'], [0.15, 0.1])) // M1918
 lib_affect.set(77, createAffect('rr/', 'sg', ['dmg'], [0.22])) // M2HB 
 lib_affect.set(78, createAffect('rr/rrdd/', 'sg', ['dmg', 'rof'], [0.1, 0.08])) // M60
 lib_affect.set(79, createAffect('rr/rrd/', 'sg', ['rof', 'acu'], [0.12, 0.1])) // M249 SAW
-lib_affect.set(80, createAffect('rruu/', 'sg', ['acu', 'cld'], [0.25, 0.1])) // M1919A4
+lib_affect.set(80, createAffect('rruu/', 'sg', ['acu', 'arm'], [0.25, 0.1])) // M1919A4
 lib_affect.set(81, createAffect('rr/', 'sg', ['dmg', 'rof'], [0.1, 0.1])) // LWMMG
 lib_affect.set(82, createAffect('rruu/rr/', 'sg', ['rof'], [0.15])) // DP28
 lib_affect.set(84, createAffect('rru/rrd/', 'sg', ['rof'], [0.16])) // RPD
@@ -194,7 +194,7 @@ lib_affect.set(145, createAffect('ru/rd/', 'hg', ['cld'], [0.12])) // OTs-44
 lib_affect.set(146, createAffect('u/d/', 'hg', ['cld'], [0.15])) // G28
 lib_affect.set(147, createAffect('r/', 'hg', ['cld'], [0.12])) // SSG 69
 lib_affect.set(148, createAffect('u/d/', 'hg', ['cld'], [0.18])) // IWS 2000
-lib_affect.set(149, createAffect('rru/rrd/', 'sg', ['rof', 'cld'], [0.15, 0.1])) // AEK-999
+lib_affect.set(149, createAffect('rru/rrd/', 'sg', ['rof', 'arm'], [0.15, 0.1])) // AEK-999
 lib_affect.set(150, createAffect('lu/ld/', 'ar', ['rof', 'eva'], [0.15, 0.1])) // 希普卡
 lib_affect.set(151, createAffect('ll/', 'mg', ['dmg', 'acu'], [0.2, 0.2])) // M1887
 lib_affect.set(152, createAffect('ll/lld/', 'mg', ['acu'], [0.5])) // M1897
@@ -230,7 +230,7 @@ lib_affect.set(181, createAffect('r/rdd/', 'smg', ['dmg', 'eva'], [0.2, 0.12])) 
 lib_affect.set(182, createAffect('rd/', 'hg', ['cld'], [0.12])) // wz.29
 lib_affect.set(183, createAffect('lu/u/ru/l/r/ld/d/rd/', 'all', ['dmg', 'crit'], [0.3, 0.2])) // 竞争者
 lib_affect.set(184, createAffect('d/rd/', 'hg', ['cld'], [0.15])) // T-5000
-lib_affect.set(185, createAffect('rru/rr/rrd/', 'sg', ['dmg', 'cld'], [0.1, 0.15])) // 阿梅利
+lib_affect.set(185, createAffect('rru/rr/rrd/', 'sg', ['dmg', 'arm'], [0.1, 0.15])) // 阿梅利
 lib_affect.set(186, createAffect('u/r/d/', 'all', ['dmg', 'acu'], [0.2, 0.5])) // P226
 lib_affect.set(187, createAffect('ru/rd/', 'smg', ['dmg', 'acu'], [0.15, 0.3])) // Ak 5
 lib_affect.set(188, createAffect('llu/ll/lld/', 'mg', ['dmg', 'acu'], [0.1, 0.15])) // S.A.T.8
@@ -240,7 +240,7 @@ lib_affect.set(191, createAffect('lu/l/ld/', 'ar', ['dmg', 'eva'], [0.08, 0.08])
 lib_affect.set(192, createAffect('ru/rd/', 'hg', ['cld'], [0.18])) // JS05
 lib_affect.set(193, createAffect('ru/r/', 'smg', ['dmg', 'acu'], [0.15, 0.25])) // T65
 lib_affect.set(194, createAffect('ru/rd/', 'smg', ['dmg', 'acu'], [0.25, 0.5])) // K2
-lib_affect.set(195, createAffect('rru/rr/', 'sg', ['dmg', 'cld'], [0.08, 0.12])) // HK23
+lib_affect.set(195, createAffect('rru/rr/', 'sg', ['dmg', 'arm'], [0.08, 0.12])) // HK23
 lib_affect.set(196, createAffect('ru/rd/', 'smg', ['rof', 'eva'], [0.12, 0.15])) // Zas M21
 lib_affect.set(197, createAffect('d/dd/', 'rf', ['cld'], [0.1])) // 卡尔卡诺M1891
 lib_affect.set(198, createAffect('uu/u/', 'rf', ['cld'], [0.1])) // 卡尔卡诺M91/38
@@ -291,7 +291,7 @@ lib_affect.set(244, createAffect('lu/u/l/r/d/', 'all', ['rof'], [0.32])) // TEC-
 lib_affect.set(245, createAffect('lu/l/ld/', 'ar', ['dmg', 'acu'], [0.12, 0.3])) // P90
 lib_affect.set(247, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // K31
 lib_affect.set(248, createAffect('lu/ru/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.5])) // 杰里科
-lib_affect.set(249, createAffect('rruu/rru/', 'sg', ['acu', 'cld'], [0.18, 0.08])) // 62式
+lib_affect.set(249, createAffect('rruu/rru/', 'sg', ['acu', 'arm'], [0.18, 0.08])) // 62式
 lib_affect.set(250, createAffect('luu/uu/ruu/lu/u/ru/', 'all', ['rof', 'eva'], [0.3, 0.2])) // HS2000
 lib_affect.set(251, createAffect('l/ld/ldd/', 'ar', ['rof', 'acu'], [0.15, 0.25])) // X95
 lib_affect.set(252, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // KSVK
