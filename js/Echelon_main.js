@@ -7,6 +7,7 @@ var set_guntype = 1 // 枪种：1=hg, 2=ar, 3=smg, 4=rf, 5=mg, 6=sg
 var set_equip = [0, 0, 0] // 装备代号，开头：1=配件, 2=子弹, 3=人形装备, 4=夜战装备
 var num_star = 5, affection = 'love' // 星级，好感度
 // Echelon and global
+var Set_Special = new Map // 特殊变量表
 var queue_tdoll = []
 var time = 20, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0 // 全局变量默认值：时间20s，接敌0s，昼战，无妖精，无天赋
 var global_frame = 0 // 当前帧，时间测算和特殊buff发动
@@ -50,6 +51,11 @@ var gs_fairy = false
 var gs_HF = [false, false, false, false, false]
 // special variations
 var not_init = false // 控制蟒蛇能够开始复读的开关
+
+// init when loading
+Set_Special.set('can_add_python', true)
+Set_Special.set('can_add_karm1891', true)
+Set_Special.set('sunrise', 'day')
 
 // 计算影响格
 function getBlockAffect () {

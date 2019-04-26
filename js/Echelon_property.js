@@ -1,3 +1,8 @@
+var lib_affect = new Map // 人形影响格库，存放 < 编号, Affecy >
+var lib_property = new Map // 人形属性库，存放 < 编号, Property >
+var lib_property_equip = new Map // 装备属性库，存放 < 装备编号, Property_equip >
+var lib_fairy = new Map // 妖精库
+
 function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) { // 战术人形
   var TdollInfo = {}
   TdollInfo.ID = ID
@@ -53,7 +58,7 @@ function createFairy (name, list_property, list_value) { // 妖精
 
 lib_affect.set(1, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.5])) // 柯尔特左轮
 lib_affect.set(2, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.2, 0.5])) // M1911
-lib_affect.set(3, createAffect('lu/l/r/ld/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // M9
+lib_affect.set(3, createAffect('u/ru/d/rd/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // M9
 lib_affect.set(4, createAffect('u/ru/l/r/ld/d/', 'all', ['dmg', 'crit'], [0.3, 0.2])) // 蟒蛇
 lib_affect.set(5, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.32, 0.16])) // 纳甘左轮
 lib_affect.set(6, createAffect('u/ru/d/rd/', 'all', ['rof', 'acu'], [0.2, 0.5])) // 托卡列夫

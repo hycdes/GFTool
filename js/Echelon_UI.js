@@ -999,7 +999,7 @@ function showEnvi () {
   if (fairy_no > 0) {
     document.getElementById('envi_fairy').src = '../img/echelon/fairy/icon-f' + fairy_no + '.png'
   } else {
-    document.getElementById('envi_fairy').innerHTML = lib_language.fairy_0
+    document.getElementById('envi_fairy').src = '../img/echelon/fairy/icon-f0.png'
   }
   if (talent_no > 0) {
     var talentidx = document.getElementById('select_talent').selectedIndex

@@ -1,3 +1,6 @@
+var lib_skill = new Map // 技能库，存放 < 人形编号, list_Skill>
+var lib_describe = new Map // 描述库，存放 < 技能名, 描述 >
+
 // 技能类，属性：前置冷却、冷却、持续时间、描述
 // react函数根据技能的参数和描述，进行解释
 // 非持续类[duration=0]，无限持续（被动）[duration=-1]，非属性被动技能会改写特殊变量表并删除自己

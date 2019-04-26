@@ -1,15 +1,5 @@
 var lang_type = 'en'
 
-// global variations for prepare
-var Set_Special = new Map // 特殊变量表
-var lib_language // 语言库
-var lib_affect = new Map // 人形影响格库，存放 < 编号, Affecy >
-var lib_property = new Map // 人形属性库，存放 < 编号, Property >
-var lib_property_equip = new Map // 装备属性库，存放 < 装备编号, Property_equip >
-var lib_fairy = new Map // 妖精库
-var lib_skill = new Map // 技能库，存放 < 人形编号, list_Skill>
-var lib_describe = new Map // 描述库，存放 < 技能名, 描述 >
-
 // inital
 function mergeCell (table1, startRow, endRow, col) {
   var tb = document.getElementById(table1)
@@ -27,19 +17,267 @@ function loadScript (url) {
   script.src = url
   document.body.appendChild(script)
 }
+var lib_language // 语言库
+lib_language = {
+  main_draw_1: 'position:',
+  main_draw_2: '  dmg=',
+  main_formatDPS_1: 'time=',
+  main_formatDPS_2: 's, dmg=',
+  main_makeGraph_1: 'time',
+  main_makeGraph_2: 'dmg',
+  UI_affect: 'Affect ',
+  UI_num: ' position',
+  UI_putsee: 'Place a T-doll to show effect',
+  UI_pickblock: '<b>Click a <span style="color: red">block</span> first</b>',
+  UI_not_2_python: ' *Unable to place two Python',
+  UI_not_2_carcano: ' *Unable to place two CarcanoM1891',
+
+  NAME_39: 'Mosin-Nagant',
+  NAME_238: 'Type 88',
+  NAME_243: 'Howa Type 64',
+  NAME_2006: 'Theresa',
+
+  NAME_4: 'Python',
+  NAME_96: 'Grizzly MkV',
+  NAME_114: 'Welrod MkⅡ',
+  NAME_183: 'Contender',
+  NAME_233: 'Px4 Storm',
+  NAME_1: 'Colt Revolver',
+  NAME_2001: 'Noel',
+  NAME_2003: 'Kiana',
+  NAME_2009: 'Clear',
+  NAME_2010: 'Fail',
+  NAME_7: 'Stechkin',
+  NAME_202: 'Thunder',
+  NAME_248: 'Jericho',
+  NAME_5: 'Nagant Revolver',
+  NAME_6: 'Tkokarev',
+  NAME_8: 'Makarov',
+  NAME_13: 'Type 92',
+  NAME_14: 'Astra Revolver',
+  NAME_15: 'Glock 17',
+  NAME_113: 'Serdyukov',
+  NAME_132: 'Type 59',
+  NAME_129: 'Type 95',
+  NAME_130: 'Type 97',
+  NAME_2007: 'Murata Himeko',
+  NAME_66: 'Type 56-1',
+  NAME_171: 'Ribeyrolles',
+  NAME_239: 'Type 03',
+  NAME_71: 'Galil',
+  NAME_133: 'Type 63',
+  NAME_16: 'Thompson',
+  NAME_115: 'Suomi',
+  NAME_228: 'Type 100',
+  NAME_150: 'Shipka',
+  NAME_203: 'Honey Badger',
+  NAME_225: 'Cx4 Storm',
+  NAME_29: 'Sten MkⅡ',
+  NAME_94: 'Type 64',
+  NAME_27: 'Skorpion',
+  NAME_32: 'UZI',
+  NAME_31: 'Beretta Model 38',
+  NAME_50: 'Lee-Enfield',
+  NAME_197: 'Carcano M1891',
+  NAME_198: 'Carcano M91/38',
+  NAME_204: 'Ballista',
+  NAME_2004: 'Raiden Mei',
+  NAME_2005: 'Bronya',
+  NAME_36: 'Springfield',
+  NAME_34: 'M1 Garand',
+  NAME_49: 'Type 56',
+  NAME_95: 'Hanyang Type 88',
+  NAME_174: 'Type 81 Carbine',
+  NAME_201: 'Gepard M1',
+  NAME_255: 'Steyr Scout',
+  NAME_41: 'Simonov',
+  NAME_112: 'Negev',
+  NAME_253: 'Lewis Gun',
+  NAME_185: 'Ameli',
+  NAME_199: 'Type 80',
+  NAME_89: 'Bren',
+  NAME_249: 'Type 62',
+  NAME_2002: 'Elphelt',
+  NAME_2008: 'Seele',
+  NAME_161: 'Type 97 Shotgun',
+  NAME_256: 'Falcon',
+  NAME_127: 'Type 79',
+
+  equipNAME_0: 'No equipment',
+  equipNAME_12: 'Telescope Sight',
+  equipNAME_14: 'Holographic Sight',
+  equipNAME_13: 'Red Dot Sight',
+  equipNAME_17: 'APS exclusive buttstock',
+  equipNAME_11: 'Silencer',
+  equipNAME_41: 'Night Combat Equipment',
+  equipNAME_31: ' Exoskeleton',
+  equipNAME_33: ' Armor Plate',
+  equipNAME_21: 'ILM Hollow Point Ammo',
+  equipNAME_23: 'Mk211 High-Explosive AP Ammo',
+  equipNAME_22: 'APCR High-Velocity Ammo',
+  equipNAME_24: '#000 Buckshot',
+  equipNAME_25: 'SABOT Slug',
+  equipNAME_34: 'Thermoptic Camouflage Cape',
+  equipNAME_35: 'IOP Maximum Ammo Box',
+  equipNAME_11001: 'Colt Revolver Long Barrel',
+  equipNAME_11005: 'Nagant Revolver Silencer',
+  equipNAME_11091: 'MP446C Competition Barrel',
+  equipNAME_42009: 'Glory Light',
+  equipNAME_42010: 'Black Cat',
+  equipNAME_169: 'FÉLIN System Sight',
+  equipNAME_4118: 'PKN03M Night Scope',
+  equipNAME_11063: 'G3 Improved Barrel Group',
+  equipNAME_11064: 'G36 Hybrid Optics',
+  equipNAME_354: 'Custom Exoskeletal Armour',
+  equipNAME_11056: 'Dinergate-Type RO',
+  equipNAME_11057: 'Light Weight Rail System',
+  equipNAME_326: 'GSG UX Exoskeleton',
+  equipNAME_3103: 'UMP UX Exoskeleton',
+  equipNAME_31093: 'Ability Upgrade Cartridge',
+  equipNAME_11037: 'M2 Bipod',
+  equipNAME_11051: 'Fire Selector',
+  equipNAME_1125: 'MG4 Exclusive MGO',
+  equipNAME_11089: 'Bren L4 Barrel Group',
+  equipNAME_21002: 'XM261 ACP',
+  equipNAME_21057: '.300BLK High-Velocity Ammo',
+  equipNAME_236: 'National Match-Grade AP Ammo',
+  equipNAME_362: 'High-Perf. Tactical Hair Decoration',
+  equipNAME_31055: 'Inherited Weapon Arsenal',
+  equipNAME_11029: 'Sten Exclusive Silencer',
+  equipNAME_11103: 'Additional Process Module',
+  equipNAME_11094: 'Type 64 Exclusive Suppressor',
+  equipNAME_342: 'Blue Thickened Cape',
+  equipNAME_31039: 'Hayha Memory Chip',
+  equipNAME_31044: 'Digital Camouflage Cape',
+  equipNAME_388: 'Infinite Ammo Box',
+  equipNAME_3185: 'Dedicated Tactical Memory',
+  equipNAME_31075: 'Titan Fire Control Chip',
+
+  skillNAME_39: 'Designated Shot',
+  skillNAME_39_2: 'Pure White Reaper',
+  skillNAME_55: "Avenger's Mark",
+  skillNAME_102: 'Overload',
+  skillNAME_180: 'Piercing Shot',
+  skillNAME_194: 'Overheat',
+  skillNAME_213: 'Whimsical Chain',
+  skillNAME_231: 'Prophecy of a False God',
+  skillNAME_238: 'Slothful Rage',
+  skillNAME_243: 'Future Warning',
+  skillNAME_252: 'Concussive Strike',
+  skillNAME_2006: 'Sanctions of Light',
+  DESCRIBE_39_1: 'Each',
+  DESCRIBE_39_2: 'attacks kill',
+  DESCRIBE_39_3: 'Disabled',
+  DESCRIBE_39_4: 'Skill killing',
+  DESCRIBE_55: 'Shelling',
+  DESCRIBE_102_1: 'Default',
+  DESCRIBE_102_2: 'Overload',
+  DESCRIBE_180: 'Pierce all enemy',
+  DESCRIBE_194_0: 'Active status',
+  DESCRIBE_194_1: 'Auto',
+  DESCRIBE_194_2: 'Always Fever(3 shot)',
+  DESCRIBE_194_3: 'Always Note(1 shot)',
+  DESCRIBE_213_0: 'Load status',
+  DESCRIBE_213_1: 'Subsonic rounds(eva+65%)',
+  DESCRIBE_213_2: 'Spoon point tip(dmg+85%)',
+  DESCRIBE_213_3: 'Standard rounds(acu+200%)',
+  DESCRIBE_231: 'Victory session',
+  DESCRIBE_236: 'Ratio',
+  DESCRIBE_238: 'LMG mode',
+  DESCRIBE_243_0: 'After 3s',
+  DESCRIBE_243_1: 'Dmg+55%',
+  DESCRIBE_243_2: 'Sheild 25',
+  DESCRIBE_251: 'Lock of Flowers',
+  DESCRIBE_252: 'Sputter all enemies',
+  DESCRIBE_2006: 'Enemy enter area',
+
+  fairy_0: 'No fairy',
+  talent_0: 'No talent',
+
+  enemy_normal: 'Normal',
+  enemy_elite: 'Elite',
+
+  INPUT_PI: 'Input integer',
+
+  hp: 'hp',
+  cs: 'clipsize',
+  dmg: 'dmg',
+  rof: 'rof',
+  acu: 'acu',
+  eva: 'eva',
+  crit: 'crit',
+  critdmg: 'critdmg',
+  arm: 'arm',
+  ap: 'ap',
+  cld: 'cld',
+  night: 'Night',
+  daytime: 'Daytime',
+  skillNAME_256: 'Sunset Falcon',
+  DESCRIBE_256: 'Do not use special bullets',
+
+  // new
+  fairyNAME_1: 'WarriorFairy',
+  fairyNAME_2: 'FuryFairy',
+  fairyNAME_3: 'ArmorFairy',
+  fairyNAME_4: 'ShieldFairy',
+  fairyNAME_5: 'DefenceFairy',
+  fairyNAME_6: 'ProvocationFairy',
+  fairyNAME_7: 'SniperFairy',
+  fairyNAME_8: 'BombardmentFairy',
+  fairyNAME_9: 'AirstrikeFairy',
+  fairyNAME_10: 'ReinforcementFairy',
+  fairyNAME_11: 'AirborneFairy',
+  fairyNAME_12: 'LandmineFairy',
+  fairyNAME_13: 'RocketFairy',
+  fairyNAME_14: 'ConstructionFairy',
+  fairyNAME_15: 'CommandFairy',
+  fairyNAME_16: 'RescueFairy',
+  fairyNAME_17: 'IlluminationFairy',
+  fairyNAME_18: 'GoldenFairy',
+  fairyNAME_19: 'KitchenFairy',
+  fairyDESCRIBE_19: '紧急开饭开什么饭？',
+  fairyDESCRIBE_19_0: 'Casual(random)',
+  fairyDESCRIBE_19_1: 'Numb-spicy(dmg+20%)',
+  fairyDESCRIBE_19_2: 'Sour-spicy(rof+20%)',
+  fairyDESCRIBE_19_3: 'Sweet(acu+30%)',
+  fairyDESCRIBE_19_4: 'Salty(eva+25%)',
+  fairyDESCRIBE_19_5: 'Overcooked(dmg-0%)',
+  fairyNAME_20: 'FireworkFairy',
+  fairyNAME_21: 'NianFairy',
+  fairyskillstr: 'Skill ',
+  fairy_skillNAME_0: 'No skill',
+  fairy_skillNAME_1: '战斗效率',
+  fairy_skillNAME_2: '怒无限强',
+  fairy_skillNAME_3: '防暴强化',
+  fairy_skillNAME_4: '能量护盾',
+  fairy_skillNAME_5: '临时装甲',
+  fairy_skillNAME_6: '嘲讽靶机',
+  fairy_skillNAME_7: '狙击指令',
+  fairy_skillNAME_8: '炮击指令',
+  fairy_skillNAME_9: '致命空袭',
+  fairy_skillNAME_10: '增援人形',
+  fairy_skillNAME_11: '机场解放',
+  fairy_skillNAME_12: '地雷阵线',
+  fairy_skillNAME_13: '阵地死神',
+  fairy_skillNAME_14: '紧急堡垒',
+  fairy_skillNAME_15: '超量经验',
+  fairy_skillNAME_16: '高效搜救',
+  fairy_skillNAME_17: '夜间照明',
+  fairy_skillNAME_18: '黄金律法',
+  fairy_skillNAME_19: '紧急开饭',
+  fairy_skillNAME_20: '夏末花火',
+  fairy_skillNAME_21: '爆竹惊春'
+}
 
 window.onload = function () {
-  loadScript('../js/language_Echelon-EN.js') // diff
-  lsetTimeout(function () {
-    loadScript('../js/Echelon_main.js')
-    loadScript('../js/Echelon_property.js')
-    loadScript('../js/Echelon_skill.js')
-    loadScript('../js/Echelon_UI.js')
-    loadScript('../js/Echelon_select.js') // diff
-    mergeCell('table_property', 0, 2, 0)
-    mergeCell('table_affect', 0, 2, 3)
-    Set_Special.set('can_add_python', true)
-    Set_Special.set('can_add_karm1891', true)
-    Set_Special.set('sunrise', 'day')
-  }, 50)
+  loadScript('../js/Echelon_main.js')
+  loadScript('../js/Echelon_property.js')
+  loadScript('../js/Echelon_skill.js')
+  loadScript('../js/Echelon_UI.js')
+  loadScript('../js/Echelon_graph.js')
+  loadScript('../js/Echelon_select.js')
+  mergeCell('table_property', 0, 2, 0)
+  mergeCell('table_affect', 0, 2, 3)
+  mergeCell('table_envi', 0, 1, 0)
+  mergeCell('table_envi', 0, 1, 2)
 }

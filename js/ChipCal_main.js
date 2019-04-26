@@ -1527,45 +1527,59 @@ function sortSolution (sortType) {
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
   else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
-  var SolutionSelect = document.getElementById('SolutionSelect')
-  var SSText = ''
   solutionSet = ignoreSolution(dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max)
   switch (ranking_switch) {
     case 1: // All property
-      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_value + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
-      // solutionSet.sort(compare_sumpro)
       solutionSet = selectOptimal(solutionSet, buffer_num, value_sumpro_of_HeavyfireType(HeavyfireType))
       break
     case 3: // Dmg
-      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dmg + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_dmg)
       break
     case 4: // Dbk
-      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dbk + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_dbk)
       break
     case 5: // Acu
-      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.acu + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_acu)
       break
     case 6: // Fil
-      document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.fil + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
       solutionSet.sort(compare_fil)
       break
   }
-  SolutionSelect.disabled = false
-  var solulen = solutionSet.length
-  if (solulen > 0) {
-    for (var i = 0; i < solulen; i++) {
-      SSText += '<option value=' + i + '>' + lib_lang.num + ' '
-      var c_num = solutionSet[i].length
-      for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + ' ')
-      SSText += '</option>'
+  // UI refresh
+  if (!filter_switch) {
+    var SolutionSelect = document.getElementById('SolutionSelect')
+    var SSText = ''
+    switch (ranking_switch) {
+      case 1: // All property
+        document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.valid_value + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
+        break
+      case 3: // Dmg
+        document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dmg + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
+        break
+      case 4: // Dbk
+        document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.dbk + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
+        break
+      case 5: // Acu
+        document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.acu + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
+        break
+      case 6: // Fil
+        document.getElementById('SortInfo').innerHTML = lib_lang.refer + ' <span style="color:red"><b>' + lib_lang.fil + '</b></span> ' + lib_lang.sorting + ', ' + lib_lang.topo + ' ' + (topologyNum + 1) + ' ' + lib_lang.have + ' ' + solutionSet.length + ' ' + lib_lang.type_of_combi
+        break
     }
-  } else {
-    SSText = '<option value=-1>' + lib_lang.sele_noresult + '</option>'
+    SolutionSelect.disabled = false
+    var solulen = solutionSet.length
+    if (solulen > 0) {
+      for (var i = 0; i < solulen; i++) {
+        SSText += '<option value=' + i + '>' + lib_lang.num + ' '
+        var c_num = solutionSet[i].length
+        for (var c = 0; c < c_num; c++) SSText += (solutionSet[i][c] + ' ')
+        SSText += '</option>'
+      }
+    } else {
+      SSText = '<option value=-1>' + lib_lang.sele_noresult + '</option>'
+    }
+    SolutionSelect.innerHTML = SSText
   }
-  SolutionSelect.innerHTML = SSText
 }
 function switchAnalyze () { analyze_switch *= -1; showAnalyze(); }
 function setIgnore (typeInfo) {
