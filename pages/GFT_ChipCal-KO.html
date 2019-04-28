@@ -185,7 +185,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <h4>강화 및 pt 설정</h4>
+                                    <h4>강화 및 스탯 설정</h4>
                                     <table class="table table-bordered table-hover">
                                         <tbody>
                                             <tr>
@@ -274,7 +274,7 @@
                                     </table>
                                     <p id="errorInfo"></p>
                                     <p>
-                                        <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton" disabled>칩셋을 보유 칩셋 목록에 추가</button>
+                                        <button type="button" class="btn btn-info" onclick="changeRepo(1)" id="addChipButton" disabled>칩셋을 목록에 추가</button>
                                         <button type="button" class="btn btn-danger" onclick="resetBlock()">칩셋 스탯 초기화</button>
                                     </p>
                                 </div>
@@ -287,13 +287,13 @@
                                                     <option value=0 selected>번호 선택</option>
                                                 </select>
                                             </td>
-                                            <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>해당 번호 칩셋을 삭제</button></td>
-                                            <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>목록을 모두 삭제</button></td>
+                                            <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(2)" id="deleteChipButton" disabled>선택 칩셋 삭제</button></td>
+                                            <td>&nbsp<button type="button" class="btn btn-outline btn-danger" onclick="changeRepo(3)" id="clearChipButton" disabled>모든 칩셋 삭제</button></td>
                                             <td>&nbsp<span style="color:#FF0066"><b id="alert_clear"></b></span></td>
                                         </tr>
                                     </table>
                                     <p>
-                                        <button type="button" class="btn btn-outline btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>모든 칩셋을 강화(+20)</button>
+                                        <button type="button" class="btn btn-outline btn-success" onclick="maxAllChip()" id="maxAllButton" disabled>모든 칩셋 강화(+20)</button>
                                         <button type="button" class="btn btn-outline btn-primary" onclick="blueAllChip()" id="blueAllButton" disabled>파란색 칩셋만 남기기</button>
                                         <button type="button" class="btn btn-outline btn-warning" onclick="orangeAllChip()" id="orangeAllButton" disabled>주황색 칩셋만 남기기</button>
                                         <span style="color:#FF0066"><b id="alert_maxall"></b></span>
@@ -325,13 +325,13 @@
                                     <table class="table_other">
                                         <tbody>
                                             <tr style="height:40px">
-                                                <td style="width:160px"><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>저장 코드 복사하기</button></td>
-                                                <td style="width:300px"><input class="form-control" placeholder="저장 시 저장 코드가 여기에 나타납니다" id="SaveCode"></td>
+                                                <td style="width:130px"><button type="button" class="btn btn-info" onclick="getSaveCode()" id="SaveButton" disabled>목록 저장하기</button></td>
+                                                <td style="width:400px"><input class="form-control" placeholder="저장 코드가 출력됩니다" id="SaveCode"></td>
                                                 <td><b id="SaveAlert"></td>
                                             </tr>
                                             <tr style="height:40px">
-                                                <td style="width:160px"><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">저장 코드 읽어오기</button></td>
-                                                <td style="width:300px"><input class="form-control" placeholder="여기에 저장 코드를 입력하면 칩셋 목록을 불러옵니다" id="LoadCode"></td>
+                                                <td style="width:130px"><button type="button" class="btn btn-warning" onclick="loadSaveCode()" id="LoadButton">목록 불러오기</button></td>
+                                                <td style="width:400px"><input class="form-control" placeholder="저장 코드를 붙여넣어주세요" id="LoadCode"></td>
                                                 <td><b id="LoadAlert"></b></td>
                                             </tr>
                                         </tbody>
@@ -366,7 +366,7 @@
                                         <tbody>
                                             <tr style="height:30px">
                                                 <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>전체 조합</label></td>
-                                                <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">최적 조합 번호: </span></label></td>
+                                                <td style="width:150px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">최적 조합. 출력 수: </span></label></td>
                                                 <td style="width:80px">
                                                     <input type="text" class="form-control input-sm" placeholder="integer" id="best_num" value=10 onblur="setBestNum()" disabled>
                                                 </td>
@@ -377,7 +377,7 @@
                                     <table class="table_other table-bordered">
                                         <tbody>
                                             <tr style="height:50px">
-                                                <td style="width:40px">최대</td>
+                                                <td style="width:40px">정렬 순서</td>
                                                 <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
                                                 <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
                                                 <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
