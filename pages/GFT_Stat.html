@@ -74,119 +74,183 @@
                             <h1 class="page-header">掉落统计</h1>
                         </div>
                     </div>
+                    <h5>&nbsp&nbsp&nbsp&nbsp诚邀各位贡献统计数据，请通过交流群 <span style="color:dodgerblue">693606343<b>私聊</b></span> 或 <span style="color:dodgerblue">hycdes@qq.com</span></h5>
+                    <h5>&nbsp&nbsp&nbsp&nbsp* 为保证真实可靠请告知 (1) 多路线图的<span style="color:dodgerblue">打捞路线</span> (2) 出枪<span style="color:dodgerblue">类型</span>及<span style="color:dodgerblue">数量</span> (3) <span style="color:dodgerblue">Lv10搜救</span>或<span style="color:dodgerblue">无搜救</span> (4) 至少10场</h5>
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">核心统计</div>
                             <div class="panel-body">
-                                <ul class="nav nav-pills">
+                                <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#11-6" data-toggle="tab">11-6</a>
+                                        <a href="#116" data-toggle="tab">11-6</a>
+                                    </li>
+                                    <li>
+                                        <a href="#115" data-toggle="tab">11-5</a>
+                                    </li>
+                                    <li>
+                                        <a href="#104e" data-toggle="tab">10-4E</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    <div class="tab-pane fade in active" id="11-6">
+                                    <div class="tab-pane fade in active" id="116">
                                         <h4></h4>
-                                        <table class="table table_mid table-bordered table-hover">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width:50%">战斗信息</td>
-                                                    <td id="card_11-6"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width:50%">掉落信息</td>
-                                                    <td id="stat_11-6"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <table class="table table_mid table-bordered table-hover">
-                                            <thead>
-                                                <th style="width:50%;text-align:center">核心人形</th>
-                                                <th style="width:50%;text-align:center">数量</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td><span style="color:chartreuse">★★★★ M1918</span></td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:chartreuse">★★★★ AS Val</span></td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ Bren</span></td>
-                                                    <td>3</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ M1 Garand</span></td>
-                                                    <td>4</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ M1919A4</span></td>
-                                                    <td>3</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ M9</span></td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ MAC-10</span></td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ OTs-12</span></td>
-                                                    <td>3</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ P08</span></td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ PPS-43</span></td>
-                                                    <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ Sten-MkII</span></td>
-                                                    <td>2</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ StG44</span></td>
-                                                    <td>2</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ SV-98</span></td>
-                                                    <td>5</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><span style="color:dodgerblue">★★★ Type 92</span></td>
-                                                    <td>1</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <h5>Update: 2019.04.28</h5>
-                                        <h5>Supporter: FatalChapter</h5>
+                                        <ul class="nav nav-pills">
+                                            <li class="active">
+                                                <a href="#116true" data-toggle="tab">搜救</a>
+                                            </li>
+                                            <li>
+                                                <a href="#116false" data-toggle="tab">无搜救</a>
+                                            </li>
+                                        </ul>
+                                        <h4></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="116true">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_116"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_116true"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_116true"></tbody>
+                                                </table>
+                                                <h5>Update: 2019.04.28</h5>
+                                                <h5>Supporter: FatalChapter</h5>
+                                            </div>
+                                            <div class="tab-pane fade" id="116false">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_116_2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_116false"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_116false"></tbody>
+                                                </table>
+                                                <h5>Update: -</h5>
+                                                <h5>Supporter: -</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="115">
+                                        <h4></h4>
+                                        <ul class="nav nav-pills">
+                                            <li class="active">
+                                                <a href="#115true" data-toggle="tab">搜救</a>
+                                            </li>
+                                            <li>
+                                                <a href="#115false" data-toggle="tab">无搜救</a>
+                                            </li>
+                                        </ul>
+                                        <h4></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="115true">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_115"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_115true"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_115true"></tbody>
+                                                </table>
+                                                <h5>Update: 2019.04.28</h5>
+                                                <h5>Supporter: Yuki</h5>
+                                            </div>
+                                            <div class="tab-pane fade" id="115false">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_115_2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_115false"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_115false"></tbody>
+                                                </table>
+                                                <h5>Update: 2019.04.28</h5>
+                                                <h5>Supporter: Mapleaf</h5>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="104e">
+                                        <h4></h4>
+                                        <ul class="nav nav-pills">
+                                            <li class="active">
+                                                <a href="#104e5true" data-toggle="tab">5战+搜救</a>
+                                            </li>
+                                        </ul>
+                                        <h4></h4>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade in active" id="104e5true">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_104e5"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_104e5true"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_104e5true"></tbody>
+                                                </table>
+                                                <h5>Update: 2019.04.28</h5>
+                                                <h5>Supporter: AsLegend</h5>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
-                                <script>
-                                    function get_card(id, num_round, num_battle, is_S, num_get) {
-                                        var info = ''
-                                        info += '回合 ' + num_round
-                                        info += ', ' + num_battle + '战'
-                                        if (is_S) info += 'S胜'
-                                        info += ', ' + '判定' + num_get
-                                        document.getElementById(id).innerHTML = info
-                                    }
-                                    function get_stat(id, num_get, num_total, fairy_lv) {
-                                        var info = ''
-                                        info += num_get + '/' + num_total + ' (<span style="color:dodgerblue">'
-                                        info += (100 * num_get / num_total).toFixed(2) + '%</span>)'
-                                        if (fairy_lv > 0) info += ' 搜救:<span style="color:red">Lv.' + fairy_lv + '</span>'
-                                        else info += ' 搜救:未开启'
-                                        document.getElementById(id).innerHTML = info
-                                    }
-                                    get_card("card_11-6", 2, 8, true, 9)
-                                    get_stat("stat_11-6", 33, 144, 10)
-                                </script>
+                                <script src="../js/Stat_main.js"></script>
                             </div>
 
                         </div>
