@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>少女前线工具 by 命运の乐章</title>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script>
+        function Language(typeCode) {
+            if (typeCode === 'Chinese') window.location.href = "GFT_Stat.html";
+            else if (typeCode === 'English') window.location.href = "GFT_Stat-EN.html";
+            else if (typeCode === 'Korean') window.location.href = "GFT_Stat-KO.html";
+        }
+    </script>
+    <style>
+        .table_mid {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+            </div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                        <li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>
+                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库</a></li>
+                        <li><a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器</a></li>
+                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
+                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
+                        <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
+                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
+                        <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp掉落统计</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tooltip-demo">
+                            <h1 class="page-header">掉落统计</h1>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">核心统计</div>
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li class="active">
+                                        <a href="#11-6" data-toggle="tab">11-6</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="11-6">
+                                        <h4></h4>
+                                        <table class="table table_mid table-bordered table-hover">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:50%">战斗信息</td>
+                                                    <td id="card_11-6"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:50%">掉落信息</td>
+                                                    <td id="stat_11-6"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table table_mid table-bordered table-hover">
+                                            <thead>
+                                                <th style="width:50%;text-align:center">核心人形</th>
+                                                <th style="width:50%;text-align:center">数量</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><span style="color:chartreuse">★★★★ M1918</span></td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:chartreuse">★★★★ AS Val</span></td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ Bren</span></td>
+                                                    <td>3</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ M1 Garand</span></td>
+                                                    <td>4</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ M1919A4</span></td>
+                                                    <td>3</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ M9</span></td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ MAC-10</span></td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ OTs-12</span></td>
+                                                    <td>3</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ P08</span></td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ PPS-43</span></td>
+                                                    <td>1</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ Sten-MkII</span></td>
+                                                    <td>2</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ StG44</span></td>
+                                                    <td>2</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ SV-98</span></td>
+                                                    <td>5</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span style="color:dodgerblue">★★★ Type 92</span></td>
+                                                    <td>1</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h5>Update: 2019.04.28</h5>
+                                        <h5>Supporter: FatalChapter</h5>
+                                    </div>
+                                </div>
+                                <script>
+                                    function get_card(id, num_round, num_battle, is_S, num_get) {
+                                        var info = ''
+                                        info += '回合 ' + num_round
+                                        info += ', ' + num_battle + '战'
+                                        if (is_S) info += 'S胜'
+                                        info += ', ' + '判定' + num_get
+                                        document.getElementById(id).innerHTML = info
+                                    }
+                                    function get_stat(id, num_get, num_total, fairy_lv) {
+                                        var info = ''
+                                        info += num_get + '/' + num_total + ' (<span style="color:dodgerblue">'
+                                        info += (100 * num_get / num_total).toFixed(2) + '%</span>)'
+                                        if (fairy_lv > 0) info += ' 搜救:<span style="color:red">Lv.' + fairy_lv + '</span>'
+                                        else info += ' 搜救:未开启'
+                                        document.getElementById(id).innerHTML = info
+                                    }
+                                    get_card("card_11-6", 2, 8, true, 9)
+                                    get_stat("stat_11-6", 33, 144, 10)
+                                </script>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">打捞统计</div>
+                            <div class="panel-body">
+                                <h4>Coming soon</h4>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+</body>
+
+</html>
