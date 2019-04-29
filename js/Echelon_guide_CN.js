@@ -201,6 +201,7 @@ lib_language = {
   DESCRIBE_251: '花之锁增伤',
   DESCRIBE_252: '溅射所有敌人',
   DESCRIBE_256: '不使用特殊子弹',
+  DESCRIBE_261: '三连击影响多少敌人',
   DESCRIBE_2006: '敌人进入制裁范围',
 
   fairy_0: '无',

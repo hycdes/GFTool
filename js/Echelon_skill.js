@@ -277,12 +277,28 @@ function describe_flash (duration) {
   Describe.duration = duration
   return Describe
 }
+function describe_singleflash (duration) {
+  var Describe = {}
+  Describe.name = 'singleflash'
+  Describe.duration = duration
+  return Describe
+}
 function describe_shield (value, duration, label) {
   var Describe = {}
   Describe.name = 'shield'
   Describe.value = value
   Describe.duration = duration
   Describe.label = label
+  return Describe
+}
+function describe_mg36 () {
+  var Describe = {}
+  Describe.name = 'mg36'
+  return Describe
+}
+function describe_chauchat () {
+  var Describe = {}
+  Describe.name = 'chauchat'
   return Describe
 }
 
@@ -456,6 +472,8 @@ lib_describe.set('aks', describe_aks()) // 排斥反应
 lib_describe.set('flash_5', describe_flash(4.5)) // 闪光弹-5星
 lib_describe.set('flash_4', describe_flash(4)) // 闪光弹-4星
 lib_describe.set('flash_3', describe_flash(3.2)) // 闪光弹-3星
+lib_describe.set('pa15_single', describe_singleflash(3)) // 劲爆乐园-单体3秒眩晕
+lib_describe.set('pa15_aoe', describe_flash(2)) // 劲爆乐园-群体2秒眩晕
 
 lib_describe.set('addclip_10', describe_addclip(10)) // 弹量+10
 lib_describe.set('addclip_4', describe_addclip(4)) // 弹量+4
@@ -501,6 +519,9 @@ lib_describe.set('noel', describe_snipe(1.2, 0, 0.1, 8, 'armless/critless/evales
 lib_describe.set('clear', describe_snipe(0, 0, 1, 5, 'armless/critless/evaless')) // 克莉尔技能
 lib_describe.set('m1887', describe_snipe(-1, 1, 0, 1, 'armless/critless/evaless')) // 终结打击，倍率=-1表示动态
 lib_describe.set('sg_shock', describe_snipe(-1, 0, 0, 1, 'armless/critless/evaless')) // 震荡打击
+lib_describe.set('pa15', describe_snipe(4, 0, 0, 1, 'arm/crit/evaless')) // 劲爆乐园
+lib_describe.set('qbu88', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 乱石崩云，AOE单独判断
+lib_describe.set('em2', describe_snipe(3.5, 0, 0.067, 3, 'arm/crit/evaless')) // 碎碎曲奇弹
 
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
@@ -540,6 +561,8 @@ lib_describe.set('mdr', describe_mdr()) // 危机嗅探器
 lib_describe.set('64howa', describe_64howa()) // 未来预警
 lib_describe.set('m4', describe_m4()) // 伸冤者印记
 lib_describe.set('saiga', describe_saiga()) // 巨羚号角
+lib_describe.set('mg36', describe_mg36()) // 光影帷幕
+lib_describe.set('chauchat', describe_chauchat()) // 百合纹章
 
 // lib_skill
 
@@ -555,7 +578,12 @@ lib_skill.set(166, [createSkill(6, 12, 0, lib_describe.get('cz75'))])
 lib_skill.set(183, [createSkill(6, 12, 0, lib_describe.get('contender'))])
 lib_skill.set(233, [createSkill(6, 12, 8, lib_describe.get('px4'))])
 lib_skill.set(242, [createSkill(6, 12, 8, lib_describe.get('p22'))])
-lib_skill.set(250, [createSkill(6, 12, 6, lib_describe.get('hs2000'))]) // 暂时不做护盾
+lib_skill.set(250, [createSkill(6, 12, 6, lib_describe.get('hs2000'))]) // 延时机制特殊判断
+lib_skill.set(260, [
+  createSkill(6, 12, 0, lib_describe.get('pa15')),
+  createSkill(6, 12, 0, lib_describe.get('pa15_single')),
+  createSkill(6, 12, 0, lib_describe.get('pa15_aoe'))
+]) // AOE特殊判断
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))
@@ -695,6 +723,7 @@ lib_skill.set(227, [
   createSkill(8, 16, 10, lib_describe.get('a91_N'))
 ])
 lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
+lib_skill.set(262, [createSkill(6, 16, 0, lib_describe.get('em2'))])
 lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
 
 lib_skill.set(58, [createSkill(5, 8, 5, lib_describe.get('dmgacu_3'))])
@@ -713,6 +742,7 @@ lib_skill.set(193, [
 lib_skill.set(223, [createSkill(5, 8, 5, lib_describe.get('modelL'))])
 lib_skill.set(239, [createSkill(6, 8, 5, lib_describe.get('dmgcrit_3'))])
 lib_skill.set(258, [createSkill(6, 16, 10, lib_describe.get('magal'))])
+lib_skill.set(265, [createSkill(4, 16, 10, lib_describe.get('rof_60'))])
 
 lib_skill.set(63, [createSkill(8, 16, 0, lib_describe.get('grenade_10'))])
 lib_skill.set(68, [createSkill(6, 8, 5, lib_describe.get('l85a1'))])
@@ -842,6 +872,7 @@ lib_skill.set(235, [
 ])
 lib_skill.set(247, [createSkill(6, 8, 5, lib_describe.get('k31'))])
 lib_skill.set(252, [createSkill(10, 16, 0, lib_describe.get('snipe_4'))])
+lib_skill.set(261, [createSkill(8, 16, 0, lib_describe.get('qbu88'))])
 lib_skill.set(1037, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 6, lib_describe.get('critdmg_10'))
@@ -904,6 +935,10 @@ lib_skill.set(208, [
 ])
 lib_skill.set(238, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])
 lib_skill.set(253, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))])
+lib_skill.set(263, [
+  createSkill(8, 18, 6, lib_describe.get('dmg_55')),
+  createSkill(8, 18, 0, lib_describe.get('mg36'))
+])
 lib_skill.set(1075, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))]) // m1918 mod
 
 lib_skill.set(75, [createSkill(8, 18, 6, lib_describe.get('dmg_70'))]) // m1918
@@ -938,6 +973,7 @@ lib_skill.set(254, [
   createSkill(8, 18, 8, lib_describe.get('acuND_40')),
   createSkill(8, 18, 0, lib_describe.get('addclip_dynamic'))
 ]) // 白夜独奏曲换弹单独判断
+lib_skill.set(264, [createSkill(6, 2, 0, lib_describe.get('chauchat'))]) // 百合纹章
 lib_skill.set(1081, [ // 猎杀冲动
   createSkill(3, 18, 6, lib_describe.get('acu_70')),
   createSkill(3, 18, 6, lib_describe.get('mustcrit'))

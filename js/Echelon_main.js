@@ -429,6 +429,41 @@ function reactAllSkill (command, current_time) {
       }
     }
   }
+  // 人形特殊状态
+  for (var k = 0; k < 9; k++) {
+    if (gs_tdoll[k]) {
+      if (is_this(k, 257)) {
+        if (Set_Special.get('m200_end' + k) != undefined) {
+          if (Set_Special.get('m200_end' + k) < global_frame) {
+            Set_Special.delete('m200_end' + k)
+            Set_Special.set('attack_permission_' + k, 'fire_all')
+          }
+        }
+      } else if (is_this(k, 243)) {
+        if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) { // 未来预警发动
+          if (document.getElementById('special_64howa_' + (k + 1) + '_0').checked) {
+            changeStatus(k, 'self', 'dmg', '0.55', 5)
+            react([createSkill(0, 0, 5, describe_property(['bloall'], ['dmg'], ['0.55'])), 0], k, global_frame)
+          } else {
+            if (k === 0 || k === 1 || k === 3 || k === 4) {
+              if (gs_tdoll[k + 1]) changeStatus(k + 1, 'self', 'shield', 25, 5)
+              if (gs_tdoll[k + 3]) changeStatus(k + 3, 'self', 'shield', 25, 5)
+            } else if (k === 6 || k === 7) {
+              if (gs_tdoll[k + 1]) changeStatus(k + 1, 'self', 'shield', 25, 5)
+            }
+          }
+          Set_Special.delete('64howa_' + k)
+        }
+      } else if (is_this(k, 264)) {
+        if (Set_Special.get('chauchat_nextget_' + k) < global_frame) {
+          if (Set_Special.get('chauchat_' + k) < 4) {
+            Set_Special.set('chauchat_' + k, Set_Special.get('chauchat_' + k) + 1)
+          }
+          Set_Special.set('chauchat_nextget_' + k, global_frame + 120)
+        }
+      }
+    }
+  }
   // 状态时间结算
   for (var [k, v] of Set_Status) { // 状态消逝，k = stand_num, v = [ [ [type, value(>1)] ,left_frame ] ... ] 的数组
     // 脆弱类状态
@@ -446,26 +481,7 @@ function reactAllSkill (command, current_time) {
       fragile_all /= 2
       Set_Special.delete('fragile_100')
     }
-    if (Set_Special.get('m200_end' + k) != undefined) {
-      if (Set_Special.get('m200_end' + k) < global_frame) {
-        Set_Special.delete('m200_end' + k)
-        Set_Special.set('attack_permission_' + k, 'fire_all')
-      }
-    }
-    if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) { // 未来预警发动
-      if (document.getElementById('special_64howa_' + (k + 1) + '_0').checked) {
-        changeStatus(k, 'self', 'dmg', '0.55', 5)
-        react([createSkill(0, 0, 5, describe_property(['bloall'], ['dmg'], ['0.55'])), 0], k, global_frame)
-      } else {
-        if (k === 0 || k === 1 || k === 3 || k === 4) {
-          if (gs_tdoll[k + 1]) changeStatus(k + 1, 'self', 'shield', 25, 5)
-          if (gs_tdoll[k + 3]) changeStatus(k + 3, 'self', 'shield', 25, 5)
-        } else if (k === 6 || k === 7) {
-          if (gs_tdoll[k + 1]) changeStatus(k + 1, 'self', 'shield', 25, 5)
-        }
-      }
-      Set_Special.delete('64howa_' + k)
-    }
+
     // 减伤类状态
     // Set_Special.set('temp_defence', 600)
     if (Set_Special.get('temp_defence') < global_frame) {
@@ -614,6 +630,16 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         }
         if (is_this(stand_num, 256)) { // 隼：特殊子弹命中增加
           if (Set_Special.get('falcon_' + stand_num) > 0) base_acu *= Math.pow(1.18, Set_Special.get('falcon_' + stand_num))
+        }
+        if (is_this(stand_num, 261)) { // QBU-88：三连发爆炸
+          if (Set_Special.get('qbu88_' + stand_num) === 2) {
+            Set_Special.set('qbu88_' + stand_num, 0)
+            var explode_percent = parseFloat(document.getElementById('special_qbu88_' + (stand_num + 1)).value) / 100
+            var explode_dmg = 1.5 * current_Info.get('dmg') * explain_fgl_ff('aoe') * explode_percent
+            recordData(stand_num, current_time, explode_dmg)
+          } else {
+            Set_Special.set('qbu88_' + stand_num, Set_Special.get('qbu88_' + stand_num) + 1)
+          }
         }
 
         // 结算命中——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -829,8 +855,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               reload_frame = Math.floor((4 + 200 / rof) * 30)
               if (is_this(stand_num, 253)) { // 刘易斯 力天使
                 reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.15 * Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
-              } else if (is_this(stand_num, 254)) {
-                if (Set_Special.get('sunrise') === 'night') reload_frame = Math.ceil(0.7 * reload_frame) // 白夜独奏曲：夜战减换弹
+              } else if (is_this(stand_num, 254)) { // 白夜独奏曲：夜战减换弹
+                if (Set_Special.get('sunrise') === 'night') reload_frame = Math.ceil(0.7 * reload_frame)
+              } else if (is_this(stand_num, 263)) {
+                if (Set_Special.get('mg36_reload_' + stand_num) != undefined) {
+                  reload_frame = Math.ceil((1 - 0.25 * Set_Special.get('mg36_reload_' + stand_num)) * reload_frame)
+                }
+              } else if (is_this(stand_num, 264)) { // 百合纹章：加速换弹
+                reload_frame = Math.floor(reload_frame * (1 - 0.2 * Set_Special.get('chauchat_nextreload_' + stand_num)))
+                Set_Special.set('chauchat_nextreload_' + stand_num, 0)
               }
             }
           } else if (current_Info.get('type') === 6) { // SG的换弹
@@ -1344,7 +1377,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  else if (skillname === 'shield') {
+  else if (skillname === 'shield') { // 护盾
     var value = (s_t[0].Describe).value
     var duration = (s_t[0].Describe).duration
     var label = (s_t[0].Describe).label
@@ -1353,6 +1386,44 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       if (gs_tdoll[5]) changeStatus(5, 'self', 'shield', value, duration)
       if (gs_tdoll[8]) changeStatus(8, 'self', 'shield', value, duration)
     }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'chauchat') { // 百合纹章
+    if (Set_Special.get('chauchat_nextreload_' + stand_num) < 2) {
+      Set_Special.set('chauchat_nextreload_' + stand_num, Set_Special.get('chauchat_nextreload_' + stand_num) + 1)
+    }
+    if (Set_Special.get('chauchat_' + stand_num) > 0) {
+      Set_Special.set('chauchat_' + stand_num, Set_Special.get('chauchat_' + stand_num) - 1)
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'mg36') {
+    var num_ar = 0, num_smg = 0, num_sg = 0
+    var _x = stand_num - 3 * Math.floor(stand_num / 3), _y = Math.floor(stand_num / 3)
+    if (_x < 2) {
+      if (gs_tdoll[stand_num + 1]) { // 右1格
+        if (is_this_type(stand_num + 1, 2)) num_ar++
+        else if (is_this_type(stand_num + 1, 3)) num_smg++
+        else if (is_this_type(stand_num + 1, 6)) num_sg++
+      }
+      if (_x < 1) {
+        if (gs_tdoll[stand_num + 2]) { // 右2格
+          if (is_this_type(stand_num + 2, 2)) num_ar++
+          else if (is_this_type(stand_num + 2, 3)) num_smg++
+          else if (is_this_type(stand_num + 2, 6)) num_sg++
+        }
+        if (_y > 0) {
+          if (gs_tdoll[stand_num - 1]) { // 右2上1
+            if (is_this_type(stand_num - 1, 2)) num_ar++
+            else if (is_this_type(stand_num - 1, 3)) num_smg++
+            else if (is_this_type(stand_num - 1, 6)) num_sg++
+          }
+        }
+      }
+    }
+    if (num_ar > 0) changeStatus(stand_num, 'self', 'acu', 0.25 * num_ar, 6)
+    if (num_smg > 0) Set_Special.set('mg36_reload_' + stand_num, num_smg)
+    if (num_sg > 0) Set_Special.set('clipsize_' + stand_num, Set_Special.get('clipsize_' + stand_num) + num_sg)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 }
@@ -1623,6 +1694,11 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       if (document.getElementById('special_KSVK_' + stand_num).checked) {
         damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
+    } else if (this_ID === 260) { // 劲爆乐园
+      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single')) + Math.ceil(2 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
+    } else if (this_ID === 261) { // 乱石崩云
+      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
+      damage_snipe_single += Math.ceil(1.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
     } else if (this_ID === 151) { // 终结打击
       damage_snipe_single = Math.ceil(1000 * explain_fgl_ff('single'))
     } else if (this_ID === 152 || this_ID === 159 || this_ID === 190) { // 2倍震荡打击
@@ -2142,6 +2218,12 @@ function init_loadPrepareStatus () { // 初始化战前属性
         }
       } else if (is_this(i, 256)) { // 隼初始1发特殊子弹
         Set_Special.set('falcon_' + i, 0)
+      } else if (is_this(i, 261)) { // QBU-88射击层数
+        Set_Special.set('qbu88_' + i, 0)
+      } else if (is_this(i, 264)) { // 绍沙百合纹章
+        Set_Special.set('chauchat_' + i, 1)
+        Set_Special.set('chauchat_nextget_' + i, 120)
+        Set_Special.set('chauchat_nextreload_' + i, 0)
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         Set_Special.set('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动

@@ -766,6 +766,15 @@ function addTdoll () { // 添加战术人形
       str_html += ') value="150"></td><td>%</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 261) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' QBU-88</h4><p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">' + lib_language.DESCRIBE_261 + '</td><td style="width: 50%">'
+      str_html += '<input class="form-control input-sm" placeholder="0~100" id="special_qbu88_' + num_pickblock + '" onblur=inputCheck_qbu88('
+      str_html += "'" + 'special_qbu88_' + num_pickblock + "'"
+      str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     // 前台更新
     document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
     manageUI('pick-block')
@@ -888,6 +897,13 @@ function inputCheck_x95 (str_id) {
   if (str_input === '' || str_input === null || isNaN(str_input) || (parseInt(str_input) < 0 || parseInt(str_input) > 300)) {
     str_input = 150
     document.getElementById(str_id).value = 150
+  }
+}
+function inputCheck_qbu88 (str_id) {
+  var str_input = document.getElementById(str_id).value
+  if (str_input === '' || str_input === null || isNaN(str_input) || (parseInt(str_input) < 0 || parseInt(str_input) > 100)) {
+    str_input = 100
+    document.getElementById(str_id).value = 100
   }
 }
 function inputCheck_mosin (str_id) {

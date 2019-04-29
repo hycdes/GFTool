@@ -199,6 +199,7 @@ lib_language = {
   DESCRIBE_243_2: '보호막 25 부여',
   DESCRIBE_251: '꽃의 자물쇠',
   DESCRIBE_252: '모든 개체에 범위 피해 적용',
+  DESCRIBE_261: '三连击影响多少敌人',
   DESCRIBE_2006: '대상이 스킬 범위 내에 존재',
 
   fairy_0: '없는',
