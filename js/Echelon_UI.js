@@ -53,6 +53,7 @@ function showAffect () {
       str_temp += parseInt(100 * parseFloat(affect_value[i])) + '% '
       str_final += str_temp
     }
+    if (str_final.length > 23) str_final = '<font size="1">' + str_final.substr(2) + '</font>'
     document.getElementById('a_exp').innerHTML = str_final
   } else {
     document.getElementById('a_exp').innerHTML = ''

@@ -63,7 +63,7 @@ function getBlockAffect () {
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var str_position = (list_tdoll[i][1].Affect).area, len_str = str_position.length
-      var target = list_tdoll[i][1].Affect.target // 有效枪种
+      var list_target = (list_tdoll[i][1].Affect.target).split('/') // 有效枪种
       var list_affectType = list_tdoll[i][1].Affect.affect_type // 影响属性类型
       var list_affectValue = list_tdoll[i][1].Affect.affect_value // 影响值
       var str_temp = '', num_tempblo = i
@@ -87,11 +87,13 @@ function getBlockAffect () {
           }
           if (bol_legal) {
             for (var pn = 0; pn < list_affectType.length; pn++) { // 更新格子上的影响值
-              if (blockSet[num_tempblo].get(target + list_affectType[pn]) === undefined) { // 添加新属性
-                blockSet[num_tempblo].set(target + list_affectType[pn], list_affectValue[pn])
-              } else { // 累加已有属性
-                var value_new = blockSet[num_tempblo].get(target + list_affectType[pn]) + list_affectValue[pn]
-                blockSet[num_tempblo].set(target + list_affectType[pn], value_new)
+              for (var target of list_target) {
+                if (blockSet[num_tempblo].get(target + list_affectType[pn]) === undefined) { // 添加新属性
+                  blockSet[num_tempblo].set(target + list_affectType[pn], list_affectValue[pn])
+                } else { // 累加已有属性
+                  var value_new = blockSet[num_tempblo].get(target + list_affectType[pn]) + list_affectValue[pn]
+                  blockSet[num_tempblo].set(target + list_affectType[pn], value_new)
+                }
               }
             }
           }

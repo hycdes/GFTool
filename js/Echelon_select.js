@@ -16,6 +16,7 @@ function changeSelectItems () {
       str_items += '<option value=233>No.233 ' + lib_language.NAME_233 + '</option>'
       str_items += '<option value=242>No.242 P22</option>'
       str_items += '<option value=250>No.250 HS2000</option>'
+      str_items += '<option value=260>No.260 PA-15</option>'
       str_items += '<option value=1001>No.1 [MOD] ' + lib_language.NAME_1 + '</option>'
       str_items += '<option value=2001>No.EX1 ' + lib_language.NAME_2001 + '</option>'
       str_items += '<option value=2003>No.EX3 ' + lib_language.NAME_2003 + '</option>'
@@ -107,6 +108,7 @@ function changeSelectItems () {
       str_items += '<option value=216>No.216 XM8</option>'
       str_items += '<option value=227>No.227 A-91</option>'
       str_items += '<option value=237>No.237 SAR-21</option>'
+      str_items += '<option value=262>No.262 EM-2</option>'
       str_items += '<option value=1063>No.63 [MOD] G3</option>'
     } else if (num_star === 3) {
       str_items += '<option value=58 selected>No.58 AK-47</option>'
@@ -122,6 +124,7 @@ function changeSelectItems () {
       str_items += '<option value=223>No.223 Model L</option>'
       str_items += '<option value=239>No.239 ' + lib_language.NAME_239 + '</option>'
       str_items += '<option value=258>No.258 ' + lib_language.NAME_258 + '</option>'
+      str_items += '<option value=265>No.265 HK33</option>'
     } else if (num_star === 2) {
       str_items += '<option value=63 selected>No.63 G3</option>'
       str_items += '<option value=68>No.68 L85A1</option>'
@@ -208,6 +211,7 @@ function changeSelectItems () {
       str_items += '<option value=222>No.222 TAC-50</option>'
       str_items += '<option value=231>No.231 M82A1</option>'
       str_items += '<option value=257>No.257 M200</option>'
+      str_items += '<option value=261>No.261 QBU-88</option>'
       str_items += '<option value=1039>No.39 [MOD] ' + lib_language.NAME_39 + '</option>'
       str_items += '<option value=2004>No.EX4 ' + lib_language.NAME_2004 + '</option>'
       str_items += '<option value=2005>No.EX5 ' + lib_language.NAME_2005 + '</option>'
@@ -263,6 +267,7 @@ function changeSelectItems () {
       str_items += '<option value=208>No.208 HK21</option>'
       str_items += '<option value=238>No.238 ' + lib_language.NAME_238 + '</option>'
       str_items += '<option value=253>No.253 ' + lib_language.NAME_253 + '</option>'
+      str_items += '<option value=263>No.263 MG36</option>'
       str_items += '<option value=1075>No.75 [MOD] M1918</option>'
     } else if (num_star === 4) {
       str_items += '<option value=75 selected>No.75 M1918</option>'
@@ -275,6 +280,7 @@ function changeSelectItems () {
       str_items += '<option value=199>No.199 ' + lib_language.NAME_199 + '</option>'
       str_items += '<option value=240>No.240 Mk46</option>'
       str_items += '<option value=254>No.254 UKM-2000</option>'
+      str_items += '<option value=264>No.264 ' + lib_language.NAME_264 + '</option>'
       str_items += '<option value=1081>No.81 [MOD] LWMMG</option>'
       str_items += '<option value=1089>No.89 [MOD] ' + lib_language.NAME_89 + '</option>'
     } else if (num_star === 3) {
