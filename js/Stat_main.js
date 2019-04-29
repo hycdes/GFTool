@@ -41,17 +41,18 @@ var data_map = {
   m02: [2, 5, true, 5]
 }
 var data_116true = [[4, 'AS Val', 1], [4, 'M1918', 1], [4, 'Mk46', 1],
-  [3, 'M9', 1], [3, 'P08', 3], [3, 'Type 92', 2],
-  [3, 'OTs-12', 3], [3, 'StG44', 3],
-  [3, 'MAC-10', 1], [3, 'PPS-43', 1], [3, 'Sten MkII', 3],
-  [3, 'M1 Garand', 5], [3, 'SV-98', 5],
+  [3, 'M9', 1], [3, 'P08', 5], [3, 'Type 92', 3], [3, 'Tokarev', 1],
+  [3, 'OTs-12', 4], [3, 'StG44', 4],
+  [3, 'MAC-10', 1], [3, 'PPS-43', 2], [3, 'Sten MkII', 3],
+  [3, 'M1 Garand', 6], [3, 'SV-98', 6],
   [3, 'Bren', 5], [3, 'M1919A4', 3]]
-var data_104e5true = [[4, 'Mk23', 1], [4, 'PP-90', 1], [4, 'XM3', 5],
-  [3, 'Astra Revolver', 2], [3, 'C96', 5], [3, 'Makarov', 3],
+var data_104e5true = [[5, 'SR-3MP', 1],
+  [4, 'Mk23', 1], [4, 'PP-90', 1], [4, 'XM3', 6],
+  [3, 'Astra Revolver', 3], [3, 'C96', 7], [3, 'Makarov', 4],
   [3, 'AK-47', 2], [3, 'FNC', 3],
   [3, 'MAC-10', 1],
   [3, 'M14', 1], [3, 'Micro UZI', 4], [3, 'Skorpion', 1],
-  [3, 'M2HB', 2], [3, 'MG42', 2]]
+  [3, 'M2HB', 4], [3, 'MG42', 2]]
 var data_104e7true = [[4, 'AS Val', 1],
   [3, 'AK-47', 4], [3, 'Astra Revolver', 1], [3, 'C96', 2], [3, 'FNC', 5], [3, 'M14', 6], [3, 'M9', 1], [3, 'MAC-10', 3], [3, 'Makarov', 4], [3, 'Micro UZI', 4], [3, 'Skorpion', 4],
   [3, 'M2HB', 7], [3, 'MG42', 2]]
@@ -72,8 +73,8 @@ get_card('card_115_2', data_map.m115)
 get_card('card_104e5', data_map.m104e5)
 get_card('card_104e7', data_map.m104e7)
 get_card('card_02', data_map.m02)
-fill_table('stat_116true', true, 'table_116true', data_116true, 176)
+fill_table('stat_116true', true, 'table_116true', data_116true, 216)
 fill_table('stat_115true', true, 'table_115true', data_115true, 50)
 fill_table('stat_115false', false, 'table_115false', data_115false, 265)
-fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 150)
+fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 180)
 fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 185)
