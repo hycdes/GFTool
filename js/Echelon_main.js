@@ -860,6 +860,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               } else if (is_this(stand_num, 263)) {
                 if (Set_Special.get('mg36_reload_' + stand_num) != undefined) {
                   reload_frame = Math.ceil((1 - 0.25 * Set_Special.get('mg36_reload_' + stand_num)) * reload_frame)
+                  Set_Special.set('mg36_reload_' + stand_num, 0)
                 }
               } else if (is_this(stand_num, 264)) { // 百合纹章：加速换弹
                 reload_frame = Math.floor(reload_frame * (1 - 0.2 * Set_Special.get('chauchat_nextreload_' + stand_num)))
