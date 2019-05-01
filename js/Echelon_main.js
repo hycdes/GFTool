@@ -1086,7 +1086,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   }
   else if (skillname === 'snipe') { // 狙击
     if (is_this(stand_num, 1039) && document.getElementById('special_mosin_' + (stand_num + 1)).checked) {
-      // do nothing
+      // snipe disabled, do nothing
     } else {
       var ratio = (s_t[0].Describe).ratio
       var snipe_num = (s_t[0].Describe).snipe_num
@@ -1100,7 +1100,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         else if (frame_interval === 41) { snipe_num = 7; time_block = 9.7 }
         else if (frame_interval === 36) { snipe_num = 7; time_block = 9 }
         Set_Special.set('m200_end' + stand_num, current_time + time_block * 30)
-      }
+      } else if (is_this(stand_num, 262)) time_interval = rof_to_frame(2, current_Info.get('rof'), 262) / 30
       var labels = (s_t[0].Describe).labels
       Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
       Set_Special.set('snipe_num_' + stand_num, snipe_num)
@@ -1725,6 +1725,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     } else { // 普通狙击
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
     }
+    // 狙击标识符识别
     if (list_labels[1] != 'armless') { // 有视护甲
       damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
     }
@@ -1737,7 +1738,6 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     damage_snipe_single = Math.ceil(damage_snipe_single * this_formation(stand_num))
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     recordData(stand_num, current_time, 0)
-    damage_snipe_single = Math.ceil(damage_snipe_single * explain_fgl_ff('single'))
     recordData(stand_num, current_time, damage_snipe_single)
     if (is_this(stand_num, 1039) && document.getElementById('special_mosin_skillkill_' + (stand_num + 1)).checked) { // 苍白收割者：沉稳射击击杀目标
       changeStatus(stand_num, 'self', 'rof', '0.3', 5)
@@ -2514,6 +2514,7 @@ function is_activate_protect (suffer_hp, single_hp, stand_num) {
   return false
 }
 function explain_fgl_ff (damage_type) { // 解释伤害加成，力场减免+AOE计算+伤害加深，single单体, around_single周遭单体, aoe范围, around_aoe溅射
+  // forcefield damage reduction 
   var ff_ratio = 1
   if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
   else if (display_type === 'suffer' && enemy_forcefield_2 > 0) ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max

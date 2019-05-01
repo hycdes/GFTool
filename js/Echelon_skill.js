@@ -521,7 +521,7 @@ lib_describe.set('m1887', describe_snipe(-1, 1, 0, 1, 'armless/critless/evaless'
 lib_describe.set('sg_shock', describe_snipe(-1, 0, 0, 1, 'armless/critless/evaless')) // 震荡打击
 lib_describe.set('pa15', describe_snipe(4, 0, 0, 1, 'arm/crit/evaless')) // 劲爆乐园
 lib_describe.set('qbu88', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 乱石崩云，AOE单独判断
-lib_describe.set('em2', describe_snipe(3.5, 0, 0.067, 3, 'arm/crit/evaless')) // 碎碎曲奇弹
+lib_describe.set('em2', describe_snipe(3.5, 0, -1, 3, 'arm/crit/evaless')) // 碎碎曲奇弹
 
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
