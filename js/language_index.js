@@ -18,8 +18,8 @@ var idxinfo_cn = {
   title_tab3: '相关链接',
 
   content_1_1: '少女前线工具 v6.6 [2019.04.21]',
-  content_1_2_1: '<b><span style="color:deeppink">阵形模拟器</span>现已更新<span style="color:deeppink">4.0 版本</span></b>',
-  content_1_2_2: '更新PM-9',
+  content_1_2_1: '<b><span style="color:deeppink">阵形模拟器</span>现已更新<span style="color:deeppink">4.1 版本</span></b>',
+  content_1_2_2: '更新MG36等五位新人形',
   content_1_3_1: '<b><span style="color:deeppink">芯片计算器</span>现已更新<span style="color:deeppink">3.1 版本</span></b>',
   content_1_3_2: '全新UI，修复大量BUG',
   content_1_4: '联系方式',
@@ -38,7 +38,7 @@ var idxinfo_en = {
 
   content_1_1: 'GFTool v6.6 [2019.04.21]',
   content_1_2_1: '<b><span style="color:deeppink">Echelon simulator</span> now release <span style="color:deeppink">ver 4.0</span></b>',
-  content_1_2_2: 'Update PM-9',
+  content_1_2_2: 'Update MG36 et.,al. 5 new t-dolls',
   content_1_3_1: '<b><span style="color:deeppink">Chip calculator</span> now release <span style="color:deeppink">ver 3.1</span></b>',
   content_1_3_2: 'New UI, bugs fixed',
   content_1_4: 'Connect me',
@@ -56,8 +56,8 @@ var idxinfo_ko = {
   title_tab3: '관련 링크',
 
   content_1_1: 'GFTool v6.6 [2019.04.21]',
-  content_1_2_1: '<b><span style="color:deeppink">대미지 시뮬레이터</span> now release <span style="color:deeppink">ver 4.0</span></b>',
-  content_1_2_2: 'Update PM-9',
+  content_1_2_1: '<b><span style="color:deeppink">대미지 시뮬레이터</span> now release <span style="color:deeppink">ver 4.1</span></b>',
+  content_1_2_2: 'Update MG36 et.,al. 5 new t-dolls',
   content_1_3_1: '<b><span style="color:deeppink">칩셋 시뮬레이터</span> now release <span style="color:deeppink">ver 3.1</span></b>',
   content_1_3_2: 'New UI, bugs fixed',
   content_1_4: '연락처',
