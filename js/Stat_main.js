@@ -32,6 +32,20 @@ function fill_table (stat, fairy_status, table, data, num_total) {
   document.getElementById(stat).innerHTML = stat_info
   document.getElementById(table).innerHTML = info
 }
+function fill_drag (dragID, stat_data, num_card) {
+  for (var n_map = 0; n_map < num_card; n_map++) {
+    for (var i = 0; i < 4; i++) {
+      var str_info = ''
+      if (stat_data[n_map][i][0] > 0) {
+        str_info += stat_data[n_map][i][0] + ' / ' + stat_data[n_map][i][1] + ' (<span style="color:dodgerblue">'
+        str_info += (100 * stat_data[n_map][i][0] / stat_data[n_map][i][1]).toFixed(2) + '%</span>)'
+      } else str_info = '-'
+      var str_ID = dragID + '_' + (n_map + 1) + '_' + (i + 1)
+      document.getElementById(str_ID).innerHTML = str_info
+    }
+  }
+}
+
 var data_map = {
   m116: [2, 8, true, 9],
   m115: [1, 5, false, 3],
@@ -88,6 +102,15 @@ var data_115false = [[4, 'P7', 1],
   [3, 'M14', 4], [3, 'M1 Garand', 1],
   [3, 'M2HB', 3], [3, 'MG42', 6]]
 
+var data_drag1 = [
+  [[0, 0], [0, 0], [0, 0], [5, 502]],
+  [[0, 0], [0, 0], [0, 0], [1, 12]],
+  [[0, 0], [0, 0], [0, 0], [3, 330]],
+  [[0, 0], [1, 34], [0, 0], [4, 168]],
+  [[1, 87], [1, 116], [0, 0], [0, 0]],
+  [[1, 21], [2, 114], [0, 0], [0, 0]]
+]
+
 get_card('card_116', data_map.m116)
 get_card('card_116_2', data_map.m116)
 get_card('card_115', data_map.m115)
@@ -108,3 +131,23 @@ fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 555)
 fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 252)
 fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 381)
 fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 182)
+
+function mergeCell (table1, startRow, endRow, col) {
+  var tb = document.getElementById(table1)
+  if (!tb || !tb.rows || tb.rows.length <= 0) return
+  if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
+  if (endRow == 0) endRow = tb.rows.length - 1
+  for (var i = startRow; i < endRow; i++) {
+    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col])
+    tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
+  }
+}
+window.onload = function () {
+  mergeCell('table_drag1', 11, 12, 0)
+  mergeCell('table_drag1', 9, 10, 0)
+  mergeCell('table_drag1', 7, 8, 0)
+  mergeCell('table_drag1', 5, 6, 0)
+  mergeCell('table_drag1', 3, 4, 0)
+  mergeCell('table_drag1', 1, 2, 0)
+  fill_drag('drag1', data_drag1, 6)
+}
