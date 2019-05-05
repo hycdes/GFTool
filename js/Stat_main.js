@@ -68,10 +68,10 @@ var data_116false = [[4, 'Mk46', 2],
 ]
 var data_104e5true = [[5, 'SR-3MP', 1], // 搜救五战
   [4, 'Mk23', 1], [4, 'AS Val', 2], [4, 'PP-90', 1], [4, 'XM3', 7], [4, 'M60', 1],
-  [3, 'Astra Revolver', 8], [3, 'C96', 17], [3, 'M9', 2], [3, 'Makarov', 9],
-  [3, 'AK-47', 5], [3, 'FNC', 11],
-  [3, 'MAC-10', 9], [3, 'Micro UZI', 9], [3, 'Skorpion', 11],
-  [3, 'M14', 8],
+  [3, 'Astra Revolver', 8], [3, 'C96', 18], [3, 'M9', 4], [3, 'Makarov', 9],
+  [3, 'AK-47', 5], [3, 'FNC', 13],
+  [3, 'MAC-10', 10], [3, 'Micro UZI', 12], [3, 'Skorpion', 11],
+  [3, 'M14', 10],
   [3, 'M2HB', 9], [3, 'MG42', 3]]
 var data_104e6false = [[5, 'SR-3MP', 1],
   [4, 'AS Val', 1],
@@ -103,11 +103,11 @@ var data_115false = [[4, 'P7', 1],
   [3, 'M2HB', 3], [3, 'MG42', 6]]
 
 var data_drag1 = [
-  [[1, 60], [0, 0], [0, 0], [7, 737]],
+  [[1, 60], [0, 0], [0, 0], [8, 861]],
   [[0, 0], [0, 0], [1, 46], [4, 292]],
-  [[0, 0], [0, 0], [0, 0], [15, 2129]],
+  [[1, 14], [1, 226], [1, 290], [15, 2129]],
   [[0, 0], [1, 34], [0, 0], [9, 646]],
-  [[1, 87], [5, 600], [0, 0], [0, 0]],
+  [[2, 113], [5, 600], [0, 0], [0, 0]],
   [[1, 21], [4, 508], [0, 0], [7, 240]]
 ]
 
@@ -127,7 +127,7 @@ fill_table('stat_116false', false, 'table_116false', data_116false, 50)
 fill_table('stat_115true', true, 'table_115true', data_115true, 50)
 fill_table('stat_115false', false, 'table_115false', data_115false, 415)
 
-fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 645) // 五战搜救
+fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 695) // 五战搜救
 fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 252)
 fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 381)
 fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 182)
