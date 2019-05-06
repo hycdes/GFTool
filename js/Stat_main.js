@@ -45,6 +45,25 @@ function fill_drag (dragID, stat_data, num_card) {
     }
   }
 }
+function fill_drag_normal (dragID, stat_data) {
+  var str = ''
+  for (var entry of stat_data) {
+    str += '<tr>'
+    str += '<td>' + entry[0] + '</td>'
+    if (entry[1] === 5) str += '<td><span style="color:darkorange">★★★★★ ' + entry[2] + '</span></td>'
+    else if (entry[1] === 4) str += '<td><span style="color:chartreuse">★★★★ ' + entry[2] + '</span></td>'
+    else if (entry[1] === 3) str += '<td><span style="color:dodgerblue">★★★ ' + entry[2] + '</span></td>'
+    if (entry[3] > 0) str += '<td>' + entry[3] + ' / ' + entry[4] + ' (<span style="color:dodgerblue">' + (100 * entry[3] / entry[4]).toFixed(2) + '%</span>)' + '</td>'
+    else str += '<td>-</td>'
+    if (entry[5] > 0) str += '<td>' + entry[5] + ' / ' + entry[6] + ' (<span style="color:dodgerblue">' + (100 * entry[5] / entry[6]).toFixed(2) + '%</span>)' + '</td>'
+    else str += '<td>-</td>'
+    str += '</tr>'
+  }
+  document.getElementById(dragID).innerHTML = str
+}
+function find_in_data (name, data) {
+  for (var entry of data) if (name === entry[1]) return entry[2]
+}
 
 var data_map = {
   m116: [2, 8, true, 9],
@@ -55,11 +74,12 @@ var data_map = {
   m02: [2, 5, true, 5]
 }
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2],
-  [3, 'M9', 3], [3, 'P08', 8], [3, 'Type 92', 5], [3, 'Tokarev', 2],
+  [3, 'M9', 3], [3, 'P08', 9], [3, 'Type 92', 5], [3, 'Tokarev', 2],
   [3, 'OTs-12', 7], [3, 'StG44', 8],
-  [3, 'MAC-10', 1], [3, 'PPS-43', 2], [3, 'Sten MkII', 5],
+  [3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 5],
   [3, 'M1 Garand', 7], [3, 'SV-98', 8],
   [3, 'Bren', 9], [3, 'M1919A4', 6]]
+var num_116_true = 352
 var data_116false = [[4, 'Mk46', 2],
   [3, 'M9', 2],
   [3, 'OTs-12', 3], [3, 'StG44', 1],
@@ -70,7 +90,7 @@ var data_104e5true = [[5, 'SR-3MP', 1], // 搜救五战
   [4, 'Mk23', 1], [4, 'AS Val', 2], [4, 'PP-90', 1], [4, 'XM3', 7], [4, 'M60', 1],
   [3, 'Astra Revolver', 8], [3, 'C96', 18], [3, 'M9', 4], [3, 'Makarov', 9],
   [3, 'AK-47', 5], [3, 'FNC', 13],
-  [3, 'MAC-10', 10], [3, 'Micro UZI', 12], [3, 'Skorpion', 11],
+  [3, 'MAC-10', 11], [3, 'Micro UZI', 13], [3, 'Skorpion', 11],
   [3, 'M14', 10],
   [3, 'M2HB', 9], [3, 'MG42', 3]]
 var data_104e6false = [[5, 'SR-3MP', 1],
@@ -103,12 +123,19 @@ var data_115false = [[4, 'P7', 1],
   [3, 'M2HB', 3], [3, 'MG42', 6]]
 
 var data_drag1 = [
-  [[1, 60], [0, 0], [0, 0], [8, 861]],
-  [[0, 0], [0, 0], [1, 46], [4, 292]],
-  [[1, 14], [1, 226], [1, 290], [15, 2129]],
-  [[0, 0], [1, 34], [0, 0], [9, 646]],
-  [[2, 113], [5, 600], [0, 0], [0, 0]],
-  [[1, 21], [4, 508], [0, 0], [7, 240]]
+  [[1, 60], [2, 133], [0, 0], [9, 1012]],
+  [[0, 0], [1, 72], [1, 46], [5, 442]],
+  [[1, 14], [2, 396], [1, 290], [15, 2129]],
+  [[0, 0], [2, 88], [1, 70], [9, 646]],
+  [[2, 113], [7, 991], [0, 0], [0, 0]],
+  [[1, 21], [5, 535], [0, 0], [9, 283]]
+]
+
+var data_drag_normal = [
+  ['0-2', 4, 'PK', 0, 0, 1, 1209],
+  ['1-4E', 3, 'Glock 17 [1-6/1-4E only]', 0, 0, 3, 151],
+  ['7-6', 3, 'PSM [7-6/7-4E only]', 1, 87, 0, 0],
+  ['11-6', 4, 'Mk46 [11-6/11-4E only]', 0, 0, find_in_data('Mk46', data_116true), num_116_true]
 ]
 
 get_card('card_116', data_map.m116)
@@ -121,13 +148,13 @@ get_card('card_104e7', data_map.m104e7)
 get_card('card_104e7_2', data_map.m104e7)
 get_card('card_02', data_map.m02)
 
-fill_table('stat_116true', true, 'table_116true', data_116true, 344)
+fill_table('stat_116true', true, 'table_116true', data_116true, num_116_true)
 fill_table('stat_116false', false, 'table_116false', data_116false, 50)
 
 fill_table('stat_115true', true, 'table_115true', data_115true, 50)
 fill_table('stat_115false', false, 'table_115false', data_115false, 415)
 
-fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 695) // 五战搜救
+fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 705) // 五战搜救
 fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 252)
 fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 381)
 fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 182)
@@ -150,4 +177,5 @@ window.onload = function () {
   mergeCell('table_drag1', 3, 4, 0)
   mergeCell('table_drag1', 1, 2, 0)
   fill_drag('drag1', data_drag1, 6)
+  fill_drag_normal('table_drag_normal', data_drag_normal)
 }
