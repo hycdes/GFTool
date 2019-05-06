@@ -135,7 +135,7 @@ var data_drag_normal = [
   ['0-2', 4, 'PK', 0, 0, 1, 1209],
   ['1-4E', 3, 'Glock 17 [1-6/1-4E only]', 0, 0, 3, 151],
   ['7-6', 3, 'PSM [7-6/7-4E only]', 1, 87, 0, 0],
-  ['11-6', 4, 'Mk46 [11-6/11-4E only]', 0, 0, find_in_data('Mk46', data_116true), num_116_true]
+  ['11-6', 4, 'Mk46 [11-6/11-4E only]', find_in_data('Mk46', data_116true), num_116_true, 0, 0]
 ]
 
 get_card('card_116', data_map.m116)
