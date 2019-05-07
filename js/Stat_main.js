@@ -75,11 +75,11 @@ var data_map = {
 }
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2],
   [3, 'M9', 3], [3, 'P08', 9], [3, 'Type 92', 5], [3, 'Tokarev', 2],
-  [3, 'OTs-12', 7], [3, 'StG44', 8],
-  [3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 5],
+  [3, 'OTs-12', 8], [3, 'StG44', 8],
+  [3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 6],
   [3, 'M1 Garand', 7], [3, 'SV-98', 8],
   [3, 'Bren', 9], [3, 'M1919A4', 6]]
-var num_116true = 44
+var num_116true = 45
 
 var data_116false = [[4, 'Mk46', 2],
   [3, 'M9', 2],
@@ -89,13 +89,13 @@ var data_116false = [[4, 'Mk46', 2],
 ]
 
 var data_104e5true = [[5, 'SR-3MP', 1], // 搜救五战
-  [4, 'Mk23', 1], [4, 'AS Val', 2], [4, 'PP-90', 1], [4, 'XM3', 7], [4, 'M60', 1],
-  [3, 'Astra Revolver', 8], [3, 'C96', 18], [3, 'M9', 4], [3, 'Makarov', 9],
+  [4, 'Mk23', 1], [4, 'AS Val', 3], [4, 'PP-90', 1], [4, 'XM3', 8], [4, 'M60', 1],
+  [3, 'Astra Revolver', 8], [3, 'C96', 19], [3, 'M9', 5], [3, 'Makarov', 10],
   [3, 'AK-47', 5], [3, 'FNC', 13],
-  [3, 'MAC-10', 11], [3, 'Micro UZI', 13], [3, 'Skorpion', 11],
-  [3, 'M14', 10],
-  [3, 'M2HB', 9], [3, 'MG42', 3]]
-var num_104e5true = 141
+  [3, 'MAC-10', 12], [3, 'Micro UZI', 14], [3, 'Skorpion', 12],
+  [3, 'M14', 12],
+  [3, 'M2HB', 10], [3, 'MG42', 4]]
+var num_104e5true = 156
 
 var data_104e6false = [[5, 'SR-3MP', 1],
   [4, 'AS Val', 1],
@@ -132,23 +132,23 @@ var data_115false = [[4, 'P7', 1],
   [3, 'M2HB', 7], [3, 'MG42', 10]]
 
 var data_drag1 = [
-  [[1, 60], [3, 225], [0, 0], [10, 1107]],
-  [[0, 0], [1, 72], [1, 46], [5, 442]],
-  [[1, 14], [2, 396], [1, 290], [17, 2342]],
-  [[0, 0], [2, 88], [1, 70], [9, 646]],
-  [[2, 113], [7, 991], [0, 0], [0, 0]],
+  [[1, 60], [3, 225], [0, 0], [11, 1176]],
+  [[0, 0], [1, 72], [1, 46], [6, 572]],
+  [[1, 14], [2, 396], [1, 290], [18, 2415]],
+  [[0, 0], [2, 88], [1, 70], [11, 915]],
+  [[2, 113], [7, 991], [0, 0], [1, 280]],
   [[1, 21], [6, 566], [1, 12], [10, 303]]
 ]
 
 var data_drag_normal = [
   ['0-2', 4, 'PK', 0, 0, 5, 3228],
-  ['1-4E', 3, 'Glock 17 [Chapter1 only]', 0, 0, 3, 151],
-  ['7-6', 3, 'PSM [Chapter7 only]', 1, 87, 0, 0],
-  ['6-4E', 3, 'M1A1 [Chapter6 only]', 1, 12, 0, 0],
-  ['10-4E', 4, 'XM3 [Chapter10 only]',
+  ['1-4E', 3, 'Glock 17 <span style="color:black">[Ch.1 only]</span>', 0, 0, 3, 151],
+  ['7-6', 3, 'PSM <span style="color:black">[Ch.7 only]</span>', 1, 87, 0, 0],
+  ['6-4E', 3, 'M1A1 <span style="color:black">[Ch.6 only]</span>', 1, 12, 0, 0],
+  ['10-4E', 4, 'XM3 <span style="color:black">[Ch.10 only]</span>',
     find_in_data('XM3', data_104e7true) + find_in_data('XM3', data_104e5true),
     num_104e7true + num_104e5true, 0, 0],
-  ['11-6', 4, 'Mk46 [Chapter11 only]', find_in_data('Mk46', data_116true), num_116true, 0, 0]
+  ['11-6', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', find_in_data('Mk46', data_116true), num_116true, 0, 0]
 ]
 
 get_card('card_116', data_map.m116)
