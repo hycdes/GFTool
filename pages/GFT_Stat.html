@@ -90,8 +90,9 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">核心统计</div>
                             <div class="panel-body">
+                                <h5>当前显示样本多于<span style="color:darkorange" id="text_validnum"></span>的结果，统计单位：个数 / <b><span style="color:blue">战斗</span></b></h5>
+                                <div id="placeholder" style="height:300px"></div>
                                 <h5>* 为保证真实可靠请告知 (1) 多路线图的<span style="color:dodgerblue">打捞路线</span> (2) 出核心枪<span style="color:dodgerblue">类型</span>及<span style="color:dodgerblue">数量</span> (3) <span style="color:dodgerblue">Lv10搜救</span>或<span style="color:dodgerblue">无搜救</span> (4) 至少10场</h5>
-                                <h5>单位：个数 / <b><span style="color:blue">战斗</span></b></h5>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
                                         <a href="#116" data-toggle="tab">11-6</a>
@@ -629,6 +630,12 @@
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Flot Charts JavaScript -->
+    <script src="../vendor/flot/excanvas.min.js"></script>
+    <script src="../vendor/flot/jquery.flot.js"></script>
+    <script src="../vendor/flot/jquery.flot.resize.js"></script>
+    <script src="../vendor/flot/jquery.flot.time.js"></script>
+    <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
 </body>
 
 </html>

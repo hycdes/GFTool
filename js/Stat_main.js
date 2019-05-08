@@ -1,3 +1,6 @@
+var lib_cache = new Map
+var lib_valid = new Map
+var num_valid = 300
 function get_card (id, data_entry) {
   var info = ''
   info += '回合 ' + data_entry[0]
@@ -26,7 +29,10 @@ function fill_table (stat, fairy_status, table, data, num_total) {
     info += '<td>' + entry[2] + '</tr></td>'
   }
   stat_info += cores + ' / ' + num_total + ' (<span style="color:dodgerblue">'
-  stat_info += (100 * cores / num_total).toFixed(2) + '%</span>)'
+  lib_cache.set(stat, (100 * cores / num_total).toFixed(2))
+  if (num_total > num_valid) lib_valid.set(stat, true)
+  else lib_valid.set(stat, false)
+  stat_info += lib_cache.get(stat) + '%</span>)'
   if (fairy_status) stat_info += ' 搜救:<span style="color:red">Lv.10</span>'
   else stat_info += ' 搜救:未开启'
   document.getElementById(stat).innerHTML = stat_info
@@ -168,29 +174,6 @@ var data_drag_resident = [
   ['塌缩点-再点火4', 5, 'MP7', 1, 220, 0, 0]
 ]
 
-get_card('card_116', data_map.m116)
-get_card('card_116_2', data_map.m116)
-get_card('card_115', data_map.m115)
-get_card('card_115_2', data_map.m115)
-get_card('card_104e5', data_map.m104e5)
-get_card('card_104e5_2', data_map.m104e5)
-get_card('card_104e6_2', data_map.m104e6)
-get_card('card_104e7', data_map.m104e7)
-get_card('card_104e7_2', data_map.m104e7)
-get_card('card_02', data_map.m02)
-
-fill_table('stat_116true', true, 'table_116true', data_116true, 8 * num_116true)
-fill_table('stat_116false', false, 'table_116false', data_116false, 50)
-
-fill_table('stat_115true', true, 'table_115true', data_115true, 50)
-fill_table('stat_115false', false, 'table_115false', data_115false, 5 * num_115false)
-
-fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 5 * num_104e5true) // 五战搜救
-fill_table('stat_104e5false', true, 'table_104e5false', data_104e5false, 5 * num_104e5false)
-fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 6 * num_104e6false)
-fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 7 * num_104e7true)
-fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 182)
-
 function mergeCell (table1, startRow, endRow, col) {
   var tb = document.getElementById(table1)
   if (!tb || !tb.rows || tb.rows.length <= 0) return
@@ -201,6 +184,43 @@ function mergeCell (table1, startRow, endRow, col) {
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
   }
 }
+function loadScript (url) {
+  var script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.src = url
+  document.body.appendChild(script)
+}
+var bar_info = []
+var str_current_statname = [
+  'stat_116true', 'stat_116false',
+  'stat_115true', 'stat_115false',
+  'stat_104e5true', 'stat_104e5false', 'stat_104e6false', 'stat_104e7true', 'stat_104e7false']
+var bar_data = []
+var bar_name = []
+var bar_num = 0, y_max = 0
+function load_stat_bar (bar_data, y_max) {
+  var count = 0
+  var str_name = ''
+  for (var entry of str_current_statname) {
+    if (lib_valid.get(entry)) {
+      bar_data.push([count, parseFloat(lib_cache.get(entry))])
+      if (y_max < parseFloat(lib_cache.get(entry))) y_max = parseFloat(lib_cache.get(entry))
+      var temp_str = (entry.split('_'))[1]
+      for (var char of temp_str) {
+        if (char === 't' || char === 'f') {
+          if (char === 't') str_name += '[搜救]'
+          break
+        }
+        str_name += char
+      }
+      bar_name.push([count, str_name])
+      count++
+      str_name = ''
+    }
+  }
+  return [count, y_max]
+}
+
 window.onload = function () {
   mergeCell('table_drag1', 11, 12, 0)
   mergeCell('table_drag1', 9, 10, 0)
@@ -211,4 +231,74 @@ window.onload = function () {
   fill_drag('drag1', data_drag1, 6)
   fill_drag_normal('table_drag_normal', data_drag_normal)
   fill_drag_normal('table_drag_resident', data_drag_resident)
+  get_card('card_116', data_map.m116)
+  get_card('card_116_2', data_map.m116)
+  get_card('card_115', data_map.m115)
+  get_card('card_115_2', data_map.m115)
+  get_card('card_104e5', data_map.m104e5)
+  get_card('card_104e5_2', data_map.m104e5)
+  get_card('card_104e6_2', data_map.m104e6)
+  get_card('card_104e7', data_map.m104e7)
+  get_card('card_104e7_2', data_map.m104e7)
+  get_card('card_02', data_map.m02)
+
+  fill_table('stat_116true', true, 'table_116true', data_116true, 8 * num_116true)
+  fill_table('stat_116false', false, 'table_116false', data_116false, 50)
+
+  fill_table('stat_115true', true, 'table_115true', data_115true, 50)
+  fill_table('stat_115false', false, 'table_115false', data_115false, 5 * num_115false)
+
+  fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 5 * num_104e5true) // 五战搜救
+  fill_table('stat_104e5false', true, 'table_104e5false', data_104e5false, 5 * num_104e5false)
+  fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 6 * num_104e6false)
+  fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 7 * num_104e7true)
+  fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 182)
+  document.getElementById('text_validnum').innerHTML = num_valid
+  // make graph
+  var result_pair = load_stat_bar(bar_data, y_max)
+  bar_num = result_pair[0], y_max = result_pair[1]
+  bar_info.push({
+    data: bar_data,
+    bars: {
+      barWidth: 0.5,
+      align: 'center',
+      horizontal: false
+    }
+  })
+  $.plot($('#placeholder'), bar_info,
+    {
+      series: {
+        bars: {
+          show: true
+        }
+      },
+      xaxis: {
+        min: -1,
+        max: bar_num,
+        tickDecimals: 0,
+        font: {
+          lineHeight: 13,
+          color: '#000000'
+        },
+        shadowSize: 0,
+        ticks: bar_name
+      },
+      yaxis: {
+        min: 0,
+        max: y_max * 1.1,
+        tickDecimals: 0,
+        font: {
+          lineHeight: 13,
+          color: '#000000'
+        },
+        shadowSize: 0
+      },
+      grid: {
+        hoverable: true
+      },
+      tooltip: true,
+      tooltipOpts: {
+        content: '地图: %x, 核心产率: %y%'
+      }
+    })
 }
