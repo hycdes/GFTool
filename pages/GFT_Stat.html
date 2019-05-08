@@ -228,6 +228,9 @@
                                                 <a href="#104e5true" data-toggle="tab">5战+搜救</a>
                                             </li>
                                             <li>
+                                                <a href="#104e5false" data-toggle="tab">5战</a>
+                                            </li>
+                                            <li>
                                                 <a href="#104e6false" data-toggle="tab">6战</a>
                                             </li>
                                             <li>
@@ -260,6 +263,27 @@
                                                     <tbody id="table_104e5true"></tbody>
                                                 </table>
                                             </div>
+                                            <div class="tab-pane fade" id="104e5false">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_104e5_2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_104e5false"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_104e5false"></tbody>
+                                                </table>
+                                            </div>
                                             <div class="tab-pane fade" id="104e6false">
                                                 <table class="table table_mid table-bordered table-hover">
                                                     <tbody>
@@ -280,7 +304,6 @@
                                                     </thead>
                                                     <tbody id="table_104e6false"></tbody>
                                                 </table>
-                                                <h5>Supporter: 二尼</h5>
                                             </div>
                                             <div class="tab-pane fade" id="104e7true">
                                                 <table class="table table_mid table-bordered table-hover">
@@ -365,9 +388,9 @@
                                                     <tr>
                                                         <td class="td_supporter">老徐</td>
                                                         <td class="td_supporter">榭榆</td>
-                                                        <td class="td_supporter"></td>
-                                                        <td class="td_supporter"></td>
-                                                        <td class="td_supporter"></td>
+                                                        <td class="td_supporter">MIЯЯOЯ</td>
+                                                        <td class="td_supporter">欣欢症</td>
+                                                        <td class="td_supporter">君漓莒</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -383,13 +406,16 @@
                             <div class="panel-heading">打捞统计</div>
                             <div class="panel-body">
                                 <h5>* 为保证真实可靠请告知 (1) 打捞<span style="color:dodgerblue">地图</span> (2) <span style="color:dodgerblue">Lv10搜救</span>或<span style="color:dodgerblue">无搜救</span> (3) 至少10场 (4) 最好提供所有该活动打捞记录</h5>
-                                <h5>单位：个数 / <b><span style="color:red">场次</span></b></h5>
+                                <h5>单位：个数 / <b><span style="color:red">判定</span></b></h5>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
                                         <a href="#drag1" data-toggle="tab">2019/5/4打捞</a>
                                     </li>
                                     <li>
-                                        <a href="#drag2" data-toggle="tab">常规战役</a>
+                                        <a href="#drag2" data-toggle="tab">主线战役</a>
+                                    </li>
+                                    <li>
+                                        <a href="#drag3" data-toggle="tab">常驻活动</a>
                                     </li>
                                 </ul>
                                 <!-- Tab panes -->
@@ -484,12 +510,24 @@
                                         <h5></h5>
                                         <table class="table table_mid table-bordered table-hover">
                                             <thead>
-                                                <th style="width:15%;text-align:center">地点</th>
-                                                <th style="width:35%;text-align:center">人形</th>
+                                                <th style="width:20%;text-align:center">地点</th>
+                                                <th style="width:30%;text-align:center">人形</th>
                                                 <th style="width:25%;text-align:center">搜救Lv.10</th>
                                                 <th style="width:25%;text-align:center">无搜救</th>
                                             </thead>
                                             <tbody id="table_drag_normal"></tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="drag3">
+                                        <h5></h5>
+                                        <table class="table table_mid table-bordered table-hover">
+                                            <thead>
+                                                <th style="width:20%;text-align:center">地点</th>
+                                                <th style="width:30%;text-align:center">人形</th>
+                                                <th style="width:25%;text-align:center">搜救Lv.10</th>
+                                                <th style="width:25%;text-align:center">无搜救</th>
+                                            </thead>
+                                            <tbody id="table_drag_resident"></tbody>
                                         </table>
                                     </div>
                                     <!-- supporter -->
@@ -544,6 +582,27 @@
                                                             <td class="td_supporter">Ayaya</td>
                                                             <td class="td_supporter">这年代黑暗</td>
                                                             <td class="td_supporter">FangZero</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td_supporter">龙游浅滩</td>
+                                                            <td class="td_supporter">山小珊</td>
+                                                            <td class="td_supporter">1</td>
+                                                            <td class="td_supporter">郭明轩</td>
+                                                            <td class="td_supporter">KsZ_本居小铃</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td_supporter">Amuletloli</td>
+                                                            <td class="td_supporter">无问西东</td>
+                                                            <td class="td_supporter">吉野晴彦</td>
+                                                            <td class="td_supporter">凤凰</td>
+                                                            <td class="td_supporter">marciy</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td_supporter">世间可有两全法</td>
+                                                            <td class="td_supporter"></td>
+                                                            <td class="td_supporter"></td>
+                                                            <td class="td_supporter"></td>
+                                                            <td class="td_supporter"></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

@@ -97,21 +97,32 @@ var data_104e5true = [[5, 'SR-3MP', 1], // 搜救五战
   [3, 'M2HB', 10], [3, 'MG42', 4]]
 var num_104e5true = 156
 
-var data_104e6false = [[5, 'SR-3MP', 1],
-  [4, 'AS Val', 1],
-  [3, 'Astra Revolver', 2], [3, 'C96', 6], [3, 'M9', 2], [3, 'Makarov', 3],
-  [3, 'AK-47', 1], [3, 'FNC', 2],
-  [3, 'MAC-10', 1], [3, 'Micro UZI', 1], [3, 'Skorpion', 2],
-  [3, 'M14', 4],
-  [3, 'M2HB', 4], [3, 'MG42', 2]]
+var data_104e5false = [[5, 'SR-3MP', 1],
+  [4, 'Mk23', 1], [4, 'PP-90', 1], [4, 'XM3', 4],
+  [3, 'Astra Revolver', 6], [3, 'C96', 15], [3, 'M9', 9], [3, 'Makarov', 13],
+  [3, 'AK-47', 14], [3, 'FNC', 8],
+  [3, 'MAC-10', 9], [3, 'Micro UZI', 8], [3, 'Skorpion', 10],
+  [3, 'M14', 7],
+  [3, 'M2HB', 8], [3, 'MG42', 13]]
+var num_104e5false = 200
 
-var data_104e7true = [[4, 'AS Val', 2], [4, 'XM3', 2],
-  [3, 'Astra Revolver', 5], [3, 'C96', 2], [3, 'M9', 4], [3, 'Makarov', 6],
-  [3, 'AK-47', 7], [3, 'FNC', 5],
-  [3, 'MAC-10', 5], [3, 'Micro UZI', 4], [3, 'Skorpion', 7],
-  [3, 'M14', 6],
-  [3, 'M2HB', 8], [3, 'MG42', 3]]
-var num_104e7true = 55
+var data_104e6false = [[5, 'SR-3MP', 32],
+  [4, 'Mk23', 39], [4, 'AS Val', 30], [4, 'PP-90', 33], [4, 'XM3', 105], [4, 'M60', 31],
+  [3, 'Astra Revolver', 299], [3, 'C96', 332], [3, 'M9', 360], [3, 'Makarov', 303],
+  [3, 'AK-47', 282], [3, 'FNC', 287],
+  [3, 'MAC-10', 263], [3, 'Micro UZI', 293], [3, 'Skorpion', 292],
+  [3, 'M14', 292],
+  [3, 'M2HB', 300], [3, 'MG42', 287]]
+var num_104e6false = 4842
+
+var data_104e7true = [[5, 'SR-3MP', 5],
+  [4, 'Mk23', 4], [4, 'AS Val', 6], [4, 'PP-90', 6], [4, 'XM3', 2], [4, 'XM3', 21], [4, 'M60', 5],
+  [3, 'Astra Revolver', 43], [3, 'C96', 71], [3, 'M9', 76], [3, 'Makarov', 44],
+  [3, 'AK-47', 52], [3, 'FNC', 59],
+  [3, 'MAC-10', 47], [3, 'Micro UZI', 59], [3, 'Skorpion', 67],
+  [3, 'M14', 62],
+  [3, 'M2HB', 63], [3, 'MG42', 56]]
+var num_104e7true = 745
 
 var data_104e7false = [[5, 'SR-3MP', 1],
   [3, 'C96', 2], [3, 'Makarov', 2],
@@ -124,31 +135,37 @@ var data_115true = [
   [3, 'MAC-10', 1], [3, 'Skorpion', 1],
   [3, 'M2HB', 1]]
 
-var data_115false = [[4, 'P7', 1],
-  [3, 'Astra Revolver', 3], [3, 'C96', 6], [3, 'M9', 5], [3, 'Makarov', 4],
-  [3, 'AK-47', 4], [3, 'FNC', 2],
-  [3, 'MAC-10', 2], [3, 'Micro UZI', 7], [3, 'Skorpion', 6],
-  [3, 'M14', 4], [3, 'M1 Garand', 1],
-  [3, 'M2HB', 7], [3, 'MG42', 10]]
+var data_115false = [[4, 'P7', 8], [4, '9A-91', 2], [4, 'PK', 2],
+  [3, 'Astra Revolver', 48], [3, 'C96', 47], [3, 'M9', 56], [3, 'Makarov', 58],
+  [3, 'AK-47', 56], [3, 'FNC', 54],
+  [3, 'MAC-10', 41], [3, 'Micro UZI', 49], [3, 'Skorpion', 42],
+  [3, 'M14', 57],
+  [3, 'M2HB', 59], [3, 'MG42', 59]]
+var num_115false = 1724
 
 var data_drag1 = [
-  [[1, 60], [3, 225], [0, 0], [11, 1176]],
-  [[0, 0], [1, 72], [1, 46], [6, 572]],
-  [[1, 14], [2, 396], [1, 290], [18, 2415]],
-  [[0, 0], [2, 88], [1, 70], [11, 915]],
-  [[2, 113], [7, 991], [0, 0], [1, 280]],
-  [[1, 21], [6, 566], [1, 12], [10, 303]]
+  [[1, 60], [4, 302], [0, 0], [14, 1289]],
+  [[0, 0], [2, 83], [1, 46], [10, 892]],
+  [[1, 14], [4, 689], [2, 358], [22, 2799]],
+  [[0, 0], [2, 88], [2, 178], [16, 1949]],
+  [[4, 220], [12, 2099], [0, 0], [2, 308]],
+  [[1, 21], [8, 794], [1, 60], [13, 2125]]
 ]
 
 var data_drag_normal = [
   ['0-2', 4, 'PK', 0, 0, 5, 3228],
   ['1-4E', 3, 'Glock 17 <span style="color:black">[Ch.1 only]</span>', 0, 0, 3, 151],
-  ['7-6', 3, 'PSM <span style="color:black">[Ch.7 only]</span>', 1, 87, 0, 0],
   ['6-4E', 3, 'M1A1 <span style="color:black">[Ch.6 only]</span>', 1, 12, 0, 0],
+  ['7-6', 3, 'PSM <span style="color:black">[Ch.7 only]</span>', 1, 87, 0, 0],
   ['10-4E', 4, 'XM3 <span style="color:black">[Ch.10 only]</span>',
     find_in_data('XM3', data_104e7true) + find_in_data('XM3', data_104e5true),
-    num_104e7true + num_104e5true, 0, 0],
-  ['11-6', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', find_in_data('Mk46', data_116true), num_116true, 0, 0]
+    2 * (num_104e7true + num_104e5true),
+    find_in_data('XM3', data_104e6false) + find_in_data('XM3', data_104e5false),
+    2 * (num_104e6false + num_104e5false)],
+  ['11-6', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', find_in_data('Mk46', data_116true), 3 * num_116true, 0, 0]
+]
+var data_drag_resident = [
+  ['塌缩点-再点火4', 5, 'MP7', 1, 220, 0, 0]
 ]
 
 get_card('card_116', data_map.m116)
@@ -156,6 +173,7 @@ get_card('card_116_2', data_map.m116)
 get_card('card_115', data_map.m115)
 get_card('card_115_2', data_map.m115)
 get_card('card_104e5', data_map.m104e5)
+get_card('card_104e5_2', data_map.m104e5)
 get_card('card_104e6_2', data_map.m104e6)
 get_card('card_104e7', data_map.m104e7)
 get_card('card_104e7_2', data_map.m104e7)
@@ -165,10 +183,11 @@ fill_table('stat_116true', true, 'table_116true', data_116true, 8 * num_116true)
 fill_table('stat_116false', false, 'table_116false', data_116false, 50)
 
 fill_table('stat_115true', true, 'table_115true', data_115true, 50)
-fill_table('stat_115false', false, 'table_115false', data_115false, 620)
+fill_table('stat_115false', false, 'table_115false', data_115false, 5 * num_115false)
 
 fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 5 * num_104e5true) // 五战搜救
-fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 252)
+fill_table('stat_104e5false', true, 'table_104e5false', data_104e5false, 5 * num_104e5false)
+fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 6 * num_104e6false)
 fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 7 * num_104e7true)
 fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 182)
 
@@ -191,4 +210,5 @@ window.onload = function () {
   mergeCell('table_drag1', 1, 2, 0)
   fill_drag('drag1', data_drag1, 6)
   fill_drag_normal('table_drag_normal', data_drag_normal)
+  fill_drag_normal('table_drag_resident', data_drag_resident)
 }
