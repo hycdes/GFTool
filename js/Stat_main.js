@@ -1,6 +1,28 @@
 var lib_cache = new Map
 var lib_valid = new Map
 var num_valid = 300
+var is_alert = false
+function showAlert () {
+  if (is_alert) {
+    document.getElementById('info_alert').innerHTML = ''
+    document.getElementById('btn_alert').className = 'btn btn-default'
+    document.getElementById('btn_alert').innerHTML = '如何贡献数据'
+  } else {
+    var str_info = ''
+    str_info += '<h4>注意事项</h4>'
+    str_info += '<h5>* 样本数量<span style="color:dodgerblue"><b>1,000+</b></span>可认为<span style="color:dodgerblue"><b>值得参考</b></span>，<span style="color:dodgerblue"><b>10,000+</b></span>可认为<span style="color:dodgerblue"><b>值得信赖</b></span></h5>'
+    str_info += '<h4>参与建设</h4>'
+    str_info += '<h5>诚邀贡献数据（长期），交流群 <span style="color:dodgerblue">693606343<b>私聊</b></span> 或邮件至 <span style="color:dodgerblue">hycdes@qq.com</span></h5>'
+    str_info += '<h5>为保证数据真实可靠，如果您有意愿贡献数据，请告知：</h5>'
+    str_info += '<h5>&nbsp&nbsp&nbsp&nbsp<span style="color:dodgerblue">核心统计</span>：(1) 路线 (2) 核心枪类型及数量 (3) Lv10搜救或无搜救 (4) 至少10场</h5>'
+    str_info += '<h5>&nbsp&nbsp&nbsp&nbsp<span style="color:darkorange">打捞统计</span>：(1) 地图 (2) Lv10搜救或无搜救 (3) 至少10场 (4) 最好提供所有该活动打捞记录</h5>'
+    str_info += '<h5>&nbsp</h5>'
+    document.getElementById('info_alert').innerHTML = str_info
+    document.getElementById('btn_alert').className = 'btn btn-primary'
+    document.getElementById('btn_alert').innerHTML = '点击隐藏提示'
+  }
+  is_alert = !is_alert
+}
 function get_card (id, data_entry) {
   var info = ''
   info += '回合 ' + data_entry[0]
@@ -150,12 +172,12 @@ var data_115false = [[4, 'P7', 8], [4, '9A-91', 2], [4, 'PK', 2],
 var num_115false = 1724
 
 var data_drag1 = [
-  [[1, 60], [4, 302], [0, 0], [14, 1289]],
-  [[0, 0], [2, 83], [1, 46], [10, 892]],
-  [[1, 14], [4, 689], [2, 358], [22, 2799]],
+  [[1, 60], [4, 302], [0, 0], [16, 1459]],
+  [[0, 0], [2, 83], [1, 46], [11, 1052]],
+  [[1, 14], [5, 725], [3, 392], [24, 2328]],
   [[0, 0], [2, 88], [2, 178], [16, 1949]],
-  [[4, 220], [12, 2099], [0, 0], [2, 308]],
-  [[1, 21], [8, 794], [1, 60], [13, 2125]]
+  [[4, 220], [14, 2513], [0, 0], [2, 308]],
+  [[1, 21], [8, 794], [2, 321], [13, 2125]]
 ]
 
 var data_drag_normal = [
