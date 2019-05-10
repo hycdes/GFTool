@@ -5,21 +5,22 @@ var is_alert = false
 function showAlert () {
   if (is_alert) {
     document.getElementById('info_alert').innerHTML = ''
-    document.getElementById('btn_alert').className = 'btn btn-default'
-    document.getElementById('btn_alert').innerHTML = '如何贡献数据'
+    document.getElementById('btn_alert').className = 'btn btn-warning'
+    document.getElementById('btn_alert').innerHTML = '本页须知'
   } else {
     var str_info = ''
-    str_info += '<h4>注意事项</h4>'
-    str_info += '<h5>* 样本数量<span style="color:dodgerblue"><b>1,000+</b></span>可认为<span style="color:dodgerblue"><b>值得参考</b></span>，<span style="color:dodgerblue"><b>10,000+</b></span>可认为<span style="color:dodgerblue"><b>值得信赖</b></span></h5>'
-    str_info += '<h4>参与建设</h4>'
-    str_info += '<h5>诚邀贡献数据（长期），交流群 <span style="color:dodgerblue">693606343<b>私聊</b></span> 或邮件至 <span style="color:dodgerblue">hycdes@qq.com</span></h5>'
-    str_info += '<h5>为保证数据真实可靠，如果您有意愿贡献数据，请告知：</h5>'
-    str_info += '<h5>&nbsp&nbsp&nbsp&nbsp<span style="color:dodgerblue">核心统计</span>：(1) 路线 (2) 核心枪类型及数量 (3) Lv10搜救或无搜救 (4) 至少10场</h5>'
-    str_info += '<h5>&nbsp&nbsp&nbsp&nbsp<span style="color:darkorange">打捞统计</span>：(1) 地图 (2) Lv10搜救或无搜救 (3) 至少10场 (4) 最好提供所有该活动打捞记录</h5>'
+    str_info += '<h4>注释</h4>'
+    str_info += '<h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b>1,000+</b></span></h5>'
+    str_info += '<h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b>10,000+</b></span></h5>'
+    str_info += '<h4>联系</h4>'
+    str_info += '<h5><i class="fa fa-qq fa-fw"></i> 693606343 (务必进群<b>私聊</b>) <i class="fa fa-envelope fa-fw"></i> hycdes@qq.com</h5>'
+    str_info += '<h4>数据要求</h4>'
+    str_info += '<h5><b><span style="color:dodgerblue">核心统计</span></b> (1) 路线 (2) 核心枪类型及数量 (3) Lv10搜救或无搜救 (4) 至少10场</h5>'
+    str_info += '<h5><b><span style="color:darkorange">打捞统计</span></b> (1) 地图 (2) Lv10搜救或无搜救 (3) 至少10场 (4) 最好提供所有该活动打捞记录</h5>'
     str_info += '<h5>&nbsp</h5>'
     document.getElementById('info_alert').innerHTML = str_info
     document.getElementById('btn_alert').className = 'btn btn-primary'
-    document.getElementById('btn_alert').innerHTML = '点击隐藏提示'
+    document.getElementById('btn_alert').innerHTML = '隐藏须知'
   }
   is_alert = !is_alert
 }
@@ -42,7 +43,7 @@ function fill_table (stat, fairy_status, table, data, num_total) {
       cores += 5 * entry[2]
     }
     else if (entry[0] === 4) {
-      info += '<span style="color:chartreuse">★★★★ ' + entry[1] + '</span></td>'
+      info += '<span style="color:rgb(50, 250, 0)">★★★★ ' + entry[1] + '</span></td>'
       cores += 3 * entry[2]
     } else {
       info += '<span style="color:dodgerblue">★★★ ' + entry[1] + '</span></td>'
@@ -50,6 +51,8 @@ function fill_table (stat, fairy_status, table, data, num_total) {
     }
     info += '<td>' + entry[2] + '</tr></td>'
   }
+  if (num_total >= 10000) stat_info += '<i class="fa fa-star fa-fw"></i>'
+  else if (num_total < 10000 && num_total >= 1000) stat_info += '<i class="fa fa-check fa-fw"></i>'
   stat_info += cores + ' / ' + num_total + ' (<span style="color:dodgerblue">'
   lib_cache.set(stat, (100 * cores / num_total).toFixed(2))
   if (num_total > num_valid) lib_valid.set(stat, true)
@@ -65,6 +68,8 @@ function fill_drag (dragID, stat_data, num_card) {
     for (var i = 0; i < 4; i++) {
       var str_info = ''
       if (stat_data[n_map][i][0] > 0) {
+        if (stat_data[n_map][i][1] >= 10000) str_info += '<i class="fa fa-star fa-fw"></i>'
+        else if (stat_data[n_map][i][1] < 10000 && stat_data[n_map][i][1] >= 1000) str_info += '<i class="fa fa-check fa-fw"></i>'
         str_info += stat_data[n_map][i][0] + ' / ' + stat_data[n_map][i][1] + ' (<span style="color:dodgerblue">'
         str_info += (100 * stat_data[n_map][i][0] / stat_data[n_map][i][1]).toFixed(2) + '%</span>)'
       } else str_info = '-'
@@ -74,18 +79,24 @@ function fill_drag (dragID, stat_data, num_card) {
   }
 }
 function fill_drag_normal (dragID, stat_data) {
-  var str = ''
+  var str = '',str_star1 = '',str_star2 = ''
   for (var entry of stat_data) {
     str += '<tr>'
     str += '<td>' + entry[0] + '</td>'
     if (entry[1] === 5) str += '<td><span style="color:darkorange">★★★★★ ' + entry[2] + '</span></td>'
-    else if (entry[1] === 4) str += '<td><span style="color:chartreuse">★★★★ ' + entry[2] + '</span></td>'
+    else if (entry[1] === 4) str += '<td><span style="color:rgb(50, 250, 0)">★★★★ ' + entry[2] + '</span></td>'
     else if (entry[1] === 3) str += '<td><span style="color:dodgerblue">★★★ ' + entry[2] + '</span></td>'
-    if (entry[3] > 0) str += '<td>' + entry[3] + ' / ' + entry[4] + ' (<span style="color:dodgerblue">' + (100 * entry[3] / entry[4]).toFixed(2) + '%</span>)' + '</td>'
+    if (entry[4] >= 10000) str_star1 += '<i class="fa fa-star fa-fw"></i>'
+    else if (entry[4] < 10000 && entry[4] >= 1000) str_star1 += '<i class="fa fa-check fa-fw"></i>'
+    if (entry[6] >= 10000) str_star2 += '<i class="fa fa-star fa-fw"></i>'
+    else if (entry[6] < 10000 && entry[6] >= 1000) str_star2 += '<i class="fa fa-check fa-fw"></i>'
+    if (entry[3] > 0) str += '<td>' + str_star1 + entry[3] + ' / ' + entry[4] + ' (<span style="color:dodgerblue">' + (100 * entry[3] / entry[4]).toFixed(2) + '%</span>)' + '</td>'
     else str += '<td>-</td>'
-    if (entry[5] > 0) str += '<td>' + entry[5] + ' / ' + entry[6] + ' (<span style="color:dodgerblue">' + (100 * entry[5] / entry[6]).toFixed(2) + '%</span>)' + '</td>'
+    if (entry[5] > 0) str += '<td>' + str_star2 + entry[5] + ' / ' + entry[6] + ' (<span style="color:dodgerblue">' + (100 * entry[5] / entry[6]).toFixed(2) + '%</span>)' + '</td>'
     else str += '<td>-</td>'
     str += '</tr>'
+    str_star1 = ''
+    str_star2 = ''
   }
   document.getElementById(dragID).innerHTML = str
 }
@@ -144,13 +155,13 @@ var data_104e6false = [[5, 'SR-3MP', 32],
 var num_104e6false = 4842
 
 var data_104e7true = [[5, 'SR-3MP', 5],
-  [4, 'Mk23', 4], [4, 'AS Val', 6], [4, 'PP-90', 6], [4, 'XM3', 2], [4, 'XM3', 21], [4, 'M60', 5],
-  [3, 'Astra Revolver', 43], [3, 'C96', 71], [3, 'M9', 76], [3, 'Makarov', 44],
-  [3, 'AK-47', 52], [3, 'FNC', 59],
-  [3, 'MAC-10', 47], [3, 'Micro UZI', 59], [3, 'Skorpion', 67],
-  [3, 'M14', 62],
-  [3, 'M2HB', 63], [3, 'MG42', 56]]
-var num_104e7true = 745
+  [4, 'Mk23', 4], [4, 'AS Val', 6], [4, 'PP-90', 6], [4, 'XM3', 4], [4, 'XM3', 21], [4, 'M60', 6],
+  [3, 'Astra Revolver', 44], [3, 'C96', 78], [3, 'M9', 91], [3, 'Makarov', 48],
+  [3, 'AK-47', 61], [3, 'FNC', 64],
+  [3, 'MAC-10', 53], [3, 'Micro UZI', 62], [3, 'Skorpion', 73],
+  [3, 'M14', 63],
+  [3, 'M2HB', 67], [3, 'MG42', 61]]
+var num_104e7true = 786
 
 var data_104e7false = [[5, 'SR-3MP', 1],
   [3, 'C96', 2], [3, 'Makarov', 2],
@@ -172,12 +183,12 @@ var data_115false = [[4, 'P7', 8], [4, '9A-91', 2], [4, 'PK', 2],
 var num_115false = 1724
 
 var data_drag1 = [
-  [[1, 60], [4, 302], [0, 0], [16, 1459]],
-  [[0, 0], [2, 83], [1, 46], [11, 1052]],
+  [[1, 60], [4, 302], [0, 0], [17, 1659]],
+  [[0, 0], [2, 83], [1, 46], [12, 1185]],
   [[1, 14], [5, 725], [3, 392], [24, 2328]],
-  [[0, 0], [2, 88], [2, 178], [16, 1949]],
-  [[4, 220], [14, 2513], [0, 0], [2, 308]],
-  [[1, 21], [8, 794], [2, 321], [13, 2125]]
+  [[0, 0], [2, 88], [2, 178], [19, 2252]],
+  [[4, 220], [17, 2941], [0, 0], [3, 567]],
+  [[2, 241], [9, 960], [2, 321], [15, 2300]]
 ]
 
 var data_drag_normal = [
@@ -185,6 +196,7 @@ var data_drag_normal = [
   ['1-4E', 3, 'Glock 17 <span style="color:black">[Ch.1 only]</span>', 0, 0, 3, 151],
   ['6-4E', 3, 'M1A1 <span style="color:black">[Ch.6 only]</span>', 1, 12, 0, 0],
   ['7-6', 3, 'PSM <span style="color:black">[Ch.7 only]</span>', 1, 87, 0, 0],
+  ['9-6', 4, 'Ak 5 <span style="color:black">[Ch.9 only]</span>', 0, 0, 1, 176],
   ['10-4E', 4, 'XM3 <span style="color:black">[Ch.10 only]</span>',
     find_in_data('XM3', data_104e7true) + find_in_data('XM3', data_104e5true),
     2 * (num_104e7true + num_104e5true),
@@ -320,7 +332,7 @@ window.onload = function () {
       },
       tooltip: true,
       tooltipOpts: {
-        content: '地图: %x, 核心产率: %y%'
+        content: '核心产率: %y%'
       }
     })
 }
