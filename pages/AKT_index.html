@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>明日方舟工具 by 命运の乐章</title>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script>
+        function getValue() {
+            var NumMax = parseInt(document.getElementById('NumMax').value);
+            var randomNum = Math.floor(Math.random() * NumMax);
+            var textShow = document.getElementById('RanResult').innerHTML;
+            textShow += randomNum + '\n';
+            document.getElementById('RanResult').innerHTML = textShow;
+        }
+        function Language(typeCode) {
+            if (typeCode === 'Chinese') window.location.href = "index.html";
+            else if (typeCode === 'English') window.location.href = "index-EN.html";
+            else if (typeCode === 'Korean') window.location.href = "index-KO.html";
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="AKT_index.html"><span style="color:#FF0066">明日方舟工具</span> by 命运の乐章 (AK tools)</a>
+            </div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                        <li><a href="AKT_index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>
+                        <li><a href="AKT_HireSimulate.html"><i class="fa fa-print fa-fw"></i> 寻访模拟器</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">主页</h1>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="title_panel">欢迎访问</div>
+                            <div class="panel-body">
+                                <ul class="nav nav-pills">
+                                    <li class="active">
+                                        <a href="#index-history" data-toggle="tab" id="title_tab1">首页信息</a>
+                                    </li>
+                                    <li>
+                                        <a href="#index-link" data-toggle="tab" id="title_tab3">相关链接</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="index-history">
+                                        <h4>目前状态</h4>
+                                        <h5>暂时只有寻访模拟器，建设中</h5>
+                                        <h4 id="content_1_1">联系方式</h4>
+                                        <h5 id="content_1_2_1"></h5>
+                                        <h5 id="content_1_2_2"></h5>
+                                        <h5 id="content_1_3_1"></h5>
+                                        <h5 id="content_1_3_2"></h5>
+                                        <h4 id="content_1_4"></h4>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[e-mail] <span style="color:dodgerblue">hycdes@qq.com</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[QQ-group] <span style="color:dodgerblue">1026121385</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[Bilibili] <span style="color:dodgerblue">命运の乐章</span></h5>
+                                        <h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp[github] <span style="color:dodgerblue">Hycdes Mactavish</span></h5>
+                                    </div>
+                                    <div class="tab-pane fade" id="index-link">
+                                        <h8>&nbsp</h8>
+                                        <p><b>命运の乐章</b>: <u><a href="https://space.bilibili.com/8453668?from=search&seid=13316075775738855741" target="_blank"><span style="color:#FF0066">Bilibili space</span></a></u></p>
+                                        <p><b>少女前线</b>: <u><a href="https://hycdes.com" target="_blank"><span style="color:#FF0066">少前工具站主站</span></a></u></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-lg-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                随机数生成器（2月19日抽奖用）
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon">随机数上限</span>
+                                    <input type="text" class="form-control" placeholder="输入整数" id="NumMax" value=10>
+                                </div>
+                                <p>
+                                    <button type="button" class="btn btn-default" onclick="getValue()">生成随机数</button>
+                                </p>
+                                <h5>随机结果</h5>
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="6" placeholder="随机结果" id="RanResult" readonly></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+</body>
+
+</html>
