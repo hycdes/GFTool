@@ -260,7 +260,7 @@ lib_affect.set(206, createAffect('ruu/ru/r/', 'smg', ['dmg', 'rof'], [0.25, 0.15
 lib_affect.set(207, createAffect('r/', 'smg', ['rof', 'eva'], [0.1, 0.15])) // CZ2000
 lib_affect.set(208, createAffect('rr/rrd/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // HK21
 lib_affect.set(209, createAffect('lu/l/', 'ar', ['dmg'], [0.16])) // OTs-39
-lib_affect.set(210, createAffect('lu/l/r/ld/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // CZ52
+lib_affect.set(210, createAffect('u/ru/d/rd/', 'all', ['dmg', 'eva'], [0.2, 0.2])) // CZ52
 lib_affect.set(211, createAffect('r/rd/', 'hg', ['cld'], [0.18])) // SRS
 lib_affect.set(212, createAffect('lu/u/l/r/ld/d/', 'all', ['dmg', 'acu'], [0.3, 0.4])) // K5
 lib_affect.set(213, createAffect('lu/l/ld/', 'ar', ['dmg', 'rof'], [0.15, 0.05])) // C-MS
