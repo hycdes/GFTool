@@ -438,14 +438,16 @@ function resetEquipment () {
       else if (ID === 1056) set_equip = [12, 22, 11056] // sop2 mod
       else if (ID === 1057) set_equip = [12, 21057, 11057] // ar15 mod
       else if (ID === 1055) set_equip = [12, 22, 31055] // m4 mod
-      else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
+      else if (ID === 1060) set_equip = [12, 21060, 31] // asval mod
+      else if (ID === 1061) set_equip = [12, 21061, 31] // stg44 mod
       else if (ID === 1063) set_equip = [11063, 22, 31] // g3 mod
+      else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
       else set_equip = [12, 22, 31]
     }
     else if (set_guntype === 3) {
       if (ID === 26) set_equip = [326, 21, 11] // mp5
       else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
-      else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 135 || ID === 251 || ID === 136 || ID === 177) set_equip = [31, 21, 11] // 输出型
+      else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 32 || ID === 135 || ID === 251 || ID === 136 || ID === 177 || ID === 1032) set_equip = [31, 21, 11] // 输出型
       else if (ID === 1103) set_equip = [3103, 21, 11103] // ump45 mod
       else if (ID === 1029) set_equip = [32, 21, 11029] // sten mod
       else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
@@ -809,16 +811,6 @@ function deleteTdoll () { // 删除战术人形
     document.getElementById('suffer_100').disabled = true
   }
 }
-// function setWidth (command) {
-//   document.getElementById('placeholder').style = 'width: ' + parseInt(command) + 'px;height:400px'
-//   var btn_num = 1
-//   if (parseInt(command) === 300) btn_num = 1
-//   else if (parseInt(command) === 700) btn_num = 2
-//   else if (parseInt(command) === 900) btn_num = 3
-//   for (var i = 1; i <= 3; i++) document.getElementById('wid' + i).className = 'btn btn-default'
-//   document.getElementById('wid' + btn_num).className = 'btn btn-primary'
-//   makeGraph()
-// }
 function changeSunrise (type) {
   if (type === 1) {
     daytime = 1

@@ -150,6 +150,7 @@ lib_language = {
   equipNAME_11089: '브렌 L4 총열뭉치',
   equipNAME_21002: 'XM261 탄약',
   equipNAME_21057: '.300BLK 고속탄',
+  equipNAME_21060: 'SP6亚音速弹',
   equipNAME_236: '사격경기용 철갑탄',
   equipNAME_362: '고성능 전술 헤어핀',
   equipNAME_31055: '남겨진 무기상자',

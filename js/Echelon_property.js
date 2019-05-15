@@ -318,6 +318,7 @@ lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6]
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
 lib_affect.set(1005, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.36, 0.2])) // 纳甘左轮改
 lib_affect.set(1029, createAffect('lu/l/ld/', 'ar', ['acu', 'eva'], [0.3, 0.4])) // 司登MkⅡ改
+lib_affect.set(1032, createAffect('u/l/d/', 'ar', ['dmg', 'acu'], [0.18, 0.15])) // uzi改
 lib_affect.set(1037, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // M14改
 lib_affect.set(1039, createAffect('d/', 'hg', ['cld'], [0.18])) // 莫辛-纳甘改
 lib_affect.set(1044, createAffect('rd/', 'hg', ['cld'], [0.15])) // SV-98改
@@ -325,6 +326,8 @@ lib_affect.set(1051, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // FN-49改
 lib_affect.set(1055, createAffect('ru/u/r/rd/d/', 'ar', ['dmg', 'crit'], [0.2, 0.32])) // M4A1改
 lib_affect.set(1056, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.5, 0.15])) // M4 SOPMODII改
 lib_affect.set(1057, createAffect('ru/r/rd/', 'smg', ['rof', 'eva'], [0.1, 0.15])) // ST AR-15改
+lib_affect.set(1060, createAffect('u/r/', 'smg', ['dmg', 'rof'], [0.25, 0.15])) // As Val改
+lib_affect.set(1061, createAffect('u/r/d/', 'smg', ['eva', 'rof'], [0.2, 0.6])) // StG44改
 lib_affect.set(1063, createAffect('u/r/', 'smg', ['rof', 'acu'], [0.25, 0.55])) // G3改
 lib_affect.set(1064, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.15])) // G36改
 lib_affect.set(1075, createAffect('rr/', 'sg', ['dmg', 'arm'], [0.18, 0.1])) // M1918改
@@ -611,6 +614,7 @@ lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
 lib_property.set(1002, createProperty(29, 52, 78, 58, 0, 375, 0.2, -1))
 lib_property.set(1005, createProperty(35, 48, 100, 45, 0, 360, 0.2, -1))
 lib_property.set(1029, createProperty(29, 17, 79, 86, 0, 975, 0.05, -1))
+lib_property.set(1032, createProperty(26, 13, 83, 104, 0, 885, 0.05, -1)) // UZI
 lib_property.set(1037, createProperty(111, 74, 28, 44, 0, 430, 0.4, -1))
 lib_property.set(1039, createProperty(136, 89, 40, 31, 0, 455, 0.4, -1))
 lib_property.set(1044, createProperty(128, 81, 29, 37, 0, 430, 0.4, -1))
@@ -618,6 +622,8 @@ lib_property.set(1051, createProperty(120, 64, 33, 34, 0, 475, 0.4, -1))
 lib_property.set(1055, createProperty(50, 50, 50, 80, 0, 565, 0.2, -1))
 lib_property.set(1056, createProperty(52, 51, 46, 79, 0, 565, 0.3, -1))
 lib_property.set(1057, createProperty(50, 55, 52, 78, 0, 540, 0.2, -1))
+lib_property.set(1060, createProperty(43, 51, 51, 76, 0, 680, 0.2, -1)) // as val
+lib_property.set(1061, createProperty(58, 50, 38, 66, 0, 650, 0.2, -1)) // stg44
 lib_property.set(1063, createProperty(58, 55, 40, 64, 0, 565, 0.2, -1))
 lib_property.set(1064, createProperty(51, 48, 45, 76, 0, 650, 0.2, -1))
 lib_property.set(1075, createProperty(101, 34, 34, 115, 0, 805, 0.05, 8))
@@ -671,6 +677,7 @@ lib_property_equip.set(11081, createProperty_equip(2, 34, 0, -1, 0, 0, 0, 0, 0, 
 lib_property_equip.set(11089, createProperty_equip(5, 30, 0, -1, 0, 0, 0, 0, 0, 0)) // bren mod
 lib_property_equip.set(11091, createProperty_equip(0, 8, 10, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(11029, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // sten mod
+lib_property_equip.set(11032, createProperty_equip(0, 36, 0, -1, 0, 0, 0, 0, 0, 0)) // uzi mod
 lib_property_equip.set(11037, createProperty_equip(0, 10, 0, 0, 0, 0.48, 0, 0, 0, 0))
 lib_property_equip.set(11039, createProperty_equip(0, 6, 0, 0, 0, 0.5, 0, 0, 0, 0))
 lib_property_equip.set(11051, createProperty_equip(0, 0, 0, 5, 0, 0.48, 0, 0, 0, 0))
@@ -684,6 +691,8 @@ lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0))
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
+lib_property_equip.set(21060, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // as val
+lib_property_equip.set(21061, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // stg44
 lib_property_equip.set(326, createProperty_equip(-6, 0, 58, 0, 0, 0, 0, 0, 0, 0)) // mp5
 lib_property_equip.set(342, createProperty_equip(0, 0, 0, 3, 0, 0, 0.25, 0, 0, 0)) // ptrd
 lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0, 0)) // m16

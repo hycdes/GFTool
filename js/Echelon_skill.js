@@ -296,7 +296,7 @@ function describe_mg36 () {
   Describe.name = 'mg36'
   return Describe
 }
-function describe_chauchat () {
+function describe_chauchat () { // 百合纹章
   var Describe = {}
   Describe.name = 'chauchat'
   return Describe
@@ -491,6 +491,7 @@ lib_describe.set('hand_grenade_6.5', describe_bomb(6.5, 0, 0, 0)) // 手榴弹-4
 lib_describe.set('hand_grenade_6', describe_bomb(6, 0, 0, 0)) // 手榴弹-3星
 lib_describe.set('hand_grenade_5.5', describe_bomb(5.5, 0, 0, 0)) // 手榴弹-2星
 lib_describe.set('fp6_dmg', describe_bomb(0.8, 0, 0, 0)) // 失乐园
+lib_describe.set('uzi_burn', describe_bomb(6.5, 1, 3, 5)) // 灼烧链接
 
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
@@ -540,6 +541,7 @@ lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
 lib_describe.set('grenade_11', describe_grenade(11)) // 11倍榴弹
 lib_describe.set('grenade_10', describe_grenade(10)) // 10倍榴弹
+lib_describe.set('grenade_9.6', describe_grenade(9.6)) // 9.6倍榴弹
 lib_describe.set('grenade_8', describe_grenade(8)) // 8倍榴弹
 lib_describe.set('grenade_5', describe_grenade(5)) // 5倍榴弹
 lib_describe.set('grenade_4.5', describe_grenade(4.5)) // 4.5倍榴弹
@@ -690,6 +692,9 @@ lib_skill.set(1055, [
 ])
 lib_skill.set(1056, [createSkill(8, 16, 0, lib_describe.get('sop2'))])
 lib_skill.set(1057, [createSkill(4, 16, 15, lib_describe.get('rof_50'))]) // 罪与罚单独在普攻实现
+lib_skill.set(1060, [
+  createSkill(5, 16, 6, lib_describe.get('dmgN_200')),
+  createSkill(5, 16, 6, lib_describe.get('dmgND_70'))]) // 信念在属性判断实现
 lib_skill.set(1064, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 5, lib_describe.get('g36_eva'))
@@ -724,6 +729,7 @@ lib_skill.set(227, [
 ])
 lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
 lib_skill.set(262, [createSkill(6, 16, 0, lib_describe.get('em2'))])
+lib_skill.set(1061, [createSkill(8, 16, 0, lib_describe.get('grenade_9.6'))]) // 后续详细做
 lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
 
 lib_skill.set(58, [createSkill(5, 8, 5, lib_describe.get('dmgacu_3'))])
@@ -795,6 +801,7 @@ lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) 
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))]) // storm cx4
 lib_skill.set(225, [createSkill(6, 16, 10, lib_describe.get('evaacu_4'))]) //
 lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
+lib_skill.set(1032, [createSkill(3, 16, 0, lib_describe.get('uzi_burn'))]) // uzi mod
 lib_skill.set(1093, [
   createSkill(6, 8, 4, lib_describe.get('eva_130')),
   createSkill(6, 8, 0, lib_describe.get('idw'))

@@ -150,6 +150,7 @@ lib_language = {
   equipNAME_11089: '布伦L4枪管组',
   equipNAME_21002: 'XM261短弹',
   equipNAME_21057: '.300BLK高速弹',
+  equipNAME_21060: 'SP6亚音速弹',
   equipNAME_236: '国家竞赛穿甲弹',
   equipNAME_362: '高性能战术发饰',
   equipNAME_31055: '遗留的武器库',

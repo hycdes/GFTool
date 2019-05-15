@@ -661,139 +661,144 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (enemy_num_left >= 3) final_dmg = final_dmg * explain_fgl_ff('single') + 2 * final_dmg * explain_fgl_ff('around_single')
           else final_dmg = final_dmg * explain_fgl_ff('single') + (enemy_num_left - 1) * final_dmg * explain_fgl_ff('around_single')
           recordData(stand_num, current_time, final_dmg)
-        }
-        else if (Math.random() <= base_acu / (base_acu + enemy_eva)) { // 否则先判断命中
-          var base_dmg = current_Info.get('dmg')
-          if (is_this(stand_num, 59)) { // AK-74U 排斥反应
-            if (Set_Special.get('aks' + stand_num) >= current_time) {
-              Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
-            }
+        } else { // 否则先判断命中
+          var next_must_acu = false
+          if (is_this(stand_num, 1060) && Set_Special.get('asval_' + stand_num) > current_time) { // 小熊信念发动
+            next_must_acu = true
           }
-          if (is_this(stand_num, 1039)) { // 苍白收割者buff是否存在，是否能够触发buff
-            if (Set_Special.get('mosin_bufftime_' + stand_num) >= global_frame) {
-              base_dmg *= 1.2
-            }
-            if (Set_Special.get('mosin_' + stand_num) <= 1) { // 能够刷新状态
-              Set_Special.set('mosin_bufftime_' + stand_num, global_frame + 89)
-              Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_numneed_' + stand_num))
-            } else {
-              Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_' + stand_num) - 1)
-            }
-          }
-          if (is_this(stand_num, 1002) && Set_Special.get('m1911_' + stand_num) > 0) base_dmg *= 2 // 绝境神枪手2倍伤害
-          if (is_this(stand_num, 1075) && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) base_dmg *= 1.4 // 战地魔术额外增伤
-          if (is_this(stand_num, 194)) { // K2判断模式基础伤害
-            if (Set_Special.get('k2_' + stand_num) === 'fever') base_dmg *= 0.52 // fever三连发单次伤害
-            else base_dmg *= Math.pow(1.05, Set_Special.get('k2_dmgup_' + stand_num)) // note经过加成后的伤害
-            if (Set_Special.get('k2_temp_' + stand_num) > 15) base_dmg *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // 过热减伤
-          }
-          if (is_this(stand_num, 2008)) { // 希儿：量子回溯最后一发
-            var cs = Set_Special.get('clipsize_' + stand_num)
-            if (cs === 1) base_dmg *= 3
-          }
-          if (current_Info.get('type') === 6) {
-            if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
-              if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
-                if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
-                  Set_Special.set('aa12_skillmode_' + stand_num, false)
-                // 不能受独头弹加成
-                } else {
-                  Set_Special.set('aa12_skillmode_' + stand_num, true)
-                  base_dmg *= 3 // 独头弹x3伤害
-                }
-              } else {
-                if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
+          if (next_must_acu || (Math.random() <= base_acu / (base_acu + enemy_eva))) {
+            var base_dmg = current_Info.get('dmg')
+            if (is_this(stand_num, 59)) { // AK-74U 排斥反应
+              if (Set_Special.get('aks' + stand_num) >= current_time) {
+                Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
               }
             }
-          }
-          if (is_this(stand_num, 256)) { // 隼：特殊子弹增加伤害18%，普通射击1.5倍
-            if (Set_Special.get('falcon_' + stand_num) > 0) {
-              base_dmg *= Math.pow(1.18, Set_Special.get('falcon_' + stand_num))
+            if (is_this(stand_num, 1039)) { // 苍白收割者buff是否存在，是否能够触发buff
+              if (Set_Special.get('mosin_bufftime_' + stand_num) >= global_frame) {
+                base_dmg *= 1.2
+              }
+              if (Set_Special.get('mosin_' + stand_num) <= 1) { // 能够刷新状态
+                Set_Special.set('mosin_bufftime_' + stand_num, global_frame + 89)
+                Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_numneed_' + stand_num))
+              } else {
+                Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_' + stand_num) - 1)
+              }
             }
-            base_dmg *= 1.5
-          }
-          var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
-          if (current_Info.get('type') === 6) {
-            if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
-              var aim_num = Set_Special.get('aim_forceon_' + stand_num)
-              if (enemy_num >= aim_num) final_dmg *= aim_num
-              else final_dmg *= enemy_num
-            } else {
-              if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
-                if (enemy_num >= 3) final_dmg *= 3
+            if (is_this(stand_num, 1002) && Set_Special.get('m1911_' + stand_num) > 0) base_dmg *= 2 // 绝境神枪手2倍伤害
+            if (is_this(stand_num, 1075) && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) base_dmg *= 1.4 // 战地魔术额外增伤
+            if (is_this(stand_num, 194)) { // K2判断模式基础伤害
+              if (Set_Special.get('k2_' + stand_num) === 'fever') base_dmg *= 0.52 // fever三连发单次伤害
+              else base_dmg *= Math.pow(1.05, Set_Special.get('k2_dmgup_' + stand_num)) // note经过加成后的伤害
+              if (Set_Special.get('k2_temp_' + stand_num) > 15) base_dmg *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // 过热减伤
+            }
+            if (is_this(stand_num, 2008)) { // 希儿：量子回溯最后一发
+              var cs = Set_Special.get('clipsize_' + stand_num)
+              if (cs === 1) base_dmg *= 3
+            }
+            if (current_Info.get('type') === 6) {
+              if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
+                if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
+                  if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
+                    Set_Special.set('aa12_skillmode_' + stand_num, false)
+                  // 不能受独头弹加成
+                  } else {
+                    Set_Special.set('aa12_skillmode_' + stand_num, true)
+                    base_dmg *= 3 // 独头弹x3伤害
+                  }
+                } else {
+                  if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
+                }
+              }
+            }
+            if (is_this(stand_num, 256)) { // 隼：特殊子弹增加伤害18%，普通射击1.5倍
+              if (Set_Special.get('falcon_' + stand_num) > 0) {
+                base_dmg *= Math.pow(1.18, Set_Special.get('falcon_' + stand_num))
+              }
+              base_dmg *= 1.5
+            }
+            var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
+            if (current_Info.get('type') === 6) {
+              if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
+                var aim_num = Set_Special.get('aim_forceon_' + stand_num)
+                if (enemy_num >= aim_num) final_dmg *= aim_num
                 else final_dmg *= enemy_num
-              } else { // 如果携带，可能因为技能攻击多个目标
-                if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
-                  if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
-                    if (enemy_num >= 3) final_dmg *= 3
-                    else final_dmg *= enemy_num
+              } else {
+                if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
+                  if (enemy_num >= 3) final_dmg *= 3
+                  else final_dmg *= enemy_num
+                } else { // 如果携带，可能因为技能攻击多个目标
+                  if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
+                    if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
+                      if (enemy_num >= 3) final_dmg *= 3
+                      else final_dmg *= enemy_num
+                    }
                   }
                 }
               }
             }
-          }
-          if (is_this(stand_num, 4) && Set_Special.get('python_active') === 0 && Set_Special.get('python_opening') === true) {
-            final_dmg *= 2 // 无畏者之拥结束伤害
-            Set_Special.set('python_active', -1)
-            Set_Special.set('python_opening', false)
-          }
-          if (is_this(stand_num, 194)) { // K2判断模式射击次数
-            if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
-          }
+            if (is_this(stand_num, 4) && Set_Special.get('python_active') === 0 && Set_Special.get('python_opening') === true) {
+              final_dmg *= 2 // 无畏者之拥结束伤害
+              Set_Special.set('python_active', -1)
+              Set_Special.set('python_opening', false)
+            }
+            if (is_this(stand_num, 194)) { // K2判断模式射击次数
+              if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
+            }
 
-          // 结算暴击——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+            // 结算暴击——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
-          if (is_this(stand_num, 77) || is_this(stand_num, 85) || is_this(stand_num, 109)) { // 连珠终结不可暴击
-            var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
-            if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
-              if (is_this(stand_num, 77)) final_dmg *= 2.4
-              else if (is_this(stand_num, 85)) final_dmg *= 2.6
-              else if (is_this(stand_num, 109)) final_dmg *= 3
-            } else {
+            if (is_this(stand_num, 77) || is_this(stand_num, 85) || is_this(stand_num, 109)) { // 连珠终结不可暴击
+              var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
+              if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
+                if (is_this(stand_num, 77)) final_dmg *= 2.4
+                else if (is_this(stand_num, 85)) final_dmg *= 2.6
+                else if (is_this(stand_num, 109)) final_dmg *= 3
+              } else {
+                var final_crit = 1
+                if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+                final_dmg = Math.ceil(final_dmg * final_crit)
+              }
+            } else if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time && is_this(stand_num, 221)) { // 锁链冲击：必定暴击
+              final_dmg *= current_Info.get('critdmg')
+            } else { // 按概率暴击的攻击
               var final_crit = 1
-              if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
+              // 必定暴击的全局设定，或技能导致必暴，或概率暴击
+              if (Set_Special.get('must_crit_' + stand_num) != undefined || (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= current_time) || Math.random() + current_Info.get('crit') >= 1) {
+                final_crit *= current_Info.get('critdmg')
+              }
+              if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && is_this(stand_num, 173)) { // 暴动宣告的1.5倍且必暴子弹
+                Set_Special.set('pkp_nextcrit_' + stand_num, false)
+                final_crit *= 1.5
+              }
               final_dmg = Math.ceil(final_dmg * final_crit)
             }
-          } else if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time && is_this(stand_num, 221)) { // 锁链冲击：必定暴击
-            final_dmg *= current_Info.get('critdmg')
-          } else { // 按概率暴击的攻击
-            var final_crit = 1
-            // 必定暴击的全局设定，或技能导致必暴，或概率暴击
-            if (Set_Special.get('must_crit_' + stand_num) != undefined || (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= current_time) || Math.random() + current_Info.get('crit') >= 1) {
-              final_crit *= current_Info.get('critdmg')
-            }
-            if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && is_this(stand_num, 173)) { // 暴动宣告的1.5倍且必暴子弹
-              Set_Special.set('pkp_nextcrit_' + stand_num, false)
-              final_crit *= 1.5
-            }
-            final_dmg = Math.ceil(final_dmg * final_crit)
-          }
-          if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
-            ar15_list_status = Set_Status.get(stand_num)
-            var len_list = ar15_list_status.length
-            for (var i = 0; i < len_list; i++) {
-              if (ar15_list_status[i][0][0] === 'rof' && ar15_list_status[i][0][1] === 1.5) { // 突击专注期间
-                var extra_dmg = 0
-                if (Set_EnemyStatus.get('avenger_mark') === true) {
-                  extra_dmg = Math.max(1, Math.ceil(0.2 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 20%火力
-                } else {
-                  extra_dmg = Math.max(1, Math.ceil(0.1 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 10%火力
+            if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
+              ar15_list_status = Set_Status.get(stand_num)
+              var len_list = ar15_list_status.length
+              for (var i = 0; i < len_list; i++) {
+                if (ar15_list_status[i][0][0] === 'rof' && ar15_list_status[i][0][1] === 1.5) { // 突击专注期间
+                  var extra_dmg = 0
+                  if (Set_EnemyStatus.get('avenger_mark') === true) {
+                    extra_dmg = Math.max(1, Math.ceil(0.2 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 20%火力
+                  } else {
+                    extra_dmg = Math.max(1, Math.ceil(0.1 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 10%火力
+                  }
+                  if (Math.random() + current_Info.get('crit') >= 1) extra_dmg = Math.ceil(extra_dmg * current_Info.get('critdmg'))
+                  final_dmg += extra_dmg
+                  break
                 }
-                if (Math.random() + current_Info.get('crit') >= 1) extra_dmg = Math.ceil(extra_dmg * current_Info.get('critdmg'))
-                final_dmg += extra_dmg
-                break
               }
             }
+            final_dmg = Math.ceil(final_dmg * explain_fgl_ff('single'))
+            if (fire_status.substr(5) === 'all') final_dmg *= this_formation(stand_num) // 全员攻击
+            else if (fire_status.substr(5) === 'four') final_dmg *= this_formation(stand_num) - 1 // 一人释放技能
+            if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) { // 多重攻击
+              final_dmg *= Set_Special.get('multi_' + stand_num)[0]
+            }
+            recordData(stand_num, current_time, final_dmg)
+          }else {
+            recordData(stand_num, current_time, 0)
           }
-          final_dmg = Math.ceil(final_dmg * explain_fgl_ff('single'))
-          if (fire_status.substr(5) === 'all') final_dmg *= this_formation(stand_num) // 全员攻击
-          else if (fire_status.substr(5) === 'four') final_dmg *= this_formation(stand_num) - 1 // 一人释放技能
-          if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) { // 多重攻击
-            final_dmg *= Set_Special.get('multi_' + stand_num)[0]
-          }
-          recordData(stand_num, current_time, final_dmg)
-        } else {
-          recordData(stand_num, current_time, 0)
         }
       }
       // 攻击间隔或者换弹判断
@@ -1543,6 +1548,9 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
               new_property += status[0][1]
             } else {
               new_property = new_property * status[0][1]
+              if (is_this(i, 1060) && status[0][0] === 'dmg') { // asval 信念
+                Set_Special.set('asval_' + i, global_frame + 90)
+              }
             }
           }
           else if (situation === 'lost') {
@@ -1564,6 +1572,9 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
           new_property += status[0][1]
         } else {
           new_property = new_property * status[0][1]
+          if (is_this(stand_num, 1060) && status[0][0] === 'dmg') { // asval 信念
+            Set_Special.set('asval_' + stand_num, global_frame + 90)
+          }
         }
       }
       else if (situation === 'lost') {
@@ -1618,6 +1629,11 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   else if (situation === 'dot') {
     var dot_para = status[0][1].split('/')
     var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0])
+    if (is_this(stand_num, 1032)) {
+      if (Set_Special.get('uzi_' + stand_num) === undefined) Set_Special.set('uzi_' + stand_num, 0)
+      if (Set_Special.get('uzi_' + stand_num) - 3 * Math.floor(Set_Special.get('uzi_' + stand_num) / 3) === 0) damage_explode *= 1.8
+      Set_Special.set('uzi_' + stand_num, Set_Special.get('uzi_' + stand_num) + 1)
+    }
     damage_explode = Math.ceil(damage_explode * explain_fgl_ff('aoe'))
     var current_time = parseInt(dot_para[1])
     recordData(stand_num, current_time, 0)

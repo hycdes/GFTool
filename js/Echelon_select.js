@@ -89,6 +89,7 @@ function changeSelectItems () {
       str_items += '<option value=1055>No.55 [MOD] M4A1</option>'
       str_items += '<option value=1056>No.56 [MOD] M4 SOPMODⅡ</option>'
       str_items += '<option value=1057>No.57 [MOD] ST AR-15</option>'
+      str_items += '<option value=1060>No.60 [MOD] As Val</option>'
       str_items += '<option value=1064>No.64 [MOD] G36</option>'
       str_items += '<option value=2007>No.EX7 ' + lib_language.NAME_2007 + '</option>'
     } else if (num_star === 4) {
@@ -109,6 +110,7 @@ function changeSelectItems () {
       str_items += '<option value=227>No.227 A-91</option>'
       str_items += '<option value=237>No.237 SAR-21</option>'
       str_items += '<option value=262>No.262 EM-2</option>'
+      str_items += '<option value=1061>No.61 [MOD] StG44</option>'
       str_items += '<option value=1063>No.63 [MOD] G3</option>'
     } else if (num_star === 3) {
       str_items += '<option value=58 selected>No.58 AK-47</option>'
@@ -165,6 +167,7 @@ function changeSelectItems () {
       str_items += '<option value=203>No.203 ' + lib_language.NAME_203 + '</option>'
       str_items += '<option value=225>No.225 ' + lib_language.NAME_225 + '</option>'
       str_items += '<option value=1029>No.29 [MOD] ' + lib_language.NAME_29 + '</option>'
+      str_items += '<option value=1032>No.32 [MOD] ' + lib_language.NAME_32 + '</option>'
       str_items += '<option value=1093>No.93 [MOD] IDW</option>'
       str_items += '<option value=1094>No.94 [MOD] ' + lib_language.NAME_94 + '</option>'
     } else if (num_star === 3) {
@@ -414,6 +417,8 @@ function changeEquip () {
       str_items += '<option value=22>' + lib_language.equipNAME_22 + '</option>'
       if (ID === 138) str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>' // 6P62
       if (ID === 1057 || ID === 57) str_items += '<option value=21057>' + lib_language.equipNAME_21057 + '</option>' // AR-15
+      if (ID === 1060) str_items += '<option value=21060>' + lib_language.equipNAME_21060 + '</option>' // as val
+      if (ID === 1061) str_items += '<option value=21061>7.92 KRUZ</option>' // StG44
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=21>' + lib_language.equipNAME_21 + '</option>'
       if (ID === 213)  str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>' // CMS
@@ -461,6 +466,7 @@ function changeEquip () {
       str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'
       str_items += '<option value=41>[' + lib_language.equipNAME_41 + '] PEQ-16A</option>'
       if (ID === 1029) str_items += '<option value=11029>' + lib_language.equipNAME_11029 + '</option>'
+      if (ID === 1032) str_items += '<option value=11032>MPL M21</option>'
       if (ID === 1103) str_items += '<option value=11103>' + lib_language.equipNAME_11103 + '</option>'
       if (ID === 1094) str_items += '<option value=11094>' + lib_language.equipNAME_11094 + '</option>'
     } else if (set_guntype === 4) { // RF
