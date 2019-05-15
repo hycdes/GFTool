@@ -327,7 +327,7 @@ lib_affect.set(1055, createAffect('ru/u/r/rd/d/', 'ar', ['dmg', 'crit'], [0.2, 0
 lib_affect.set(1056, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.5, 0.15])) // M4 SOPMODII改
 lib_affect.set(1057, createAffect('ru/r/rd/', 'smg', ['rof', 'eva'], [0.1, 0.15])) // ST AR-15改
 lib_affect.set(1060, createAffect('u/r/', 'smg', ['dmg', 'rof'], [0.25, 0.15])) // As Val改
-lib_affect.set(1061, createAffect('u/r/d/', 'smg', ['eva', 'rof'], [0.2, 0.6])) // StG44改
+lib_affect.set(1061, createAffect('u/r/d/', 'smg', ['eva', 'acu'], [0.2, 0.6])) // StG44改
 lib_affect.set(1063, createAffect('u/r/', 'smg', ['rof', 'acu'], [0.25, 0.55])) // G3改
 lib_affect.set(1064, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.15])) // G36改
 lib_affect.set(1075, createAffect('rr/', 'sg', ['dmg', 'arm'], [0.18, 0.1])) // M1918改
