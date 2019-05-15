@@ -3,9 +3,13 @@ var num_six = 0, num_five = 0, backup_level = 0, non_six = 0
 var lib_agent = new Map
 var buffer_six = '', buffer_five = '', buffer_all = ''
 var show_type = 0
-var switch_up = false
-lib_agent.set('up',
-  ['能天使', '安洁莉娜'])
+var switch_up = false, switch_up_2 = false
+lib_agent.set('up6', ['能天使', '安洁莉娜'])
+lib_agent.set('up5', ['天火', '凛冬', '可颂'])
+lib_agent.set('up4', [])
+lib_agent.set('up6_next', ['银灰'])
+lib_agent.set('up5_next', ['初雪', '崖心'])
+lib_agent.set('up4_next', ['角峰'])
 lib_agent.set(6,
   ['能天使', '推进之王', '伊芙利特', '艾雅法拉', '安洁莉娜', '闪灵', '夜莺', '星熊', '塞雷娅', '银灰'])
 lib_agent.set(5,
@@ -20,7 +24,18 @@ lib_agent.set(4,
 lib_agent.set(3,
   ['芬', '香草', '翎羽', '玫兰莎', '卡缇', '米格鲁', '克洛斯',
     '炎熔', '芙蓉', '安塞尔', '史都华德', '梓兰'])
-function changeUp () { switch_up = document.getElementById('switch_up').checked; }
+function changeUp () {
+  if (document.getElementById('ups_0').checked) {
+    switch_up = false
+    switch_up_2 = false
+  } else if (document.getElementById('ups_1').checked) {
+    switch_up = true
+    switch_up_2 = false
+  } else {
+    switch_up = false
+    switch_up_2 = true
+  }
+}
 function makeStar () { // Star basic possibility = 2,8,50,40
   var starNum = Math.floor(Math.random() * 100)
   var base = 2 + 2 * backup_level
@@ -38,11 +53,25 @@ function makeStar () { // Star basic possibility = 2,8,50,40
 }
 function hireAgent (num_star) {
   var info_agent = '<b>'
-  if (num_star === 6) num_six++
-  else if (num_star === 5) num_five++
   var list_agent = lib_agent.get(num_star)
-  if (num_star === 6 && switch_up) {
-    if (Math.random() < 0.5) list_agent = lib_agent.get('up')
+  var is_up = switch_up || switch_up_2
+  var str_pick = ''
+  if (switch_up_2) str_pick = '_next'
+  if (num_star === 6) {
+    num_six++
+    if (is_up && Math.random() < 0.5) {
+      if (lib_agent.get('up6' + str_pick).length > 0) list_agent = lib_agent.get('up6' + str_pick)
+    }
+  }
+  else if (num_star === 5) {
+    num_five++
+    if (is_up && Math.random() < 0.5) {
+      if (lib_agent.get('up5' + str_pick).length > 0) list_agent = lib_agent.get('up5' + str_pick)
+    }
+  } else if (num_star === 4) {
+    if (is_up && Math.random() < 0.2) {
+      if (lib_agent.get('up4' + str_pick).length > 0) list_agent = lib_agent.get('up4' + str_pick)
+    }
   }
   var num_random = Math.floor(Math.random() * list_agent.length)
   if (num_star === 6) info_agent += '<span style="color:#FF6600">'
