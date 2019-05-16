@@ -4,8 +4,9 @@ var lib_agent = new Map
 var buffer_six = '', buffer_five = '', buffer_all = ''
 var show_type = 0
 var switch_up = false, switch_up_2 = false
-lib_agent.set('up6', ['能天使', '安洁莉娜'])
-lib_agent.set('up5', ['天火', '凛冬', '可颂'])
+var switch_activity = false, activity_done = false
+lib_agent.set('up6', ['推进之王', '夜莺'])
+lib_agent.set('up5', ['白金', '芙兰卡', '德克萨斯'])
 lib_agent.set('up4', [])
 lib_agent.set('up6_next', ['银灰'])
 lib_agent.set('up5_next', ['初雪', '崖心'])
@@ -28,12 +29,15 @@ function changeUp () {
   if (document.getElementById('ups_0').checked) {
     switch_up = false
     switch_up_2 = false
+    switch_activity = false
   } else if (document.getElementById('ups_1').checked) {
     switch_up = true
     switch_up_2 = false
+    if (!activity_done) switch_activity = true
   } else {
     switch_up = false
     switch_up_2 = true
+    switch_activity = false
   }
 }
 function makeStar () { // Star basic possibility = 2,8,50,40
@@ -99,14 +103,28 @@ function showResult (type) {
   }
 }
 
-function hire (number) {
+function hire (number, activity_backup) {
   var str_oneline = '', str_cost = '', str_rank = ''
-  var rate_6 = 0,rate_5 = 0
+  var rate_6 = 0, rate_5 = 0
   var star = 3
+  var non_five = 0
   for (var i = 0; i < number; i++) {
     var str_oneline = ''
     num_hire++, num_cost += 600
     star = makeStar()
+    if (star < 5) {
+      if (non_five === 9 && activity_backup && switch_activity && star < 5) {
+        star = 5
+        non_five = 0
+        switch_activity = false
+        activity_done = true
+      } else non_five++
+    } else {
+      if (switch_activity && activity_backup) {
+        switch_activity = false
+        activity_done = true
+      }
+    }
     str_oneline += '<tr><td>' + num_hire + '</td><td>'
     if (star === 6) str_oneline += '<span style="color:#FF6600">'
     else if (star === 5) str_oneline += '<span style="color:#FFCC00">'
