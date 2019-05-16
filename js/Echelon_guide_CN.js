@@ -176,6 +176,7 @@ lib_language = {
   skillNAME_243: '未来预警',
   skillNAME_252: '震荡冲击弹',
   skillNAME_256: '夕阳隼',
+  skillNAME_266: '强运扳机',
   skillNAME_2006: '圣光制裁',
   DESCRIBE_39_1: '每',
   DESCRIBE_39_2: '次普攻击杀敌人',
@@ -203,6 +204,10 @@ lib_language = {
   DESCRIBE_252: '溅射所有敌人',
   DESCRIBE_256: '不使用特殊子弹',
   DESCRIBE_261: '三连击影响多少敌人',
+  DESCRIBE_266_0: '持续状态',
+  DESCRIBE_266_1: '攻击同一目标',
+  DESCRIBE_266_2: '数次普攻切换目标',
+  DESCRIBE_266_3: '次',
   DESCRIBE_2006: '敌人进入制裁范围',
 
   fairy_0: '无',

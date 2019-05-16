@@ -641,6 +641,34 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             Set_Special.set('qbu88_' + stand_num, Set_Special.get('qbu88_' + stand_num) + 1)
           }
         }
+        if (is_this(stand_num, 266)) {
+          if (Set_Special.get('r93_' + stand_num) === undefined) {
+            Set_Special.set('r93_' + stand_num, 1)
+            changeStatus(stand_num, 'self', 'rof', 0.1, -1) // 叠加buff
+          }
+          else if (Set_Special.get('r93_' + stand_num) < 3) {
+            Set_Special.set('r93_' + stand_num, Set_Special.get('r93_' + stand_num) + 1)
+            changeStatus(stand_num, 'self', 'rof', 0.1, -1)
+          }
+          if (document.getElementById('special_r93_' + stand_num + '_2').checked) { // 设定转换数
+            if (Set_Special.get('r93_maxforcus_' + stand_num) === undefined) { // 读取同目标射击上限
+              Set_Special.set('r93_maxforcus_' + stand_num, parseInt(document.getElementById('special_r93_switch_' + stand_num).value))
+            }
+            if (Set_Special.get('r93_currentforcus_' + stand_num) === undefined) { // 累计次数
+              Set_Special.set('r93_currentforcus_' + stand_num, 1)
+            } else {
+              Set_Special.set('r93_currentforcus_' + stand_num, Set_Special.get('r93_currentforcus_' + stand_num) + 1)
+            }
+            if (Set_Special.get('r93_currentforcus_' + stand_num) === Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
+              if (Set_Special.get('r93_skillon_' + stand_num) != undefined && Set_Special.get('r93_skillon_' + stand_num) > current_time) {
+                true // do nothing
+              } else {
+                for (var lsn = 0; lsn < Set_Special.get('r93_currentforcus_' + stand_num); lsn++) changeStatus(stand_num, 'self', 'rof', -0.1, -1)
+                Set_Special.set('r93_currentforcus_' + stand_num, 0) // 层数归零
+              }
+            }
+          }
+        }
 
         // 结算命中——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
@@ -1430,6 +1458,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     if (num_ar > 0) changeStatus(stand_num, 'self', 'acu', 0.25 * num_ar, 6)
     if (num_smg > 0) Set_Special.set('mg36_reload_' + stand_num, num_smg)
     if (num_sg > 0) Set_Special.set('clipsize_' + stand_num, Set_Special.get('clipsize_' + stand_num) + num_sg)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'r93') {
+    Set_Special.set('r93_skillon_' + stand_num, current_time + 150)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 }

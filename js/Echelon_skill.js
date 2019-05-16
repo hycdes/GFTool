@@ -301,6 +301,11 @@ function describe_chauchat () { // 百合纹章
   Describe.name = 'chauchat'
   return Describe
 }
+function describe_r93 () { // 强运扳机
+  var Describe = {}
+  Describe.name = 'r93'
+  return Describe
+}
 
 // lib_decribe
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
@@ -379,6 +384,7 @@ lib_describe.set('dmg_65', describe_property(['self'], ['dmg'], ['0.65'])) // �
 lib_describe.set('dmg_60', describe_property(['self'], ['dmg'], ['0.6'])) // 火力专注 60%
 lib_describe.set('dmg_55', describe_property(['self'], ['dmg'], ['0.55'])) // 火力专注 55%
 lib_describe.set('dmg_50', describe_property(['self'], ['dmg'], ['0.5'])) // 火力专注 50%
+lib_describe.set('dmg_40', describe_property(['self'], ['dmg'], ['0.4'])) // 火力专注 40%
 lib_describe.set('dmg_35', describe_property(['self'], ['dmg'], ['0.35'])) // 火力专注 35%
 lib_describe.set('dmg_30', describe_property(['self'], ['dmg'], ['0.3'])) // 火力专注 30%
 lib_describe.set('dmg_28', describe_property(['self'], ['dmg'], ['0.28'])) // 火力专注 28%
@@ -565,6 +571,7 @@ lib_describe.set('m4', describe_m4()) // 伸冤者印记
 lib_describe.set('saiga', describe_saiga()) // 巨羚号角
 lib_describe.set('mg36', describe_mg36()) // 光影帷幕
 lib_describe.set('chauchat', describe_chauchat()) // 百合纹章
+lib_describe.set('r93', describe_r93()) // 强运扳机
 
 // lib_skill
 
@@ -858,6 +865,10 @@ lib_skill.set(256, [
   createSkill(6, 8, 0, lib_describe.get('falcon_getbullet')),
   createSkill(6, 1, 0, lib_describe.get('falcon'))
 ])
+lib_skill.set(266, [
+  createSkill(6, 8, 5, lib_describe.get('r93')),
+  createSkill(6, 8, 5, lib_describe.get('dmg_40')),
+]) // 叠加射速特殊判断
 lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
 
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])

@@ -313,6 +313,7 @@ lib_affect.set(262, createAffect('ru/rd/', 'smg', ['dmg', 'acu'], [0.2, 0.55])) 
 lib_affect.set(263, createAffect('r/rr/rru/', 'smg/ar/sg', ['dmg', 'acu'], [0.1, 0.15])) // MG36
 lib_affect.set(264, createAffect('rr/rrd/', 'sg', ['rof', 'arm'], [0.12, 0.12])) // 绍沙
 lib_affect.set(265, createAffect('ru/rd/', 'smg', ['dmg', 'eva'], [0.1, 0.1])) // HK33
+lib_affect.set(266, createAffect('ru/r/rd/', 'hg', ['cld'], [0.18])) // R93
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -608,6 +609,7 @@ lib_property.set(262, createProperty(57, 48, 48, 61, 0, 595, 0.2, -1))
 lib_property.set(263, createProperty(85, 34, 36, 129, 0, 910, 0.05, 10))
 lib_property.set(264, createProperty(102, 34, 30, 81, 0, 870, 0.05, 9))
 lib_property.set(265, createProperty(49, 51, 46, 73, 0, 525, 0.2, -1))
+lib_property.set(266, createProperty(133, 97, 34, 39, 0, 405, 0.4, -1))
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))

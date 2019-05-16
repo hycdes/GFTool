@@ -175,6 +175,7 @@ lib_language = {
   skillNAME_238: '게으른분노',
   skillNAME_243: '미래 예지',
   skillNAME_252: '진동 충격탄',
+  skillNAME_266: '强运扳机',
   skillNAME_2006: '성화의 심판',
   DESCRIBE_39_1: '매',
   DESCRIBE_39_2: '번 공격마다 적을 죽임',
@@ -201,6 +202,10 @@ lib_language = {
   DESCRIBE_251: '꽃의 자물쇠',
   DESCRIBE_252: '모든 개체에 범위 피해 적용',
   DESCRIBE_261: '三连击影响多少敌人',
+  DESCRIBE_266_0: '持续状态',
+  DESCRIBE_266_1: '攻击同一目标',
+  DESCRIBE_266_2: '数次普攻切换目标',
+  DESCRIBE_266_3: '次',
   DESCRIBE_2006: '대상이 스킬 범위 내에 존재',
 
   fairy_0: '없는',

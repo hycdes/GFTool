@@ -777,6 +777,18 @@ function addTdoll () { // 添加战术人形
       str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 266) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' R93</h4>'
+      str_html += '<h5>[' + lib_language.skillNAME_266 + '] ' + lib_language.DESCRIBE_266_0 + '</h5>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '" id="special_r93_' + (num_pickblock - 1) + '_1" onchange=control_r93(' + (num_pickblock - 1) + ') checked><span style="color:dodgerblue"> ' + lib_language.DESCRIBE_266_1 + '</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '" id="special_r93_' + (num_pickblock - 1) + '_2" onchange=control_r93(' + (num_pickblock - 1) + ')> ' + lib_language.DESCRIBE_266_2 + '</label></p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:100px"><tbody><tr><td style="width: 70%">'
+      str_html += '<input class="form-control input-sm" placeholder="' + lib_language.INPUT_PI + '" id="special_r93_switch_' + (num_pickblock - 1) + '" onblur=inputCheck_r93('
+      str_html += "'" + 'special_r93_switch_' + (num_pickblock - 1) + "'"
+      str_html += ') value="3" disabled></td><td>' + lib_language.DESCRIBE_266_3 + '</td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     // 前台更新
     document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
     manageUI('pick-block')
@@ -904,6 +916,16 @@ function inputCheck_mosin (str_id) {
     str_input = 2
     document.getElementById(str_id).value = 2
   }
+}
+function inputCheck_r93 (str_id) {
+  var str_input = document.getElementById(str_id).value
+  if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
+    str_input = 3
+    document.getElementById(str_id).value = 3
+  }
+}
+function control_r93 (position) {
+  document.getElementById('special_r93_switch_' + position).disabled = document.getElementById('special_r93_' + position + '_1').checked
 }
 function checkEnviInput () { // 纠正非法输入
   var edit_timeinit = document.getElementById('time_init').value
