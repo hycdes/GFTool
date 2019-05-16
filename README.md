@@ -3,8 +3,8 @@ by FatalChapter(命运の乐章)<br>
 <br>
 Tool page for Girls' Frontline and Arknights<br>
 > Code in /js/<br>
-> Image resources in /img/
-> Pages in /pages/
+> Image resources in /img/<br>
+> Pages in /pages/<br>
 <br>
 ### Index<br>
 ### Database<br>
