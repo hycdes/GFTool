@@ -867,7 +867,7 @@ lib_skill.set(256, [
 ])
 lib_skill.set(266, [
   createSkill(6, 8, 5, lib_describe.get('r93')),
-  createSkill(6, 8, 5, lib_describe.get('dmg_40')),
+  createSkill(6, 8, 5, lib_describe.get('dmg_40'))
 ]) // 叠加射速特殊判断
 lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
 

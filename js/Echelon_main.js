@@ -1580,7 +1580,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
               new_property += status[0][1]
             } else {
               new_property = new_property * status[0][1]
-              if (is_this(i, 1060) && status[0][0] === 'dmg') { // asval 信念
+              if (not_init && is_this(i, 1060) && status[0][0] === 'dmg') { // asval 信念
                 Set_Special.set('asval_' + i, global_frame + 90)
               }
             }
@@ -1604,7 +1604,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
           new_property += status[0][1]
         } else {
           new_property = new_property * status[0][1]
-          if (is_this(stand_num, 1060) && status[0][0] === 'dmg') { // asval 信念
+          if (not_init && is_this(stand_num, 1060) && status[0][0] === 'dmg') { // asval 信念
             Set_Special.set('asval_' + stand_num, global_frame + 90)
           }
         }
