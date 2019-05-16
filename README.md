@@ -6,26 +6,31 @@ Tool page for Girls' Frontline and Arknights<br>
 > Image resources in /img/<br>
 > Pages in /pages/<br>
 <br>
-### Index<br>
-### Database<br>
-### Levelup calculator<br>
+
+## Index<br>
+## Database<br>
+## Levelup calculator<br>
 Calculate the number of battles required for levelup.<br>
 > code and data in pages/GFT_LevelCal.html<br>
 ### IOP simulator<br>
 Simulating IOP industry producing.<br>
 > code and data in pages/GFT_IOPSimulate.html<br>
-### Chip calculator<br>
+<h4>Chip calculator</h4>
 Helps you automatically assemble HF chips.<br>
-> <font color="blue">ChipCal_guide_XX.js</font> Init guide of different languages.<br>
-> <font color="blue">ChipCal_main.js</font> Main algorithms and program, now CC excluded main algorithm DLX.<br>
-> <font color="blue">ChipCal_UI.js</font> UI management of CC.<br>
-> <font color="blue">topology.js</font> Lib of all possible topology and combination of all heavy-fire force.<br>
+<table>
+<tr>
+<td>ChipCal_guide_XX.js</td><td>Init guide of different languages</td>
+<td>ChipCal_main.js</td><td>Main algo and program, now EXCLUDED DLX</td>
+<td>ChipCal_UI.js</td><td>UI management of CC</td>
+<td>topology.js</td><td>Lib of all possible topology</td>
+</tr>
+</table>
 ### Echelon simulator<br>
 Simulating echelon, measuring damage and injury with different tactical dolls(T-dolls), tactical fairy and heavy-fire forces.<br>
-> <font color="blue">Echelon_guide_XX.js</font> []Init guide of different languages.<br>
-> <font color="blue">Echelon_main.js</font> Main program and processing logic.<br>
-> <font color="blue">Echelon_UI.js</font> UI management of ES.<br>
-> <font color="blue">Echelon_select.js</font> Selection UI management of ES.<br>
-> <font color="blue">Echelon_property.js</font> Data of t-dolls, equipments and tactical fairies.<br>
-> <font color="blue">Echelon_skill.js</font> Data of t-doll skills.<br>
-> <font color="blue">Echelon_graph.js</font> Flot generation.<br>
+> Echelon_guide_XX.js []Init guide of different languages.<br>
+> Echelon_main.js Main program and processing logic.<br>
+> Echelon_UI.js UI management of ES.<br>
+> Echelon_select.js Selection UI management of ES.<br>
+> Echelon_property.js Data of t-dolls, equipments and tactical fairies.<br>
+> Echelon_skill.js Data of t-doll skills.<br>
+> Echelon_graph.js Flot generation.<br>
