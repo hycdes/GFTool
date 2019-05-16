@@ -92,6 +92,7 @@ function changeSelectItems () {
       str_items += '<option value=1060>No.60 [MOD] As Val</option>'
       str_items += '<option value=1064>No.64 [MOD] G36</option>'
       str_items += '<option value=2007>No.EX7 ' + lib_language.NAME_2007 + '</option>'
+      str_items += '<option value=3054>No.54 [SF] M16A1</option>'
     } else if (num_star === 4) {
       str_items += '<option value=54 selected>No.54 M16A1</option>'
       str_items += '<option value=55>No.55 M4A1</option>'
@@ -353,7 +354,7 @@ function changeEquip () {
       if (ID === 2009) str_items += '<option value=42009>' + lib_language.equipNAME_42009 + '</option>'
       if (ID === 2010) str_items += '<option value=42010>' + lib_language.equipNAME_42010 + '</option>'
     } else if (set_guntype === 2) { // AR
-      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
+      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057 && ID != 3054) {
         str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'
         str_items += '<option value=14>[' + lib_language.equipNAME_14 + '] EOT 518</option>'
         str_items += '<option value=13>[' + lib_language.equipNAME_13 + '] ITI MARS</option>'
@@ -365,7 +366,7 @@ function changeEquip () {
         if (ID === 118) str_items += '<option value=4118>' + lib_language.equipNAME_4118 + '</option>'
         if (ID === 1063) str_items += '<option value=11063>' + lib_language.equipNAME_11063 + '</option>'
         if (ID === 1064) str_items += '<option value=11064>' + lib_language.equipNAME_11064 + '</option>'
-      } else if (ID === 54) { // M16A1
+      } else if (ID === 54 || ID === 3054) { // M16A1
         if (set_equip[2] != 31 && set_equip[2] != 32) str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
         if (set_equip[2] != 31 && set_equip[2] != 32) str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
         if (set_equip[2] != 33 && set_equip[2] != 354) str_items += '<option value=33>Type3' + lib_language.equipNAME_33 + '</option>'
@@ -437,12 +438,12 @@ function changeEquip () {
       str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
       str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
     } else if (set_guntype === 2) { // AR
-      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057) {
+      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057 && ID != 3054) {
         str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
         str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
         if (ID === 62) str_items += '<option value=362>' + lib_language.equipNAME_362 + '</option>' // G41
         if (ID === 1055) str_items += '<option value=31055>' + lib_language.equipNAME_31055 + '</option>' // M4A1 mod
-      } else if (ID === 54) { // M16A1
+      } else if (ID === 54 || ID === 3054) { // M16A1
         if (set_equip[0] != 31 && set_equip[0] != 32) str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
         if (set_equip[0] != 31 && set_equip[0] != 32) str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
         if (set_equip[0] != 33 && set_equip[0] != 354) str_items += '<option value=33>Type3' + lib_language.equipNAME_33 + '</option>'

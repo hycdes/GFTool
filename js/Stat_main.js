@@ -83,9 +83,9 @@ function fill_drag_normal (dragID, stat_data) {
   for (var entry of stat_data) {
     str += '<tr>'
     str += '<td>' + entry[0] + '</td>'
-    if (entry[1] === 5) str += '<td><span style="color:darkorange">★★★★★ ' + entry[2] + '</span></td>'
-    else if (entry[1] === 4) str += '<td><span style="color:rgb(50, 250, 0)">★★★★ ' + entry[2] + '</span></td>'
-    else if (entry[1] === 3) str += '<td><span style="color:dodgerblue">★★★ ' + entry[2] + '</span></td>'
+    if (entry[1] === 5) str += '<td style="vertical-align:middle;"><span style="color:darkorange">★★★★★ ' + entry[2] + '</span></td>'
+    else if (entry[1] === 4) str += '<td style="vertical-align:middle;"><span style="color:rgb(50, 250, 0)">★★★★ ' + entry[2] + '</span></td>'
+    else if (entry[1] === 3) str += '<td style="vertical-align:middle;"><span style="color:dodgerblue">★★★ ' + entry[2] + '</span></td>'
     if (entry[4] >= 10000) str_star1 += '<i class="fa fa-star fa-fw"></i>'
     else if (entry[4] < 10000 && entry[4] >= 1000) str_star1 += '<i class="fa fa-check fa-fw"></i>'
     if (entry[6] >= 10000) str_star2 += '<i class="fa fa-star fa-fw"></i>'
@@ -117,6 +117,7 @@ function fill_supporter (list_supporter, body_id) {
 }
 function find_in_data (name, data) {
   for (var entry of data) if (name === entry[1]) return entry[2]
+  return 0
 }
 
 var data_map = {
@@ -128,12 +129,12 @@ var data_map = {
   m02: [2, 5, true, 5]
 }
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2],
-    [3, 'M9', 3], [3, 'P08', 9], [3, 'Type 92', 5], [3, 'Tokarev', 2],
-    [3, 'OTs-12', 8], [3, 'StG44', 8],
+    [3, 'M9', 5], [3, 'P08', 9], [3, 'Type 92', 6], [3, 'Tokarev', 3],
+    [3, 'OTs-12', 8], [3, 'StG44', 10],
     [3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 6],
-    [3, 'M1 Garand', 7], [3, 'SV-98', 8],
-    [3, 'Bren', 9], [3, 'M1919A4', 6]],
-  num_116true = 45
+    [3, 'M1 Garand', 7], [3, 'SV-98', 10],
+    [3, 'Bren', 10], [3, 'M1919A4', 7]],
+  num_116true = 49
 
 var data_116false = [[4, 'Mk46', 2],
   [3, 'M9', 2],
@@ -142,14 +143,22 @@ var data_116false = [[4, 'Mk46', 2],
   [3, 'SV-98', 1], [3, 'M1 Garand', 1]
 ]
 
+var data_104e4false = [
+    [3, 'Astra Revolver', 2], [3, 'C96', 3], [3, 'M9', 1], [3, 'Makarov', 3],
+    [3, 'AK-47', 2], [3, 'FNC', 2],
+    [3, 'MAC-10', 2], [3, 'Micro UZI', 1], [3, 'Skorpion', 1],
+    [3, 'M14', 1],
+    [3, 'M2HB', 1], [3, 'MG42', 1]],
+  num_104e4false = 55
+
 var data_104e5true = [[5, 'SR-3MP', 1], // 搜救五战
-    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 2], [4, 'XM3', 9], [4, 'M60', 1],
-    [3, 'Astra Revolver', 11], [3, 'C96', 20], [3, 'M9', 11], [3, 'Makarov', 14],
-    [3, 'AK-47', 8], [3, 'FNC', 15],
-    [3, 'MAC-10', 16], [3, 'Micro UZI', 21], [3, 'Skorpion', 19],
-    [3, 'M14', 15],
-    [3, 'M2HB', 15], [3, 'MG42', 12]],
-  num_104e5true = 206
+    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 2], [4, 'XM3', 11], [4, 'M60', 2],
+    [3, 'Astra Revolver', 13], [3, 'C96', 20], [3, 'M9', 13], [3, 'Makarov', 15],
+    [3, 'AK-47', 12], [3, 'FNC', 16],
+    [3, 'MAC-10', 17], [3, 'Micro UZI', 23], [3, 'Skorpion', 20],
+    [3, 'M14', 17],
+    [3, 'M2HB', 18], [3, 'MG42', 16]],
+  num_104e5true = 236
 
 var data_104e5false = [[5, 'SR-3MP', 1],
     [4, 'Mk23', 1], [4, 'PP-90', 1], [4, 'XM3', 4],
@@ -221,6 +230,7 @@ var data_drag_normal = [
     find_in_data('XM3', data_104e6false) + find_in_data('XM3', data_104e5false),
     2 * (num_104e6false + num_104e5false)],
   ['11-6', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', find_in_data('Mk46', data_116true), 3 * num_116true, 0, 0],
+  ['11-4E', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', 0, 0, 2, 288],
   ['0-2', 4, 'PK', 0, 0, 5, 3228],
   ['6-4E', 5, 'Vector', 0, 0, 1, 165],
   ['10-4E', 5, 'SR-3MP',
@@ -228,7 +238,8 @@ var data_drag_normal = [
     2 * (num_104e5true + num_104e7true),
     find_in_data('SR-3MP', data_104e5false) + find_in_data('SR-3MP', data_104e6false) + find_in_data('SR-3MP', data_104e7false),
     2 * (num_104e5false + num_104e6false + num_104e7false)
-  ]
+  ],
+  ['11-4E', 5, 'M99', 0, 0, 1, 288]
 ]
 var data_drag_resident = [
   ['塌缩点-再点火4', 5, 'MP7', 1, 220, 0, 0]
@@ -242,7 +253,7 @@ var list_supporter_1 = [
     '哒酱', '门对千竿竹' , '莉莉丝爱你哦' , 'Flonne' , 'mrduck' ,
     '小林', '永遠のマカク焼酎' , '阿斯托尔福' , '碧蓝如海的天际' , '菠萝小蜜橙',
     '田村吼姆拉', '无言寂心', 'Miyasizu' , '钢板天下第一' , '岭南弄潮儿' ,
-    'None', 'Mapleaf' , '初雪' , 'ViveLaFrance' , '净化者先锋突击队',
+    'Scottdoha', 'Mapleaf' , '初雪' , 'ViveLaFrance' , '净化者先锋突击队',
     'ZeroR', '无限拥抱', 'E同学提不起劲', 'Remの微笑', '绮夜',
     '煭洛凝瀧', '铭1989', 'Ayaya', '这年代黑暗', 'FangZero' ,
     '龙游浅滩', '山小珊' , '1', '不愿意匿名的45老公', 'KsZ_本居小铃',
@@ -261,6 +272,28 @@ function mergeCell (table1, startRow, endRow, col) {
     tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col])
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
   }
+}
+function deduplicateTable (tableID, data_drag, is_from_thead) {
+  var len_data = data_drag.length
+  var set_pair = [], temp_pair = []
+  var i = 0, j = 1
+  var bios = 0
+  if (is_from_thead) bios = 1
+  while(j < len_data){
+    if (data_drag[i][2] === data_drag[j][2]) {
+      temp_pair = [i + bios, j + bios]
+      j++
+    } else {
+      j++
+      i = j - 1
+      if (temp_pair.length != 0) {
+        set_pair.push(temp_pair)
+        temp_pair = []
+      }
+    }
+  }
+  var len_dedup = set_pair.length
+  for (var d = len_dedup - 1; d >= 0; d--) mergeCell(tableID, set_pair[d][0], set_pair[d][1], 1)
 }
 function loadScript (url) {
   var script = document.createElement('script')
@@ -306,9 +339,12 @@ window.onload = function () {
   mergeCell('table_drag1', 5, 6, 0)
   mergeCell('table_drag1', 3, 4, 0)
   mergeCell('table_drag1', 1, 2, 0)
+
   fill_drag('drag1', data_drag1, 6)
   fill_drag_normal('table_drag_normal', data_drag_normal)
   fill_drag_normal('table_drag_resident', data_drag_resident)
+  deduplicateTable('table_drag_normal', data_drag_normal, false)
+
   get_card('card_116', data_map.m116)
   get_card('card_116_2', data_map.m116)
   get_card('card_115', data_map.m115)

@@ -543,6 +543,7 @@ lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
 lib_describe.set('theresa', describe_theresa()) // 圣光制裁
 lib_describe.set('stechkin', describe_stechkin()) // 斯捷奇金专属增强
 
+lib_describe.set('grenade_90', describe_grenade(90)) // 灭世者打击
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
 lib_describe.set('grenade_11', describe_grenade(11)) // 11倍榴弹
@@ -706,6 +707,7 @@ lib_skill.set(1064, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 5, lib_describe.get('g36_eva'))
 ]) // 弧光契约，射速在react实现
+lib_skill.set(3054, [createSkill(8, 16, 0, lib_describe.get('grenade_90'))]) // BOSS M16A1
 
 lib_skill.set(54, [createSkill(7, 16, 0, lib_describe.get('flash_4'))]) // 闪光弹
 lib_skill.set(55, [createSkill(4, 16, 10, lib_describe.get('dmg_70'))])

@@ -349,6 +349,8 @@ lib_affect.set(2007, createAffect('r/', 'smg', ['dmg', 'rof'], [0.2, 0.2])) // �
 lib_affect.set(2008, createAffect('llu/lld/', 'mg', ['dmg', 'acu'], [0.2, 0.1])) // 希儿
 lib_affect.set(2009, createAffect('lu/u/l/ld/d/', 'all', ['rof', 'acu'], [0.3, 0.5])) // 克莉尔
 lib_affect.set(2010, createAffect('u/ru/r/d/rd/', 'all', ['dmg', 'acu'], [0.3, 0.5])) // 菲尔
+// BUG
+lib_affect.set(3054, createAffect('l/ll/llu/lld/', 'ar/smg', ['dmg', 'rof'], [1, 1])) // M16A1 BOSS
 
 // T-doll property
 // dmg, acu, eva, rof, arm, hp, crit, cs
@@ -646,6 +648,8 @@ lib_property.set(2007, createProperty(58, 45, 42, 64, 0, 605, 0.2, -1))
 lib_property.set(2008, createProperty(35, 11, 13, 27, 22, 1235, 0.4, 5))
 lib_property.set(2009, createProperty(31, 62, 88, 61, 0, 330, 0.2, -1))
 lib_property.set(2010, createProperty(31, 62, 88, 61, 0, 330, 0.2, -1))
+// BUG
+lib_property.set(3054, createProperty(90, 60, 80, 40, 10, 320000, 1, -1)) // BOSS M16A1
 
 // Equipment property
 // dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, nightablility
