@@ -1,7 +1,4 @@
-var lib_cache = new Map
-var lib_valid = new Map
-var num_valid = 300
-var is_alert = false
+// function
 function showAlert () {
   if (is_alert) {
     document.getElementById('info_alert').innerHTML = ''
@@ -32,6 +29,10 @@ function get_card (id, data_entry) {
   else info += ' <span style="color:dodgerblue">撤退</span>'
   info += ' / ' + '判定' + data_entry[3]
   document.getElementById(id).innerHTML = info
+}
+function get_cards (list_id, list_data) {
+  var len = list_id.length
+  for (var i = 0; i < len; i++) get_card(list_id[i], list_data[i])
 }
 function fill_table (stat, fairy_status, table, data, num_total) {
   var cores = 0
@@ -115,14 +116,114 @@ function fill_supporter (list_supporter, body_id) {
   }
   document.getElementById(body_id).innerHTML = str
 }
-function find_in_data (name, data) {
-  for (var entry of data) if (name === entry[1]) return entry[2]
-  return 0
+function find_in_data (name, list_data) {
+  var sum = 0
+  for (var data of list_data) {
+    for (var entry of data) {
+      if (name === entry[1]) {
+        sum += entry[2]
+        break
+      }
+    }
+  }
+  return sum
+}
+function mergeCell (table1, startRow, endRow, col) {
+  var tb = document.getElementById(table1)
+  if (!tb || !tb.rows || tb.rows.length <= 0) return
+  if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
+  if (endRow == 0) endRow = tb.rows.length - 1
+  for (var i = startRow; i < endRow; i++) {
+    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col])
+    tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
+  }
+}
+function deduplicateTable (tableID, data_drag, is_from_thead) {
+  var len_data = data_drag.length
+  var set_pair = [], temp_pair = []
+  var i = 0, j = 1
+  var bios = 0
+  if (is_from_thead) bios = 1
+  while(j < len_data){
+    if (data_drag[i][2] === data_drag[j][2]) {
+      temp_pair = [i + bios, j + bios]
+      j++
+    } else {
+      j++
+      i = j - 1
+      if (temp_pair.length != 0) {
+        set_pair.push(temp_pair)
+        temp_pair = []
+      }
+    }
+  }
+  var len_dedup = set_pair.length
+  for (var d = len_dedup - 1; d >= 0; d--) mergeCell(tableID, set_pair[d][0], set_pair[d][1], 1)
+}
+function sort_bardata (bar_data, bar_name, three_char_command) {
+  var sort_style = 1, len = bar_data.length
+  var temp_pair, bar_name_new = []
+  if (three_char_command === 'asc') sort_style = -1
+  for (var i = 0; i < len; i++) {
+    for (var j = i + 1; j < len; j++) {
+      if (sort_style * (bar_data[i][1] - bar_data[j][1]) < 0) {
+        temp_pair = bar_data[i]
+        bar_data[i] = bar_data[j]
+        bar_data[j] = temp_pair
+      }
+    }
+  }
+  for (var i = 0; i < len; i++) bar_name_new.push([i, bar_name[bar_data[i][0]][1]])
+  for (var i = 0; i < len; i++) {
+    bar_data[i][0] = i
+    bar_name[i][0] = i
+    bar_name[i][1] = bar_name_new[i][1]
+  }
+}
+function load_stat_bar (bar_data, y_max) {
+  var count = 0
+  var str_name = ''
+  for (var entry of str_current_statname) {
+    if (lib_valid.get(entry)) {
+      bar_data.push([count, parseFloat(lib_cache.get(entry))])
+      if (y_max < parseFloat(lib_cache.get(entry))) y_max = parseFloat(lib_cache.get(entry))
+      var temp_str = (entry.split('_'))[1]
+      for (var char of temp_str) {
+        if (char === 't' || char === 'f') {
+          if (char === 't') str_name += '[搜救]'
+          break
+        }
+        str_name += char
+      }
+      bar_name.push([count, str_name])
+      count++
+      str_name = ''
+    }
+  }
+  // handle data
+  bar_data.push([bar_data.length, 8])
+  bar_name.push([bar_name.length, '0-2'])
+  count += 1
+  // sort
+  sort_bardata(bar_data, bar_name, 'dsc')
+  return [count, y_max]
+}
+function loadScript (url) {
+  var script = document.createElement('script')
+  script.type = 'text/javascript'
+  script.src = url
+  document.body.appendChild(script)
 }
 
+// data
+var lib_cache = new Map
+var lib_valid = new Map
+var num_valid = 300
+var is_alert = false
 var data_map = {
   m116: [2, 8, true, 9],
   m115: [1, 5, false, 3],
+  m104e4: [2, 4, false, 4],
   m104e5: [2, 5, false, 5],
   m104e6: [2, 6, false, 6],
   m104e7: [2, 7, false, 6],
@@ -137,19 +238,29 @@ var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField'
   num_116true = 49
 
 var data_116false = [[4, 'Mk46', 2],
-  [3, 'M9', 2],
-  [3, 'OTs-12', 3], [3, 'StG44', 1],
-  [3, 'Sten MkII', 1],
-  [3, 'SV-98', 1], [3, 'M1 Garand', 1]
-]
+    [3, 'M9', 2],
+    [3, 'OTs-12', 3], [3, 'StG44', 1],
+    [3, 'Sten MkII', 1],
+    [3, 'SV-98', 1], [3, 'M1 Garand', 1]],
+  num_116false = 7
+
+var data_104e4true = [
+    [4, 'PP-90', 1],
+    [3, 'M9', 3], [3, 'Makarov', 1],
+    [3, 'AK-47', 2], [3, 'FNC', 1],
+    [3, 'M14', 3],
+    [3, 'M2HB', 1], [3, 'MG42', 1]
+  ],
+  num_104e4true = 15
 
 var data_104e4false = [
-    [3, 'Astra Revolver', 2], [3, 'C96', 3], [3, 'M9', 1], [3, 'Makarov', 3],
-    [3, 'AK-47', 2], [3, 'FNC', 2],
-    [3, 'MAC-10', 2], [3, 'Micro UZI', 1], [3, 'Skorpion', 1],
+    [4, 'Mk23', 1], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
+    [3, 'Astra Revolver', 4], [3, 'C96', 7], [3, 'M9', 2], [3, 'Makarov', 6],
+    [3, 'AK-47', 3], [3, 'FNC', 5],
+    [3, 'MAC-10', 2], [3, 'Micro UZI', 2], [3, 'Skorpion', 1],
     [3, 'M14', 1],
-    [3, 'M2HB', 1], [3, 'MG42', 1]],
-  num_104e4false = 55
+    [3, 'M2HB', 2], [3, 'MG42', 3]],
+  num_104e4false = 97
 
 var data_104e5true = [[5, 'SR-3MP', 1], // 搜救五战
     [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 2], [4, 'XM3', 11], [4, 'M60', 2],
@@ -225,20 +336,23 @@ var data_drag_normal = [
   ['7-6', 3, 'PSM <span style="color:black">[Ch.7 only]</span>', 1, 87, 0, 0],
   ['9-6', 4, 'Ak 5 <span style="color:black">[Ch.9 only]</span>', 0, 0, 1, 176],
   ['10-4E', 4, 'XM3 <span style="color:black">[Ch.10 only]</span>',
-    find_in_data('XM3', data_104e7true) + find_in_data('XM3', data_104e5true),
-    2 * (num_104e7true + num_104e5true),
-    find_in_data('XM3', data_104e6false) + find_in_data('XM3', data_104e5false),
-    2 * (num_104e6false + num_104e5false)],
-  ['11-6', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', find_in_data('Mk46', data_116true), 3 * num_116true, 0, 0],
+    find_in_data('XM3', [data_104e7true, data_104e5true, data_104e4true]),
+    2 * (num_104e7true + num_104e5true + num_104e4true),
+    find_in_data('XM3', [data_104e7false, data_104e6false, data_104e5false, data_104e4false]),
+    2 * (num_104e7false + num_104e6false + num_104e5false + num_104e4false)],
+  ['11-6', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>',
+    find_in_data('Mk46', [data_116true]),
+    3 * num_116true,
+    find_in_data('Mk46', [data_116false]),
+    3 * num_116false],
   ['11-4E', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', 0, 0, 2, 288],
   ['0-2', 4, 'PK', 0, 0, 5, 3228],
   ['6-4E', 5, 'Vector', 0, 0, 1, 165],
   ['10-4E', 5, 'SR-3MP',
-    find_in_data('SR-3MP', data_104e5true) + find_in_data('SR-3MP', data_104e7true),
-    2 * (num_104e5true + num_104e7true),
-    find_in_data('SR-3MP', data_104e5false) + find_in_data('SR-3MP', data_104e6false) + find_in_data('SR-3MP', data_104e7false),
-    2 * (num_104e5false + num_104e6false + num_104e7false)
-  ],
+    find_in_data('SR-3MP', [data_104e7true, data_104e5true, data_104e4true]),
+    2 * (num_104e7true + num_104e5true + num_104e4true),
+    find_in_data('SR-3MP', [data_104e7false, data_104e6false, data_104e5false, data_104e4false]),
+    2 * (num_104e7false + num_104e6false + num_104e5false + num_104e4false)],
   ['11-4E', 5, 'M99', 0, 0, 1, 288]
 ]
 var data_drag_resident = [
@@ -262,117 +376,52 @@ var list_supporter_1 = [
     '雨上がり', '一罐皮卡丘', 'KON花火', '一名路过的群众', '茂茂' ,
     '命运の乐章', '没法玩了', '飘帆', '界儿', 'Airnors', 'Gaberae'
 ]
-
-function mergeCell (table1, startRow, endRow, col) {
-  var tb = document.getElementById(table1)
-  if (!tb || !tb.rows || tb.rows.length <= 0) return
-  if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
-  if (endRow == 0) endRow = tb.rows.length - 1
-  for (var i = startRow; i < endRow; i++) {
-    tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[col])
-    tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
-  }
-}
-function deduplicateTable (tableID, data_drag, is_from_thead) {
-  var len_data = data_drag.length
-  var set_pair = [], temp_pair = []
-  var i = 0, j = 1
-  var bios = 0
-  if (is_from_thead) bios = 1
-  while(j < len_data){
-    if (data_drag[i][2] === data_drag[j][2]) {
-      temp_pair = [i + bios, j + bios]
-      j++
-    } else {
-      j++
-      i = j - 1
-      if (temp_pair.length != 0) {
-        set_pair.push(temp_pair)
-        temp_pair = []
-      }
-    }
-  }
-  var len_dedup = set_pair.length
-  for (var d = len_dedup - 1; d >= 0; d--) mergeCell(tableID, set_pair[d][0], set_pair[d][1], 1)
-}
-function loadScript (url) {
-  var script = document.createElement('script')
-  script.type = 'text/javascript'
-  script.src = url
-  document.body.appendChild(script)
-}
-var bar_info = []
 var str_current_statname = [
   'stat_116true', 'stat_116false',
   'stat_115true', 'stat_115false',
-  'stat_104e5true', 'stat_104e5false', 'stat_104e6false', 'stat_104e7true', 'stat_104e7false']
-var bar_data = []
-var bar_name = []
-var bar_num = 0, y_max = 0
-function load_stat_bar (bar_data, y_max) {
-  var count = 0
-  var str_name = ''
-  for (var entry of str_current_statname) {
-    if (lib_valid.get(entry)) {
-      bar_data.push([count, parseFloat(lib_cache.get(entry))])
-      if (y_max < parseFloat(lib_cache.get(entry))) y_max = parseFloat(lib_cache.get(entry))
-      var temp_str = (entry.split('_'))[1]
-      for (var char of temp_str) {
-        if (char === 't' || char === 'f') {
-          if (char === 't') str_name += '[搜救]'
-          break
-        }
-        str_name += char
-      }
-      bar_name.push([count, str_name])
-      count++
-      str_name = ''
-    }
-  }
-  return [count, y_max]
-}
+  'stat_104e7true', 'stat_104e5true', 'stat_104e4true',
+  'stat_104e7false', 'stat_104e6false', 'stat_104e5false', 'stat_104e4false']
+var bar_info = [], bar_data = [], bar_name = [], bar_num = 0, y_max = 0
+
+var list_card = ['card_116', 'card_116_2', 'card_115', 'card_115_2',
+  'card_104e7', 'card_104e7_2', 'card_104e6_2', 'card_104e5', 'card_104e5_2', 'card_104e4', 'card_104e4_2',
+  'card_02']
+var list_data_card = [data_map.m116, data_map.m116, data_map.m115, data_map.m115,
+  data_map.m104e7, data_map.m104e7, data_map.m104e6, data_map.m104e5, data_map.m104e5, data_map.m104e4, data_map.m104e4,
+  data_map.m02]
 
 window.onload = function () {
-  mergeCell('table_drag1', 11, 12, 0)
-  mergeCell('table_drag1', 9, 10, 0)
-  mergeCell('table_drag1', 7, 8, 0)
-  mergeCell('table_drag1', 5, 6, 0)
-  mergeCell('table_drag1', 3, 4, 0)
-  mergeCell('table_drag1', 1, 2, 0)
-
+  // drag
+  mergeCell('table_drag1', 10, 11, 0)
+  mergeCell('table_drag1', 8, 9, 0)
+  mergeCell('table_drag1', 6, 7, 0)
+  mergeCell('table_drag1', 4, 5, 0)
+  mergeCell('table_drag1', 2, 3, 0)
+  mergeCell('table_drag1', 0, 1, 0)
   fill_drag('drag1', data_drag1, 6)
   fill_drag_normal('table_drag_normal', data_drag_normal)
   fill_drag_normal('table_drag_resident', data_drag_resident)
   deduplicateTable('table_drag_normal', data_drag_normal, false)
-
-  get_card('card_116', data_map.m116)
-  get_card('card_116_2', data_map.m116)
-  get_card('card_115', data_map.m115)
-  get_card('card_115_2', data_map.m115)
-  get_card('card_104e5', data_map.m104e5)
-  get_card('card_104e5_2', data_map.m104e5)
-  get_card('card_104e6_2', data_map.m104e6)
-  get_card('card_104e7', data_map.m104e7)
-  get_card('card_104e7_2', data_map.m104e7)
-  get_card('card_02', data_map.m02)
-
+  // cores
+  get_cards(list_card, list_data_card)
   fill_table('stat_116true', true, 'table_116true', data_116true, 8 * num_116true)
-  fill_table('stat_116false', false, 'table_116false', data_116false, 50)
-
+  fill_table('stat_116false', false, 'table_116false', data_116false, 8 * num_116false)
   fill_table('stat_115true', true, 'table_115true', data_115true, 50)
   fill_table('stat_115false', false, 'table_115false', data_115false, 5 * num_115false)
-
-  fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 5 * num_104e5true) // 五战搜救
-  fill_table('stat_104e5false', true, 'table_104e5false', data_104e5false, 5 * num_104e5false)
-  fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 6 * num_104e6false)
   fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 7 * num_104e7true)
   fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 7 * num_104e7false)
-
+  fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 6 * num_104e6false)
+  fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 5 * num_104e5true) // 五战搜救
+  fill_table('stat_104e5false', false, 'table_104e5false', data_104e5false, 5 * num_104e5false)
+  fill_table('stat_104e4true', true, 'table_104e4true', data_104e4true, 4 * num_104e4true)
+  fill_table('stat_104e4false', false, 'table_104e4false', data_104e4false, 4 * num_104e4false)
+  // supporters
   fill_supporter(list_supporter_1, 'spt_1')
   fill_supporter(list_supporter_2, 'spt_2')
   document.getElementById('text_validnum').innerHTML = num_valid
   // make graph
   var result_pair = load_stat_bar(bar_data, y_max)
+  console.log(bar_name)
   bar_num = result_pair[0], y_max = result_pair[1]
   bar_info.push({
     data: bar_data,

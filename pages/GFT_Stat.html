@@ -90,7 +90,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">核心统计</div>
                             <div class="panel-body">
-                                <h5>当前显示样本多于<span style="color:darkorange" id="text_validnum"></span>的结果，统计单位：个数 / <b><span style="color:blue">战斗</span></b></h5>
+                                <h5>核心掉率，显示样本多于<span style="color:darkorange" id="text_validnum"></span>的结果，单位：个数 / <b><span style="color:blue">战斗</span></b></h5>
                                 <div id="placeholder" style="height:300px"></div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
@@ -225,87 +225,30 @@
                                         <h4></h4>
                                         <ul class="nav nav-pills">
                                             <li class="active">
+                                                <a href="#104e7true" data-toggle="tab">7战+搜救</a>
+                                            </li>
+                                            <li>
+                                                <a href="#104e7false" data-toggle="tab">7战</a>
+                                            </li>
+                                            <li>
+                                                <a href="#104e6false" data-toggle="tab">6战</a>
+                                            </li>
+                                            <li>
                                                 <a href="#104e5true" data-toggle="tab">5战+搜救</a>
                                             </li>
                                             <li>
                                                 <a href="#104e5false" data-toggle="tab">5战</a>
                                             </li>
                                             <li>
-                                                <a href="#104e6false" data-toggle="tab">6战</a>
+                                                <a href="#104e4true" data-toggle="tab">4战+搜救</a>
                                             </li>
                                             <li>
-                                                <a href="#104e7true" data-toggle="tab">7战+搜救</a>
-                                            </li>
-                                            <li>
-                                                <a href="#104e7false" data-toggle="tab">7战</a>
+                                                <a href="#104e4false" data-toggle="tab">4战</a>
                                             </li>
                                         </ul>
                                         <h4></h4>
                                         <div class="tab-content">
-                                            <div class="tab-pane fade in active" id="104e5true">
-                                                <table class="table table_mid table-bordered table-hover">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="width:50%">战斗信息</td>
-                                                            <td id="card_104e5"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="width:50%">掉落信息</td>
-                                                            <td id="stat_104e5true"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table class="table table_mid table-bordered table-hover table-striped">
-                                                    <thead>
-                                                        <th style="width:50%;text-align:center">核心人形</th>
-                                                        <th style="width:50%;text-align:center">数量</th>
-                                                    </thead>
-                                                    <tbody id="table_104e5true"></tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade" id="104e5false">
-                                                <table class="table table_mid table-bordered table-hover">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="width:50%">战斗信息</td>
-                                                            <td id="card_104e5_2"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="width:50%">掉落信息</td>
-                                                            <td id="stat_104e5false"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table class="table table_mid table-bordered table-hover table-striped">
-                                                    <thead>
-                                                        <th style="width:50%;text-align:center">核心人形</th>
-                                                        <th style="width:50%;text-align:center">数量</th>
-                                                    </thead>
-                                                    <tbody id="table_104e5false"></tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade" id="104e6false">
-                                                <table class="table table_mid table-bordered table-hover">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="width:50%">战斗信息</td>
-                                                            <td id="card_104e6_2"></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="width:50%">掉落信息</td>
-                                                            <td id="stat_104e6false"></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <table class="table table_mid table-bordered table-hover table-striped">
-                                                    <thead>
-                                                        <th style="width:50%;text-align:center">核心人形</th>
-                                                        <th style="width:50%;text-align:center">数量</th>
-                                                    </thead>
-                                                    <tbody id="table_104e6false"></tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane fade" id="104e7true">
+                                            <div class="tab-pane fade in active" id="104e7true">
                                                 <table class="table table_mid table-bordered table-hover">
                                                     <tbody>
                                                         <tr>
@@ -347,8 +290,112 @@
                                                     <tbody id="table_104e7false"></tbody>
                                                 </table>
                                             </div>
+                                            <div class="tab-pane fade" id="104e6false">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_104e6_2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_104e6false"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_104e6false"></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="104e5true">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_104e5"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_104e5true"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_104e5true"></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="104e5false">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_104e5_2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_104e5false"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_104e5false"></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="104e4true">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_104e4"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_104e4true"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_104e4true"></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="104e4false">
+                                                <table class="table table_mid table-bordered table-hover">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width:50%">战斗信息</td>
+                                                            <td id="card_104e4_2"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width:50%">掉落信息</td>
+                                                            <td id="stat_104e4false"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <table class="table table_mid table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <th style="width:50%;text-align:center">核心人形</th>
+                                                        <th style="width:50%;text-align:center">数量</th>
+                                                    </thead>
+                                                    <tbody id="table_104e4false"></tbody>
+                                                </table>
+                                            </div>
                                         </div>
-
                                     </div>
                                     <div class="tab-pane fade" id="02">
                                         <h4>该部分不需要贡献数据</h4>
@@ -407,14 +454,14 @@
                                     <h4></h4>
                                     <div class="tab-pane fade in active" id="drag1">
                                         <h5></h5>
-                                        <table class="table table_mid table-bordered table-hover" id="table_drag1">
+                                        <table class="table table_mid table-bordered table-hover">
                                             <thead>
                                                 <th style="width:30%;text-align:center">打捞人形</th>
                                                 <th style="width:20%;text-align:center">地点</th>
                                                 <th style="width:25%;text-align:center">搜救Lv.10</th>
                                                 <th style="width:25%;text-align:center">无搜救</th>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="table_drag1">
                                                 <tr>
                                                     <td style="vertical-align:middle;"><span style="color:rgb(50, 250, 0)">★★★★ UMP40</span></td>
                                                     <td>1-6</td>
