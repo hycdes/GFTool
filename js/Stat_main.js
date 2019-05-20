@@ -6,6 +6,7 @@ function showAlert () {
     document.getElementById('btn_alert').innerHTML = '本页须知'
   } else {
     var str_info = ''
+    str_info += '<h4>最后更新时间：' + info_update + '</h4>'
     str_info += '<h4>注释</h4>'
     str_info += '<h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b>1,000+</b></span></h5>'
     str_info += '<h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b>10,000+</b></span></h5>'
@@ -190,7 +191,7 @@ function load_stat_bar (bar_data, y_max) {
       var temp_str = (entry.split('_'))[1]
       for (var char of temp_str) {
         if (char === 't' || char === 'f') {
-          if (char === 't') str_name += '[搜救]'
+          if (char === 't') str_name += ' 搜救'
           break
         }
         str_name += char
@@ -216,6 +217,7 @@ function loadScript (url) {
 }
 
 // data
+var info_update = '2019/05/20'
 var lib_cache = new Map
 var lib_valid = new Map
 var num_valid = 300
@@ -238,11 +240,12 @@ var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField'
   num_116true = 49
 
 var data_116false = [[4, 'Mk46', 2],
-    [3, 'M9', 2],
-    [3, 'OTs-12', 3], [3, 'StG44', 1],
+    [3, 'M9', 6], [3, 'Type 92', 1], [3, 'Tokarev', 2],
+    [3, 'OTs-12', 4], [3, 'StG44', 2],
     [3, 'Sten MkII', 1],
-    [3, 'SV-98', 1], [3, 'M1 Garand', 1]],
-  num_116false = 7
+    [3, 'SV-98', 1], [3, 'M1 Garand', 2],
+    [3, 'Bren', 1], [3, 'M1919A4', 1]],
+  num_116false = 17
 
 var data_104e4true = [
     [4, 'PP-90', 1],
@@ -254,22 +257,22 @@ var data_104e4true = [
   num_104e4true = 15
 
 var data_104e4false = [
-    [4, 'Mk23', 1], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
-    [3, 'Astra Revolver', 4], [3, 'C96', 7], [3, 'M9', 2], [3, 'Makarov', 6],
-    [3, 'AK-47', 3], [3, 'FNC', 5],
-    [3, 'MAC-10', 2], [3, 'Micro UZI', 2], [3, 'Skorpion', 1],
-    [3, 'M14', 1],
-    [3, 'M2HB', 2], [3, 'MG42', 3]],
-  num_104e4false = 97
+    [4, 'Mk23', 2], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
+    [3, 'Astra Revolver', 4], [3, 'C96', 8], [3, 'M9', 3], [3, 'Makarov', 6],
+    [3, 'AK-47', 4], [3, 'FNC', 6],
+    [3, 'MAC-10', 4], [3, 'Micro UZI', 3], [3, 'Skorpion', 1],
+    [3, 'M14', 2],
+    [3, 'M2HB', 3], [3, 'MG42', 3]],
+  num_104e4false = 109
 
 var data_104e5true = [[5, 'SR-3MP', 1], // 搜救五战
-    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 2], [4, 'XM3', 11], [4, 'M60', 2],
-    [3, 'Astra Revolver', 13], [3, 'C96', 20], [3, 'M9', 13], [3, 'Makarov', 15],
-    [3, 'AK-47', 12], [3, 'FNC', 16],
-    [3, 'MAC-10', 17], [3, 'Micro UZI', 23], [3, 'Skorpion', 20],
-    [3, 'M14', 17],
-    [3, 'M2HB', 18], [3, 'MG42', 16]],
-  num_104e5true = 236
+    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 3], [4, 'XM3', 11], [4, 'M60', 2],
+    [3, 'Astra Revolver', 14], [3, 'C96', 21], [3, 'M9', 15], [3, 'Makarov', 16],
+    [3, 'AK-47', 14], [3, 'FNC', 17],
+    [3, 'MAC-10', 18], [3, 'Micro UZI', 25], [3, 'Skorpion', 20],
+    [3, 'M14', 18],
+    [3, 'M2HB', 18], [3, 'MG42', 17]],
+  num_104e5true = 246
 
 var data_104e5false = [[5, 'SR-3MP', 1],
     [4, 'Mk23', 1], [4, 'PP-90', 1], [4, 'XM3', 4],
@@ -331,6 +334,7 @@ var data_drag_normal = [
   ['1-4E', 3, 'Glock 17 <span style="color:black">[Ch.1 only]</span>', 0, 0, 3, 151],
   ['2-4E', 3, 'FMG-9 <span style="color:black">[Ch.2 only]</span>', 0, 0, 1, 49],
   ['3-4E', 3, 'CZ-805 <span style="color:black">[Ch.3 only]</span>', 0, 0, 2, 247],
+  ['4-4E', 3, 'M21 <span style="color:black">[Ch.4 only]</span>', 0, 0, 5, 277],
   ['5-6', 3, 'M249 SAW <span style="color:black">[Ch.5 only]</span>', 0, 0, 4, 322],
   ['6-4E', 3, 'M1A1 <span style="color:black">[Ch.6 only]</span>', 1, 60, 2, 165],
   ['7-6', 3, 'PSM <span style="color:black">[Ch.7 only]</span>', 1, 87, 0, 0],
@@ -356,7 +360,8 @@ var data_drag_normal = [
   ['11-4E', 5, 'M99', 0, 0, 1, 288]
 ]
 var data_drag_resident = [
-  ['塌缩点-再点火4', 5, 'MP7', 1, 220, 0, 0]
+  ['塌缩点-再点火4', 5, 'MP7', 1, 220, 0, 0],
+  ['塌缩点-冲程止点2', 4, '雷电', 0, 0, 1, 225]
 ]
 var list_supporter_1 = [
     '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',

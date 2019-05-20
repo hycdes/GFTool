@@ -659,12 +659,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             } else {
               Set_Special.set('r93_currentforcus_' + stand_num, Set_Special.get('r93_currentforcus_' + stand_num) + 1)
             }
-            if (Set_Special.get('r93_currentforcus_' + stand_num) === Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
+            if (Set_Special.get('r93_currentforcus_' + stand_num) >= Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
               if (Set_Special.get('r93_skillon_' + stand_num) != undefined && Set_Special.get('r93_skillon_' + stand_num) > current_time) {
                 true // do nothing
               } else {
-                for (var lsn = 0; lsn < Set_Special.get('r93_currentforcus_' + stand_num); lsn++) changeStatus(stand_num, 'self', 'rof', -0.1, -1)
+                var max_level = Math.min(3, Set_Special.get('r93_' + stand_num))
+                for (var lsn = 0; lsn < max_level; lsn++) changeStatus(stand_num, 'self', 'rof', -0.1, -1)
                 Set_Special.set('r93_currentforcus_' + stand_num, 0) // 层数归零
+                Set_Special.set('r93_' + stand_num, 0)
               }
             }
           }
