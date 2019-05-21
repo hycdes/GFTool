@@ -812,7 +812,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var r93_timestack = Set_Special.get('r93_timestack_' + stand_num)
           var len_r93buff = r93_timestack.length
           for (var r93n = 0; r93n < len_r93buff; r93n++) {
-            if (r93_timestack[r93n] <= current_time) {
+            if (r93_timestack[r93n] < current_time) {
               r93_timestack.shift()
               r93n--
               if (r93_timestack.length < Set_Special.get('r93_valid_' + stand_num)) {
@@ -1508,7 +1508,11 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('r93_skillon_' + stand_num, current_time + 150)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  if (debug_mode) debug_addinfo(stand_num, skillname, global_frame, s_t[1] + 1)
+  if (debug_mode) {
+    if (fire_status === 'stop' && skillname === 'attack') {
+      true // log nothing
+    } else debug_addinfo(stand_num, skillname, global_frame, s_t[1] + 1)
+  }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -2929,7 +2933,7 @@ function debug_addinfo (stand_num, skillname, time, interval) {
     skill_cld = 'interval'
   }
   var str = '<span style="color:grey">' + debug_line + ' &#62 '
-  str += '[<span style="color:#000000">' + trans_if_need(stand_num) + '-' + list_tdoll[stand_num][1].Name + ']</span>'
+  str += '[<span style="color:#000000">' + trans_if_need(stand_num) + 1 + '-' + list_tdoll[stand_num][1].Name + ']</span>'
   str += ' do '
   str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
   str += ' in '
