@@ -988,7 +988,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             Set_Special.delete('r93_valid_' + stand_num)
             Set_Special.delete('r93_timestack_' + stand_num)
           }
-          if (Set_Special.get('r93_' + stand_num) > Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
+          if (Set_Special.get('r93_' + stand_num) >= Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
             if (Set_Special.get('r93_skillon_' + stand_num) != undefined && Set_Special.get('r93_skillon_' + stand_num) > current_time) {
               true // do nothing
             } else {
