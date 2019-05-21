@@ -803,7 +803,26 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
         }
       }
-      // 攻击间隔或者换弹判断
+
+      // 攻击间隔或者换弹判断————————————————————————————————————————————————————
+      if (is_this(stand_num, 266)) { // r93强运扳机层数退去
+        // buff time lost and check time out
+        if (Set_Special.get('r93_timestack_' + stand_num) != undefined) {
+          var r93_timestack = Set_Special.get('r93_timestack_' + stand_num)
+          var len_r93buff = r93_timestack.length
+          for (var r93n = 0; r93n < len_r93buff; r93n++) {
+            if (r93_timestack[r93n] <= current_time) {
+              r93_timestack.shift()
+              r93n--
+              if (r93_timestack.length < Set_Special.get('r93_valid_' + stand_num)) {
+                Set_Special.set('r93_valid_' + stand_num, r93_timestack.length)
+                changeStatus(stand_num, 'self', 'rof', -0.0909, -1)
+              }
+            }
+          }
+          Set_Special.set('r93_timestack_' + stand_num, r93_timestack)
+        }
+      }
       if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && !is_this(stand_num, 256)) { // HG/AR/SMG/RF 并排除 隼
         if ((is_this(stand_num, 73) || is_this(stand_num, 237)) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
         else if (is_this(stand_num, 1002) && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手120射速
@@ -962,22 +981,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           var new_timestack = Set_Special.get('r93_timestack_' + stand_num)
           new_timestack.push(90 + current_time)
           Set_Special.set('r93_timestack_' + stand_num, new_timestack)
-        }
-        // buff time lost and check time out
-        if (Set_Special.get('r93_timestack_' + stand_num) != undefined) {
-          var r93_timestack = Set_Special.get('r93_timestack_' + stand_num)
-          var len_r93buff = r93_timestack.length
-          for (var r93n = 0; r93n < len_r93buff; r93n++) {
-            if (r93_timestack[r93n] <= current_time) {
-              r93_timestack.shift()
-              r93n--
-              if (r93_timestack.length < Set_Special.get('r93_valid_' + stand_num)) {
-                Set_Special.set('r93_valid_' + stand_num, r93_timestack.length)
-                changeStatus(stand_num, 'self', 'rof', -0.1, -1)
-              }
-            }
-          }
-          Set_Special.set('r93_timestack_' + stand_num, r93_timestack)
         }
         // forcus setting (special setting)
         if (document.getElementById('special_r93_' + stand_num + '_2').checked) { // 设定转换数
