@@ -805,6 +805,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
 
       // 攻击间隔或者换弹判断————————————————————————————————————————————————————
+
       if (is_this(stand_num, 266)) { // r93强运扳机层数退去
         // buff time lost and check time out
         if (Set_Special.get('r93_timestack_' + stand_num) != undefined) {
@@ -821,6 +822,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             }
           }
           Set_Special.set('r93_timestack_' + stand_num, r93_timestack)
+        }
+        if (Set_Special.get('r93_firstlost_' + stand_num) === undefined) {
+          Set_Special.set('r93_firstlost_' + stand_num, true)
+        } else if (Set_Special.get('r93_firstlost_' + stand_num) === true) {
+          Set_Special.set('r93_firstlost_' + stand_num, false)
+          changeStatus(stand_num, 'self', 'rof', -0.0909, -1)
+          Set_Special.delete('r93_' + stand_num)
+          Set_Special.delete('r93_valid_' + stand_num)
+          Set_Special.delete('r93_timestack_' + stand_num)
         }
       }
       if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && !is_this(stand_num, 256)) { // HG/AR/SMG/RF 并排除 隼
@@ -986,10 +996,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         if (document.getElementById('special_r93_' + stand_num + '_2').checked) { // 设定转换数
           if (Set_Special.get('r93_maxforcus_' + stand_num) === undefined) { // 读取同目标射击上限
             Set_Special.set('r93_maxforcus_' + stand_num, parseInt(document.getElementById('special_r93_switch_' + stand_num).value))
-            for (var lsn = 0; lsn < Set_Special.get('r93_valid_' + stand_num); lsn++) changeStatus(stand_num, 'self', 'rof', -0.0909, -1)
-            Set_Special.delete('r93_' + stand_num)
-            Set_Special.delete('r93_valid_' + stand_num)
-            Set_Special.delete('r93_timestack_' + stand_num)
           }
           if (Set_Special.get('r93_' + stand_num) >= Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
             if (Set_Special.get('r93_skillon_' + stand_num) != undefined && Set_Special.get('r93_skillon_' + stand_num) > current_time) {
