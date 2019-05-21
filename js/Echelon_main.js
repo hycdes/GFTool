@@ -2933,7 +2933,7 @@ function debug_addinfo (stand_num, skillname, time, interval) {
     skill_cld = 'interval'
   }
   var str = '<span style="color:grey">' + debug_line + ' &#62 '
-  str += '[<span style="color:#000000">' + trans_if_need(stand_num) + 1 + '-' + list_tdoll[stand_num][1].Name + ']</span>'
+  str += '[<span style="color:#000000">' + (trans_if_need(stand_num) + 1) + '-' + list_tdoll[stand_num][1].Name + ']</span>'
   str += ' do '
   str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
   str += ' in '
