@@ -1,4 +1,6 @@
 // UI
+var debug_mode = false // show debug info
+var debug_line = 0
 var buffer_table = new Map // 已放置人形的信息缓存，点击人形查看
 var buffer_last // 上一次添加人形的缓存
 var switch_operate = false, switch_equip = false // 人形和装备更改开关
@@ -1466,6 +1468,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('r93_skillon_' + stand_num, current_time + 150)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  if (debug_mode) debug_addinfo(stand_num, skillname, global_frame)
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -2878,3 +2881,17 @@ function createHF (dmg, dbk, acu, fil) {
   HF.v4 = fil
   return HF
 }
+function debug_addinfo (stand_num, skillname, time) {
+  var skill_color = '#ff6600'
+  if (skillname === 'attack') skill_color = '#6600ff'
+  var str = '<span style="color:grey">' + debug_line + ' &#62 '
+  str += '[<span style="color:#000000">' + trans_if_need(stand_num) + '-' + list_tdoll[stand_num][1].Name + ']</span>'
+  str += '\tdo '
+  str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
+  str += ' in '
+  str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
+  str += '</span><br>'
+  debug_line++
+  document.getElementById('debug_content').innerHTML += str
+}
+function debug_clear () { document.getElementById('debug_content').innerHTML = ''; debug_line = 0; }

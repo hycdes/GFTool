@@ -628,7 +628,7 @@ function readStatus () { // 读取已有人形之前的全局环境
 }
 function addTdoll () { // 添加战术人形
   document.getElementById('suffer_1').disabled = false
-  document.getElementById('suffer_100').disabled = false
+  if(!debug_mode) document.getElementById('suffer_100').disabled = false
   var reverse_position = num_pickblock
   if (lang_type === 'ko') {
     if (reverse_position >= 7) reverse_position -= 6
@@ -1524,3 +1524,16 @@ function reverse_className (command, stand_num, boolean) {
   return str_name
 }
 function getHelp (helpnum) { window.open('../img/echelon/tutorial/es-' + helpnum + '-' + lang_type + '.png') }
+function debug_switch () {
+  debug_mode = !debug_mode
+  if (debug_mode) {
+    document.getElementById('debug_button').className = 'btn btn-primary'
+    document.getElementById('debug_button').innerHTML = 'Debug mode active'
+  } else {
+    document.getElementById('debug_button').className = 'btn btn-default'
+    document.getElementById('debug_button').innerHTML = 'Click to open debug mode'
+  }
+  document.getElementById('debug_content').disabled = !debug_mode
+  document.getElementById('btn_dmg100').disabled = debug_mode
+  document.getElementById('suffer_100').disabled = debug_mode
+}

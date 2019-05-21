@@ -690,7 +690,7 @@
                                                     <h4>시뮬레이션</h4>
                                                     <p>
                                                         <button type="button" class="btn btn-outline btn-info" onclick="getResult(1,'damage')">1회 계산</button>
-                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100,'damage')">100회 평균</button>
+                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100,'damage')" id="btn_dmg100">100회 평균</button>
                                                     </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting1-2">
@@ -839,6 +839,7 @@
                                                 </li>
                                                 <li><a href="#Table_set" data-toggle="tab">그래프 설정</a>
                                                 </li>
+                                                <li><a href="#Table_debug" data-toggle="tab">Debug</a></li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
@@ -908,6 +909,22 @@
                                                     </table>
                                                     <table class="table_other table-bordered table-hover" id="table_showhide">
                                                     </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="Table_debug">
+                                                    <h4>Debug mode: display code running status</h4>
+                                                    <label>
+                                                        <button type="button" class="btn btn-default" onclick="debug_switch()" id="debug_button" style="width:200px">Click to open debug mode</button>
+                                                        <button type="button" class="btn btn-default" onclick="debug_clear()">Clear console</button>
+                                                    </label>
+                                                    <div class="form-group" style="height:400px;overflow-y:scroll;text-align:left">
+                                                        <table class="table table-bordered">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td id="debug_content"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
