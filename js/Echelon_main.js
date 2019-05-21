@@ -643,36 +643,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             Set_Special.set('qbu88_' + stand_num, Set_Special.get('qbu88_' + stand_num) + 1)
           }
         }
-        if (is_this(stand_num, 266)) {
-          if (Set_Special.get('r93_' + stand_num) === undefined) {
-            Set_Special.set('r93_' + stand_num, 1)
-            changeStatus(stand_num, 'self', 'rof', 0.1, -1) // 叠加buff
-          }
-          else if (Set_Special.get('r93_' + stand_num) < 3) {
-            Set_Special.set('r93_' + stand_num, Set_Special.get('r93_' + stand_num) + 1)
-            changeStatus(stand_num, 'self', 'rof', 0.1, -1)
-          }
-          if (document.getElementById('special_r93_' + stand_num + '_2').checked) { // 设定转换数
-            if (Set_Special.get('r93_maxforcus_' + stand_num) === undefined) { // 读取同目标射击上限
-              Set_Special.set('r93_maxforcus_' + stand_num, parseInt(document.getElementById('special_r93_switch_' + stand_num).value))
-            }
-            if (Set_Special.get('r93_currentforcus_' + stand_num) === undefined) { // 累计次数
-              Set_Special.set('r93_currentforcus_' + stand_num, 1)
-            } else {
-              Set_Special.set('r93_currentforcus_' + stand_num, Set_Special.get('r93_currentforcus_' + stand_num) + 1)
-            }
-            if (Set_Special.get('r93_currentforcus_' + stand_num) >= Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
-              if (Set_Special.get('r93_skillon_' + stand_num) != undefined && Set_Special.get('r93_skillon_' + stand_num) > current_time) {
-                true // do nothing
-              } else {
-                var max_level = Math.min(3, Set_Special.get('r93_' + stand_num))
-                for (var lsn = 0; lsn < max_level; lsn++) changeStatus(stand_num, 'self', 'rof', -0.1, -1)
-                Set_Special.set('r93_currentforcus_' + stand_num, 0) // 层数归零
-                Set_Special.set('r93_' + stand_num, 0)
-              }
-            }
-          }
-        }
 
         // 结算命中——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
@@ -967,6 +937,67 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
           else s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
           Set_Special.set('clipsize_' + stand_num, cs)
+        }
+      }
+
+      // 攻击后判断————————————————————————————————————————————————————————————————————————————————————————————
+
+      if (is_this(stand_num, 266)) { // r93强运扳机射速逻辑
+        // buff counting
+        if (Set_Special.get('r93_valid_' + stand_num) === undefined) { // no buff
+          Set_Special.set('r93_' + stand_num, 1)
+          Set_Special.set('r93_valid_' + stand_num, 1)
+          Set_Special.set('r93_timestack_' + stand_num, [90 + current_time])
+          changeStatus(stand_num, 'self', 'rof', 0.1, -1)
+        }
+        else if (Set_Special.get('r93_valid_' + stand_num) < 3) { // more buff
+          Set_Special.set('r93_' + stand_num, Set_Special.get('r93_' + stand_num) + 1)
+          var new_timestack = Set_Special.get('r93_timestack_' + stand_num)
+          new_timestack.push(90 + current_time)
+          Set_Special.set('r93_timestack_' + stand_num, new_timestack)
+          Set_Special.set('r93_valid_' + stand_num, Set_Special.get('r93_valid_' + stand_num) + 1)
+          changeStatus(stand_num, 'self', 'rof', 0.1, -1)
+        } else {
+          Set_Special.set('r93_' + stand_num, Set_Special.get('r93_' + stand_num) + 1)
+          var new_timestack = Set_Special.get('r93_timestack_' + stand_num)
+          new_timestack.push(90 + current_time)
+          Set_Special.set('r93_timestack_' + stand_num, new_timestack)
+        }
+        // buff time lost and check time out
+        if (Set_Special.get('r93_timestack_' + stand_num) != undefined) {
+          var r93_timestack = Set_Special.get('r93_timestack_' + stand_num)
+          var len_r93buff = r93_timestack.length
+          for (var r93n = 0; r93n < len_r93buff; r93n++) {
+            if (r93_timestack[r93n] <= current_time) {
+              r93_timestack.shift()
+              r93n--
+              if (r93_timestack.length < Set_Special.get('r93_valid_' + stand_num)) {
+                Set_Special.set('r93_valid_' + stand_num, r93_timestack.length)
+                changeStatus(stand_num, 'self', 'rof', -0.1, -1)
+              }
+            }
+          }
+          Set_Special.set('r93_timestack_' + stand_num, r93_timestack)
+        }
+        // forcus setting (special setting)
+        if (document.getElementById('special_r93_' + stand_num + '_2').checked) { // 设定转换数
+          if (Set_Special.get('r93_maxforcus_' + stand_num) === undefined) { // 读取同目标射击上限
+            Set_Special.set('r93_maxforcus_' + stand_num, parseInt(document.getElementById('special_r93_switch_' + stand_num).value))
+            for (var lsn = 0; lsn < Set_Special.get('r93_valid_' + stand_num); lsn++) changeStatus(stand_num, 'self', 'rof', -0.0909, -1)
+            Set_Special.delete('r93_' + stand_num)
+            Set_Special.delete('r93_valid_' + stand_num)
+            Set_Special.delete('r93_timestack_' + stand_num)
+          }
+          if (Set_Special.get('r93_' + stand_num) > Set_Special.get('r93_maxforcus_' + stand_num)) { // 需要转换目标
+            if (Set_Special.get('r93_skillon_' + stand_num) != undefined && Set_Special.get('r93_skillon_' + stand_num) > current_time) {
+              true // do nothing
+            } else {
+              for (var lsn = 0; lsn < Set_Special.get('r93_valid_' + stand_num); lsn++) changeStatus(stand_num, 'self', 'rof', -0.0909, -1)
+              Set_Special.delete('r93_' + stand_num)
+              Set_Special.delete('r93_valid_' + stand_num)
+              Set_Special.delete('r93_timestack_' + stand_num)
+            }
+          }
         }
       }
     } else if (fire_status === 'stop') {
@@ -1468,7 +1499,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('r93_skillon_' + stand_num, current_time + 150)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  if (debug_mode) debug_addinfo(stand_num, skillname, global_frame)
+  if (debug_mode) debug_addinfo(stand_num, skillname, global_frame, s_t[1] + 1)
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
@@ -2071,7 +2102,8 @@ function name_to_num (str_type) {
   else if (str_type === 'mg') return 5
   else if (str_type === 'sg') return 6
 }
-function rof_to_frame (num_tn, base_rof, ID) {
+function rof_to_frame (num_tn, rof, ID) {
+  var base_rof = Math.floor(rof)
   var str_tn = num_to_name(num_tn)
   var shootframe = 100
   if (str_tn == 'hg' || str_tn == 'ar' || str_tn == 'smg' || str_tn == 'rf') {
@@ -2881,15 +2913,19 @@ function createHF (dmg, dbk, acu, fil) {
   HF.v4 = fil
   return HF
 }
-function debug_addinfo (stand_num, skillname, time) {
-  var skill_color = '#ff6600'
-  if (skillname === 'attack') skill_color = '#6600ff'
+function debug_addinfo (stand_num, skillname, time, interval) {
+  var skill_color = '#ff6600',skill_cld = '<span style="color:#00cc00">cooldown</span>'
+  if (skillname === 'attack') {
+    skill_color = '#6600ff'
+    skill_cld = 'interval'
+  }
   var str = '<span style="color:grey">' + debug_line + ' &#62 '
   str += '[<span style="color:#000000">' + trans_if_need(stand_num) + '-' + list_tdoll[stand_num][1].Name + ']</span>'
-  str += '\tdo '
+  str += ' do '
   str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
   str += ' in '
   str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
+  str += ' , ' + skill_cld + ' ' + '<span style="color:#000000">' + interval + '</span>f (<span style="color:#000000">' + (interval / 30).toFixed(2) + '</span>s)'
   str += '</span><br>'
   debug_line++
   document.getElementById('debug_content').innerHTML += str
