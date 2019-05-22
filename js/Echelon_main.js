@@ -827,7 +827,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           Set_Special.set('r93_firstlost_' + stand_num, true)
         } else if (Set_Special.get('r93_firstlost_' + stand_num) === true) {
           Set_Special.set('r93_firstlost_' + stand_num, false)
-          changeStatus(stand_num, 'self', 'rof', -0.0909, -1)
+          for (var lsn = 0; lsn < Set_Special.get('r93_valid_' + stand_num); lsn++) changeStatus(stand_num, 'self', 'rof', -0.0909, -1)
           Set_Special.delete('r93_' + stand_num)
           Set_Special.delete('r93_valid_' + stand_num)
           Set_Special.delete('r93_timestack_' + stand_num)
@@ -982,14 +982,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         else if (Set_Special.get('r93_valid_' + stand_num) < 3) { // more buff
           Set_Special.set('r93_' + stand_num, Set_Special.get('r93_' + stand_num) + 1)
           var new_timestack = Set_Special.get('r93_timestack_' + stand_num)
-          new_timestack.push(90 + current_time)
+          new_timestack.push(92 + current_time)
           Set_Special.set('r93_timestack_' + stand_num, new_timestack)
           Set_Special.set('r93_valid_' + stand_num, Set_Special.get('r93_valid_' + stand_num) + 1)
           changeStatus(stand_num, 'self', 'rof', 0.1, -1)
         } else {
           Set_Special.set('r93_' + stand_num, Set_Special.get('r93_' + stand_num) + 1)
           var new_timestack = Set_Special.get('r93_timestack_' + stand_num)
-          new_timestack.push(90 + current_time)
+          new_timestack.push(92 + current_time)
           Set_Special.set('r93_timestack_' + stand_num, new_timestack)
         }
         // forcus setting (special setting)
