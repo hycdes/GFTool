@@ -628,7 +628,7 @@ function readStatus () { // 读取已有人形之前的全局环境
 }
 function addTdoll () { // 添加战术人形
   document.getElementById('suffer_1').disabled = false
-  if(!debug_mode) document.getElementById('suffer_100').disabled = false
+  if (!debug_mode) document.getElementById('suffer_100').disabled = false
   var reverse_position = num_pickblock
   if (lang_type === 'ko') {
     if (reverse_position >= 7) reverse_position -= 6
