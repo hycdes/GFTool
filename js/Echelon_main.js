@@ -768,7 +768,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               if (Set_Special.get('must_crit_' + stand_num) != undefined || (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= current_time) || Math.random() + current_Info.get('crit') >= 1) {
                 final_crit *= current_Info.get('critdmg')
               }
-              if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && is_this(stand_num, 173)) { // 暴动宣告的1.5倍且必暴子弹
+              if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && is_this(stand_num, 173)) { // 暴动宣告的1.5倍且必暴子弹，实为1.5倍伤害
                 Set_Special.set('pkp_nextcrit_' + stand_num, false)
                 final_crit *= 1.5
               }
@@ -873,7 +873,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         var cs = Set_Special.get('clipsize_' + stand_num)
         var extra_shoot_pkp = false
         cs--
-        if (is_this(stand_num, 173)) { // PKP暴动宣告
+        if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) != true) { // PKP暴动宣告
           if (Math.random() <= 0.2) {
             cs++
             extra_shoot_pkp = true
@@ -1711,8 +1711,8 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     var dot_para = status[0][1].split('/')
     var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0])
     if (is_this(stand_num, 1032)) {
-      if (Set_Special.get('uzi_' + stand_num) === undefined) Set_Special.set('uzi_' + stand_num, 0)
-      if (Set_Special.get('uzi_' + stand_num) - 3 * Math.floor(Set_Special.get('uzi_' + stand_num) / 3) === 0) damage_explode *= 1.8
+      if (Set_Special.get('uzi_' + stand_num) === undefined) Set_Special.set('uzi_' + stand_num, 1)
+      if (Set_Special.get('uzi_' + stand_num) - 5 * Math.floor(Set_Special.get('uzi_' + stand_num) / 5) === 0) damage_explode *= 1.8
       Set_Special.set('uzi_' + stand_num, Set_Special.get('uzi_' + stand_num) + 1)
     }
     damage_explode = Math.ceil(damage_explode * explain_fgl_ff('aoe'))
@@ -2927,13 +2927,13 @@ function createHF (dmg, dbk, acu, fil) {
   return HF
 }
 function debug_addinfo (stand_num, skillname, time, interval) {
-  var skill_color = '#ff6600',skill_cld = '<span style="color:#00cc00">cooldown</span>'
+  var skill_color = '#ff6600', skill_cld = '<span style="color:#00cc00">cooldown</span>'
   if (skillname === 'attack') {
     skill_color = '#6600ff'
     skill_cld = 'interval'
   }
   var str = '<span style="color:grey">' + debug_line + ' &#62 '
-  str += '[<span style="color:#000000">' + (trans_if_need(stand_num) + 1) + '-' + list_tdoll[stand_num][1].Name + ']</span>'
+  str += '[<span style="color:#000000">' + trans_if_need(stand_num + 1) + '-' + list_tdoll[stand_num][1].Name + '</span>]'
   str += ' do '
   str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
   str += ' in '
