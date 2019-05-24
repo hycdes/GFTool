@@ -217,7 +217,7 @@ function loadScript (url) {
 }
 
 // data
-var info_update = '2019/05/22'
+var info_update = '2019/05/24'
 var lib_cache = new Map
 var lib_valid = new Map
 var num_valid = 300
@@ -293,13 +293,13 @@ var data_104e6false = [[5, 'SR-3MP', 34],
   num_104e6false = 4921
 
 var data_104e7true = [[5, 'SR-3MP', 5],
-    [4, 'Mk23', 4], [4, 'AS Val', 6], [4, 'PP-90', 7], [4, 'XM3', 4], [4, 'XM3', 21], [4, 'M60', 6],
-    [3, 'Astra Revolver', 46], [3, 'C96', 79], [3, 'M9', 94], [3, 'Makarov', 50],
-    [3, 'AK-47', 61], [3, 'FNC', 65],
-    [3, 'MAC-10', 54], [3, 'Micro UZI', 64], [3, 'Skorpion', 75],
-    [3, 'M14', 65],
-    [3, 'M2HB', 69], [3, 'MG42', 62]],
-  num_104e7true = 801
+    [4, 'Mk23', 6], [4, 'AS Val', 7], [4, 'PP-90', 8], [4, 'XM3', 9], [4, 'XM3', 21], [4, 'M60', 9],
+    [3, 'Astra Revolver', 56], [3, 'C96', 86], [3, 'M9', 104], [3, 'Makarov', 64],
+    [3, 'AK-47', 69], [3, 'FNC', 73],
+    [3, 'MAC-10', 63], [3, 'Micro UZI', 76], [3, 'Skorpion', 79],
+    [3, 'M14', 71],
+    [3, 'M2HB', 78], [3, 'MG42', 73]],
+  num_104e7true = 900
 
 var data_104e7false = [[5, 'SR-3MP', 1],
     [3, 'C96', 2], [3, 'Makarov', 2],
@@ -313,13 +313,13 @@ var data_115true = [
   [3, 'MAC-10', 1], [3, 'Skorpion', 1],
   [3, 'M2HB', 1]]
 
-var data_115false = [[4, 'P7', 8], [4, '9A-91', 2], [4, 'PK', 2],
-    [3, 'Astra Revolver', 56], [3, 'C96', 57], [3, 'M9', 59], [3, 'Makarov', 65],
-    [3, 'AK-47', 59], [3, 'FNC', 61],
-    [3, 'MAC-10', 48], [3, 'Micro UZI', 51], [3, 'Skorpion', 47],
-    [3, 'M14', 62],
-    [3, 'M2HB', 60], [3, 'MG42', 61]],
-  num_115false = 1869
+var data_115false = [[4, 'P7', 10], [4, '9A-91', 2], [4, 'PP-90', 1], [4, 'PK', 2],
+    [3, 'Astra Revolver', 64], [3, 'C96', 74], [3, 'M9', 73], [3, 'Makarov', 83],
+    [3, 'AK-47', 73], [3, 'FNC', 72],
+    [3, 'MAC-10', 62], [3, 'Micro UZI', 63], [3, 'Skorpion', 62],
+    [3, 'M14', 73],
+    [3, 'M2HB', 68], [3, 'MG42', 69]],
+  num_115false = 2290
 
 var data_drag1 = [
   [[1, 60], [5, 450], [1, 140], [21, 1939]],
@@ -332,7 +332,7 @@ var data_drag1 = [
 
 var data_drag_normal = [
   ['1-4E', 3, 'Glock 17 <span style="color:black">[Ch.1 only]</span>', 0, 0, 3, 151],
-  ['2-4E', 3, 'FMG-9 <span style="color:black">[Ch.2 only]</span>', 0, 0, 1, 49],
+  ['2-4E', 3, 'FMG-9 <span style="color:black">[Ch.2 only]</span>', 0, 0, 2, 117],
   ['3-4E', 3, 'CZ-805 <span style="color:black">[Ch.3 only]</span>', 0, 0, 2, 247],
   ['4-4E', 3, 'M21 <span style="color:black">[Ch.4 only]</span>', 0, 0, 5, 277],
   ['5-6', 3, 'M249 SAW <span style="color:black">[Ch.5 only]</span>', 0, 0, 4, 322],
@@ -366,7 +366,7 @@ var data_drag_resident = [
 var list_supporter_1 = [
     '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
     '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
-    'cookiesiclink'
+    'cookiesiclink', 'Airnors'
   ],
   list_supporter_2 = [
     '哒酱', '门对千竿竹' , '莉莉丝爱你哦' , 'Flonne' , 'mrduck' ,
@@ -379,7 +379,8 @@ var list_supporter_1 = [
     'Amuletloli', '无问西东', '吉野晴彦', '凤凰', 'marciy',
     '世间可有两全法', '挽筝', '北梦', '孜然', '全家福',
     '雨上がり', '一罐皮卡丘', 'KON花火', '一名路过的群众', '茂茂' ,
-    '命运の乐章', '没法玩了', '飘帆', '界儿', 'Airnors', 'Gaberae'
+    '命运の乐章', '没法玩了', '飘帆', '界儿', 'Airnors', 'Gaberae',
+    'GoTheK'
 ]
 var str_current_statname = [
   'stat_116true', 'stat_116false',

@@ -2662,7 +2662,7 @@ function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减
       Set_Special.set('BGM_supermissile', false)
       Set_Special.set('BGM_supermissile_reload', 2)
       Set_Special.set('BGM_superdbk', global_frame + 240)
-      
+
       is_sm = true
     }
     if (Set_Special.get('BGM_superdbk') > global_frame) { // 超级导弹1.6倍破防
