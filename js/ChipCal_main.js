@@ -1695,7 +1695,7 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_dmgblomax').disabled = true; document.getElementById('ignore_dmgblomax').value = 0
       document.getElementById('ignore_dbkblomax').disabled = true; document.getElementById('ignore_dbkblomax').value = 0
       document.getElementById('ignore_acublomax').disabled = true; document.getElementById('ignore_acublomax').value = 0
-      document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 2
+      document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = -2
       break
   }
 }
