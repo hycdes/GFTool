@@ -572,6 +572,7 @@ function changeBigImg (command) { // change preview and change property
 
 function chartBack (typeInfo) {
   HeavyfireType = typeInfo
+  console.log('hf=', HeavyfireType)
   document.getElementById('HFSwitch1').className = 'btn btn-outline btn-primary'
   document.getElementById('HFSwitch2').className = 'btn btn-outline btn-warning'
   document.getElementById('HFSwitch3').className = 'btn btn-outline btn-warning'
@@ -736,14 +737,18 @@ function getTopology () {
       else if (chipRepo_data[i].typeNum === 9) chipShape_6[9][1]++
     }
   }
+  console.log(HeavyfireType)
   if (HeavyfireType === 1 || HeavyfireType === 2 || HeavyfireType === 3) validSet = searchValid(chipShape_6, chipShape_5, HeavyfireType)
   else if (HeavyfireType === 4) {
+    console.log(chipShape_6)
+    console.log(chipShape_5.concat(chipShape_5_2))
     validSet = searchValid(chipShape_6, chipShape_5.concat(chipShape_5_2), HeavyfireType)
   }
   else if (HeavyfireType === 5) {
     validSet = searchValid(chipShape_6, [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]], HeavyfireType)
   }
   var allTopoNum = validSet.length
+  console.log(validSet.length)
   // get topology
   for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
     if (HeavyfireType === 1) {
@@ -753,6 +758,7 @@ function getTopology () {
     else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]])
     else if (HeavyfireType === 4) {
       if (document.getElementById('M2_can_unfill').checked) {
+        console.log(validSet[num_topo], topologyLibRefer_M2_6x6.length)
         if (validSet[num_topo] < topologyLibRefer_M2_6x6.length) topologySet.push(topologyLib_M2_6x6[validSet[num_topo]])
         else topologySet.push(topologyLib_M2_6x5n5[validSet[num_topo] - topologyLibRefer_M2_6x6.length])
       } else {
@@ -869,11 +875,11 @@ function isPossible (chipShape_65, chipRefer, border) {
   for (var i = 0; i < border; i++) if (parseInt(chipRefer[i]) > chipShape_65[i][1]) return false
   return true
 }
-function getChipShape6_total (chipShape_6) {
-  var total = 0
-  for (var e of chipShape_6) total += e[1]
-  return total
-}
+// function getChipShape6_total (chipShape_6) {
+//   var total = 0
+//   for (var e of chipShape_6) total += e[1]
+//   return total
+// }
 function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
   var chipShape_65 = chipShape_6.concat(chipShape_5)
   var validSet = []
@@ -910,9 +916,7 @@ function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
   } else if (HeavyfireType === 4) {
     if (document.getElementById('M2_can_unfill').checked) {
       for (var i = 0; i < searchlen[0]; i++) {
-        if (getChipShape6_total(chipShape_6) >= 36) {
-          if (isPossible(chipShape_65, topologyLibRefer_M2_6x6[i], 10)) validSet.push(i) // M2 6x6
-        }
+        if (isPossible(chipShape_65, topologyLibRefer_M2_6x6[i], 10)) validSet.push(i) // M2 6x6
       }
       for (var i = 0; i < searchlen[1]; i++) {
         if (isPossible(chipShape_65, topologyLibRefer_M2_6x5n5[i], 19)) validSet.push(i + searchlen[0]) // M2 6x5+5
@@ -1108,7 +1112,7 @@ function showAnalyze () {
         Process_Text_Dmg.innerHTML = '<span style="color:red">' + dmg + '</span>' + '/' + dmg_max
         DmgAlert.innerHTML = '* ' + lib_lang.over_dmg
         Process_Bar_Dmg.style = 'width:100%'
-      }else {
+      } else {
         Process_Text_Dmg.innerHTML = dmg + '/' + dmg_max
         DmgAlert.innerHTML = ''
         Process_Bar_Dmg.style = ('width:' + (dmg / dmg_max).toFixed(2) * 100 + '%')
@@ -1126,17 +1130,26 @@ function showAnalyze () {
         Process_Text_Acu.innerHTML = '<span style="color:red">' + acu + '</span>' + '/' + acu_max
         AcuAlert.innerHTML = '* ' + lib_lang.over_acu
         Process_Bar_Acu.style = 'width:100%'
-      }else {
+      } else {
         Process_Text_Acu.innerHTML = acu + '/' + acu_max
         AcuAlert.innerHTML = ''
         Process_Bar_Acu.style = ('width:' + (acu / acu_max).toFixed(2) * 100 + '%')
       }
+      var fil_to_interval = 0
+      var fil_base = 0
+      if (HeavyfireType === 1) fil_base = 99+9
+      else if (HeavyfireType === 2) fil_base = 465+46
+      else if (HeavyfireType === 3) fil_base = 194+22
+      else if (HeavyfireType === 4) fil_base = 225+28
+      else if (HeavyfireType === 5) fil_base = 161+15
       if (fil > fil_max) {
-        Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max
+        fil_to_interval = ((Math.ceil(45000 / (300 + fil_max+fil_base))) / 30).toFixed(2)
+        Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max + ' (' + fil_to_interval + 's/hit) '
         FilAlert.innerHTML = '* ' + lib_lang.over_fil
         Process_Bar_Fil.style = 'width:100%'
-      }else {
-        Process_Text_Fil.innerHTML = fil + '/' + fil_max
+      } else {
+        fil_to_interval = ((Math.ceil(45000 / (300 + fil+fil_base))) / 30).toFixed(2)
+        Process_Text_Fil.innerHTML = fil + '/' + fil_max + ' (' + fil_to_interval + 's/hit) '
         FilAlert.innerHTML = ''
         Process_Bar_Fil.style = ('width:' + (fil / fil_max).toFixed(2) * 100 + '%')
       }
