@@ -1137,18 +1137,18 @@ function showAnalyze () {
       }
       var fil_to_interval = 0
       var fil_base = 0
-      if (HeavyfireType === 1) fil_base = 99+9
-      else if (HeavyfireType === 2) fil_base = 465+46
-      else if (HeavyfireType === 3) fil_base = 194+22
-      else if (HeavyfireType === 4) fil_base = 225+28
-      else if (HeavyfireType === 5) fil_base = 161+15
+      if (HeavyfireType === 1) fil_base = 99 + 9
+      else if (HeavyfireType === 2) fil_base = 465 + 46
+      else if (HeavyfireType === 3) fil_base = 194 + 22
+      else if (HeavyfireType === 4) fil_base = 225 + 28
+      else if (HeavyfireType === 5) fil_base = 161 + 15
       if (fil > fil_max) {
-        fil_to_interval = ((Math.ceil(45000 / (300 + fil_max+fil_base))) / 30).toFixed(2)
+        fil_to_interval = ((Math.ceil(45000 / (300 + fil_max + fil_base))) / 30).toFixed(2)
         Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max + ' (' + fil_to_interval + 's/hit) '
         FilAlert.innerHTML = '* ' + lib_lang.over_fil
         Process_Bar_Fil.style = 'width:100%'
       } else {
-        fil_to_interval = ((Math.ceil(45000 / (300 + fil+fil_base))) / 30).toFixed(2)
+        fil_to_interval = ((Math.ceil(45000 / (300 + fil + fil_base))) / 30).toFixed(2)
         Process_Text_Fil.innerHTML = fil + '/' + fil_max + ' (' + fil_to_interval + 's/hit) '
         FilAlert.innerHTML = ''
         Process_Bar_Fil.style = ('width:' + (fil / fil_max).toFixed(2) * 100 + '%')
@@ -1666,18 +1666,18 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_dbk').checked = false
       document.getElementById('ignore_acu').checked = false
       document.getElementById('ignore_fil').checked = false
-      document.getElementById('ignore_dmgblo').checked = true
-      document.getElementById('ignore_dbkblo').checked = true
-      document.getElementById('ignore_acublo').checked = true
-      document.getElementById('ignore_filblo').checked = true
-      document.getElementById('ignore_dmgmax').disabled = true
-      document.getElementById('ignore_dbkmax').disabled = true
-      document.getElementById('ignore_acumax').disabled = true
-      document.getElementById('ignore_filmax').disabled = true
-      document.getElementById('ignore_dmgblomax').disabled = false; document.getElementById('ignore_dmgblomax').value = 1
-      document.getElementById('ignore_dbkblomax').disabled = false; document.getElementById('ignore_dbkblomax').value = 1
-      document.getElementById('ignore_acublomax').disabled = false; document.getElementById('ignore_acublomax').value = 1
-      document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 1
+      document.getElementById('ignore_dmgblo').checked = false
+      document.getElementById('ignore_dbkblo').checked = false
+      document.getElementById('ignore_acublo').checked = false
+      document.getElementById('ignore_filblo').checked = false
+      document.getElementById('ignore_dmgmax').disabled = true; document.getElementById('ignore_dmgmax').value = 0
+      document.getElementById('ignore_dbkmax').disabled = true; document.getElementById('ignore_dbkmax').value = 0
+      document.getElementById('ignore_acumax').disabled = true; document.getElementById('ignore_acumax').value = 0
+      document.getElementById('ignore_filmax').disabled = true; document.getElementById('ignore_filmax').value = 0
+      document.getElementById('ignore_dmgblomax').disabled = true; document.getElementById('ignore_dmgblomax').value = 0
+      document.getElementById('ignore_dbkblomax').disabled = true; document.getElementById('ignore_dbkblomax').value = 0
+      document.getElementById('ignore_acublomax').disabled = true; document.getElementById('ignore_acublomax').value = 0
+      document.getElementById('ignore_filblomax').disabled = true; document.getElementById('ignore_filblomax').value = 0
       break
     case 4:
       document.getElementById('ignore_dmg').checked = false
@@ -1687,7 +1687,7 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_dmgblo').checked = false
       document.getElementById('ignore_dbkblo').checked = false
       document.getElementById('ignore_acublo').checked = false
-      document.getElementById('ignore_filblo').checked = false
+      document.getElementById('ignore_filblo').checked = true
       document.getElementById('ignore_dmgmax').disabled = true
       document.getElementById('ignore_dbkmax').disabled = true
       document.getElementById('ignore_acumax').disabled = true
@@ -1695,25 +1695,7 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_dmgblomax').disabled = true; document.getElementById('ignore_dmgblomax').value = 0
       document.getElementById('ignore_dbkblomax').disabled = true; document.getElementById('ignore_dbkblomax').value = 0
       document.getElementById('ignore_acublomax').disabled = true; document.getElementById('ignore_acublomax').value = 0
-      document.getElementById('ignore_filblomax').disabled = true; document.getElementById('ignore_filblomax').value = 0
-      break
-    case 5:
-      document.getElementById('ignore_dmg').checked = false
-      document.getElementById('ignore_dbk').checked = false
-      document.getElementById('ignore_acu').checked = false
-      document.getElementById('ignore_fil').checked = false
-      document.getElementById('ignore_dmgblo').checked = true
-      document.getElementById('ignore_dbkblo').checked = true
-      document.getElementById('ignore_acublo').checked = true
-      document.getElementById('ignore_filblo').checked = true
-      document.getElementById('ignore_dmgmax').disabled = true
-      document.getElementById('ignore_dbkmax').disabled = true
-      document.getElementById('ignore_acumax').disabled = true
-      document.getElementById('ignore_filmax').disabled = true
-      document.getElementById('ignore_dmgblomax').disabled = false; document.getElementById('ignore_dmgblomax').value = 0
-      document.getElementById('ignore_dbkblomax').disabled = false; document.getElementById('ignore_dbkblomax').value = 1
-      document.getElementById('ignore_acublomax').disabled = false; document.getElementById('ignore_acublomax').value = 1
-      document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 0
+      document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = 2
       break
   }
 }
