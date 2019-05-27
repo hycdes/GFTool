@@ -1,3 +1,5 @@
+var info_update = '2019/05/27'
+
 // function
 function showAlert () {
   if (is_alert) {
@@ -217,7 +219,7 @@ function loadScript (url) {
 }
 
 // data
-var info_update = '2019/05/24'
+
 var lib_cache = new Map
 var lib_valid = new Map
 var num_valid = 300
@@ -258,30 +260,30 @@ var data_104e4true = [
 
 var data_104e4false = [
     [4, 'Mk23', 2], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
-    [3, 'Astra Revolver', 4], [3, 'C96', 8], [3, 'M9', 3], [3, 'Makarov', 6],
-    [3, 'AK-47', 4], [3, 'FNC', 6],
-    [3, 'MAC-10', 4], [3, 'Micro UZI', 3], [3, 'Skorpion', 1],
+    [3, 'Astra Revolver', 4], [3, 'C96', 9], [3, 'M9', 3], [3, 'Makarov', 6],
+    [3, 'AK-47', 5], [3, 'FNC', 6],
+    [3, 'MAC-10', 4], [3, 'Micro UZI', 3], [3, 'Skorpion', 2],
     [3, 'M14', 2],
-    [3, 'M2HB', 3], [3, 'MG42', 3]],
-  num_104e4false = 109
+    [3, 'M2HB', 4], [3, 'MG42', 4]],
+  num_104e4false = 119
 
 var data_104e5true = [[5, 'SR-3MP', 2], // 搜救五战
-    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 3], [4, 'XM3', 11], [4, 'M60', 2],
-    [3, 'Astra Revolver', 16], [3, 'C96', 21], [3, 'M9', 15], [3, 'Makarov', 19],
-    [3, 'AK-47', 15], [3, 'FNC', 19],
-    [3, 'MAC-10', 20], [3, 'Micro UZI', 29], [3, 'Skorpion', 21],
+    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 3], [4, 'XM3', 13], [4, 'M60', 2],
+    [3, 'Astra Revolver', 16], [3, 'C96', 21], [3, 'M9', 16], [3, 'Makarov', 20],
+    [3, 'AK-47', 16], [3, 'FNC', 19],
+    [3, 'MAC-10', 22], [3, 'Micro UZI', 29], [3, 'Skorpion', 21],
     [3, 'M14', 19],
-    [3, 'M2HB', 20], [3, 'MG42', 20]],
-  num_104e5true = 276
+    [3, 'M2HB', 22], [3, 'MG42', 20]],
+  num_104e5true = 287
 
 var data_104e5false = [[5, 'SR-3MP', 1],
-    [4, 'Mk23', 1], [4, 'PP-90', 1], [4, 'XM3', 4],
-    [3, 'Astra Revolver', 6], [3, 'C96', 15], [3, 'M9', 9], [3, 'Makarov', 13],
-    [3, 'AK-47', 14], [3, 'FNC', 8],
-    [3, 'MAC-10', 9], [3, 'Micro UZI', 8], [3, 'Skorpion', 10],
+    [4, 'Mk23', 2], [4, 'PP-90', 1], [4, 'XM3', 4],
+    [3, 'Astra Revolver', 8], [3, 'C96', 15], [3, 'M9', 10], [3, 'Makarov', 14],
+    [3, 'AK-47', 15], [3, 'FNC', 9],
+    [3, 'MAC-10', 9], [3, 'Micro UZI', 9], [3, 'Skorpion', 10],
     [3, 'M14', 7],
-    [3, 'M2HB', 8], [3, 'MG42', 13]],
-  num_104e5false = 200
+    [3, 'M2HB', 8], [3, 'MG42', 15]],
+  num_104e5false = 210
 
 var data_104e6false = [[5, 'SR-3MP', 34],
     [4, 'Mk23', 39], [4, 'AS Val', 32], [4, 'PP-90', 33], [4, 'XM3', 107], [4, 'M60', 31],
@@ -366,7 +368,7 @@ var data_drag_resident = [
 var list_supporter_1 = [
     '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
     '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
-    'cookiesiclink', 'Airnors'
+    'cookiesiclink', 'Airnors', 'Scottdoha'
   ],
   list_supporter_2 = [
     '哒酱', '门对千竿竹' , '莉莉丝爱你哦' , 'Flonne' , 'mrduck' ,
