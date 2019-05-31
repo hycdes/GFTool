@@ -5,26 +5,27 @@ var buffer_six = '', buffer_five = '', buffer_all = ''
 var show_type = 0
 var switch_up = false, switch_up_2 = false
 var switch_activity = false, activity_done = false
-lib_agent.set('up6', ['推进之王', '夜莺'])
-lib_agent.set('up5', ['白金', '芙兰卡', '德克萨斯'])
-lib_agent.set('up4', [])
-lib_agent.set('up6_next', ['银灰'])
-lib_agent.set('up5_next', ['初雪', '崖心'])
-lib_agent.set('up4_next', ['角峰'])
+lib_agent.set('up6', ['斯卡蒂'])
+lib_agent.set('up5', ['夜魔', '临光'])
+lib_agent.set('up4', ['猎蜂', '暗锁'])
+lib_agent.set('up6_next', ['伊芙利特', '艾雅法拉'])
+lib_agent.set('up5_next', ['梅尔', '赫默', '拉普兰德'])
+lib_agent.set('up4_next', [])
 lib_agent.set(6,
-  ['能天使', '推进之王', '伊芙利特', '艾雅法拉', '安洁莉娜', '闪灵', '夜莺', '星熊', '塞雷娅', '银灰'])
+  ['能天使', '推进之王', '伊芙利特', '艾雅法拉', '安洁莉娜', '闪灵', '夜莺', '星熊', '塞雷娅', '银灰', '斯卡蒂'])
 lib_agent.set(5,
   ['白面鸮', '凛冬', '德克萨斯', '芙兰卡', '拉普兰德', '幽灵鲨', '蓝毒',
     '白金', '陨星', '天火', '梅尔', '赫默', '华法琳', '临光',
     '红', '雷蛇', '可颂', '普罗旺斯', '守林人', '崖心', '初雪',
-    '真理', '空', '狮蝎', '食铁兽'])
+    '真理', '空', '狮蝎', '食铁兽', '夜魔'])
 lib_agent.set(4,
   ['夜烟', '远山', '杰西卡', '流星', '白雪', '清道夫', '红豆',
     '杜宾', '缠丸', '霜叶', '慕斯', '砾', '暗锁', '末药',
-    '调香师', '角峰', '蛇屠箱', '古米', '深海色', '地灵', '阿消'])
+    '调香师', '角峰', '蛇屠箱', '古米', '深海色', '地灵', '阿消',
+    '猎蜂'])
 lib_agent.set(3,
   ['芬', '香草', '翎羽', '玫兰莎', '卡缇', '米格鲁', '克洛丝',
-    '炎熔', '芙蓉', '安塞尔', '史都华德', '梓兰'])
+    '炎熔', '芙蓉', '安塞尔', '史都华德', '梓兰', '月见夜', '空爆'])
 function changeUp () {
   if (document.getElementById('ups_0').checked) {
     switch_up = false
@@ -37,7 +38,7 @@ function changeUp () {
   } else {
     switch_up = false
     switch_up_2 = true
-    switch_activity = false
+    switch_activity = true
   }
 }
 function makeStar () { // Star basic possibility = 2,8,50,40
