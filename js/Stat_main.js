@@ -1,4 +1,4 @@
-var info_update = '2019/05/27'
+var info_update = '2019/06/01'
 
 // function
 function showAlert () {
@@ -8,7 +8,6 @@ function showAlert () {
     document.getElementById('btn_alert').innerHTML = '本页须知'
   } else {
     var str_info = ''
-    str_info += '<h4>最后更新时间：' + info_update + '</h4>'
     str_info += '<h4>注释</h4>'
     str_info += '<h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b>1,000+</b></span></h5>'
     str_info += '<h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b>10,000+</b></span></h5>'
@@ -235,19 +234,19 @@ var data_map = {
 }
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2],
     [3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
-    [3, 'OTs-12', 8], [3, 'StG44', 10],
+    [3, 'OTs-12', 9], [3, 'StG44', 10],
     [3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 6],
     [3, 'M1 Garand', 8], [3, 'SV-98', 10],
     [3, 'Bren', 10], [3, 'M1919A4', 7]],
-  num_116true = 54
+  num_116true = 56
 
 var data_116false = [[4, 'Mk46', 2],
-    [3, 'M9', 6], [3, 'Type 92', 1], [3, 'Tokarev', 2],
-    [3, 'OTs-12', 4], [3, 'StG44', 2],
-    [3, 'Sten MkII', 1],
-    [3, 'SV-98', 1], [3, 'M1 Garand', 2],
-    [3, 'Bren', 1], [3, 'M1919A4', 1]],
-  num_116false = 17
+    [3, 'M9', 9], [3, 'P08', 3], [3, 'Type 92', 3], [3, 'Tokarev', 7],
+    [3, 'OTs-12', 8], [3, 'StG44', 2],
+    [3, 'PPS-43', 2], [3, 'Sten MkII', 4],
+    [3, 'SV-98', 2], [3, 'M1 Garand', 5],
+    [3, 'Bren', 4], [3, 'M1919A4', 1]],
+  num_116false = 37
 
 var data_104e4true = [
     [4, 'PP-90', 1],
@@ -268,13 +267,13 @@ var data_104e4false = [
   num_104e4false = 119
 
 var data_104e5true = [[5, 'SR-3MP', 2], // 搜救五战
-    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 3], [4, 'XM3', 13], [4, 'M60', 2],
-    [3, 'Astra Revolver', 16], [3, 'C96', 21], [3, 'M9', 16], [3, 'Makarov', 20],
-    [3, 'AK-47', 16], [3, 'FNC', 19],
-    [3, 'MAC-10', 22], [3, 'Micro UZI', 29], [3, 'Skorpion', 21],
-    [3, 'M14', 19],
-    [3, 'M2HB', 22], [3, 'MG42', 20]],
-  num_104e5true = 287
+    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 4], [4, 'XM3', 15], [4, 'M60', 2],
+    [3, 'Astra Revolver', 19], [3, 'C96', 28], [3, 'M9', 21], [3, 'Makarov', 22],
+    [3, 'AK-47', 18], [3, 'FNC', 20],
+    [3, 'MAC-10', 27], [3, 'Micro UZI', 29], [3, 'Skorpion', 22],
+    [3, 'M14', 24],
+    [3, 'M2HB', 25], [3, 'MG42', 22]],
+  num_104e5true = 327
 
 var data_104e5false = [[5, 'SR-3MP', 1],
     [4, 'Mk23', 2], [4, 'PP-90', 1], [4, 'XM3', 4],
@@ -294,14 +293,14 @@ var data_104e6false = [[5, 'SR-3MP', 34],
     [3, 'M2HB', 305], [3, 'MG42', 292]],
   num_104e6false = 4921
 
-var data_104e7true = [[5, 'SR-3MP', 5],
-    [4, 'Mk23', 6], [4, 'AS Val', 7], [4, 'PP-90', 9], [4, 'XM3', 10], [4, 'XM3', 21], [4, 'M60', 9],
-    [3, 'Astra Revolver', 57], [3, 'C96', 87], [3, 'M9', 106], [3, 'Makarov', 64],
-    [3, 'AK-47', 69], [3, 'FNC', 74],
-    [3, 'MAC-10', 64], [3, 'Micro UZI', 77], [3, 'Skorpion', 80],
-    [3, 'M14', 71],
-    [3, 'M2HB', 79], [3, 'MG42', 73]],
-  num_104e7true = 910
+var data_104e7true = [[5, 'SR-3MP', 6],
+    [4, 'Mk23', 8], [4, 'AS Val', 7], [4, 'PP-90', 9], [4, 'XM3', 10], [4, 'XM3', 21], [4, 'M60', 9],
+    [3, 'Astra Revolver', 58], [3, 'C96', 88], [3, 'M9', 110], [3, 'Makarov', 64],
+    [3, 'AK-47', 72], [3, 'FNC', 76],
+    [3, 'MAC-10', 65], [3, 'Micro UZI', 79], [3, 'Skorpion', 84],
+    [3, 'M14', 73],
+    [3, 'M2HB', 81], [3, 'MG42', 74]],
+  num_104e7true = 938
 
 var data_104e7false = [[5, 'SR-3MP', 1],
     [3, 'C96', 2], [3, 'Makarov', 2],
@@ -399,6 +398,8 @@ var list_data_card = [data_map.m116, data_map.m116, data_map.m115, data_map.m115
   data_map.m02]
 
 window.onload = function () {
+  // update info
+  document.getElementById('version').innerHTML = info_update
   // drag
   mergeCell('table_drag1', 10, 11, 0)
   mergeCell('table_drag1', 8, 9, 0)

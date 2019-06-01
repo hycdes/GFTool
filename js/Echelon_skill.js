@@ -308,10 +308,10 @@ function describe_r93 () { // 强运扳机
 }
 
 // lib_decribe
+// universal
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
-
 lib_describe.set('mustcrit', describe_mustcrit()) // 必定暴击
-
+// command
 lib_describe.set('com_dmg_25', describe_property(['all'], ['dmg'], ['0.25'])) // 火力号令 25%
 lib_describe.set('com_dmg_22', describe_property(['all'], ['dmg'], ['0.22'])) // 火力号令 22%
 lib_describe.set('com_dmg_20', describe_property(['all'], ['dmg'], ['0.2'])) // 火力号令 20%
@@ -352,7 +352,7 @@ lib_describe.set('p22', describe_property(
   ['0.25', '0.6/0.6'])) // p22_决战序列_1/2列
 lib_describe.set('lbll', describe_property(['bloall'], ['dmg/rof/acu'], ['0.25/0.25/0.25'])) // 猩红回响
 lib_describe.set('g36_eva', describe_property(['bloall'], ['eva'], ['0.25'])) // 弧光契约闪避
-
+// debuff command
 lib_describe.set('dmg_25_enemy', describe_property(['enemy'], ['dmg'], ['-0.25'])) // 火力压制 25%
 lib_describe.set('dmgN_40_enemy', describe_propertyN(['enemy'], ['dmg'], ['-0.4'])) // 火力压制N 40%
 lib_describe.set('dmgN_35_enemy', describe_propertyN(['enemy'], ['dmg'], ['-0.35'])) // 火力压制N 35%
@@ -372,7 +372,7 @@ lib_describe.set('evaN_75_enemy', describe_propertyN(['enemy'], ['eva'], ['-0.75
 lib_describe.set('evaND_40_enemy', describe_propertyND(['enemy'], ['eva'], ['-0.4'])) // 掩护压制ND 40%
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
 lib_describe.set('acu_36_enemy', describe_property(['enemy'], ['acu'], ['-0.36'])) // 精确压制 36%
-
+// forcus
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
 lib_describe.set('dmgeva_16040', describe_property(['self'], ['dmg/eva'], ['1.6/0.4'])) // 机动专注 160%/40%
 lib_describe.set('dmgeva_15040', describe_property(['self'], ['dmg/eva'], ['1.5/0.4'])) // 机动专注 150%/40%
@@ -467,27 +467,25 @@ lib_describe.set('armeva_5', describe_property(['self'], ['arm/eva'], ['0.6/0.6'
 lib_describe.set('armeva_4', describe_property(['self'], ['arm/eva'], ['0.5/0.55'])) // 生存本能-4星
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
 lib_describe.set('pm9_buff', describe_property(['self'], ['eva/dmg/acu'], ['1/-0.3/-0.3'])) // 幻重暗劲-闪避+100%，火力命中-30%
-
+// forcefield
 lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
-
+// shield
 lib_describe.set('sat8', describe_shield(35, 5, 'col1')) // 坚壁理论
-
-lib_describe.set('aks', describe_aks()) // 排斥反应
-
+// flash
 lib_describe.set('flash_5', describe_flash(4.5)) // 闪光弹-5星
 lib_describe.set('flash_4', describe_flash(4)) // 闪光弹-4星
 lib_describe.set('flash_3', describe_flash(3.2)) // 闪光弹-3星
 lib_describe.set('pa15_single', describe_singleflash(3)) // 劲爆乐园-单体3秒眩晕
 lib_describe.set('pa15_aoe', describe_flash(2)) // 劲爆乐园-群体2秒眩晕
-
+// clip and aim
 lib_describe.set('addclip_10', describe_addclip(10)) // 弹量+10
 lib_describe.set('addclip_4', describe_addclip(4)) // 弹量+4
 lib_describe.set('addclip_3', describe_addclip(3)) // 弹量+3
 lib_describe.set('addclip_2', describe_addclip(2)) // 弹量+2
 lib_describe.set('addclip_dynamic', describe_addclip(-1)) // 动态判断弹量
 lib_describe.set('aimupto_5', describe_aimupto(5)) // 攻击目标增至5
-
+// incendiary
 lib_describe.set('incendiary_7', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
 lib_describe.set('incendiary_6.5', describe_bomb(6.5, 1, 3, 5)) // 燃烧弹-4星
 lib_describe.set('incendiary_6', describe_bomb(6, 1, 3, 5)) // 燃烧弹-3星
@@ -498,7 +496,7 @@ lib_describe.set('hand_grenade_6', describe_bomb(6, 0, 0, 0)) // 手榴弹-3星
 lib_describe.set('hand_grenade_5.5', describe_bomb(5.5, 0, 0, 0)) // 手榴弹-2星
 lib_describe.set('fp6_dmg', describe_bomb(0.8, 0, 0, 0)) // 失乐园
 lib_describe.set('uzi_burn', describe_bomb(6.5, 1, 3, 5)) // 灼烧链接
-
+// snipe
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
 lib_describe.set('snipe_7', describe_snipe(7, 2, 0, 1, 'armless/critless/evaless')) // 7倍炮狙
@@ -519,7 +517,7 @@ lib_describe.set('iws2000_reset', describe_iws2000reset()) // 巨鹰攻势重置
 lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless')) // 伪神的启示
 lib_describe.set('falcon', describe_falcon(2.5, 1.33, 0, 1, 'armless/crit/evaless')) // 夕阳隼
 lib_describe.set('falcon_getbullet', describe_falcon_getbullet()) // 夕阳隼，特殊弹装填
-lib_describe.set('m200', describe_snipe(2, 1.5, 1.5, -1, 'arm/crit/evaless')) // 静默猎杀，狙击数=-1表示动态
+lib_describe.set('m200', describe_snipe(2, 1.5, 1.5, -1, 'arm/crit/evaless')) // 无言杀意，狙击数=-1表示动态
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
 lib_describe.set('thunder', describe_snipe(-1, 1, 2, 2, 'armless/critless/eva')) // 临界点射击，倍率-1表示要分别判断
 lib_describe.set('noel', describe_snipe(1.2, 0, 0.1, 8, 'armless/critless/evaless')) // 诺艾尔技能
@@ -529,21 +527,8 @@ lib_describe.set('sg_shock', describe_snipe(-1, 0, 0, 1, 'armless/critless/evale
 lib_describe.set('pa15', describe_snipe(4, 0, 0, 1, 'arm/crit/evaless')) // 劲爆乐园
 lib_describe.set('qbu88', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 乱石崩云，AOE单独判断
 lib_describe.set('em2', describe_snipe(3.5, 0, -1, 3, 'arm/crit/evaless')) // 碎碎曲奇弹
-
-lib_describe.set('js9', describe_js9()) // 临阵磨枪
-lib_describe.set('x95', describe_x95()) // 花之锁
-lib_describe.set('p90', describe_p90()) // 灰鼠
-lib_describe.set('ump40', describe_ump40()) // 烙印过载
-lib_describe.set('idw', describe_idw()) // 电光大狂欢
-
-lib_describe.set('m1911', describe_m1911()) // 绝境神枪手
-lib_describe.set('python', describe_python()) // 无畏者之拥
-lib_describe.set('contender', describe_contender()) // 断罪者魔弹
-lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
-lib_describe.set('theresa', describe_theresa()) // 圣光制裁
-lib_describe.set('stechkin', describe_stechkin()) // 斯捷奇金专属增强
-
-lib_describe.set('grenade_90', describe_grenade(90)) // 灭世者打击
+// grenade
+lib_describe.set('grenade_90', describe_grenade(90)) // 厌世者打击
 lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
 lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
 lib_describe.set('grenade_11', describe_grenade(11)) // 11倍榴弹
@@ -556,12 +541,22 @@ lib_describe.set('kiana', describe_grenade(-1)) // 阿斯加德之怒，-1表示
 lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
 lib_describe.set('k11', describe_k11()) // 恐惧榴弹
 lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
-
+// special
+lib_describe.set('js9', describe_js9()) // 临阵磨枪
+lib_describe.set('x95', describe_x95()) // 花之锁
+lib_describe.set('p90', describe_p90()) // 灰鼠
+lib_describe.set('ump40', describe_ump40()) // 烙印过载
+lib_describe.set('idw', describe_idw()) // 电光大狂欢
+lib_describe.set('m1911', describe_m1911()) // 绝境神枪手
+lib_describe.set('python', describe_python()) // 无畏者之拥
+lib_describe.set('contender', describe_contender()) // 断罪者魔弹
+lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
+lib_describe.set('theresa', describe_theresa()) // 圣光制裁
+lib_describe.set('stechkin', describe_stechkin()) // 斯捷奇金专属增强
 lib_describe.set('an94', describe_multihit(2)) // 人偶扳机
 lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('gsh18', describe_multihit(2)) // 锁链冲击
 lib_describe.set('pm9', describe_multihit(2)) // 幻重暗劲
-
 lib_describe.set('aug', describe_aug()) // 葬仪之雨
 lib_describe.set('fal', describe_fal()) // 榴弹践踏
 lib_describe.set('g11', describe_g11()) // 突击者之眼
@@ -573,6 +568,7 @@ lib_describe.set('saiga', describe_saiga()) // 巨羚号角
 lib_describe.set('mg36', describe_mg36()) // 光影帷幕
 lib_describe.set('chauchat', describe_chauchat()) // 百合纹章
 lib_describe.set('r93', describe_r93()) // 强运扳机
+lib_describe.set('aks', describe_aks()) // 排斥反应
 
 // lib_skill
 
@@ -611,7 +607,7 @@ lib_skill.set(99, [
 ]) // 火N
 lib_skill.set(100, [createSkill(6, 12, 8, lib_describe.get('com_eva_60'))]) // 掩护号令
 lib_skill.set(168, [createSkill(6, 12, 8, lib_describe.get('rof_28_enemy'))]) // 突击压制
-lib_skill.set(202, [createSkill(4, 12, 0, lib_describe.get('thunder'))]) // 雷电
+lib_skill.set(202, [createSkill(4, 12, 0, lib_describe.get('thunder'))]) // 临界点射击
 lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
 lib_skill.set(248, [createSkill(6, 12, 8, lib_describe.get('jericho'))]) // 被动单独判断 
 lib_skill.set(1002, [
