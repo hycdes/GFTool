@@ -150,24 +150,6 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_acublomax').disabled = true
       document.getElementById('ignore_filblomax').disabled = true
       break
-    case 3:
-      document.getElementById('ignore_dmg').checked = false
-      document.getElementById('ignore_dbk').checked = false
-      document.getElementById('ignore_acu').checked = false
-      document.getElementById('ignore_fil').checked = false
-      document.getElementById('ignore_dmgblo').checked = false
-      document.getElementById('ignore_dbkblo').checked = false
-      document.getElementById('ignore_acublo').checked = false
-      document.getElementById('ignore_filblo').checked = false
-      document.getElementById('ignore_dmgmax').disabled = true; document.getElementById('ignore_dmgmax').value = 0
-      document.getElementById('ignore_dbkmax').disabled = true; document.getElementById('ignore_dbkmax').value = 0
-      document.getElementById('ignore_acumax').disabled = true; document.getElementById('ignore_acumax').value = 0
-      document.getElementById('ignore_filmax').disabled = true; document.getElementById('ignore_filmax').value = 0
-      document.getElementById('ignore_dmgblomax').disabled = true; document.getElementById('ignore_dmgblomax').value = 0
-      document.getElementById('ignore_dbkblomax').disabled = true; document.getElementById('ignore_dbkblomax').value = 0
-      document.getElementById('ignore_acublomax').disabled = true; document.getElementById('ignore_acublomax').value = 0
-      document.getElementById('ignore_filblomax').disabled = true; document.getElementById('ignore_filblomax').value = 0
-      break
     case 4:
       document.getElementById('ignore_dmg').checked = false
       document.getElementById('ignore_dbk').checked = false
@@ -184,6 +166,7 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_dmgblomax').disabled = true; document.getElementById('ignore_dmgblomax').value = 0
       document.getElementById('ignore_dbkblomax').disabled = true; document.getElementById('ignore_dbkblomax').value = 0
       document.getElementById('ignore_acublomax').disabled = true; document.getElementById('ignore_acublomax').value = 0
+      document.getElementById('ignore_filblomin').disabled = false; document.getElementById('ignore_filblomin').value = null
       document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = -2
       break
     case 5:
