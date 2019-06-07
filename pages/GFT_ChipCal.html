@@ -346,94 +346,124 @@
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="panel panel-default" style="background:url(../img/CC-WAVE.png) no-repeat right 100px top 100px;">
+                        <div class="panel panel-default">
                             <div class="panel-heading">
                                 结果 <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(2)">设置教学</button>
                             </div>
                             <div class="panel-body">
-                                <div class="col-lg-4">
-                                    <h4>基本设置</h4>
-                                    <p>
-                                        <button type="button" style="width:70px;padding:3px" class="btn btn-primary" onclick="chartBack(1)" id="HFSwitch1">BGM-71</button>
-                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-warning" onclick="chartBack(2)" id="HFSwitch2">AGS-30</button>
-                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-warning" onclick="chartBack(3)" id="HFSwitch3">2B-14</button>
-                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-primary" onclick="chartBack(4)" id="HFSwitch4">M2</button>
-                                        <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-primary" onclick="chartBack(5)" id="HFSwitch5">AT4</button>
-                                    </p>
-                                    <p id="M2_options"></p>
-                                    <table class="table_other">
-                                        <tbody>
-                                            <tr style="height:30px">
-                                                <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>全部方案</label></td>
-                                                <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">最优解, 个数: </span></label></td>
-                                                <td style="width:80px">
-                                                    <input type="text" class="form-control input-sm" placeholder="输入整数" id="best_num" value=10 onblur="setBestNum()" disabled>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <h8>&nbsp</h8>
-                                    <table class="table_other table-bordered">
-                                        <tbody>
-                                            <tr style="height:50px">
-                                                <td style="width:40px">排序顺序</td>
-                                                <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
-                                                <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
-                                                <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
-                                                <td style="width:50px"><img src="../img/chip/btn-s5-no.png" style="cursor:pointer" onclick='setBestSort(5)' id="sbs_5"></td>
-                                                <td style="width:50px"><img src="../img/chip/btn-s6-no.png" style="cursor:pointer" onclick='setBestSort(6)' id="sbs_6"></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <h8>&nbsp</h8>
-                                    <p><button type="button" class="btn btn-primary" onclick="getTopology()">计算拼接方案</button><b id="NoResultText"></b></p>
-                                </div>
-                                <div class="col-lg-8">
-                                    <h4>筛选方案</h4>
-                                    <p>
-                                        <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)" id="">全选</button>
-                                        <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)" id="">全不选</button>
-                                        <div class="tooltip-demo">
-                                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="AGS-30/M2可以达到满属性" class="btn btn-outline btn-default" onclick="allIgnore(3)">AGS-30 / M2</button>
-                                            <button type="button" data-toggle="tooltip" data-placement="bottom" title="满迭代2B-14装填86即满射速" class="btn btn-outline btn-default" onclick="allIgnore(4)">2B-14</button>
-                                        </div>
-                                    </p>
-                                    <table class="table_other table-bordered table-hover" style="width:320px">
-                                        <tbody>
-                                            <tr>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> <img src="../img/icon-dmg.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgmax" value=0 disabled></td>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> <img src="../img/icon-dmgblo.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dmgblomax" value=0 disabled></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> <img src="../img/icon-dbk.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkmax" value=0 disabled></td>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> <img src="../img/icon-dbkblo.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_dbkblomax" value=0 disabled></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> <img src="../img/icon-acu.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acumax" value=0 disabled></td>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> <img src="../img/icon-acublo.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_acublomax" value=0 disabled></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> <img src="../img/icon-fil.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filmax" value=0 disabled></td>
-                                                <td style="width:80px"><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> <img src="../img/icon-filblo.png"></td>
-                                                <td style="width:80px"><input class="form-control input-sm" placeholder="输入整数" id="ignore_filblomax" value=0 disabled></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="col-lg-4">
-                                        <h4>图解</h4>
-                                        <div style="width:220px">
+                                <div class="col-lg-6">
+                                    <!--Basic setting-->
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">基本设置</div>
+                                        <div class="panel-body">
                                             <p>
-                                                <strong>处理方案数 </strong><strong id="soluText">0</strong><strong> (</strong><strong id="processText">0</strong><strong>%).</strong>
+                                                <button type="button" style="width:70px;padding:3px" class="btn btn-primary" onclick="chartBack(1)" id="HFSwitch1">BGM-71</button>
+                                                <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-warning" onclick="chartBack(2)" id="HFSwitch2">AGS-30</button>
+                                                <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-warning" onclick="chartBack(3)" id="HFSwitch3">2B-14</button>
+                                                <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-primary" onclick="chartBack(4)" id="HFSwitch4">M2</button>
+                                                <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-primary" onclick="chartBack(5)" id="HFSwitch5">AT4</button>
                                             </p>
+                                            <p id="M2_options"></p>
+                                            <table class="table_other">
+                                                <tbody>
+                                                    <tr style="height:30px">
+                                                        <td style="width:100px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST1" onclick="setBest(1)" checked>全部方案</label></td>
+                                                        <td style="width:120px"><label class="radio-inline"><input type="radio" name="BSTSwitch" id="BST2" onclick="setBest(2)"><span style="color:dodgerblue">最优解, 个数: </span></label></td>
+                                                        <td style="width:80px">
+                                                            <input type="text" class="form-control input-sm" placeholder="输入整数" id="best_num" value=10 onblur="setBestNum()" disabled>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h8>&nbsp</h8>
+                                            <table class="table_other table-bordered">
+                                                <tbody>
+                                                    <tr style="height:50px">
+                                                        <td style="width:40px">排序顺序</td>
+                                                        <td style="width:50px"><img src="../img/chip/btn-s1.png" style="cursor:pointer" onclick='setBestSort(1)' id="sbs_1"></td>
+                                                        <td style="width:50px"><img src="../img/chip/btn-s3-no.png" style="cursor:pointer" onclick='setBestSort(3)' id="sbs_3"></td>
+                                                        <td style="width:50px"><img src="../img/chip/btn-s4-no.png" style="cursor:pointer" onclick='setBestSort(4)' id="sbs_4"></td>
+                                                        <td style="width:50px"><img src="../img/chip/btn-s5-no.png" style="cursor:pointer" onclick='setBestSort(5)' id="sbs_5"></td>
+                                                        <td style="width:50px"><img src="../img/chip/btn-s6-no.png" style="cursor:pointer" onclick='setBestSort(6)' id="sbs_6"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- Adcaned setting-->
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">高级计算设置</div>
+                                        <div class="panel-body">
+                                            <h4>一键设置 <span style="font-size:2px;color:gray">套用模板推荐的筛选值</span></h4>
+                                            <p>
+
+                                                <div class="tooltip-demo">
+                                                    <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)">全选</button>
+                                                    <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)">全不选</button>
+                                                    <button type="button" class="btn btn-default" onclick="allIgnore(5)">还原</button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="AGS-30/M2可以达到满属性" class="btn btn-outline btn-default" onclick="allIgnore(3)">AGS-30 / M2</button>
+                                                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="满迭代2B-14装填86即满射速" class="btn btn-outline btn-default" onclick="allIgnore(4)">2B-14</button>
+                                                </div>
+                                            </p>
+                                            <h4>设定筛选区间 <span style="font-size:2px;color:gray">勾选需要设定的属性并输入筛选值，<span style="color:red">输入为空</span>代表无要求</span></h4>
+                                            <table class="table_other table-bordered table-hover" style="width:540px" id="table_advset">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>属性值</td>
+                                                        <td>下限</td>
+                                                        <td>上限</td>
+                                                        <td>属性格</td>
+                                                        <td>下限</td>
+                                                        <td>上限</td>
+                                                        <td>实际效果预览</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:70px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> <img src="../img/icon-dmg.png"></td>
+                                                        <td style="width:50px"><input class="form-control input-sm" placeholder="" id="ignore_dmgmin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td style="width:50px"><input class="form-control input-sm" placeholder="" id="ignore_dmgmax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td style="width:70px"><input type="checkbox" id="ignore_dmgblo" onclick="setIgnore(5)"> <img src="../img/icon-dmgblo.png"></td>
+                                                        <td style="width:50px"><input class="form-control input-sm" placeholder="" id="ignore_dmgblomin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td style="width:50px"><input class="form-control input-sm" placeholder="" id="ignore_dmgblomax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td style="width:200px" id="ignore_display0"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" id="ignore_dbk" onclick="setIgnore(2)"> <img src="../img/icon-dbk.png"></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_dbkmin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_dbkmax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input type="checkbox" id="ignore_dbkblo" onclick="setIgnore(6)"> <img src="../img/icon-dbkblo.png"></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_dbkblomin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_dbkblomax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td id="ignore_display1"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" id="ignore_acu" onclick="setIgnore(3)"> <img src="../img/icon-acu.png"></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_acumin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_acumax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input type="checkbox" id="ignore_acublo" onclick="setIgnore(7)"> <img src="../img/icon-acublo.png"></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_acublomin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_acublomax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td id="ignore_display2"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="checkbox" id="ignore_fil" onclick="setIgnore(4)"> <img src="../img/icon-fil.png"></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_filmin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_filmax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input type="checkbox" id="ignore_filblo" onclick="setIgnore(8)"> <img src="../img/icon-filblo.png"></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_filblomin" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td><input class="form-control input-sm" placeholder="" id="ignore_filblomax" value=0 onchange="ignore_modify()" disabled></td>
+                                                        <td id="ignore_display3"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <span style="font-size:2px;color:gray">嘿！你存档了吗？单色化了吗？满强化了吗？</span>
+                                    <p><button type="button" class="btn btn-primary" onclick="getTopology()">我已设置和备份完毕现在立刻计算</button><b id="NoResultText"></b></p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="col-lg-6">
+                                        <h4>图解 <span style="font-size:2px;color:gray">有效解处理数 <b id="soluText">0</b> (<b id="processText">0</b>%)</span></h4>
+                                        <div style="width:240px">
                                             <p>
                                                 <strong id="timeText"></strong>
                                             </p>
@@ -528,64 +558,60 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <p>
-                                            <table class="table table-bordered" style='width:220px'>
-                                                <tbody>
-                                                    <tr>
-                                                        <td style='text-align: center'>
-                                                            <button type="button" class="btn btn-outline btn-success" id="AnalyzeSwitch" onclick="switchAnalyze()" disabled>切换为格数</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div style="width:220px; background:url(../img/icon-dmg.png) no-repeat left top;">
-                                                                <p>
-                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dmg">0/190</strong>
-                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="DmgAlert"></span></b>
-                                                                </p>
-                                                                <div class="progress progress-striped active">
-                                                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dmg">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div style="width:220px; background:url(../img/icon-dbk.png) no-repeat left top;">
-                                                                <p>
-                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dbk">0/329</strong>
-                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="DbkAlert"></span></b>
-                                                                </p>
-                                                                <div class="progress progress-striped active">
-                                                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dbk">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div style="width:220px; background:url(../img/icon-acu.png) no-repeat left top;">
-                                                                <p>
-                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Acu">0/191</strong>
-                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="AcuAlert"></span></b>
-                                                                </p>
-                                                                <div class="progress progress-striped active">
-                                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Acu">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div style="width:220px; background:url(../img/icon-fil.png) no-repeat left top;">
-                                                                <p>
-                                                                    <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/46</strong>
-                                                                    <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
-                                                                </p>
-                                                                <div class="progress progress-striped active">
-                                                                    <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Fil">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </p>
                                     </div>
-                                    <div class="col-lg-8">
-                                        <h4>方案选择</h4>
+                                    <div class="col-lg-6">
+                                        <h4>方案属性 <button type="button" class="btn btn-outline btn-success" id="AnalyzeSwitch" onclick="switchAnalyze()" disabled>切换为格数</button></h4>
+                                        <table class="table table-bordered" style='width:220px;padding:0px'>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <div style="width:220px; background:url(../img/icon-dmg.png) no-repeat left top;">
+                                                            <p>
+                                                                <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dmg">0/190</strong>
+                                                                <b><span class="pull-right text-muted" style="color:orangered" id="DmgAlert"></span></b>
+                                                            </p>
+                                                            <div class="progress progress-striped active">
+                                                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dmg">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="width:220px; background:url(../img/icon-dbk.png) no-repeat left top;">
+                                                            <p>
+                                                                <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Dbk">0/329</strong>
+                                                                <b><span class="pull-right text-muted" style="color:orangered" id="DbkAlert"></span></b>
+                                                            </p>
+                                                            <div class="progress progress-striped active">
+                                                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Dbk">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="width:220px; background:url(../img/icon-acu.png) no-repeat left top;">
+                                                            <p>
+                                                                <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Acu">0/191</strong>
+                                                                <b><span class="pull-right text-muted" style="color:orangered" id="AcuAlert"></span></b>
+                                                            </p>
+                                                            <div class="progress progress-striped active">
+                                                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Acu">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div style="width:220px; background:url(../img/icon-fil.png) no-repeat left top;">
+                                                            <p>
+                                                                <strong>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</strong><strong id="Process_Text_Fil">0/46</strong>
+                                                                <b><span class="pull-right text-muted" style="color:orangered" id="FilAlert"></span></b>
+                                                            </p>
+                                                            <div class="progress progress-striped active">
+                                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="Process_Bar_Fil">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <h4>方案选择 <span style="font-size:2px;color:gray">选择图解和组合</span></h4>
                                         <p id="sort_btn_content"></p>
                                         <h5 id="SortInfo"></h5>
                                         <table class="table table-bordered table-hover" style='width:400px'>

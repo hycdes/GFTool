@@ -12,6 +12,9 @@ var chipRepo_data = [], chipRepo_chart = []; // Chip data; Repository informatio
 var analyze_switch = 1, ranking_switch = 1; // show_percentage[1=validProperty,-1=validBlocknum] rank_result_by[1~6]
 var global_workdone = false, global_process = 0, global_totalwork = 0, allCombi = 0
 var global_refresher
+var ignore_setting = new Map
+var readorder = ['dmg', 'dbk', 'acu', 'fil',
+  'dmgblo', 'dbkblo', 'acublo', 'filblo']
 
 function creatChip (chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
   var chipData = { }
@@ -572,7 +575,6 @@ function changeBigImg (command) { // change preview and change property
 
 function chartBack (typeInfo) {
   HeavyfireType = typeInfo
-  console.log('hf=', HeavyfireType)
   document.getElementById('HFSwitch1').className = 'btn btn-outline btn-primary'
   document.getElementById('HFSwitch2').className = 'btn btn-outline btn-warning'
   document.getElementById('HFSwitch3').className = 'btn btn-outline btn-warning'
@@ -665,6 +667,7 @@ function chartBack (typeInfo) {
       document.getElementById('M2_options').innerHTML = ''
       break
   }
+  ignore_UI()
 }
 function countMS (td1, td2, timeclip) { return (timeclip + (60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
 function notIn (num, rank) {
@@ -737,18 +740,14 @@ function getTopology () {
       else if (chipRepo_data[i].typeNum === 9) chipShape_6[9][1]++
     }
   }
-  console.log(HeavyfireType)
   if (HeavyfireType === 1 || HeavyfireType === 2 || HeavyfireType === 3) validSet = searchValid(chipShape_6, chipShape_5, HeavyfireType)
   else if (HeavyfireType === 4) {
-    console.log(chipShape_6)
-    console.log(chipShape_5.concat(chipShape_5_2))
     validSet = searchValid(chipShape_6, chipShape_5.concat(chipShape_5_2), HeavyfireType)
   }
   else if (HeavyfireType === 5) {
     validSet = searchValid(chipShape_6, [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]], HeavyfireType)
   }
   var allTopoNum = validSet.length
-  console.log(validSet.length)
   // get topology
   for (var num_topo = 0; num_topo < allTopoNum; num_topo++) {
     if (HeavyfireType === 1) {
@@ -758,7 +757,6 @@ function getTopology () {
     else if (HeavyfireType === 3) topologySet.push(topologyLib_2B14[validSet[num_topo]])
     else if (HeavyfireType === 4) {
       if (document.getElementById('M2_can_unfill').checked) {
-        console.log(validSet[num_topo], topologyLibRefer_M2_6x6.length)
         if (validSet[num_topo] < topologyLibRefer_M2_6x6.length) topologySet.push(topologyLib_M2_6x6[validSet[num_topo]])
         else topologySet.push(topologyLib_M2_6x5n5[validSet[num_topo] - topologyLibRefer_M2_6x6.length])
       } else {
@@ -1467,60 +1465,59 @@ function compare_fil (solu_a, solu_b) {
   if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max
   return fil_b - fil_a
 }
-function ignoreSolution (dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max) {
+function ignore_readinfo () {
+  ignore_setting.clear()
+  for (var entry of readorder) {
+    if (document.getElementById('ignore_' + entry).checked) {
+      ignore_setting.set(entry, true)
+      if ((document.getElementById('ignore_' + entry + 'max').value).length === 0) ignore_setting.set(entry + 'max', false)
+      else {
+        ignore_setting.set(entry + 'max', true)
+        ignore_setting.set(entry + 'maxv', parseInt(document.getElementById('ignore_' + entry + 'max').value))
+      }
+      if ((document.getElementById('ignore_' + entry + 'min').value).length === 0) ignore_setting.set(entry + 'min', false)
+      else {
+        ignore_setting.set(entry + 'min', true)
+        ignore_setting.set(entry + 'minv', parseInt(document.getElementById('ignore_' + entry + 'min').value))
+      }
+    } else ignore_setting.set(entry, false)
+  }
+} // entry-min/max, entry-minv
+function ignoreSolution (list_max) {
+  var propertyorder = ['Dmg', 'Dbk', 'Acu', 'Fil', 'bDmg', 'bDbk', 'bAcu', 'bFil']
+  ignore_readinfo()
   var solution_filtered = []
-  var ignore_dmg = parseInt(document.getElementById('ignore_dmgmax').value)
-  var ignore_dbk = parseInt(document.getElementById('ignore_dbkmax').value)
-  var ignore_acu = parseInt(document.getElementById('ignore_acumax').value)
-  var ignore_fil = parseInt(document.getElementById('ignore_filmax').value)
-  var ignore_dmgblo = parseInt(document.getElementById('ignore_dmgblomax').value)
-  var ignore_dbkblo = parseInt(document.getElementById('ignore_dbkblomax').value)
-  var ignore_acublo = parseInt(document.getElementById('ignore_acublomax').value)
-  var ignore_filblo = parseInt(document.getElementById('ignore_filblomax').value)
   var solulen = solutionSet.length
   for (var i = 0; i < solulen; i++) {
     var combinelen = solutionSet[i].length
+    var orderlen = readorder.length
+    var skip = false
     if (filter_switch && filter_switch_finalpick) combinelen--
-    if (document.getElementById('ignore_dmg').checked) {
-      var dmg = 0
-      for (var n = 0; n < combinelen; n++) dmg += chipRepo_chart[solutionSet[i][n] - 1].Dmg
-      if (dmg > dmg_max + ignore_dmg) continue
+    // entry=readoerder[e]
+    for (var e = 0; e < orderlen; e++) {
+      var value = 0, iftype = [false, false]
+      if (ignore_setting.get(readorder[e])) {
+        for (var n = 0; n < combinelen; n++) {
+          if (propertyorder[e][0] === 'b') eval('value+=chipRepo_data[solutionSet[i][n] - 1].' + propertyorder[e])
+          else eval('value+=chipRepo_chart[solutionSet[i][n] - 1].' + propertyorder[e])
+        }
+        if (ignore_setting.get(readorder[e] + 'min')) iftype[0] = true
+        if (ignore_setting.get(readorder[e] + 'max')) iftype[1] = true
+        if (iftype[0] || iftype[1]) { // at least one requirement
+          var code = ''
+          if (iftype[0]) {
+            code += 'value>=' + (list_max[e] + ignore_setting.get(readorder[e] + 'minv'))
+            if (iftype[1]) code += '&&'
+          }
+          if (iftype[1]) {
+            code += 'value<=' + (list_max[e] + ignore_setting.get(readorder[e] + 'maxv'))
+          }
+          eval('if(!(' + code + ')) skip=true')
+          if (skip) break
+        }
+      }
     }
-    if (document.getElementById('ignore_dbk').checked) {
-      var dbk = 0
-      for (var n = 0; n < combinelen; n++) dbk += chipRepo_chart[solutionSet[i][n] - 1].Dbk
-      if (dbk > dbk_max + ignore_dbk) continue
-    }
-    if (document.getElementById('ignore_acu').checked) {
-      var acu = 0
-      for (var n = 0; n < combinelen; n++) acu += chipRepo_chart[solutionSet[i][n] - 1].Acu
-      if (acu > acu_max + ignore_acu) continue
-    }
-    if (document.getElementById('ignore_fil').checked) {
-      var fil = 0
-      for (var n = 0; n < combinelen; n++) fil += chipRepo_chart[solutionSet[i][n] - 1].Fil
-      if (fil > fil_max + ignore_fil) continue
-    }
-    if (document.getElementById('ignore_dmgblo').checked) {
-      var dmg_blo = 0
-      for (var n = 0; n < combinelen; n++) dmg_blo += chipRepo_data[solutionSet[i][n] - 1].bDmg
-      if (dmg_blo > dmgblo_max + ignore_dmgblo) continue
-    }
-    if (document.getElementById('ignore_dbkblo').checked) {
-      var dbk_blo = 0
-      for (var n = 0; n < combinelen; n++) dbk_blo += chipRepo_data[solutionSet[i][n] - 1].bDbk
-      if (dbk_blo > dbkblo_max + ignore_dbkblo) continue
-    }
-    if (document.getElementById('ignore_acublo').checked) {
-      var acu_blo = 0
-      for (var n = 0; n < combinelen; n++) acu_blo += chipRepo_data[solutionSet[i][n] - 1].bAcu
-      if (acu_blo > acublo_max + ignore_acublo) continue
-    }
-    if (document.getElementById('ignore_filblo').checked) {
-      var fil_blo = 0
-      for (var n = 0; n < combinelen; n++) fil_blo += chipRepo_data[solutionSet[i][n] - 1].bFil
-      if (fil_blo > filblo_max + ignore_filblo) continue
-    }
+    if (skip) continue
     solution_filtered.push(solutionSet[i])
   }
   return solution_filtered
@@ -1540,7 +1537,7 @@ function sortSolution (sortType) {
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
   else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
-  solutionSet = ignoreSolution(dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max)
+  solutionSet = ignoreSolution([dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max])
   switch (ranking_switch) {
     case 1: // All property
       solutionSet = selectOptimal(solutionSet, buffer_num, value_sumpro_of_HeavyfireType(HeavyfireType))
@@ -1595,110 +1592,6 @@ function sortSolution (sortType) {
   }
 }
 function switchAnalyze () { analyze_switch *= -1; showAnalyze(); }
-function setIgnore (typeInfo) {
-  switch (typeInfo) {
-    case 1:
-      document.getElementById('ignore_dmgmax').disabled = !(document.getElementById('ignore_dmgmax').disabled)
-      break
-    case 2:
-      document.getElementById('ignore_dbkmax').disabled = !(document.getElementById('ignore_dbkmax').disabled)
-      break
-    case 3:
-      document.getElementById('ignore_acumax').disabled = !(document.getElementById('ignore_acumax').disabled)
-      break
-    case 4:
-      document.getElementById('ignore_filmax').disabled = !(document.getElementById('ignore_filmax').disabled)
-      break
-    case 5:
-      document.getElementById('ignore_dmgblomax').disabled = !(document.getElementById('ignore_dmgblomax').disabled)
-      break
-    case 6:
-      document.getElementById('ignore_dbkblomax').disabled = !(document.getElementById('ignore_dbkblomax').disabled)
-      break
-    case 7:
-      document.getElementById('ignore_acublomax').disabled = !(document.getElementById('ignore_acublomax').disabled)
-      break
-    case 8:
-      document.getElementById('ignore_filblomax').disabled = !(document.getElementById('ignore_filblomax').disabled)
-      break
-  }
-}
-function allIgnore (typeInfo) {
-  switch (typeInfo) {
-    case 1:
-      document.getElementById('ignore_dmg').checked = true
-      document.getElementById('ignore_dbk').checked = true
-      document.getElementById('ignore_acu').checked = true
-      document.getElementById('ignore_fil').checked = true
-      document.getElementById('ignore_dmgblo').checked = true
-      document.getElementById('ignore_dbkblo').checked = true
-      document.getElementById('ignore_acublo').checked = true
-      document.getElementById('ignore_filblo').checked = true
-      document.getElementById('ignore_dmgmax').disabled = false
-      document.getElementById('ignore_dbkmax').disabled = false
-      document.getElementById('ignore_acumax').disabled = false
-      document.getElementById('ignore_filmax').disabled = false
-      document.getElementById('ignore_dmgblomax').disabled = false
-      document.getElementById('ignore_dbkblomax').disabled = false
-      document.getElementById('ignore_acublomax').disabled = false
-      document.getElementById('ignore_filblomax').disabled = false
-      break
-    case 2:
-      document.getElementById('ignore_dmg').checked = false
-      document.getElementById('ignore_dbk').checked = false
-      document.getElementById('ignore_acu').checked = false
-      document.getElementById('ignore_fil').checked = false
-      document.getElementById('ignore_dmgblo').checked = false
-      document.getElementById('ignore_dbkblo').checked = false
-      document.getElementById('ignore_acublo').checked = false
-      document.getElementById('ignore_filblo').checked = false
-      document.getElementById('ignore_dmgmax').disabled = true
-      document.getElementById('ignore_dbkmax').disabled = true
-      document.getElementById('ignore_acumax').disabled = true
-      document.getElementById('ignore_filmax').disabled = true
-      document.getElementById('ignore_dmgblomax').disabled = true
-      document.getElementById('ignore_dbkblomax').disabled = true
-      document.getElementById('ignore_acublomax').disabled = true
-      document.getElementById('ignore_filblomax').disabled = true
-      break
-    case 3:
-      document.getElementById('ignore_dmg').checked = false
-      document.getElementById('ignore_dbk').checked = false
-      document.getElementById('ignore_acu').checked = false
-      document.getElementById('ignore_fil').checked = false
-      document.getElementById('ignore_dmgblo').checked = false
-      document.getElementById('ignore_dbkblo').checked = false
-      document.getElementById('ignore_acublo').checked = false
-      document.getElementById('ignore_filblo').checked = false
-      document.getElementById('ignore_dmgmax').disabled = true; document.getElementById('ignore_dmgmax').value = 0
-      document.getElementById('ignore_dbkmax').disabled = true; document.getElementById('ignore_dbkmax').value = 0
-      document.getElementById('ignore_acumax').disabled = true; document.getElementById('ignore_acumax').value = 0
-      document.getElementById('ignore_filmax').disabled = true; document.getElementById('ignore_filmax').value = 0
-      document.getElementById('ignore_dmgblomax').disabled = true; document.getElementById('ignore_dmgblomax').value = 0
-      document.getElementById('ignore_dbkblomax').disabled = true; document.getElementById('ignore_dbkblomax').value = 0
-      document.getElementById('ignore_acublomax').disabled = true; document.getElementById('ignore_acublomax').value = 0
-      document.getElementById('ignore_filblomax').disabled = true; document.getElementById('ignore_filblomax').value = 0
-      break
-    case 4:
-      document.getElementById('ignore_dmg').checked = false
-      document.getElementById('ignore_dbk').checked = false
-      document.getElementById('ignore_acu').checked = false
-      document.getElementById('ignore_fil').checked = false
-      document.getElementById('ignore_dmgblo').checked = false
-      document.getElementById('ignore_dbkblo').checked = false
-      document.getElementById('ignore_acublo').checked = false
-      document.getElementById('ignore_filblo').checked = true
-      document.getElementById('ignore_dmgmax').disabled = true
-      document.getElementById('ignore_dbkmax').disabled = true
-      document.getElementById('ignore_acumax').disabled = true
-      document.getElementById('ignore_filmax').disabled = true
-      document.getElementById('ignore_dmgblomax').disabled = true; document.getElementById('ignore_dmgblomax').value = 0
-      document.getElementById('ignore_dbkblomax').disabled = true; document.getElementById('ignore_dbkblomax').value = 0
-      document.getElementById('ignore_acublomax').disabled = true; document.getElementById('ignore_acublomax').value = 0
-      document.getElementById('ignore_filblomax').disabled = false; document.getElementById('ignore_filblomax').value = -2
-      break
-  }
-}
 function setBest (typeInfo) {
   if (typeInfo === 1) {
     filter_switch = false

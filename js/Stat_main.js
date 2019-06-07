@@ -8,6 +8,7 @@ function showAlert () {
     document.getElementById('btn_alert').innerHTML = '本页须知'
   } else {
     var str_info = ''
+    str_info += '<h5 id="version"></h5>'
     str_info += '<h4>注释</h4>'
     str_info += '<h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b>1,000+</b></span></h5>'
     str_info += '<h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b>10,000+</b></span></h5>'
@@ -20,6 +21,7 @@ function showAlert () {
     document.getElementById('info_alert').innerHTML = str_info
     document.getElementById('btn_alert').className = 'btn btn-primary'
     document.getElementById('btn_alert').innerHTML = '隐藏须知'
+    document.getElementById('version').innerHTML = '更新时间: ' + info_update
   }
   is_alert = !is_alert
 }
@@ -266,14 +268,14 @@ var data_104e4false = [
     [3, 'M2HB', 4], [3, 'MG42', 4]],
   num_104e4false = 119
 
-var data_104e5true = [[5, 'SR-3MP', 2], // 搜救五战
-    [4, 'Mk23', 2], [4, 'AS Val', 3], [4, 'PP-90', 4], [4, 'XM3', 15], [4, 'M60', 2],
-    [3, 'Astra Revolver', 19], [3, 'C96', 28], [3, 'M9', 21], [3, 'Makarov', 22],
-    [3, 'AK-47', 18], [3, 'FNC', 20],
-    [3, 'MAC-10', 27], [3, 'Micro UZI', 29], [3, 'Skorpion', 22],
-    [3, 'M14', 24],
-    [3, 'M2HB', 25], [3, 'MG42', 22]],
-  num_104e5true = 327
+var data_104e5true = [[5, 'SR-3MP', 3], // 搜救五战
+    [4, 'Mk23', 4], [4, 'AS Val', 5], [4, 'PP-90', 4], [4, 'XM3', 17], [4, 'M60', 2],
+    [3, 'Astra Revolver', 23], [3, 'C96', 41], [3, 'M9', 24], [3, 'Makarov', 28],
+    [3, 'AK-47', 26], [3, 'FNC', 27],
+    [3, 'MAC-10', 37], [3, 'Micro UZI', 34], [3, 'Skorpion', 28],
+    [3, 'M14', 27],
+    [3, 'M2HB', 28], [3, 'MG42', 24]],
+  num_104e5true = 396
 
 var data_104e5false = [[5, 'SR-3MP', 1],
     [4, 'Mk23', 2], [4, 'PP-90', 1], [4, 'XM3', 4],
@@ -398,8 +400,6 @@ var list_data_card = [data_map.m116, data_map.m116, data_map.m115, data_map.m115
   data_map.m02]
 
 window.onload = function () {
-  // update info
-  document.getElementById('version').innerHTML = info_update
   // drag
   mergeCell('table_drag1', 10, 11, 0)
   mergeCell('table_drag1', 8, 9, 0)
@@ -430,7 +430,6 @@ window.onload = function () {
   document.getElementById('text_validnum').innerHTML = num_valid
   // make graph
   var result_pair = load_stat_bar(bar_data, y_max)
-  console.log(bar_name)
   bar_num = result_pair[0], y_max = result_pair[1]
   bar_info.push({
     data: bar_data,
