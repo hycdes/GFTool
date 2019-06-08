@@ -14,13 +14,6 @@
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script>
-        function getValue() {
-            var NumMax = parseInt(document.getElementById('NumMax').value);
-            var randomNum = Math.floor(Math.random() * NumMax);
-            var textShow = document.getElementById('RanResult').innerHTML;
-            textShow += randomNum + '\n';
-            document.getElementById('RanResult').innerHTML = textShow;
-        }
         function Language(typeCode) {
             if (typeCode === 'Chinese') window.location.href = "index.html";
             else if (typeCode === 'English') window.location.href = "index-EN.html";
@@ -133,14 +126,24 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
+                </div>
 
-                    <!-- <div class="col-lg-3">
+                <script>
+                    function getValue() {
+                        var NumMax = parseInt(document.getElementById('NumMax').value);
+                        var randomNum = Math.ceil(Math.random() * NumMax);
+                        var textShow = document.getElementById('RanResult').innerHTML;
+                        textShow += randomNum + '\n';
+                        document.getElementById('RanResult').innerHTML = textShow;
+                    }
+                </script>
+                <div class="row">
+                    <div class="col-lg-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                随机数生成器（2月19日抽奖用）
+                                随机数生成器（6月8日抽奖用）
                             </div>
                             <div class="panel-body">
                                 <div class="form-group input-group">
@@ -157,8 +160,7 @@
                             </div>
 
                         </div>
-                    </div> -->
-
+                    </div>
                 </div>
 
             </div>
