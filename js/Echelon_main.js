@@ -2151,7 +2151,8 @@ function rof_to_frame_enemy (base_rof) {
 }
 function fil_to_frame (filling) {
   if (filling >= 1200) filling = 1200
-  return Math.ceil(45000 / (300 + filling))
+  return Math.floor(1500 / Math.ceil((300 + filling) / 30))
+// return Math.ceil(45000 / (300 + filling))
 }
 
 function createBase (Area, Info) {

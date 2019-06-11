@@ -1537,3 +1537,16 @@ function debug_switch () {
   document.getElementById('btn_dmg100').disabled = debug_mode
   document.getElementById('suffer_100').disabled = debug_mode
 }
+function echelon_save () { // entry: {tdoll_type,tdoll_star,select_id,affect,equip_1,equip_2,equip_3,position}
+  var savecode = ''
+  savecode += '['
+  for (var tdoll in list_tdoll) {
+    if (tdoll[1] != null) {
+      0
+    }
+  }
+  savecode += ']'
+  document.getElementById('savecode').innerHTML = savecode
+}
+function echelon_load () {
+}

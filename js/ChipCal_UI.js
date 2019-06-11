@@ -127,10 +127,18 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_dbkmax').disabled = false
       document.getElementById('ignore_acumax').disabled = false
       document.getElementById('ignore_filmax').disabled = false
+      document.getElementById('ignore_dmgmin').disabled = false
+      document.getElementById('ignore_dbkmin').disabled = false
+      document.getElementById('ignore_acumin').disabled = false
+      document.getElementById('ignore_filmin').disabled = false
       document.getElementById('ignore_dmgblomax').disabled = false
       document.getElementById('ignore_dbkblomax').disabled = false
       document.getElementById('ignore_acublomax').disabled = false
       document.getElementById('ignore_filblomax').disabled = false
+      document.getElementById('ignore_dmgblomin').disabled = false
+      document.getElementById('ignore_dbkblomin').disabled = false
+      document.getElementById('ignore_acublomin').disabled = false
+      document.getElementById('ignore_filblomin').disabled = false
       break
     case 2:
       document.getElementById('ignore_dmg').checked = false
@@ -145,10 +153,18 @@ function allIgnore (typeInfo) {
       document.getElementById('ignore_dbkmax').disabled = true
       document.getElementById('ignore_acumax').disabled = true
       document.getElementById('ignore_filmax').disabled = true
+      document.getElementById('ignore_dmgmin').disabled = true
+      document.getElementById('ignore_dbkmin').disabled = true
+      document.getElementById('ignore_acumin').disabled = true
+      document.getElementById('ignore_filmin').disabled = true
       document.getElementById('ignore_dmgblomax').disabled = true
       document.getElementById('ignore_dbkblomax').disabled = true
       document.getElementById('ignore_acublomax').disabled = true
       document.getElementById('ignore_filblomax').disabled = true
+      document.getElementById('ignore_dmgblomin').disabled = true
+      document.getElementById('ignore_dbkblomin').disabled = true
+      document.getElementById('ignore_acublomin').disabled = true
+      document.getElementById('ignore_filblomin').disabled = true
       break
     case 4:
       document.getElementById('ignore_dmg').checked = false
