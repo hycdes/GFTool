@@ -1512,6 +1512,31 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     Set_Special.set('r93_skillon_' + stand_num, current_time + 150)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'dorothy') {
+    var list_num = [stand_num - 6, stand_num - 3, stand_num + 3, stand_num + 6]
+    if (document.getElementById('special_dorothy_' + stand_num + '_1').checked) { // MIRD113模式
+      changeStatus(stand_num, 'self', 'dmg', 1, -1)
+      for (var stn of list_num) {
+        if (stn >= 0 && stn <= 8) {
+          if (gs_tdoll[stn]) {
+            changeStatus(stand_num, 'self', 'acu', -0.4, -1)
+            changeStatus(stand_num, 'self', 'eva', 0.8, -1)
+          }
+        }
+      }
+    } else if (document.getElementById('special_dorothy_' + stand_num + '_2').checked) { // 纳米迷彩模式
+      changeStatus(stand_num, 'self', 'eva', 1, -1)
+      for (var stn of list_num) {
+        if (stn >= 0 && stn <= 8) {
+          if (gs_tdoll[stn]) {
+            changeStatus(stand_num, 'self', 'eva', -0.4, -1)
+            changeStatus(stand_num, 'self', 'acu', 0.8, -1)
+          }
+        }
+      }
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   if (debug_mode) {
     if (fire_status === 'stop' && skillname === 'attack') {
       true // log nothing
@@ -2355,7 +2380,8 @@ function init_loadPrepareStatus () { // 初始化战前属性
   for (var i = 0; i < 9; i++) { // 载入技能
     if (list_tdoll[i][1] != null) {
       var list_Skill = []
-      list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
+      if (is_this(i, 2011)) true // Jill不能普攻
+      else list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
       for (var v_skill of list_tdoll[i][1].Skill) {
         list_Skill.push([v_skill, Math.ceil(30 * (v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')))]) // 载入技能表
       }

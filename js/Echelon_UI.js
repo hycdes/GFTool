@@ -789,6 +789,14 @@ function addTdoll () { // 添加战术人形
       str_html += ') value="3" disabled></td><td>' + lib_language.DESCRIBE_266_3 + '</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 2013) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_2013 + '</h4>'
+      str_html += '<h5>' + lib_language.DESCRIBE_2013_0 + '</h5>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '_dorothy" id="special_dorothy_' + (num_pickblock - 1) + '_1" checked><span style="color:dodgerblue"> MIRD113</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '_dorothy" id="special_dorothy_' + (num_pickblock - 1) + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_2013_1 + '</span></label></p>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     // 前台更新
     document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
     manageUI('pick-block')

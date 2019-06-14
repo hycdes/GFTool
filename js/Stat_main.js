@@ -332,6 +332,14 @@ var data_drag1 = [
   [[4, 220], [24, 3884], [0, 0], [3, 567]],
   [[2, 241], [14, 1946], [3, 386], [19, 3292]]
 ]
+var data_dragva11 = [
+  [[0, 0], [0, 0], [0, 0], [0, 0]],
+  [[0, 0], [0, 0], [0, 0], [0, 0]],
+  [[1, 229], [0, 0], [0, 0], [0, 0]],
+  [[1, 144], [1, 128], [0, 0], [0, 0]],
+  [[0, 0], [1, 207], [0, 0], [0, 0]],
+  [[1, 193], [0, 0], [0, 0], [0, 0]]
+]
 
 var data_drag_normal = [
   ['1-4E', 3, 'Glock 17 <span style="color:black">[Ch.1 only]</span>', 0, 0, 3, 151],
@@ -383,7 +391,7 @@ var list_supporter_1 = [
     '世间可有两全法', '挽筝', '北梦', '孜然', '全家福',
     '雨上がり', '一罐皮卡丘', 'KON花火', '一名路过的群众', '茂茂' ,
     '命运の乐章', '没法玩了', '飘帆', '界儿', 'Airnors', 'Gaberae',
-    'GoTheK'
+    'GoTheK', 'WHJ'
 ]
 var str_current_statname = [
   'stat_116true', 'stat_116false',
@@ -408,6 +416,14 @@ window.onload = function () {
   mergeCell('table_drag1', 2, 3, 0)
   mergeCell('table_drag1', 0, 1, 0)
   fill_drag('drag1', data_drag1, 6)
+  // mergeCell()
+  mergeCell('table_dragva11', 10, 11, 0)
+  mergeCell('table_dragva11', 8, 9, 0)
+  mergeCell('table_dragva11', 6, 7, 0)
+  mergeCell('table_dragva11', 4, 5, 0)
+  mergeCell('table_dragva11', 2, 3, 0)
+  mergeCell('table_dragva11', 0, 1, 0)
+  fill_drag('dragva11', data_dragva11, 6)
   fill_drag_normal('table_drag_normal', data_drag_normal)
   fill_drag_normal('table_drag_resident', data_drag_resident)
   deduplicateTable('table_drag_normal', data_drag_normal, false)
