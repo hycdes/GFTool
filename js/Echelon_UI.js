@@ -207,7 +207,10 @@ function showEquip (value) {
       if (equip_info.na > 0) equip_str += lib_language.na + '<span style="color:green">+' + equip_info.na + '% ' + '</span>'
       else {
         if (value === 42009 || value === 42010) equip_str += lib_language.na + '<span style="color:green">+100% </span>'
-        equip_str += '<br><span style="color:red">' + lib_language.skillstren + '</span>'
+        if (value === 42009 || value === 42010 || value === 17) equip_str += '<br><span style="color:red">' + lib_language.skillstren + '</span>'
+        else if (value === 120111 || value === 120112 || value === 120113 || value === 220111 || value === 220112 || value === 220113 || value === 320111 || value === 320112) {
+          equip_str += '<br><span style="color:#cc66ff">' + lib_language.skilljill + '</span>'
+        }
       }
     }
   }
@@ -425,6 +428,7 @@ function resetEquipment () {
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
+      else if (ID === 2011) set_equip = [120111, 220112, 320111] // Jill
       else set_equip = [11, 21, 32]
     }
     else if (set_guntype === 2) {

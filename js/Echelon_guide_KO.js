@@ -246,6 +246,7 @@ lib_language = {
   form: '더미',
   na: 'Night-ability',
   skillstren: '스킬+',
+  skilljill: '调制饮料改变人生',
 
   skillNAME_256: '석양의 송골매',
   DESCRIBE_256: '특수탄 사용 안함',

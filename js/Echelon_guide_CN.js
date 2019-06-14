@@ -248,6 +248,7 @@ lib_language = {
   form: '编制',
   na: '夜视能力',
   skillstren: '技能增强',
+  skilljill:'调制饮料改变人生',
 
   fairyNAME_1: '勇士妖精',
   fairyNAME_2: '暴怒妖精',

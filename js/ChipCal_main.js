@@ -1142,12 +1142,12 @@ function showAnalyze () {
       else if (HeavyfireType === 5) fil_base = 161 + 15
       if (fil > fil_max) {
         fil_to_interval = ((Math.ceil(45000 / (300 + fil_max + fil_base))) / 30).toFixed(2)
-        Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max + ' (' + fil_to_interval + 's/shoot) '
+        Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max + ' (' + fil_to_interval + 's/a) '
         FilAlert.innerHTML = '* ' + lib_lang.over_fil
         Process_Bar_Fil.style = 'width:100%'
       } else {
         fil_to_interval = ((Math.ceil(45000 / (300 + fil + fil_base))) / 30).toFixed(2)
-        Process_Text_Fil.innerHTML = fil + '/' + fil_max + ' (' + fil_to_interval + 's/shoot) '
+        Process_Text_Fil.innerHTML = fil + '/' + fil_max + ' (' + fil_to_interval + 's/a) '
         FilAlert.innerHTML = ''
         Process_Bar_Fil.style = ('width:' + (fil / fil_max).toFixed(2) * 100 + '%')
       }

@@ -726,14 +726,14 @@ lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 
 lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 9a91
 lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // clear
 lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // fail
-lib_property_equip.set(120111, createProperty_equip(0, 0, 11, 0, 0, 0.2, 0, 0, 0, 0)) // JILL-sp1-Adelhyde
-lib_property_equip.set(120112, createProperty_equip(0, 0, 11, 0, 0, 0.2, 0, 0, 0, 0)) // JILL-sp2-Flanergide
-lib_property_equip.set(120113, createProperty_equip(0, 0, 11, 0, 0, 0.2, 0, 0, 0, 0)) // JILL-sp3-Karmotrine
-lib_property_equip.set(220111, createProperty_equip(15, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // JILL-hp1-Adelhyde
-lib_property_equip.set(220112, createProperty_equip(15, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // JILL-hp2-Bronson Ext
-lib_property_equip.set(220113, createProperty_equip(15, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // JILL-hp3-Karmotrine
-lib_property_equip.set(320111, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // JILL-d1-Pwd delta
-lib_property_equip.set(320112, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // JILL-d2-Karmotrine
+lib_property_equip.set(120111, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-sp1-Adelhyde
+lib_property_equip.set(120112, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-sp2-Flanergide
+lib_property_equip.set(120113, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-sp3-Karmotrine
+lib_property_equip.set(220111, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-hp1-Adelhyde
+lib_property_equip.set(220112, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-hp2-Bronson Ext
+lib_property_equip.set(220113, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-hp3-Karmotrine
+lib_property_equip.set(320111, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-d1-Pwd delta
+lib_property_equip.set(320112, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-d2-Karmotrine
 lib_property_equip.set(32012, createProperty_equip(0, 0, 34, 0, 0, 0, 0, 0, 0, 0)) // SEI
 lib_property_equip.set(22013, createProperty_equip(22, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // Dorothy
 lib_property_equip.set(32014, createProperty_equip(0, 0, 0, 3, 0, 0, 0.3, 0, 0, 0)) // Stella
