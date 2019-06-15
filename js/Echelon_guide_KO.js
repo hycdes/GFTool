@@ -308,8 +308,38 @@ lib_language = {
   hfNAME_1: 'AGS-30',
   hfNAME_2: '2B-14',
   hfNAME_3: 'M2',
-  hfNAME_4: 'AT4'
+  hfNAME_4: 'AT4',
+
+  special_info_common: '<span style="color:red">技能需要特殊设定</span>',
+  special_info_2011_0: '基础饮品',
+  special_info_2011_1: '<span style="color:#ff9900">∎</span><span style="color:#33cc00">∎</span><span style="color:#99ccff">∎</span>Big Beer',
+  special_info_2011_2: '<span style="color:#ff3333">∎</span><span style="color:#ff3333">∎</span><span style="color:#6600ff">∎</span>Brandtini',
+  special_info_2011_3: '<span style="color:#ff3333">∎</span><span style="color:#ff9900">∎</span><span style="color:#99ccff">∎</span>Piano Woman',
+  special_info_2011_4: '<span style="color:#ff3333">∎</span><span style="color:#ff3333">∎</span><span style="color:#99ccff">∎</span>Moonblast',
+  special_info_2011_5: '<span style="color:#ff9900">∎</span><span style="color:#6600ff">∎</span><span style="color:#33cc00">∎</span>Bleeding Jane',
+  special_info_2011_6: '<span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span>Fringe Weaver'
 }
+
+var lib_special_info = new Map // 特殊提醒库
+lib_special_info.set(102, lib_language.special_info_common) // ump40
+lib_special_info.set(180, lib_language.special_info_common) // pzb39
+lib_special_info.set(192, lib_language.special_info_common) // js05
+lib_special_info.set(194, lib_language.special_info_common) // k2
+lib_special_info.set(213, lib_language.special_info_common) // cms
+lib_special_info.set(231, lib_language.special_info_common) // m82a1
+lib_special_info.set(236, lib_language.special_info_common) // k11
+lib_special_info.set(238, lib_language.special_info_common) // 88-mg
+lib_special_info.set(243, lib_language.special_info_common) // 64howa
+lib_special_info.set(251, lib_language.special_info_common) // x95
+lib_special_info.set(252, lib_language.special_info_common) // ksvk
+lib_special_info.set(256, lib_language.special_info_common) // falcon
+lib_special_info.set(261, lib_language.special_info_common) // 88-rf
+lib_special_info.set(266, lib_language.special_info_common) // r93
+lib_special_info.set(1039, lib_language.special_info_common) // mosin
+lib_special_info.set(1055, lib_language.special_info_common) // m4
+lib_special_info.set(2006, lib_language.special_info_common) // theresa
+lib_special_info.set(2011, lib_language.special_info_common) // jill
+lib_special_info.set(2013, lib_language.special_info_common) // dorothy
 
 window.onload = function () {
   loadScript('../js/Echelon_main.js')

@@ -434,14 +434,14 @@ function reactAllSkill (command, current_time) {
   // 人形特殊状态
   for (var k = 0; k < 9; k++) {
     if (gs_tdoll[k]) {
-      if (is_this(k, 257)) {
+      if (is_this(k, 257)) { // m200
         if (Set_Special.get('m200_end' + k) != undefined) {
           if (Set_Special.get('m200_end' + k) < global_frame) {
             Set_Special.delete('m200_end' + k)
             Set_Special.set('attack_permission_' + k, 'fire_all')
           }
         }
-      } else if (is_this(k, 243)) {
+      } else if (is_this(k, 243)) { // 64howa
         if (Set_Special.get('64howa_' + k) != undefined && Set_Special.get('64howa_' + k) < global_frame) { // 未来预警发动
           if (document.getElementById('special_64howa_' + (k + 1) + '_0').checked) {
             changeStatus(k, 'self', 'dmg', '0.55', 5)
@@ -456,12 +456,31 @@ function reactAllSkill (command, current_time) {
           }
           Set_Special.delete('64howa_' + k)
         }
-      } else if (is_this(k, 264)) {
+      } else if (is_this(k, 264)) { // chauchat
         if (Set_Special.get('chauchat_nextget_' + k) < global_frame) {
           if (Set_Special.get('chauchat_' + k) < 4) {
             Set_Special.set('chauchat_' + k, Set_Special.get('chauchat_' + k) + 1)
           }
           Set_Special.set('chauchat_nextget_' + k, global_frame + 120)
+        }
+      } else if (is_this(k, 2011)) { // jill
+        if (Set_Special.get('jill_bartending_' + k) <= global_frame) {
+          if (Set_Special.get('jill_buff_' + k) >= global_frame) {
+            Set_Special.set('jill_refresh_' + k, true)
+          } else {
+            // react
+          }
+        } else if (Set_Special.get('jill_bartending_' + k) > global_frame) {
+          if (Set_Special.get('jill_refresh_' + k) === true) {
+          }
+        }
+
+        if (Set_Special.get('jill_refresh_' + k) === true) { // 需要刷新buff时间
+          if (Set_Special.get('jill_buff_' + k) >= global_frame) { // buff没消失
+            // do nothing, just wait
+          } else {
+            // react
+          }
         }
       }
     }
@@ -1536,6 +1555,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'jill') {
+    0
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 0.7 * 30) - 1 // 进入冷却，自带30%冷却
   }
   if (debug_mode) {
     if (fire_status === 'stop' && skillname === 'attack') {
