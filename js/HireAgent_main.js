@@ -5,9 +5,9 @@ var buffer_six = '', buffer_five = '', buffer_all = ''
 var show_type = 0
 var switch_up = false, switch_up_2 = false
 var switch_activity = false, activity_done = false
-lib_agent.set('up6', ['斯卡蒂'])
-lib_agent.set('up5', ['夜魔', '临光'])
-lib_agent.set('up4', ['猎蜂', '暗锁'])
+lib_agent.set('up6', ['闪灵', '塞雷娅'])
+lib_agent.set('up5', ['真理', '红', '幽灵鲨'])
+lib_agent.set('up4', [])
 lib_agent.set('up6_next', ['伊芙利特', '艾雅法拉'])
 lib_agent.set('up5_next', ['梅尔', '赫默', '拉普兰德'])
 lib_agent.set('up4_next', [])

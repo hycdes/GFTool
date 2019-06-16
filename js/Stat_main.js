@@ -396,7 +396,7 @@ var data_drag_normal = [
 ]
 var data_drag_resident = [
   ['塌缩点-再点火4', 5, 'MP7', 2, 284, 0, 0],
-  ['塌缩点-冲程止点2', 4, '雷电', 0, 0, 1, 225]
+  ['塌缩点-冲程止点2', 4, 'Thunder', 0, 0, 1, 225]
 ]
 var str_current_statname = [
   'stat_116true', 'stat_116false',
