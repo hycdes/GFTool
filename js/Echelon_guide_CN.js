@@ -38,6 +38,7 @@ lib_language = {
   UI_pickblock: '请点选一个<b><span style="color: red">九宫格</span></b>',
   UI_not_2_python: ' *不能添加两个蟒蛇',
   UI_not_2_carcano: ' *不能添加两个CarcanoM1891',
+  UI_not_2_jill: ' *不能添加两个Jill',
   UI_fairydmg: '妖精伤害',
   UI_fairyinj: '妖精承伤',
 
@@ -309,7 +310,8 @@ lib_language = {
   hfNAME_3: 'M2',
   hfNAME_4: 'AT4',
 
-  special_info_common: '<span style="color:red">技能需要特殊设定</span>',
+  special_info_unique: '<span style="color:blue">唯一人形</span> ',
+  special_info_common: '<span style="color:red">特殊设定</span>',
   special_info_2011_0: '基础饮品',
   special_info_2011_1: '<span style="color:#ff9900">∎</span><span style="color:#33cc00">∎</span><span style="color:#99ccff">∎</span>Big Beer',
   special_info_2011_2: '<span style="color:#ff3333">∎</span><span style="color:#ff3333">∎</span><span style="color:#6600ff">∎</span>Brandtini',
@@ -343,6 +345,7 @@ lib_special_info.set(2013, lib_language.special_info_common) // dorothy
 
 window.onload = function () {
   loadScript('../js/Echelon_main.js')
+  loadScript('../js/Echelon_sub.js')
   loadScript('../js/Echelon_property.js')
   loadScript('../js/Echelon_skill.js')
   loadScript('../js/Echelon_UI.js')

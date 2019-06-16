@@ -271,6 +271,7 @@ lib_language = {
 
 window.onload = function () {
   loadScript('../js/Echelon_main.js')
+  loadScript('../js/Echelon_sub.js')
   loadScript('../js/Echelon_property.js')
   loadScript('../js/Echelon_skill.js')
   loadScript('../js/Echelon_UI.js')

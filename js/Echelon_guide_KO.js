@@ -38,6 +38,7 @@ lib_language = {
   UI_pickblock: '<b><span style="color: red">배치할 자리</span></b> 를 선택해 주세요',
   UI_not_2_python: ' *파이슨을 2기 이상 추가할 수 없습니다.',
   UI_not_2_carcano: ' *CarcanoM1891을 2기 이상 추가할 수 없습니다',
+  UI_not_2_jill: ' *Jill을 2기 이상 추가할 수 없습니다',
   UI_fairydmg: '요정공격',
   UI_fairyinj: '요정방어',
 
@@ -310,6 +311,7 @@ lib_language = {
   hfNAME_3: 'M2',
   hfNAME_4: 'AT4',
 
+  special_info_unique: '<span style="color:blue">唯一人形</span> ',
   special_info_common: '<span style="color:red">技能需要特殊设定</span>',
   special_info_2011_0: '基础饮品',
   special_info_2011_1: '<span style="color:#ff9900">∎</span><span style="color:#33cc00">∎</span><span style="color:#99ccff">∎</span>Big Beer',
@@ -343,6 +345,7 @@ lib_special_info.set(2013, lib_language.special_info_common) // dorothy
 
 window.onload = function () {
   loadScript('../js/Echelon_main.js')
+  loadScript('../js/Echelon_sub.js')
   loadScript('../js/Echelon_property.js')
   loadScript('../js/Echelon_skill.js')
   loadScript('../js/Echelon_UI.js')

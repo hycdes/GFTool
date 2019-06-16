@@ -641,16 +641,19 @@ function jill_wine_explain (eq0, eq1, eq2) {
   return type
 }
 function changeSpecial (ID) {
+  var str_display = ''
+  if (do_unique(ID, 'is_unique')) str_display += lib_language.special_info_unique
   if (lib_special_info.get(ID) != undefined) {
     if (ID === 2011) {
       var jill_str = lib_language.special_info_2011_0
       var type = jill_wine_explain(set_equip[0], set_equip[1], set_equip[2])
       eval('jill_str=lib_language.special_info_2011_' + type)
       Set_Special.set('jill_' + (num_pickblock - 1), type)
-      document.getElementById('info_special').innerHTML = jill_str
+      str_display += jill_str
     }
-    else document.getElementById('info_special').innerHTML = lib_special_info.get(ID)
-  } else document.getElementById('info_special').innerHTML = ''
+    else str_display += lib_special_info.get(ID)
+  }
+  document.getElementById('info_special').innerHTML = str_display
 }
 function readStatus () { // 读取已有人形之前的全局环境
   var this_buffer = buffer_table.get(num_pickblock)
@@ -692,28 +695,32 @@ function addTdoll () { // 添加战术人形
   var new_property = lib_property.get(ID)
   var new_equip = [lib_property_equip.get(set_equip[0]), lib_property_equip.get(set_equip[1]), lib_property_equip.get(set_equip[2]), buffer_last[5]]
   var new_stand = num_pickblock - 1
-  // 数据添加
-  var this_is_python = false
-  var this_is_karm1891 = false
-  if (list_tdoll[num_pickblock - 1][1] != null) {
-    if (list_tdoll[num_pickblock - 1][1].ID === 4) this_is_python = true
-    if (list_tdoll[num_pickblock - 1][1].ID === 197) this_is_karm1891 = true
+  var pickID = -1
+  if (list_tdoll[num_pickblock - 1][1] != null) { // 
+    pickID = list_tdoll[num_pickblock - 1][1].ID
   }
+  // 数据添加
   document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '' // 删除之前所在位置的特殊设定
-  if ((!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) || (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891)) {
-    if (!Set_Special.get('can_add_python') && ID === 4 && !this_is_python) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_python
-    if (!Set_Special.get('can_add_karm1891') && ID === 197 && !this_is_karm1891) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_carcano
+  if (!do_unique(ID, 'can_add')) { // 不能添加（因为唯一存在且非覆盖）
+    do_unique(ID, 'alert') // 报错
   } else {
-    if (this_is_python && ID != 4) { // 蟒蛇被覆盖掉
-      Set_Special.set('can_add_python', true)
+    // 唯一性处理
+    if (do_unique(pickID, 'is_unique')) { // 唯一人形被覆盖
+      if (!do_unique(ID, 'is_unique')) do_unique(pickID, 'release') // 非唯一人形添加
+      else { // 唯一人形覆盖唯一人形
+        if (ID === pickID) true // 什么也不做
+        else {
+          do_unique(ID, 'lock')
+          do_unique(pickID, 'release')
+        }
+      }
+    } else { // 普通人形，或空格子被覆盖
+      if (do_unique(ID, 'is_unique')) do_unique(ID, 'lock') // 上锁
     }
-    if (this_is_karm1891 && ID != 197) { // 卡姐被覆盖掉
-      Set_Special.set('can_add_karm1891', true)
-    }
+    // 添加数据
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
-    if (ID === 4) Set_Special.set('can_add_python', false)
-    if (ID === 197) Set_Special.set('can_add_karm1891', false)
-    else if (ID === 1055) {
+    // 特殊变量
+    if (ID === 1055) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_55 + '] ' + lib_language.DESCRIBE_55
     }
     else if (ID === 1039) {
@@ -846,8 +853,10 @@ function addTdoll () { // 添加战术人形
 
 function deleteTdoll () { // 删除战术人形
   // 数据删除
-  if (list_tdoll[num_pickblock - 1][1].ID === 4) Set_Special.set('can_add_python', true)
-  if (list_tdoll[num_pickblock - 1][1].ID === 197) Set_Special.set('can_add_karm1891', true)
+  var ID = list_tdoll[num_pickblock - 1][1].ID
+  if (do_unique(ID, 'is_unique')) { // 唯一人形锁解锁
+    do_unique(ID, 'release')
+  }
   buffer_table.delete(num_pickblock)
   list_tdoll[num_pickblock - 1][1] = null
   // 前台更新

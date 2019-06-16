@@ -2,6 +2,7 @@ var lib_affect = new Map // 人形影响格库，存放 < 编号, Affecy >
 var lib_property = new Map // 人形属性库，存放 < 编号, Property >
 var lib_property_equip = new Map // 装备属性库，存放 < 装备编号, Property_equip >
 var lib_fairy = new Map // 妖精库
+var lib_unique = new Map // 独一无二人形，不能添加第二个
 
 function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) { // 战术人形
   var TdollInfo = {}
@@ -761,3 +762,9 @@ lib_fairy.set(18, createFairy(lib_language.fairyNAME_18, 'dmg/critdmg/acu/eva/ar
 lib_fairy.set(19, createFairy(lib_language.fairyNAME_19, 'dmg/critdmg/acu/eva/arm', '0.1/0.1/0.2/0.8/0.2'))
 lib_fairy.set(20, createFairy(lib_language.fairyNAME_20, 'dmg/acu/eva/arm', '0.32/0.75/0.32/0.08'))
 lib_fairy.set(21, createFairy(lib_language.fairyNAME_21, 'dmg/critdmg/eva/arm', '0.25/0.25/0.2/0.2'))
+
+// unique t-doll
+
+lib_unique.set(4, 'can_add_python') // python
+lib_unique.set(197, 'can_add_carcanom1891') // carcano m1891
+lib_unique.set(2011, 'can_add_jill') // jill
