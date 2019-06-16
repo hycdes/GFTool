@@ -486,7 +486,7 @@ function reactAllSkill (command, current_time) {
       }
     }
   }
-  // 状态时间结算
+  // 状态时间结算，对所有人的所有状态检查
   for (var [k, v] of Set_Status) { // 状态消逝，k = stand_num, v = [ [ [type, value(>1)] ,left_frame ] ... ] 的数组
     // 脆弱类状态
     if (Set_Special.get('fragile_40') != undefined && Set_Special.get('fragile_40') < global_frame) { // 断罪者魔弹
@@ -544,7 +544,7 @@ function reactAllSkill (command, current_time) {
     for (var s = 0; s < len_status; s++) {
       var s_t = v[s]
       if (s_t[1] > 0) s_t[1]-- // 状态持续减少
-      else if (s_t[1] === 0) {
+      else if (s_t[1] === 0) { // 状态终结
         if (s_t[0][0].substr(0, 6) === 'enemy_') {
           endStatus(k, s_t, 'enemy_lost')
         }
@@ -561,12 +561,13 @@ function reactAllSkill (command, current_time) {
         else if (s_t[0][0] === 'grenade') endStatus(k, s_t, 'grenade') // 榴弹掷出
         else if (s_t[0][0] === 'dot') endStatus(k, s_t, 'dot') // 持续伤害灼烧
         else if (s_t[0][0] === 'fal') endStatus(k, s_t, 'fal') // 榴弹践踏
-        else if (s_t[0][0] === 'snipe') {
-          endStatus(k, s_t, 'snipe') // 狙击出膛
-        }
-        else if (s_t[0][0] === 'reload') {
-          Set_Special.set('attack_permission_' + k, 'fire_all') // 换弹结束
+        else if (s_t[0][0] === 'snipe') endStatus(k, s_t, 'snipe') // 狙击出膛
+        else if (s_t[0][0] === 'reload') { // 换弹结束
+          Set_Special.set('attack_permission_' + k, 'fire_all')
           Set_Special.delete('reloading_' + k)
+        }
+        else if (s_t[0][0] === 'jill_shaking') {
+          do_jill_buff() // 吉尔调酒
         }
         v.splice(s, 1) // 状态结束
         len_status = v.length; s-- // 检查下一个
@@ -1558,7 +1559,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'jill') {
-    0
+    changeStatus(stand_num, 'jill_shaking', null, null, 3) // 摇酒3秒
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 0.7 * 30) - 1 // 进入冷却，自带30%冷却
   }
   if (debug_mode) {

@@ -648,7 +648,7 @@ function changeSpecial (ID) {
       var jill_str = lib_language.special_info_2011_0
       var type = jill_wine_explain(set_equip[0], set_equip[1], set_equip[2])
       eval('jill_str=lib_language.special_info_2011_' + type)
-      Set_Special.set('jill_' + (num_pickblock - 1), type)
+      Set_Special.set('jill_winetype', type)
       str_display += jill_str
     }
     else str_display += lib_special_info.get(ID)
