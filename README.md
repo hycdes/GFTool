@@ -1,4 +1,4 @@
-# Girls' Frontline Tools & Arknights Tools<br>
+# Part 1 - Girls' Frontline Tools<br>
 by FatalChapter(命运の乐章)<br>
 <br>
 
@@ -50,6 +50,8 @@ Simulating echelon, measuring damage and injury with different tactical dolls(T-
 </tr>
 <tr><td>/js/Echelon_main.js</td><td>Main program and processing logic</td>
 </tr>
+<tr><td>/js/Echelon_sub.js</td><td>Basic semantic function</td>
+</tr>
 <tr><td>/js/Echelon_UI.js</td><td>UI management of ES</td>
 </tr>
 <tr><td>/js/Echelon_select.js</td><td>Selection UI management of ES</td>
@@ -70,5 +72,24 @@ Statistics of core and rare t-doll drop.<br>
 </tr>
 <tr>
 <td>/js/Stat_main.js</td><td>Main logic and data of Stat</td>
+</tr>
+</table>
+
+# Part 2 - Arknights Tools<br>
+by FatalChapter(命运の乐章)<br>
+<br>
+
+### Index<br>
+
+### Database<br>
+
+### Hire simulator<br>
+Simulating Rhodes island hiring.<br>
+<table>
+<tr>
+<td>/pages/AKT_HireSimulate.html</td><td>Main page of hire simulator</td>
+</tr>
+<tr>
+<td>/js/HireAgent_main.js</td><td>Main logic of HS</td>
 </tr>
 </table>

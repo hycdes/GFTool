@@ -243,7 +243,7 @@ function do_jill_buff (stand_num) {
   } else if (wine_type === 5) { // Bleeding jane
     for (var i = 0; i < 9; i++) {
       if (gs_tdoll[i]) {
-        if (is_this_type(i, 2) || is_this_type(i, 3)) {
+        if (is_this_type(i, 2) || is_this_type(i, 4)) {
           changeStatus(i, 'self', 'crit', 0.25, duration)
           var this_crit = ((Set_Base.get(i)).Info).get('crit')
           if (this_crit > 1) {
