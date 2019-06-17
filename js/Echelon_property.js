@@ -768,3 +768,5 @@ lib_fairy.set(21, createFairy(lib_language.fairyNAME_21, 'dmg/critdmg/eva/arm', 
 lib_unique.set(4, 'can_add_python') // python
 lib_unique.set(197, 'can_add_carcanom1891') // carcano m1891
 lib_unique.set(2011, 'can_add_jill') // jill
+lib_unique.set(2012, 'can_add_sei') // sei
+lib_unique.set(2014, 'can_add_stella') // stella

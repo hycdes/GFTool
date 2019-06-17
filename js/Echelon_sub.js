@@ -3,7 +3,7 @@ function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
 function is_property (str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield');}
 function is_in_affect_of (stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
 function is_this (stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
-function is_this_type (stand_num, type) {
+function is_this_type (stand_num, type) { // 1~6
   if (list_tdoll[stand_num][1].Type === type) return true
   return false
 }
@@ -150,6 +150,8 @@ function do_unique (ID, command) {
     if (ID === 4) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_python
     if (ID === 197) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_carcano
     if (ID === 2011) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_jill
+    if (ID === 2012) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_sei
+    if (ID === 2014) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_stella
   }
   else if (command === 'lock') {
     var str_special = lib_unique.get(ID)
@@ -207,6 +209,58 @@ function do_datasum (this_data, new_data) {
   }
   return final_data
 }
+function do_jill_buff (stand_num) {
+  var wine_type = Set_Static.get('jill_winetype') // 1~6
+  var duration = Set_Special.get('jill_space')
+  if (wine_type === 1) { // big beer
+    for (var i = 0; i < 9; i++) {
+      if (gs_tdoll[i] && is_this_type(i, 6)) { // for SG
+        changeStatus(i, 'self', 'arm', 0.2, duration)
+        changeStatus(i, 'self', 'dmg', 0.3, duration)
+        changeStatus(i, 'self', 'acu', 0.3, duration)
+      }
+    }
+  } else if (wine_type === 2) { // Brandtini
+    for (var i = 0; i < 9; i++) {
+      if (gs_tdoll[i] && is_this_type(i, 5)) { // for MG
+        changeStatus(i, 'self', 'dmg', 0.2, duration)
+        changeStatus(i, 'self', 'acu', 0.2, duration)
+      }
+    }
+  } else if (wine_type === 3) { // Piano woman
+    var line_front = -1
+    if (gs_tdoll[2] || gs_tdoll[5] || gs_tdoll[8]) line_front = 2
+    else if (gs_tdoll[1] || gs_tdoll[4] || gs_tdoll[7]) line_front = 1
+    else if (gs_tdoll[0] || gs_tdoll[3] || gs_tdoll[6]) line_front = 0
+    for (var i = 0; i < 9; i++) {
+      if (gs_tdoll[i]) {
+        if (Math.floor(i / 3) === line_front) changeStatus(i, 'self', 'eva', 0.6, duration)
+        else changeStatus(i, 'self', 'dmg', 0.2, duration)
+      }
+    }
+  } else if (wine_type === 4) { // Moonblast
+    changeStatus(stand_num, 'all', 'rof', 0.22, duration)
+  } else if (wine_type === 5) { // Bleeding jane
+    for (var i = 0; i < 9; i++) {
+      if (gs_tdoll[i]) {
+        if (is_this_type(i, 2) || is_this_type(i, 3)) {
+          changeStatus(i, 'self', 'crit', 0.25, duration)
+          var this_crit = ((Set_Base.get(i)).Info).get('crit')
+          if (this_crit > 1) {
+            changeStatus(i, 'self', 'crit', (1 / this_crit) - 1, duration, 'unrepeat') // crit-debuff
+            changeStatus(i, 'self', 'critdmg', (this_crit - 1) * 0.6, duration) // critdmg-buff
+          }
+        }
+      }
+    }
+  } else if (wine_type === 6) {
+    changeStatus(stand_num, 'all', 'dmg', 0.3, 5)
+    Set_Special.set('jill_drunk', global_frame + 150)
+  } else { // basic drink
+    changeStatus(stand_num, 'all', 'dmg', 0.18, duration)
+  }
+  Set_Special.set('jill_wine_status', [wine_type, global_frame + duration * 30])
+}
 
 // lable_init
 function init_resetAllConfig () { // 重置所有数据
@@ -227,13 +281,11 @@ function init_resetAllConfig () { // 重置所有数据
   for (var i = 0; i < 2; i++) list_show_fairy[i] = true // 初始化妖精显示
   for (var i = 0; i < 5; i++) list_show_HF[i] = true // 初始化重装部队显示
   fragile_main = 1; fragile_all = 1
-  Set_Special.set('can_add_python', true)
-  Set_Special.set('can_add_carcanom1891', true)
-  Set_Special.set('can_add_jill', true)
+  reset_unique()
   Set_Special.set('damage_protect', [true, true, true, true, true, true, true, true, true]) // 大破保护初始化
   if (is_exist_someone(4)) Set_Special.set('can_add_python', false) // 能否添加蟒蛇
   if (is_exist_someone(197)) Set_Special.set('can_add_carcanom1891', false) // 能否添加CarcanoM1891
-  if(is_exist_someone(2011))Set_Special.set('can_add_jill', false) // 能否添加Jill
+  if (is_exist_someone(2011))Set_Special.set('can_add_jill', false) // 能否添加Jill
   if (daytime === 1) Set_Special.set('sunrise', 'day')
   else if (daytime === 2) Set_Special.set('sunrise', 'night')
   for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精

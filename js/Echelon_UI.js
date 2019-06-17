@@ -428,7 +428,8 @@ function resetEquipment () {
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
-      else if (ID === 2011) set_equip = [120111, 220112, 320111] // Jill
+      else if (ID === 2011) set_equip = [120111, 220112, 320112] // Jill
+      else if (ID === 2012) set_equip = [11, 21, 32012] // Sei
       else set_equip = [11, 21, 32]
     }
     else if (set_guntype === 2) {
@@ -467,6 +468,7 @@ function resetEquipment () {
       else if (ID === 1037) set_equip = [11037, 23, 34] // m14 mod
       else if (ID === 1044) set_equip = [12, 23, 31044] // sv98 mod
       else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
+      else if (ID === 2014) set_equip = [12, 23, 32014] // Stella
       else set_equip = [12, 23, 34]
     }
     else if (set_guntype === 5) {
@@ -474,9 +476,13 @@ function resetEquipment () {
       else if (ID === 88) set_equip = [12, 23, 388] // MG3
       else if (ID === 185) set_equip = [12, 23, 3185] // ameli
       else if (ID === 1081) set_equip = [11081, 23, 35] // lwmmg mod
+      else if (ID === 2015) set_equip = [12, 23, 32015] // Alma
       else set_equip = [12, 23, 35]
     }
-    else if (set_guntype === 6) set_equip = [33, 24, 13]
+    else if (set_guntype === 6) {
+      if (ID === 2016) set_equip = [32016, 24, 13] // Dana
+      else set_equip = [33, 24, 13]
+    }
     document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
     document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
     document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
@@ -622,20 +628,20 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
 function jill_wine_explain (eq0, eq1, eq2) {
   var type = 0
   var wine_taste = [0, 0, 0, 0, 0] // Adelhyde,Flanergide,Karmotrine,BronsonExt,PwdDelta
-  if (eq0 === 120111) wine_taste[0]++
-  if (eq0 === 120112) wine_taste[1]++
-  if (eq0 === 120113) wine_taste[2]++
-  if (eq1 === 220111) wine_taste[0]++
-  if (eq1 === 220112) wine_taste[3]++
-  if (eq1 === 220113) wine_taste[2]++
-  if (eq2 === 320111) wine_taste[4]++
-  if (eq2 === 320112) wine_taste[2]++
+  if (eq0 === 120111) wine_taste[0]++ // Adelhyde甜
+  if (eq0 === 120112) wine_taste[1]++ // Flanergide辣
+  if (eq0 === 120113) wine_taste[2]++ // Karmotrine酒
+  if (eq1 === 220111) wine_taste[0]++ // Adelhyde甜
+  if (eq1 === 220112) wine_taste[3]++ // BronsonExt苦
+  if (eq1 === 220113) wine_taste[2]++ // Karmotrine酒
+  if (eq2 === 320111) wine_taste[4]++ // PwdDelta酸
+  if (eq2 === 320112) wine_taste[2]++ // Karmotrine酒
   if (wine_taste[0] + wine_taste[1] + wine_taste[2] + wine_taste[3] + wine_taste[4] >= 3) {
-    if (wine_taste[1] === 1 && wine_taste[3] === 1 && wine_taste[2] === 1) type = 1
-    else if (wine_taste[0] === 2 && wine_taste[4] === 1) type = 2
-    else if (wine_taste[0] === 1 && wine_taste[3] === 1 && wine_taste[4] === 1) type = 3
-    else if (wine_taste[0] === 2 && wine_taste[2] === 1) type = 4
-    else if (wine_taste[1] === 1 && wine_taste[3] === 1 && wine_taste[4] === 1) type = 5
+    if (wine_taste[1] === 1 && wine_taste[3] === 1 && wine_taste[2] === 1) type = 1 // big beer
+    else if (wine_taste[0] === 2 && wine_taste[4] === 1) type = 2 // Brandtini
+    else if (wine_taste[0] === 1 && wine_taste[3] === 1 && wine_taste[2] === 1) type = 3 // Piano woman
+    else if (wine_taste[0] === 2 && wine_taste[2] === 1) type = 4 // Moonblast
+    else if (wine_taste[1] === 1 && wine_taste[3] === 1 && wine_taste[4] === 1) type = 5 // Bleeding jane
     else if (wine_taste[2] === 3) type = 6
   }
   return type
@@ -648,7 +654,6 @@ function changeSpecial (ID) {
       var jill_str = lib_language.special_info_2011_0
       var type = jill_wine_explain(set_equip[0], set_equip[1], set_equip[2])
       eval('jill_str=lib_language.special_info_2011_' + type)
-      Set_Special.set('jill_winetype', type)
       str_display += jill_str
     }
     else str_display += lib_special_info.get(ID)
@@ -719,6 +724,10 @@ function addTdoll () { // 添加战术人形
     }
     // 添加数据
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
+    // 特殊处理
+    if (ID === 2011) {
+      Set_Static.set('jill_winetype', jill_wine_explain(set_equip[0], set_equip[1], set_equip[2]))
+    }
     // 特殊变量
     if (ID === 1055) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_55 + '] ' + lib_language.DESCRIBE_55

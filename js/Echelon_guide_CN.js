@@ -39,6 +39,8 @@ lib_language = {
   UI_not_2_python: ' *不能添加两个蟒蛇',
   UI_not_2_carcano: ' *不能添加两个CarcanoM1891',
   UI_not_2_jill: ' *不能添加两个Jill',
+  UI_not_2_sei: ' *不能添加两个Sei',
+  UI_not_2_stella: ' *不能添加两个Stella',
   UI_fairydmg: '妖精伤害',
   UI_fairyinj: '妖精承伤',
 

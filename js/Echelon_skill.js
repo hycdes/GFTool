@@ -311,7 +311,6 @@ function describe_jill () { // Jill
   Describe.name = 'jill'
   return Describe
 }
-
 function describe_dorothy () { // dorothy
   var Describe = {}
   Describe.name = 'dorothy'
@@ -395,6 +394,7 @@ lib_describe.set('dmg_65', describe_property(['self'], ['dmg'], ['0.65'])) // �
 lib_describe.set('dmg_60', describe_property(['self'], ['dmg'], ['0.6'])) // 火力专注 60%
 lib_describe.set('dmg_55', describe_property(['self'], ['dmg'], ['0.55'])) // 火力专注 55%
 lib_describe.set('dmg_50', describe_property(['self'], ['dmg'], ['0.5'])) // 火力专注 50%
+lib_describe.set('dmg_-50', describe_property(['self'], ['dmg'], ['-0.5'])) // 火力降低 -50%
 lib_describe.set('dmg_40', describe_property(['self'], ['dmg'], ['0.4'])) // 火力专注 40%
 lib_describe.set('dmg_35', describe_property(['self'], ['dmg'], ['0.35'])) // 火力专注 35%
 lib_describe.set('dmg_30', describe_property(['self'], ['dmg'], ['0.3'])) // 火力专注 30%
@@ -581,7 +581,8 @@ lib_describe.set('chauchat', describe_chauchat()) // 百合纹章
 lib_describe.set('r93', describe_r93()) // 强运扳机
 lib_describe.set('aks', describe_aks()) // 排斥反应
 lib_describe.set('jill', describe_jill()) // 调酒时间
-lib_describe.set('dorothy',describe_dorothy()) // 私密改造
+lib_describe.set('dorothy', describe_dorothy()) // 私密改造
+lib_describe.set('stella_attack', describe_multihit(2)) // stella特殊攻击
 
 // lib_skill
 
@@ -1113,6 +1114,10 @@ lib_skill.set(2010, []) //
 lib_skill.set(2011, [createSkill(6, 16, 0, lib_describe.get('jill'))]) // Jill
 lib_skill.set(2012, []) // Sei
 lib_skill.set(2013, [createSkill(1, -1, 0, lib_describe.get('dorothy'))]) // Dorothy，模式在攻击中判断
-lib_skill.set(2014, []) // 
+lib_skill.set(2014, [ // Stella
+  createSkill(6, 8, 5, lib_describe.get('dmg_50')),
+  createSkill(0, -1, 99999, lib_describe.get('stella_attack')),
+  createSkill(0, -1, -1, lib_describe.get('dmg_-50'))
+])
 lib_skill.set(2015, []) // 
 lib_skill.set(2016, []) // 

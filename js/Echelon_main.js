@@ -9,6 +9,7 @@ var set_guntype = 1 // 枪种：1=hg, 2=ar, 3=smg, 4=rf, 5=mg, 6=sg
 var set_equip = [0, 0, 0] // 装备代号，开头：1=配件, 2=子弹, 3=人形装备, 4=夜战装备
 var num_star = 5, affection = 'love' // 星级，好感度
 // Echelon and global
+var Set_Static = new Map // 全局常驻变量表
 var Set_Special = new Map // 特殊变量表
 var queue_tdoll = []
 var time = 20, init_time = 0, daytime = 1, fairy_no = 0, talent_no = 0 // 全局变量默认值：时间20s，接敌0s，昼战，无妖精，无天赋
@@ -54,10 +55,15 @@ var gs_HF = [false, false, false, false, false]
 // special variations
 var not_init = false // 控制蟒蛇能够开始复读的开关
 
+function reset_unique () {
+  Set_Special.set('can_add_python', true)
+  Set_Special.set('can_add_carcanom1891', true)
+  Set_Special.set('can_add_jill', true)
+  Set_Special.set('can_add_sei', true)
+  Set_Special.set('can_add_stella', true)
+}
 // init when loading
-Set_Special.set('can_add_python', true)
-Set_Special.set('can_add_carcanom1891', true)
-Set_Special.set('can_add_jill', true)
+reset_unique()
 Set_Special.set('sunrise', 'day')
 
 // 计算影响格
@@ -464,24 +470,11 @@ function reactAllSkill (command, current_time) {
           }
           Set_Special.set('chauchat_nextget_' + k, global_frame + 120)
         }
-      } else if (is_this(k, 2011)) { // jill
-        if (Set_Special.get('jill_bartending_' + k) <= global_frame) {
-          if (Set_Special.get('jill_buff_' + k) >= global_frame) {
-            Set_Special.set('jill_refresh_' + k, true)
-          } else {
-            // react
-          }
-        } else if (Set_Special.get('jill_bartending_' + k) > global_frame) {
-          if (Set_Special.get('jill_refresh_' + k) === true) {
-          }
-        }
-
-        if (Set_Special.get('jill_refresh_' + k) === true) { // 需要刷新buff时间
-          if (Set_Special.get('jill_buff_' + k) >= global_frame) { // buff没消失
-            // do nothing, just wait
-          } else {
-            // react
-          }
+      } else if (is_this(k, 2011)) { // jill醉酒状态施加
+        if (Set_Special.get('jill_drunk') != undefined && Set_Special.get('jill_drunk') <= global_frame) {
+          changeStatus(k, 'all', 'dmg', -0.15, 3, 'unrepeat')
+          changeStatus(k, 'all', 'acu', -0.15, 3, 'unrepeat')
+          Set_Special.delete('jill_drunk')
         }
       }
     }
@@ -567,7 +560,8 @@ function reactAllSkill (command, current_time) {
           Set_Special.delete('reloading_' + k)
         }
         else if (s_t[0][0] === 'jill_shaking') {
-          do_jill_buff() // 吉尔调酒
+          do_jill_buff(k) // 吉尔调酒
+          Set_Special.set('jill_winestart', true)
         }
         v.splice(s, 1) // 状态结束
         len_status = v.length; s-- // 检查下一个
@@ -662,6 +656,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             recordData(stand_num, current_time, explode_dmg)
           } else {
             Set_Special.set('qbu88_' + stand_num, Set_Special.get('qbu88_' + stand_num) + 1)
+          }
+        }
+        if (is_this(stand_num, 2012)) { // sei为stella加层数
+          if (is_exist_someone(2014)) {
+            if (Set_Special.get('stella_num') === undefined) Set_Special.set('stella_num', 1)
+            else Set_Special.set('stella_num', Set_Special.get('stella_num') + 1)
           }
         }
 
@@ -788,6 +788,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               // 必定暴击的全局设定，或技能导致必暴，或概率暴击
               if (Set_Special.get('must_crit_' + stand_num) != undefined || (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= current_time) || Math.random() + current_Info.get('crit') >= 1) {
                 final_crit *= current_Info.get('critdmg')
+                if (is_this(stand_num, 2014) && Set_Special.get('stella_buff') === true) { // 消耗爆伤buff
+                  final_crit *= 1.5
+                  Set_Special.set('stella_buff', false)
+                }
               }
               if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && is_this(stand_num, 173)) { // 暴动宣告的1.5倍且必暴子弹，实为1.5倍伤害
                 Set_Special.set('pkp_nextcrit_' + stand_num, false)
@@ -817,6 +821,21 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             else if (fire_status.substr(5) === 'four') final_dmg *= this_formation(stand_num) - 1 // 一人释放技能
             if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) { // 多重攻击
               final_dmg *= Set_Special.get('multi_' + stand_num)[0]
+              if (is_this(stand_num, 2014)) { // stella
+                var max_hit = 16
+                if (Set_Special.get('stella_num') === undefined) { // 积累层数
+                  Set_Special.set('stella_num', 2)
+                } else {
+                  Set_Special.set('stella_num', Set_Special.get('stella_num') + 2)
+                }
+                if (Set_Special.get('jill_winestart') === true) {
+                  if (Set_Static.get('jill_winetype') === 5) max_hit = 10
+                }
+                if (Set_Special.get('stella_num') >= max_hit) {
+                  Set_Special.set('stella_num', 0)
+                  Set_Special.set('stella_buff', true)
+                }
+              }
             }
             recordData(stand_num, current_time, final_dmg)
           }else {
@@ -1169,7 +1188,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     else changeStatus(stand_num, 'self', 'dmg', '0.6', 8)
     changeStatus(stand_num, 'grenade', current_time, ratio, 1)
-    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+    s_t[1] = s_t[0].cld * 30 - 1 // �������入冷却
   }
   else if (skillname === 'k11') { // 恐惧榴弹
     var ratio = parseInt(document.getElementById('special_k11_' + (stand_num + 1)).value)
@@ -1559,13 +1578,22 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'jill') {
+    var jill_cd = s_t[0].cld * (1 - current_Info.get('cld')) * 0.7 // 冷却，自带30%冷却
     changeStatus(stand_num, 'jill_shaking', null, null, 3) // 摇酒3秒
-    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 0.7 * 30) - 1 // 进入冷却，自带30%冷却
+    if (jill_cd < 8) Set_Special.set('jill_space', jill_cd) // 刷新BUFF
+    else Set_Special.set('jill_space', 8)
+    s_t[1] = Math.ceil(jill_cd * 30) - 1
   }
   if (debug_mode) {
     if (fire_status === 'stop' && skillname === 'attack') {
       true // log nothing
     } else debug_addinfo(stand_num, skillname, global_frame, s_t[1] + 1)
+  }
+  else if (skillname === 'stella') {
+    var extra_cld = 0
+    if (is_exist_someone(2012)) extra_cld = 0.1
+
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
   }
 }
 
@@ -1635,8 +1663,13 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
   }
-  else if (target === 'avenger_mark') {
+  else if (target === 'avenger_mark') { // 伸冤者印记
     var new_status = [['avenger_mark', null], frame]
+    var list_status = Set_Status.get(stand_num)
+    list_status.push(new_status)
+    Set_Status.set(stand_num, list_status)
+  } else if (target === 'jill_shaking') { // 摇酒
+    var new_status = [['jill_shaking', null], frame]
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
@@ -1645,7 +1678,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
     Set_Status.set(stand_num, list_status)
-  }else if (target === 'grenade') { // 榴弹
+  } else if (target === 'grenade') { // 榴弹
     var new_status = [['grenade', value + '/' + (type + frame)], frame] // value记录"倍率/生效时刻"，其他同理
     var list_status = Set_Status.get(stand_num)
     list_status.push(new_status)
