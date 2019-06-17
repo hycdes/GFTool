@@ -39,6 +39,8 @@ lib_language = {
   UI_not_2_python: ' *파이슨을 2기 이상 추가할 수 없습니다.',
   UI_not_2_carcano: ' *CarcanoM1891을 2기 이상 추가할 수 없습니다',
   UI_not_2_jill: ' *Jill을 2기 이상 추가할 수 없습니다',
+  UI_not_2_sei: ' *Sei을 2기 이상 추가할 수 없습니다',
+  UI_not_2_stella: ' *Stella을 2기 이상 추가할 수 없습니다',
   UI_fairydmg: '요정공격',
   UI_fairyinj: '요정방어',
 

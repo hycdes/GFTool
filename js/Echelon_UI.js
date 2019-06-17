@@ -457,6 +457,7 @@ function resetEquipment () {
       else if (ID === 1029) set_equip = [32, 21, 11029] // sten mod
       else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
       else if (ID === 1094) set_equip = [32, 21, 11094] // 64type mod
+      else if (ID === 2013) set_equip = [31, 22013, 11] // Dorothy
       else set_equip = [32, 21, 11]
     }
     else if (set_guntype === 4) {

@@ -494,7 +494,6 @@ function changeEquip () {
       if (ID === 1032) str_items += '<option value=11032>MPL M21</option>'
       if (ID === 1103) str_items += '<option value=11103>' + lib_language.equipNAME_11103 + '</option>'
       if (ID === 1094) str_items += '<option value=11094>' + lib_language.equipNAME_11094 + '</option>'
-      if (ID === 2013) str_items += '<option value=32013>' + lib_language.equipNAME_32013 + '</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=34>' + lib_language.equipNAME_34 + '</option>'
       if (ID === 42) str_items += '<option value=342>' + lib_language.equipNAME_342 + '</option>' // PTRD
