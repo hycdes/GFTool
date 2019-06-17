@@ -247,8 +247,8 @@ function do_jill_buff (stand_num) {
           changeStatus(i, 'self', 'crit', 0.25, duration)
           var this_crit = ((Set_Base.get(i)).Info).get('crit')
           if (this_crit > 1) {
-            changeStatus(i, 'self', 'crit', (1 / this_crit) - 1, duration, 'unrepeat') // crit-debuff
             changeStatus(i, 'self', 'critdmg', (this_crit - 1) * 0.6, duration) // critdmg-buff
+            changeStatus(i, 'self', 'crit', (1 / this_crit) - 1, duration, 'unrepeat') // crit-debuff
           }
         }
       }
