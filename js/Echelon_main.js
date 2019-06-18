@@ -292,6 +292,7 @@ function getDPS () {
   var end_of_standby = false // 接敌时间控制器
   init_resetAllConfig() // 清空数据
   init_loadPrepareStatus() // 载入出战数据，包括(1)数据清空(2)出战属性 环境 和特殊设定(3)载入技能(4)开场第一层buff
+
   init_loadEnemyInfo() // 载入敌人属性
   // 初始化Command
   if (init_time > 0) end_of_standby = false
@@ -718,18 +719,22 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               var cs = Set_Special.get('clipsize_' + stand_num)
               if (cs === 1) base_dmg *= 3
             }
-            if (current_Info.get('type') === 6) {
-              if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
-                if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
-                  if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
-                    Set_Special.set('aa12_skillmode_' + stand_num, false)
-                  // 不能受独头弹加成
+            if (current_Info.get('type') === 6) { // SG攻击，子弹类型伤害处理
+              if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
+                true
+              } else {
+                if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
+                  if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
+                    if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
+                      Set_Special.set('aa12_skillmode_' + stand_num, false)
+                    // 不能受独头弹加成
+                    } else {
+                      Set_Special.set('aa12_skillmode_' + stand_num, true)
+                      base_dmg *= 3 // 独头弹x3伤害
+                    }
                   } else {
-                    Set_Special.set('aa12_skillmode_' + stand_num, true)
-                    base_dmg *= 3 // 独头弹x3伤害
+                    if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
                   }
-                } else {
-                  if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
                 }
               }
             }
@@ -739,21 +744,28 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               }
               base_dmg *= 1.5
             }
+            if (is_this(stand_num, 2016)) { // 达娜：1.8倍基础攻击
+              base_dmg *= 1.8
+            }
             var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
-            if (current_Info.get('type') === 6) {
-              if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
-                var aim_num = Set_Special.get('aim_forceon_' + stand_num)
-                if (enemy_num >= aim_num) final_dmg *= aim_num
-                else final_dmg *= enemy_num
+            if (current_Info.get('type') === 6) { // SG攻击，目标数特殊处理
+              if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
+                true
               } else {
-                if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
-                  if (enemy_num >= 3) final_dmg *= 3
+                if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
+                  var aim_num = Set_Special.get('aim_forceon_' + stand_num)
+                  if (enemy_num >= aim_num) final_dmg *= aim_num
                   else final_dmg *= enemy_num
-                } else { // 如果携带，可能因为技能攻击多个目标
-                  if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
-                    if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
-                      if (enemy_num >= 3) final_dmg *= 3
-                      else final_dmg *= enemy_num
+                } else {
+                  if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
+                    if (enemy_num >= 3) final_dmg *= 3
+                    else final_dmg *= enemy_num
+                  } else { // 如果携带，可能因为技能攻击多个目标
+                    if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
+                      if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
+                        if (enemy_num >= 3) final_dmg *= 3
+                        else final_dmg *= enemy_num
+                      }
                     }
                   }
                 }
@@ -1503,10 +1515,21 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var value = (s_t[0].Describe).value
     var duration = (s_t[0].Describe).duration
     var label = (s_t[0].Describe).label
+    if (value === -1) {
+      console.log('shield')
+      if (is_this(stand_num, 2016)) {
+        if (Set_Special.get('jill_winestart') === true) {
+          if (Set_Static.get('jill_winetype') === 1) value = 0.5 * current_Info.get('arm')
+          else value = 0
+        }
+      }
+    }
     if (label === 'col1') { // 坚壁理论
       if (gs_tdoll[2]) changeStatus(2, 'self', 'shield', value, duration)
       if (gs_tdoll[5]) changeStatus(5, 'self', 'shield', value, duration)
       if (gs_tdoll[8]) changeStatus(8, 'self', 'shield', value, duration)
+    } else if (label === 'self') {
+      changeStatus(stand_num, 'self', 'shield', value, duration)
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
@@ -1823,6 +1846,9 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     if (grenade_para[0] === '-1') {
       if (is_this(stand_num, 2003)) { // kiana skill
         grenade_para[0] = ((Set_Base.get(stand_num)).Info).get('critdmg')
+      } else if (is_this(stand_num, 2016)) { // dana skill
+        console.log('gre')
+        grenade_para[0] = 0.6 * (1 + 0.01 * ((Set_Base.get(stand_num)).Info).get('arm'))
       }
     }
     var damage_explode = 0

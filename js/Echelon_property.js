@@ -352,7 +352,7 @@ lib_affect.set(2009, createAffect('lu/u/l/ld/d/', 'all', ['rof', 'acu'], [0.3, 0
 lib_affect.set(2010, createAffect('u/ru/r/d/rd/', 'all', ['dmg', 'acu'], [0.3, 0.5])) // 菲尔
 lib_affect.set(2011, createAffect('u/ru/r/rd/d/l/lu/ld/', 'all', ['dmg', 'acu'], [0.4, 0.4])) // JILL
 lib_affect.set(2012, createAffect('u/lu/d/ld/r/', 'all', ['dmg', 'eva'], [0.3, 0.2])) // SEI
-lib_affect.set(2013, createAffect('lu/ld/', 'ar', ['dmg', 'acu'], [0.15, 0.25])) // Dorothy
+lib_affect.set(2013, createAffect('lu/ld/', 'ar/rf', ['dmg', 'acu'], [0.15, 0.25])) // Dorothy
 lib_affect.set(2014, createAffect('ru/rd/', 'hg', ['cld'], [0.18])) // Stella
 lib_affect.set(2015, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Alma
 lib_affect.set(2016, createAffect('ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // Dana

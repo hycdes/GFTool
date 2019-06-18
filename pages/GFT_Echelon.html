@@ -135,7 +135,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <h4> * 达娜没写技能</h4>
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -185,6 +184,8 @@
                                                 <li><a href="#make_fairy" data-toggle="tab">妖精设定</a>
                                                 </li>
                                                 <li><a href="#make_hf" data-toggle="tab">重装部队设定</a>
+                                                </li>
+                                                <li><a href="#make_special" data-toggle="tab">特殊设定</a>
                                                 </li>
                                             </ul>
                                             <!-- Tab panes -->
@@ -294,6 +295,7 @@
                                                             </tbody>
                                                         </table>
                                                         <h4>装备</h4>
+                                                        <div class="tooltip-demo" id="special_equip_setting"></div>
                                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                                             <tbody>
                                                                 <tr>
@@ -584,6 +586,40 @@
                                                         </table>
                                                     </div>
                                                 </div>
+                                                <div class="tab-pane fade" id="make_special">
+                                                    <div class="col-lg-6">
+                                                        <h4>人形特殊设定</h4>
+                                                        <p id="special_num0"></p>
+                                                        <p id="special_num1"></p>
+                                                        <p id="special_num2"></p>
+                                                        <p id="special_num3"></p>
+                                                        <p id="special_num4"></p>
+                                                        <p id="special_num5"></p>
+                                                        <p id="special_num6"></p>
+                                                        <p id="special_num7"></p>
+                                                        <p id="special_num8"></p>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h4>全体增益</h4>
+                                                        <input type="checkbox" id="check_init_critmax"> 全员满暴击
+                                                        <p id="special_fairy"></p>
+                                                        <h4>技能强制延时 <span style="font-size:12px;color:gray">可能导致被动技能延迟，请谨慎</span></h4>
+                                                        <h5><span style="font-size:12px;color:gray">累加在前置cd，不受冷却缩减影响</span></h5>
+                                                        <table class="table_other">
+                                                            <tbody>
+                                                                <tr id="special_addcd_0"></tr>
+                                                                <tr id="special_addcd_1"></tr>
+                                                                <tr id="special_addcd_2"></tr>
+                                                                <tr id="special_addcd_3"></tr>
+                                                                <tr id="special_addcd_4"></tr>
+                                                                <tr id="special_addcd_5"></tr>
+                                                                <tr id="special_addcd_6"></tr>
+                                                                <tr id="special_addcd_7"></tr>
+                                                                <tr id="special_addcd_8"></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -650,8 +686,6 @@
                                                 <li class="active"><a href="#Setting1" data-toggle="tab">输出测试</a>
                                                 </li>
                                                 <li><a href="#Setting1-2" data-toggle="tab">承伤测试</a>
-                                                </li>
-                                                <li><a href="#Setting2" data-toggle="tab">特殊设定</a>
                                                 </li>
                                                 <li><a href="#Setting3" data-toggle="tab">其他</a>
                                                 </li>
@@ -812,20 +846,6 @@
                                                         <button type="button" class="btn btn-outline btn-warning" id="suffer_1" onclick="getResult(1,'suffer')" disabled>计算1次</button>
                                                         <button type="button" class="btn btn-outline btn-danger" id="suffer_100" onclick="getResult(100,'suffer')" disabled>100次平均</button>
                                                     </p>
-                                                </div>
-                                                <div class="tab-pane fade" id="Setting2">
-                                                    <h4>全体增益</h4>
-                                                    <input type="checkbox" id="check_init_critmax"> 全员满暴击
-                                                    <p id="special_fairy"></p>
-                                                    <p id="special_num0"></p>
-                                                    <p id="special_num1"></p>
-                                                    <p id="special_num2"></p>
-                                                    <p id="special_num3"></p>
-                                                    <p id="special_num4"></p>
-                                                    <p id="special_num5"></p>
-                                                    <p id="special_num6"></p>
-                                                    <p id="special_num7"></p>
-                                                    <p id="special_num8"></p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting3">
                                                     <h4>说明和参考</h4>

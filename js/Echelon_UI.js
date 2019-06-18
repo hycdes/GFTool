@@ -1,3 +1,16 @@
+var str_jill_template = '<p>'
+str_jill_template += '<button type="button" id="jill_btn1" data-toggle="tooltip" data-placement="top" title="霰弹枪+20%护甲+30%伤害/命中 持续8秒" class="btn btn-default" onclick="jill_equip(1)" style="padding:3px;width:130px;text-align:left"><span style="color:#ff9900">∎</span><span style="color:#33cc00">∎</span><span style="color:#99ccff">∎</span>BigBeer</button>'
+str_jill_template += '<button type="button" id="jill_btn2" data-toggle="tooltip" data-placement="top" title="机枪+25%伤害/命中 持续8秒" class="btn btn-default" onclick="jill_equip(2)" style="padding:3px;width:130px;text-align:left"><span style="color:#ff3333">∎</span><span style="color:#ff3333">∎</span><span style="color:#6600ff">∎</span>Brandtini</button>'
+str_jill_template += '</p>'
+str_jill_template += '<p>'
+str_jill_template += '<button type="button" id="jill_btn3" data-toggle="tooltip" data-placement="top" title="前排+60%回避 其他人+20%伤害 持续8秒" class="btn btn-default" onclick="jill_equip(3)" style="padding:3px;width:130px;text-align:left"><span style="color:#ff3333">∎</span><span style="color:#ff9900">∎</span><span style="color:#99ccff">∎</span>PianoWoman</button>'
+str_jill_template += '<button type="button" id="jill_btn4" data-toggle="tooltip" data-placement="top" title="全体+22%射速 持续8秒" class="btn btn-default" onclick="jill_equip(4)" style="padding:3px;width:130px;text-align:left"><span style="color:#ff3333">∎</span><span style="color:#ff3333">∎</span><span style="color:#99ccff">∎</span>Moonblast</button>'
+str_jill_template += '</p>'
+str_jill_template += '<p>'
+str_jill_template += '<button type="button" id="jill_btn5" data-toggle="tooltip" data-placement="top" title="步枪/突击步枪+25%暴击 溢出暴击0.6倍转化为暴伤 持续8秒" class="btn btn-default" onclick="jill_equip(5)" style="padding:3px;width:130px;text-align:left"><span style="color:#ff9900">∎</span><span style="color:#6600ff">∎</span><span style="color:#33cc00">∎</span>BleedingJane</button>'
+str_jill_template += '<button type="button" id="jill_btn6" data-toggle="tooltip" data-placement="top" title="技能开启后的前5秒全体+30%伤害 结束后3秒全体-15%伤害/命中" class="btn btn-default" onclick="jill_equip(6)" style="padding:3px;width:130px;text-align:left"><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span>FringeWeaver</button>'
+str_jill_template += '</p>'
+
 function showAffect () {
   for (var i = 1; i <= 3; i++) {
     for (var j = 1; j <= 3; j++) document.getElementById('a' + i + '' + j).style = 'background-color:#000000'
@@ -428,7 +441,7 @@ function resetEquipment () {
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
-      else if (ID === 2011) set_equip = [120111, 220112, 320112] // Jill
+      else if (ID === 2011) set_equip = [120112, 220112, 320111] // Jill
       else if (ID === 2012) set_equip = [11, 21, 32012] // Sei
       else set_equip = [11, 21, 32]
     }
@@ -505,6 +518,8 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
   if (command === 1) {
     pickEquip(-1)
     resetEquipment()
+    // Special equipmentt template
+    change_equip_template()
   }
   var selectID = document.getElementById('select_tdoll')
   var selectID_equip = document.getElementById('select_equip')
@@ -669,6 +684,7 @@ function readStatus () { // 读取已有人形之前的全局环境
   changeStar(num_star)
   document.getElementById('select_tdoll').value = this_buffer[2]
   changePreview()
+  change_equip_template()
   set_equip[0] = this_buffer[3][0]; set_equip[1] = this_buffer[3][1]; set_equip[2] = this_buffer[3][2]
   affection = this_buffer[4]
   changePreview()
@@ -710,6 +726,8 @@ function addTdoll () { // 添加战术人形
   if (!do_unique(ID, 'can_add')) { // 不能添加（因为唯一存在且非覆盖）
     do_unique(ID, 'alert') // 报错
   } else {
+    // 添加强制延时
+    replace_cd()
     // 唯一性处理
     if (do_unique(pickID, 'is_unique')) { // 唯一人形被覆盖
       if (!do_unique(ID, 'is_unique')) do_unique(pickID, 'release') // 非唯一人形添加
@@ -862,6 +880,8 @@ function addTdoll () { // 添加战术人形
 }
 
 function deleteTdoll () { // 删除战术人形
+  // 删除强制延时
+  delete_cd()
   // 数据删除
   var ID = list_tdoll[num_pickblock - 1][1].ID
   if (do_unique(ID, 'is_unique')) { // 唯一人形锁解锁
@@ -888,6 +908,7 @@ function deleteTdoll () { // 删除战术人形
     document.getElementById('suffer_1').disabled = true
     document.getElementById('suffer_100').disabled = true
   }
+  changeSpecial(-1)
 }
 function changeSunrise (type) {
   if (type === 1) {
@@ -1603,16 +1624,49 @@ function debug_switch () {
   document.getElementById('btn_dmg100').disabled = debug_mode
   document.getElementById('suffer_100').disabled = debug_mode
 }
-function echelon_save () { // entry: {tdoll_type,tdoll_star,select_id,affect,equip_1,equip_2,equip_3,position}
-  var savecode = ''
-  savecode += '['
-  for (var tdoll in list_tdoll) {
-    if (tdoll[1] != null) {
-      0
-    }
-  }
-  savecode += ']'
-  document.getElementById('savecode').innerHTML = savecode
+function add_cd () {
+  var trID = document.getElementById('special_addcd_' + (num_pickblock - 1))
+  var str_new = ''
+  str_new += '<td>'
+  str_new += '<input type="checkbox" id="check_cd_' + (num_pickblock - 1) + '" onclick="release_cd(' + (num_pickblock - 1) + ')">' + trans_if_need(num_pickblock) + '号位&nbsp&nbsp&nbsp</td>'
+  str_new += '<td><input class="form-control input-sm" id="addcd_' + (num_pickblock - 1) + '" value=0 onchange="check_cd(' + (num_pickblock - 1) + ')" disabled></td>'
+  trID.innerHTML = str_new
 }
-function echelon_load () {
+function delete_cd () {document.getElementById('special_addcd_' + (num_pickblock - 1)).innerHTML = '' }
+function replace_cd () {
+  delete_cd()
+  add_cd()
+}
+function release_cd (num) { document.getElementById('addcd_' + num).disabled = !(document.getElementById('check_cd_' + num).checked) }
+function check_cd (num) {
+  var str_input = document.getElementById('addcd_' + num).value
+  if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
+    str_input = 0
+    document.getElementById('addcd_' + num).value = str_input
+  }
+}
+function jill_equip (wine_type) {
+  if (wine_type === 1) set_equip = [120112, 220112, 320112]
+  else if (wine_type === 2) set_equip = [120111, 220111, 320111]
+  else if (wine_type === 3) set_equip = [120111, 220112, 320112]
+  else if (wine_type === 4) set_equip = [120111, 220111, 320112]
+  else if (wine_type === 5) set_equip = [120112, 220112, 320111]
+  else if (wine_type === 6) set_equip = [120113, 220113, 320112]
+  document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
+  document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
+  document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
+  document.getElementById('icon-equip1').style = 'cursor:pointer'
+  document.getElementById('icon-equip2').style = 'cursor:pointer'
+  document.getElementById('icon-equip3').style = 'cursor:pointer'
+  document.getElementById('icon-equip1').onclick = Function('pickEquip(1)')
+  document.getElementById('icon-equip2').onclick = Function('pickEquip(2)')
+  document.getElementById('icon-equip3').onclick = Function('pickEquip(3)')
+  changePreview()
+}
+function change_equip_template () {
+  if (parseInt(document.getElementById('select_tdoll').value) === 2011) {
+    document.getElementById('special_equip_setting').innerHTML = str_jill_template
+  } else {
+    document.getElementById('special_equip_setting').innerHTML = ''
+  }
 }

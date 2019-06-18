@@ -483,6 +483,7 @@ lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
 // shield
 lib_describe.set('sat8', describe_shield(35, 5, 'col1')) // 坚壁理论
+lib_describe.set('dana_shield', describe_shield(-1, -1, 'self')) // 红色间歇泉护盾
 // flash
 lib_describe.set('flash_5', describe_flash(4.5)) // 闪光弹-5星
 lib_describe.set('flash_4', describe_flash(4)) // 闪光弹-4星
@@ -549,6 +550,7 @@ lib_describe.set('grenade_8', describe_grenade(8)) // 8倍榴弹
 lib_describe.set('grenade_5', describe_grenade(5)) // 5倍榴弹
 lib_describe.set('grenade_4.5', describe_grenade(4.5)) // 4.5倍榴弹
 lib_describe.set('kiana', describe_grenade(-1)) // 阿斯加德之怒，-1表示倍率特殊单独判断
+lib_describe.set('dana', describe_grenade(-1)) // 红色间歇泉，-1表示倍率特殊单独判断
 lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
 lib_describe.set('k11', describe_k11()) // 恐惧榴弹
 lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
@@ -1120,4 +1122,7 @@ lib_skill.set(2014, [ // Stella
   createSkill(0, -1, -1, lib_describe.get('dmg_-50'))
 ])
 lib_skill.set(2015, []) // 
-lib_skill.set(2016, []) // 
+lib_skill.set(2016, [
+  createSkill(8, 18, 0, lib_describe.get('dana')),
+  createSkill(8, 18, 0, lib_describe.get('dana_shield'))
+]) // 红色间歇泉
