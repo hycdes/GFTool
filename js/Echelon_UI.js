@@ -8,7 +8,7 @@ str_jill_template += '<button type="button" id="jill_btn4" data-toggle="tooltip"
 str_jill_template += '</p>'
 str_jill_template += '<p>'
 str_jill_template += '<button type="button" id="jill_btn5" data-toggle="tooltip" data-placement="top" title="步枪/突击步枪+25%暴击 溢出暴击0.6倍转化为暴伤 持续8秒" class="btn btn-default" onclick="jill_equip(5)" style="padding:3px;width:130px;text-align:left"><span style="color:#ff9900">∎</span><span style="color:#6600ff">∎</span><span style="color:#33cc00">∎</span>BleedingJane</button>'
-str_jill_template += '<button type="button" id="jill_btn6" data-toggle="tooltip" data-placement="top" title="技能开启后的前5秒全体+30%伤害 结束后3秒全体-15%伤害/命中" class="btn btn-default" onclick="jill_equip(6)" style="padding:3px;width:130px;text-align:left"><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span>FringeWeaver</button>'
+str_jill_template += '<button type="button" id="jill_btn6" data-toggle="tooltip" data-placement="top" title="技能开启后的前5秒全体+35%伤害 结束后3秒全体-15%伤害/命中" class="btn btn-default" onclick="jill_equip(6)" style="padding:3px;width:130px;text-align:left"><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span>FringeWeaver</button>'
 str_jill_template += '</p>'
 
 function showAffect () {

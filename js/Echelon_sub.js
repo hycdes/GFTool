@@ -248,13 +248,12 @@ function do_jill_buff (stand_num) {
           var this_crit = ((Set_Base.get(i)).Info).get('crit')
           if (this_crit > 1) {
             changeStatus(i, 'self', 'critdmg', (this_crit - 1) * 0.6, duration) // critdmg-buff
-            changeStatus(i, 'self', 'crit', (1 / this_crit) - 1, duration, 'unrepeat') // crit-debuff
           }
         }
       }
     }
   } else if (wine_type === 6) {
-    changeStatus(stand_num, 'all', 'dmg', 0.3, 5)
+    changeStatus(stand_num, 'all', 'dmg', 0.35, 5)
     Set_Special.set('jill_drunk', global_frame + 150)
   } else { // basic drink
     changeStatus(stand_num, 'all', 'dmg', 0.18, duration)
