@@ -237,6 +237,7 @@ lib_language = {
 
   hp: '生命',
   cs: '弹量',
+  cs_0: '<span style="color:red">无法攻击</span>',
   dmg: '伤害',
   rof: '射速',
   acu: '命中',

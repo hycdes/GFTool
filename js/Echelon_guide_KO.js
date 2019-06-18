@@ -235,6 +235,7 @@ lib_language = {
 
   hp: '체력',
   cs: '장탄수',
+  cs_0: '<span style="color:red">无法攻击</span>',
   dmg: '화력',
   rof: '사속',
   acu: '명중',
