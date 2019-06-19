@@ -1,6 +1,16 @@
 var info_update = '2019/06/18'
+var num_ref = 2000, num_relia = 10000
 
 // function
+function num_split (num) {
+  var str = num + '', str_new = ''
+  var len = str.length, num_sp = Math.ceil(len / 3), num_bios = len - 3 * num_sp
+  for (var i = 0; i < len; i++) {
+    if (i != 0 && (i - num_bios) - 3 * Math.ceil((i - num_bios) / 3) === 0) str_new += ','
+    str_new += str[i]
+  }
+  return str_new
+}
 function showAlert () {
   if (is_alert) {
     document.getElementById('info_alert').innerHTML = ''
@@ -10,8 +20,8 @@ function showAlert () {
     var str_info = ''
     str_info += '<h5 id="version"></h5>'
     str_info += '<h4>注释</h4>'
-    str_info += '<h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b>3,000+</b></span></h5>'
-    str_info += '<h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b>10,000+</b></span></h5>'
+    str_info += '<h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b>' + num_split(num_ref) + '+</b></span></h5>'
+    str_info += '<h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b>' + num_split(num_relia) + '+</b></span></h5>'
     str_info += '<h4>联系</h4>'
     str_info += '<h5><i class="fa fa-qq fa-fw"></i> 693606343 (务必进群<b>私聊</b>) <i class="fa fa-envelope fa-fw"></i> hycdes@qq.com</h5>'
     str_info += '<h4>数据要求</h4>'
@@ -56,8 +66,8 @@ function fill_table (stat, fairy_status, table, data, num_total) {
     }
     info += '<td>' + entry[2] + '</tr></td>'
   }
-  if (num_total >= 10000) stat_info += '<i class="fa fa-star fa-fw"></i>'
-  else if (num_total < 10000 && num_total >= 3000) stat_info += '<i class="fa fa-check fa-fw"></i>'
+  if (num_total >= num_relia) stat_info += '<i class="fa fa-star fa-fw"></i>'
+  else if (num_total < num_relia && num_total >= num_ref) stat_info += '<i class="fa fa-check fa-fw"></i>'
   stat_info += cores + ' / ' + num_total + ' (<span style="color:dodgerblue">'
   lib_cache.set(stat, (100 * cores / num_total).toFixed(2))
   if (num_total > num_valid) lib_valid.set(stat, true)
@@ -73,8 +83,8 @@ function fill_drag (dragID, stat_data, num_card) {
     for (var i = 0; i < 4; i++) {
       var str_info = ''
       if (stat_data[n_map][i][0] > 0) {
-        if (stat_data[n_map][i][1] >= 10000) str_info += '<i class="fa fa-star fa-fw"></i>'
-        else if (stat_data[n_map][i][1] < 10000 && stat_data[n_map][i][1] >= 3000) str_info += '<i class="fa fa-check fa-fw"></i>'
+        if (stat_data[n_map][i][1] >= num_relia) str_info += '<i class="fa fa-star fa-fw"></i>'
+        else if (stat_data[n_map][i][1] < num_relia && stat_data[n_map][i][1] >= num_ref) str_info += '<i class="fa fa-check fa-fw"></i>'
         str_info += stat_data[n_map][i][0] + ' / ' + stat_data[n_map][i][1] + ' (<span style="color:dodgerblue">'
         str_info += (100 * stat_data[n_map][i][0] / stat_data[n_map][i][1]).toFixed(2) + '%</span>)'
       } else str_info = '-'
@@ -91,10 +101,10 @@ function fill_drag_normal (dragID, stat_data) {
     if (entry[1] === 5) str += '<td style="vertical-align:middle;"><span style="color:darkorange">★★★★★ ' + entry[2] + '</span></td>'
     else if (entry[1] === 4) str += '<td style="vertical-align:middle;"><span style="color:rgb(50, 250, 0)">★★★★ ' + entry[2] + '</span></td>'
     else if (entry[1] === 3) str += '<td style="vertical-align:middle;"><span style="color:dodgerblue">★★★ ' + entry[2] + '</span></td>'
-    if (entry[4] >= 10000) str_star1 += '<i class="fa fa-star fa-fw"></i>'
-    else if (entry[4] < 10000 && entry[4] >= 3000) str_star1 += '<i class="fa fa-check fa-fw"></i>'
-    if (entry[6] >= 10000) str_star2 += '<i class="fa fa-star fa-fw"></i>'
-    else if (entry[6] < 10000 && entry[6] >= 3000) str_star2 += '<i class="fa fa-check fa-fw"></i>'
+    if (entry[4] >= num_relia) str_star1 += '<i class="fa fa-star fa-fw"></i>'
+    else if (entry[4] < num_relia && entry[4] >= num_ref) str_star1 += '<i class="fa fa-check fa-fw"></i>'
+    if (entry[6] >= num_relia) str_star2 += '<i class="fa fa-star fa-fw"></i>'
+    else if (entry[6] < num_relia && entry[6] >= num_ref) str_star2 += '<i class="fa fa-check fa-fw"></i>'
     if (entry[3] > 0) str += '<td>' + str_star1 + entry[3] + ' / ' + entry[4] + ' (<span style="color:dodgerblue">' + (100 * entry[3] / entry[4]).toFixed(2) + '%</span>)' + '</td>'
     else str += '<td>-</td>'
     if (entry[5] > 0) str += '<td>' + str_star2 + entry[5] + ' / ' + entry[6] + ' (<span style="color:dodgerblue">' + (100 * entry[5] / entry[6]).toFixed(2) + '%</span>)' + '</td>'
@@ -335,10 +345,10 @@ var data_drag1 = [ // 5月4日打捞
 var data_dragva11 = [ // 酒保联动打捞
   [[2, 249], [5, 669], [0, 0], [0, 0]],
   [[0, 0], [5, 707], [0, 0], [0, 0]],
-  [[13, 2208], [15, 2870], [4, 438], [2, 344]],
+  [[13, 2208], [17, 3652], [5, 508], [2, 344]],
   [[3, 379], [13, 2180], [0, 0], [0, 0]],
-  [[8, 1190], [32, 8526], [0, 0], [2, 78]],
-  [[7, 975], [18, 3536], [1, 106], [1, 20]]
+  [[8, 1190], [36, 9754], [0, 0], [2, 78]],
+  [[8, 1017], [18, 3536], [3, 372], [1, 20]]
 ]
 
 var list_supporter_1 = [
@@ -363,7 +373,7 @@ var list_supporter_1 = [
     'ミライアカリ', '一只老咸鱼', 'timewalker', '十一婵娟', '猹',
     'Spike', '94礼服味煤气', '丧心病狂WB', '我很可爱请打钱', '铃奈庵看板娘',
     '玄煞', '蓝光剑士', '时时时茶', '停云', '忘记过去',
-    'WASHERxxxx', '笑了岂乐'
+    'WASHERxxxx', '笑了岂乐', '烈阳余晖'
 ]
 
 var data_drag_normal = [

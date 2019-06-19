@@ -748,6 +748,13 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               base_dmg *= 1.8
             }
             var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
+            if (is_this(stand_num, 2015)) { // Alma无人机
+              if (Set_Special.get('alma_' + stand_num) >= current_time) {
+                var pod_dmg = base_dmg * 0.4
+                var pod_final_dmg = Math.max(1, Math.ceil(pod_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+                final_dmg += 2 * pod_final_dmg
+              }
+            }
             if (current_Info.get('type') === 6) { // SG攻击，目标数特殊处理
               if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
                 true
@@ -1516,7 +1523,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var duration = (s_t[0].Describe).duration
     var label = (s_t[0].Describe).label
     if (value === -1) {
-      console.log('shield')
       if (is_this(stand_num, 2016)) {
         if (Set_Special.get('jill_winestart') === true) {
           if (Set_Static.get('jill_winetype') === 1) value = 0.5 * current_Info.get('arm')
@@ -1607,16 +1613,24 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     else Set_Special.set('jill_space', 8)
     s_t[1] = Math.ceil(jill_cd * 30) - 1
   }
+  else if (skillname === 'stella') {
+    var extra_cld = 0
+    if (is_exist_someone(2012)) extra_cld = 0.1
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'alma') {
+    var duration = 3
+    if (Set_Special.get('jill_winestart') === true) { // 吉尔Brandtini
+      if (Set_Static.get('jill_winetype') === 2) duration += 1
+    }
+    Set_Special.set('alma_' + stand_num, current_time + duration * 30)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  // debug mode
   if (debug_mode) {
     if (fire_status === 'stop' && skillname === 'attack') {
       true // log nothing
     } else debug_addinfo(stand_num, skillname, global_frame, s_t[1] + 1)
-  }
-  else if (skillname === 'stella') {
-    var extra_cld = 0
-    if (is_exist_someone(2012)) extra_cld = 0.1
-
-    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
   }
 }
 
@@ -1847,7 +1861,6 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
       if (is_this(stand_num, 2003)) { // kiana skill
         grenade_para[0] = ((Set_Base.get(stand_num)).Info).get('critdmg')
       } else if (is_this(stand_num, 2016)) { // dana skill
-        console.log('gre')
         grenade_para[0] = 0.6 * (1 + 0.01 * ((Set_Base.get(stand_num)).Info).get('arm'))
       }
     }
