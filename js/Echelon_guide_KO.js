@@ -315,7 +315,7 @@ lib_language = {
   hfNAME_4: 'AT4',
 
   special_info_unique: '<span style="color:blue">唯一人形</span> ',
-  special_info_common: '<span style="color:red">技能需要特殊设定</span>',
+  special_info_common: '<span style="color:red">특수 설정</span>',
   special_info_2011_0: '基础饮品',
   special_info_2011_1: '<span style="color:#ff9900">∎</span><span style="color:#33cc00">∎</span><span style="color:#99ccff">∎</span>Big Beer',
   special_info_2011_2: '<span style="color:#ff3333">∎</span><span style="color:#ff3333">∎</span><span style="color:#6600ff">∎</span>Brandtini',

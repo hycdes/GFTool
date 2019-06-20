@@ -109,6 +109,7 @@
                         <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 제조 시뮬레이터</a></li>
                         <li><a href="GFT_ChipCal-KO.html"><i class="fa fa-delicious fa-fw"></i> 칩셋 시뮬레이터</a></li>
                         <li><a href="GFT_Echelon-KO.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp대미지 시뮬레이터</a></li>
+                        <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp통계</a></li>
                     </ul>
                 </div>
             </div>
@@ -137,32 +138,30 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    제대 설정 <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(1)">간단 튜토리얼
+                                    제대 설정 <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(1)">간단 튜토리얼</button>
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
                                         <h4>제대 미리보기<span style="color:red" id="alert_display"></span></h4>
-                                        <div class="table-responsive">
-                                            <table class="table_other" style="width:360px; height:360px; overflow:hidden">
-                                                <tbody>
-                                                    <tr>
-                                                        <td id="blockimg_1" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_1" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(1)'></td>
-                                                        <td id="blockimg_2" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_2" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(2)'></td>
-                                                        <td id="blockimg_3" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_3" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(3)'></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td id="blockimg_4" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_4" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(4)'></td>
-                                                        <td id="blockimg_5" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_5" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(5)'></td>
-                                                        <td id="blockimg_6" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_6" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(6)'></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td id="blockimg_7" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_7" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(7)'></td>
-                                                        <td id="blockimg_8" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_8" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(8)'></td>
-                                                        <td id="blockimg_9" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_9" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(9)'></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <table class="table_other" style="width:360px; height:360px; overflow:hidden">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="blockimg_1" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_1" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(1)'></td>
+                                                    <td id="blockimg_2" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_2" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(2)'></td>
+                                                    <td id="blockimg_3" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_3" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(3)'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="blockimg_4" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_4" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(4)'></td>
+                                                    <td id="blockimg_5" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_5" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(5)'></td>
+                                                    <td id="blockimg_6" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_6" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(6)'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="blockimg_7" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_7" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(7)'></td>
+                                                    <td id="blockimg_8" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_8" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(8)'></td>
+                                                    <td id="blockimg_9" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_9" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(9)'></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <!--INFO-->
                                     <div class="col-lg-8">
@@ -175,12 +174,14 @@
                                                 </li>
                                                 <li><a href="#make_hf" data-toggle="tab">중장비부대 설정</a>
                                                 </li>
+                                                <li><a href="#make_special" data-toggle="tab">특수 설정</a>
+                                                </li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="make_tdoll">
                                                     <div class="col-lg-6">
-                                                        <h4>인형 정보</h4>
+                                                        <h4>인형 정보 <span style="font-size:15px" id="info_special"></span></h4>
                                                         <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
                                                             <tr>
                                                                 <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
@@ -283,6 +284,7 @@
                                                             </tbody>
                                                         </table>
                                                         <h4>장비</h4>
+                                                        <div class="tooltip-demo" id="special_equip_setting"></div>
                                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                                             <tbody>
                                                                 <tr>
@@ -317,6 +319,7 @@
                                                             <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>인형 삭제</button>
                                                         </p>
                                                     </div>
+
                                                 </div>
                                                 <div class="tab-pane fade" id="make_fairy">
                                                     <div class='col-lg-4'>
@@ -406,7 +409,7 @@
                                                                     <td id="fairy_skill">스킬 -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><input type="checkbox" id="fairyskill_active" disabled onchange="changeEnvironment()"> 스킬 발동</td>
+                                                                    <td><input type="checkbox" id="fairyskill_active" disabled> 스킬 발동</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -430,11 +433,11 @@
                                                                     <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-3.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><img id="hfselect_4" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(4)'></td>
+                                                                    <td><img id="hfselect_4" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: default" onclick='selectHF(4)'></td>
                                                                     <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-4.png)"></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><img id="hfselect_5" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(5)'></td>
+                                                                    <td><img id="hfselect_5" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: default" onclick='selectHF(5)'></td>
                                                                     <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-5.png)"></td>
                                                                 </tr>
                                                             </tbody>
@@ -447,11 +450,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-dmg.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">200</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf1_pro1' value=190 onblur="changeHFPro(1,1)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro1' value=190 onblur="changeHFPro(1,1)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">158</span></span></td>
                                                                     <td style="width:25px;height:28px"><img src="../img/icon-dbk.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">497</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf1_pro2' value=329 onblur="changeHFPro(1,2)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro2' value=329 onblur="changeHFPro(1,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">66</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-ap.png"></td>
                                                                     <td style="width:50px">&nbsp400</td>
@@ -459,11 +462,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">418</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf1_pro3' value=191 onblur="changeHFPro(1,3)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro3' value=191 onblur="changeHFPro(1,3)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">38</span></span></td>
                                                                     <td style="width:25px;height:28px"><img src="../img/icon-fil.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">99</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf1_pro4' value=46 onblur="changeHFPro(1,4)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf1_pro4' value=46 onblur="changeHFPro(1,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">9</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-rof.png"></td>
                                                                     <td style="width:50px" id="hf1_rof">&nbsp3.33s</td>
@@ -472,11 +475,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-dmg.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">102</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf2_pro1' value=106 onblur="changeHFPro(2,1)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro1' value=106 onblur="changeHFPro(2,1)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">84</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-dbk.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">180</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf2_pro2' value=130 onblur="changeHFPro(2,2)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro2' value=130 onblur="changeHFPro(2,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">26</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-ap.png"></td>
                                                                     <td style="width:50px">&nbsp80</td>
@@ -484,11 +487,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">239</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf2_pro3' value=120 onblur="changeHFPro(2,3)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro3' value=120 onblur="changeHFPro(2,3)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-fil.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">465</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf2_pro4' value=233 onblur="changeHFPro(2,4)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf2_pro4' value=233 onblur="changeHFPro(2,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">46</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-rof.png"></td>
                                                                     <td style="width:50px" id="hf2_rof">&nbsp1.47s</td>
@@ -497,11 +500,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-dmg.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">202</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf3_pro1' value=227 onblur="changeHFPro(3,1)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro1' value=227 onblur="changeHFPro(3,1)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">192</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-dbk.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">73</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf3_pro2' value=58 onblur="changeHFPro(3,2)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro2' value=58 onblur="changeHFPro(3,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">15</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-ap.png"></td>
                                                                     <td style="width:50px">&nbsp40</td>
@@ -509,11 +512,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">164</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf3_pro3' value=90 onblur="changeHFPro(3,3)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro3' value=90 onblur="changeHFPro(3,3)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-fil.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:orangered">194</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf3_pro4' value=107 onblur="changeHFPro(3,4)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf3_pro4' value=107 onblur="changeHFPro(3,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-rof.png"></td>
                                                                     <td style="width:50px" id="hf3_rof">&nbsp2.43s</td>
@@ -522,11 +525,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-dmg.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">154</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf4_pro1' value=206 onblur="changeHFPro(4,1)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro1' value=206 onblur="changeHFPro(4,1)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">159</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-dbk.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">63</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf4_pro2' value=60 onblur="changeHFPro(4,2)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro2' value=60 onblur="changeHFPro(4,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-ap.png"></td>
                                                                     <td style="width:50px">&nbsp40</td>
@@ -534,11 +537,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">147</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf4_pro3' value=97 onblur="changeHFPro(4,3)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro3' value=97 onblur="changeHFPro(4,3)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">22</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-fil.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">225</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf4_pro4' value=148 onblur="changeHFPro(4,4)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf4_pro4' value=148 onblur="changeHFPro(4,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">28</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-rof.png"></td>
                                                                     <td style="width:50px" id="hf4_rof">&nbsp2.17s</td>
@@ -547,11 +550,11 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-dmg.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">147</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf5_pro1' value=169 onblur="changeHFPro(5,1)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro1' value=169 onblur="changeHFPro(5,1)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">120</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-dbk.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">325</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf5_pro2' value=261 onblur="changeHFPro(5,2)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro2' value=261 onblur="changeHFPro(5,2)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">45</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-ap.png"></td>
                                                                     <td style="width:50px">&nbsp400</td>
@@ -559,15 +562,49 @@
                                                                 <tr>
                                                                     <td style="width:25px"><img src="../img/icon-acu.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">343</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf5_pro3' value=190 onblur="changeHFPro(5,3)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro3' value=190 onblur="changeHFPro(5,3)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">33</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-fil.png"></td>
                                                                     <td style="width:50px">&nbsp<span style="color:dodgerblue">161</span> +</td>
-                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="Positive integer" id='hf5_pro4' value=90 onblur="changeHFPro(5,4)" disabled></td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="输入正整数" id='hf5_pro4' value=90 onblur="changeHFPro(5,4)" disabled></td>
                                                                     <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
                                                                     <td style="width:25px"><img src="../img/icon-rof.png"></td>
                                                                     <td style="width:50px" id="hf5_rof">&nbsp2.67s</td>
                                                                 </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="make_special">
+                                                    <div class="col-lg-6">
+                                                        <h4>인형 특수 설정</h4>
+                                                        <p id="special_num0"></p>
+                                                        <p id="special_num1"></p>
+                                                        <p id="special_num2"></p>
+                                                        <p id="special_num3"></p>
+                                                        <p id="special_num4"></p>
+                                                        <p id="special_num5"></p>
+                                                        <p id="special_num6"></p>
+                                                        <p id="special_num7"></p>
+                                                        <p id="special_num8"></p>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h4>전체 버프</h4>
+                                                        <input type="checkbox" id="check_init_critmax"> 모든 공격이 치명타
+                                                        <p id="special_fairy"></p>
+                                                        <h4>技能强制延时 <span style="font-size:12px;color:gray">可能导致被动技能延迟，请谨慎</span></h4>
+                                                        <h5><span style="font-size:12px;color:gray">累加在前置cd，不受冷却缩减影响</span></h5>
+                                                        <table class="table_other">
+                                                            <tbody>
+                                                                <tr id="special_addcd_0"></tr>
+                                                                <tr id="special_addcd_1"></tr>
+                                                                <tr id="special_addcd_2"></tr>
+                                                                <tr id="special_addcd_3"></tr>
+                                                                <tr id="special_addcd_4"></tr>
+                                                                <tr id="special_addcd_5"></tr>
+                                                                <tr id="special_addcd_6"></tr>
+                                                                <tr id="special_addcd_7"></tr>
+                                                                <tr id="special_addcd_8"></tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -612,21 +649,21 @@
                                                 <tr>
                                                     <td style="width: 25%">교전 시작</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="Non-negative integer" id="time_init" value=0 onblur="checkEnviInput()">
+                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="checkEnviInput()">
                                                     </td>
                                                     <td style="width: 25%">전투 시간</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="Positive integer" id="time_battle" value=20 onblur="checkEnviInput()">
+                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="width: 25%">더미 수</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="1~5 integer" id='enemy_form' value=1 onblur="checkEnviInput()">
+                                                        <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="checkEnviInput()">
                                                     </td>
                                                     <td style="width: 25%">개체 수</td>
                                                     <td style="width: 25%">
-                                                        <input class="form-control input-sm" placeholder="Positive integer" id='enemy_num' value=1 onblur="checkEnviInput()">
+                                                        <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -638,8 +675,6 @@
                                                 <li class="active"><a href="#Setting1" data-toggle="tab">공격 시뮬</a>
                                                 </li>
                                                 <li><a href="#Setting1-2" data-toggle="tab">방어 시뮬</a>
-                                                </li>
-                                                <li><a href="#Setting2" data-toggle="tab">특수 설정</a>
                                                 </li>
                                                 <li><a href="#Setting3" data-toggle="tab">기타</a>
                                                 </li>
@@ -668,21 +703,21 @@
                                                             <tr>
                                                                 <td style="width: 25%">회피</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_eva' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">장갑</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_arm' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">역장</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_forcefield' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">역장max</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_forcefield_max' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -715,11 +750,11 @@
                                                             <tr>
                                                                 <td style="width: 25%">화력</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_dmg' value=10 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">사속</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_rof' value=40 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=40 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -730,7 +765,7 @@
                                                                 <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="checkEnviInput()"> 적의 공격 필중</td>
                                                                 <td style="width: 25%">명중</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_acu' value=10 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -740,11 +775,11 @@
                                                             <tr>
                                                                 <td style="width: 25%">관통</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_ap' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">파쇄</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Non-negative integer" id='enemy_dbk' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -754,21 +789,21 @@
                                                             <tr>
                                                                 <td style="width: 25%">회피</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_eva_2' value=10 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">장갑</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_arm_2' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 25%">역장</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_forcefield_2' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                                 <td style="width: 25%">역장max</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_forcefield_2_max' value=0 onblur="checkEnviInput()">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -781,7 +816,7 @@
                                                                 </td>
                                                                 <td style="width: 25%">체력</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="Positive integer" id='enemy_hp' value=1000 onblur="checkEnviInput()" disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 onblur="checkEnviInput()" disabled>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -790,7 +825,7 @@
                                                         <tbody>
                                                             <tr>
                                                                 <td style="width: 35%"><label class="radio-inline"><input type="radio" name="inj_type" id="inj_type1" onchange="checkEnviInput()" checked><b>순차적계산</b></label></td>
-                                                                <td style="width: 30%"><input class="form-control input-sm" placeholder="输入顺序" id='inj_order' value=693582471 onblur="checkEnviInput()"></td>
+                                                                <td style="width: 30%"><input class="form-control input-sm" placeholder="输入顺序" id='inj_order' value=639528417 onblur="checkEnviInput()"></td>
                                                                 <td style="width: 35%"><label class="radio-inline"><input type="radio" name="inj_type" id="inj_type2" onchange="checkEnviInput()"><b>동시계산</b></label></td>
                                                             </tr>
                                                         </tbody>
@@ -800,20 +835,6 @@
                                                         <button type="button" class="btn btn-outline btn-warning" id="suffer_1" onclick="getResult(1,'suffer')" disabled>1회 계산</button>
                                                         <button type="button" class="btn btn-outline btn-danger" id="suffer_100" onclick="getResult(100,'suffer')" disabled>100회 평균</button>
                                                     </p>
-                                                </div>
-                                                <div class="tab-pane fade" id="Setting2">
-                                                    <h4>전체 버프</h4>
-                                                    <input type="checkbox" id="check_init_critmax"> 모든 공격이 치명타
-                                                    <p id="special_fairy"></p>
-                                                    <p id="special_num0"></p>
-                                                    <p id="special_num1"></p>
-                                                    <p id="special_num2"></p>
-                                                    <p id="special_num3"></p>
-                                                    <p id="special_num4"></p>
-                                                    <p id="special_num5"></p>
-                                                    <p id="special_num6"></p>
-                                                    <p id="special_num7"></p>
-                                                    <p id="special_num8"></p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting3">
                                                     <h4>설명 및 참고자료</h4>
@@ -828,6 +849,8 @@
                                                     <p>게임 세부 메커니즘 가이드: @白金·世界</p>
                                                     <p>번역: @pohcy @marty @KOZ39</p>
                                                     <p>BUG해결: @a232430</p>
+                                                    <h4>Version 4.2.0</h4>
+                                                    1. VA-11 T-doll released<br>
                                                 </div>
                                             </div>
                                         </div>
@@ -941,7 +964,6 @@
         </div>
     </div>
     <!-- /#wrapper -->
-
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
