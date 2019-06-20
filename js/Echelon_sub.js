@@ -684,27 +684,29 @@ function debug_addinfo () {
     }
   } else if (command === 'status') { // stand_num, target, type, value, duration, global_frame
     var stand_num = arguments['1']
-    var target = arguments['2']
-    var type = arguments['3']
-    var value = arguments['4']
-    var duration = arguments['5']
-    var time = arguments['6']
-    var status_color = '#660099'
-    var str = '<span style="color:grey">' + debug_line + ' &#62 '
-    str += '[<span style="color:#000000">' + trans_if_need(stand_num + 1) + '-' + list_tdoll[stand_num][1].Name + '</span>]'
-    str += ' change '
-    str += '[<span style="color:' + status_color + '">' + type
-    if (value >= 0) {
-      str += ' +' + (value * 100).toFixed(2) + '%'
-    } else {
-      str += ' ' + (value * 100).toFixed(2) + '%'
+    if (gs_tdoll[stand_num]) {
+      var target = arguments['2']
+      var type = arguments['3']
+      var value = arguments['4']
+      var duration = arguments['5']
+      var time = arguments['6']
+      var status_color = '#660099'
+      var str = '<span style="color:grey">' + debug_line + ' &#62 '
+      str += '[<span style="color:#000000">' + trans_if_need(stand_num + 1) + '-' + list_tdoll[stand_num][1].Name + '</span>]'
+      str += ' change '
+      str += '[<span style="color:' + status_color + '">' + type
+      if (value >= 0) {
+        str += ' +' + (value * 100).toFixed(2) + '%'
+      } else {
+        str += ' ' + (value * 100).toFixed(2) + '%'
+      }
+      str += '</span>] in '
+      str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
+      str += ' to ' + '[<span style="color:' + status_color + '">' + target + '</span>] last ' + '<span style="color:#000000">' + Math.floor(30 * duration) + '</span>f (<span style="color:#000000">' + duration + '</span>s)'
+      str += '</span><br>'
+      debug_line++
+      document.getElementById('debug_content').innerHTML += str
     }
-    str += '</span>] in '
-    str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
-    str += ' to ' + '[<span style="color:' + status_color + '">' + target + '</span>] last ' + '<span style="color:#000000">' + Math.floor(30 * duration) + '</span>f (<span style="color:#000000">' + duration + '</span>s)'
-    str += '</span><br>'
-    debug_line++
-    document.getElementById('debug_content').innerHTML += str
   }
 }
 function debug_clear () { document.getElementById('debug_content').innerHTML = ''; debug_line = 0; }
