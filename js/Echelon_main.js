@@ -1,6 +1,8 @@
 // UI
-var debug_mode = false // show debug info
 var debug_line = 0
+var debug_mode = false // show debug info
+var debug_function = [true, true, false] // debug_display_type
+var debug_function_name = ['attack', 'skill', 'status']
 var buffer_table = new Map // 已放置人形的信息缓存，点击人形查看
 var buffer_last // 上一次添加人形的缓存
 var switch_operate = false, switch_equip = false // 人形和装备更改开关
@@ -1158,8 +1160,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       Set_Special.set(stand_num, 'shelling') // 特殊变量：M4炮击
       changeStatus(stand_num, 'self', 'rof', '-0.7', 10)
       changeStatus(stand_num, 'avenger_mark', null, null, 10) // 炮击状态，结束后特殊变量也将删除
-      s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
     }
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'grenade') { // 榴弹
     var ratio = (s_t[0].Describe).ratio
@@ -1627,14 +1629,21 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   // debug mode
-  if (debug_mode) {
+  if (debug_mode && (debug_function[0] || debug_function[1])) {
     if (fire_status === 'stop' && skillname === 'attack') {
       true // log nothing
-    } else debug_addinfo(stand_num, skillname, global_frame, s_t[1] + 1)
+    } else debug_addinfo('attack_skill', stand_num, skillname, global_frame, s_t[1] + 1)
   }
 }
 
 function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
+  if (debug_mode && debug_function[2]) {
+    if (target.substr(0, 3) === 'blo') {
+      true // do nothing, just recursive
+    } else {
+      debug_addinfo('status', stand_num, target, type, value, duration, global_frame) // debug mode
+    }
+  }
   var special_command = arguments['5']
   var frame = Math.floor(30 * duration)
   if (target === 'all') { // 号令类

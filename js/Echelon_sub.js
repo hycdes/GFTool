@@ -648,21 +648,63 @@ function init_loadFairy (common_position) {
 }
 
 // lable_debug
-function debug_addinfo (stand_num, skillname, time, interval) {
-  var skill_color = '#ff6600', skill_cld = '<span style="color:#00cc00">cooldown</span>'
-  if (skillname === 'attack') {
-    skill_color = '#6600ff'
-    skill_cld = 'interval'
+function debug_addinfo () {
+  var command = arguments['0']
+  if (command === 'attack_skill') { // stand_num, skillname, global_frame, interval
+    var stand_num = arguments['1']
+    var skillname = arguments['2']
+    var time = arguments['3']
+    var interval = arguments['4']
+    var skill_color = '#ff6600', skill_cld = '<span style="color:#00cc00">cooldown</span>'
+    if (skillname === 'attack' && debug_function[0]) { // show_attack
+      skill_color = '#6600ff'
+      skill_cld = 'interval'
+      var str = '<span style="color:grey">' + debug_line + ' &#62 '
+      str += '[<span style="color:#000000">' + trans_if_need(stand_num + 1) + '-' + list_tdoll[stand_num][1].Name + '</span>]'
+      str += ' do '
+      str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
+      str += ' in '
+      str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
+      str += ' , ' + skill_cld + ' ' + '<span style="color:#000000">' + interval + '</span>f (<span style="color:#000000">' + (interval / 30).toFixed(2) + '</span>s)'
+      str += '</span><br>'
+      debug_line++
+      document.getElementById('debug_content').innerHTML += str
+    }
+    if (skillname != 'attack' && debug_function[1]) {
+      var str = '<span style="color:grey">' + debug_line + ' &#62 '
+      str += '[<span style="color:#000000">' + trans_if_need(stand_num + 1) + '-' + list_tdoll[stand_num][1].Name + '</span>]'
+      str += ' do '
+      str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
+      str += ' in '
+      str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
+      str += ' , ' + skill_cld + ' ' + '<span style="color:#000000">' + interval + '</span>f (<span style="color:#000000">' + (interval / 30).toFixed(2) + '</span>s)'
+      str += '</span><br>'
+      debug_line++
+      document.getElementById('debug_content').innerHTML += str
+    }
+  } else if (command === 'status') { // stand_num, target, type, value, duration, global_frame
+    var stand_num = arguments['1']
+    var target = arguments['2']
+    var type = arguments['3']
+    var value = arguments['4']
+    var duration = arguments['5']
+    var time = arguments['6']
+    var status_color = '#660099'
+    var str = '<span style="color:grey">' + debug_line + ' &#62 '
+    str += '[<span style="color:#000000">' + trans_if_need(stand_num + 1) + '-' + list_tdoll[stand_num][1].Name + '</span>]'
+    str += ' change '
+    str += '[<span style="color:' + status_color + '">' + type
+    if (value >= 0) {
+      str += ' +' + (value * 100).toFixed(2) + '%'
+    } else {
+      str += ' ' + (value * 100).toFixed(2) + '%'
+    }
+    str += '</span>] in '
+    str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
+    str += ' to ' + '[<span style="color:' + status_color + '">' + target + '</span>] last ' + '<span style="color:#000000">' + Math.floor(30 * duration) + '</span>f (<span style="color:#000000">' + duration + '</span>s)'
+    str += '</span><br>'
+    debug_line++
+    document.getElementById('debug_content').innerHTML += str
   }
-  var str = '<span style="color:grey">' + debug_line + ' &#62 '
-  str += '[<span style="color:#000000">' + trans_if_need(stand_num + 1) + '-' + list_tdoll[stand_num][1].Name + '</span>]'
-  str += ' do '
-  str += '[<span style="color:' + skill_color + '">' + skillname + '</span>]'
-  str += ' in '
-  str += '<span style="color:#000000">' + time + '</span>f (<span style="color:#000000">' + (time / 30).toFixed(2) + '</span>s)'
-  str += ' , ' + skill_cld + ' ' + '<span style="color:#000000">' + interval + '</span>f (<span style="color:#000000">' + (interval / 30).toFixed(2) + '</span>s)'
-  str += '</span><br>'
-  debug_line++
-  document.getElementById('debug_content').innerHTML += str
 }
 function debug_clear () { document.getElementById('debug_content').innerHTML = ''; debug_line = 0; }

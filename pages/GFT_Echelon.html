@@ -947,10 +947,15 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="Table_debug">
                                                     <h4>Debug mode: display code running status</h4>
-                                                    <label>
+                                                    <p>
                                                         <button type="button" class="btn btn-default" onclick="debug_switch()" id="debug_button" style="width:200px">Click to open debug mode</button>
                                                         <button type="button" class="btn btn-default" onclick="debug_clear()">Clear console</button>
-                                                    </label>
+                                                    </p>
+                                                    <p>
+                                                        <button type="button" style="padding:2px;width:100px" class="btn btn-warning" id="debug_s_attack" onclick="debug_display(0)">Show attack</button>
+                                                        <button type="button" style="padding:2px;width:100px" class="btn btn-warning" id="debug_s_skill" onclick="debug_display(1)">Show skill</button>
+                                                        <button type="button" style="padding:2px;width:100px" class="btn btn-default" id="debug_s_status" onclick="debug_display(2)">No status</button>
+                                                    </p>
                                                     <div class="form-group" style="height:400px;overflow-y:scroll;text-align:left">
                                                         <table class="table table-bordered">
                                                             <tbody>

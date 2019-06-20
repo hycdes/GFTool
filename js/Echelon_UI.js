@@ -1628,11 +1628,21 @@ function debug_switch () {
   document.getElementById('btn_dmg100').disabled = debug_mode
   document.getElementById('suffer_100').disabled = debug_mode
 }
+function debug_display (fun_id) {
+  debug_function[fun_id] = !debug_function[fun_id]
+  if (debug_function[fun_id]) {
+    document.getElementById('debug_s_' + debug_function_name[fun_id]).className = 'btn btn-warning'
+    document.getElementById('debug_s_' + debug_function_name[fun_id]).innerHTML = 'Show ' + debug_function_name[fun_id]
+  } else {
+    document.getElementById('debug_s_' + debug_function_name[fun_id]).className = 'btn btn-default'
+    document.getElementById('debug_s_' + debug_function_name[fun_id]).innerHTML = 'No ' + debug_function_name[fun_id]
+  }
+}
 function add_cd () {
   var trID = document.getElementById('special_addcd_' + (num_pickblock - 1))
   var str_new = ''
   str_new += '<td>'
-  str_new += '<input type="checkbox" id="check_cd_' + (num_pickblock - 1) + '" onclick="release_cd(' + (num_pickblock - 1) + ')">' + trans_if_need(num_pickblock) + '号位&nbsp&nbsp&nbsp</td>'
+  str_new += '<input type="checkbox" id="check_cd_' + (num_pickblock - 1) + '" onclick="release_cd(' + (num_pickblock - 1) + ')">' + trans_if_need(num_pickblock) + lib_language.main_draw_1 + '&nbsp&nbsp&nbsp</td>'
   str_new += '<td><input class="form-control input-sm" id="addcd_' + (num_pickblock - 1) + '" value=0 onchange="check_cd(' + (num_pickblock - 1) + ')" disabled></td>'
   trID.innerHTML = str_new
 }
