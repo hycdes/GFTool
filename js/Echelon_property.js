@@ -315,7 +315,7 @@ lib_affect.set(263, createAffect('r/rr/rru/', 'smg/ar/sg', ['dmg', 'acu'], [0.1,
 lib_affect.set(264, createAffect('rr/rrd/', 'sg', ['rof', 'arm'], [0.12, 0.12])) // 绍沙
 lib_affect.set(265, createAffect('ru/rd/', 'smg', ['dmg', 'eva'], [0.1, 0.1])) // HK33
 lib_affect.set(266, createAffect('ru/r/rd/', 'hg', ['cld'], [0.18])) // R93
-lib_affect.set(266, createAffect('l/ld/', 'ar', ['dmg', 'eva'], [0.12, 0.1])) // MP41
+lib_affect.set(267, createAffect('l/ld/', 'ar', ['dmg', 'eva'], [0.12, 0.1])) // MP41
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改

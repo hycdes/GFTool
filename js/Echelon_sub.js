@@ -259,6 +259,15 @@ function do_jill_buff (stand_num) {
   } else if (wine_type === 6) {
     changeStatus(stand_num, 'all', 'dmg', 0.35, 5)
     Set_Special.set('jill_drunk', global_frame + 150)
+    recordData(stand_num, global_frame, 0)
+    recordData(stand_num, global_frame, 300000)
+    recordData(stand_num, global_frame + 150, 0)
+    recordData(stand_num, global_frame + 150, -300000)
+    recordData(stand_num, global_frame + 150, 0)
+    recordData(stand_num, global_frame + 150, 300000)
+    recordData(stand_num, global_frame + 240, 0)
+    recordData(stand_num, global_frame + 240, -300000)
+    recordData(stand_num, global_frame + 240, 0)
   } else { // basic drink
     changeStatus(stand_num, 'all', 'dmg', 0.18, duration)
   }
