@@ -64,6 +64,7 @@ function describe_bomb (direct_ratio, dot_ratio, dot_per_second, dot_time) { // 
   Describe.dot_time = dot_time
   return Describe
 }
+// 烟雾弹当突击压制处理
 function describe_grenade (ratio) { // 榴弹
   var Describe = {}
   Describe.name = 'grenade'
@@ -119,7 +120,7 @@ function describe_karm9138 () {
   Describe.name = 'karm9138'
   return Describe
 }
-function describe_hs2000 () {
+function describe_hs2000 () { // 反击者壁垒
   var Describe = {}
   Describe.name = 'hs2000'
   return Describe
@@ -139,7 +140,7 @@ function describe_sop2 () { // 狂乱马戏
   Describe.name = 'sop2'
   return Describe
 }
-function describe_contender () {
+function describe_contender () { // 断罪者魔弹
   var Describe = {}
   Describe.name = 'contender'
   return Describe
@@ -311,6 +312,11 @@ function describe_jill () { // Jill
   Describe.name = 'jill'
   return Describe
 }
+function describe_sei () { // Sei
+  var Describe = {}
+  Describe.name = 'sei'
+  return Describe
+}
 function describe_dorothy () { // dorothy
   var Describe = {}
   Describe.name = 'dorothy'
@@ -445,7 +451,11 @@ lib_describe.set('acuND_20', describe_propertyND(['self'], ['acu'], ['0.2'])) //
 lib_describe.set('eva_180', describe_property(['self'], ['eva'], ['1.8'])) // 弦月舞者 180%
 lib_describe.set('eva_150', describe_property(['self'], ['eva'], ['1.5'])) // 掩护专注 150%
 lib_describe.set('eva_130', describe_property(['self'], ['eva'], ['1.3'])) // 掩护专注 130%
+lib_describe.set('eva_120', describe_property(['self'], ['eva'], ['1.2'])) // 掩护专注 120%
+lib_describe.set('eva_110', describe_property(['self'], ['eva'], ['1.1'])) // 掩护专注 110%
 lib_describe.set('eva_70', describe_property(['self'], ['eva'], ['0.7'])) // 心智威慑 70%
+lib_describe.set('eva_45', describe_property(['self'], ['eva'], ['0.45'])) // 掩护专注 45%
+lib_describe.set('eva_40', describe_property(['self'], ['eva'], ['0.4'])) // 掩护专注 40%
 lib_describe.set('rof_15', describe_property(['self'], ['rof'], ['0.15'])) // 凛冽斗志 15%
 lib_describe.set('cz2000_N', describe_propertyN(['self'], ['acu/rof'], ['0.4/0.5'])) // 黎明气焰-N
 lib_describe.set('cz2000_ND', describe_propertyND(['self'], ['dmg/crit'], ['0.65/0.25'])) // 黎明气焰-ND
@@ -488,7 +498,7 @@ lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
 // shield
 lib_describe.set('sat8', describe_shield(35, 5, 'col1')) // 坚壁理论
-lib_describe.set('dana_shield', describe_shield(-1, -1, 'self')) // 红色间歇泉护盾
+lib_describe.set('sei', describe_sei()) // 白骑士之盾
 // flash
 lib_describe.set('flash_5', describe_flash(4.5)) // 闪光弹-5星
 lib_describe.set('flash_4', describe_flash(4)) // 闪光弹-4星
@@ -594,7 +604,7 @@ lib_describe.set('alma', describe_alma()) // alma技能
 
 // lib_skill
 
-// HG
+// ———————————————————————————————————————— HG ————————————————————————————————————————
 
 lib_skill.set(4, [createSkill(6, 12, 5, lib_describe.get('python'))]) // 被动通过特殊变量实现
 lib_skill.set(96, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
@@ -686,7 +696,7 @@ lib_skill.set(91, [createSkill(6, 12, 8, lib_describe.get('rof_22_enemy'))]) // 
 lib_skill.set(139, [createSkill(6, 12, 8, lib_describe.get('com_dmg_18'))])
 lib_skill.set(141, [createSkill(6, 12, 8, lib_describe.get('com_acu_100'))])
 
-// AR
+// ———————————————————————————————————————— AR ————————————————————————————————————————
 
 lib_skill.set(62, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))])
 lib_skill.set(65, [createSkill(8, 16, 0, lib_describe.get('grenade_15'))])
@@ -784,7 +794,7 @@ lib_skill.set(74, [createSkill(5, 8, 5, lib_describe.get('dmg_55'))])
 lib_skill.set(107, [createSkill(5, 8, 5, lib_describe.get('dmg_55'))])
 lib_skill.set(133, [createSkill(5, 16, 15, lib_describe.get('acu_500'))])
 
-// SMG
+// ———————————————————————————————————————— SMG ————————————————————————————————————————
 
 lib_skill.set(16, [createSkill(8, 16, 4, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('incendiary_7'))]) // 燃烧弹
@@ -814,54 +824,60 @@ lib_skill.set(259, [
   createSkill(6, 8, 5, lib_describe.get('pm9')),
   createSkill(6, 8, 5, lib_describe.get('pm9_buff'))
 ])
-lib_skill.set(1103, []) //
+lib_skill.set(1103, [
+  createSkill(1, 12, 4, lib_describe.get('rof_40_enemy'))
 
-lib_skill.set(23, []) //
+]) // 迷雾盒，伤害没做
+
+lib_skill.set(23, [createSkill(4, 16, 15, lib_describe.get('eva_45'))]) //
 lib_skill.set(26, [createSkill(8, 16, 3, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(101, [createSkill(7, 16, 0, lib_describe.get('flash_4'))]) // 闪光弹
-lib_skill.set(102, [createSkill(1, 2, 0, lib_describe.get('ump40'))])
-lib_skill.set(103, []) //
+lib_skill.set(102, [createSkill(1, 2, 0, lib_describe.get('ump40'))]) // 烙印过载
+lib_skill.set(103, [createSkill(1, 12, 4, lib_describe.get('rof_40_enemy'))]) // 烟雾弹40%
 lib_skill.set(136, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // pp-19
-lib_skill.set(137, []) //
-lib_skill.set(150, []) //
+lib_skill.set(137, [createSkill(1, 12, 4, lib_describe.get('rof_40_enemy'))]) // 烟雾弹40%
+lib_skill.set(150, [createSkill(6, 8, 5, lib_describe.get('eva_130'))]) // 掩护专注
 lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) // klin
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))]) // storm cx4
 lib_skill.set(225, [createSkill(6, 16, 10, lib_describe.get('evaacu_4'))]) //
 lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
 lib_skill.set(1032, [createSkill(3, 16, 0, lib_describe.get('uzi_burn'))]) // uzi mod
 lib_skill.set(1093, [
-  createSkill(6, 8, 4, lib_describe.get('eva_130')),
+  createSkill(6, 8, 5, lib_describe.get('eva_130')),
   createSkill(6, 8, 0, lib_describe.get('idw'))
 ])
-lib_skill.set(1094, []) // 没做
+lib_skill.set(1094, [
+  createSkill(7, 16, 0, lib_describe.get('flash_4'))
+]) // 闪光弹4星，被动没做
 
-lib_skill.set(18, []) //
-lib_skill.set(19, []) //
+lib_skill.set(18, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) // 烟雾弹36%
+lib_skill.set(19, [createSkill(6, 8, 5, lib_describe.get('eva_120'))]) //
 lib_skill.set(22, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
 lib_skill.set(27, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
 lib_skill.set(29, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
 lib_skill.set(32, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
 lib_skill.set(116, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
 lib_skill.set(131, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
-lib_skill.set(144, []) //
+lib_skill.set(144, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 lib_skill.set(169, [createSkill(6, 8, 5, lib_describe.get('dmgeva_15040'))])
-lib_skill.set(176, []) //
-lib_skill.set(178, []) //
+lib_skill.set(176, [createSkill(6, 8, 5, lib_describe.get('eva_120'))]) //
+lib_skill.set(178, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) // 烟雾弹36%
 lib_skill.set(191, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
-lib_skill.set(209, []) //
-lib_skill.set(218, []) //
+lib_skill.set(209, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
+lib_skill.set(218, [createSkill(4, 16, 15, lib_describe.get('eva_40'))]) //
+lib_skill.set(267, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) //
 
 lib_skill.set(17, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(21, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(24, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(25, [createSkill(3, 16, 0, lib_describe.get('incendiary_5.5'))])
-lib_skill.set(31, []) //
-lib_skill.set(33, []) //
-lib_skill.set(92, []) //
-lib_skill.set(93, []) //
-lib_skill.set(94, []) //
+lib_skill.set(31, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
+lib_skill.set(33, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) //
+lib_skill.set(92, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
+lib_skill.set(93, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
+lib_skill.set(94, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 
-// RF
+// ———————————————————————————————————————— RF ————————————————————————————————————————
 
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
 lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])
@@ -958,7 +974,7 @@ lib_skill.set(47, [
 lib_skill.set(51, [createSkill(5, 8, 5, lib_describe.get('dmg_55'))])
 lib_skill.set(52, [createSkill(5, 8, 5, lib_describe.get('rof_55'))])
 
-// MG
+// ———————————————————————————————————————— MG ————————————————————————————————————————
 
 lib_skill.set(109, []) // 连珠终结实现于攻击
 lib_skill.set(112, []) // 狂躁血脉实现于换弹
@@ -1061,7 +1077,7 @@ lib_skill.set(111, [
   createSkill(8, 18, 6, lib_describe.get('dmgND_30'))
 ])
 
-// SG
+// ———————————————————————————————————————— SG ————————————————————————————————————————
 
 lib_skill.set(151, [createSkill(15, 16, 0, lib_describe.get('m1887'))]) // 终结打击
 lib_skill.set(157, [createSkill(10, 16, 6, lib_describe.get('armeva_5'))]) // 生存本能-5星
@@ -1120,7 +1136,7 @@ lib_skill.set(2009, [createSkill(6.533, 8, 0, lib_describe.get('clear'))]) // �
 lib_skill.set(2010, []) // 
 
 lib_skill.set(2011, [createSkill(6, 16, 0, lib_describe.get('jill'))]) // Jill
-lib_skill.set(2012, []) // Sei
+lib_skill.set(2012, [createSkill(6, 10, 0, lib_describe.get('sei'))]) // Sei
 lib_skill.set(2013, [createSkill(1, -1, 0, lib_describe.get('dorothy'))]) // Dorothy，模式在攻击中判断
 lib_skill.set(2014, [ // Stella
   createSkill(6, 8, 5, lib_describe.get('dmg_50')),
@@ -1128,7 +1144,4 @@ lib_skill.set(2014, [ // Stella
   createSkill(0, -1, -1, lib_describe.get('dmg_-50'))
 ])
 lib_skill.set(2015, [createSkill(8, 18, 4, lib_describe.get('alma'))]) // 爱&梦想
-lib_skill.set(2016, [
-  createSkill(8, 18, 0, lib_describe.get('dana')),
-  createSkill(8, 18, 0, lib_describe.get('dana_shield'))
-]) // 红色间歇泉
+lib_skill.set(2016, [createSkill(8, 18, 0, lib_describe.get('dana'))]) // 红色间歇泉

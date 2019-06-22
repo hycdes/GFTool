@@ -1159,7 +1159,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     if (document.getElementById('special_m4_' + stand_num).checked) { // 使用武器库炮击
       Set_Special.set(stand_num, 'shelling') // 特殊变量：M4炮击
       changeStatus(stand_num, 'self', 'rof', '-0.7', 10)
-      changeStatus(stand_num, 'avenger_mark', null, null, 10) // 炮击状态，结束后特殊变量也将删除
+      changeStatus(stand_num, 'avenger_mark', null, null, 10) // 炮击状态，结束后特殊变量也���������������删除
     }
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
@@ -1524,14 +1524,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     var value = (s_t[0].Describe).value
     var duration = (s_t[0].Describe).duration
     var label = (s_t[0].Describe).label
-    if (value === -1) {
-      if (is_this(stand_num, 2016)) {
-        if (Set_Special.get('jill_winestart') === true) {
-          if (Set_Static.get('jill_winetype') === 1) value = 0.5 * current_Info.get('arm')
-          else value = 0
-        }
-      }
-    }
+    // if (value === -1) {
+    //   if (is_this(stand_num, 2016)) {
+    //     if (Set_Special.get('jill_winestart') === true) {
+    //       if (Set_Static.get('jill_winetype') === 1) value = 0.5 * current_Info.get('arm')
+    //       else value = 0
+    //     }
+    //   }
+    // }
     if (label === 'col1') { // 坚壁理论
       if (gs_tdoll[2]) changeStatus(2, 'self', 'shield', value, duration)
       if (gs_tdoll[5]) changeStatus(5, 'self', 'shield', value, duration)
@@ -1615,11 +1615,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     else Set_Special.set('jill_space', 8)
     s_t[1] = Math.ceil(jill_cd * 30) - 1
   }
-  else if (skillname === 'stella') {
-    var extra_cld = 0
-    if (is_exist_someone(2012)) extra_cld = 0.1
-    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
-  }
   else if (skillname === 'alma') {
     var duration = 3
     if (Set_Special.get('jill_winestart') === true) { // 吉尔Brandtini
@@ -1627,6 +1622,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     }
     Set_Special.set('alma_' + stand_num, current_time + duration * 30)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'sei') {
+    var extra_cld = 0
+    if (is_exist_someone(2014)) extra_cld = 0.1
+    // shield
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
   }
   // debug mode
   if (debug_mode && (debug_function[0] || debug_function[1])) {

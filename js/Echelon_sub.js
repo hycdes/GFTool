@@ -218,6 +218,10 @@ function do_jill_buff (stand_num) {
         changeStatus(i, 'self', 'arm', 0.2, duration)
         changeStatus(i, 'self', 'dmg', 0.3, duration)
         changeStatus(i, 'self', 'acu', 0.3, duration)
+        if (is_this(i, 2016)) {
+          var current_arm = ((Set_Base.get(i)).Info).get('arm')
+          changeStatus(i, 'self', 'shield', Math.ceil(0.5 * current_arm), -1)
+        }
       }
     }
   } else if (wine_type === 2) { // Brandtini
