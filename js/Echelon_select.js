@@ -190,6 +190,7 @@ function changeSelectItems () {
       str_items += '<option value=191>No.191 M12</option>'
       str_items += '<option value=209>No.209 OTs-39</option>'
       str_items += '<option value=218>No.218 T77</option>'
+      str_items += '<option value=267>No.267 MP41</option>'
     } else if (num_star === 2) {
       str_items += '<option value=17 selected>No.17 M3</option>'
       str_items += '<option value=21>No.21 PPSh-41</option>'
