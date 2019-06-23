@@ -128,6 +128,7 @@ function get_left_hp (stand_num, single_hp) {
   while (all_left_hp - single_hp > 0) all_left_hp -= single_hp
   return all_left_hp
 }
+function get_skill_icon (ID) { return '&nbsp<img src="../img/echelon/skill/' + ID + '.png" style="width:25px;height:25px">' }
 
 // lable_do
 function do_unique (ID, command) {

@@ -639,7 +639,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     else document.getElementById('info_ap').innerHTML = lib_language.ap + ' <span style="color:green">' + '15' + '</span>'
     // readStatus需要保存当前状态，添加人形会把buffer_last填入buffer_table
     buffer_last = [set_guntype, num_star, ID, set_equip, affection, e_affection]
-    // special setting
+    // special setting特殊设定提示
     changeSpecial(ID)
   }
   showAffect()
@@ -676,7 +676,7 @@ function changeSpecial (ID) {
       eval('jill_str=lib_language.special_info_2011_' + type)
       str_display += jill_str
     }
-    else str_display += lib_special_info.get(ID)
+    else str_display += lib_special_info.get(ID) + get_skill_icon(ID)
   }
   document.getElementById('info_special').innerHTML = str_display
 }
@@ -771,8 +771,8 @@ function addTdoll () { // 添加战术人形
     }
     else if (ID === 102) {
       var str_html = ''
-      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' UMP40</h4><p>'
-      str_html += '[' + lib_language.skillNAME_102 + '] <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_0" checked> ' + lib_language.DESCRIBE_102_1 + '</label>'
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' UMP40</h4>'
+      str_html += '<p>[' + lib_language.skillNAME_102 + '] <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_0" checked> ' + lib_language.DESCRIBE_102_1 + '</label>'
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_1"> ' + lib_language.DESCRIBE_102_2 + '</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
