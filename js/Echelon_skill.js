@@ -1140,8 +1140,7 @@ lib_skill.set(2012, [createSkill(6, 10, 0, lib_describe.get('sei'))]) // Sei
 lib_skill.set(2013, [createSkill(1, -1, 0, lib_describe.get('dorothy'))]) // Dorothy，模式在攻击中判断
 lib_skill.set(2014, [ // Stella
   createSkill(6, 8, 5, lib_describe.get('dmg_50')),
-  createSkill(0, -1, 99999, lib_describe.get('stella_attack')),
-  createSkill(0, -1, -1, lib_describe.get('dmg_-50'))
+  createSkill(0, -1, 99999, lib_describe.get('stella_attack'))
 ])
 lib_skill.set(2015, [createSkill(8, 18, 4, lib_describe.get('alma'))]) // 爱&梦想
 lib_skill.set(2016, [createSkill(8, 18, 0, lib_describe.get('dana'))]) // 红色间歇泉

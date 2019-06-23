@@ -2,7 +2,8 @@
 function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
 function is_property (str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield');}
 function is_in_affect_of (stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
-function is_this (stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
+function is_this(stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
+function is_stand(stand_num) { return list_tdoll[stand_num][1] != null}
 function is_this_type (stand_num, type) { // 1~6
   if (list_tdoll[stand_num][1].Type === type) return true
   return false
@@ -260,15 +261,16 @@ function do_jill_buff (stand_num) {
   } else if (wine_type === 6) {
     changeStatus(stand_num, 'all', 'dmg', 0.35, 5)
     Set_Special.set('jill_drunk', global_frame + 150)
-    recordData(stand_num, global_frame, 0)
-    recordData(stand_num, global_frame, 300000)
-    recordData(stand_num, global_frame + 150, 0)
-    recordData(stand_num, global_frame + 150, -300000)
-    recordData(stand_num, global_frame + 150, 0)
-    recordData(stand_num, global_frame + 150, 300000)
-    recordData(stand_num, global_frame + 240, 0)
-    recordData(stand_num, global_frame + 240, -300000)
-    recordData(stand_num, global_frame + 240, 0)
+  // for debug:
+  // recordData(stand_num, global_frame, 0)
+  // recordData(stand_num, global_frame, 300000)
+  // recordData(stand_num, global_frame + 150, 0)
+  // recordData(stand_num, global_frame + 150, -300000)
+  // recordData(stand_num, global_frame + 150, 0)
+  // recordData(stand_num, global_frame + 150, 300000)
+  // recordData(stand_num, global_frame + 240, 0)
+  // recordData(stand_num, global_frame + 240, -300000)
+  // recordData(stand_num, global_frame + 240, 0)
   } else { // basic drink
     changeStatus(stand_num, 'all', 'dmg', 0.18, duration)
   }
@@ -422,7 +424,16 @@ function init_loadPrepareStatus () { // 初始化战前属性
     Set_Special.set('python_crit', 0)
     Set_Special.set('python_active', 6)
   }
-  for (var i = 0; i < 9; i++) { // 载入技能
+  // 载入特殊设定——————————————————————
+  for (var i = 0; i < 9; i++){
+    if (is_stand(i)) {
+      if (is_this(i, 2014)) { // stella
+        changeStatus(i,'self','dmg',-0.5,-1)
+      }
+    }
+  }
+   // 载入技能——————————————————————
+  for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var list_Skill = []
       if (is_this(i, 2011)) true // Jill不能普攻

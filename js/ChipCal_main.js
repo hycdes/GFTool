@@ -1506,7 +1506,7 @@ function ignoreSolution (list_max) {
         if (iftype[0] || iftype[1]) { // at least one requirement
           var code = ''
           if (iftype[0]) {
-            code += 'value>=' + (list_max[e] + ignore_setting.get(readorder[e] + 'minv'))
+            code += 'value>=' + (list_max[e] - ignore_setting.get(readorder[e] + 'minv'))
             if (iftype[1]) code += '&&'
           }
           if (iftype[1]) {
