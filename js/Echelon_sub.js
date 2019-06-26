@@ -2,8 +2,8 @@
 function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
 function is_property (str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield');}
 function is_in_affect_of (stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
-function is_this(stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
-function is_stand(stand_num) { return list_tdoll[stand_num][1] != null}
+function is_this (stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
+function is_stand (stand_num) { return list_tdoll[stand_num][1] != null}
 function is_this_type (stand_num, type) { // 1~6
   if (list_tdoll[stand_num][1].Type === type) return true
   return false
@@ -106,6 +106,7 @@ function get_common_position () {
 function get_attack_target () {
   var order = [5, 2, 8, 4, 1, 7, 3, 0, 6] // default
   if (inj_order != 'all') {
+    // if (Set_Special.get('provoke') === undefined || (Set_Special.get('provoke') <= 0)) {
     if (lang_type === 'ko') {
       for (var i = 0; i < 9; i++) {
         var temp_v = parseInt(inj_order[i])
@@ -120,6 +121,7 @@ function get_attack_target () {
       if (list_tdoll[num][1] != null && list_tdoll[num][0] > 0) return num
     }
     return -1
+  // } else return 'provoke'
   } else {
     return 9
   }
@@ -242,6 +244,7 @@ function do_jill_buff (stand_num) {
       if (gs_tdoll[i]) {
         if (Math.floor(i / 3) === line_front) changeStatus(i, 'self', 'eva', 0.6, duration)
         else changeStatus(i, 'self', 'dmg', 0.2, duration)
+        if (is_this(i, 2013)) do_dorothy_drink(i, duration) // dorothy with piano woman
       }
     }
   } else if (wine_type === 4) { // Moonblast
@@ -275,6 +278,26 @@ function do_jill_buff (stand_num) {
     changeStatus(stand_num, 'all', 'dmg', 0.18, duration)
   }
   Set_Special.set('jill_wine_status', [wine_type, global_frame + duration * 30])
+}
+function do_dorothy_drink (stand_num, duration) { // 抵消一半debuff
+  var list_num = [stand_num - 6, stand_num - 3, stand_num + 3, stand_num + 6]
+  if (document.getElementById('special_dorothy_' + stand_num + '_1').checked) { // MIRD113模式
+    for (var stn of list_num) {
+      if (stn >= 0 && stn <= 8) {
+        if (gs_tdoll[stn]) {
+          changeStatus(stand_num, 'self', 'acu', (1 - 0.2) / (1 - 0.4) - 1, duration, 'unrepeat')
+        }
+      }
+    }
+  } else if (document.getElementById('special_dorothy_' + stand_num + '_2').checked) { // 纳米迷彩模式
+    for (var stn of list_num) {
+      if (stn >= 0 && stn <= 8) {
+        if (gs_tdoll[stn]) {
+          changeStatus(stand_num, 'self', 'eva', (1 - 0.2) / (1 - 0.4) - 1, duration, 'unrepeat')
+        }
+      }
+    }
+  }
 }
 
 // lable_init
@@ -331,8 +354,8 @@ function init_loadPrepareStatus () { // 初始化战前属性
   }
   // 出战属性和初始状态
   for (var i = 0; i < 10; i++) Set_Data.set(i, [[0, 0]]) // 包括妖精在内的输出数据初始化
-  for (var i = 0; i < 9; i++) {
-    Set_Data_S.set(i, [[0, 0]]) // 生命值初始化
+  for (var i = 0; i < 10; i++) {
+    Set_Data_S.set(i, [[0, 0]]) // 包括妖精在内的生命值初始化
     Set_Data_S_Percentage.set(i, [[0, 0]])
   }
   for (var i = 0; i < 5; i++) { // 重装部队数据初始化
@@ -363,6 +386,10 @@ function init_loadPrepareStatus () { // 初始化战前属性
         Set_Special.set('AT4_burn_leftnum', 0) // 烈性灼烧buff剩余次数
       }
     }
+  }
+  if (fairy_no === 6) { // 嘲讽靶机
+    Set_Data_S.set(9, [[0, 1600]])
+    Set_Data_S_Percentage.set(9, [[0, 1]])
   }
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
@@ -425,19 +452,20 @@ function init_loadPrepareStatus () { // 初始化战前属性
     Set_Special.set('python_active', 6)
   }
   // 载入特殊设定——————————————————————
-  for (var i = 0; i < 9; i++){
+  for (var i = 0; i < 9; i++) {
     if (is_stand(i)) {
       if (is_this(i, 2014)) { // stella
-        changeStatus(i,'self','dmg',-0.5,-1)
+        changeStatus(i, 'self', 'dmg', -0.5, -1)
       }
     }
   }
-   // 载入技能——————————————————————
+  // 载入技能——————————————————————
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var list_Skill = []
       if (is_this(i, 2011)) true // Jill不能普攻
       else if (is_this(i, 2016)) true // Dana单发子弹必须先执行技能
+      else if (is_this(i, 2014)) true // Stella单发子弹必须先执行技能
       else list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
       for (var v_skill of list_tdoll[i][1].Skill) {
         var extra_cd = 0
@@ -445,6 +473,7 @@ function init_loadPrepareStatus () { // 初始化战前属性
         list_Skill.push([v_skill, Math.ceil(30 * ((v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))]) // 载入技能表
       }
       if (is_this(i, 2016)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Dana普攻在技能后
+      else if (is_this(i, 2014)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Stella普攻在技能后
       Set_Skill.set(i, list_Skill)
     }
   }
@@ -552,6 +581,7 @@ function init_loadFairy (common_position) {
       }
     } else if (fairy_no === 6) { // 嘲讽靶机
       Set_Special.set('provoke', 1600)
+      if (display_type === 'suffer') recordData(9, 0, 1600)
     } else if (fairy_no === 7) { // 狙击指令
       Set_Special.set('fairy_skillon', true)
       Set_Special.set('fairy_skilltime', 300)

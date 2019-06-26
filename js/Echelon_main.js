@@ -265,6 +265,11 @@ function getResult (multiple, action) {
         Glabel_inj.set(i, temp_inj)
       }
     }
+  // // 嘲讽靶机数据记录
+  // if (fairy_no === 6 && document.getElementById('fairyskill_active').checked) {
+  //   if (y_max_suffer < 1600) y_max_suffer = 1600
+  //   eval('Glabel_name.set("fairy",lib_language.fairyNAME_' + fairy_no + '+" ")')
+  // }
   }
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
     var current_data = Set_Data.get(9)
@@ -1159,7 +1164,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     if (document.getElementById('special_m4_' + stand_num).checked) { // 使用武器库炮击
       Set_Special.set(stand_num, 'shelling') // 特殊变量：M4炮击
       changeStatus(stand_num, 'self', 'rof', '-0.7', 10)
-      changeStatus(stand_num, 'avenger_mark', null, null, 10) // 炮击状态，结束后特殊变量也���������������删除
+      changeStatus(stand_num, 'avenger_mark', null, null, 10) // 炮击状态，结束后特殊变量也删除
     }
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
@@ -1626,7 +1631,19 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   else if (skillname === 'sei') {
     var extra_cld = 0
     if (is_exist_someone(2014)) extra_cld = 0.1
-    // shield
+    for (var i = 0; i < 9; i++) {
+      if (gs_tdoll[i]) {
+        var shield_value = 32, hp_percent = 1, multiple = 1
+        if (display_type === 'suffer') { // 初始化生命值
+          hp_percent = (Set_Data_S.get(i)[Set_Data_S.get(i).length - 1][1]) / (Set_Data_S.get(i)[0][1])
+        }
+        if (Set_Special.get('jill_winestart') === true) {
+          if (Set_Static.get('jill_winetype') === 4) multiple = 2
+        }
+        shield_value *= (1 + ((1 - hp_percent) + 0.8) * multiple)
+        changeStatus(i, 'self', 'shield', shield_value, 5)
+      }
+    }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
   }
   // debug mode
@@ -2034,6 +2051,13 @@ function reactInjury () {
         for (stn of queue_tdoll) {
           if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame) injury(stn)
         }
+        // if (Set_Special.get('provoke') != undefined) {
+        //   if (Set_Special.get('provoke') > 0) {
+        //     injury(stn)
+        //   }
+        // }
+      // } else if (shoot_target === 'provoke') {
+      //   shoot_target = injury_provoke()
       } else {
         if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame) shoot_target = injury(shoot_target)
       }
@@ -2041,7 +2065,39 @@ function reactInjury () {
     }
   }
 }
-
+// function do_shield (sid, value) {
+//   0
+// }
+// function injury_provoke () {
+//   var damage = enemy_dmg * enemy_num_left * enemy_form
+//   var left_provoke = Set_Special.get('provoke')
+//   var decline_provoke = 0
+//   if (Set_Special.get('provoke_shield') != undefined && Set_Special.get('provoke_shield') > 0) { // have shield
+//     var left_shield = Set_Special.get('provoke_shield')
+//     left_shield -= damage
+//     if (left_shield < 0) {
+//       decline_provoke = Math.abs(left_shield)
+//       left_provoke += left_shield
+//       left_shield = 0
+//     }
+//     if (left_provoke < 0) {
+//       decline_provoke += left_provoke
+//       left_provoke = 0
+//     }
+//     Set_Special.set('provoke_shield', left_shield)
+//     Set_Special.set('provoke', left_provoke)
+//     recordData_suffer(9, global_frame, decline_provoke)
+//   } else { // no-shield
+//     decline_provoke = damage
+//     left_provoke -= damage
+//     if (left_provoke < 0) {
+//       decline_provoke += left_provoke
+//       left_provoke = 0
+//     }
+//     Set_Special.set('provoke', left_provoke)
+//     recordData_suffer(9, global_frame, decline_provoke)
+//   }
+// }
 function injury (shoot_target) {
   var current_Info = Set_Base.get(shoot_target).Info
   var accuracy = enemy_acu
