@@ -2051,11 +2051,11 @@ function reactInjury () {
         for (stn of queue_tdoll) {
           if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame) injury(stn)
         }
-        // if (Set_Special.get('provoke') != undefined) {
-        //   if (Set_Special.get('provoke') > 0) {
-        //     injury(stn)
-        //   }
-        // }
+      // if (Set_Special.get('provoke') != undefined) {
+      //   if (Set_Special.get('provoke') > 0) {
+      //     injury(stn)
+      //   }
+      // }
       // } else if (shoot_target === 'provoke') {
       //   shoot_target = injury_provoke()
       } else {
