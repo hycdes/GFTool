@@ -1633,15 +1633,17 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
     if (is_exist_someone(2014)) extra_cld = 0.1
     for (var i = 0; i < 9; i++) {
       if (gs_tdoll[i]) {
-        var shield_value = 32, hp_percent = 1, multiple = 1
-        if (display_type === 'suffer') { // 初始化生命值
-          hp_percent = (Set_Data_S.get(i)[Set_Data_S.get(i).length - 1][1]) / (Set_Data_S.get(i)[0][1])
+        if (is_this_type(i, 1) || is_this_type(i, 3) || is_this_type(i, 6)) {
+          var shield_value = 32, hp_percent = 1, multiple = 1
+          if (display_type === 'suffer') { // 初始化生命值
+            hp_percent = (Set_Data_S.get(i)[Set_Data_S.get(i).length - 1][1]) / (Set_Data_S.get(i)[0][1])
+          }
+          if (Set_Special.get('jill_winestart') === true) {
+            if (Set_Static.get('jill_winetype') === 4) multiple = 2
+          }
+          shield_value *= (1 + ((1 - hp_percent) + 0.8) * multiple)
+          changeStatus(i, 'self', 'shield', shield_value, 5)
         }
-        if (Set_Special.get('jill_winestart') === true) {
-          if (Set_Static.get('jill_winetype') === 4) multiple = 2
-        }
-        shield_value *= (1 + ((1 - hp_percent) + 0.8) * multiple)
-        changeStatus(i, 'self', 'shield', shield_value, 5)
       }
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
