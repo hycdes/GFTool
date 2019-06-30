@@ -84,7 +84,15 @@
                                 <div class="tab-content">
                                     <!-- 按分类标签 -->
                                     <div class="tab-pane fade in active" id="sort_tag">
-                                        <h4>定位标签</h4>
+                                        <h4>符合条件的人形</h4>
+                                        <table>
+                                            <tr>
+                                                <td style="vertical-align:middle;" id="result_1">请选择至少一个标签</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span style="color:gray" id="result_1_alert"></span></td>
+                                            </tr>
+                                        </table>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <td style="text-align:center;vertical-align:middle;width:100px;">人形属性<button type="button" style="padding:5px" class="btn btn-default" onclick="empty_taglist(0)">清空</button></td>
@@ -117,85 +125,107 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        <h4>符合条件的人形</h4>
-                                        <table>
-                                            <tr>
-                                                <td style="vertical-align:middle;" id="result_1">请选择至少一个标签</td>
-                                            </tr>
-                                        </table>
                                     </div>
                                     <!-- 按战术人形 -->
                                     <div class="tab-pane fade" id="sort_tdoll">
-                                        <h4>人形目录</h4>
-                                        <table class="table table-hover table-bordered">
-                                            <tr>
-                                                <td style="text-align:center;vertical-align:middle;width:100px;"><img src="../img/class/icon-hg-pick.png"></td>
-                                                <td>
+                                        <h4>当前选择：<span id="result_2_name">无</span></h4>
+                                        <h4 id="result_2">请选择一个人形</h4>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#cl-hg"><img src="../img/class/icon-hg-pick.png"></a>
+                                                </h4>
+                                            </div>
+                                            <div id="cl-hg" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <p id="tag_tdoll_1_1"></p>
                                                     <p id="tag_tdoll_1_5"></p>
                                                     <p id="tag_tdoll_1_4"></p>
                                                     <p id="tag_tdoll_1_3"></p>
                                                     <p id="tag_tdoll_1_2"></p>
-                                                    <p id="tag_tdoll_1_1"></p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:center;vertical-align:middle;"><img src="../img/class/icon-ar-pick.png"></td>
-                                                <td>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#cl-ar"><img src="../img/class/icon-ar-pick.png"></a>
+                                                </h4>
+                                            </div>
+                                            <div id="cl-ar" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <p id="tag_tdoll_2_1"></p>
                                                     <p id="tag_tdoll_2_5"></p>
                                                     <p id="tag_tdoll_2_4"></p>
                                                     <p id="tag_tdoll_2_3"></p>
                                                     <p id="tag_tdoll_2_2"></p>
-                                                    <p id="tag_tdoll_2_1"></p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:center;vertical-align:middle;"><img src="../img/class/icon-smg-pick.png"></td>
-                                                <td>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#cl-smg"><img src="../img/class/icon-smg-pick.png"></a>
+                                                </h4>
+                                            </div>
+                                            <div id="cl-smg" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <p id="tag_tdoll_3_1"></p>
                                                     <p id="tag_tdoll_3_5"></p>
                                                     <p id="tag_tdoll_3_4"></p>
                                                     <p id="tag_tdoll_3_3"></p>
                                                     <p id="tag_tdoll_3_2"></p>
-                                                    <p id="tag_tdoll_3_1"></p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:center;vertical-align:middle;"><img src="../img/class/icon-rf-pick.png"></td>
-                                                <td>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#cl-rf"><img src="../img/class/icon-rf-pick.png"></a>
+                                                </h4>
+                                            </div>
+                                            <div id="cl-rf" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <p id="tag_tdoll_4_1"></p>
                                                     <p id="tag_tdoll_4_5"></p>
                                                     <p id="tag_tdoll_4_4"></p>
                                                     <p id="tag_tdoll_4_3"></p>
                                                     <p id="tag_tdoll_4_2"></p>
-                                                    <p id="tag_tdoll_4_1"></p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:center;vertical-align:middle;"><img src="../img/class/icon-mg-pick.png"></td>
-                                                <td>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#cl-mg"><img src="../img/class/icon-mg-pick.png"></a>
+                                                </h4>
+                                            </div>
+                                            <div id="cl-mg" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <p id="tag_tdoll_5_1"></p>
                                                     <p id="tag_tdoll_5_5"></p>
                                                     <p id="tag_tdoll_5_4"></p>
                                                     <p id="tag_tdoll_5_3"></p>
                                                     <p id="tag_tdoll_5_2"></p>
-                                                    <p id="tag_tdoll_5_1"></p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="text-align:center;vertical-align:middle;"><img src="../img/class/icon-sg-pick.png"></td>
-                                                <td>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#cl-sg"><img src="../img/class/icon-sg-pick.png"></a>
+                                                </h4>
+                                            </div>
+                                            <div id="cl-sg" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <p id="tag_tdoll_6_1"></p>
                                                     <p id="tag_tdoll_6_5"></p>
                                                     <p id="tag_tdoll_6_4"></p>
                                                     <p id="tag_tdoll_6_3"></p>
                                                     <p id="tag_tdoll_6_2"></p>
-                                                    <p id="tag_tdoll_6_1"></p>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <h4>定位标签</h4>
-                                        <table>
-                                            <h4>当前选择：<span id="result_2_name">无</span></h4>
-                                            <tr>
-                                                <td style="vertical-align:middle;" id="result_2">请选择至少一个标签</td>
-                                            </tr>
-                                        </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
