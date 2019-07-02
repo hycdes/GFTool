@@ -816,7 +816,7 @@ function find_similar (ID) {
     var current_str = ''
     current_str += '<tr><td style="vertical-align:middle"><img src="../img/class/' + current_tdoll.id + '.png" style="width:37px;height:37px"> ' + make_starstr(current_tdoll.star)
     eval('current_str+=lib_name.t' + current_tdoll.id)
-    current_str += '</td><td style="vertical-align:middle"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b></td>'
+    current_str += '</td><td style="vertical-align:middle;text-align:center"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b></td>'
     current_str += '<td style="line-height:40px;vertical-align:middle">'
     for (var i = 0; i < 4; i++) {
       for (var name of current_tdoll.tag[i]) {
