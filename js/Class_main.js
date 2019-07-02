@@ -182,7 +182,7 @@ var lib_tdoll = [
   create_entry([4, 5, 1039], ['dps'], ['back' ], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
   create_entry([4, 5, 46], ['dps'], ['back' ], ['ap', 'snipe'], []),
   create_entry([4, 5, 48], ['dps'], ['back' ], ['forcus_rof', 'ap'], []),
-  create_entry([4, 5, 50], ['dps'], ['back' ], ['forcus_dmg', 'ap'], []),
+  create_entry([4, 5, 50], ['dps'], ['back'], ['forcus_dmg', 'ap'], []),
   create_entry([4, 5, 53], ['dps'], ['back' ], ['ap', 'snipe'], []),
   create_entry([4, 5, 128], ['dps'], ['back' ], ['ap', 'snipe'], []),
   create_entry([4, 5, 148], ['dps'], ['back' ], ['forcus_dmg', 'ap'], []),
@@ -191,13 +191,28 @@ var lib_tdoll = [
   create_entry([4, 5, 197], ['dps', 'supportdps'], ['back' ], ['forcus_rof', 'forcus_crit', 'command_rof', 'command_crit', 'ap'], []),
   create_entry([4, 5, 198], ['dps'], ['back' ], ['ap', 'fastcd', 'snipe'], ['normalkiller']),
   create_entry([4, 5, 204], ['dps'], ['back' ], ['ap', 'passive', 'multihit', 'multitarget'], []),
-  create_entry([4, 5, 211], ['dps'], ['back' ], ['forcus_rof', 'forcus_acu', 'ap'], []),
+  create_entry([4, 5, 211], ['dps'], ['back' ], ['forcus_dmg', 'forcus_acu', 'ap'], []),
   create_entry([4, 5, 222], ['dps'], ['back' ], ['ap', 'snipe'], ['skillcrit']),
   create_entry([4, 5, 231], ['dps'], ['back' ], ['ap', 'fastcd', 'snipe'], ['stronger']),
   create_entry([4, 5, 257], ['dps'], ['back' ], ['ap', 'passive', 'snipe'], ['skillcrit', 'skillarm']),
   create_entry([4, 5, 261], ['dps'], ['back' ], ['ap', 'passive', 'snipe'], []),
   create_entry([4, 5, 266], ['dps'], ['back' ], ['forcus_dmg', 'forcus_rof', 'ap', 'passive'], []),
+  create_entry([4, 4, 1037], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap'], []),
+  create_entry([4, 4, 1044], ['dps'], ['back'], ['forcus_rof', 'forcus_acu', 'ap', 'snipe'], []),
+  create_entry([4, 4, 1051], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap'], []),
+  create_entry([4, 4, 36], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 4, 39], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 4, 42], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 4, 43], ['dps'], ['back'], ['forcus_rof', 'ap'], []),
+  create_entry([4, 4, 117], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 4, 146], ['dps'], ['back'], ['forcus_dmg', 'ap'], []),
+  create_entry([4, 4, 180], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 4, 184], ['dps'], ['back'], ['forcus_rof', 'forcus_acu', 'ap'], []),
   create_entry([4, 4, 200], ['dps'], ['back'], ['forcus_rof', 'ap'], ['night']),
+  create_entry([4, 4, 226], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap'], []),
+  create_entry([4, 4, 235], ['dps'], ['back'], ['forcus_rof', 'ap', 'snipe'], []),
+  create_entry([4, 4, 247], ['dps'], ['back'], ['forcus_rof', 'ap'], []),
+  create_entry([4, 4, 252], ['dps'], ['back'], ['ap', 'snipe'], []),
   create_entry([4, 3, 37], ['dps'], ['back'], ['forcus_dmg', 'ap'], ['mengxin']),
   create_entry([4, 3, 256], ['dps'], ['back'], ['forcus_dmg', 'forcus_acu', 'ap', 'fastcd', 'passive', 'snipe'], ['skillcrit']),
 
@@ -699,43 +714,58 @@ function find_simpara (tag1, tag2) { // weight determination
     else return 1
   } else { // replace solution
     if (both_have(tag1, tag2, 'rofstatic', 'forcus_rof')) return 0.9
-    if (you_have(tag1, tag2, 'ap', 'forcus_dmg')) return 0.5
+    if (you_have(tag1, tag2, 'ap', 'forcus_dmg')) return 0.3
   }
   return 0
-}
-function find_base (id) {
-  var base = 250
-  for (var i = 0; i < 4; i++) {
-    var taglist = find_tdoll(id).tag[i]
-    var weight = find_weight(i)
-    for (var tag of taglist) {
-      if (special_weight.get(tag) != undefined) base += weight * special_weight.get(tag)
-      else base += weight
-    }
-  }
-  return base
 }
 function is_someone_equaltag (tag1, tag2, id1, id2, special_id) { return (id1 === special_id || id2 === special_id) && (tag1 === tag2); }
 function find_decline (tag1, tag2, id1, id2) { // 特殊处理
   var decline = 1
-  if (is_someone_equaltag(tag1, tag2, id1, id2, 1001)) { // 柯尔特左轮射速UP没那么大
+  if (is_someone_equaltag(tag1, tag2, id1, id2, 2020)) { // 星井火力UP
+    if (tag1 === 'forcus_dmg') decline *= 0.8
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1001)) { // 柯尔特左轮射速UP
     if (tag1 === 'forcus_rof') decline *= 0.8
   }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1039)) { // 莫辛纳甘并不是纯粹专注
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1039)) { // 莫辛纳甘MOD
     if (tag1 === 'forcus_dmg') decline *= 0.7
     else if (tag1 === 'forcus_rof') decline *= 0.4
   }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1044)) { // SV-98 mod
+    if (tag1 === 'forcus_rof' || tag1 === 'forcus_acu') decline *= 0.2
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1051)) { // FN-49 mod
+    if (tag1 === 'forcus_rof') decline *= 0.3
+  }
   else if (is_someone_equaltag(tag1, tag2, id1, id2, 1093)) { // IDW有鸡儿输出
-    if (tag1 === 'forcus_dmg') decline *= 0.2
-    else if (tag1 === 'forcus_rof') decline *= 0.2
+    if (tag1 === 'forcus_dmg' || tag1 === 'forcus_rof') decline *= 0.2
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 184)) { // T-5000
+    if (tag1 === 'forcus_rof') decline *= 0.8
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 197)) { // 卡姐
+    if (tag1 === 'forcus_rof') decline *= 0.3
   }
   else if (is_someone_equaltag(tag1, tag2, id1, id2, 207)) { // CZ2000黎明气焰特殊处理
     if (tag1 === 'forcus_dmg' || tag1 === 'forcus_rof' || tag1 === 'forcus_acu' || tag1 === 'forcus_crit') {
       decline *= 0.4
     }
   }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 211)) { // SRS
+    if (tag1 === 'forcus_dmg') decline *= 0.9
+  }
   else if (is_someone_equaltag(tag1, tag2, id1, id2, 213)) { // CMS切换特殊处理
     if (tag1 === 'forcus_dmg' || tag1 === 'forcus_acu') decline *= 0.7
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 226)) { // T-5000
+    if (tag1 === 'forcus_dmg') decline *= 0.6
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 235)) { // SPR
+    if (tag1 === 'forcus_rof') decline *= 0.2
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 266)) { // R93
+    if (tag1 === 'forcus_dmg') decline *= 0.8
+    else if (tag1 === 'forcus_rof') decline *= 0.5
   }
   return decline
 }
@@ -756,13 +786,12 @@ function is_self (id1, id2) { // 是否是自己，包括改造
   else return false
 }
 function find_similar (ID) {
-  var sim = 0, base_value = 0
+  var sim = 0
   var simlist = []
   var this_tdoll = find_tdoll(ID)
   var this_type = this_tdoll.type
   var this_taglist = this_tdoll.tag
   // self base property value
-  base_value = find_base(ID)
   // find similarity
   for (var tdoll of lib_tdoll) {
     if (is_self(tdoll.id, ID)) {
@@ -784,12 +813,10 @@ function find_similar (ID) {
   var str_display = ''
   for (var n = 0; n < max_num; n++) {
     var current_tdoll = find_tdoll(simlist[n][0])
-    var this_base = find_base(current_tdoll.id)
-    if (this_base < base_value) this_base = base_value
     var current_str = ''
     current_str += '<tr><td style="vertical-align:middle"><img src="../img/class/' + current_tdoll.id + '.png" style="width:37px;height:37px"> ' + make_starstr(current_tdoll.star)
     eval('current_str+=lib_name.t' + current_tdoll.id)
-    current_str += '</td><td style="vertical-align:middle"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b> / ' + (100 * simlist[n][1] / this_base).toFixed(2) + '%' + '</td>'
+    current_str += '</td><td style="vertical-align:middle"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b></td>'
     current_str += '<td style="line-height:40px;vertical-align:middle">'
     for (var i = 0; i < 4; i++) {
       for (var name of current_tdoll.tag[i]) {
