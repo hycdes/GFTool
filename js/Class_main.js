@@ -34,13 +34,15 @@ var lib_name = {
   t2019: '多萝西·海兹',
   t1103: 'UMP45 MOD',
   t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9',
-
+  t1029: '司登MkⅡ MOD',t1093: 'IDW MOD',t1094: '64式 MOD',
+  t23: 'PP-90',t26: 'MP5',t101: 'UMP9',t102: 'UMP40',t103: 'UMP45',t136: 'PP-19',t137: 'PP-19-01',t150: '希普卡',t177: 'KLIN',t203: '蜜獾',t225: 'Cx4 风暴',
   t27: '蝎式',t29: '司登MkⅡ',
 
   t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井',
   t1039: '莫辛-纳甘 MOD',
   t46: 'Kar98K',t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99',t148: 'IWS2000', t179: 'DSR-50',t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38',t204: '芭莉斯塔', t211: 'SRS',t222: 'TAC-50',t231: 'M82A1',t257: 'M200',t261: 'QBU-88', t266: 'R93',
-  t200: 'XM3',
+  t1037: 'M14 MOD',t1044: 'SV-98 MOD',t1051: 'FN-49 MOD',
+  t36: '春田',t39: '莫辛-纳甘',t42: 'PTRD',t43: 'SVD',t117: 'PSG-1',t146: 'G28',t180: 'PzB39',t184: 'T-5000',t200: 'XM3',t226: 'Mk12',t235: 'SPR A3G',t247: 'K31',t252: 'KSVK',
   t37: 'M14',t256: '隼',
 
   t2021: '阿尔玛·阿玛斯',
@@ -56,81 +58,81 @@ var lib_name = {
   t159: 'RMB-93'
 }
 var lib_tdoll = [
-  create_entry([1, 1, 2001], ['dps', 'supportdps'], ['random'], ['snipe'], []),
-  create_entry([1, 1, 2003], ['supportdfs'], ['random'], ['snipe'], ['stun']),
-  create_entry([1, 1, 2006], ['supportdfs'], ['random'], ['deepdmg', 'dizz'], []),
-  create_entry([1, 1, 2009], ['supportdps'], ['random'], ['command_dmg', 'command_acu'], []),
-  create_entry([1, 1, 2010], ['supportdfs'], ['random'], ['weak_rof', 'weak_acu'], []),
-  create_entry([1, 1, 2017], ['supportdps', 'supportdfs'], [], ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg'], []),
-  create_entry([1, 1, 2018], ['supportdfs'], ['random'], ['shield'], []),
-  create_entry([1, 5, 1001], ['supportdps'], ['random'], ['command_dmg', 'command_rof', 'command_acu'], []),
-  create_entry([1, 5, 4], ['dps', 'supportdps'], ['random'], ['forcus_dmg', 'command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_crit'], ['feedback']),
-  create_entry([1, 5, 96], ['supportdps'], ['random'], ['command_dmg'], []),
-  create_entry([1, 5, 97], ['supportdps'], ['random'], ['command_rof'], []),
-  create_entry([1, 5, 114], ['supportdfs'], ['random'], ['weak_acu'], []),
-  create_entry([1, 5, 126], ['supportdfs'], ['random'], ['weak_rof'], []),
-  create_entry([1, 5, 142], ['supportdps'], ['random'], ['command_rof', 'command_crit'], []),
-  create_entry([1, 5, 166], ['dps', 'supportdps'], ['random'], ['snipe'], []),
-  create_entry([1, 5, 183], ['supportdps'], ['random', 'ap'], ['deepdmg', 'snipe'], ['shootguide']),
-  create_entry([1, 5, 233], ['supportdps'], ['random'], ['command_critdmg'], []),
-  create_entry([1, 5, 242], ['supportdps', 'supportdfs'], ['random'], ['command_dmg', 'command_eva', 'shield'], []),
-  create_entry([1, 5, 250], ['supportdps', 'supportdfs'], ['random'], ['command_dmg', 'shield'], []),
-  create_entry([1, 5, 260], ['dps', 'supportdps', 'supportdfs'], ['random'], ['snipe', 'dizz'], []),
-  create_entry([1, 4, 1002], ['dps', 'supportdfs'], ['back', 'random'], ['fastcd', 'sweep', 'rofstatic', 'smoke'], []),
-  create_entry([1, 4, 1005], ['supportdps', 'supportdfs', 'startdps'], ['random'], ['command_dmg', 'command_acu', 'weak_dmg'], ['night']),
-  create_entry([1, 4, 1091], ['supportdps', 'supportdfs'], ['random'], ['command_rof', 'weak_rof'], []),
-  create_entry([1, 4, 1], ['supportdps'], ['random'], ['command_dmg'], []),
-  create_entry([1, 4, 7], ['supportdps'], ['random'], ['command_dmg', 'command_rof'], []),
-  create_entry([1, 4, 98], ['supportdps'], ['random'], ['weak_eva'], []),
-  create_entry([1, 4, 99], ['supportdps'], ['random'], ['command_dmg'], ['night']),
-  create_entry([1, 4, 100], ['supportdfs'], ['random'], ['command_eva'], []),
-  create_entry([1, 4, 168], ['supportdfs'], ['random'], ['weak_rof'], []),
-  create_entry([1, 4, 202], ['dps', 'supportdps'], ['random'], ['snipe'], ['skilleva']),
-  create_entry([1, 4, 212], ['supportdps', 'supportdfs'], ['random'], ['command_dmg', 'command_acu', 'command_eva'], []),
-  create_entry([1, 4, 248], ['supportdps'], ['random'], ['command_dmg', 'command_acu'], []),
-  create_entry([1, 3, 3], ['supportdfs'], ['random'], ['dizz'], []),
-  create_entry([1, 3, 14], ['supportdps'], ['random'], ['command_rof'], []),
-  create_entry([1, 3, 132], ['supportdps'], ['random'], ['weak_eva'], ['night']),
-  create_entry([1, 2, 5], ['supportdfs'], ['random'], ['weak_dmg'], ['night']),
-  create_entry([1, 2, 10], ['supportdps'], ['random'], ['command_dmg', 'command_crit'], []),
+  create_entry([1, 1, 2001], ['dps', 'supportdps', 'af_rof'], ['random'], ['snipe'], []),
+  create_entry([1, 1, 2003], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['snipe'], ['stun']),
+  create_entry([1, 1, 2006], ['supportdfs', 'af_rof', 'af_acu'], ['random'], ['deepdmg', 'dizz'], []),
+  create_entry([1, 1, 2009], ['supportdps', 'af_rof', 'af_acu'], ['random'], ['command_dmg', 'command_acu'], []),
+  create_entry([1, 1, 2010], ['supportdfs', 'af_dmg', 'af_acu'], ['random'], ['weak_rof', 'weak_acu'], []),
+  create_entry([1, 1, 2017], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], [], ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg'], []),
+  create_entry([1, 1, 2018], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['shield'], []),
+  create_entry([1, 5, 1001], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_rof', 'command_acu'], []),
+  create_entry([1, 5, 4], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['random'], ['forcus_dmg', 'command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_crit'], ['feedback']),
+  create_entry([1, 5, 96], ['supportdps', 'af_dmg', 'af_eva'], ['random'], ['command_dmg'], []),
+  create_entry([1, 5, 97], ['supportdps', 'af_rof', 'af_acu'], ['random'], ['command_rof'], []),
+  create_entry([1, 5, 114], ['supportdfs', 'af_dmg', 'af_rof'], ['random'], ['weak_acu'], []),
+  create_entry([1, 5, 126], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['weak_rof'], []),
+  create_entry([1, 5, 142], ['supportdps', 'af_rof', 'af_crit'], ['random'], ['command_rof', 'command_crit'], []),
+  create_entry([1, 5, 166], ['dps', 'supportdps', 'af_dmg', 'af_rof'], ['random'], ['snipe'], []),
+  create_entry([1, 5, 183], ['supportdps', 'af_dmg', 'af_crit'], ['random'], ['deepdmg', 'ap', 'snipe'], ['shootguide']),
+  create_entry([1, 5, 233], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_critdmg'], []),
+  create_entry([1, 5, 242], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_eva', 'shield'], []),
+  create_entry([1, 5, 250], ['supportdps', 'supportdfs', 'af_rof', 'af_eva'], ['random'], ['command_dmg', 'shield'], []),
+  create_entry([1, 5, 260], ['dps', 'supportdps', 'supportdfs', 'af_rof', 'af_acu'], ['random'], ['snipe', 'dizz'], []),
+  create_entry([1, 4, 1002], ['dps', 'supportdfs', 'af_rof', 'af_acu'], ['back', 'random'], ['fastcd', 'sweep', 'rofstatic', 'smoke'], []),
+  create_entry([1, 4, 1005], ['supportdps', 'supportdfs', 'startdps', 'af_dmg', 'af_crit'], ['random'], ['command_dmg', 'command_acu', 'weak_dmg'], ['night']),
+  create_entry([1, 4, 1091], ['supportdps', 'supportdfs', 'af_dmg'], ['random'], ['command_rof', 'weak_rof'], []),
+  create_entry([1, 4, 1], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg'], []),
+  create_entry([1, 4, 7], ['supportdps', 'af_rof'], ['random'], ['command_rof'], []),
+  create_entry([1, 4, 98], ['supportdps', 'af_acu'], ['random'], ['weak_eva'], []),
+  create_entry([1, 4, 99], ['supportdps', 'af_dmg'], ['random'], ['command_dmg'], ['night']),
+  create_entry([1, 4, 100], ['supportdfs', 'af_rof', 'af_eva'], ['random'], ['command_eva'], []),
+  create_entry([1, 4, 168], ['supportdfs', 'af_dmg', 'af_acu'], ['random'], ['weak_rof'], []),
+  create_entry([1, 4, 202], ['dps', 'supportdps', 'af_dmg'], ['random'], ['snipe'], ['skilleva']),
+  create_entry([1, 4, 212], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_acu', 'command_eva'], []),
+  create_entry([1, 4, 248], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_acu'], []),
+  create_entry([1, 3, 3], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['dizz'], []),
+  create_entry([1, 3, 14], ['supportdps', 'af_rof', 'af_eva'], ['random'], ['command_rof'], []),
+  create_entry([1, 3, 132], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['weak_eva'], ['night']),
+  create_entry([1, 2, 5], ['supportdfs', 'af_dmg'], ['random'], ['weak_dmg'], ['night']),
+  create_entry([1, 2, 10], ['supportdps', 'af_rof'], ['random'], ['command_dmg', 'command_crit'], []),
 
-  create_entry([2, 1, 2007], ['dps'], ['front'], ['weak_dmg'], []),
-  create_entry([2, 5, 1055], ['dps', 'supportdps'], ['front'], ['forcus_dmg', 'fastcd'], ['laomo']),
+  create_entry([2, 1, 2007], ['dps', 'af_dmg'], ['front'], ['weak_dmg'], []),
+  create_entry([2, 5, 1055], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['front'], ['forcus_dmg', 'fastcd'], ['laomo']),
   create_entry([2, 5, 1056], ['dps'], ['front'], ['grenade', 'multitarget'], []),
   create_entry([2, 5, 1057], ['dps', 'longfill'], ['front'], ['forcus_rof', 'fastcd', 'multihit'], []),
-  create_entry([2, 5, 1060], ['dps'], ['front'], ['forcus_dmg', 'max_acu'], ['night']),
-  create_entry([2, 5, 1064], ['dps', 'supportdfs'], ['front'], ['forcus_dmg', 'forcus_rof', 'command_eva'], []),
+  create_entry([2, 5, 1060], ['dps', 'af_dmg'], ['front'], ['forcus_dmg', 'max_acu'], ['night']),
+  create_entry([2, 5, 1064], ['dps', 'supportdfs', 'af_dmg'], ['front'], ['forcus_dmg', 'forcus_rof', 'command_eva', 'fastcd'], []),
   create_entry([2, 5, 62], ['dps'], ['front'], ['forcus_dmg'], []),
-  create_entry([2, 5, 65], ['dps'], ['front'], ['grenade'], []),
+  create_entry([2, 5, 65], ['dps', 'af_dmg'], ['front'], ['grenade'], []),
   create_entry([2, 5, 73], ['dps', 'supportdps'], ['front'], ['fastcd', 'sweep', 'rofstatic'], []),
-  create_entry([2, 5, 106], ['dps'], ['front'], ['grenade'], []),
-  create_entry([2, 5, 119], ['dps'], ['front'], ['forcus_dmg'], ['night']),
-  create_entry([2, 5, 122], ['dps', 'skilldps'], ['front'], ['multihit'], []),
+  create_entry([2, 5, 106], ['dps', 'supportdfs', 'af_eva'], ['front'], ['grenade'], []),
+  create_entry([2, 5, 119], ['dps', 'af_acu'], ['front'], ['forcus_dmg'], ['night']),
+  create_entry([2, 5, 122], ['dps', 'skilldps', 'af_dmg'], ['front'], ['multihit'], []),
   create_entry([2, 5, 129], ['dps', 'longfill'], ['front'], ['forcus_dmg', 'fastcd'], []),
   create_entry([2, 5, 130], ['dps', 'longfill'], ['front'], ['forcus_rof', 'fastcd'], []),
   create_entry([2, 5, 172], ['dps'], ['front', 'back'], ['forcus_dmg', 'forcus_acu'], []),
   create_entry([2, 5, 175], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
   create_entry([2, 5, 181], ['dps'], ['front'], ['forcus_dmg', 'forcus_crit'], ['night']),
-  create_entry([2, 5, 194], ['dps', 'startdps'], ['front'], ['status'], []),
+  create_entry([2, 5, 194], ['dps', 'startdps', 'af_dmg'], ['front'], ['status'], []),
   create_entry([2, 5, 196], ['dps'], ['front'], ['grenade', 'forcus_dmg'], ['laomo']),
   create_entry([2, 5, 205], ['dps'], ['front'], ['passive', 'multihit'], []),
-  create_entry([2, 5, 206], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], []),
-  create_entry([2, 5, 215], ['dps', 'supportdfs'], ['front'], ['forcus_dmg', 'shield'], []),
+  create_entry([2, 5, 206], ['dps', 'af_dmg'], ['front', 'suggest_7'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], []),
+  create_entry([2, 5, 215], ['dps', 'supportdfs', 'af_dmg'], ['front'], ['forcus_dmg', 'shield'], []),
   create_entry([2, 5, 236], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 5, 243], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu'], []),
   create_entry([2, 4, 1061], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 1063], ['dps'], ['front'], ['grenade', 'dizz'], []),
   create_entry([2, 4, 54], ['tank_eva', 'tank_arm'], ['front'], ['dizz'], ['laomo']),
-  create_entry([2, 4, 55], ['dps'], ['front'], ['forcus_dmg', 'fastcd'], ['mengxin']),
+  create_entry([2, 4, 55], ['dps', 'af_dmg', 'af_crit'], ['front'], ['forcus_dmg', 'fastcd'], ['mengxin']),
   create_entry([2, 4, 56], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 57], ['dps', 'longfill'], ['front'], ['forcus_rof', 'fastcd'], []),
-  create_entry([2, 4, 60], ['dps'], ['front'], ['forcus_dmg'], ['night']),
-  create_entry([2, 4, 64], ['dps'], ['front'], ['forcus_dmg', 'fastcd'], []),
+  create_entry([2, 4, 60], ['dps', 'af_dmg'], ['front'], ['forcus_dmg'], ['night']),
+  create_entry([2, 4, 64], ['dps', 'af_dmg'], ['front'], ['forcus_dmg', 'fastcd'], []),
   create_entry([2, 4, 66], ['dps'], ['front'], ['grenade'], []),
-  create_entry([2, 4, 69], ['dps'], ['front'], ['grenade'], []),
+  create_entry([2, 4, 69], ['dps', 'af_dmg'], ['front'], ['grenade'], []),
   create_entry([2, 4, 72], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
   create_entry([2, 4, 118], ['dps'], ['front'], ['forcus_dmg'], ['night']),
-  create_entry([2, 4, 171], ['supportdps'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], []),
+  create_entry([2, 4, 171], ['supportdps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], []),
   create_entry([2, 4, 187], ['dps'], ['front'], ['forcus_dmg'], []),
   create_entry([2, 4, 207], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], []),
   create_entry([2, 4, 216], ['dps'], ['front'], ['grenade'], []),
@@ -140,99 +142,116 @@ var lib_tdoll = [
   create_entry([2, 3, 70], ['dps'], ['front'], ['forcus_dmg'], ['mengxin']),
 
   create_entry([3, 1, 2019], ['supportdfs', 'tank_eva'], ['random'], ['forcus_dmg', 'forcus_eva', 'command_acu', 'command_eva', 'status', 'fastcd'], []),
-  create_entry([3, 5, 1103], ['tank_eva'], ['random'], ['fastcd', 'smoke'], []),
+  create_entry([3, 5, 1103], ['tank_eva', 'af_dmg'], ['random'], ['fastcd', 'smoke'], []),
   create_entry([3, 5, 16], ['tank_eva'], ['random'], ['ffshield'], []),
   create_entry([3, 5, 20], ['dps', 'tank_eva'], ['random'], ['incendinary'], []),
   create_entry([3, 5, 28], ['tank_eva', 'longfill'], ['random'], ['forcus_eva'], []),
-  create_entry([3, 5, 59], ['tank_eva'], ['random'], ['weak_dmg', 'weak_acu'], []),
+  create_entry([3, 5, 59], ['supportdfs', 'tank_eva'], ['random'], ['weak_dmg', 'weak_acu'], []),
   create_entry([3, 5, 104], ['tank_eva'], ['random'], ['ffshield'], []),
   create_entry([3, 5, 115], ['tank_eva', 'longfill'], ['random'], ['forcus_eva'], []),
   create_entry([3, 5, 127], ['tank_eva'], ['random'], ['dizz'], []),
   create_entry([3, 5, 135], ['dps', 'tank_eva', 'longfill'], ['random'], ['forcus_dmg'], []),
-  create_entry([3, 5, 143], ['tank_eva'], ['random'], ['weak_dmg', 'forcus_eva', 'fastcd'], []),
-  create_entry([3, 5, 213], ['tank_eva'], ['random', 'ap'], ['forcus_dmg', 'forcus_acu', 'forcus_eva', 'status', 'fastcd'], []),
-  create_entry([3, 5, 224], ['tank_eva', 'longfill'], ['random'], ['forcus_eva', 'forcus_acu'], ['night']),
+  create_entry([3, 5, 143], ['supportdfs', 'tank_eva'], ['random'], ['weak_dmg', 'forcus_eva', 'fastcd'], []),
+  create_entry([3, 5, 213], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_acu', 'forcus_eva', 'ap', 'fastcd', 'status'], []),
+  create_entry([3, 5, 224], ['tank_eva', 'longfill'], ['random'], ['forcus_acu', 'forcus_eva'], ['night']),
   create_entry([3, 5, 228], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_eva', 'shield'], []),
-  create_entry([3, 5, 234], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_eva'], []),
+  create_entry([3, 5, 234], ['tank_eva'], ['random', 'suggest_2'], ['forcus_dmg', 'forcus_eva'], []),
   create_entry([3, 5, 245], ['tank_eva'], ['random'], ['forcus_eva', 'max_acu', 'max_crit'], ['illusion']),
-  create_entry([3, 5, 251], ['tank_eva'], ['random', 'lowhp'], ['forcus_dmg'], []),
-  create_entry([3, 5, 259], ['tank_eva'], ['random'], ['forcus_eva', 'multihit'], []),
+  create_entry([3, 5, 251], ['tank_eva'], ['random', 'lowhp', 'suggest_2'], ['forcus_dmg'], []),
+  create_entry([3, 5, 259], ['tank_eva'], ['random', 'suggest_2'], ['forcus_eva', 'multihit'], []),
+  create_entry([3, 4, 1029], ['tank_eva'], ['random'], ['handgrenade', 'reducehurt'], []),
+  create_entry([3, 4, 1093], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_rof', 'forcus_eva'], []),
+  create_entry([3, 4, 1094], ['tank_eva'], ['random'], ['weak_acu', 'dizz'], []),
+  create_entry([3, 4, 23], ['tank_eva'], ['random'], ['forcus_eva'], []),
+  create_entry([3, 4, 26], ['tank_eva'], ['random'], ['ffshield'], []),
+  create_entry([3, 4, 101], ['tank_eva'], ['random'], ['dizz'], []),
+  create_entry([3, 4, 102], ['dps', 'tank_eva', 'longdps', 'af_crit'], ['random'], ['forcus_dmg', 'forcus_eva', 'status'], []),
+  create_entry([3, 4, 103], ['tank_eva', 'af_dmg'], ['random'], ['fastcd', 'smoke'], []),
+  create_entry([3, 4, 136], ['dps', 'tank_eva', 'af_dmg'], ['random'], ['handgrenade'], []),
+  create_entry([3, 4, 137], ['tank_eva'], ['random'], ['fastcd', 'smoke'], []),
+  create_entry([3, 4, 150], ['tank_eva'], ['random'], ['forcus_eva'], []),
+  create_entry([3, 4, 177], ['dps', 'tank_eva'], ['random'], ['incendinary'], []),
+  create_entry([3, 4, 203], ['tank_eva', 'af_dmg'], ['random'], ['forcus_dmg', 'forcus_eva'], []),
+  create_entry([3, 4, 225], ['tank_eva'], ['random'], ['forcus_acu', 'forcus_eva'], []),
   create_entry([3, 3, 27], ['dps', 'tank_eva'], ['random'], ['incendinary'], ['mengxin']),
   create_entry([3, 3, 29], ['tank_eva'], ['random'], ['handgrenade'], ['mengxin']),
 
-  create_entry([4, 1, 2004], ['dps'], ['back', 'ap'], ['dizz'], []),
-  create_entry([4, 1, 2005], ['dps'], ['back', 'ap'], ['snipe'], ['cluster']),
-  create_entry([4, 1, 2020], ['dps'], ['back', 'ap'], ['forcus_dmg', 'forcus_critdmg', 'passive', 'multihit', 'multitarget'], []),
-  create_entry([4, 5, 1039], ['dps'], ['back', 'ap'], ['forcus_dmg', 'forcus_rof', 'snipe'], []),
-  create_entry([4, 5, 46], ['dps'], ['back', 'ap'], ['snipe'], []),
-  create_entry([4, 5, 48], ['dps'], ['back', 'ap'], ['forcus_rof'], []),
-  create_entry([4, 5, 50], ['dps'], ['back', 'ap'], ['forcus_dmg'], []),
-  create_entry([4, 5, 53], ['dps'], ['back', 'ap'], ['snipe'], []),
-  create_entry([4, 5, 128], ['dps'], ['back', 'ap'], ['snipe'], []),
-  create_entry([4, 5, 148], ['dps'], ['back', 'ap'], ['forcus_dmg'], []),
-  create_entry([4, 5, 179], ['dps'], ['back', 'ap'], ['snipe'], []),
-  create_entry([4, 5, 192], ['dps'], ['back', 'ap'], ['snipe'], []),
-  create_entry([4, 5, 197], ['dps', 'supportdps'], ['back', 'ap'], ['forcus_rof', 'forcus_crit', 'command_rof', 'command_crit'], []),
-  create_entry([4, 5, 198], ['dps'], ['back', 'ap'], ['snipe', 'fastcd'], ['normalkiller']),
-  create_entry([4, 5, 204], ['dps'], ['back', 'ap'], ['passive', 'multihit', 'multitarget'], []),
-  create_entry([4, 5, 211], ['dps'], ['back', 'ap'], ['forcus_rof', 'forcus_acu'], []),
-  create_entry([4, 5, 222], ['dps'], ['back', 'ap'], ['snipe'], ['skillcrit']),
-  create_entry([4, 5, 231], ['dps'], ['back', 'ap'], ['snipe', 'fastcd'], ['stronger']),
-  create_entry([4, 5, 257], ['dps'], ['back', 'ap'], ['passive', 'snipe'], ['skillcrit', 'skillarm']),
-  create_entry([4, 5, 261], ['dps'], ['back', 'ap'], ['passive', 'snipe'], []),
-  create_entry([4, 5, 266], ['dps'], ['back', 'ap'], ['passive', 'forcus_dmg', 'forcus_rof'], []),
-  create_entry([4, 4, 200], ['dps'], ['back', 'ap'], ['forcus_dmg', 'forcus_rof'], ['night']),
-  create_entry([4, 3, 37], ['dps'], ['back', 'ap'], ['forcus_dmg'], ['mengxin']),
-  create_entry([4, 3, 256], ['dps'], ['back', 'ap'], ['forcus_dmg', 'forcus_acu', 'snipe', 'passive'], ['skillcrit']),
+  create_entry([4, 1, 2004], ['dps'], ['back' ], ['ap', 'dizz'], []),
+  create_entry([4, 1, 2005], ['dps'], ['back' ], ['ap'], ['cluster']),
+  create_entry([4, 1, 2020], ['dps'], ['back' ], ['forcus_dmg', 'forcus_critdmg', 'ap', 'passive', 'multihit', 'multitarget'], []),
+  create_entry([4, 5, 1039], ['dps'], ['back' ], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
+  create_entry([4, 5, 46], ['dps'], ['back' ], ['ap', 'snipe'], []),
+  create_entry([4, 5, 48], ['dps'], ['back' ], ['forcus_rof', 'ap'], []),
+  create_entry([4, 5, 50], ['dps'], ['back' ], ['forcus_dmg', 'ap'], []),
+  create_entry([4, 5, 53], ['dps'], ['back' ], ['ap', 'snipe'], []),
+  create_entry([4, 5, 128], ['dps'], ['back' ], ['ap', 'snipe'], []),
+  create_entry([4, 5, 148], ['dps'], ['back' ], ['forcus_dmg', 'ap'], []),
+  create_entry([4, 5, 179], ['dps'], ['back' ], ['ap', 'snipe'], []),
+  create_entry([4, 5, 192], ['dps'], ['back' ], ['ap', 'snipe'], []),
+  create_entry([4, 5, 197], ['dps', 'supportdps'], ['back' ], ['forcus_rof', 'forcus_crit', 'command_rof', 'command_crit', 'ap'], []),
+  create_entry([4, 5, 198], ['dps'], ['back' ], ['ap', 'fastcd', 'snipe'], ['normalkiller']),
+  create_entry([4, 5, 204], ['dps'], ['back' ], ['ap', 'passive', 'multihit', 'multitarget'], []),
+  create_entry([4, 5, 211], ['dps'], ['back' ], ['forcus_rof', 'forcus_acu', 'ap'], []),
+  create_entry([4, 5, 222], ['dps'], ['back' ], ['ap', 'snipe'], ['skillcrit']),
+  create_entry([4, 5, 231], ['dps'], ['back' ], ['ap', 'fastcd', 'snipe'], ['stronger']),
+  create_entry([4, 5, 257], ['dps'], ['back' ], ['ap', 'passive', 'snipe'], ['skillcrit', 'skillarm']),
+  create_entry([4, 5, 261], ['dps'], ['back' ], ['ap', 'passive', 'snipe'], []),
+  create_entry([4, 5, 266], ['dps'], ['back' ], ['forcus_dmg', 'forcus_rof', 'ap', 'passive'], []),
+  create_entry([4, 4, 200], ['dps'], ['back'], ['forcus_rof', 'ap'], ['night']),
+  create_entry([4, 3, 37], ['dps'], ['back'], ['forcus_dmg', 'ap'], ['mengxin']),
+  create_entry([4, 3, 256], ['dps'], ['back'], ['forcus_dmg', 'forcus_acu', 'ap', 'fastcd', 'passive', 'snipe'], ['skillcrit']),
 
-  create_entry([5, 1, 2021], ['dps', 'supportdfs'], ['random', 'ap'], ['forcus_dmg', 'multihit', 'multitarget'], []),
-  create_entry([5, 5, 1075], ['dps'], ['random', 'ap'], ['forcus_dmg', 'forcus_fastcs', 'passive'], []),
-  create_entry([5, 5, 109], ['dps'], ['random', 'ap'], ['passive'], []),
-  create_entry([5, 5, 112], ['dps', 'supportdfs', 'longdps'], ['random', 'ap'], ['forcus_dmg', 'passive'], []),
-  create_entry([5, 5, 125], ['dps', 'supportdfs'], ['random', 'ap'], ['forcus_dmg', 'forcus_addcs'], []),
-  create_entry([5, 5, 173], ['dps'], ['random', 'ap'], ['passive'], []),
-  create_entry([5, 5, 208], ['dps', 'supportdfs'], ['random', 'ap'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'sweep'], []),
-  create_entry([5, 5, 238], ['dps', 'supportdfs'], ['random', 'ap'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'status'], []),
-  create_entry([5, 5, 263], ['dps', 'supportdps'], ['random', 'ap'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'forcus_fastcs', 'reducehurt'], []),
-  create_entry([5, 5, 253], ['dps', 'longdps'], ['random', 'ap'], ['forcus_dmg', 'forcus_fastcs', 'passive'], []),
-  create_entry([5, 4, 1081], ['dps'], ['random', 'ap'], ['forcus_acu', 'max_crit', 'shield'], []),
-  create_entry([5, 4, 1089], ['dps'], ['random', 'ap'], ['forcus_acu', 'forcus_addcs'], []),
-  create_entry([5, 4, 75], ['dps'], ['random', 'ap'], ['forcus_dmg'], []),
-  create_entry([5, 4, 78], ['dps'], ['random', 'ap'], ['forcus_dmg'], ['night']),
-  create_entry([5, 4, 85], ['dps'], ['random', 'ap'], ['passive'], []),
-  create_entry([5, 4, 88], ['dps'], ['random', 'ap'], ['forcus_dmg', 'forcus_addcs'], []),
-  create_entry([5, 4, 121], ['dps'], ['random', 'ap'], ['forcus_acu', 'max_crit'], []),
-  create_entry([5, 4, 149], ['dps'], ['random', 'ap'], ['forcus_acu', 'max_crit'], ['night']),
-  create_entry([5, 4, 185], ['dps', 'supportdfs'], ['random', 'ap'], ['forcus_dmg', 'forcus_addcs'], ['night']),
-  create_entry([5, 4, 199], ['dps'], ['random', 'ap'], ['forcus_dmg'], []),
-  create_entry([5, 4, 240], ['dps'], ['random', 'ap'], ['forcus_dmg', 'forcus_acu'], []),
-  create_entry([5, 4, 254], ['dps'], ['random', 'ap'], ['forcus_acu', 'forcus_addcs'], ['night']),
-  create_entry([5, 4, 264], ['dps'], ['random', 'ap'], [ 'forcus_fastcs', 'passive'], []),
-  create_entry([5, 3, 77], ['dps'], ['random', 'ap'], ['passive'], []),
+  create_entry([5, 1, 2021], ['dps', 'supportdfs', 'af_arm'], ['random'], ['forcus_dmg', 'ap', 'multihit', 'multitarget'], []),
+  create_entry([5, 5, 1075], ['dps'], ['random' ], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
+  create_entry([5, 5, 109], ['dps'], ['random' ], ['ap', 'passive'], []),
+  create_entry([5, 5, 112], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random' ], ['forcus_dmg', 'ap', 'passive'], []),
+  create_entry([5, 5, 125], ['dps', 'supportdfs', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_addcs', 'ap'], []),
+  create_entry([5, 5, 173], ['dps'], ['random' ], ['ap', 'passive'], []),
+  create_entry([5, 5, 208], ['dps', 'supportdfs', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'ap', 'sweep'], []),
+  create_entry([5, 5, 238], ['dps', 'supportdfs', 'af_arm'], ['random', 'suggest_7'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'ap', 'status'], []),
+  create_entry([5, 5, 253], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
+  create_entry([5, 5, 263], ['dps', 'supportdps'], ['random' ], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'forcus_fastcs', 'ap', 'reducehurt'], []),
+  create_entry([5, 4, 1081], ['dps'], ['random' ], ['forcus_acu', 'max_crit', 'ap', 'shield'], []),
+  create_entry([5, 4, 1089], ['dps'], ['random' ], ['forcus_acu', 'forcus_addcs', 'ap'], []),
+  create_entry([5, 4, 75], ['dps'], ['random' ], ['forcus_dmg', 'ap'], []),
+  create_entry([5, 4, 78], ['dps'], ['random' ], ['forcus_dmg', 'ap'], ['night']),
+  create_entry([5, 4, 85], ['dps'], ['random' ], ['ap', 'passive'], []),
+  create_entry([5, 4, 88], ['dps'], ['random' ], ['forcus_dmg', 'forcus_addcs', 'ap'], []),
+  create_entry([5, 4, 121], ['dps'], ['random' ], ['forcus_acu', 'max_crit', 'ap'], []),
+  create_entry([5, 4, 149], ['dps'], ['random' ], ['forcus_acu', 'max_crit', 'ap'], ['night']),
+  create_entry([5, 4, 185], ['dps', 'supportdfs', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_addcs', 'ap'], ['night']),
+  create_entry([5, 4, 199], ['dps'], ['random' ], ['forcus_dmg', 'ap'], []),
+  create_entry([5, 4, 240], ['dps'], ['random' ], ['forcus_dmg', 'forcus_acu', 'ap'], []),
+  create_entry([5, 4, 254], ['dps'], ['random' ], ['forcus_acu', 'forcus_addcs', 'ap'], ['night']),
+  create_entry([5, 4, 264], ['dps'], ['random' ], [ 'forcus_fastcs', 'ap', 'passive'], []),
+  create_entry([5, 3, 77], ['dps'], ['random'], ['ap', 'passive'], []),
 
-  create_entry([6, 1, 2002], ['dps', 'tank_arm'], ['random', 'beakback'], ['grenade'], ['skillcrit']),
-  create_entry([6, 1, 2008], ['dps', 'tank_arm'], ['random', 'beakback'], ['forcus_fastcs', 'passive'], []),
-  create_entry([6, 1, 2022], ['tank_arm'], ['random', 'beakback'], ['grenade', 'passive'], []),
-  create_entry([6, 5, 151], ['tank_arm'], ['random', 'beakback'], ['snipe'], []),
-  create_entry([6, 5, 157], ['tank_arm'], ['random', 'beakback'], ['forcus_arm', 'forcus_eva'], []),
-  create_entry([6, 5, 160], ['dps', 'tank_arm'], ['random', 'beakback'], ['multitarget', 'snipe'], []),
-  create_entry([6, 5, 163], ['dps', 'tank_arm'], ['random', 'beakback'], ['forcus_rof', 'forcus_addcs', 'beakback'], []),
-  create_entry([6, 5, 164], ['supportdfs', 'tank_arm'], ['random', 'beakback'], ['beakback', 'reducehurt'], []),
-  create_entry([6, 5, 188], ['tank_arm'], ['random', 'beakback'], ['fastcd', 'shield'], []),
-  create_entry([6, 5, 229], ['tank_arm'], ['random', 'beakback'], ['ffshield'], [])
+  create_entry([6, 1, 2002], ['dps', 'tank_arm'], ['random'], ['grenade'], ['skillcrit']),
+  create_entry([6, 1, 2008], ['dps', 'tank_arm'], ['random'], ['forcus_fastcs', 'passive'], []),
+  create_entry([6, 1, 2022], ['tank_arm'], ['random'], ['grenade', 'passive'], []),
+  create_entry([6, 5, 151], ['tank_arm'], ['random'], ['snipe'], []),
+  create_entry([6, 5, 157], ['tank_arm'], ['random'], ['forcus_arm', 'forcus_eva'], []),
+  create_entry([6, 5, 160], ['dps', 'tank_arm'], ['random'], ['multitarget', 'snipe'], []),
+  create_entry([6, 5, 163], ['dps', 'tank_arm'], ['random'], ['forcus_rof', 'forcus_addcs', 'beakback'], []),
+  create_entry([6, 5, 164], ['supportdfs', 'tank_arm'], ['random', 'suggest_3'], ['beakback', 'reducehurt'], []),
+  create_entry([6, 5, 188], ['tank_arm'], ['random'], ['fastcd', 'shield'], []),
+  create_entry([6, 5, 229], ['tank_arm'], ['random'], ['ffshield'], [])
 ]
 // ====================标签添加：修改lib_tag和lib_tag_NUMBER，并添加一个新的MAP类tagNUMBER_TAGNAME====================
 var lib_tag = [
   [['dps', 'supportdps', 'supportdfs', 'tank_eva', 'tank_arm']
-    , ['startdps', 'skilldps', 'longfill', 'longdps']],
+    , ['startdps', 'skilldps', 'longfill', 'longdps'],
+    ['af_dmg', 'af_rof', 'af_acu', 'af_eva', 'af_arm', 'af_crit']
+  ],
 
   [['front', 'back', 'random', 'lowhp'],
-    ['ap', 'beakback']],
+    ['suggest_2', 'suggest_3', 'suggest_7']
+  ],
 
   [['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_eva', 'forcus_arm', 'forcus_crit', 'forcus_critdmg', 'forcus_addcs', 'forcus_fastcs', 'max_acu', 'max_crit'],
     ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg'],
     ['weak_dmg', 'weak_rof', 'weak_acu', 'weak_eva', 'deepdmg'],
-    ['fastcd', 'passive', 'multihit', 'multitarget', 'sweep', 'beakback', 'rofstatic'],
+    ['ap', 'fastcd', 'passive', 'multihit', 'multitarget', 'sweep', 'beakback', 'rofstatic'],
     ['smoke', 'handgrenade', 'incendinary', 'grenade', 'snipe', 'dizz', 'ffshield', 'shield', 'reducehurt', 'status']],
 
   [['night', 'mengxin', 'laomo', 'skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'illusion', 'stronger', 'stun', 'cluster']]
@@ -248,7 +267,14 @@ var lib_tag_0 = {
   startdps: '开场爆发',
   skilldps: '技能期爆发',
   longfill: '增益高覆盖',
-  longdps: '长时间战斗发力'
+  longdps: '长时间战斗发力',
+
+  af_dmg: '火力影响',
+  af_rof: '射速影响',
+  af_acu: '命中影响',
+  af_eva: '回避影响',
+  af_arm: '护甲影响',
+  af_crit: '暴击率影响'
 }
 var tag0_supportdps = new Map,
   tag0_supportdfs = new Map,
@@ -258,7 +284,15 @@ var tag0_supportdps = new Map,
   tag0_startdps = new Map,
   tag0_skilldps = new Map,
   tag0_longfill = new Map,
-  tag0_longdps = new Map
+  tag0_longdps = new Map,
+
+  tag0_af_dmg = new Map,
+  tag0_af_rof = new Map,
+  tag0_af_acu = new Map,
+  tag0_af_eva = new Map,
+  tag0_af_arm = new Map,
+  tag0_af_crit = new Map
+
 // tag1————————————————————————————————————————
 var lib_tag_1 = {
   front: '<img src="../img/class-icon/icon-front.png" style="width:19px;height:19px">优先前排',
@@ -266,16 +300,19 @@ var lib_tag_1 = {
   random: '<img src="../img/class-icon/icon-random.png" style="width:19px;height:19px">随机锁敌',
   lowhp: '<img src="../img/class-icon/icon-lowhp.png" style="width:19px;height:19px">优先残血',
 
-  ap: '<img src="../img/icon-ap.png" style="width:19px;height:19px">穿甲',
-  beakback: '普攻击退'
+  suggest_2: '<img src="../img/class-icon/icon-suggest2.png" style="width:19px;height:19px">推荐2号位',
+  suggest_3: '<img src="../img/class-icon/icon-suggest3.png" style="width:19px;height:19px">推荐3号位',
+  suggest_7: '<img src="../img/class-icon/icon-suggest7.png" style="width:19px;height:19px">推荐7号位'
 }
 var tag1_front = new Map,
   tag1_back = new Map,
   tag1_random = new Map,
   tag1_lowhp = new Map,
 
-  tag1_ap = new Map,
-  tag1_beakback = new Map
+  tag1_suggest_2 = new Map,
+  tag1_suggest_3 = new Map,
+  tag1_suggest_7 = new Map
+
 // tag2————————————————————————————————————————
 var lib_tag_2 = {
   forcus_dmg: '<img src="../img/icon-atkdmg.png" style="width:19px;height:19px">火力UP',
@@ -304,6 +341,7 @@ var lib_tag_2 = {
   weak_eva: '<img src="../img/class-icon/icon-eva-decline.png" style="width:19px;height:19px">回避削弱',
   deepdmg: '伤害加深',
 
+  ap: '<img src="../img/icon-ap.png" style="width:19px;height:19px">穿甲',
   fastcd: '主动技短前置',
   passive: '被动',
   multihit: '<img src="../img/class-icon/icon-multihit.png" style="width:19px;height:19px">多段伤害',
@@ -349,6 +387,7 @@ var tag2_forcus_dmg = new Map,
   tag2_weak_eva = new Map,
   tag2_deepdmg = new Map,
 
+  tag2_ap = new Map,
   tag2_fastcd = new Map,
   tag2_passive = new Map,
   tag2_multihit = new Map,
@@ -367,6 +406,7 @@ var tag2_forcus_dmg = new Map,
   tag2_beakback = new Map,
   tag2_status = new Map,
   tag2_rofstatic = new Map
+
 // tag3————————————————————————————————————————
 var lib_tag_3 = {
   night: '<img src="../img/class-icon/icon-night-abilityup.png" style="width:19px;height:19px">夜战特化',
@@ -406,6 +446,12 @@ lib_alert.set('0_startdps', '技能可以开场较快增幅输出')
 lib_alert.set('0_skilldps', '主要输出集中在技能期')
 lib_alert.set('0_longfill', '相比同定位人形，技能持续与冷却差距小')
 lib_alert.set('0_longdps', '时间越长输出能力越强')
+lib_alert.set('0_af_dmg', '影响格 火力 (hg/ar对ar) ≥16 (ar对smg) ≥25 (smg) ≥20')
+lib_alert.set('0_af_rof', '影响格 射速 (hg) ≥16')
+lib_alert.set('0_af_acu', '影响格 命中 (hg) ≥50 (ar) ≥60')
+lib_alert.set('0_af_eva', '影响格 回避 (hg) ≥20 (ar对smg) ≥20')
+lib_alert.set('0_af_arm', '影响格 护甲  ≥15')
+lib_alert.set('0_af_crit', '影响格 暴击率 (hg) ≥20 (ar对ar) ≥30')
 
 lib_alert.set('2_fastcd', '相比同定位人形，有较短前置冷却')
 lib_alert.set('2_snipe', '狙击或类狙击技能，除非特殊说明，无视护甲/无法暴击/必定命中')
@@ -414,6 +460,20 @@ lib_alert.set('3_mengxin', '适合新人培养，节省核心度过艰难期')
 lib_alert.set('3_laomo', '高密度参与日常游戏内容的人形')
 lib_alert.set('3_feedback', '受某类增益将以一定数值反馈给影响格队友')
 lib_alert.set('3_shootguide', '引导全队射击目标，无法引导自带锁敌逻辑的技能')
+
+// 特殊权重
+var special_weight = new Map
+special_weight.set('front', 0.1)
+special_weight.set('random', 0.1)
+special_weight.set('laomo', 0.1)
+special_weight.set('passive', 0.7)
+special_weight.set('multihit', 1.1)
+special_weight.set('af_rof', 1.5)
+special_weight.set('suggest_2', 1.5)
+special_weight.set('shield', 1.5)
+special_weight.set('grenade', 1.5)
+special_weight.set('tank_eva', 3)
+special_weight.set('tank_arm', 4)
 
 // 函数
 
@@ -475,7 +535,7 @@ function fill_tag () { // 按标签，按钮名btn_tag_0_support
 function fill_tag_tdoll () { // 按人形搜索，按钮名btn_tdoll_233
   var str_pid = '', str_btn = '', str_tdoll = ''
   for (var entry of lib_tdoll) {
-    str_tdoll = '<img src="../img/class/' + entry.id + '.png" style="width:37px;height:37px">'
+    str_tdoll = '<img src="../img/class/' + entry.id + '.png" style="width:37px;height:37px"> '
     str_pid = 'tag_tdoll_' + entry.type + '_' + entry.star
     str_btn = '<button type="button" style="padding:5px" class="btn btn-default" id="btn_tdoll_' + entry.id + '" onclick="classify_by_tdoll(' + entry.id + ')">' + str_tdoll
     str_btn += make_starstr(entry.star) + ' '
@@ -586,8 +646,8 @@ function classify_by_tag () {
         }
       }
       // info
-      str_tdoll = '<img src="../img/class/' + entry.id + '.png" style="width:37px;height:37px">'
-      str_btn += '<button type="button" style="padding:5px" class="btn btn-default" id="btn_jump_tdoll_' + entry.id + '" onclick="jump_tdoll(' + entry.id + ')">' + str_tdoll
+      str_tdoll = '<img src="../img/class/' + entry.id + '.png" style="width:37px;height:37px"> '
+      str_btn += '<button type="button" style="padding:5px" class="btn btn-default" id="btn_jump_tdoll_' + entry.id + '" onclick="jump_tdoll(' + entry.id + ')"> ' + str_tdoll
       str_btn += make_starstr(entry.star) + ' '
       eval('str_btn+=lib_name.t' + entry.id)
       str_btn += '</button> '
@@ -606,7 +666,7 @@ function jump_tdoll (id) {
 function classify_by_tdoll (id) {
   var str_btn = '', str_pickname = ''
   var tdoll = find_tdoll(id)
-  str_pickname = '<img src="../img/class/' + id + '.png" style="width:37px;height:37px">'
+  str_pickname = '<img src="../img/class/' + id + '.png" style="width:37px;height:37px"> '
   str_pickname += make_starstr(tdoll.star)
   eval('str_pickname+=lib_name.t' + id)
   for (var i = 0; i < 4; i++) {
@@ -619,7 +679,139 @@ function classify_by_tdoll (id) {
   }
   document.getElementById('result_2_name').innerHTML = str_pickname
   document.getElementById('result_2').innerHTML = str_btn
+  find_similar(id)
 }
+function find_weight (level) {
+  if (level === 0) return 100
+  else if (level === 2) return 110 // skill
+  else if (level === 3) return 200 // special characteristic
+  else return 100
+}
+function both_have (tag1, tag2, name1, name2) {
+  return (tag1 === name1 && tag2 === name2) || (tag1 === name2 && tag2 === name1)
+}
+function you_have (tag1, tag2, name1, name2) {
+  return tag1 === name1 && tag2 === name2
+}
+function find_simpara (tag1, tag2) { // weight determination
+  if (tag1 === tag2) { // equal
+    if (special_weight.get(tag1) != undefined) return special_weight.get(tag1)
+    else return 1
+  } else { // replace solution
+    if (both_have(tag1, tag2, 'rofstatic', 'forcus_rof')) return 0.9
+    if (you_have(tag1, tag2, 'ap', 'forcus_dmg')) return 0.5
+  }
+  return 0
+}
+function find_base (id) {
+  var base = 250
+  for (var i = 0; i < 4; i++) {
+    var taglist = find_tdoll(id).tag[i]
+    var weight = find_weight(i)
+    for (var tag of taglist) {
+      if (special_weight.get(tag) != undefined) base += weight * special_weight.get(tag)
+      else base += weight
+    }
+  }
+  return base
+}
+function is_someone_equaltag (tag1, tag2, id1, id2, special_id) { return (id1 === special_id || id2 === special_id) && (tag1 === tag2); }
+function find_decline (tag1, tag2, id1, id2) { // 特殊处理
+  var decline = 1
+  if (is_someone_equaltag(tag1, tag2, id1, id2, 1001)) { // 柯尔特左轮射速UP没那么大
+    if (tag1 === 'forcus_rof') decline *= 0.8
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1039)) { // 莫辛纳甘并不是纯粹专注
+    if (tag1 === 'forcus_dmg') decline *= 0.7
+    else if (tag1 === 'forcus_rof') decline *= 0.4
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1093)) { // IDW有鸡儿输出
+    if (tag1 === 'forcus_dmg') decline *= 0.2
+    else if (tag1 === 'forcus_rof') decline *= 0.2
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 207)) { // CZ2000黎明气焰特殊处理
+    if (tag1 === 'forcus_dmg' || tag1 === 'forcus_rof' || tag1 === 'forcus_acu' || tag1 === 'forcus_crit') {
+      decline *= 0.4
+    }
+  }
+  else if (is_someone_equaltag(tag1, tag2, id1, id2, 213)) { // CMS切换特殊处理
+    if (tag1 === 'forcus_dmg' || tag1 === 'forcus_acu') decline *= 0.7
+  }
+  return decline
+}
+function find_sametag (list1, list2, id1, id2, weight) { // decline here
+  var sim = 0, decline = 1
+  for (var tag1 of list1) {
+    for (var tag2 of list2) {
+      decline = find_decline(tag1, tag2, id1, id2)
+      sim += weight * find_simpara(tag1, tag2) * decline // tag1:my, tag2:other
+    }
+  }
+  return sim
+}
+function is_self (id1, id2) { // 是否是自己，包括改造
+  if (id1 === id2) return true
+  else if (id1 + 1000 === id2 && id1 < 1000) return true
+  else if (id1 - 1000 === id2 && id1 > 1000) return true
+  else return false
+}
+function find_similar (ID) {
+  var sim = 0, base_value = 0
+  var simlist = []
+  var this_tdoll = find_tdoll(ID)
+  var this_type = this_tdoll.type
+  var this_taglist = this_tdoll.tag
+  // self base property value
+  base_value = find_base(ID)
+  // find similarity
+  for (var tdoll of lib_tdoll) {
+    if (is_self(tdoll.id, ID)) {
+      true // do nothing
+    } else {
+      sim = 0
+      if (tdoll.type === this_type) sim += 250
+      for (var i = 0; i < 4; i++) {
+        sim += find_sametag(this_taglist[i], tdoll.tag[i], ID, tdoll.id, find_weight(i))
+      }
+      if (sim > 0) {
+        simlist.push([tdoll.id, sim])
+      }
+    }
+  }
+  simlist.sort(comp_sim)
+  var max_num = 7 // can be modify
+  if (simlist.length < max_num) max_num = simlist.length
+  var str_display = ''
+  for (var n = 0; n < max_num; n++) {
+    var current_tdoll = find_tdoll(simlist[n][0])
+    var this_base = find_base(current_tdoll.id)
+    if (this_base < base_value) this_base = base_value
+    var current_str = ''
+    current_str += '<tr><td style="vertical-align:middle"><img src="../img/class/' + current_tdoll.id + '.png" style="width:37px;height:37px"> ' + make_starstr(current_tdoll.star)
+    eval('current_str+=lib_name.t' + current_tdoll.id)
+    current_str += '</td><td style="vertical-align:middle"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b> / ' + (100 * simlist[n][1] / this_base).toFixed(2) + '%' + '</td>'
+    current_str += '<td style="line-height:40px;vertical-align:middle">'
+    for (var i = 0; i < 4; i++) {
+      for (var name of current_tdoll.tag[i]) {
+        if (is_tag_in(name, this_taglist[i])) {
+          current_str += '<button type="button" style="padding:5px" class="btn btn-' + make_color(i) + '" disabled>'
+          eval('current_str+=lib_tag_' + i + '.' + name)
+          current_str += '</button> '
+        }
+      }
+    }
+    current_str += '</td></tr>'
+    str_display += current_str
+  }
+  document.getElementById('result_2_sim').innerHTML = str_display
+}
+function is_tag_in (tag, taglist) {
+  for (var in_tag of taglist) {
+    if (tag === in_tag) return true
+  }
+  return false
+}
+function comp_sim (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
 window.onload = function () {
   fill_tag()
   fill_tag_tdoll()
