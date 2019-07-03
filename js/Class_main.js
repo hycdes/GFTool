@@ -481,7 +481,9 @@ var special_weight = new Map
 special_weight.set('front', 0.1)
 special_weight.set('random', 0.1)
 special_weight.set('laomo', 0.1)
+special_weight.set('af_eva', 0.6)
 special_weight.set('passive', 0.7)
+special_weight.set('af_acu', 0.8)
 special_weight.set('multihit', 1.1)
 special_weight.set('af_rof', 1.5)
 special_weight.set('suggest_2', 1.5)
@@ -495,9 +497,7 @@ special_weight.set('tank_arm', 4)
 function find_tdoll (id) {
   var len = lib_tdoll.length
   for (var i = 0; i < len; i++) {
-    if (lib_tdoll[i].id === id) {
-      return lib_tdoll[i]
-    }
+    if (lib_tdoll[i].id === id) return lib_tdoll[i]
   }
 }
 function generate_map () {
@@ -698,74 +698,55 @@ function classify_by_tdoll (id) {
 }
 function find_weight (level) {
   if (level === 0) return 100
+  else if (level === 1) return 100
   else if (level === 2) return 110 // skill
   else if (level === 3) return 200 // special characteristic
-  else return 100
 }
-function both_have (tag1, tag2, name1, name2) {
-  return (tag1 === name1 && tag2 === name2) || (tag1 === name2 && tag2 === name1)
+function find_relatedpara (list1, list2) {
+  var relativity = 0
+  var list_relation = [ // 相关性标签
+    [['rofstatic', 'forcus_rof'], 1], // 固定射速=突击专注
+    [['ap', 'forcus_dmg'], 0.4] // 穿甲-火力专注
+  ]
+  for (var related_pair of list_relation) {
+    if (is_related_pair(list1, list2, related_pair[0][0], related_pair[0][1])) {
+      relativity += related_pair[1]
+    }
+  }
+  return relativity
 }
-function you_have (tag1, tag2, name1, name2) {
-  return tag1 === name1 && tag2 === name2
-}
-function find_simpara (tag1, tag2) { // weight determination
+function find_samepara (tag1, tag2) { // weight determination
   if (tag1 === tag2) { // equal
     if (special_weight.get(tag1) != undefined) return special_weight.get(tag1)
     else return 1
-  } else { // replace solution
-    if (both_have(tag1, tag2, 'rofstatic', 'forcus_rof')) return 0.9
-    if (you_have(tag1, tag2, 'ap', 'forcus_dmg')) return 0.3
-  }
-  return 0
+  } else return 0
 }
-function is_someone_equaltag (tag1, tag2, id1, id2, special_id) { return (id1 === special_id || id2 === special_id) && (tag1 === tag2); }
 function find_decline (tag1, tag2, id1, id2) { // 特殊处理
   var decline = 1
-  if (is_someone_equaltag(tag1, tag2, id1, id2, 2020)) { // 星井火力UP
-    if (tag1 === 'forcus_dmg') decline *= 0.8
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1001)) { // 柯尔特左轮射速UP
-    if (tag1 === 'forcus_rof') decline *= 0.8
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1039)) { // 莫辛纳甘MOD
-    if (tag1 === 'forcus_dmg') decline *= 0.7
-    else if (tag1 === 'forcus_rof') decline *= 0.4
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1044)) { // SV-98 mod
-    if (tag1 === 'forcus_rof' || tag1 === 'forcus_acu') decline *= 0.2
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1051)) { // FN-49 mod
-    if (tag1 === 'forcus_rof') decline *= 0.3
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 1093)) { // IDW有鸡儿输出
-    if (tag1 === 'forcus_dmg' || tag1 === 'forcus_rof') decline *= 0.2
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 184)) { // T-5000
-    if (tag1 === 'forcus_rof') decline *= 0.8
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 197)) { // 卡姐
-    if (tag1 === 'forcus_rof') decline *= 0.3
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 207)) { // CZ2000黎明气焰特殊处理
-    if (tag1 === 'forcus_dmg' || tag1 === 'forcus_rof' || tag1 === 'forcus_acu' || tag1 === 'forcus_crit') {
-      decline *= 0.4
+  var list_decline = [ // 衰退规则
+    [184, ['forcus_rof'], [0.8]], // t5000
+    [197, ['forcus_rof'], [0.3]], // carcano
+    [207, ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], [0.4, 0.4, 0.4, 0.4]], // cz2000
+    [211, ['forcus_dmg'], [0.9]], // srs
+    [213, ['forcus_dmg', 'forcus_acu'], [0.7, 0.7]], // cms
+    [226, ['forcus_dmg'], [0.6]], // mk12
+    [235, ['forcus_rof'], [0.2]], // SPR
+    [256, ['forcus_dmg', 'forcus_acu', 'snipe'], [0.5, 0.5, 0.4]], // falcon
+    [266, ['forcus_dmg', 'forcus_rof'], [0.8, 0.5]], // R93
+    [1001, ['forcus_rof'], [0.8]], // colt
+    [1039, ['forcus_dmg', 'forcus_rof'], [0.7, 0.4]], // mosin
+    [1044, ['forcus_rof', 'forcus_acu'], [0.2, 0.2]], // sv98
+    [1051, ['forcus_rof'], [0.3]], // fn49
+    [1093, ['forcus_dmg', 'forcus_rof'], [0.2, 0.2]], // idw
+    [2020, ['forcus_dmg'], [0.8]] // stella
+  ]
+  for (var decline_pair of list_decline) {
+    if (is_someone_equaltag(tag1, tag2, id1, id2, decline_pair[0])) {
+      var num_tag = decline_pair[1].length
+      for (var t = 0; t < num_tag;t++) {
+        if (tag1 === decline_pair[1][t]) decline *= decline_pair[2][t]
+      }
     }
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 211)) { // SRS
-    if (tag1 === 'forcus_dmg') decline *= 0.9
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 213)) { // CMS切换特殊处理
-    if (tag1 === 'forcus_dmg' || tag1 === 'forcus_acu') decline *= 0.7
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 226)) { // T-5000
-    if (tag1 === 'forcus_dmg') decline *= 0.6
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 235)) { // SPR
-    if (tag1 === 'forcus_rof') decline *= 0.2
-  }
-  else if (is_someone_equaltag(tag1, tag2, id1, id2, 266)) { // R93
-    if (tag1 === 'forcus_dmg') decline *= 0.8
-    else if (tag1 === 'forcus_rof') decline *= 0.5
   }
   return decline
 }
@@ -774,16 +755,11 @@ function find_sametag (list1, list2, id1, id2, weight) { // decline here
   for (var tag1 of list1) {
     for (var tag2 of list2) {
       decline = find_decline(tag1, tag2, id1, id2)
-      sim += weight * find_simpara(tag1, tag2) * decline // tag1:my, tag2:other
+      sim += weight * find_samepara(tag1, tag2) * decline // tag1:my, tag2:other
     }
   }
-  return sim
-}
-function is_self (id1, id2) { // 是否是自己，包括改造
-  if (id1 === id2) return true
-  else if (id1 + 1000 === id2 && id1 < 1000) return true
-  else if (id1 - 1000 === id2 && id1 > 1000) return true
-  else return false
+  sim += weight * find_relatedpara(list1, list2) // related tag
+  return Math.ceil(sim)
 }
 function find_similar (ID) {
   var sim = 0
@@ -791,7 +767,6 @@ function find_similar (ID) {
   var this_tdoll = find_tdoll(ID)
   var this_type = this_tdoll.type
   var this_taglist = this_tdoll.tag
-  // self base property value
   // find similarity
   for (var tdoll of lib_tdoll) {
     if (is_self(tdoll.id, ID)) {
@@ -814,9 +789,10 @@ function find_similar (ID) {
   for (var n = 0; n < max_num; n++) {
     var current_tdoll = find_tdoll(simlist[n][0])
     var current_str = ''
-    current_str += '<tr><td style="vertical-align:middle"><img src="../img/class/' + current_tdoll.id + '.png" style="width:37px;height:37px"> ' + make_starstr(current_tdoll.star)
+    current_str += '<tr><td style="vertical-align:middle"><button type="button" style="padding:5px" class="btn btn-default" onclick="classify_by_tdoll(' + current_tdoll.id + ')">'
+    current_str += '<img src="../img/class/' + current_tdoll.id + '.png" style="width:37px;height:37px"> ' + make_starstr(current_tdoll.star)
     eval('current_str+=lib_name.t' + current_tdoll.id)
-    current_str += '</td><td style="vertical-align:middle;text-align:center"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b></td>'
+    current_str += '</button></td><td style="vertical-align:middle;text-align:center"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b></td>'
     current_str += '<td style="line-height:40px;vertical-align:middle">'
     for (var i = 0; i < 4; i++) {
       for (var name of current_tdoll.tag[i]) {
@@ -832,15 +808,44 @@ function find_similar (ID) {
   }
   document.getElementById('result_2_sim').innerHTML = str_display
 }
-function is_tag_in (tag, taglist) {
-  for (var in_tag of taglist) {
-    if (tag === in_tag) return true
-  }
-  return false
-}
-function comp_sim (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
+
 window.onload = function () {
   fill_tag()
   fill_tag_tdoll()
   generate_map()
+}
+
+// 基础语义函数
+function comp_sim (pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // 相似对比较
+function is_related_pair (list1, list2, tag1, tag2) { // 是否是相关tag
+  var loop_tag = [tag1, tag2]
+  var loop_list = [list1, list2]
+  var is_in = [false, false, false, false]
+  for (var t = 0; t < 2; t++) {
+    for (var l = 0; l < 2; l++) {
+      for (var tl of loop_list[l]) {
+        if (tl === loop_tag[t]) {
+          is_in[2 * t + l] = true
+          break
+        }
+      }
+    }
+  }
+  if ((is_in[0] && !is_in[1] && !is_in[2] && is_in[3]) || (!is_in[0] && is_in[1] && is_in[2] && !is_in[3])) return true
+  else return false
+}
+function is_self (id1, id2) { // 是否是自己，包括改造
+  if (id1 === id2) return true
+  else if (id1 + 1000 === id2 && id1 < 1000) return true
+  else if (id1 - 1000 === id2 && id1 > 1000) return true
+  else return false
+}
+function is_someone_equaltag (tag1, tag2, id1, id2, special_id) { // 两人是否有同样的某个标签
+  return (id1 === special_id || id2 === special_id) && (tag1 === tag2)
+}
+function is_tag_in (tag, taglist) { // tag是否在taglist中
+  for (var in_tag of taglist) {
+    if (tag === in_tag) return true
+  }
+  return false
 }
