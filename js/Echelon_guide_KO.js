@@ -38,6 +38,7 @@ lib_language = {
   UI_pickblock: '<b><span style="color: red">배치할 자리</span></b> 를 선택해 주세요',
   UI_not_2_python: ' *파이슨을 2기 이상 추가할 수 없습니다.',
   UI_not_2_carcano: ' *CarcanoM1891을 2기 이상 추가할 수 없습니다',
+  UI_not_2_ads: ' *ADS을 2기 이상 추가할 수 없습니다',
   UI_not_2_jill: ' *Jill을 2기 이상 추가할 수 없습니다',
   UI_not_2_sei: ' *Sei을 2기 이상 추가할 수 없습니다',
   UI_not_2_stella: ' *Stella을 2기 이상 추가할 수 없습니다',
@@ -105,6 +106,7 @@ lib_language = {
   NAME_256: '팔콘',
   NAME_255: 'Magal',
   NAME_264: 'Chaucha',
+  NAME_270: 'Type 4',
   NAME_2001: '노엘',
   NAME_2002: '엘펠트',
   NAME_2003: '키아나',
@@ -208,6 +210,7 @@ lib_language = {
   DESCRIBE_213_1: '아음속탄(회피 65% 상승)',
   DESCRIBE_213_2: 'ST탄(화력 85% 상승)',
   DESCRIBE_213_3: '일반탄(명중 200% 상승)',
+  DESCRIBE_214: 'Explosion area',
   DESCRIBE_231: '전투 승리 횟수',
   DESCRIBE_236: '배율',
   DESCRIBE_238: '경기관총 모드',
@@ -340,6 +343,8 @@ lib_special_info.set(252, lib_language.special_info_common) // ksvk
 lib_special_info.set(256, lib_language.special_info_common) // falcon
 lib_special_info.set(261, lib_language.special_info_common) // 88-rf
 lib_special_info.set(266, lib_language.special_info_common) // r93
+lib_special_info.set(269, lib_language.special_info_common) // P30
+lib_special_info.set(270, lib_language.special_info_common) // 四式
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4
 lib_special_info.set(2006, lib_language.special_info_common) // theresa

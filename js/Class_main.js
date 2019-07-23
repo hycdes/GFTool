@@ -132,7 +132,7 @@ var lib_tdoll = [
   create_entry([2, 4, 69], ['dps', 'af_dmg'], ['front'], ['grenade'], []),
   create_entry([2, 4, 72], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
   create_entry([2, 4, 118], ['dps'], ['front'], ['forcus_dmg'], ['night']),
-  create_entry([2, 4, 171], ['supportdps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], []),
+  create_entry([2, 4, 171], ['supportdps', 'skilldps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], []),
   create_entry([2, 4, 187], ['dps'], ['front'], ['forcus_dmg'], []),
   create_entry([2, 4, 207], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], []),
   create_entry([2, 4, 216], ['dps'], ['front'], ['grenade'], []),
@@ -171,7 +171,7 @@ var lib_tdoll = [
   create_entry([3, 4, 137], ['tank_eva'], ['random'], ['fastcd', 'smoke'], []),
   create_entry([3, 4, 150], ['tank_eva'], ['random'], ['forcus_eva'], []),
   create_entry([3, 4, 177], ['dps', 'tank_eva'], ['random'], ['incendinary'], []),
-  create_entry([3, 4, 203], ['tank_eva', 'af_dmg'], ['random'], ['forcus_dmg', 'forcus_eva'], []),
+  create_entry([3, 4, 203], ['tank_eva', 'af_dmg'], ['random', 'suggest_2'], ['forcus_dmg', 'forcus_eva'], []),
   create_entry([3, 4, 225], ['tank_eva'], ['random'], ['forcus_acu', 'forcus_eva'], []),
   create_entry([3, 3, 27], ['dps', 'tank_eva'], ['random'], ['incendinary'], ['mengxin']),
   create_entry([3, 3, 29], ['tank_eva'], ['random'], ['handgrenade'], ['mengxin']),
@@ -814,8 +814,37 @@ window.onload = function () {
   fill_tag_tdoll()
   generate_map()
 }
+function find_favor (type, taglist) {
+  var favor = [[], [], [], [], []] // five-dimision means type
+  // type-duality
+  if (type === 1 || type === 4) favor[4].push(1)
+  else if (type === 2) favor[4].push(1, 3)
+  else if (type === 3) favor[4].push(1, 2)
+  else if (type === 5) favor[4].push(1, 6)
+  else if (type === 6) favor[4].push(5)
+  // actor-duality
+  for (var tag of taglist[0]) {
+    if (tag === 'dps') {
+      favor[0].push('supportdps')
+    }
+  }
+  return favor
+}
+function find_partner (ID) {
+  var par = 0
+  var parlist = []
+  var this_tdoll = find_tdoll(ID)
+  var this_type = this_tdoll.type
+  var this_taglist = this_tdoll.tag
+  // which position is she?
+  var favor = find_favor(this_taglist)
+  // what kind of skill she have?
+
+// calculate co-supporting parameter
+}
 
 // 基础语义函数
+
 function comp_sim (pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // 相似对比较
 function is_related_pair (list1, list2, tag1, tag2) { // 是否是相关tag
   var loop_tag = [tag1, tag2]

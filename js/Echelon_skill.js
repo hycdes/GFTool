@@ -327,6 +327,11 @@ function describe_alma () { // alma
   Describe.name = 'alma'
   return Describe
 }
+function describe_ads () { // ads
+  var Describe = {}
+  Describe.name = 'ads'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -601,6 +606,7 @@ lib_describe.set('jill', describe_jill()) // 调酒时间
 lib_describe.set('dorothy', describe_dorothy()) // 私密改造
 lib_describe.set('stella_attack', describe_multihit(2)) // stella特殊攻击
 lib_describe.set('alma', describe_alma()) // alma技能
+lib_describe.set('ads', describe_ads()) // 风暴潮
 
 // lib_skill
 
@@ -641,7 +647,8 @@ lib_skill.set(100, [createSkill(6, 12, 8, lib_describe.get('com_eva_60'))]) // �
 lib_skill.set(168, [createSkill(6, 12, 8, lib_describe.get('rof_28_enemy'))]) // 突击压制
 lib_skill.set(202, [createSkill(4, 12, 0, lib_describe.get('thunder'))]) // 临界点射击
 lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
-lib_skill.set(248, [createSkill(6, 12, 8, lib_describe.get('jericho'))]) // 被动单独判断 
+lib_skill.set(248, [createSkill(6, 12, 8, lib_describe.get('jericho'))]) // 被动单独判断
+lib_skill.set(269, []) // 报复进行时单独判断
 lib_skill.set(1002, [
   createSkill(1, 12, 0, lib_describe.get('m1911')), // 绝境神枪手
   createSkill(1, 12, 4, lib_describe.get('rof_40_enemy')) // 烟雾弹 40%
@@ -719,6 +726,7 @@ lib_skill.set(194, [createSkill(8, 3, 0, lib_describe.get('k2'))])
 lib_skill.set(196, [createSkill(4, 16, 0, lib_describe.get('zas'))])
 lib_skill.set(205, [createSkill(6, 8, 5, lib_describe.get('an94'))])
 lib_skill.set(206, [createSkill(6, 8, 5, lib_describe.get('ak12'))])
+lib_skill.set(214, [createSkill(5, 16, 5, lib_describe.get('ads'))])
 lib_skill.set(215, [createSkill(4, 16, 10, lib_describe.get('mdr'))])
 lib_skill.set(236, [createSkill(6, 16, 0, lib_describe.get('k11'))])
 lib_skill.set(243, [createSkill(6, 16, 0, lib_describe.get('64howa'))])
@@ -927,6 +935,7 @@ lib_skill.set(235, [
 lib_skill.set(247, [createSkill(6, 8, 5, lib_describe.get('k31'))])
 lib_skill.set(252, [createSkill(10, 16, 0, lib_describe.get('snipe_4'))])
 lib_skill.set(261, [createSkill(8, 16, 0, lib_describe.get('qbu88'))])
+lib_skill.set(270, [createSkill(6, 8, 5, lib_describe.get('rof_55'))]) // 四式
 lib_skill.set(1037, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 6, lib_describe.get('critdmg_10'))
@@ -964,6 +973,7 @@ lib_skill.set(217, [createSkill(5, 16, 15, lib_describe.get('rof_40'))])
 lib_skill.set(230, [createSkill(6, 8, 6, lib_describe.get('obr'))]) // obr
 lib_skill.set(241, [createSkill(15, 16, 0, lib_describe.get('snipe_6.5_2'))])
 lib_skill.set(255, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
+lib_skill.set(268, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 
 lib_skill.set(40, [createSkill(10, 16, 0, lib_describe.get('snipe_5'))])
 lib_skill.set(41, [createSkill(5, 8, 5, lib_describe.get('rof_55'))])

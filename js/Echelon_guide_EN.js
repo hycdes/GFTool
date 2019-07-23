@@ -102,6 +102,7 @@ lib_language = {
   NAME_161: 'Type 97 Shotgun',
   NAME_256: 'Falcon',
   NAME_127: 'Type 79',
+  NAME_270: 'Type 4',
 
   equipNAME_0: 'No equipment',
   equipNAME_12: 'Telescope Sight',

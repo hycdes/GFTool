@@ -60,6 +60,7 @@ var not_init = false // 控制蟒蛇能够开始复读的开关
 function reset_unique () {
   Set_Special.set('can_add_python', true)
   Set_Special.set('can_add_carcanom1891', true)
+  Set_Special.set('can_add_ads', true)
   Set_Special.set('can_add_jill', true)
   Set_Special.set('can_add_sei', true)
   Set_Special.set('can_add_stella', true)
@@ -478,6 +479,13 @@ function reactAllSkill (command, current_time) {
           }
           Set_Special.set('chauchat_nextget_' + k, global_frame + 120)
         }
+      } else if (is_this(k, 269)) { // p30
+        if (Set_Special.get('p30_' + k) === undefined) {
+          if (global_frame >= 90) {
+            changeStatus(k, 'all', 'rof', 0.1, -1, 'unrepeat')
+            Set_Special.set('p30_' + k, 'done')
+          }
+        }
       } else if (is_this(k, 2011)) { // jill醉酒状态施加
         if (Set_Special.get('jill_drunk') != undefined && Set_Special.get('jill_drunk') <= global_frame) {
           changeStatus(k, 'all', 'dmg', -0.15, 3, 'unrepeat')
@@ -605,6 +613,16 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         final_dmg = dmg_direct + dmg_aoe
         recordData(stand_num, current_time, final_dmg)
       }
+      // 四式：死线一击
+      else if (is_this(stand_num, 270) && Set_Special.get('type4_' + stand_num) >= 2) {
+        recordData(stand_num, current_time, 0)
+        var dmg = this_formation(stand_num) * Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+        var dmg_single = dmg * explain_fgl_ff('single')
+        var dmg_through = dmg * (parseFloat(document.getElementById('special_type4_' + stand_num).value) / 100) * explain_fgl_ff('around_aoe')
+        damage_snipe_single = Math.ceil(2 * ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
+        recordData(stand_num, current_time, dmg_single + dmg_through)
+        Set_Special.set('type4_' + stand_num, 0)
+      }
       // 正常的攻击
       else {
         recordData(stand_num, current_time, 0)
@@ -620,6 +638,27 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             if (Set_Special.get('k2_temp_' + stand_num) > 0) Set_Special.set('k2_temp_' + stand_num, Set_Special.get('k2_temp_' + stand_num) - 1) // note模式升温
             if (Set_Special.get('k2_dmgup_' + stand_num) < 10) Set_Special.set('k2_dmgup_' + stand_num, Set_Special.get('k2_dmgup_' + stand_num) + 1) // note模式增伤
           }
+        }
+        if (is_this(stand_num, 214)) { // ADS
+          if (Set_Special.get('ADS_active') != undefined && Set_Special.get('ADS_active') >= global_frame) { // 主动buff期间
+            if (Set_Special.get('ADS_buff') === undefined) Set_Special.set('ADS_buff', 1)
+            else Set_Special.set('ADS_buff', Set_Special.get('ADS_buff') + 1)
+          } else { // 被动
+            if (Math.random() <= 0.4) {
+              if (Set_Special.get('ADS_buff') === undefined) Set_Special.set('ADS_buff', 1)
+              else Set_Special.set('ADS_buff', Set_Special.get('ADS_buff') + 1)
+            }
+          }
+          if (Set_Special.get('ADS_buff') != undefined && Set_Special.get('ADS_buff') >= 5) {
+            Set_Special.set('ADS_buff', 0)
+            var ads_dmg_main = Math.ceil(6 * Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)) * this_formation(stand_num) * explain_fgl_ff('single'))
+            var aoe_ratio = parseFloat(document.getElementById('special_ads').value) / 100
+            var ads_dmg_aoe = Math.ceil(aoe_ratio * 6 * Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)) * explain_fgl_ff('around_aoe'))
+            recordData(stand_num, current_time, ads_dmg_main + ads_dmg_aoe)
+          }
+        }
+        if (is_this(stand_num, 270)) { // 四式：死线一击积累
+          Set_Special.set('type4_' + stand_num, Set_Special.get('type4_' + stand_num) + 1)
         }
         if (is_this(stand_num, 1005)) {
           if (Set_Special.get('m1895_' + stand_num) === 0) {
@@ -1647,6 +1686,11 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
       }
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * (1 - extra_cld) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'ads') {
+    Set_Special.set('ADS_active', current_time + 150)
+    Set_Special.set('ADS_buff', Set_Special.get('ADS_buff') + 5)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   // debug mode
   if (debug_mode && (debug_function[0] || debug_function[1])) {

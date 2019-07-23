@@ -38,6 +38,7 @@ lib_language = {
   UI_pickblock: '请点选一个<b><span style="color: red">九宫格</span></b>',
   UI_not_2_python: ' *不能添加两个蟒蛇',
   UI_not_2_carcano: ' *不能添加两个CarcanoM1891',
+  UI_not_2_ads: ' *不能添加两个ADS',
   UI_not_2_jill: ' *不能添加两个Jill',
   UI_not_2_sei: ' *不能添加两个Sei',
   UI_not_2_stella: ' *不能添加两个Stella',
@@ -105,6 +106,7 @@ lib_language = {
   NAME_256: '隼',
   NAME_258: '马盖尔',
   NAME_264: '绍沙',
+  NAME_270: '四式',
   NAME_2001: '诺艾尔',
   NAME_2002: '艾尔菲尔特',
   NAME_2003: '琪亚娜',
@@ -209,6 +211,7 @@ lib_language = {
   DESCRIBE_213_1: '亚音速弹(+65%回避)',
   DESCRIBE_213_2: '勺尖弹(+85%伤害)',
   DESCRIBE_213_3: '标准弹(+200%命中)',
+  DESCRIBE_214: '爆炸影响多少敌人',
   DESCRIBE_231: '战斗胜场',
   DESCRIBE_236: '倍率',
   DESCRIBE_238: '轻机枪模式',
@@ -340,6 +343,8 @@ lib_special_info.set(252, lib_language.special_info_common) // ksvk
 lib_special_info.set(256, lib_language.special_info_common) // falcon
 lib_special_info.set(261, lib_language.special_info_common) // 88-rf
 lib_special_info.set(266, lib_language.special_info_common) // r93
+lib_special_info.set(269, lib_language.special_info_common) // P30
+lib_special_info.set(270, lib_language.special_info_common) // 四式
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4
 lib_special_info.set(2006, lib_language.special_info_common) // theresa

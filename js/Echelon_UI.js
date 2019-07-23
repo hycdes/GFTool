@@ -867,6 +867,24 @@ function addTdoll () { // 添加战术人形
       str_html += ') value="3" disabled></td><td>' + lib_language.DESCRIBE_266_3 + '</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 270) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_270 + '</h4><p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">' + lib_language.DESCRIBE_261 + '</td><td style="width: 50%">'
+      str_html += '<input class="form-control input-sm" placeholder="0~100" id="special_type4_' + (num_pickblock - 1) + '" onblur=inputCheck_qbu88('
+      str_html += "'" + 'special_type4_' + (num_pickblock - 1) + "'"
+      str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
+    else if (ID === 214) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ADS</h4><p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">' + lib_language.DESCRIBE_214 + '</td><td style="width: 50%">'
+      str_html += '<input class="form-control input-sm" placeholder="0~100" id="special_ads" onblur=inputCheck_qbu88('
+      str_html += '"special_ads"'
+      str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     else if (ID === 2013) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_2013 + '</h4>'

@@ -265,6 +265,7 @@ lib_affect.set(210, createAffect('u/ru/d/rd/', 'all', ['dmg', 'eva'], [0.2, 0.2]
 lib_affect.set(211, createAffect('r/rd/', 'hg', ['cld'], [0.18])) // SRS
 lib_affect.set(212, createAffect('lu/u/l/r/ld/d/', 'all', ['dmg', 'acu'], [0.3, 0.4])) // K5
 lib_affect.set(213, createAffect('lu/l/ld/', 'ar', ['dmg', 'rof'], [0.15, 0.05])) // C-MS
+lib_affect.set(214, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.3, 0.18])) // ADS
 lib_affect.set(215, createAffect('r/rd/', 'smg', ['dmg', 'acu'], [0.25, 0.65])) // MDR
 lib_affect.set(216, createAffect('ru/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // XM8
 lib_affect.set(217, createAffect('u/d/', 'hg', ['cld'], [0.12])) // SM-1
@@ -316,6 +317,9 @@ lib_affect.set(264, createAffect('rr/rrd/', 'sg', ['rof', 'arm'], [0.12, 0.12]))
 lib_affect.set(265, createAffect('ru/rd/', 'smg', ['dmg', 'eva'], [0.1, 0.1])) // HK33
 lib_affect.set(266, createAffect('ru/r/rd/', 'hg', ['cld'], [0.18])) // R93
 lib_affect.set(267, createAffect('l/ld/', 'ar', ['dmg', 'eva'], [0.12, 0.1])) // MP41
+lib_affect.set(268, createAffect('ru/rd/', 'hg', ['cld'], [0.12])) // T-CMS
+lib_affect.set(269, createAffect('l/ld/r/rd/', 'all', ['dmg', 'acu'], [0.18, 0.6])) // P30
+lib_affect.set(270, createAffect('u/ru/r/rd/', 'hg', ['cld'], [0.15])) // 四式
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -570,6 +574,7 @@ lib_property.set(210, createProperty(33, 50, 68, 53, 0, 380, 0.2, -1))
 lib_property.set(211, createProperty(135, 82, 35, 35, 0, 435, 0.4, -1))
 lib_property.set(212, createProperty(29, 52, 81, 62, 0, 330, 0.4, -1))
 lib_property.set(213, createProperty(32, 15, 75, 87, 0, 925, 0.05, -1))
+lib_property.set(214, createProperty(50, 54, 45, 78, 0, 605, 0.2, -1)) // ADS
 lib_property.set(215, createProperty(56, 50, 41, 76, 0, 595, 0.2, -1))
 lib_property.set(216, createProperty(48, 46, 42, 79, 0, 540, 0.2, -1))
 lib_property.set(217, createProperty(95, 79, 40, 40, 0, 405, 0.4, -1))
@@ -621,6 +626,9 @@ lib_property.set(264, createProperty(102, 34, 30, 81, 0, 870, 0.05, 9))
 lib_property.set(265, createProperty(49, 51, 46, 73, 0, 525, 0.2, -1))
 lib_property.set(266, createProperty(133, 97, 34, 39, 0, 405, 0.4, -1))
 lib_property.set(267, createProperty(30, 13, 60, 77, 0, 970, 0.05, -1))
+lib_property.set(268, createProperty(120, 75, 27, 37, 0, 440, 0.4, -1)) // T-CMS
+lib_property.set(269, createProperty(32, 62, 85, 55, 0, 350, 0.2, -1))
+lib_property.set(270, createProperty(112, 74, 37, 39, 0, 420, 0.4, -1)) // 四式
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
@@ -769,6 +777,7 @@ lib_fairy.set(21, createFairy(lib_language.fairyNAME_21, 'dmg/critdmg/eva/arm', 
 
 lib_unique.set(4, 'can_add_python') // python
 lib_unique.set(197, 'can_add_carcanom1891') // carcano m1891
+lib_unique.set(214, 'can_add_ads') // ads
 lib_unique.set(2011, 'can_add_jill') // jill
 lib_unique.set(2012, 'can_add_sei') // sei
 lib_unique.set(2014, 'can_add_stella') // stella

@@ -135,6 +135,7 @@ function get_skill_icon (ID) { return '&nbsp<img src="../img/echelon/skill/' + I
 
 // lable_do
 function do_unique (ID, command) {
+  // 新的条目：property中lib_unique添加条目，sub中init_resetAllConfig添加条目，main中reset_unique添加条目
   if (command === 'is_unique') {
     if (lib_unique.get(ID) != undefined) return true
     else return false
@@ -153,6 +154,7 @@ function do_unique (ID, command) {
   else if (command === 'alert') {
     if (ID === 4) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_python
     if (ID === 197) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_carcano
+    if (ID === 214) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_ads
     if (ID === 2011) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_jill
     if (ID === 2012) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_sei
     if (ID === 2014) document.getElementById('alert_display').innerHTML = lib_language.UI_not_2_stella
@@ -323,7 +325,10 @@ function init_resetAllConfig () { // 重置所有数据
   Set_Special.set('damage_protect', [true, true, true, true, true, true, true, true, true]) // 大破保护初始化
   if (is_exist_someone(4)) Set_Special.set('can_add_python', false) // 能否添加蟒蛇
   if (is_exist_someone(197)) Set_Special.set('can_add_carcanom1891', false) // 能否添加CarcanoM1891
-  if (is_exist_someone(2011))Set_Special.set('can_add_jill', false) // 能否添加Jill
+  if (is_exist_someone(214)) Set_Special.set('can_add_ads', false) // 能否添加ADS
+  if (is_exist_someone(2011)) Set_Special.set('can_add_jill', false) // 能否添加Jill
+  if (is_exist_someone(2012))Set_Special.set('can_add_sei', false) // 能否添加Sei
+  if (is_exist_someone(2014))Set_Special.set('can_add_stella', false) // 能否添加Stella
   if (daytime === 1) Set_Special.set('sunrise', 'day')
   else if (daytime === 2) Set_Special.set('sunrise', 'night')
   for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精
@@ -427,6 +432,8 @@ function init_loadPrepareStatus () { // 初始化战前属性
         Set_Special.set('chauchat_' + i, 1)
         Set_Special.set('chauchat_nextget_' + i, 120)
         Set_Special.set('chauchat_nextreload_' + i, 0)
+      } else if (is_this(i, 270)) { // 四式死线一击层数
+        Set_Special.set('type4_' + i, 0)
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         Set_Special.set('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动
