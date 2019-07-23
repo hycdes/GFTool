@@ -328,29 +328,6 @@ lib_language = {
   special_info_2011_6: '<span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span>Fringe Weaver'
 }
 
-var lib_special_info = new Map // 特殊提醒库
-lib_special_info.set(102, lib_language.special_info_common) // ump40
-lib_special_info.set(180, lib_language.special_info_common) // pzb39
-lib_special_info.set(192, lib_language.special_info_common) // js05
-lib_special_info.set(194, lib_language.special_info_common) // k2
-lib_special_info.set(213, lib_language.special_info_common) // cms
-lib_special_info.set(231, lib_language.special_info_common) // m82a1
-lib_special_info.set(236, lib_language.special_info_common) // k11
-lib_special_info.set(238, lib_language.special_info_common) // 88-mg
-lib_special_info.set(243, lib_language.special_info_common) // 64howa
-lib_special_info.set(251, lib_language.special_info_common) // x95
-lib_special_info.set(252, lib_language.special_info_common) // ksvk
-lib_special_info.set(256, lib_language.special_info_common) // falcon
-lib_special_info.set(261, lib_language.special_info_common) // 88-rf
-lib_special_info.set(266, lib_language.special_info_common) // r93
-lib_special_info.set(269, lib_language.special_info_common) // P30
-lib_special_info.set(270, lib_language.special_info_common) // 四式
-lib_special_info.set(1039, lib_language.special_info_common) // mosin
-lib_special_info.set(1055, lib_language.special_info_common) // m4
-lib_special_info.set(2006, lib_language.special_info_common) // theresa
-lib_special_info.set(2011, lib_language.special_info_common) // jill
-lib_special_info.set(2013, lib_language.special_info_common) // dorothy
-
 window.onload = function () {
   loadScript('../js/Echelon_main.js')
   loadScript('../js/Echelon_sub.js')

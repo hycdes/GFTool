@@ -774,10 +774,34 @@ lib_fairy.set(20, createFairy(lib_language.fairyNAME_20, 'dmg/acu/eva/arm', '0.3
 lib_fairy.set(21, createFairy(lib_language.fairyNAME_21, 'dmg/critdmg/eva/arm', '0.25/0.25/0.2/0.2'))
 
 // unique t-doll
-
 lib_unique.set(4, 'can_add_python') // python
 lib_unique.set(197, 'can_add_carcanom1891') // carcano m1891
 lib_unique.set(214, 'can_add_ads') // ads
 lib_unique.set(2011, 'can_add_jill') // jill
 lib_unique.set(2012, 'can_add_sei') // sei
 lib_unique.set(2014, 'can_add_stella') // stella
+
+// special setting
+var lib_special_info = new Map // 特殊提醒库
+lib_special_info.set(102, lib_language.special_info_common) // ump40
+lib_special_info.set(180, lib_language.special_info_common) // pzb39
+lib_special_info.set(192, lib_language.special_info_common) // js05
+lib_special_info.set(194, lib_language.special_info_common) // k2
+lib_special_info.set(213, lib_language.special_info_common) // cms
+lib_special_info.set(214, lib_language.special_info_common) // ads
+lib_special_info.set(231, lib_language.special_info_common) // m82a1
+lib_special_info.set(236, lib_language.special_info_common) // k11
+lib_special_info.set(238, lib_language.special_info_common) // 88-mg
+lib_special_info.set(243, lib_language.special_info_common) // 64howa
+lib_special_info.set(251, lib_language.special_info_common) // x95
+lib_special_info.set(252, lib_language.special_info_common) // ksvk
+lib_special_info.set(256, lib_language.special_info_common) // falcon
+lib_special_info.set(261, lib_language.special_info_common) // 88-rf
+lib_special_info.set(266, lib_language.special_info_common) // r93
+lib_special_info.set(269, lib_language.special_info_common) // P30
+lib_special_info.set(270, lib_language.special_info_common) // 四式
+lib_special_info.set(1039, lib_language.special_info_common) // mosin
+lib_special_info.set(1055, lib_language.special_info_common) // m4
+lib_special_info.set(2006, lib_language.special_info_common) // theresa
+lib_special_info.set(2011, lib_language.special_info_common) // jill
+lib_special_info.set(2013, lib_language.special_info_common) // dorothy
