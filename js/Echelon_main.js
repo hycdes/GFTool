@@ -651,10 +651,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
           if (Set_Special.get('ADS_buff') != undefined && Set_Special.get('ADS_buff') >= 5) {
             Set_Special.set('ADS_buff', 0)
-            var ads_dmg_main = Math.ceil(6 * Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)) * this_formation(stand_num) * explain_fgl_ff('single'))
             var aoe_ratio = parseFloat(document.getElementById('special_ads').value) / 100
-            var ads_dmg_aoe = Math.ceil(aoe_ratio * 6 * Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)) * explain_fgl_ff('around_aoe'))
-            recordData(stand_num, current_time, ads_dmg_main + ads_dmg_aoe)
+            var ads_dmg_aoe = Math.ceil(aoe_ratio * 6 * Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)) * explain_fgl_ff('aoe'))
+            recordData(stand_num, current_time, ads_dmg_aoe)
           }
         }
         if (is_this(stand_num, 270)) { // 四式：死线一击积累
