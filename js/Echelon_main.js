@@ -609,17 +609,16 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
         }
         dmg_direct = Math.ceil(dmg_direct * explain_fgl_ff('single'))
-        dmg_aoe = Math.ceil(dmg_aoe * explain_fgl_ff('around_single'))
+        dmg_aoe = Math.ceil(dmg_aoe * explain_fgl_ff('around_multiple'))
         final_dmg = dmg_direct + dmg_aoe
         recordData(stand_num, current_time, final_dmg)
       }
       // 四式：死线一击
       else if (is_this(stand_num, 270) && Set_Special.get('type4_' + stand_num) >= 2) {
         recordData(stand_num, current_time, 0)
-        var dmg = this_formation(stand_num) * Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+        var dmg = this_formation(stand_num) * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)
         var dmg_single = dmg * explain_fgl_ff('single')
-        var dmg_through = dmg * (parseFloat(document.getElementById('special_type4_' + stand_num).value) / 100) * explain_fgl_ff('around_aoe')
-        damage_snipe_single = Math.ceil(2 * ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
+        var dmg_through = dmg * (parseFloat(document.getElementById('special_type4_' + stand_num).value) / 100) * explain_fgl_ff('around_multiple')
         recordData(stand_num, current_time, dmg_single + dmg_through)
         Set_Special.set('type4_' + stand_num, 0)
       }
@@ -1986,7 +1985,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
     if (this_ID === 180 || this_ID === 192) { // 贯通射击
       damage_snipe_single = Math.ceil(2 * ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
       if (document.getElementById('special_js05_' + stand_num).checked) {
-        damage_snipe_single += Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
+        damage_snipe_single += Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('around_multiple'))
       }
     } else if (this_ID === 252) { // 震荡冲击弹
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
@@ -2384,13 +2383,18 @@ function get_g36_standblo (stand_num) {
 }
 
 // 基本语义性函数
-function explain_fgl_ff (damage_type) { // 解释伤害加成，力场减免+AOE计算+伤害加深，single单体, around_single周遭单体, aoe范围, around_aoe溅射
+function explain_fgl_ff (damage_type) {
+  // 解释伤害加成，力场减免+AOE计算+伤害加深
+  // single单体, around_single周遭单体
+  // around_multiple周遭群体（乘数量，贯通射击）,
+  // aoe范围（乘数量和编制，榴弹等）, around_aoe周遭溅射（乘数量和编制，炮击溅射等）
   // forcefield damage reduction 
   var ff_ratio = 1
   if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
   else if (display_type === 'suffer' && enemy_forcefield_2 > 0) ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
   if (damage_type === 'single') return fragile_main * ff_ratio
   else if (damage_type === 'around_single') return fragile_all * ff_ratio
+  else if (damage_type === 'around_multiple') return fragile_all * ff_ratio * (aoe_num - 1)
   else if (damage_type === 'aoe') {
     if (aoe_num <= enemy_num_left) return (fragile_main + (aoe_num - 1) * fragile_all) * enemy_form * ff_ratio
     else return (fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio

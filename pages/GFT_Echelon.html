@@ -134,8 +134,6 @@
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
                             </h1>
                         </div>
-                        <script src="../js/version_GFT.js"></script>
-                        <script>document.getElementById('info_version').innerHTML = _version.ES</script>
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -165,17 +163,6 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <!-- <h8>&nbsp</h8>
-                                        <table class="table table-bordered" style="width:360px;text-align:center">
-                                            <tr>
-                                                <td style="width:100px"><button type="button" style="padding:5px" class="btn btn-info" onclick="echelon_save()">存储阵形</button></td>
-                                                <td style="width:260px"><input class="form-control input-sm" placeholder="savecode here" id='savecode'></td>
-                                            </tr>
-                                            <tr>
-                                                <td><button type="button" style="padding:5px" class="btn btn-warning" onclick="echelon_load()">读取阵形</button></td>
-                                                <td><input class="form-control input-sm" placeholder="input a code" id='loadcode'></td>
-                                            </tr>
-                                        </table> -->
                                     </div>
                                     <!--INFO-->
                                     <div class="col-lg-8">
@@ -863,8 +850,8 @@
                                                     <p>游戏机制细节指导：@白金·世界</p>
                                                     <p>韩文翻译：@pohcy @marty @KOZ39</p>
                                                     <p>BUG排查：@a232430</p>
-                                                    <h4>Version 4.2.0</h4>
-                                                    1. VA-11 T-doll released<br>
+                                                    <h4>Update log</h4>
+                                                    <h5 id="info_updatelog"></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -1006,6 +993,12 @@
         // popover demo
         $("[data-toggle=popover]")
             .popover()
+    </script>
+    <!--version info-->
+    <script src="../js/version_GFT.js"></script>
+    <script>
+        document.getElementById('info_version').innerHTML = _version.ES
+        document.getElementById('info_updatelog').innerHTML = _updateinfo.ES
     </script>
 
 </body>
