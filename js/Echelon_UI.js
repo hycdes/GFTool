@@ -248,13 +248,13 @@ function changeAffection () { // 改变好感度，别把Affection(好感度)和
 }
 
 function changeStar (num) { // 改变星级，管理全局变量num_star
-  if (num === 1 && num_star < 5) num_star++
+  if (num === 1 && num_star < 6) num_star++
   else if (num === 0 && num_star > 2) {
     if (set_guntype != 6 && num_star > 2) num_star--
     else if (set_guntype === 6 && num_star > 3) num_star--
   }
   else if (num === -1) num_star = 5
-  else if (num <= 5 && num >= 2) num_star = num
+  else if (num <= 6 && num >= 2) num_star = num
   manageUI('change-star')
   changeSelectItems()
 }
@@ -340,10 +340,17 @@ function manageUI () { // 管理图标变化，不涉及后台数值
     document.getElementById('icon-substar').style = 'cursor: pointer'
     document.getElementById('icon-addstar').onclick = Function('changeStar(1)')
     document.getElementById('icon-substar').onclick = Function('changeStar(0)')
-    if (num_star === 5) {
+    if (num_star === 6) {
       document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
       document.getElementById('icon-addstar').style = 'cursor: default'
       document.getElementById('icon-addstar').onclick = ''
+    }
+    if (num_star === 5) {
+      if (set_guntype != 2) {
+        document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
+        document.getElementById('icon-addstar').style = 'cursor: default'
+        document.getElementById('icon-addstar').onclick = ''
+      }
     }
     if (num_star === 3 && set_guntype === 6) {
       document.getElementById('icon-substar').src = '../img/echelon/icon-sub-disable.png'
@@ -433,7 +440,7 @@ function resetEquipment () {
   } else {
     var ID = parseInt(document.getElementById('select_tdoll').value)
     if (set_guntype === 1) {
-      if (ID === 4) set_equip = [11, 21, 31] // python
+      if (ID === 4 || ID === 272) set_equip = [11, 21, 31] // python & desert eagle
       else if (ID === 7) set_equip = [17, 21, 32] // stechkin
       else if (ID === 1001) set_equip = [11001, 21, 32] // colt mod
       else if (ID === 1002) set_equip = [11, 21002, 31] // m1911 mod
@@ -460,6 +467,7 @@ function resetEquipment () {
       else if (ID === 1061) set_equip = [12, 21061, 31] // stg44 mod
       else if (ID === 1063) set_equip = [11063, 22, 31] // g3 mod
       else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
+      else if (ID === 1065) set_equip = [165, 22, 31065] // HK416 mod
       else set_equip = [12, 22, 31]
     }
     else if (set_guntype === 3) {
@@ -478,6 +486,7 @@ function resetEquipment () {
       else if (ID === 39) set_equip = [12, 23, 31039] // mosin
       else if (ID === 42) set_equip = [12, 23, 342] // ptrd
       else if (ID === 46) set_equip = [146, 23, 34] // kar98k
+      else if (ID === 50) set_equip = [150, 23, 34] // lee'enfield
       else if (ID === 1039) set_equip = [11039, 23, 31039] // mosin mod
       else if (ID === 1037) set_equip = [11037, 23, 34] // m14 mod
       else if (ID === 1044) set_equip = [12, 23, 31044] // sv98 mod

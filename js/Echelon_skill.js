@@ -332,6 +332,11 @@ function describe_ads () { // ads
   Describe.name = 'ads'
   return Describe
 }
+function describe_de () { // desert eagle
+  var Describe = {}
+  Describe.name = 'de'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -415,6 +420,7 @@ lib_describe.set('dmg_40', describe_property(['self'], ['dmg'], ['0.4'])) // 火
 lib_describe.set('dmg_35', describe_property(['self'], ['dmg'], ['0.35'])) // 火力专注 35%
 lib_describe.set('dmg_30', describe_property(['self'], ['dmg'], ['0.3'])) // 火力专注 30%
 lib_describe.set('dmg_28', describe_property(['self'], ['dmg'], ['0.28'])) // 火力专注 28%
+lib_describe.set('dmg_10', describe_property(['self'], ['dmg'], ['0.1'])) // 威慑印记
 lib_describe.set('dmgN_200', describe_propertyN(['self'], ['dmg'], ['2'])) // 火力专注N 200%
 lib_describe.set('dmgN_180', describe_propertyN(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
 lib_describe.set('dmgN_105', describe_propertyN(['self'], ['dmg'], ['1.05'])) // 火力专注N 105%
@@ -607,6 +613,7 @@ lib_describe.set('dorothy', describe_dorothy()) // 私密改造
 lib_describe.set('stella_attack', describe_multihit(2)) // stella特殊攻击
 lib_describe.set('alma', describe_alma()) // alma技能
 lib_describe.set('ads', describe_ads()) // 风暴潮
+lib_describe.set('de', describe_de()) // 威慑印记
 
 // lib_skill
 
@@ -628,6 +635,11 @@ lib_skill.set(260, [
   createSkill(6, 12, 0, lib_describe.get('pa15_single')),
   createSkill(6, 12, 0, lib_describe.get('pa15_aoe'))
 ]) // AOE特殊判断
+lib_skill.set(272, [
+  createSkill(6, 12, 8, lib_describe.get('rof_40')),
+  createSkill(6, 12, 8, lib_describe.get('dmg_10')),
+  createSkill(6, 12, 0, lib_describe.get('de'))
+])
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))

@@ -107,6 +107,7 @@ lib_language = {
   NAME_255: 'Magal',
   NAME_264: 'Chaucha',
   NAME_270: 'Type 4',
+  NAME_272: 'Desert Eagle',
   NAME_2001: '노엘',
   NAME_2002: '엘펠트',
   NAME_2003: '키아나',

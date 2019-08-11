@@ -320,12 +320,18 @@ lib_affect.set(267, createAffect('l/ld/', 'ar', ['dmg', 'eva'], [0.12, 0.1])) //
 lib_affect.set(268, createAffect('ru/rd/', 'hg', ['cld'], [0.12])) // T-CMS
 lib_affect.set(269, createAffect('l/ld/r/rd/', 'all', ['dmg', 'acu'], [0.18, 0.6])) // P30
 lib_affect.set(270, createAffect('u/ru/r/rd/', 'hg', ['cld'], [0.15])) // 四式
+lib_affect.set(272, createAffect('r/rr/d/rd/dd/', 'all', ['dmg', 'crit'], [0.3, 0.2])) // 沙漠之鹰
+lib_affect.set(273, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // SSG3000
+lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65])) // SSG3000
+lib_affect.set(275, createAffect('rr/rrd/', 'mg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
+lib_affect.set(275, createAffect('rr/rru/', 'mg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
 lib_affect.set(1005, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.36, 0.2])) // 纳甘左轮改
+lib_affect.set(1026, createAffect('lu/ld/', 'ar/rf', ['acu', 'crit'], [0.45, 0.2])) // MP5改
 lib_affect.set(1029, createAffect('lu/l/ld/', 'ar', ['acu', 'eva'], [0.3, 0.4])) // 司登MkⅡ改
-lib_affect.set(1032, createAffect('u/l/d/', 'ar', ['dmg', 'acu'], [0.18, 0.15])) // uzi改
+lib_affect.set(1032, createAffect('u/l/d/', 'ar', ['dmg', 'acu'], [0.18, 0.15])) // UZI改
 lib_affect.set(1037, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // M14改
 lib_affect.set(1039, createAffect('d/', 'hg', ['cld'], [0.18])) // 莫辛-纳甘改
 lib_affect.set(1044, createAffect('rd/', 'hg', ['cld'], [0.15])) // SV-98改
@@ -337,12 +343,15 @@ lib_affect.set(1060, createAffect('u/r/', 'smg', ['dmg', 'rof'], [0.25, 0.15])) 
 lib_affect.set(1061, createAffect('u/r/d/', 'smg', ['eva', 'acu'], [0.2, 0.6])) // StG44改
 lib_affect.set(1063, createAffect('u/r/', 'smg', ['rof', 'acu'], [0.25, 0.55])) // G3改
 lib_affect.set(1064, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.15])) // G36改
+lib_affect.set(1065, createAffect('r/ru/', 'smg', ['dmg'], [0.45])) // HK416 MOD
 lib_affect.set(1075, createAffect('rr/', 'sg', ['dmg', 'arm'], [0.18, 0.1])) // M1918改
 lib_affect.set(1081, createAffect('rr/', 'sg', ['dmg', 'rof'], [0.15, 0.15])) // LWMMG改
 lib_affect.set(1089, createAffect('rr/rrdd/', 'sg', ['rof', 'acu'], [0.1, 0.15])) // 布伦改
 lib_affect.set(1091, createAffect('u/lu/l/d/ld/', 'all', ['dmg'], [0.36])) // MP-446改
 lib_affect.set(1093, createAffect('lu/l/ld/', 'ar', ['eva', 'crit'], [0.2, 0.1])) // IDW改
 lib_affect.set(1094, createAffect('l/', 'ar', ['rof'], [0.24])) // 64式改
+lib_affect.set(1095, createAffect('r/rd/', 'hg', ['cld'], [0.15])) // 汉阳造88式改
+lib_affect.set(1101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])) // UMP9改
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改
 // EXTRA
 lib_affect.set(2001, createAffect('lu/u/ru/ld/d/rd/', 'all', ['rof', 'eva'], [0.3, 0.2])) // 诺爱尔
@@ -629,11 +638,17 @@ lib_property.set(267, createProperty(30, 13, 60, 77, 0, 970, 0.05, -1))
 lib_property.set(268, createProperty(120, 75, 27, 37, 0, 440, 0.4, -1)) // T-CMS
 lib_property.set(269, createProperty(32, 62, 85, 55, 0, 350, 0.2, -1))
 lib_property.set(270, createProperty(112, 74, 37, 39, 0, 420, 0.4, -1)) // 四式
+lib_property.set(272, createProperty(41, 57, 66, 55, 0, 365, 0.4, -1)) // desert eagle
+lib_property.set(273, createProperty(126, 77, 30, 37, 0, 440, 0.4, -1)) // SSG3000
+lib_property.set(274, createProperty(54, 54, 48, 77, 0, 580, 0.3, -1)) // ACR
+lib_property.set(275, createProperty(90, 26, 23, 131, 0, 950, 0.05, -1)) // M1895 CB
+lib_property.set(276, createProperty(109, 22, 21, 110, 0, 990, 0.05, -1)) // kord
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
 lib_property.set(1002, createProperty(29, 52, 78, 58, 0, 375, 0.2, -1))
 lib_property.set(1005, createProperty(35, 48, 100, 45, 0, 360, 0.2, -1))
+lib_property.set(1026, createProperty(32, 14, 71, 90, 0, 905, 0.05, -1)) // MP5
 lib_property.set(1029, createProperty(29, 17, 79, 86, 0, 975, 0.05, -1))
 lib_property.set(1032, createProperty(26, 13, 83, 104, 0, 885, 0.05, -1)) // UZI
 lib_property.set(1037, createProperty(111, 74, 28, 44, 0, 430, 0.4, -1))
@@ -647,13 +662,16 @@ lib_property.set(1060, createProperty(43, 51, 51, 76, 0, 680, 0.2, -1)) // as va
 lib_property.set(1061, createProperty(58, 50, 38, 66, 0, 650, 0.2, -1)) // stg44
 lib_property.set(1063, createProperty(58, 55, 40, 64, 0, 565, 0.2, -1))
 lib_property.set(1064, createProperty(51, 48, 45, 76, 0, 650, 0.2, -1))
+lib_property.set(1065, createProperty(55, 51, 47, 79, 0, 620, 0.2, -1)) // HK416
 lib_property.set(1075, createProperty(101, 34, 34, 115, 0, 805, 0.05, 8))
 lib_property.set(1081, createProperty(103, 27, 24, 92, 0, 890, 0.05, 10))
 lib_property.set(1089, createProperty(97, 34, 29, 103, 0, 890, 0.05, 8))
 lib_property.set(1091, createProperty(31, 57, 80, 60, 0, 340, 0.2, -1))
 lib_property.set(1093, createProperty(27, 16, 92, 75, 0, 770, 0.05, -1))
 lib_property.set(1094, createProperty(28, 12, 70, 93, 0, 905, 0.05, -1))
-lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1))
+lib_property.set(1095, createProperty(118, 69, 39, 37, 0, 520, 0.4, -1)) // hanyang-88
+lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9
+lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45
 // EXTRA
 lib_property.set(2001, createProperty(39, 60, 82, 65, 0, 300, 0.2, -1))
 lib_property.set(2002, createProperty(36, 13, 9, 28, 23, 1375, 0.4, 5))
@@ -687,16 +705,17 @@ lib_property_equip.set(22, createProperty_equip(20, 0, 0, 0, 0, 0, 0, 0, 0, 0)) 
 lib_property_equip.set(23, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ap-ammo
 lib_property_equip.set(24, createProperty_equip(15, 0, 0, 0, 0, 0, 0.22, 0, 0, 0)) // buck
 lib_property_equip.set(25, createProperty_equip(2.01, 20, 0, 0, 0, 0, 0, 0, 0, 0)) // sabot
-lib_property_equip.set(31, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0))
-lib_property_equip.set(32, createProperty_equip(-6, 0, 35, 0, 0, 0, 0, 0, 0, 0))
+lib_property_equip.set(31, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // x
+lib_property_equip.set(32, createProperty_equip(-6, 0, 35, 0, 0, 0, 0, 0, 0, 0)) // t
 lib_property_equip.set(33, createProperty_equip(0, 0, -2, 0, 11, 0, 0, 0, 0, 0))
 lib_property_equip.set(34, createProperty_equip(0, 0, 0, 0, 0, 0, 0.25, 0, 0, 0))
 lib_property_equip.set(35, createProperty_equip(0, 0, -2, 0, 0, 0, 0, 5, 0, 0))
 lib_property_equip.set(41, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 100))
 // exclusive equipment
 lib_property_equip.set(17, createProperty_equip(0, 4, 10, 0, 0, 0.2, 0, 0, 0, -100))
+lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0, 0)) // Kar98k
+lib_property_equip.set(150, createProperty_equip(0, 0, 0, 4, 0, 0.48, 0, 0, 0, 0)) // Lee Enfield
 lib_property_equip.set(166, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.44, 0, 0, 0))
-lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0, 0))
 lib_property_equip.set(169, createProperty_equip(4, 4, 0, 0, 0, 0.48, 0, 0, 0, 0))
 lib_property_equip.set(165, createProperty_equip(8, 14, 0, 0, 0, 0.25, 0, 0, 0, 0))
 lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0)) // mg4
@@ -732,6 +751,7 @@ lib_property_equip.set(3185, createProperty_equip(8, -3, 0, 0, 0, 0, 0, 6, 0, 0)
 lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0, 0)) // mosin
 lib_property_equip.set(31044, createProperty_equip(6, 0, 0, 0, 0, 0, 0.25, 0, 0, 0)) // sv98 mod
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0))
+lib_property_equip.set(31065, createProperty_equip(0, 0, 20, 0, 0, 0, 0.1, 0, 0, 0)) // HK416 MOD
 lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0)) // m1918
 lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 0)) // IDW mod
 lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 9a91

@@ -734,8 +734,15 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (is_this(stand_num, 1060) && Set_Special.get('asval_' + stand_num) > current_time) { // 小熊信念发动
             next_must_acu = true
           }
-          if (next_must_acu || (Math.random() <= base_acu / (base_acu + enemy_eva))) {
-            var base_dmg = current_Info.get('dmg')
+          if (next_must_acu || (Math.random() <= base_acu / (base_acu + enemy_eva))) { // 命中
+            var base_dmg = current_Info.get('dmg') // 基础火力——————————————————————————————————————————————————————————————————————————————————————————————————————————
+            if (is_this(stand_num, 272)) { // 沙鹰：威慑印记
+              if (Set_Special.get('DE_active_' + stand_num) != undefined && Set_Special.get('DE_active_' + stand_num) > 0) {
+                Set_Special.set('DE_active_' + stand_num, Set_Special.get('DE_active_' + stand_num) - 1)
+               // base_dmg *= Math.pow(2.6, 3 - Set_Special.get('DE_active_' + stand_num))
+              base_dmg *= 2.6
+              }
+            }
             if (is_this(stand_num, 59)) { // AK-74U 排斥反应
               if (Set_Special.get('aks' + stand_num) >= current_time) {
                 Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
@@ -1688,6 +1695,10 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   else if (skillname === 'ads') {
     Set_Special.set('ADS_active', current_time + 150)
     Set_Special.set('ADS_buff', Set_Special.get('ADS_buff') + 5)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'de') {
+    Set_Special.set('DE_active_' + stand_num, 3)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   // debug mode
