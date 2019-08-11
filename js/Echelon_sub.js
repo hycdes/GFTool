@@ -66,7 +66,8 @@ function rof_to_frame (num_tn, rof, ID) {
   } else if (str_tn === 'mg') {
     if (ID === 77 || ID === 85 || ID === 109 || ID === 173) { // 连珠终结、暴动宣告
       shootframe = 11
-    }else shootframe = 10
+    }
+    else shootframe = 10
   } else if (str_tn === 'sg') {
     if (base_rof >= 60) shootframe = 25
     else if (base_rof <= 15) shootframe = 100
@@ -434,6 +435,16 @@ function init_loadPrepareStatus () { // 初始化战前属性
         Set_Special.set('chauchat_nextreload_' + i, 0)
       } else if (is_this(i, 270)) { // 四式死线一击层数
         Set_Special.set('type4_' + i, 0)
+      } else if (is_this(i, 276)) {
+        if (document.getElementById('special_kord_' + i + '_0').checked) {
+          Set_Special.set('kord_' + i, 'type_p')
+          changeStatus(i, 'self', 'dmg', -0.3, -1)
+          changeStatus(i, 'self', 'ap', -0.5, -1)
+        } else {
+          Set_Special.set('kord_' + i, 'type_a')
+          changeStatus(i, 'self', 'dmg', 0.2, -1)
+          changeStatus(i, 'self', 'acu', 0.2, -1)
+        }
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         Set_Special.set('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动

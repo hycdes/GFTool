@@ -324,7 +324,7 @@ lib_affect.set(272, createAffect('r/rr/d/rd/dd/', 'all', ['dmg', 'crit'], [0.3, 
 lib_affect.set(273, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // SSG3000
 lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65])) // SSG3000
 lib_affect.set(275, createAffect('rr/rrd/', 'mg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
-lib_affect.set(275, createAffect('rr/rru/', 'mg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
+lib_affect.set(276, createAffect('rr/rru/', 'mg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -641,8 +641,8 @@ lib_property.set(270, createProperty(112, 74, 37, 39, 0, 420, 0.4, -1)) // 四�
 lib_property.set(272, createProperty(41, 57, 66, 55, 0, 365, 0.4, -1)) // desert eagle
 lib_property.set(273, createProperty(126, 77, 30, 37, 0, 440, 0.4, -1)) // SSG3000
 lib_property.set(274, createProperty(54, 54, 48, 77, 0, 580, 0.3, -1)) // ACR
-lib_property.set(275, createProperty(90, 26, 23, 131, 0, 950, 0.05, -1)) // M1895 CB
-lib_property.set(276, createProperty(109, 22, 21, 110, 0, 990, 0.05, -1)) // kord
+lib_property.set(275, createProperty(90, 26, 23, 131, 0, 950, 0.05, 10)) // M1895 CB
+lib_property.set(276, createProperty(109, 22, 21, 110, 0, 990, 0.05, 9)) // kord
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
@@ -820,6 +820,7 @@ lib_special_info.set(261, lib_language.special_info_common) // 88-rf
 lib_special_info.set(266, lib_language.special_info_common) // r93
 lib_special_info.set(269, lib_language.special_info_common) // P30
 lib_special_info.set(270, lib_language.special_info_common) // 四式
+lib_special_info.set(276, lib_language.special_info_common) // kord
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4
 lib_special_info.set(2006, lib_language.special_info_common) // theresa

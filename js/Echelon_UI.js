@@ -809,6 +809,7 @@ function addTdoll () { // 添加战术人形
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' C-MS</h4>'
       str_html += '<h5>[' + lib_language.skillNAME_213 + '] ' + lib_language.DESCRIBE_213_0 + '</h5>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> ' + lib_language.DESCRIBE_213_1 + '</span></label></p>'
+
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_213_2 + '</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_3"><span style="color:orange"> ' + lib_language.DESCRIBE_213_3 + '</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
@@ -892,6 +893,14 @@ function addTdoll () { // 添加战术人形
       str_html += '<input class="form-control input-sm" placeholder="0~100" id="special_ads" onblur=inputCheck_qbu88('
       str_html += '"special_ads"'
       str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
+    else if (ID === 276) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' Kord</h4>'
+      str_html += '<p>[' + lib_language.skillNAME_276 + '] <label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '" id="special_kord_' + (num_pickblock - 1) + '_0" checked><span style="color:dodgerblue"> ' + lib_language.DESCRIBE_276_0 + '</span></label>'
+      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '" id="special_kord_' + (num_pickblock - 1) + '_1"><span style="color:red"> ' + lib_language.DESCRIBE_276_1 + '</span></label>'
+      str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 2013) {

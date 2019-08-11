@@ -739,8 +739,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             if (is_this(stand_num, 272)) { // 沙鹰：威慑印记
               if (Set_Special.get('DE_active_' + stand_num) != undefined && Set_Special.get('DE_active_' + stand_num) > 0) {
                 Set_Special.set('DE_active_' + stand_num, Set_Special.get('DE_active_' + stand_num) - 1)
-               // base_dmg *= Math.pow(2.6, 3 - Set_Special.get('DE_active_' + stand_num))
-              base_dmg *= 2.6
+                // base_dmg *= Math.pow(2.6, 3 - Set_Special.get('DE_active_' + stand_num))
+                base_dmg *= 2.6
               }
             }
             if (is_this(stand_num, 59)) { // AK-74U 排斥反应
@@ -799,6 +799,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               base_dmg *= 1.8
             }
             var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
+            if (is_this(stand_num, 276)) { // Kord贯穿射击
+              if (Set_Special.get('kord_' + stand_num) === 'type_p') final_dmg *= enemy_num_left
+            }
             if (is_this(stand_num, 2015)) { // Alma无人机
               if (Set_Special.get('alma_' + stand_num) >= current_time) {
                 var pod_dmg = base_dmg * 0.4
@@ -981,9 +984,11 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           recordData(stand_num, current_time, mors_dmg)
           Set_Special.set('karm9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+        } else {
+          s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
         }
-        else s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
-      } else { // MG和SG扣除子弹
+      // ——————————————————————————————————————MG和SG扣除子弹——————————————————————————————————————
+      } else {
         var cs = Set_Special.get('clipsize_' + stand_num)
         var extra_shoot_pkp = false
         cs--
@@ -1078,7 +1083,12 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             Set_Special.set('pkp_nextcrit_' + stand_num, true)
             s_t[1] = 0
           }
-          else s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+          if (is_this(stand_num, 276)) { // kord射速单独判断
+            if (Set_Special.get('kord_' + stand_num) === 'type_p') s_t[1] = 9
+            else s_t[1] = 10
+          } else {
+            s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+          }
           Set_Special.set('clipsize_' + stand_num, cs)
         }
       }
@@ -2463,7 +2473,7 @@ function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减
       damage_aoe_overdbk *= Math.pow(1.1, Set_Special.get('BGM_buff_deependmg'))
       damage_main = Math.max(1, Math.ceil(damage_main * (Math.random() * 0.3 + 0.85) + Math.min(2, 400 - target_arm)))
       damage_aoe = Math.max(1, Math.ceil(damage_aoe * (Math.random() * 0.3 + 0.85) + Math.min(2, 400 - target_arm)))
-      if (Set_Special.get('BGM_buff_deependmg') < 5) Set_Special.set('BGM_buff_deependmg', Set_Special.get('BGM_buff_deependmg') + 1) // 猎杀趣味层数叠加
+      if (Set_Special.get('BGM_buff_deependmg') < 5) Set_Special.set('BGM_buff_deependmg', Set_Special.get('BGM_buff_deependmg') + 1) // ��杀趣味层数叠加
     } else {
       damage_main = 0; damage_aoe = 0
       damage_main_overdbk = 0; damage_aoe_overdbk = 0

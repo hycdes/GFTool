@@ -1015,6 +1015,7 @@ lib_skill.set(263, [
   createSkill(8, 18, 6, lib_describe.get('dmg_55')),
   createSkill(8, 18, 0, lib_describe.get('mg36'))
 ])
+lib_skill.set(276, []) // Kord
 lib_skill.set(1075, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))]) // m1918 mod
 
 lib_skill.set(75, [createSkill(8, 18, 6, lib_describe.get('dmg_70'))]) // m1918
