@@ -1082,8 +1082,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           if (extra_shoot_pkp) {
             Set_Special.set('pkp_nextcrit_' + stand_num, true)
             s_t[1] = 0
-          }
-          if (is_this(stand_num, 276)) { // kord射速单独判断
+          } else if (is_this(stand_num, 276)) { // kord射速单独判断
             if (Set_Special.get('kord_' + stand_num) === 'type_p') s_t[1] = 9
             else s_t[1] = 10
           } else {
