@@ -629,6 +629,9 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
 
         // 计算BUFF——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
 
+        if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) === undefined) { // 暴动宣告初始化
+          Set_Special.set('pkp_nextcrit_' + stand_num, 'ready')
+        }
         if (is_this(stand_num, 194)) { // K2热力过载
           if (Set_Special.get('k2_temp_' + stand_num) > 15) base_acu *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // 过热减命中
           if (Set_Special.get('k2_' + stand_num) === 'fever') {
@@ -866,8 +869,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
                   Set_Special.set('stella_buff', false)
                 }
               }
-              if (Set_Special.get('pkp_nextcrit_' + stand_num) === true && is_this(stand_num, 173)) { // 暴动宣告的1.5倍且必暴子弹，实为1.5倍伤害
-                Set_Special.set('pkp_nextcrit_' + stand_num, false)
+              if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) === 'extra') { // 暴动宣告的1.5倍且必暴子弹，实为1.5倍伤害
+                Set_Special.set('pkp_nextcrit_' + stand_num, 'over')
                 final_crit *= 1.5
               }
               final_dmg = Math.ceil(final_dmg * final_crit)
@@ -992,10 +995,14 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         var cs = Set_Special.get('clipsize_' + stand_num)
         var extra_shoot_pkp = false
         cs--
-        if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) != true) { // PKP暴动宣告
-          if (Math.random() <= 0.2) {
+        if (is_this(stand_num, 173)) { // PKP暴动宣告相关处理
+          if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'ready' && Math.random() <= 0.2) {
             cs++
             extra_shoot_pkp = true
+            Set_Special.set('pkp_nextcrit_' + stand_num, 'extra')
+          }
+          if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'over') {
+            Set_Special.set('pkp_nextcrit_' + stand_num, 'ready')
           }
         }
         if (cs === 0) { // 需要换弹
@@ -1080,7 +1087,6 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
           }
         } else {
           if (extra_shoot_pkp) {
-            Set_Special.set('pkp_nextcrit_' + stand_num, true)
             s_t[1] = 0
           } else if (is_this(stand_num, 276)) { // kord射速单独判断
             if (Set_Special.get('kord_' + stand_num) === 'type_p') s_t[1] = 9
