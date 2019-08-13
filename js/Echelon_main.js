@@ -801,7 +801,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             if (is_this(stand_num, 2016)) { // 达娜：1.8倍基础攻击
               base_dmg *= 1.8
             }
-            var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
+            var final_dmg=cal_damage('normal',base_dmg,current_Info.get('ap'),enemy_arm)
+            //var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
             if (is_this(stand_num, 276)) { // Kord贯穿射击
               if (Set_Special.get('kord_' + stand_num) === 'type_p') final_dmg *= enemy_num_left
             }
