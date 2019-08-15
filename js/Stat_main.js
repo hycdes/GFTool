@@ -2,7 +2,7 @@ var info_update = '2019/06/23'
 var num_ref = 2000, num_relia = 10000
 
 // function
-function num_split (num) {
+function num_split(num) {
   var str = num + '', str_new = ''
   var len = str.length, num_sp = Math.ceil(len / 3), num_bios = len - 3 * num_sp
   for (var i = 0; i < len; i++) {
@@ -11,7 +11,7 @@ function num_split (num) {
   }
   return str_new
 }
-function showAlert () {
+function showAlert() {
   if (is_alert) {
     document.getElementById('info_alert').innerHTML = ''
     document.getElementById('btn_alert').className = 'btn btn-warning'
@@ -35,7 +35,7 @@ function showAlert () {
   }
   is_alert = !is_alert
 }
-function get_card (id, data_entry) {
+function get_card(id, data_entry) {
   var info = ''
   info += '回合 ' + data_entry[0]
   info += ' / ' + data_entry[1] + '战'
@@ -44,11 +44,11 @@ function get_card (id, data_entry) {
   info += ' / ' + '判定' + data_entry[3]
   document.getElementById(id).innerHTML = info
 }
-function get_cards (list_id, list_data) {
+function get_cards(list_id, list_data) {
   var len = list_id.length
   for (var i = 0; i < len; i++) get_card(list_id[i], list_data[i])
 }
-function fill_table (stat, fairy_status, table, data, num_total) {
+function fill_table(stat, fairy_status, table, data, num_total) {
   var cores = 0
   var info = '', stat_info = ''
   for (var entry of data) {
@@ -78,7 +78,7 @@ function fill_table (stat, fairy_status, table, data, num_total) {
   document.getElementById(stat).innerHTML = stat_info
   document.getElementById(table).innerHTML = info
 }
-function fill_drag (dragID, stat_data, num_card) {
+function fill_drag(dragID, stat_data, num_card) {
   for (var n_map = 0; n_map < num_card; n_map++) {
     for (var i = 0; i < 4; i++) {
       var str_info = ''
@@ -93,8 +93,8 @@ function fill_drag (dragID, stat_data, num_card) {
     }
   }
 }
-function fill_drag_normal (dragID, stat_data) {
-  var str = '',str_star1 = '',str_star2 = ''
+function fill_drag_normal(dragID, stat_data) {
+  var str = '', str_star1 = '', str_star2 = ''
   for (var entry of stat_data) {
     str += '<tr>'
     str += '<td>' + entry[0] + '</td>'
@@ -115,7 +115,7 @@ function fill_drag_normal (dragID, stat_data) {
   }
   document.getElementById(dragID).innerHTML = str
 }
-function fill_supporter (list_supporter, body_id) {
+function fill_supporter(list_supporter, body_id) {
   var num = list_supporter.length, group = Math.ceil(num / 5), count = 0
   var str = ''
   for (var i = 0; i < group; i++) {
@@ -130,7 +130,7 @@ function fill_supporter (list_supporter, body_id) {
   }
   document.getElementById(body_id).innerHTML = str
 }
-function find_in_data (name, list_data) {
+function find_in_data(name, list_data) {
   var sum = 0
   for (var data of list_data) {
     for (var entry of data) {
@@ -142,7 +142,7 @@ function find_in_data (name, list_data) {
   }
   return sum
 }
-function mergeCell (table1, startRow, endRow, col) {
+function mergeCell(table1, startRow, endRow, col) {
   var tb = document.getElementById(table1)
   if (!tb || !tb.rows || tb.rows.length <= 0) return
   if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
@@ -152,13 +152,13 @@ function mergeCell (table1, startRow, endRow, col) {
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
   }
 }
-function deduplicateTable (tableID, data_drag, is_from_thead) {
+function deduplicateTable(tableID, data_drag, is_from_thead) {
   var len_data = data_drag.length
   var set_pair = [], temp_pair = []
   var i = 0, j = 1
   var bios = 0
   if (is_from_thead) bios = 1
-  while(j < len_data){
+  while (j < len_data) {
     if (data_drag[i][2] === data_drag[j][2]) {
       temp_pair = [i + bios, j + bios]
       j++
@@ -174,7 +174,7 @@ function deduplicateTable (tableID, data_drag, is_from_thead) {
   var len_dedup = set_pair.length
   for (var d = len_dedup - 1; d >= 0; d--) mergeCell(tableID, set_pair[d][0], set_pair[d][1], 1)
 }
-function sort_bardata (bar_data, bar_name, three_char_command) {
+function sort_bardata(bar_data, bar_name, three_char_command) {
   var sort_style = 1, len = bar_data.length
   var temp_pair, bar_name_new = []
   if (three_char_command === 'asc') sort_style = -1
@@ -194,7 +194,7 @@ function sort_bardata (bar_data, bar_name, three_char_command) {
     bar_name[i][1] = bar_name_new[i][1]
   }
 }
-function load_stat_bar (bar_data, y_max) {
+function load_stat_bar(bar_data, y_max) {
   var count = 0
   var str_name = ''
   for (var entry of str_current_statname) {
@@ -222,7 +222,7 @@ function load_stat_bar (bar_data, y_max) {
   sort_bardata(bar_data, bar_name, 'dsc')
   return [count, y_max]
 }
-function loadScript (url) {
+function loadScript(url) {
   var script = document.createElement('script')
   script.type = 'text/javascript'
   script.src = url
@@ -245,80 +245,80 @@ var data_map = {
   m02: [2, 5, true, 5]
 }
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2],
-    [3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
-    [3, 'OTs-12', 9], [3, 'StG44', 10],
-    [3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 6],
-    [3, 'M1 Garand', 8], [3, 'SV-98', 10],
-    [3, 'Bren', 10], [3, 'M1919A4', 7]],
+[3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
+[3, 'OTs-12', 9], [3, 'StG44', 10],
+[3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 6],
+[3, 'M1 Garand', 8], [3, 'SV-98', 10],
+[3, 'Bren', 10], [3, 'M1919A4', 7]],
   num_116true = 56
 
 var data_116false = [[4, 'Mk46', 2],
-    [3, 'M9', 9], [3, 'P08', 3], [3, 'Type 92', 3], [3, 'Tokarev', 7],
-    [3, 'OTs-12', 8], [3, 'StG44', 2],
-    [3, 'PPS-43', 2], [3, 'Sten MkII', 4],
-    [3, 'SV-98', 2], [3, 'M1 Garand', 5],
-    [3, 'Bren', 4], [3, 'M1919A4', 1]],
+[3, 'M9', 9], [3, 'P08', 3], [3, 'Type 92', 3], [3, 'Tokarev', 7],
+[3, 'OTs-12', 8], [3, 'StG44', 2],
+[3, 'PPS-43', 2], [3, 'Sten MkII', 4],
+[3, 'SV-98', 2], [3, 'M1 Garand', 5],
+[3, 'Bren', 4], [3, 'M1919A4', 1]],
   num_116false = 37
 
 var data_104e4true = [
-    [4, 'PP-90', 1],
-    [3, 'M9', 3], [3, 'Makarov', 1],
-    [3, 'AK-47', 2], [3, 'FNC', 1],
-    [3, 'M14', 3],
-    [3, 'M2HB', 1], [3, 'MG42', 1]
-  ],
+  [4, 'PP-90', 1],
+  [3, 'M9', 3], [3, 'Makarov', 1],
+  [3, 'AK-47', 2], [3, 'FNC', 1],
+  [3, 'M14', 3],
+  [3, 'M2HB', 1], [3, 'MG42', 1]
+],
   num_104e4true = 15
 
 var data_104e4false = [
-    [4, 'Mk23', 2], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
-    [3, 'Astra Revolver', 4], [3, 'C96', 9], [3, 'M9', 3], [3, 'Makarov', 6],
-    [3, 'AK-47', 5], [3, 'FNC', 6],
-    [3, 'MAC-10', 4], [3, 'Micro UZI', 3], [3, 'Skorpion', 2],
-    [3, 'M14', 2],
-    [3, 'M2HB', 4], [3, 'MG42', 4]],
+  [4, 'Mk23', 2], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
+  [3, 'Astra Revolver', 4], [3, 'C96', 9], [3, 'M9', 3], [3, 'Makarov', 6],
+  [3, 'AK-47', 5], [3, 'FNC', 6],
+  [3, 'MAC-10', 4], [3, 'Micro UZI', 3], [3, 'Skorpion', 2],
+  [3, 'M14', 2],
+  [3, 'M2HB', 4], [3, 'MG42', 4]],
   num_104e4false = 119
 
 var data_104e5true = [[5, 'SR-3MP', 3], // 搜救五战
-    [4, 'Mk23', 5], [4, 'AS Val', 5], [4, 'PP-90', 4], [4, 'XM3', 17], [4, 'M60', 2],
-    [3, 'Astra Revolver', 25], [3, 'C96', 44], [3, 'M9', 27], [3, 'Makarov', 30],
-    [3, 'AK-47', 26], [3, 'FNC', 28],
-    [3, 'MAC-10', 38], [3, 'Micro UZI', 35], [3, 'Skorpion', 28],
-    [3, 'M14', 31],
-    [3, 'M2HB', 31], [3, 'MG42', 26]],
+[4, 'Mk23', 5], [4, 'AS Val', 5], [4, 'PP-90', 4], [4, 'XM3', 17], [4, 'M60', 2],
+[3, 'Astra Revolver', 25], [3, 'C96', 44], [3, 'M9', 27], [3, 'Makarov', 30],
+[3, 'AK-47', 26], [3, 'FNC', 28],
+[3, 'MAC-10', 38], [3, 'Micro UZI', 35], [3, 'Skorpion', 28],
+[3, 'M14', 31],
+[3, 'M2HB', 31], [3, 'MG42', 26]],
   num_104e5true = 422
 
 var data_104e5false = [[5, 'SR-3MP', 1],
-    [4, 'Mk23', 2], [4, 'PP-90', 1], [4, 'XM3', 4],
-    [3, 'Astra Revolver', 8], [3, 'C96', 15], [3, 'M9', 10], [3, 'Makarov', 14],
-    [3, 'AK-47', 15], [3, 'FNC', 9],
-    [3, 'MAC-10', 9], [3, 'Micro UZI', 9], [3, 'Skorpion', 10],
-    [3, 'M14', 7],
-    [3, 'M2HB', 8], [3, 'MG42', 15]],
+[4, 'Mk23', 2], [4, 'PP-90', 1], [4, 'XM3', 4],
+[3, 'Astra Revolver', 8], [3, 'C96', 15], [3, 'M9', 10], [3, 'Makarov', 14],
+[3, 'AK-47', 15], [3, 'FNC', 9],
+[3, 'MAC-10', 9], [3, 'Micro UZI', 9], [3, 'Skorpion', 10],
+[3, 'M14', 7],
+[3, 'M2HB', 8], [3, 'MG42', 15]],
   num_104e5false = 210
 
 var data_104e6false = [[5, 'SR-3MP', 34],
-    [4, 'Mk23', 39], [4, 'AS Val', 32], [4, 'PP-90', 33], [4, 'XM3', 107], [4, 'M60', 31],
-    [3, 'Astra Revolver', 306], [3, 'C96', 345], [3, 'M9', 370], [3, 'Makarov', 305],
-    [3, 'AK-47', 283], [3, 'FNC', 291],
-    [3, 'MAC-10', 266], [3, 'Micro UZI', 298], [3, 'Skorpion', 297],
-    [3, 'M14', 299],
-    [3, 'M2HB', 305], [3, 'MG42', 292]],
+[4, 'Mk23', 39], [4, 'AS Val', 32], [4, 'PP-90', 33], [4, 'XM3', 107], [4, 'M60', 31],
+[3, 'Astra Revolver', 306], [3, 'C96', 345], [3, 'M9', 370], [3, 'Makarov', 305],
+[3, 'AK-47', 283], [3, 'FNC', 291],
+[3, 'MAC-10', 266], [3, 'Micro UZI', 298], [3, 'Skorpion', 297],
+[3, 'M14', 299],
+[3, 'M2HB', 305], [3, 'MG42', 292]],
   num_104e6false = 4921
 
 var data_104e7true = [[5, 'SR-3MP', 6],
-    [4, 'Mk23', 8], [4, 'AS Val', 7], [4, 'PP-90', 9], [4, 'XM3', 10], [4, 'XM3', 21], [4, 'M60', 9],
-    [3, 'Astra Revolver', 58], [3, 'C96', 88], [3, 'M9', 110], [3, 'Makarov', 64],
-    [3, 'AK-47', 72], [3, 'FNC', 76],
-    [3, 'MAC-10', 65], [3, 'Micro UZI', 79], [3, 'Skorpion', 84],
-    [3, 'M14', 73],
-    [3, 'M2HB', 81], [3, 'MG42', 74]],
+[4, 'Mk23', 8], [4, 'AS Val', 7], [4, 'PP-90', 9], [4, 'XM3', 10], [4, 'XM3', 21], [4, 'M60', 9],
+[3, 'Astra Revolver', 58], [3, 'C96', 88], [3, 'M9', 110], [3, 'Makarov', 64],
+[3, 'AK-47', 72], [3, 'FNC', 76],
+[3, 'MAC-10', 65], [3, 'Micro UZI', 79], [3, 'Skorpion', 84],
+[3, 'M14', 73],
+[3, 'M2HB', 81], [3, 'MG42', 74]],
   num_104e7true = 938
 
 var data_104e7false = [[5, 'SR-3MP', 1],
-    [3, 'C96', 2], [3, 'Makarov', 2],
-    [3, 'AK-47', 2], [3, 'FNC', 2],
-    [3, 'MAC-10', 4], [3, 'Micro UZI', 2],
-    [3, 'M2HB', 4], [3, 'MG42', 1]],
+[3, 'C96', 2], [3, 'Makarov', 2],
+[3, 'AK-47', 2], [3, 'FNC', 2],
+[3, 'MAC-10', 4], [3, 'Micro UZI', 2],
+[3, 'M2HB', 4], [3, 'MG42', 1]],
   num_104e7false = 26
 
 var data_115true = [
@@ -327,11 +327,11 @@ var data_115true = [
   [3, 'M2HB', 1]]
 
 var data_115false = [[4, 'P7', 10], [4, '9A-91', 2], [4, 'PP-90', 1], [4, 'PK', 2],
-    [3, 'Astra Revolver', 64], [3, 'C96', 74], [3, 'M9', 73], [3, 'Makarov', 83],
-    [3, 'AK-47', 73], [3, 'FNC', 72],
-    [3, 'MAC-10', 62], [3, 'Micro UZI', 63], [3, 'Skorpion', 62],
-    [3, 'M14', 73],
-    [3, 'M2HB', 68], [3, 'MG42', 69]],
+[3, 'Astra Revolver', 64], [3, 'C96', 74], [3, 'M9', 73], [3, 'Makarov', 83],
+[3, 'AK-47', 73], [3, 'FNC', 72],
+[3, 'MAC-10', 62], [3, 'Micro UZI', 63], [3, 'Skorpion', 62],
+[3, 'M14', 73],
+[3, 'M2HB', 68], [3, 'MG42', 69]],
   num_115false = 2290
 
 var data_drag1 = [ // 5月4日打捞
@@ -350,23 +350,34 @@ var data_dragva11 = [ // 酒保联动打捞
   [[15, 2766], [51, 13418], [2, 453], [2, 78]],
   [[10, 1395], [22, 4366], [4, 570], [2, 123]]
 ]
+var data_dragsc = [ // shattered connexion
+  [[0, 0], [0, 0], [0, 0], [0, 0]],   // Cx4 Storm
+  [[0, 0], [0, 0], [0, 0], [0, 0]],   // A-91
+  [[0, 0], [0, 0], [0, 0], [1, 14]],   // M870
+  [[0, 0], [0, 0], [1, 58], [0, 0]],   // SSG3000
+  [[0, 0], [0, 0], [0, 0], [0, 0]],   // AK-74U
+  [[0, 0], [0, 0], [0, 0], [0, 0]],   // M82A1
+  [[0, 0], [0, 0], [0, 0], [0, 0]],   // R93
+  [[0, 0], [0, 0], [0, 0], [1, 160]],   // JS 9
+  [[0, 0], [1, 174], [1, 183], [0, 0]]    // Kord
+]
 
 var list_supporter_1 = [
-    '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
-    '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
-    'cookiesiclink', 'Airnors', 'Scottdoha'
-  ],
+  '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
+  '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
+  'cookiesiclink', 'Airnors', 'Scottdoha'
+],
   list_supporter_2 = [
-    '哒酱', '门对千竿竹' , '莉莉丝爱你哦' , 'Flonne' , 'mrduck' ,
-    '小林', '永遠のマカク焼酎' , '阿斯托尔福' , '碧蓝如海的天际' , '菠萝小蜜橙',
-    '田村吼姆拉', '无言寂心', 'Miyasizu' , '钢板天下第一' , '岭南弄潮儿' ,
-    'Scottdoha', 'Mapleaf' , '初雪' , 'ViveLaFrance' , '净化者先锋突击队',
+    '哒酱', '门对千竿竹', '莉莉丝爱你哦', 'Flonne', 'mrduck',
+    '小林', '永遠のマカク焼酎', '阿斯托尔福', '碧蓝如海的天际', '菠萝小蜜橙',
+    '田村吼姆拉', '无言寂心', 'Miyasizu', '钢板天下第一', '岭南弄潮儿',
+    'Scottdoha', 'Mapleaf', '初雪', 'ViveLaFrance', '净化者先锋突击队',
     'ZeroR', '无限拥抱', 'E同学提不起劲', 'Remの微笑', '绮夜',
-    '煭洛凝瀧', '铭1989', 'Ayaya', '这年代黑暗', 'FangZero' ,
-    '龙游浅滩', '山小珊' , '1', '不愿意匿名的45老公', 'KsZ_本居小铃',
+    '煭洛凝瀧', '铭1989', 'Ayaya', '这年代黑暗', 'FangZero',
+    '龙游浅滩', '山小珊', '1', '不愿意匿名的45老公', 'KsZ_本居小铃',
     'Amuletloli', '无问西东', '吉野晴彦', '凤凰', 'marciy',
     '世间可有两全法', '挽筝', '北梦', '孜然', '全家福',
-    '雨上がり', '一罐皮卡丘', 'KON花火', '一名路过的群众', '茂茂' ,
+    '雨上がり', '一罐皮卡丘', 'KON花火', '一名路过的群众', '茂茂',
     '命运の乐章', '没法玩了', '飘帆', '界儿', 'Airnors', 'Gaberae',
     'GoTheK', 'WHJ', '我永远喜欢芙兰', 'Glimmer', '你可真是个小机灵鬼',
     'M4A1', '嗷，是黎妄哒', '极暗君', '开心枪场', '风柒',
@@ -375,8 +386,8 @@ var list_supporter_1 = [
     '玄煞', '蓝光剑士', '时时时茶', '停云', '忘记过去',
     'WASHERxxxx', '笑了岂乐', '烈阳余晖', '霜流', 'Mo',
     '3SVS3', '喵', 'YingYingYing', '丶桜洛', '没发玩了',
-    '一的零次方'
-]
+    '一的零次方', '北原和纱', 'shyacz'
+  ]
 
 var data_drag_normal = [
   ['1-4E', 3, 'Glock 17 <span style="color:black">[Ch.1 only]</span>', 0, 0, 3, 151],
@@ -422,8 +433,8 @@ var list_card = ['card_116', 'card_116_2', 'card_115', 'card_115_2',
   'card_104e7', 'card_104e7_2', 'card_104e6_2', 'card_104e5', 'card_104e5_2', 'card_104e4', 'card_104e4_2',
   'card_02']
 var list_data_card = [data_map.m116, data_map.m116, data_map.m115, data_map.m115,
-  data_map.m104e7, data_map.m104e7, data_map.m104e6, data_map.m104e5, data_map.m104e5, data_map.m104e4, data_map.m104e4,
-  data_map.m02]
+data_map.m104e7, data_map.m104e7, data_map.m104e6, data_map.m104e5, data_map.m104e5, data_map.m104e4, data_map.m104e4,
+data_map.m02]
 
 window.onload = function () {
   // drag
@@ -435,6 +446,16 @@ window.onload = function () {
   mergeCell('table_drag1', 0, 1, 0)
   fill_drag('drag1', data_drag1, 6)
   // mergeCell()
+  mergeCell('table_dragsc', 16, 17, 0)
+  mergeCell('table_dragsc', 14, 15, 0)
+  mergeCell('table_dragsc', 12, 13, 0)
+  mergeCell('table_dragsc', 10, 11, 0)
+  mergeCell('table_dragsc', 8, 9, 0)
+  mergeCell('table_dragsc', 6, 7, 0)
+  mergeCell('table_dragsc', 4, 5, 0)
+  mergeCell('table_dragsc', 2, 3, 0)
+  mergeCell('table_dragsc', 0, 1, 0)
+  fill_drag('dragsc', data_dragsc, 9)
   mergeCell('table_dragva11', 10, 11, 0)
   mergeCell('table_dragva11', 8, 9, 0)
   mergeCell('table_dragva11', 6, 7, 0)

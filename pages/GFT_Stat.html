@@ -49,7 +49,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF
+                    tools)</a>
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -70,7 +71,8 @@
                         <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
                         <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
                         <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
-                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
+                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a>
+                        </li>
                         <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp掉落统计</a></li>
                         <li><a href="GFT_Class.html"><i class="fa fa-search"></i> &nbsp格里芬人事部</a></li>
                     </ul>
@@ -91,7 +93,8 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">核心统计</div>
                             <div class="panel-body">
-                                <h5>核心掉率(百分比取整)，显示战斗数多于<span style="color:darkorange" id="text_validnum"></span>的结果，单位：个数 / <b><span style="color:blue">战斗</span></b></h5>
+                                <h5>核心掉率(百分比取整)，显示战斗数多于<span style="color:darkorange" id="text_validnum"></span>的结果，单位：个数 / <b><span style="color:blue">战斗</span></b>
+                                </h5>
                                 <div id="placeholder" style="height:300px"></div>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
@@ -441,6 +444,9 @@
                                 <h5>单位：个数 / <b><span style="color:red">判定</span></b></h5>
                                 <ul class="nav nav-tabs">
                                     <li class="active">
+                                        <a href="#drag_sc" data-toggle="tab">裂变链接</a>
+                                    </li>
+                                    <li>
                                         <a href="#drag_va11" data-toggle="tab">酒保行动联动</a>
                                     </li>
                                     <li>
@@ -456,7 +462,136 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <h4></h4>
-                                    <div class="tab-pane fade in active" id="drag_va11">
+                                    <div class="tab-pane fade in active" id="drag_sc">
+                                        <h5></h5>
+                                        <table class="table table_mid table-bordered table-hover">
+                                            <thead>
+                                                <th style="width:30%;text-align:center">打捞人形</th>
+                                                <th style="width:20%;text-align:center">地点</th>
+                                                <th style="width:25%;text-align:center">搜救Lv.10</th>
+                                                <th style="width:25%;text-align:center">无搜救</th>
+                                            </thead>
+                                            <tbody id="table_dragsc">
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:rgb(50, 250, 0)">★★★★ Cx4 Storm</span></td>
+                                                    <td>1-5</td>
+                                                    <td id="dragsc_1_1"></td>
+                                                    <td id="dragsc_1_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>1-5 EX</td>
+                                                    <td id="dragsc_1_3"></td>
+                                                    <td id="dragsc_1_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:rgb(50, 250, 0)">★★★★ A-91</span></td>
+                                                    <td>1-5</td>
+                                                    <td id="dragsc_2_1"></td>
+                                                    <td id="dragsc_2_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>1-5 EX</td>
+                                                    <td id="dragsc_2_3"></td>
+                                                    <td id="dragsc_2_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:darkorange">★★★★★ M870</span></td>
+                                                    <td>2-1</td>
+                                                    <td id="dragsc_3_1"></td>
+                                                    <td id="dragsc_3_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2-1 EX</td>
+                                                    <td id="dragsc_3_3"></td>
+                                                    <td id="dragsc_3_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:rgb(50, 250, 0)">★★★★ SSG3000</span></td>
+                                                    <td>2-1</td>
+                                                    <td id="dragsc_4_1"></td>
+                                                    <td id="dragsc_4_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2-1 EX</td>
+                                                    <td id="dragsc_4_3"></td>
+                                                    <td id="dragsc_4_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:darkorange">★★★★★ AK-74U</span></td>
+                                                    <td>2-2</td>
+                                                    <td id="dragsc_5_1"></td>
+                                                    <td id="dragsc_5_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2-2 EX</td>
+                                                    <td id="dragsc_5_3"></td>
+                                                    <td id="dragsc_5_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:darkorange">★★★★★ M82A1</span></td>
+                                                    <td>2-2</td>
+                                                    <td id="dragsc_6_1"></td>
+                                                    <td id="dragsc_6_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2-2 EX</td>
+                                                    <td id="dragsc_6_3"></td>
+                                                    <td id="dragsc_6_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:darkorange">★★★★★ R93</span></td>
+                                                    <td>2-3</td>
+                                                    <td id="dragsc_7_1"></td>
+                                                    <td id="dragsc_7_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2-3 EX</td>
+                                                    <td id="dragsc_7_3"></td>
+                                                    <td id="dragsc_7_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:darkorange">★★★★★ JS 9</span></td>
+                                                    <td>2-3</td>
+                                                    <td id="dragsc_8_1"></td>
+                                                    <td id="dragsc_8_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2-3 EX</td>
+                                                    <td id="dragsc_8_3"></td>
+                                                    <td id="dragsc_8_4"></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td style="vertical-align:middle"><span style="color:darkorange">★★★★★ Kord</span></td>
+                                                    <td>2-4</td>
+                                                    <td id="dragsc_9_1"></td>
+                                                    <td id="dragsc_9_2"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td>2-4 EX</td>
+                                                    <td id="dragsc_9_3"></td>
+                                                    <td id="dragsc_9_4"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="drag_va11">
                                         <h5></h5>
                                         <table class="table table_mid table-bordered table-hover">
                                             <thead>

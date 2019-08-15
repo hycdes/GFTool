@@ -1,7 +1,7 @@
-function cal_damage(){
-    var command=arguments['0']
-    if(command==='normal'){
-        var dmg=arguments['1'],ap=arguments['2'],arm=arguments['3']
+function cal_damage() {
+    var command = arguments['0']
+    if (command === 'normal') {
+        var dmg = arguments['1'], ap = arguments['2'], arm = arguments['3']
         return Math.max(1, Math.ceil(dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, ap - arm)))
     }
 }
