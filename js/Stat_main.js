@@ -351,15 +351,24 @@ var data_dragva11 = [ // 酒保联动打捞
   [[10, 1395], [22, 4366], [4, 570], [2, 123]]
 ]
 var data_dragsc = [ // shattered connexion
-  [[0, 0], [0, 0], [0, 0], [0, 0]],   // Cx4 Storm
-  [[0, 0], [0, 0], [0, 0], [0, 0]],   // A-91
-  [[0, 0], [0, 0], [0, 0], [1, 14]],   // M870
-  [[0, 0], [0, 0], [1, 58], [0, 0]],   // SSG3000
-  [[0, 0], [0, 0], [0, 0], [0, 0]],   // AK-74U
-  [[0, 0], [0, 0], [0, 0], [0, 0]],   // M82A1
-  [[0, 0], [0, 0], [0, 0], [0, 0]],   // R93
-  [[0, 0], [0, 0], [0, 0], [1, 160]],   // JS 9
-  [[0, 0], [1, 174], [1, 183], [0, 0]]    // Kord
+  [[1, 182], [0, 0], [1, 258], [0, 0]], // Cx4 Storm 1-5
+  [[0, 0], [0, 0], [0, 0], [0, 0]], // Cx4 Storm 3-2
+  [[1, 182], [0, 0], [1, 258], [0, 0]], // A-91 1-5
+  [[0, 0], [0, 0], [0, 0], [0, 0]], // A-91 3-2
+  [[0, 0], [4, 516], [2, 360], [4, 559]], // SSG3000 2-1
+  [[0, 0], [0, 0], [2, 250], [0, 0]], // SSG3000 3-1
+  [[0, 0], [5, 615], [1, 71], [3, 266]], // M870 2-1
+  [[0, 0], [0, 0], [1, 33], [0, 0]], // M870 3-6
+  [[0, 0], [2, 335], [1, 23], [0, 0]], // AK-74U 2-2
+  [[0, 0], [0, 0], [0, 0], [0, 0]], // AK-74U 3-6
+  [[0, 0], [1, 264], [1, 149], [2, 186]], // M82A1 2-1
+  [[0, 0], [0, 0], [0, 0], [0, 0]], // M82A1 4-2
+  [[0, 0], [1, 186], [0, 0], [1, 180]], // R93 2-3
+  [[0, 0], [0, 0], [0, 0], [0, 0]], // R93 4-3
+  [[0, 0], [1, 150], [1, 48], [2, 340]], // JS 9 2-3
+  [[0, 0], [0, 0], [0, 0], [0, 0]], // JS 9 4-4
+  [[0, 0], [3, 471], [6, 777], [3, 650]], // Kord 2-4
+  [[0, 0], [0, 0], [0, 0], [0, 0]] // Kord 4-5
 ]
 
 var list_supporter_1 = [
@@ -386,7 +395,9 @@ var list_supporter_1 = [
     '玄煞', '蓝光剑士', '时时时茶', '停云', '忘记过去',
     'WASHERxxxx', '笑了岂乐', '烈阳余晖', '霜流', 'Mo',
     '3SVS3', '喵', 'YingYingYing', '丶桜洛', '没发玩了',
-    '一的零次方', '北原和纱', 'shyacz'
+    '一的零次方', '北原和纱', 'shyacz', 'Eric F', 'UMP40',
+    '卡尔', '858512656', 'Misaka19009', '趴窝少女wa酱', 'Angevil',
+    '白首如新', '铃奈庵看板娘'
   ]
 
 var data_drag_normal = [
@@ -420,7 +431,8 @@ var data_drag_normal = [
 ]
 var data_drag_resident = [
   ['塌缩点-再点火4', 5, 'MP7', 2, 284, 0, 0],
-  ['塌缩点-冲程止点2', 4, 'Thunder', 0, 0, 1, 225]
+  ['塌缩点-冲程止点2', 4, 'Thunder', 0, 0, 1, 225],
+  ['塌缩点-弱子死局4', 5, 'EOT XPS3(HK416)', 0, 0, 1, 340]
 ]
 var str_current_statname = [
   'stat_116true', 'stat_116false',
@@ -446,16 +458,17 @@ window.onload = function () {
   mergeCell('table_drag1', 0, 1, 0)
   fill_drag('drag1', data_drag1, 6)
   // mergeCell()
-  mergeCell('table_dragsc', 16, 17, 0)
-  mergeCell('table_dragsc', 14, 15, 0)
-  mergeCell('table_dragsc', 12, 13, 0)
-  mergeCell('table_dragsc', 10, 11, 0)
-  mergeCell('table_dragsc', 8, 9, 0)
-  mergeCell('table_dragsc', 6, 7, 0)
-  mergeCell('table_dragsc', 4, 5, 0)
-  mergeCell('table_dragsc', 2, 3, 0)
-  mergeCell('table_dragsc', 0, 1, 0)
-  fill_drag('dragsc', data_dragsc, 9)
+  mergeCell('table_dragsc', 32, 35, 0)
+  mergeCell('table_dragsc', 28, 31, 0)
+  mergeCell('table_dragsc', 24, 27, 0)
+  mergeCell('table_dragsc', 20, 23, 0)
+  mergeCell('table_dragsc', 16, 19, 0)
+  mergeCell('table_dragsc', 12, 15, 0)
+  mergeCell('table_dragsc', 8, 11, 0)
+  mergeCell('table_dragsc', 4, 7, 0)
+  mergeCell('table_dragsc', 0, 3, 0)
+  fill_drag('dragsc', data_dragsc, 18)
+
   mergeCell('table_dragva11', 10, 11, 0)
   mergeCell('table_dragva11', 8, 9, 0)
   mergeCell('table_dragva11', 6, 7, 0)
