@@ -57,7 +57,7 @@ var gs_HF = [false, false, false, false, false]
 // special variations
 var not_init = false // 控制蟒蛇能够开始复读的开关
 
-function reset_unique () {
+function reset_unique() {
   Set_Special.set('can_add_python', true)
   Set_Special.set('can_add_carcanom1891', true)
   Set_Special.set('can_add_ads', true)
@@ -70,7 +70,7 @@ reset_unique()
 Set_Special.set('sunrise', 'day')
 
 // 计算影响格
-function getBlockAffect () {
+function getBlockAffect() {
   for (var i = 0; i < 9; i++) blockSet[i].clear()
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
@@ -117,7 +117,7 @@ function getBlockAffect () {
   }
 }
 
-function getResult (multiple, action) {
+function getResult(multiple, action) {
   Set_Data_Buffer.clear()
   Set_Data_HF_Buffer.clear()
   Set_Data_S_Buffer.clear()
@@ -266,11 +266,11 @@ function getResult (multiple, action) {
         Glabel_inj.set(i, temp_inj)
       }
     }
-  // // 嘲讽靶机数据记录
-  // if (fairy_no === 6 && document.getElementById('fairyskill_active').checked) {
-  //   if (y_max_suffer < 1600) y_max_suffer = 1600
-  //   eval('Glabel_name.set("fairy",lib_language.fairyNAME_' + fairy_no + '+" ")')
-  // }
+    // // 嘲讽靶机数据记录
+    // if (fairy_no === 6 && document.getElementById('fairyskill_active').checked) {
+    //   if (y_max_suffer < 1600) y_max_suffer = 1600
+    //   eval('Glabel_name.set("fairy",lib_language.fairyNAME_' + fairy_no + '+" ")')
+    // }
   }
   if (fairy_no > 0 && Set_Data.get(9)[Set_Data.get(9).length - 1][1] > 0) {
     var current_data = Set_Data.get(9)
@@ -296,7 +296,7 @@ function getResult (multiple, action) {
 }
 
 // MAIN, 攻击优先于所有
-function getDPS () {
+function getDPS() {
   var end_of_standby = false // 接敌时间控制器
   init_resetAllConfig() // 清空数据
   init_loadPrepareStatus() // 载入出战数据，包括(1)数据清空(2)出战属性 环境 和特殊设定(3)载入技能(4)开场第一层buff
@@ -426,7 +426,7 @@ function getDPS () {
 }
 
 // 处理所有技能，并更新所有状态
-function reactAllSkill (command, current_time) {
+function reactAllSkill(command, current_time) {
   if (command === 'standby') { // 等待接敌
     for (var [k, v] of Set_Skill) {
       for (var s_t of v) {
@@ -582,13 +582,13 @@ function reactAllSkill (command, current_time) {
         v.splice(s, 1) // 状态结束
         len_status = v.length; s-- // 检查下一个
       }
-    // -1则一直存在
+      // -1则一直存在
     }
   }
 }
 
 // 执行技能，包括重置冷却、产生效果，以及添加数据
-function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, createSkill (init_cld, cld, duration, Describe)
+function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, createSkill (init_cld, cld, duration, Describe)
   var skillname = (s_t[0].Describe).name // Describe -> name, special_paremeters
   var current_Info = (Set_Base.get(stand_num)).Info
   if (skillname === 'attack') { // 普通攻击
@@ -738,77 +738,20 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
             next_must_acu = true
           }
           if (next_must_acu || (Math.random() <= base_acu / (base_acu + enemy_eva))) { // 命中
-            var base_dmg = current_Info.get('dmg') // 基础火力——————————————————————————————————————————————————————————————————————————————————————————————————————————
-            if (is_this(stand_num, 272)) { // 沙鹰：威慑印记
-              if (Set_Special.get('DE_active_' + stand_num) != undefined && Set_Special.get('DE_active_' + stand_num) > 0) {
-                Set_Special.set('DE_active_' + stand_num, Set_Special.get('DE_active_' + stand_num) - 1)
-                // base_dmg *= Math.pow(2.6, 3 - Set_Special.get('DE_active_' + stand_num))
-                base_dmg *= 2.6
-              }
-            }
             if (is_this(stand_num, 59)) { // AK-74U 排斥反应
               if (Set_Special.get('aks' + stand_num) >= current_time) {
                 Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
               }
             }
-            if (is_this(stand_num, 1039)) { // 苍白收割者buff是否存在，是否能够触发buff
-              if (Set_Special.get('mosin_bufftime_' + stand_num) >= global_frame) {
-                base_dmg *= 1.2
-              }
-              if (Set_Special.get('mosin_' + stand_num) <= 1) { // 能够刷新状态
-                Set_Special.set('mosin_bufftime_' + stand_num, global_frame + 89)
-                Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_numneed_' + stand_num))
-              } else {
-                Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_' + stand_num) - 1)
-              }
-            }
-            if (is_this(stand_num, 1002) && Set_Special.get('m1911_' + stand_num) > 0) base_dmg *= 2 // 绝境神枪手2倍伤害
-            if (is_this(stand_num, 1075) && current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) < 3) base_dmg *= 1.4 // 战地魔术额外增伤
-            if (is_this(stand_num, 194)) { // K2判断模式基础伤害
-              if (Set_Special.get('k2_' + stand_num) === 'fever') base_dmg *= 0.52 // fever三连发单次伤害
-              else base_dmg *= Math.pow(1.05, Set_Special.get('k2_dmgup_' + stand_num)) // note经过加成后的伤害
-              if (Set_Special.get('k2_temp_' + stand_num) > 15) base_dmg *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // 过热减伤
-            }
-            if (is_this(stand_num, 2008)) { // 希儿：量子回溯最后一发
-              var cs = Set_Special.get('clipsize_' + stand_num)
-              if (cs === 1) base_dmg *= 3
-            }
-            if (current_Info.get('type') === 6) { // SG攻击，子弹类型伤害处理
-              if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
-                true
-              } else {
-                if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // 装备了独头弹
-                  if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症特殊情况
-                    if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // 该次攻击为技能主导：强制3目标
-                      Set_Special.set('aa12_skillmode_' + stand_num, false)
-                    // 不能受独头弹加成
-                    } else {
-                      Set_Special.set('aa12_skillmode_' + stand_num, true)
-                      base_dmg *= 3 // 独头弹x3伤害
-                    }
-                  } else {
-                    if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < current_time) base_dmg *= 3 // 如果没有强制多目标，则独头弹x3伤害
-                  }
-                }
-              }
-            }
-            if (is_this(stand_num, 256)) { // 隼：特殊子弹增加伤害18%，普通射击1.5倍
-              if (Set_Special.get('falcon_' + stand_num) > 0) {
-                base_dmg *= Math.pow(1.18, Set_Special.get('falcon_' + stand_num))
-              }
-              base_dmg *= 1.5
-            }
-            if (is_this(stand_num, 2016)) { // 达娜：1.8倍基础攻击
-              base_dmg *= 1.8
-            }
-            var final_dmg=cal_damage('normal',base_dmg,current_Info.get('ap'),enemy_arm)
-            //var final_dmg = Math.max(1, Math.ceil(base_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害————————————————————————————————————————————————
+            // 伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
+            var final_dmg = settle_normal_attack(stand_num, current_Info, enemy_arm)
+            // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
             if (is_this(stand_num, 276)) { // Kord贯穿射击
               if (Set_Special.get('kord_' + stand_num) === 'type_p') final_dmg *= enemy_num_left
             }
             if (is_this(stand_num, 2015)) { // Alma无人机
               if (Set_Special.get('alma_' + stand_num) >= current_time) {
-                var pod_dmg = base_dmg * 0.4
+                var pod_dmg = current_Info.get('dmg') * 0.4
                 var pod_final_dmg = Math.max(1, Math.ceil(pod_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
                 final_dmg += 2 * pod_final_dmg
               }
@@ -915,8 +858,8 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
               }
             }
             recordData(stand_num, current_time, final_dmg)
-          }else {
-            recordData(stand_num, current_time, 0)
+          } else {
+            recordData(stand_num, current_time, 0) // miss
           }
         }
       }
@@ -991,7 +934,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
         } else {
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
         }
-      // ——————————————————————————————————————MG和SG扣除子弹——————————————————————————————————————
+        // ——————————————————————————————————————MG和SG扣除子弹——————————————————————————————————————
       } else {
         var cs = Set_Special.get('clipsize_' + stand_num)
         var extra_shoot_pkp = false
@@ -1725,7 +1668,7 @@ function react (s_t, stand_num, current_time) { // < Skill , countdown_time >, c
   }
 }
 
-function changeStatus (stand_num, target, type, value, duration) { // 改变状态列表
+function changeStatus(stand_num, target, type, value, duration) { // 改变状态列表
   if (debug_mode && debug_function[2]) {
     if (target.substr(0, 3) === 'blo') {
       true // do nothing, just recursive
@@ -1841,7 +1784,7 @@ function changeStatus (stand_num, target, type, value, duration) { // 改变状�
   }
 }
 
-function endStatus (stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体
+function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体
   // status = [ [ type, value(>1) ], frame ]
   if (situation === 'get' || situation === 'lost') {
     if (stand_num === -1) { // 全体属性变化
@@ -2111,7 +2054,7 @@ function endStatus (stand_num, status, situation) { // 刷新属性，状态是 
   }
 }
 
-function reactInjury () {
+function reactInjury() {
   if (document.getElementById('enemy_hp_check').checked) enemy_num_left = Math.ceil((enemy_hp * enemy_form * enemy_num - global_total_dmg) / (enemy_hp * enemy_form))
   if (enemy_num_left <= 0) enemy_still_alive = false
   if (enemy_still_alive) {
@@ -2122,13 +2065,13 @@ function reactInjury () {
         for (stn of queue_tdoll) {
           if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame) injury(stn)
         }
-      // if (Set_Special.get('provoke') != undefined) {
-      //   if (Set_Special.get('provoke') > 0) {
-      //     injury(stn)
-      //   }
-      // }
-      // } else if (shoot_target === 'provoke') {
-      //   shoot_target = injury_provoke()
+        // if (Set_Special.get('provoke') != undefined) {
+        //   if (Set_Special.get('provoke') > 0) {
+        //     injury(stn)
+        //   }
+        // }
+        // } else if (shoot_target === 'provoke') {
+        //   shoot_target = injury_provoke()
       } else {
         if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame) shoot_target = injury(shoot_target)
       }
@@ -2169,7 +2112,7 @@ function reactInjury () {
 //     recordData_suffer(9, global_frame, decline_provoke)
 //   }
 // }
-function injury (shoot_target) {
+function injury(shoot_target) {
   var current_Info = Set_Base.get(shoot_target).Info
   var accuracy = enemy_acu
   var damage = enemy_dmg
@@ -2261,7 +2204,7 @@ function injury (shoot_target) {
   return shoot_target
 }
 
-function getBaseProperty (num) {
+function getBaseProperty(num) {
   var Area = [false, false, false, false, false, false, false, false, false] // 影响格范围
   var Info = new Map // 全部信息，包括最终出战全属性和枪种
   // Area
@@ -2366,12 +2309,12 @@ function getBaseProperty (num) {
   return createBase(Area, Info)
 }
 
-function recordData (stand_num, current_time, increment) {
+function recordData(stand_num, current_time, increment) {
   var lastData = (Set_Data.get(stand_num))[(Set_Data.get(stand_num)).length - 1][1]
   Set_Data.get(stand_num).push([current_time, lastData + increment])
   global_total_dmg += increment
 }
-function recordData_HF () {
+function recordData_HF() {
   var hfn = arguments['0']
   var current_time = arguments['1']
   var command = arguments['2']
@@ -2389,15 +2332,15 @@ function recordData_HF () {
   }
   global_total_dmg += increment
 }
-function recordData_suffer (stand_num, current_time, decrement) {
+function recordData_suffer(stand_num, current_time, decrement) {
   var lastData = (Set_Data_S.get(stand_num))[(Set_Data_S.get(stand_num)).length - 1][1]
   Set_Data_S.get(stand_num).push([current_time, lastData - decrement])
 }
 
-function formater_DPS (e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
-function formater_ALL (e) { return 'x=' + e.x + ', y=' + e.y }
+function formater_DPS(e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
+function formater_ALL(e) { return 'x=' + e.x + ', y=' + e.y }
 
-function get_g36_standblo (stand_num) {
+function get_g36_standblo(stand_num) {
   var num_all = 0
   if (stand_num === 2 || stand_num === 5 || stand_num === 8) true
   else if (stand_num === 0 || stand_num === 1 || stand_num === 3 || stand_num === 4) {
@@ -2410,7 +2353,7 @@ function get_g36_standblo (stand_num) {
 }
 
 // 基本语义性函数
-function explain_fgl_ff (damage_type) {
+function explain_fgl_ff(damage_type) {
   // 解释伤害加成，力场减免+AOE计算+伤害加深
   // single单体, around_single周遭单体
   // around_multiple周遭群体（乘数量，贯通射击）,
@@ -2431,7 +2374,7 @@ function explain_fgl_ff (damage_type) {
     else return ((enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio
   }
 }
-function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减、是否命中、额外破防伤害、基础无视力场伤害
+function explain_heavyfire(hfn) { // 解释重装伤害，包括：力场削减、是否命中、额外破防伤害、基础无视力场伤害
   var damage = this_dmg(hfn)
   var defencebreaking = this_dbk(hfn)
   var accuracy = this_acu(hfn)
@@ -2646,13 +2589,13 @@ function explain_heavyfire (hfn) { // 解释重装伤害，包括：力场削减
 }
 
 // lable_create
-function createBase (Area, Info) {
+function createBase(Area, Info) {
   var Base = {}
   Base.Area = Area // 影响格位置
   Base.Info = Info // 具体属性
   return Base
 }
-function createHF (dmg, dbk, acu, fil) {
+function createHF(dmg, dbk, acu, fil) {
   var HF = {}
   HF.v1 = dmg
   HF.v2 = dbk
