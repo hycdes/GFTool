@@ -5,7 +5,7 @@ var lib_describe = new Map // 描述库，存放 < 技能名, 描述 >
 // react函数根据技能的参数和描述，进行解释
 // 非持续类[duration=0]，无限持续（被动）[duration=-1]，非属性被动技能会改写特殊变量表并删除自己
 // 另外，攻击所有值全为0，单独在react作为最高优先判断
-function createSkill (init_cld, cld, duration, Describe) {
+function createSkill(init_cld, cld, duration, Describe) {
   var Skill = {}
   Skill.init_cld = init_cld
   Skill.cld = cld
@@ -15,13 +15,13 @@ function createSkill (init_cld, cld, duration, Describe) {
 }
 // 描述类，属性：描述名、通用化特定属性
 // 特定技能没有通用属性，根据描述名在react单独处理
-function describe_attack () { // 普通攻击
+function describe_attack() { // 普通攻击
   var Describe = {}
   Describe.name = 'attack'
   return Describe
 }
 
-function describe_property (list_target, list_pro, list_value) { // 属性增益
+function describe_property(list_target, list_pro, list_value) { // 属性增益
   var Describe = {}
   Describe.name = 'property'
   Describe.list_target = list_target
@@ -29,7 +29,7 @@ function describe_property (list_target, list_pro, list_value) { // 属性增益
   Describe.list_value = list_value
   return Describe
 }
-function describe_propertyN (list_target, list_pro, list_value) { // 属性增益N
+function describe_propertyN(list_target, list_pro, list_value) { // 属性增益N
   var Describe = {}
   Describe.name = 'propertyN'
   Describe.list_target = list_target
@@ -37,7 +37,7 @@ function describe_propertyN (list_target, list_pro, list_value) { // 属性增�
   Describe.list_value = list_value
   return Describe
 }
-function describe_propertyND (list_target, list_pro, list_value) { // 属性增益N-昼战衰减
+function describe_propertyND(list_target, list_pro, list_value) { // 属性增益N-昼战衰减
   var Describe = {}
   Describe.name = 'propertyND'
   Describe.list_target = list_target
@@ -45,17 +45,17 @@ function describe_propertyND (list_target, list_pro, list_value) { // 属性增�
   Describe.list_value = list_value
   return Describe
 }
-function describe_colt () { // 决斗幸存者
+function describe_colt() { // 决斗幸存者
   var Describe = {}
   Describe.name = 'colt'
   return Describe
 }
-function describe_m1911 () { // 绝境神枪手
+function describe_m1911() { // 绝境神枪手
   var Describe = {}
   Describe.name = 'm1911'
   return Describe
 }
-function describe_bomb (direct_ratio, dot_ratio, dot_per_second, dot_time) { // 投掷物，实际执行榴弹+AOE单独计算
+function describe_bomb(direct_ratio, dot_ratio, dot_per_second, dot_time) { // 投掷物，实际执行榴弹+AOE单独计算
   var Describe = {}
   Describe.name = 'bomb'
   Describe.direct_ratio = direct_ratio
@@ -65,13 +65,13 @@ function describe_bomb (direct_ratio, dot_ratio, dot_per_second, dot_time) { // 
   return Describe
 }
 // 烟雾弹当突击压制处理
-function describe_grenade (ratio) { // 榴弹
+function describe_grenade(ratio) { // 榴弹
   var Describe = {}
   Describe.name = 'grenade'
   Describe.ratio = ratio
   return Describe
 }
-function describe_snipe (ratio, time_init, time_interval, snipe_num, labels) { // 狙击：倍率、初始时间、瞄准间隔、狙击次数，特殊说明
+function describe_snipe(ratio, time_init, time_interval, snipe_num, labels) { // 狙击：倍率、初始时间、瞄准间隔、狙击次数，特殊说明
   var Describe = {}
   Describe.name = 'snipe'
   Describe.ratio = ratio
@@ -81,7 +81,7 @@ function describe_snipe (ratio, time_init, time_interval, snipe_num, labels) { /
   Describe.labels = labels
   return Describe
 }
-function describe_dsr50 (ratio_armless, ratio_arm, time_init, labels) { // 崩甲射击：倍率、初始时间、特殊说明
+function describe_dsr50(ratio_armless, ratio_arm, time_init, labels) { // 崩甲射击：倍率、初始时间、特殊说明
   var Describe = {}
   Describe.name = 'dsr50'
   Describe.ratio_armless = ratio_armless
@@ -90,7 +90,7 @@ function describe_dsr50 (ratio_armless, ratio_arm, time_init, labels) { // 崩�
   Describe.labels = labels
   return Describe
 }
-function describe_m82a1 (ratio, time_init, time_interval, snipe_num, labels) { // 伪神的启示（跟狙击一样）
+function describe_m82a1(ratio, time_init, time_interval, snipe_num, labels) { // 伪神的启示（跟狙击一样）
   var Describe = {}
   Describe.name = 'm82a1'
   Describe.ratio = ratio
@@ -100,7 +100,7 @@ function describe_m82a1 (ratio, time_init, time_interval, snipe_num, labels) { /
   Describe.labels = labels
   return Describe
 }
-function describe_falcon (ratio, time_init, time_interval, snipe_num, labels) { // 夕阳隼
+function describe_falcon(ratio, time_init, time_interval, snipe_num, labels) { // 夕阳隼
   var Describe = {}
   Describe.name = 'falcon'
   Describe.ratio = ratio
@@ -110,155 +110,155 @@ function describe_falcon (ratio, time_init, time_interval, snipe_num, labels) { 
   Describe.labels = labels
   return Describe
 }
-function describe_karm1891 () {
+function describe_karm1891() {
   var Describe = {}
   Describe.name = 'karm1891'
   return Describe
 }
-function describe_karm9138 () {
+function describe_karm9138() {
   var Describe = {}
   Describe.name = 'karm9138'
   return Describe
 }
-function describe_hs2000 () { // 反击者壁垒
+function describe_hs2000() { // 反击者壁垒
   var Describe = {}
   Describe.name = 'hs2000'
   return Describe
 }
-function describe_k11 () { // 恐惧榴弹
+function describe_k11() { // 恐惧榴弹
   var Describe = {}
   Describe.name = 'k11'
   return Describe
 }
-function describe_zas () { // 夜枭轰鸣
+function describe_zas() { // 夜枭轰鸣
   var Describe = {}
   Describe.name = 'zas'
   return Describe
 }
-function describe_sop2 () { // 狂乱马戏
+function describe_sop2() { // 狂乱马戏
   var Describe = {}
   Describe.name = 'sop2'
   return Describe
 }
-function describe_contender () { // 断罪者魔弹
+function describe_contender() { // 断罪者魔弹
   var Describe = {}
   Describe.name = 'contender'
   return Describe
 }
-function describe_python () { // 蟒蛇_主动
+function describe_python() { // 蟒蛇_主动
   var Describe = {}
   Describe.name = 'python'
   return Describe
 }
-function describe_aug () { // AUG
+function describe_aug() { // AUG
   var Describe = {}
   Describe.name = 'aug'
   return Describe
 }
-function describe_fal () { // FAL
+function describe_fal() { // FAL
   var Describe = {}
   Describe.name = 'fal'
   return Describe
 }
-function describe_g11 () { // G11
+function describe_g11() { // G11
   var Describe = {}
   Describe.name = 'g11'
   return Describe
 }
-function describe_k2 () { // k2
+function describe_k2() { // k2
   var Describe = {}
   Describe.name = 'k2'
   return Describe
 }
-function describe_multihit (multiple) { // an94、芭莉斯塔
+function describe_multihit(multiple) { // an94、芭莉斯塔
   var Describe = {}
   Describe.name = 'multihit'
   Describe.value = multiple
   return Describe
 }
-function describe_mdr () { // mdr
+function describe_mdr() { // mdr
   var Describe = {}
   Describe.name = 'mdr'
   return Describe
 }
-function describe_64howa () { // 64自
+function describe_64howa() { // 64自
   var Describe = {}
   Describe.name = '64howa'
   return Describe
 }
-function describe_m4 () { // 伸冤者印记
+function describe_m4() { // 伸冤者印记
   var Describe = {}
   Describe.name = 'm4'
   return Describe
 }
-function describe_js9 () { // 临阵磨枪
+function describe_js9() { // 临阵磨枪
   var Describe = {}
   Describe.name = 'js9'
   return Describe
 }
-function describe_x95 () { // 花之锁
+function describe_x95() { // 花之锁
   var Describe = {}
   Describe.name = 'x95'
   return Describe
 }
-function describe_p90 () { // 灰鼠
+function describe_p90() { // 灰鼠
   var Describe = {}
   Describe.name = 'p90'
   return Describe
 }
-function describe_theresa () { // 圣光制裁
+function describe_theresa() { // 圣光制裁
   var Describe = {}
   Describe.name = 'theresa'
   return Describe
 }
-function describe_ump40 () { // 烙印过载
+function describe_ump40() { // 烙印过载
   var Describe = {}
   Describe.name = 'ump40'
   return Describe
 }
-function describe_idw () { // 电光大狂欢
+function describe_idw() { // 电光大狂欢
   var Describe = {}
   Describe.name = 'idw'
   return Describe
 }
-function describe_iws2000reset () {
+function describe_iws2000reset() {
   var Describe = {}
   Describe.name = 'iws2000reset'
   return Describe
 }
-function describe_addclip (clipsize) {
+function describe_addclip(clipsize) {
   var Describe = {}
   Describe.name = 'addclip'
   Describe.clipsize = clipsize
   return Describe
 }
-function describe_aimupto (aim_num) {
+function describe_aimupto(aim_num) {
   var Describe = {}
   Describe.name = 'aimupto'
   Describe.aim = aim_num
   return Describe
 }
-function describe_mustcrit () {
+function describe_mustcrit() {
   var Describe = {}
   Describe.name = 'mustcrit'
   return Describe
 }
-function describe_saiga () {
+function describe_saiga() {
   var Describe = {}
   Describe.name = 'saiga'
   return Describe
 }
-function describe_falcon_getbullet () {
+function describe_falcon_getbullet() {
   var Describe = {}
   Describe.name = 'falcon_getbullet'
   return Describe
 }
-function describe_stechkin () {
+function describe_stechkin() {
   var Describe = {}
   Describe.name = 'stechkin'
   return Describe
 }
-function describe_ffshield (ff, ffmax, decline, decline_interval) {
+function describe_ffshield(ff, ffmax, decline, decline_interval) {
   var Describe = {}
   Describe.name = 'ffshield'
   Describe.ff = ff
@@ -267,24 +267,24 @@ function describe_ffshield (ff, ffmax, decline, decline_interval) {
   Describe.decline = decline_interval
   return Describe
 }
-function describe_aks () {
+function describe_aks() {
   var Describe = {}
   Describe.name = 'aks'
   return Describe
 }
-function describe_flash (duration) {
+function describe_flash(duration) {
   var Describe = {}
   Describe.name = 'flash'
   Describe.duration = duration
   return Describe
 }
-function describe_singleflash (duration) {
+function describe_singleflash(duration) {
   var Describe = {}
   Describe.name = 'singleflash'
   Describe.duration = duration
   return Describe
 }
-function describe_shield (value, duration, label) {
+function describe_shield(value, duration, label) {
   var Describe = {}
   Describe.name = 'shield'
   Describe.value = value
@@ -292,47 +292,47 @@ function describe_shield (value, duration, label) {
   Describe.label = label
   return Describe
 }
-function describe_mg36 () {
+function describe_mg36() {
   var Describe = {}
   Describe.name = 'mg36'
   return Describe
 }
-function describe_chauchat () { // 百合纹章
+function describe_chauchat() { // 百合纹章
   var Describe = {}
   Describe.name = 'chauchat'
   return Describe
 }
-function describe_r93 () { // 强运扳机
+function describe_r93() { // 强运扳机
   var Describe = {}
   Describe.name = 'r93'
   return Describe
 }
-function describe_jill () { // Jill
+function describe_jill() { // Jill
   var Describe = {}
   Describe.name = 'jill'
   return Describe
 }
-function describe_sei () { // Sei
+function describe_sei() { // Sei
   var Describe = {}
   Describe.name = 'sei'
   return Describe
 }
-function describe_dorothy () { // dorothy
+function describe_dorothy() { // dorothy
   var Describe = {}
   Describe.name = 'dorothy'
   return Describe
 }
-function describe_alma () { // alma
+function describe_alma() { // alma
   var Describe = {}
   Describe.name = 'alma'
   return Describe
 }
-function describe_ads () { // ads
+function describe_ads() { // ads
   var Describe = {}
   Describe.name = 'ads'
   return Describe
 }
-function describe_de () { // desert eagle
+function describe_de() { // desert eagle
   var Describe = {}
   Describe.name = 'de'
   return Describe
@@ -522,6 +522,7 @@ lib_describe.set('addclip_4', describe_addclip(4)) // 弹量+4
 lib_describe.set('addclip_3', describe_addclip(3)) // 弹量+3
 lib_describe.set('addclip_2', describe_addclip(2)) // 弹量+2
 lib_describe.set('addclip_dynamic', describe_addclip(-1)) // 动态判断弹量
+lib_describe.set('aimupto_3', describe_aimupto(3)) // 攻击目标增至3
 lib_describe.set('aimupto_5', describe_aimupto(5)) // 攻击目标增至5
 // incendiary
 lib_describe.set('incendiary_7', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星

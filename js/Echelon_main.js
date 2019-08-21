@@ -625,104 +625,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       // 正常的攻击
       else {
         recordData(stand_num, current_time, 0)
-        var base_acu = current_Info.get('acu') // 基础命中
-
         // 计算BUFF——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-        if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) === undefined) { // 暴动宣告初始化
-          Set_Special.set('pkp_nextcrit_' + stand_num, 'ready')
-        }
-        if (is_this(stand_num, 194)) { // K2热力过载
-          if (Set_Special.get('k2_temp_' + stand_num) > 15) base_acu *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // 过热减命中
-          if (Set_Special.get('k2_' + stand_num) === 'fever') {
-            if (Set_Special.get('k2_temp_' + stand_num) < 35) Set_Special.set('k2_temp_' + stand_num, Set_Special.get('k2_temp_' + stand_num) + 1) // fever模式升温
-          } else {
-            if (Set_Special.get('k2_temp_' + stand_num) > 0) Set_Special.set('k2_temp_' + stand_num, Set_Special.get('k2_temp_' + stand_num) - 1) // note模式升温
-            if (Set_Special.get('k2_dmgup_' + stand_num) < 10) Set_Special.set('k2_dmgup_' + stand_num, Set_Special.get('k2_dmgup_' + stand_num) + 1) // note模式增伤
-          }
-        }
-        if (is_this(stand_num, 214)) { // ADS
-          if (Set_Special.get('ADS_active') != undefined && Set_Special.get('ADS_active') >= global_frame) { // 主动buff期间
-            if (Set_Special.get('ADS_buff') === undefined) Set_Special.set('ADS_buff', 1)
-            else Set_Special.set('ADS_buff', Set_Special.get('ADS_buff') + 1)
-          } else { // 被动
-            if (Math.random() <= 0.4) {
-              if (Set_Special.get('ADS_buff') === undefined) Set_Special.set('ADS_buff', 1)
-              else Set_Special.set('ADS_buff', Set_Special.get('ADS_buff') + 1)
-            }
-          }
-          if (Set_Special.get('ADS_buff') != undefined && Set_Special.get('ADS_buff') >= 5) {
-            Set_Special.set('ADS_buff', 0)
-            var aoe_ratio = parseFloat(document.getElementById('special_ads').value) / 100
-            var ads_dmg_aoe = Math.ceil(aoe_ratio * 6 * Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)) * explain_fgl_ff('aoe'))
-            recordData(stand_num, current_time, ads_dmg_aoe)
-          }
-        }
-        if (is_this(stand_num, 270)) { // 四式：死线一击积累
-          Set_Special.set('type4_' + stand_num, Set_Special.get('type4_' + stand_num) + 1)
-        }
-        if (is_this(stand_num, 1005)) {
-          if (Set_Special.get('m1895_' + stand_num) === 0) {
-            changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
-            changeStatus(stand_num, 'all', 'acu', '0.1', 4)
-          }
-          Set_Special.set('m1895_' + stand_num, Set_Special.get('m1895_' + stand_num) + 1)
-          if (Set_Special.get('m1895_' + stand_num) === 7) Set_Special.set('m1895_' + stand_num, 0)
-        }
-        if (is_this(stand_num, 197)) { // 玛尔斯号角，被动
-          if (Set_Special.get('karm1891') === undefined) Set_Special.set('karm1891', 0)
-          if (Math.random() <= 0.4 && Set_Special.get('karm1891') < 3) {
-            var num_col = Math.ceil(stand_num / 3) + 1
-            react([createSkill(0, 0, 2, describe_property(['col' + num_col], ['rof/crit'], ['0.04/0.04'])), 0], stand_num, current_time)
-            changeStatus(stand_num, 'self', 'rof', '0', 2)
-            Set_Special.set('karm1891', Set_Special.get('karm1891') + 1)
-          }
-        }
-        if (is_this(stand_num, 198)) { // 墨尔斯假面，被动
-          if (Set_Special.get('karm9138_' + stand_num) === undefined) Set_Special.set('karm9138_' + stand_num, 0)
-          if (Math.random() <= 0.7) {
-            Set_Special.set('karm9138_' + stand_num, Set_Special.get('karm9138_' + stand_num) + 2)
-          }
-        }
-        if (is_this(stand_num, 4) && Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) { // 蟒蛇无畏者之拥期间
-          if (Set_Special.get('python_active') === 1) final_dmg *= 2
-          var num_left = Set_Special.get('python_active') - 1
-          Set_Special.set('python_active', num_left)
-          changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
-          if (num_left === 0) {
-            Set_Skill.get(stand_num)[0][1] = 0 // 重置普攻
-          }
-        }
-        if (is_this(stand_num, 256)) { // 隼：特殊子弹命中增加
-          if (Set_Special.get('falcon_' + stand_num) > 0) base_acu *= Math.pow(1.18, Set_Special.get('falcon_' + stand_num))
-        }
-        if (is_this(stand_num, 261)) { // QBU-88：三连发爆炸
-          if (Set_Special.get('qbu88_' + stand_num) === 2) {
-            Set_Special.set('qbu88_' + stand_num, 0)
-            var explode_percent = parseFloat(document.getElementById('special_qbu88_' + (stand_num + 1)).value) / 100
-            var explode_dmg = 1.5 * current_Info.get('dmg') * explain_fgl_ff('aoe') * explode_percent
-            recordData(stand_num, current_time, explode_dmg)
-          } else {
-            Set_Special.set('qbu88_' + stand_num, Set_Special.get('qbu88_' + stand_num) + 1)
-          }
-        }
-        if (is_this(stand_num, 2012)) { // sei为stella加层数
-          if (is_exist_someone(2014)) {
-            if (Set_Special.get('stella_num') === undefined) Set_Special.set('stella_num', 1)
-            else Set_Special.set('stella_num', Set_Special.get('stella_num') + 1)
-          }
-        }
-
+        var list_buff = settle_buff(stand_num, current_Info)
         // 结算命中——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-        if (is_this(stand_num, 245) && Set_Special.get('p90_' + stand_num) > 0) { // P90灰鼠发动，必定暴击和命中
-          var final_dmg = Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 穿甲伤害
-          Set_Special.set('p90_' + stand_num, Set_Special.get('p90_' + stand_num) - 1)
-          final_dmg *= current_Info.get('critdmg')
-          final_dmg = Math.ceil(final_dmg * this_formation(stand_num) * explain_fgl_ff('single'))
-          recordData(stand_num, current_time, final_dmg)
-        }
-        else if (is_this(stand_num, 160) && Set_Special.get('saiga_' + stand_num) > 0) { // saiga-12巨羚号角，必中/无视护甲/不能暴击/无视独头弹/强制三目标
+        if (is_this(stand_num, 160) && Set_Special.get('saiga_' + stand_num) > 0) { // saiga-12巨羚号角，必中/无视护甲/不能暴击/无视独头弹/强制三目标
           var final_dmg = current_Info.get('dmg')
           if (Set_Special.get('saiga_' + stand_num) === 3) final_dmg *= 1.5
           else if (Set_Special.get('saiga_' + stand_num) === 2) final_dmg *= 2.5
@@ -733,18 +639,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           else final_dmg = final_dmg * explain_fgl_ff('single') + (enemy_num_left - 1) * final_dmg * explain_fgl_ff('around_single')
           recordData(stand_num, current_time, final_dmg)
         } else { // 否则先判断命中
-          var next_must_acu = false
-          if (is_this(stand_num, 1060) && Set_Special.get('asval_' + stand_num) > current_time) { // 小熊信念发动
-            next_must_acu = true
-          }
-          if (next_must_acu || (Math.random() <= base_acu / (base_acu + enemy_eva))) { // 命中
+          if (settle_accuracy(stand_num, current_Info, enemy_eva, list_buff)) { // 命中
             if (is_this(stand_num, 59)) { // AK-74U 排斥反应
               if (Set_Special.get('aks' + stand_num) >= current_time) {
                 Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
               }
             }
             // 伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
-            var final_dmg = settle_normal_attack(stand_num, current_Info, enemy_arm)
+            var final_dmg = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
             // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
             if (is_this(stand_num, 276)) { // Kord贯穿射击
               if (Set_Special.get('kord_' + stand_num) === 'type_p') final_dmg *= enemy_num_left
@@ -788,37 +690,20 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
             }
 
-            // 结算暴击——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-
-            if (is_this(stand_num, 77) || is_this(stand_num, 85) || is_this(stand_num, 109)) { // 连珠终结不可暴击
-              var cs_base = (current_Info.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
-              if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
-                if (is_this(stand_num, 77)) final_dmg *= 2.4
-                else if (is_this(stand_num, 85)) final_dmg *= 2.6
-                else if (is_this(stand_num, 109)) final_dmg *= 3
-              } else {
-                var final_crit = 1
-                if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
-                final_dmg = Math.ceil(final_dmg * final_crit)
-              }
-            } else if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time && is_this(stand_num, 221)) { // 锁链冲击：必定暴击
-              final_dmg *= current_Info.get('critdmg')
-            } else { // 按概率暴击的攻击
-              var final_crit = 1
-              // 必定暴击的全局设定，或技能导致必暴，或概率暴击
-              if (Set_Special.get('must_crit_' + stand_num) != undefined || (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= current_time) || Math.random() + current_Info.get('crit') >= 1) {
-                final_crit *= current_Info.get('critdmg')
-                if (is_this(stand_num, 2014) && Set_Special.get('stella_buff') === true) { // 消耗爆伤buff
-                  final_crit *= 1.5
-                  Set_Special.set('stella_buff', false)
-                }
-              }
-              if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) === 'extra') { // 暴动宣告的1.5倍且必暴子弹，实为1.5倍伤害
-                Set_Special.set('pkp_nextcrit_' + stand_num, 'over')
+            // 结算暴击————————————————————————————————————————————————————————————————————————————————————————————————
+            var final_crit = 1
+            if (settle_crit(stand_num, current_Info, list_buff)) {
+              final_crit *= current_Info.get('critdmg')
+              if (is_this(stand_num, 2014) && Set_Special.get('stella_buff') === true) { // 消耗爆伤buff
                 final_crit *= 1.5
+                Set_Special.set('stella_buff', false)
               }
-              final_dmg = Math.ceil(final_dmg * final_crit)
             }
+            if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) === 'extra') { // 暴动宣告的1.5倍且必暴子弹，实为1.5倍伤害
+              Set_Special.set('pkp_nextcrit_' + stand_num, 'over')
+              final_crit *= 1.5
+            }
+            final_dmg = Math.ceil(final_dmg * final_crit)
             if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
               ar15_list_status = Set_Status.get(stand_num)
               var len_list = ar15_list_status.length
