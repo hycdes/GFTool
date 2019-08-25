@@ -4,7 +4,7 @@ var lib_property_equip = new Map // 装备属性库，存放 < 装备编号, Pro
 var lib_fairy = new Map // 妖精库
 var lib_unique = new Map // 独一无二人形，不能添加第二个
 
-function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) { // 战术人形
+function createTdoll(ID, Name, Type, Affect, Skill, Property, Equip) { // 战术人形
   var TdollInfo = {}
   TdollInfo.ID = ID
   TdollInfo.Type = Type
@@ -15,7 +15,7 @@ function createTdoll (ID, Name, Type, Affect, Skill, Property, Equip) { // 战�
   TdollInfo.Equip = Equip
   return TdollInfo
 }
-function createAffect (str_affectArea, target, list_affectType, list_affectValue) { // 影响格
+function createAffect(str_affectArea, target, list_affectType, list_affectValue) { // 影响格
   var Affect = {}
   Affect.area = str_affectArea // area = l/r/u/d/
   Affect.target = target // target = all, hg, ar, smg, rf, mg, sg
@@ -23,7 +23,7 @@ function createAffect (str_affectArea, target, list_affectType, list_affectValue
   Affect.affect_value = list_affectValue // list of value
   return Affect
 }
-function createProperty (dmg, acu, eva, rof, arm, hp, crit, cs) { // 人形属性
+function createProperty(dmg, acu, eva, rof, arm, hp, crit, cs) { // 人形属性
   var Property = {}
   Property.hp = hp // health_point
   Property.eva = eva // evasion
@@ -35,7 +35,7 @@ function createProperty (dmg, acu, eva, rof, arm, hp, crit, cs) { // 人形属�
   Property.cs = cs // clip_size
   return Property
 }
-function createProperty_equip (dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, na) { // 装备属性
+function createProperty_equip(dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, na) { // 装备属性
   var Property = {}
   Property.dmg = dmg
   Property.acu = acu
@@ -49,7 +49,7 @@ function createProperty_equip (dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, n
   Property.na = na
   return Property
 }
-function createFairy (name, list_property, list_value) { // 妖精
+function createFairy(name, list_property, list_value) { // 妖精
   var Fairy = {}
   Fairy.name = name
   Fairy.property = list_property
@@ -323,8 +323,8 @@ lib_affect.set(270, createAffect('u/ru/r/rd/', 'hg', ['cld'], [0.15])) // 四式
 lib_affect.set(272, createAffect('r/rr/d/rd/dd/', 'all', ['dmg', 'crit'], [0.3, 0.2])) // 沙漠之鹰
 lib_affect.set(273, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // SSG3000
 lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65])) // SSG3000
-lib_affect.set(275, createAffect('rr/rrd/', 'mg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
-lib_affect.set(276, createAffect('rr/rru/', 'mg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
+lib_affect.set(275, createAffect('rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
+lib_affect.set(276, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改

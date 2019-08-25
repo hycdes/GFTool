@@ -648,9 +648,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             // 伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
             var final_dmg = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
             // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
-            if (is_this(stand_num, 276)) { // Kord贯穿射击
-              if (Set_Special.get('kord_' + stand_num) === 'type_p') final_dmg *= enemy_num_left
-            }
+            final_dmg *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
+            // 特殊攻击结算————————————————————————————————————————————————————————————————————————————————————————————————
             if (is_this(stand_num, 2015)) { // Alma无人机
               if (Set_Special.get('alma_' + stand_num) >= current_time) {
                 var pod_dmg = current_Info.get('dmg') * 0.4
@@ -691,19 +690,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             }
 
             // 结算暴击————————————————————————————————————————————————————————————————————————————————————————————————
-            var final_crit = 1
-            if (settle_crit(stand_num, current_Info, list_buff)) {
-              final_crit *= current_Info.get('critdmg')
-              if (is_this(stand_num, 2014) && Set_Special.get('stella_buff') === true) { // 消耗爆伤buff
-                final_crit *= 1.5
-                Set_Special.set('stella_buff', false)
-              }
-            }
-            if (is_this(stand_num, 173) && Set_Special.get('pkp_nextcrit_' + stand_num) === 'extra') { // 暴动宣告的1.5倍且必暴子弹，实为1.5倍伤害
-              Set_Special.set('pkp_nextcrit_' + stand_num, 'over')
-              final_crit *= 1.5
-            }
-            final_dmg = Math.ceil(final_dmg * final_crit)
+            final_dmg *= settle_crit(stand_num, current_Info, list_buff)
+            // 结算伤害加深————————————————————————————————————————————————————————————————————————————————————————————————
+            final_dmg = Math.ceil(final_dmg * explain_fgl_ff('single'))
+
             if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
               ar15_list_status = Set_Status.get(stand_num)
               var len_list = ar15_list_status.length
@@ -721,7 +711,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                 }
               }
             }
-            final_dmg = Math.ceil(final_dmg * explain_fgl_ff('single'))
+
             if (fire_status.substr(5) === 'all') final_dmg *= this_formation(stand_num) // 全员攻击
             else if (fire_status.substr(5) === 'four') final_dmg *= this_formation(stand_num) - 1 // 一人释放技能
             if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) { // 多重攻击
