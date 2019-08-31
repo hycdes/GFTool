@@ -512,6 +512,10 @@ function reactAllSkill(command, current_time) {
       fragile_all /= 2
       Set_Special.delete('fragile_100')
     }
+    if (Set_Special.get('fragile_hkk416') != undefined && Set_Special.get('fragile_hkk416') < global_frame) { // 寄生榴弹重伤
+      fragile_main /= 1.2
+      Set_Special.delete('fragile_hkk416')
+    }
 
     // 减伤类状态
     // Set_Special.set('temp_defence', 600)
@@ -1490,6 +1494,11 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     Set_Special.set('DE_active_' + stand_num, global_frame + skillduration * 30)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'hk416_fragile') {
+    Set_Special.set('fragile_hkk416', global_frame + 90)
+    fragile_main *= 1.2
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   // debug mode
   if (debug_mode && (debug_function[0] || debug_function[1])) {
     if (fire_status === 'stop' && skillname === 'attack') {
@@ -1709,7 +1718,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     var _type = status[0][0],
       _value = status[0][1]
     var dot_para = _value.split('/')
-    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0])
+    var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseFloat(dot_para[0])
     if (Set_Special.get('dot_time_' + stand_num) > 0 && !Set_Special.get('dot_isrecord_' + stand_num)) {
       do_debuff('enemy_dot', 30 * (Set_Special.get('dot_time_' + stand_num)))
       Set_Special.set('dot_isrecord_' + stand_num, true)

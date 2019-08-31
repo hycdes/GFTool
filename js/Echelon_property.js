@@ -823,6 +823,7 @@ lib_special_info.set(270, lib_language.special_info_common) // 四式
 lib_special_info.set(276, lib_language.special_info_common) // kord
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4
+lib_special_info.set(1065, lib_language.special_info_common) // hk416
 lib_special_info.set(2006, lib_language.special_info_common) // theresa
 lib_special_info.set(2011, lib_language.special_info_common) // jill
 lib_special_info.set(2013, lib_language.special_info_common) // dorothy

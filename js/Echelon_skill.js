@@ -337,6 +337,11 @@ function describe_de() { // desert eagle
   Describe.name = 'de'
   return Describe
 }
+function describe_hk416fragile() { // hk416 mod passive
+  var Describe = {}
+  Describe.name = 'hk416_fragile'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -526,17 +531,34 @@ lib_describe.set('addclip_2', describe_addclip(2)) // 弹量+2
 lib_describe.set('addclip_dynamic', describe_addclip(-1)) // 动态判断弹量
 lib_describe.set('aimupto_3', describe_aimupto(3)) // 攻击目标增至3
 lib_describe.set('aimupto_5', describe_aimupto(5)) // 攻击目标增至5
-// incendiary
+// bomb
 lib_describe.set('incendiary_7', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
 lib_describe.set('incendiary_6.5', describe_bomb(6.5, 1, 3, 5)) // 燃烧弹-4星
 lib_describe.set('incendiary_6', describe_bomb(6, 1, 3, 5)) // 燃烧弹-3星
 lib_describe.set('incendiary_5.5', describe_bomb(5.5, 1, 3, 5)) // 燃烧弹-2星
+lib_describe.set('hk416_dot', describe_bomb(16, 0.6, 3, 3)) // 寄生榴弹-持续伤害
 lib_describe.set('bronya', describe_bomb(0.2, 0.2, 1, 5)) // 黑洞触媒
 lib_describe.set('hand_grenade_6.5', describe_bomb(6.5, 0, 0, 0)) // 手榴弹-4星
 lib_describe.set('hand_grenade_6', describe_bomb(6, 0, 0, 0)) // 手榴弹-3星
 lib_describe.set('hand_grenade_5.5', describe_bomb(5.5, 0, 0, 0)) // 手榴弹-2星
 lib_describe.set('fp6_dmg', describe_bomb(0.8, 0, 0, 0)) // 失乐园
 lib_describe.set('uzi_burn', describe_bomb(6.5, 1, 3, 5)) // 灼烧链接
+// grenade
+lib_describe.set('grenade_90', describe_grenade(90)) // 厌世者打击
+lib_describe.set('grenade_19.5', describe_grenade(19.5)) // 16+3.5倍榴弹
+lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
+lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
+lib_describe.set('grenade_11', describe_grenade(11)) // 11倍榴弹
+lib_describe.set('grenade_10', describe_grenade(10)) // 10倍榴弹
+lib_describe.set('grenade_9.6', describe_grenade(9.6)) // 9.6倍榴弹
+lib_describe.set('grenade_8', describe_grenade(8)) // 8倍榴弹
+lib_describe.set('grenade_5', describe_grenade(5)) // 5倍榴弹
+lib_describe.set('grenade_4.5', describe_grenade(4.5)) // 4.5倍榴弹
+lib_describe.set('kiana', describe_grenade(-1)) // 阿斯加德之怒，-1表示倍率特殊单独判断
+lib_describe.set('dana', describe_grenade(-1)) // 红色间歇泉，-1表示倍率特殊单独判断
+lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
+lib_describe.set('k11', describe_k11()) // 恐惧榴弹
+lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 // snipe
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
@@ -568,21 +590,6 @@ lib_describe.set('sg_shock', describe_snipe(-1, 0, 0, 1, 'armless/critless/evale
 lib_describe.set('pa15', describe_snipe(4, 0, 0, 1, 'arm/crit/evaless')) // 劲爆乐园
 lib_describe.set('qbu88', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 乱石崩云，AOE单独判断
 lib_describe.set('em2', describe_snipe(3.5, 0, -1, 3, 'arm/crit/evaless')) // 碎碎曲奇弹
-// grenade
-lib_describe.set('grenade_90', describe_grenade(90)) // 厌世者打击
-lib_describe.set('grenade_15', describe_grenade(15)) // 15倍榴弹
-lib_describe.set('grenade_12', describe_grenade(12)) // 12倍榴弹
-lib_describe.set('grenade_11', describe_grenade(11)) // 11倍榴弹
-lib_describe.set('grenade_10', describe_grenade(10)) // 10倍榴弹
-lib_describe.set('grenade_9.6', describe_grenade(9.6)) // 9.6倍榴弹
-lib_describe.set('grenade_8', describe_grenade(8)) // 8倍榴弹
-lib_describe.set('grenade_5', describe_grenade(5)) // 5倍榴弹
-lib_describe.set('grenade_4.5', describe_grenade(4.5)) // 4.5倍榴弹
-lib_describe.set('kiana', describe_grenade(-1)) // 阿斯加德之怒，-1表示倍率特殊单独判断
-lib_describe.set('dana', describe_grenade(-1)) // 红色间歇泉，-1表示倍率特殊单独判断
-lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
-lib_describe.set('k11', describe_k11()) // 恐惧榴弹
-lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 // special
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
@@ -617,6 +624,7 @@ lib_describe.set('stella_attack', describe_multihit(2)) // stella特殊攻击
 lib_describe.set('alma', describe_alma()) // alma技能
 lib_describe.set('ads', describe_ads()) // 风暴潮
 lib_describe.set('de', describe_de()) // 威慑印记
+lib_describe.set('hk416_fragile', describe_hk416fragile())
 
 // lib_skill
 
@@ -723,6 +731,8 @@ lib_skill.set(139, [createSkill(6, 12, 8, lib_describe.get('com_dmg_18'))])
 lib_skill.set(141, [createSkill(6, 12, 8, lib_describe.get('com_acu_100'))])
 
 // ———————————————————————————————————————— AR ————————————————————————————————————————
+
+lib_skill.set(1065, []) // HK416 MOD 技能根据设定决定
 
 lib_skill.set(62, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))])
 lib_skill.set(65, [createSkill(8, 16, 0, lib_describe.get('grenade_15'))])

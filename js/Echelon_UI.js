@@ -11,7 +11,7 @@ str_jill_template += '<button type="button" id="jill_btn5" data-toggle="tooltip"
 str_jill_template += '<button type="button" id="jill_btn6" data-toggle="tooltip" data-placement="top" title="技能开启后的前5秒全体+35%伤害 结束后3秒全体-15%伤害/命中" class="btn btn-default" onclick="jill_equip(6)" style="padding:3px;width:130px;text-align:left"><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span><span style="color:#99ccff">∎</span>FringeWeaver</button>'
 str_jill_template += '</p>'
 
-function showAffect () {
+function showAffect() {
   for (var i = 1; i <= 3; i++) {
     for (var j = 1; j <= 3; j++) document.getElementById('a' + i + '' + j).style = 'background-color:#000000'
   }
@@ -164,7 +164,7 @@ function showAffect () {
     document.getElementById('a_have').innerHTML = str_a_have
   }
 }
-function showEquip (value) {
+function showEquip(value) {
   var showID = document.getElementById('equip_info')
   var equip_str = ''
   if (value >= 0) {
@@ -230,7 +230,7 @@ function showEquip (value) {
   showID.innerHTML = equip_str
 }
 
-function pickBlock (num) { // 选定格子，只有选定状态才能激活UI，管理全局变量switch_operate和num_pickblock
+function pickBlock(num) { // 选定格子，只有选定状态才能激活UI，管理全局变量switch_operate和num_pickblock
   if (num_pickblock === num) num_pickblock = -1 // 点已选定的格子，取消选定
   else num_pickblock = num // 选定没选定的格子
   if (num_pickblock > 0) switch_operate = true
@@ -238,7 +238,7 @@ function pickBlock (num) { // 选定格子，只有选定状态才能激活UI，
   manageUI('pick-block')
 }
 
-function changeAffection () { // 改变好感度，别把Affection(好感度)和Affect(影响格效果)搞混了哦！管理全局变量affection
+function changeAffection() { // 改变好感度，别把Affection(好感度)和Affect(影响格效果)搞混了哦！管理全局变量affection
   var command = arguments['0']
   if (command === undefined) {
     if (affection === 'love') affection = 'marry'
@@ -247,7 +247,7 @@ function changeAffection () { // 改变好感度，别把Affection(好感度)和
   manageUI('change-affection')
 }
 
-function changeStar (num) { // 改变星级，管理全局变量num_star
+function changeStar(num) { // 改变星级，管理全局变量num_star
   if (num === 1 && num_star < 6) num_star++
   else if (num === 0 && num_star > 2) {
     if (set_guntype != 6 && num_star > 2) num_star--
@@ -259,13 +259,13 @@ function changeStar (num) { // 改变星级，管理全局变量num_star
   changeSelectItems()
 }
 
-function pickGunType (num) { // 选定枪种后改变全局变量set_guntype
+function pickGunType(num) { // 选定枪种后改变全局变量set_guntype
   set_guntype = num
   manageUI('pick-gun')
   changeStar(-1)
   changeSelectItems()
 }
-function pickEquip (num) { // 选定装备格子，管理全局变量num_pickequip
+function pickEquip(num) { // 选定装备格子，管理全局变量num_pickequip
   num_pickequip = num
   if (num_pickequip > 0) switch_equip = true
   else switch_equip = false
@@ -273,7 +273,7 @@ function pickEquip (num) { // 选定装备格子，管理全局变量num_pickequ
   changeEquip()
 }
 
-function manageUI () { // 管理图标变化，不涉及后台数值
+function manageUI() { // 管理图标变化，不涉及后台数值
   document.getElementById('alert_display').innerHTML = ''
   var command = arguments['0']
   if (command === 'pick-block') {
@@ -425,7 +425,7 @@ function manageUI () { // 管理图标变化，不涉及后台数值
     }
   }
 }
-function resetEquipment () {
+function resetEquipment() {
   if (set_guntype <= 0) {
     set_equip = [0, 0, 0]
     document.getElementById('img_e1').style = ''
@@ -517,12 +517,12 @@ function resetEquipment () {
     document.getElementById('icon-equip3').onclick = Function('pickEquip(3)')
   }
 }
-function isEmptyBlock () {
+function isEmptyBlock() {
   if (list_tdoll[num_pickblock - 1][1] === null) return true
   else return false
 }
 
-function changePreview () { // 改变预览显示，也会改变装备对应全局变量set_equip
+function changePreview() { // 改变预览显示，也会改变装备对应全局变量set_equip
   var command = arguments['0']
   if (command === 1) {
     pickEquip(-1)
@@ -639,7 +639,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
     if (e_crit > 0) document.getElementById('info_crit').innerHTML = lib_language.crit + ' <span style="color:green">' + parseInt(property_display.crit * 100) + '+' + parseInt(e_crit * 100) + '</span>' + '%'
     else document.getElementById('info_crit').innerHTML = lib_language.crit + ' <span style="color:green">' + parseInt(property_display.crit * 100) + '</span>' + '%'
     // critdmg
-    if (e_critdmg > 0)document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' <span style="color:green">150' + '+' + parseInt(e_critdmg * 100) + '</span>' + '%'
+    if (e_critdmg > 0) document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' <span style="color:green">150' + '+' + parseInt(e_critdmg * 100) + '</span>' + '%'
     else document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' <span style="color:green">150' + '</span>' + '%'
     if (e_arm > 0) document.getElementById('info_arm').innerHTML = lib_language.arm + ' <span style="color:green">' + property_display.arm + '+' + e_arm + '</span>'
     else document.getElementById('info_arm').innerHTML = lib_language.arm + ' <span style="color:green">' + property_display.arm + '</span>'
@@ -654,7 +654,7 @@ function changePreview () { // 改变预览显示，也会改变装备对应全�
   showAffect()
   showEquip(parseInt(selectID_equip.value))
 }
-function jill_wine_explain (eq0, eq1, eq2) {
+function jill_wine_explain(eq0, eq1, eq2) {
   var type = 0
   var wine_taste = [0, 0, 0, 0, 0] // Adelhyde,Flanergide,Karmotrine,BronsonExt,PwdDelta
   if (eq0 === 120111) wine_taste[0]++ // Adelhyde甜
@@ -675,7 +675,7 @@ function jill_wine_explain (eq0, eq1, eq2) {
   }
   return type
 }
-function changeSpecial (ID) {
+function changeSpecial(ID) {
   var str_display = ''
   if (do_unique(ID, 'is_unique')) str_display += lib_language.special_info_unique
   if (lib_special_info.get(ID) != undefined) {
@@ -689,7 +689,7 @@ function changeSpecial (ID) {
   }
   document.getElementById('info_special').innerHTML = str_display
 }
-function readStatus () { // 读取已有人形之前的全局环境
+function readStatus() { // 读取已有人形之前的全局环境
   var this_buffer = buffer_table.get(num_pickblock)
   set_guntype = this_buffer[0]
   pickGunType(set_guntype)
@@ -703,7 +703,7 @@ function readStatus () { // 读取已有人形之前的全局环境
   changePreview()
   changeAffection('read')
 }
-function addTdoll () { // 添加战术人形
+function addTdoll() { // 添加战术人形
   document.getElementById('suffer_1').disabled = false
   if (!debug_mode) document.getElementById('suffer_100').disabled = false
   var reverse_position = num_pickblock
@@ -911,6 +911,9 @@ function addTdoll () { // 添加战术人形
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '_dorothy" id="special_dorothy_' + (num_pickblock - 1) + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_2013_1 + '</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 1065) {
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' HK416</h4><input type="checkbox" id="special_1065_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_1065 + '] ' + lib_language.DESCRIBE_1065
+    }
     // 前台更新
     document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
     manageUI('pick-block')
@@ -919,7 +922,7 @@ function addTdoll () { // 添加战术人形
   }
 }
 
-function deleteTdoll () { // 删除战术人形
+function deleteTdoll() { // 删除战术人形
   // 删除强制延时
   delete_cd()
   // 数据删除
@@ -950,7 +953,7 @@ function deleteTdoll () { // 删除战术人形
   }
   changeSpecial(-1)
 }
-function changeSunrise (type) {
+function changeSunrise(type) {
   if (type === 1) {
     daytime = 1
     document.getElementById('icon-day').src = '../img/echelon/icon-battle-daytime.png'
@@ -961,7 +964,7 @@ function changeSunrise (type) {
     document.getElementById('icon-night').src = '../img/echelon/icon-battle-night.png'
   }
 }
-function changeFairy () {
+function changeFairy() {
   fairy_no = parseInt(document.getElementById('select_fairy').value)
   if (fairy_no > 0) {
     document.getElementById('select_talent').disabled = false
@@ -997,7 +1000,7 @@ function changeFairy () {
     var list_pro = lib_fairy.get(fairy_no).property.split('/')
     var list_value = lib_fairy.get(fairy_no).value.split('/')
     var fplen = list_pro.length
-    for (var i = 0; i < fplen;i++) {
+    for (var i = 0; i < fplen; i++) {
       if (list_pro[i] === 'dmg') document.getElementById('fairy_dmg').innerHTML = lib_language.dmg + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
       else if (list_pro[i] === 'critdmg') document.getElementById('fairy_critdmg').innerHTML = lib_language.critdmg + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
       else if (list_pro[i] === 'acu') document.getElementById('fairy_acu').innerHTML = lib_language.acu + '<span style="color:green">+' + parseInt(parseFloat(list_value[i]) * 100) + '%</span>'
@@ -1009,52 +1012,52 @@ function changeFairy () {
     document.getElementById('fairy_skill').innerHTML = skillname_str + fsn
   }
 }
-function changeTalent (num) {
+function changeTalent(num) {
   if (num === 1) talent_no = parseInt(document.getElementById('select_talent').value)
   else {
     document.getElementById('select_talent').value = 0
     talent_no = 0
   }
 }
-function inputCheck_k11 (str_id) {
+function inputCheck_k11(str_id) {
   var str_input = document.getElementById(str_id).value
   if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
     str_input = 28
     document.getElementById(str_id).value = 28
   }
 }
-function inputCheck_x95 (str_id) {
+function inputCheck_x95(str_id) {
   var str_input = document.getElementById(str_id).value
   if (str_input === '' || str_input === null || isNaN(str_input) || (parseInt(str_input) < 0 || parseInt(str_input) > 300)) {
     str_input = 150
     document.getElementById(str_id).value = 150
   }
 }
-function inputCheck_qbu88 (str_id) {
+function inputCheck_qbu88(str_id) {
   var str_input = document.getElementById(str_id).value
   if (str_input === '' || str_input === null || isNaN(str_input) || (parseInt(str_input) < 0 || parseInt(str_input) > 100)) {
     str_input = 100
     document.getElementById(str_id).value = 100
   }
 }
-function inputCheck_mosin (str_id) {
+function inputCheck_mosin(str_id) {
   var str_input = document.getElementById(str_id).value
   if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
     str_input = 2
     document.getElementById(str_id).value = 2
   }
 }
-function inputCheck_r93 (str_id) {
+function inputCheck_r93(str_id) {
   var str_input = document.getElementById(str_id).value
   if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
     str_input = 3
     document.getElementById(str_id).value = 3
   }
 }
-function control_r93 (position) {
+function control_r93(position) {
   document.getElementById('special_r93_switch_' + position).disabled = document.getElementById('special_r93_' + position + '_1').checked
 }
-function checkEnviInput () { // 纠正非法输入
+function checkEnviInput() { // 纠正非法输入
   var edit_timeinit = document.getElementById('time_init').value
   if (edit_timeinit === '' || isNaN(edit_timeinit) || parseInt(edit_timeinit) < 0) { // 接敌时间，非负数
     document.getElementById('time_init').value = 0
@@ -1152,7 +1155,7 @@ function checkEnviInput () { // 纠正非法输入
     document.getElementById('enemy_hp').value = 1000
   }
 }
-function showEnvi () {
+function showEnvi() {
   // 妖精图像、天赋
   if (fairy_no > 0) {
     document.getElementById('envi_fairy').src = '../img/echelon/fairy/icon-f' + fairy_no + '.png'
@@ -1219,7 +1222,7 @@ function showEnvi () {
     }
   }
 }
-function templatePro (type) {
+function templatePro(type) {
   if (type === 1) {
     document.getElementById('enemy_arm').value = 25
     document.getElementById('enemy_eva').value = 10
@@ -1323,7 +1326,7 @@ function templatePro (type) {
   }
 }
 
-function selectHF (num) {
+function selectHF(num) {
   if (list_HF[num - 1][0] === false) {
     list_HF[num - 1][0] = true
     document.getElementById('hfselect_' + num).src = '../img/echelon/heavyfire/hf-select.png'
@@ -1335,7 +1338,7 @@ function selectHF (num) {
   }
 }
 
-function changeHFPro (num, type) {
+function changeHFPro(num, type) {
   var input_value = parseInt(document.getElementById('hf' + num + '_pro' + type).value)
   // check value
   if (num === 1) {
@@ -1369,7 +1372,7 @@ function changeHFPro (num, type) {
   eval('list_HF[num - 1][2].v' + type + '=input_value')
   document.getElementById('hf' + num + '_rof').innerHTML = '&nbsp' + (Math.ceil(45000 / (300 + list_HF[num - 1][1].v4 + list_HF[num - 1][2].v4 + list_HF[num - 1][3].v4)) / 30).toFixed(2) + 's'
 }
-function check_inj_order () {
+function check_inj_order() {
   var orderinput = parseInt(document.getElementById('inj_order').value) + ''
   var is_invalid = false
   var num_table = [false, false, false, false, false, false, false, false, false]
@@ -1389,14 +1392,14 @@ function check_inj_order () {
   }
   inj_order = document.getElementById('inj_order').value
 }
-function trans_if_need (num) {
+function trans_if_need(num) {
   if (lang_type === 'ko') {
     if (num >= 7) num -= 6
     else if (num <= 3) num += 6
   }
   return num
 }
-function trans_if_need_idx (num) {
+function trans_if_need_idx(num) {
   if (lang_type === 'ko') {
     if (num >= 6) num -= 6
     else if (num <= 2) num += 6
@@ -1404,7 +1407,7 @@ function trans_if_need_idx (num) {
   return num
 }
 
-function initShowhide () {
+function initShowhide() {
   document.getElementById('allcontrol_showhide').innerHTML = ''
   var tableID = document.getElementById('table_showhide')
   var tableHTML = ''
@@ -1471,7 +1474,7 @@ function initShowhide () {
   document.getElementById('fairyHF_showhide').innerHTML = fhfHTML
   show_hide(-1, -1)
 }
-function show_hide (stand_num, command) {
+function show_hide(stand_num, command) {
   var is_fairydmg = false, is_fairyinj = false
   var least_dmg = false, least_inj = false
   // judge
@@ -1560,7 +1563,7 @@ function show_hide (stand_num, command) {
   }
   makeGraph()
 }
-function showStat () {
+function showStat() {
   var statID = document.getElementById('envi_stat')
   var stat_str = ''
   var stat_pair = []
@@ -1577,7 +1580,7 @@ function showStat () {
       stat_pair.push([10 + i, parseInt(((Glabel_dmg.get('HF' + i)).split(' '))[0])])
     }
   }
-  stat_pair.sort(function (a, b) { return b[1] - a[1]})
+  stat_pair.sort(function (a, b) { return b[1] - a[1] })
   for (var pair of stat_pair) {
     var idx = pair[0]
     stat_str += '<tr style="height:31px">'
@@ -1598,7 +1601,7 @@ function showStat () {
   }
   statID.innerHTML = stat_str
 }
-function seperate_thousands (num) {
+function seperate_thousands(num) {
   var new_format = num + ''
   var count = 0
   for (var i = new_format.length - 1; i > 0; i--) {
@@ -1610,7 +1613,7 @@ function seperate_thousands (num) {
   }
   return new_format
 }
-function is_dmg_on () {
+function is_dmg_on() {
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null && list_show[i]) return true
   }
@@ -1620,14 +1623,14 @@ function is_dmg_on () {
   for (var i = 0; i < 5; i++) if (gs_HF[i] && list_show_HF[i]) return true
   return false
 }
-function is_inj_on () {
+function is_inj_on() {
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null && list_show[i + 9]) return true
   }
   // fairy judge
   return false
 }
-function reverse_className (command, stand_num, boolean) {
+function reverse_className(command, stand_num, boolean) {
   var str_name = '../img/echelon/button/'
   if (command === 0) {
     var stand_name = trans_if_need(stand_num + 1)
@@ -1650,8 +1653,8 @@ function reverse_className (command, stand_num, boolean) {
   str_name += '.png'
   return str_name
 }
-function getHelp (helpnum) { window.open('../img/echelon/tutorial/es-' + helpnum + '-' + lang_type + '.png') }
-function debug_switch () {
+function getHelp(helpnum) { window.open('../img/echelon/tutorial/es-' + helpnum + '-' + lang_type + '.png') }
+function debug_switch() {
   debug_mode = !debug_mode
   if (debug_mode) {
     document.getElementById('debug_button').className = 'btn btn-primary'
@@ -1664,7 +1667,7 @@ function debug_switch () {
   document.getElementById('btn_dmg100').disabled = debug_mode
   document.getElementById('suffer_100').disabled = debug_mode
 }
-function debug_display (fun_id) {
+function debug_display(fun_id) {
   debug_function[fun_id] = !debug_function[fun_id]
   if (debug_function[fun_id]) {
     document.getElementById('debug_s_' + debug_function_name[fun_id]).className = 'btn btn-warning'
@@ -1674,7 +1677,7 @@ function debug_display (fun_id) {
     document.getElementById('debug_s_' + debug_function_name[fun_id]).innerHTML = 'No ' + debug_function_name[fun_id]
   }
 }
-function add_cd () {
+function add_cd() {
   var trID = document.getElementById('special_addcd_' + (num_pickblock - 1))
   var str_new = ''
   str_new += '<td>'
@@ -1682,20 +1685,20 @@ function add_cd () {
   str_new += '<td><input class="form-control input-sm" id="addcd_' + (num_pickblock - 1) + '" value=0 onchange="check_cd(' + (num_pickblock - 1) + ')" disabled></td>'
   trID.innerHTML = str_new
 }
-function delete_cd () {document.getElementById('special_addcd_' + (num_pickblock - 1)).innerHTML = '' }
-function replace_cd () {
+function delete_cd() { document.getElementById('special_addcd_' + (num_pickblock - 1)).innerHTML = '' }
+function replace_cd() {
   delete_cd()
   add_cd()
 }
-function release_cd (num) { document.getElementById('addcd_' + num).disabled = !(document.getElementById('check_cd_' + num).checked) }
-function check_cd (num) {
+function release_cd(num) { document.getElementById('addcd_' + num).disabled = !(document.getElementById('check_cd_' + num).checked) }
+function check_cd(num) {
   var str_input = document.getElementById('addcd_' + num).value
   if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
     str_input = 0
     document.getElementById('addcd_' + num).value = str_input
   }
 }
-function jill_equip (wine_type) {
+function jill_equip(wine_type) {
   if (wine_type === 1) set_equip = [120112, 220112, 320112]
   else if (wine_type === 2) set_equip = [120111, 220111, 320111]
   else if (wine_type === 3) set_equip = [120111, 220112, 320112]
@@ -1713,7 +1716,7 @@ function jill_equip (wine_type) {
   document.getElementById('icon-equip3').onclick = Function('pickEquip(3)')
   changePreview()
 }
-function change_equip_template () {
+function change_equip_template() {
   if (parseInt(document.getElementById('select_tdoll').value) === 2011) {
     document.getElementById('special_equip_setting').innerHTML = str_jill_template
   } else {

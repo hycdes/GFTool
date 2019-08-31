@@ -484,17 +484,27 @@ function init_loadPrepareStatus() { // 初始化战前属性
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       var list_Skill = []
+      var extra_cd = 0
+      if (document.getElementById('check_cd_' + i).checked) extra_cd = parseFloat(document.getElementById('addcd_' + i).value)
       if (is_this(i, 2011)) true // Jill不能普攻
       else if (is_this(i, 2016)) true // Dana单发子弹必须先执行技能
       else if (is_this(i, 2014)) true // Stella单发子弹必须先执行技能
       else list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻
       for (var v_skill of list_tdoll[i][1].Skill) {
-        var extra_cd = 0
-        if (document.getElementById('check_cd_' + i).checked) extra_cd = parseFloat(document.getElementById('addcd_' + i).value)
         list_Skill.push([v_skill, Math.ceil(30 * ((v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))]) // 载入技能表
       }
+      if (is_this(i, 1065)) {
+        var s1 = createSkill(6, 16, 0, lib_describe.get('grenade_19.5')),
+          s2 = createSkill(6, 16, 0, lib_describe.get('hk416_dot')),
+          s3 = createSkill(6, 16, 0, lib_describe.get('hk416_fragile'))
+        if (document.getElementById('special_1065_' + i).checked) list_Skill.push([s1, Math.ceil(30 * (6 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        else {
+          list_Skill.push([s2, Math.ceil(30 * (6 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+          list_Skill.push([s3, Math.ceil(30 * (6 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        }
+      }
+      if (is_this(i, 2014)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Stella普攻在技能后
       if (is_this(i, 2016)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Dana普攻在技能后
-      else if (is_this(i, 2014)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Stella普攻在技能后
       Set_Skill.set(i, list_Skill)
     }
   }
