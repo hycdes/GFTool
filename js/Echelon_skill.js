@@ -385,6 +385,7 @@ lib_describe.set('lbll', describe_property(['bloall'], ['dmg/rof/acu'], ['0.25/0
 lib_describe.set('g36_eva', describe_property(['bloall'], ['eva'], ['0.25'])) // 弧光契约闪避
 // debuff command
 lib_describe.set('dmg_25_enemy', describe_property(['enemy'], ['dmg'], ['-0.25'])) // 火力压制 25%
+lib_describe.set('dmg_20_enemy', describe_property(['enemy'], ['dmg'], ['-0.2'])) // 暗夜绞杀曲debuff 20%
 lib_describe.set('dmgN_40_enemy', describe_propertyN(['enemy'], ['dmg'], ['-0.4'])) // 火力压制N 40%
 lib_describe.set('dmgN_35_enemy', describe_propertyN(['enemy'], ['dmg'], ['-0.35'])) // 火力压制N 35%
 lib_describe.set('dmgND_25_enemy', describe_propertyND(['enemy'], ['dmg'], ['-0.25'])) // 火力压制ND 25%
@@ -403,6 +404,7 @@ lib_describe.set('evaN_75_enemy', describe_propertyN(['enemy'], ['eva'], ['-0.75
 lib_describe.set('evaND_40_enemy', describe_propertyND(['enemy'], ['eva'], ['-0.4'])) // 掩护压制ND 40%
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
 lib_describe.set('acu_36_enemy', describe_property(['enemy'], ['acu'], ['-0.36'])) // 精确压制 36%
+lib_describe.set('speed_down', describe_property(['enemy'], ['speed'], ['-0'])) // 降低移动速度
 // forcus
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
 lib_describe.set('dmgeva_16040', describe_property(['self'], ['dmg/eva'], ['1.6/0.4'])) // 机动专注 160%/40%
@@ -638,8 +640,8 @@ lib_skill.set(260, [
 ]) // AOE特殊判断
 lib_skill.set(272, [
   createSkill(6, 12, 8, lib_describe.get('rof_40')),
-  createSkill(6, 12, 8, lib_describe.get('dmg_10')),
-  createSkill(6, 12, 0, lib_describe.get('de'))
+  createSkill(6, 12, 8, lib_describe.get('dmg_10')), // ***need to be done as fragile***
+  createSkill(6, 12, 8, lib_describe.get('de'))
 ])
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
@@ -664,7 +666,8 @@ lib_skill.set(248, [createSkill(6, 12, 8, lib_describe.get('jericho'))]) // 被�
 lib_skill.set(269, []) // 报复进行时单独判断
 lib_skill.set(1002, [
   createSkill(1, 12, 0, lib_describe.get('m1911')), // 绝境神枪手
-  createSkill(1, 12, 4, lib_describe.get('rof_40_enemy')) // 烟雾弹 40%
+  createSkill(1, 12, 4, lib_describe.get('rof_40_enemy')), // 烟雾弹 40%
+  createSkill(1, 12, 4, lib_describe.get('speed_down')) // 减速
 ])
 lib_skill.set(1005, [ // 纳甘左轮被动实现于特殊变量表
   createSkill(6, 12, 8, lib_describe.get('dmgN_40_enemy')),
@@ -704,7 +707,10 @@ lib_skill.set(244, [
   createSkill(6, 12, 5, lib_describe.get('dmgND_22_enemy'))
 ])
 
-lib_skill.set(2, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) // 烟雾弹 36%
+lib_skill.set(2, [
+  createSkill(1, 12, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹 36%
+  createSkill(1, 12, 4, lib_describe.get('speed_down')) // 减速
+])
 lib_skill.set(5, [
   createSkill(6, 12, 8, lib_describe.get('dmgN_35_enemy')),
   createSkill(6, 12, 5, lib_describe.get('dmgND_20_enemy'))
@@ -743,6 +749,10 @@ lib_skill.set(214, [createSkill(5, 16, 5, lib_describe.get('ads'))])
 lib_skill.set(215, [createSkill(4, 16, 10, lib_describe.get('mdr'))])
 lib_skill.set(236, [createSkill(6, 16, 0, lib_describe.get('k11'))])
 lib_skill.set(243, [createSkill(6, 16, 0, lib_describe.get('64howa'))])
+lib_skill.set(274, [
+  createSkill(6, 8, 5, lib_describe.get('rof_50')), // buff
+  createSkill(6, 8, 5, lib_describe.get('dmg_20_enemy')) // debuff
+]) // acr
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
@@ -846,17 +856,23 @@ lib_skill.set(259, [
   createSkill(6, 8, 5, lib_describe.get('pm9_buff'))
 ])
 lib_skill.set(1103, [
-  createSkill(1, 12, 4, lib_describe.get('rof_40_enemy'))
-
+  createSkill(1, 16, 4, lib_describe.get('rof_40_enemy')),
+  createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
 ]) // 迷雾盒，伤害没做
 
 lib_skill.set(23, [createSkill(4, 16, 15, lib_describe.get('eva_45'))]) //
 lib_skill.set(26, [createSkill(8, 16, 3, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(101, [createSkill(7, 16, 0, lib_describe.get('flash_4'))]) // 闪光弹
 lib_skill.set(102, [createSkill(1, 2, 0, lib_describe.get('ump40'))]) // 烙印过载
-lib_skill.set(103, [createSkill(1, 12, 4, lib_describe.get('rof_40_enemy'))]) // 烟雾弹40%
+lib_skill.set(103, [
+  createSkill(1, 12, 4, lib_describe.get('rof_40_enemy')), // 烟雾弹40%
+  createSkill(1, 12, 4, lib_describe.get('speed_down')) // 减速
+])
 lib_skill.set(136, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // pp-19
-lib_skill.set(137, [createSkill(1, 12, 4, lib_describe.get('rof_40_enemy'))]) // 烟雾弹40%
+lib_skill.set(137, [
+  createSkill(1, 16, 4, lib_describe.get('rof_40_enemy')), // 烟雾弹40%
+  createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
+])
 lib_skill.set(150, [createSkill(6, 8, 5, lib_describe.get('eva_130'))]) // 掩护专注
 lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) // klin
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))]) // storm cx4
@@ -871,7 +887,10 @@ lib_skill.set(1094, [
   createSkill(7, 16, 0, lib_describe.get('flash_4'))
 ]) // 闪光弹4星，被动没做
 
-lib_skill.set(18, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) // 烟雾弹36%
+lib_skill.set(18, [
+  createSkill(1, 16, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹36%
+  createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
+])
 lib_skill.set(19, [createSkill(6, 8, 5, lib_describe.get('eva_120'))]) //
 lib_skill.set(22, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
 lib_skill.set(27, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
@@ -882,18 +901,27 @@ lib_skill.set(131, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6'))])
 lib_skill.set(144, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 lib_skill.set(169, [createSkill(6, 8, 5, lib_describe.get('dmgeva_15040'))])
 lib_skill.set(176, [createSkill(6, 8, 5, lib_describe.get('eva_120'))]) //
-lib_skill.set(178, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) // 烟雾弹36%
+lib_skill.set(178, [
+  createSkill(1, 16, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹36%
+  createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
+])
 lib_skill.set(191, [createSkill(3, 16, 0, lib_describe.get('incendiary_6'))])
 lib_skill.set(209, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 lib_skill.set(218, [createSkill(4, 16, 15, lib_describe.get('eva_40'))]) //
-lib_skill.set(267, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) //
+lib_skill.set(267, [
+  createSkill(1, 16, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹36%
+  createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
+])
 
 lib_skill.set(17, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(21, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(24, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(25, [createSkill(3, 16, 0, lib_describe.get('incendiary_5.5'))])
 lib_skill.set(31, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
-lib_skill.set(33, [createSkill(1, 12, 4, lib_describe.get('rof_36_enemy'))]) //
+lib_skill.set(33, [
+  createSkill(1, 12, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹36%
+  createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
+])
 lib_skill.set(92, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
 lib_skill.set(93, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
 lib_skill.set(94, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //

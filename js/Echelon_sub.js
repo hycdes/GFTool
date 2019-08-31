@@ -1,14 +1,14 @@
 // lable_judge
-function compare_dps (pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
-function is_property (str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield');}
-function is_in_affect_of (stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
-function is_this (stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
-function is_stand (stand_num) { return list_tdoll[stand_num][1] != null}
-function is_this_type (stand_num, type) { // 1~6
+function compare_dps(pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
+function is_property(str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield'); }
+function is_in_affect_of(stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
+function is_this(stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
+function is_stand(stand_num) { return list_tdoll[stand_num][1] != null }
+function is_this_type(stand_num, type) { // 1~6
   if (list_tdoll[stand_num][1].Type === type) return true
   return false
 }
-function is_exist_someone (ID) {
+function is_exist_someone(ID) {
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       if (list_tdoll[i][1].ID === ID) return true
@@ -16,26 +16,26 @@ function is_exist_someone (ID) {
   }
   return false
 }
-function is_protected (stand_num) {
+function is_protected(stand_num) {
   if (Set_Special.get('damage_protect')[stand_num]) return false // 尚未触发保护
   else {
     if (Set_Special.get('damage_protect_time' + stand_num) >= global_frame) return true // 正在保护期
     else return false
   }
 }
-function is_activate_protect (suffer_hp, single_hp, stand_num) {
+function is_activate_protect(suffer_hp, single_hp, stand_num) {
   if (this_formation(stand_num) === 2) {
     if (Set_Special.get('damage_protect')[stand_num] && suffer_hp <= Math.ceil(single_hp / 2)) return true
   }
   return false
 }
-function is_python_unrepeat (command) {
+function is_python_unrepeat(command) {
   if (command != undefined && command === 'unrepeat') return true
   else return false
 }
 
 // lable_transfer
-function num_to_name (num_type) {
+function num_to_name(num_type) {
   if (num_type === 1) return 'hg'
   else if (num_type === 2) return 'ar'
   else if (num_type === 3) return 'smg'
@@ -43,7 +43,7 @@ function num_to_name (num_type) {
   else if (num_type === 5) return 'mg'
   else if (num_type === 6) return 'sg'
 }
-function name_to_num (str_type) {
+function name_to_num(str_type) {
   if (str_type === 'hg') return 1
   else if (str_type === 'ar') return 2
   else if (str_type === 'smg') return 3
@@ -51,7 +51,7 @@ function name_to_num (str_type) {
   else if (str_type === 'mg') return 5
   else if (str_type === 'sg') return 6
 }
-function rof_to_frame (num_tn, rof, ID) {
+function rof_to_frame(num_tn, rof, ID) {
   var base_rof = Math.floor(rof)
   var str_tn = num_to_name(num_tn)
   var shootframe = 100
@@ -75,26 +75,26 @@ function rof_to_frame (num_tn, rof, ID) {
   }
   return shootframe
 }
-function rof_to_frame_enemy (base_rof) {
+function rof_to_frame_enemy(base_rof) {
   var shootframe = 100
   if (base_rof >= 120) shootframe = 12
   else if (base_rof <= 15) shootframe = 100
   else shootframe = Math.floor(1500 / base_rof)
   return shootframe
 }
-function fil_to_frame (filling) {
+function fil_to_frame(filling) {
   if (filling >= 1200) filling = 1200
   return Math.floor(1500 / Math.ceil((300 + filling) / 30))
-// return Math.ceil(45000 / (300 + filling))
+  // return Math.ceil(45000 / (300 + filling))
 }
 
 // lable_getinfo
-function this_formation (stand_num) { return list_tdoll[stand_num][0]; }
-function this_dmg (hfn) { return list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1; }
-function this_dbk (hfn) { return list_HF[hfn][1].v2 + list_HF[hfn][2].v2 + list_HF[hfn][3].v2; }
-function this_acu (hfn) { return list_HF[hfn][1].v3 + list_HF[hfn][2].v3 + list_HF[hfn][3].v3; }
-function this_fil (hfn) { return list_HF[hfn][1].v4 + list_HF[hfn][2].v4 + list_HF[hfn][3].v4; }
-function get_common_position () {
+function this_formation(stand_num) { return list_tdoll[stand_num][0]; }
+function this_dmg(hfn) { return list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1; }
+function this_dbk(hfn) { return list_HF[hfn][1].v2 + list_HF[hfn][2].v2 + list_HF[hfn][3].v2; }
+function this_acu(hfn) { return list_HF[hfn][1].v3 + list_HF[hfn][2].v3 + list_HF[hfn][3].v3; }
+function this_fil(hfn) { return list_HF[hfn][1].v4 + list_HF[hfn][2].v4 + list_HF[hfn][3].v4; }
+function get_common_position() {
   var common_position
   for (var cn = 0; cn < 9; cn++) {
     if (list_tdoll[cn][1] != null) {
@@ -104,7 +104,7 @@ function get_common_position () {
   }
   return common_position
 }
-function get_attack_target () {
+function get_attack_target() {
   var order = [5, 2, 8, 4, 1, 7, 3, 0, 6] // default
   if (inj_order != 'all') {
     // if (Set_Special.get('provoke') === undefined || (Set_Special.get('provoke') <= 0)) {
@@ -122,20 +122,23 @@ function get_attack_target () {
       if (list_tdoll[num][1] != null && list_tdoll[num][0] > 0) return num
     }
     return -1
-  // } else return 'provoke'
+    // } else return 'provoke'
   } else {
     return 9
   }
 }
-function get_left_hp (stand_num, single_hp) {
+function get_left_hp(stand_num, single_hp) {
   var all_left_hp = Set_Data_S.get(stand_num)[Set_Data_S.get(stand_num).length - 1][1]
   while (all_left_hp - single_hp > 0) all_left_hp -= single_hp
   return all_left_hp
 }
-function get_skill_icon (ID) { return '&nbsp<img src="../img/echelon/skill/' + ID + '.png" style="width:25px;height:25px">' }
+function get_skill_icon(ID) { return '&nbsp<img src="../img/echelon/skill/' + ID + '.png" style="width:25px;height:25px">' }
 
 // lable_do
-function do_unique (ID, command) {
+function do_debuff(name, duration) {
+  if (Set_Special.get(name) === undefined || Set_Special.get(name) < global_frame + duration) Set_Special.set(name, global_frame + duration) // mark debuff
+}
+function do_unique(ID, command) {
   // 新的条目：property中lib_unique添加条目，sub中init_resetAllConfig添加条目，main中reset_unique添加条目
   if (command === 'is_unique') {
     if (lib_unique.get(ID) != undefined) return true
@@ -169,7 +172,7 @@ function do_unique (ID, command) {
     Set_Special.set(str_special, true)
   }
 }
-function do_defencebreaking (defencebreaking) {
+function do_defencebreaking(defencebreaking) {
   var overdbk = 0
   if (display_type === 'damage') {
     enemy_forcefield -= defencebreaking
@@ -183,7 +186,7 @@ function do_defencebreaking (defencebreaking) {
   }
   return overdbk
 }
-function do_datasum (this_data, new_data) {
+function do_datasum(this_data, new_data) {
   var final_data = []
   if (this_data === undefined) {
     final_data = new_data
@@ -216,7 +219,7 @@ function do_datasum (this_data, new_data) {
   }
   return final_data
 }
-function do_jill_buff (stand_num) {
+function do_jill_buff(stand_num) {
   var wine_type = Set_Static.get('jill_winetype') // 1~6
   var duration = Set_Special.get('jill_space')
   if (wine_type === 1) { // big beer
@@ -267,22 +270,22 @@ function do_jill_buff (stand_num) {
   } else if (wine_type === 6) {
     changeStatus(stand_num, 'all', 'dmg', 0.35, 5)
     Set_Special.set('jill_drunk', global_frame + 150)
-  // for debug:
-  // recordData(stand_num, global_frame, 0)
-  // recordData(stand_num, global_frame, 300000)
-  // recordData(stand_num, global_frame + 150, 0)
-  // recordData(stand_num, global_frame + 150, -300000)
-  // recordData(stand_num, global_frame + 150, 0)
-  // recordData(stand_num, global_frame + 150, 300000)
-  // recordData(stand_num, global_frame + 240, 0)
-  // recordData(stand_num, global_frame + 240, -300000)
-  // recordData(stand_num, global_frame + 240, 0)
+    // for debug:
+    // recordData(stand_num, global_frame, 0)
+    // recordData(stand_num, global_frame, 300000)
+    // recordData(stand_num, global_frame + 150, 0)
+    // recordData(stand_num, global_frame + 150, -300000)
+    // recordData(stand_num, global_frame + 150, 0)
+    // recordData(stand_num, global_frame + 150, 300000)
+    // recordData(stand_num, global_frame + 240, 0)
+    // recordData(stand_num, global_frame + 240, -300000)
+    // recordData(stand_num, global_frame + 240, 0)
   } else { // basic drink
     changeStatus(stand_num, 'all', 'dmg', 0.18, duration)
   }
   Set_Special.set('jill_wine_status', [wine_type, global_frame + duration * 30])
 }
-function do_dorothy_drink (stand_num, duration) { // 抵消一半debuff
+function do_dorothy_drink(stand_num, duration) { // 抵消一半debuff
   var list_num = [stand_num - 6, stand_num - 3, stand_num + 3, stand_num + 6]
   if (document.getElementById('special_dorothy_' + stand_num + '_1').checked) { // MIRD113模式
     for (var stn of list_num) {
@@ -304,7 +307,7 @@ function do_dorothy_drink (stand_num, duration) { // 抵消一半debuff
 }
 
 // lable_init
-function init_resetAllConfig () { // 重置所有数据
+function init_resetAllConfig() { // 重置所有数据
   queue_tdoll = [] // 清空站位队列
   global_total_dmg = 0 // 总伤害重置
   // 重置存在开关
@@ -328,15 +331,15 @@ function init_resetAllConfig () { // 重置所有数据
   if (is_exist_someone(197)) Set_Special.set('can_add_carcanom1891', false) // 能否添加CarcanoM1891
   if (is_exist_someone(214)) Set_Special.set('can_add_ads', false) // 能否添加ADS
   if (is_exist_someone(2011)) Set_Special.set('can_add_jill', false) // 能否添加Jill
-  if (is_exist_someone(2012))Set_Special.set('can_add_sei', false) // 能否添加Sei
-  if (is_exist_someone(2014))Set_Special.set('can_add_stella', false) // 能否添加Stella
+  if (is_exist_someone(2012)) Set_Special.set('can_add_sei', false) // 能否添加Sei
+  if (is_exist_someone(2014)) Set_Special.set('can_add_stella', false) // 能否添加Stella
   if (daytime === 1) Set_Special.set('sunrise', 'day')
   else if (daytime === 2) Set_Special.set('sunrise', 'night')
   for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
 }
-function init_loadPrepareStatus () { // 初始化战前属性
+function init_loadPrepareStatus() { // 初始化战前属性
   // 存在性和图形显示管理
   if (display_type === 'damage') {
     for (var i = 0; i < 9; i++) {
@@ -541,7 +544,7 @@ function init_loadPrepareStatus () { // 初始化战前属性
     }
   }
 }
-function init_loadEnemyInfo () {
+function init_loadEnemyInfo() {
   enemy_still_alive = true
   if (document.getElementById('switch_normal').checked) enemy_type = 'normal'
   else if (document.getElementById('switch_elite').checked) enemy_type = 'elite'
@@ -572,7 +575,7 @@ function init_loadEnemyInfo () {
     }
   }
 }
-function init_loadFairy (common_position) {
+function init_loadFairy(common_position) {
   if (document.getElementById('fairyskill_active').checked) { // 可被蟒蛇复读的妖精技能
     if (fairy_no === 1) { // 战斗效率
       changeStatus(common_position, 'all', 'dmg', '0.2', 20)
@@ -721,7 +724,7 @@ function init_loadFairy (common_position) {
 }
 
 // lable_debug
-function debug_addinfo () {
+function debug_addinfo() {
   var command = arguments['0']
   if (command === 'attack_skill') { // stand_num, skillname, global_frame, interval
     var stand_num = arguments['1']
@@ -782,4 +785,4 @@ function debug_addinfo () {
     }
   }
 }
-function debug_clear () { document.getElementById('debug_content').innerHTML = ''; debug_line = 0; }
+function debug_clear() { document.getElementById('debug_content').innerHTML = ''; debug_line = 0; }

@@ -371,7 +371,7 @@ lib_affect.set(2014, createAffect('ru/rd/', 'hg', ['cld'], [0.18])) // Stella
 lib_affect.set(2015, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Alma
 lib_affect.set(2016, createAffect('ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // Dana
 // BUG
-lib_affect.set(3054, createAffect('l/ll/llu/lld/', 'ar/smg', ['dmg', 'rof'], [1, 1])) // M16A1 BOSS
+lib_affect.set(3054, createAffect('l/ll/llu/lu/u/lld/ld/d/', 'all', ['dmg', 'rof'], [1, 1])) // M16A1 BOSS
 
 // T-doll property
 // dmg, acu, eva, rof, arm, hp, crit, cs
@@ -690,7 +690,7 @@ lib_property.set(2014, createProperty(117, 84, 36, 35, 0, 450, 0.4, -1)) // Stel
 lib_property.set(2015, createProperty(89, 31, 23, 129, 0, 975, 0.2, 9)) // Elma
 lib_property.set(2016, createProperty(38, 15, 13, 26, 22, 1345, 0.4, 1)) // Dana
 // BUG
-lib_property.set(3054, createProperty(90, 60, 80, 40, 10, 320000, 1, -1)) // BOSS M16A1
+lib_property.set(3054, createProperty(90, 60, 80, 40, 300, 320000, 1, -1)) // BOSS M16A1
 
 // Equipment property
 // dmg, acu, eva, rof, arm, crit, critdmg, cs, ap, nightablility

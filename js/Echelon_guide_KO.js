@@ -1,7 +1,7 @@
 var lang_type = 'ko'
 
 // inital
-function mergeCell (table1, startRow, endRow, col) {
+function mergeCell(table1, startRow, endRow, col) {
   var tb = document.getElementById(table1)
   if (!tb || !tb.rows || tb.rows.length <= 0) return
   if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
@@ -11,7 +11,7 @@ function mergeCell (table1, startRow, endRow, col) {
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
   }
 }
-function loadScript (url) {
+function loadScript(url) {
   var script = document.createElement('script')
   script.type = 'text/javascript'
   script.src = url
@@ -172,6 +172,7 @@ lib_language = {
   equipNAME_342: '두꺼운 푸른 슈트',
   equipNAME_31039: 'Hayha 메모리 칩',
   equipNAME_31044: '디지털 미채 슈트',
+  equipNAME_31065: 'Tactical Headband',
   equipNAME_388: '무한 탄약통',
   equipNAME_3185: '전술용 메모리 칩',
   equipNAME_31075: 'Titan 사격제어칩',

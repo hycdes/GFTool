@@ -589,7 +589,9 @@ function reactAllSkill(command, current_time) {
 
 // 执行技能，包括重置冷却、产生效果，以及添加数据
 function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, createSkill (init_cld, cld, duration, Describe)
-  var skillname = (s_t[0].Describe).name // Describe -> name, special_paremeters
+  var skill = s_t[0],
+    skillname = (skill.Describe).name, // Describe -> name, special_paremeters
+    skillduration = skill.duration
   var current_Info = (Set_Base.get(stand_num)).Info
   if (skillname === 'attack') { // 普通攻击
     var fire_status = Set_Special.get('attack_permission_' + stand_num)
@@ -645,72 +647,16 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                 Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
               }
             }
-            // 伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
+            // 普攻结算————————————————————————————————————————————————————————————————————————————————————————————————
             var final_dmg = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
             // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
             final_dmg *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
-            // 特殊攻击结算————————————————————————————————————————————————————————————————————————————————————————————————
-            if (is_this(stand_num, 2015)) { // Alma无人机
-              if (Set_Special.get('alma_' + stand_num) >= current_time) {
-                var pod_dmg = current_Info.get('dmg') * 0.4
-                var pod_final_dmg = Math.max(1, Math.ceil(pod_dmg * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
-                final_dmg += 2 * pod_final_dmg
-              }
-            }
-            if (current_Info.get('type') === 6) { // SG攻击，目标数特殊处理
-              if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
-                true
-              } else {
-                if (Set_Special.get('aim_time_' + stand_num) >= current_time) { // 强制攻击几个目标，顶替独头弹效果
-                  var aim_num = Set_Special.get('aim_forceon_' + stand_num)
-                  if (enemy_num >= aim_num) final_dmg *= aim_num
-                  else final_dmg *= enemy_num
-                } else {
-                  if (current_Info.get('type') === 6 && Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹
-                    if (enemy_num >= 3) final_dmg *= 3
-                    else final_dmg *= enemy_num
-                  } else { // 如果携带，可能因为技能攻击多个目标
-                    if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > current_time) { // 酮血症技能主导强制攻击3目标
-                      if (Set_Special.get('aa12_skillmode_' + stand_num) === false) { // false即刚从技能主导切换回来
-                        if (enemy_num >= 3) final_dmg *= 3
-                        else final_dmg *= enemy_num
-                      }
-                    }
-                  }
-                }
-              }
-            }
-            if (is_this(stand_num, 4) && Set_Special.get('python_active') === 0 && Set_Special.get('python_opening') === true) {
-              final_dmg *= 2 // 无畏者之拥结束伤害
-              Set_Special.set('python_active', -1)
-              Set_Special.set('python_opening', false)
-            }
-            if (is_this(stand_num, 194)) { // K2判断模式射击次数
-              if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
-            }
-
-            // 结算暴击————————————————————————————————————————————————————————————————————————————————————————————————
+            // 特殊结算————————————————————————————————————————————————————————————————————————————————————————————————
+            final_dmg = settle_specialskill(stand_num, current_Info, enemy_arm, final_dmg)
+            // 暴击结算————————————————————————————————————————————————————————————————————————————————————————————————
             final_dmg *= settle_crit(stand_num, current_Info, list_buff)
-            // 结算伤害加深————————————————————————————————————————————————————————————————————————————————————————————————
+            // 伤害加深和力场结算————————————————————————————————————————————————————————————————————————————————————————————————
             final_dmg = Math.ceil(final_dmg * explain_fgl_ff('single'))
-
-            if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
-              ar15_list_status = Set_Status.get(stand_num)
-              var len_list = ar15_list_status.length
-              for (var i = 0; i < len_list; i++) {
-                if (ar15_list_status[i][0][0] === 'rof' && ar15_list_status[i][0][1] === 1.5) { // 突击专注期间
-                  var extra_dmg = 0
-                  if (Set_EnemyStatus.get('avenger_mark') === true) {
-                    extra_dmg = Math.max(1, Math.ceil(0.2 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 20%火力
-                  } else {
-                    extra_dmg = Math.max(1, Math.ceil(0.1 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm))) // 10%火力
-                  }
-                  if (Math.random() + current_Info.get('crit') >= 1) extra_dmg = Math.ceil(extra_dmg * current_Info.get('critdmg'))
-                  final_dmg += extra_dmg
-                  break
-                }
-              }
-            }
 
             if (fire_status.substr(5) === 'all') final_dmg *= this_formation(stand_num) // 全员攻击
             else if (fire_status.substr(5) === 'four') final_dmg *= this_formation(stand_num) - 1 // 一人释放技能
@@ -996,13 +942,18 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             }
           }
         }
-      } else if (list_target[i] === 'enemy') {
+      } else if (list_target[i] === 'enemy') { // 对敌人debuff
         var list_pro = ((s_t[0].Describe).list_pro)[i].split('/')
         var list_value = ((s_t[0].Describe).list_value)[i].split('/')
         var len = list_pro.length
         for (var p = 0; p < len; p++) {
-          var new_status = [['enemy_' + list_pro[p], 1 + parseFloat(list_value[p])], Math.ceil(30 * s_t[0].duration)]
+          var _pro = list_pro[p],
+            _proName = 'enemy_' + _pro,
+            _value = 1 + parseFloat(list_value[p]),
+            _duration = Math.ceil(30 * s_t[0].duration),
+            new_status = [[_proName, _value], _duration]
           Set_Status.get(-2).push(new_status)
+          do_debuff(_proName, _duration)
           endStatus(-1, new_status, 'enemy_get')
         }
       } else {
@@ -1058,6 +1009,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     var dot_per_second = (s_t[0].Describe).dot_per_second
     var dot_time = (s_t[0].Describe).dot_time
     var dot_num = dot_time * dot_per_second
+    Set_Special.set('dot_time_' + stand_num, dot_time)
+    Set_Special.set('dot_isrecord_' + stand_num, false)
     Set_Special.set('dotnum_' + stand_num, dot_num)
     changeStatus(stand_num, 'grenade', current_time, direct_ratio, 1)
     changeStatus(stand_num, 'dot', current_time, dot_ratio, 1)
@@ -1401,6 +1354,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     if (Set_EnemyStatus.get('stopfire') === undefined || Set_EnemyStatus.get('stopfire') < global_frame + 30 * stun_time) {
       Set_EnemyStatus.set('stopfire', global_frame + 30 * stun_time)
     }
+    do_debuff('enemy_dizz', 30 * stun_time)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'shield') { // 护盾
@@ -1532,7 +1486,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'de') {
-    Set_Special.set('DE_active_' + stand_num, 3)
+    Set_Special.set('DE_bullet_' + stand_num, 3)
+    Set_Special.set('DE_active_' + stand_num, global_frame + skillduration * 30)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   // debug mode
@@ -1659,7 +1614,7 @@ function changeStatus(stand_num, target, type, value, duration) { // 改变状�
   }
 }
 
-function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体
+function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [< pro_type, value >, frame]  二元组，stand_num=-1即全体，stand_num=-2为敌人
   // status = [ [ type, value(>1) ], frame ]
   if (situation === 'get' || situation === 'lost') {
     if (stand_num === -1) { // 全体属性变化
@@ -1690,69 +1645,75 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       }
     } else { // 某一人属性变化
       var this_info = (Set_Base.get(stand_num)).Info
-      var new_property = (this_info).get(status[0][0])
+      var _type = status[0][0],
+        _value = status[0][1]
+      var new_property = (this_info).get(_type)
       if (situation === 'get') {
-        if (status[0][0] === 'shield') {
-          new_property += status[0][1]
+        if (_type === 'shield') {
+          new_property += _value
         } else {
-          new_property = new_property * status[0][1]
+          new_property = new_property * _value
           if (not_init && is_this(stand_num, 1060) && status[0][0] === 'dmg') { // asval 信念
             Set_Special.set('asval_' + stand_num, global_frame + 90)
           }
         }
       }
       else if (situation === 'lost') {
-        if (status[0][0] === 'shield') {
-          if (new_property >= status[0][1]) new_property -= status[0][1]
+        if (_type === 'shield') {
+          if (new_property >= _value) new_property -= _value
           else new_property = 0
         } else {
-          new_property = new_property / status[0][1]
+          new_property = new_property / _value
         }
-        if (status[0][0] === 'critdmg' && status[0][1] === 1) { // 杰里科被动消失一层
+        if (_type === 'critdmg' && _value === 1) { // 杰里科被动消失一层
           if (Set_Special.get('jericho_buff_' + stand_num) > 0) {
             Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) - 1)
           }
         }
-        if (status[0][0] === 'rof' && status[0][1] === 1) { // 玛尔斯号角被动消失一层
+        if (_type === 'rof' && _value === 1) { // 玛尔斯号角被动消失一层
           if (Set_Special.get('karm1891') > 0) {
             Set_Special.set('karm1891', Set_Special.get('karm1891') - 1)
           }
         }
-        if (status[0][0] === 'acu' && status[0][1] === 1) { // M2致命干扰消失一层
+        if (_type === 'acu' && _value === 1) { // M2致命干扰消失一层
           if (Set_Special.get('M2_buff' + stand_num) > 0) {
             Set_Special.set('M2_buff' + stand_num, Set_Special.get('M2_buff' + stand_num) - 1)
           }
         }
       }
-      this_info.set(status[0][0], new_property)
+      this_info.set(_type, new_property)
     }
   }
-  else if (situation === 'enemy_get' || situation === 'enemy_lost') { // 敌人状态：[type, value>1]，先做掩护压制
+  else if (situation === 'enemy_get' || situation === 'enemy_lost') { // 敌人状态：[type, value>1]
+    var _type = status[0][0],
+      _value = status[0][1]
     if (situation === 'enemy_get') {
-      if (status[0][0].substr(6) === 'eva') enemy_eva = Math.ceil(enemy_eva * status[0][1])
-      if (display_type === 'suffer') {
-        if (status[0][0].substr(6) === 'dmg') enemy_dmg = Math.ceil(enemy_dmg * status[0][1])
-        if (status[0][0].substr(6) === 'rof') enemy_rof = Math.ceil(enemy_rof * status[0][1])
-        if (status[0][0].substr(6) === 'acu') enemy_acu = Math.ceil(enemy_acu * status[0][1])
-      }
+      if (_type.substr(6) === 'eva') enemy_eva = Math.ceil(enemy_eva * _value)
+      if (_type.substr(6) === 'dmg') enemy_dmg = Math.ceil(enemy_dmg * _value)
+      if (_type.substr(6) === 'rof') enemy_rof = Math.ceil(enemy_rof * _value)
+      if (_type.substr(6) === 'acu') enemy_acu = Math.ceil(enemy_acu * _value)
     } else if (situation === 'enemy_lost') {
-      if (status[0][0].substr(6) === 'eva') {
-        enemy_eva = Math.floor(enemy_eva / status[0][1])
-        if (status[0][1] === 1) Set_Special.set('2B14buff', true)
+      if (_type.substr(6) === 'eva') {
+        enemy_eva = Math.floor(enemy_eva / _value)
+        if (_value === 1) Set_Special.set('2B14buff', true)
       }
-      if (display_type === 'suffer') {
-        if (status[0][0].substr(6) === 'dmg') enemy_dmg = Math.floor(enemy_dmg / status[0][1])
-        if (status[0][0].substr(6) === 'rof') enemy_rof = Math.floor(enemy_rof / status[0][1])
-        if (status[0][0].substr(6) === 'acu') {
-          if (status[0][1] === 1) Set_Special.set('AT4_buff', true)
-          enemy_acu = Math.floor(enemy_acu / status[0][1])
-        }
+      if (_type.substr(6) === 'dmg') enemy_dmg = Math.floor(enemy_dmg / _value)
+      if (_type.substr(6) === 'rof') enemy_rof = Math.floor(enemy_rof / _value)
+      if (_type.substr(6) === 'acu') {
+        if (_value === 1) Set_Special.set('AT4_buff', true)
+        enemy_acu = Math.floor(enemy_acu / _value)
       }
     }
   }
   else if (situation === 'dot') {
-    var dot_para = status[0][1].split('/')
+    var _type = status[0][0],
+      _value = status[0][1]
+    var dot_para = _value.split('/')
     var damage_explode = ((Set_Base.get(stand_num)).Info).get('dmg') * parseInt(dot_para[0])
+    if (Set_Special.get('dot_time_' + stand_num) > 0 && !Set_Special.get('dot_isrecord_' + stand_num)) {
+      do_debuff('enemy_dot', 30 * (Set_Special.get('dot_time_' + stand_num)))
+      Set_Special.set('dot_isrecord_' + stand_num, true)
+    }
     if (is_this(stand_num, 1032)) {
       if (Set_Special.get('uzi_' + stand_num) === undefined) Set_Special.set('uzi_' + stand_num, 1)
       if (Set_Special.get('uzi_' + stand_num) - 5 * Math.floor(Set_Special.get('uzi_' + stand_num) / 5) === 0) damage_explode *= 1.8
@@ -1768,6 +1729,8 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       var list_status = Set_Status.get(stand_num)
       list_status.push(new_status)
       Set_Status.set(stand_num, list_status)
+    } else { // 熄灭
+      Set_Special.set('dot_isrecord_' + stand_num, false)
     }
   }
   else if (situation === 'grenade') {

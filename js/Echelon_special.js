@@ -114,6 +114,17 @@ function settle_buff(stand_num, info_self) {
     else if (is_this(stand_num, 270)) { // type4
         Set_Special.set('type4_' + stand_num, Set_Special.get('type4_' + stand_num) + 1)
     }
+    else if (is_this(stand_num, 274)) {
+        var list_debuff = ['enemy_dmg', 'enemy_rof', 'enemy_acu', 'enemy_eva', 'enemy_arm',
+            'enemy_speed', 'enemy_dot', 'enemy_dizz']
+        var num_debuff = 0
+        for (var debuff of list_debuff) {
+            if (Set_Special.get(debuff) >= global_frame) {
+                num_debuff++
+            }
+        }
+        if (num_debuff > 0) _mul_dmg = 1.05 + 0.05 * num_debuff
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
@@ -179,13 +190,6 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         }
         _para_dmg *= 1.5
     }
-    else if (is_this(stand_num, 272)) { // desert eagle
-        if (Set_Special.get('DE_active_' + stand_num) != undefined && Set_Special.get('DE_active_' + stand_num) > 0) {
-            Set_Special.set('DE_active_' + stand_num, Set_Special.get('DE_active_' + stand_num) - 1)
-            // base_dmg *= Math.pow(2.6, 3 - Set_Special.get('DE_active_' + stand_num))
-            _para_dmg *= 2.6
-        }
-    }
     else if (is_this(stand_num, 1002)) { // M1911 MOD
         if (Set_Special.get('m1911_' + stand_num) > 0) _para_dmg *= 2
     }
@@ -209,14 +213,83 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
 
 function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_buff) {
     var num = 1
-    if (is_this(stand_num, 276)) { // Kord
+    if (is_this(stand_num, 194)) { // K2判断模式射击次数
+        if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
+    }
+    else if (is_this(stand_num, 276)) { // Kord
         if (Set_Special.get('kord_' + stand_num) === 'type_p') num *= enemy_num_left
+    }
+    if (info_self.get('type') === 6) { // SG攻击，目标数特殊处理
+        if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
+            num = 1
+        } else {
+            if (Set_Special.get('aim_time_' + stand_num) >= global_frame) { // 强制攻击几个目标，顶替独头弹效果
+                var aim_num = Set_Special.get('aim_forceon_' + stand_num)
+                if (enemy_num_left >= aim_num) num = aim_num
+                else num = enemy_num_left
+            } else { // 没有强制目标数
+                if (Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹，默认3目标
+                    if (enemy_num_left >= 3) num = 3
+                    else num = enemy_num_left
+                } else { // 如果携带，可能因为技能攻击多个目标
+                    if (is_this(stand_num, 163)) { // AA-12酮血症BUG
+                        if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > global_frame && Set_Special.get('aa12_skillmode_' + stand_num) === false) {
+                            if (enemy_num_left >= 3) num = 3
+                            else num = enemy_num_left
+                        }
+                    }
+                }
+            }
+        }
     }
     return num
 }
 
-function settle_specialskill(stand_num) {
-    ;
+function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) {
+    var _para_arm = Math.min(2, _pro('ap', info_self) - _pro('e_arm', info_enemy))
+    if (is_this(stand_num, 4)) {
+        if (Set_Special.get('python_active') === 0 && Set_Special.get('python_opening') === true) {
+            final_dmg *= 2 // 无畏者之拥结束双发
+            Set_Special.set('python_active', -1)
+            Set_Special.set('python_opening', false)
+        }
+    }
+    else if (is_this(stand_num, 272)) { // desert eagle
+        if (Set_Special.get('DE_active_' + stand_num) != undefined && Set_Special.get('DE_active_' + stand_num) >= global_frame) { // active skill-on
+            if (Set_Special.get('DE_bullet_' + stand_num) != undefined && Set_Special.get('DE_bullet_' + stand_num) > 0) { // bullet dmg_up
+                Set_Special.set('DE_bullet_' + stand_num, Set_Special.get('DE_bullet_' + stand_num) - 1) // lost bullet buff
+                Set_Special.set('DE_multiple_' + stand_num, Math.pow(1.6, 3 - Set_Special.get('DE_bullet_' + stand_num)))
+            }
+        } else {
+            Set_Special.set('DE_multiple_' + stand_num, 1)
+        }
+        final_dmg *= Set_Special.get('DE_multiple_' + stand_num)
+    }
+    else if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
+        var ar15_list_status = Set_Status.get(stand_num)
+        var len_list = ar15_list_status.length
+        for (var i = 0; i < len_list; i++) {
+            if (ar15_list_status[i][0][0] === 'rof' && ar15_list_status[i][0][1] === 1.5) { // 突击专注期间
+                var extra_dmg = 0
+                if (Set_EnemyStatus.get('avenger_mark') === true) {
+                    extra_dmg = Math.max(1, Math.ceil(0.2 * info_self.get('dmg') * _pro('random') + _para_arm)) // 20%火力
+                } else {
+                    extra_dmg = Math.max(1, Math.ceil(0.1 * info_self.get('dmg') * _pro('random') + _para_arm)) // 10%火力
+                }
+                if (Math.random() + info_self.get('crit') >= 1) extra_dmg = Math.ceil(extra_dmg * info_self.get('critdmg'))
+                final_dmg += extra_dmg
+                break
+            }
+        }
+    }
+    else if (is_this(stand_num, 2015)) { // Alma无人机
+        if (Set_Special.get('alma_' + stand_num) >= global_frame) {
+            var pod_dmg = info_self.get('dmg') * 0.4
+            var pod_final_dmg = Math.max(1, Math.ceil(pod_dmg * _pro('random') + _para_arm))
+            final_dmg += 2 * pod_final_dmg
+        }
+    }
+    return final_dmg
 }
 
 function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {

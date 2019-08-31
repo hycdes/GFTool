@@ -1,4 +1,4 @@
-function changeSelectItems () {
+function changeSelectItems() {
   var selectID = document.getElementById('select_tdoll')
   var str_items = ''
   if (set_guntype === 0) {
@@ -357,7 +357,7 @@ function changeSelectItems () {
   selectID.innerHTML = str_items
   changePreview(1)
 }
-function changeEquip () {
+function changeEquip() {
   var ID = parseInt(document.getElementById('select_tdoll').value)
   var selectID = document.getElementById('select_equip')
   var str_items = ''
@@ -479,7 +479,7 @@ function changeEquip () {
         str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
         if (ID === 62) str_items += '<option value=362>' + lib_language.equipNAME_362 + '</option>' // G41
         if (ID === 1055) str_items += '<option value=31055>' + lib_language.equipNAME_31055 + '</option>' // M4A1 mod
-        if (ID === 1065) str_items += '<option value=31065>EOT-XPS3</option>' // HK16 MOD
+        if (ID === 1065) str_items += '<option value=31065>' + lib_language.equipNAME_31065 + '</option>' // HK16 MOD
       } else if (ID === 54 || ID === 3054) { // M16A1
         if (set_equip[0] != 31 && set_equip[0] != 32) str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
         if (set_equip[0] != 31 && set_equip[0] != 32) str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'

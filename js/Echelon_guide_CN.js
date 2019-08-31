@@ -1,7 +1,7 @@
 var lang_type = 'cn'
 
 // inital
-function mergeCell (table1, startRow, endRow, col) {
+function mergeCell(table1, startRow, endRow, col) {
   var tb = document.getElementById(table1)
   if (!tb || !tb.rows || tb.rows.length <= 0) return
   if (col >= tb.rows[0].cells.length || (startRow >= endRow && endRow != 0)) return
@@ -11,7 +11,7 @@ function mergeCell (table1, startRow, endRow, col) {
     tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan) + 1
   }
 }
-function loadScript (url) {
+function loadScript(url) {
   var script = document.createElement('script')
   script.type = 'text/javascript'
   script.src = url
@@ -172,6 +172,7 @@ lib_language = {
   equipNAME_342: '蓝色加厚披风',
   equipNAME_31039: 'Hayha记忆芯片',
   equipNAME_31044: '数码迷彩披风',
+  equipNAME_31065: '战术发卡',
   equipNAME_388: '无限弹链箱',
   equipNAME_3185: '专用战术内存',
   equipNAME_31075: 'Titan火控芯片',
