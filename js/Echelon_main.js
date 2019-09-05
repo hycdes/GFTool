@@ -1491,7 +1491,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   }
   else if (skillname === 'de') {
     Set_Special.set('DE_bullet_' + stand_num, 3)
-    Set_Special.set('DE_active_' + stand_num, global_frame + skillduration * 30)
+    Set_Special.set('DE_active_' + stand_num, global_frame + 12 * 30) // 标记持续12秒
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'hk416_fragile') {
