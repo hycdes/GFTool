@@ -4,6 +4,7 @@ function is_property(str) { return (str === 'dmg' || str === 'acu' || str === 'e
 function is_in_affect_of(stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
 function is_this(stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
 function is_stand(stand_num) { return list_tdoll[stand_num][1] != null }
+function is_int(num) { return (parseFloat(num) - parseInt(num)) === 0 }
 function is_this_type(stand_num, type) { // 1~6
   if (list_tdoll[stand_num][1].Type === type) return true
   return false

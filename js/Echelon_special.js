@@ -214,10 +214,15 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
 function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_buff) {
     var num = 1
     if (is_this(stand_num, 194)) { // K2判断模式射击次数
-        if (Set_Special.get('k2_' + stand_num) === 'fever') final_dmg *= 3
+        if (Set_Special.get('k2_' + stand_num) === 'fever') num *= 3
     }
     else if (is_this(stand_num, 276)) { // Kord
         if (Set_Special.get('kord_' + stand_num) === 'type_p') num *= enemy_num_left
+    }
+    else if (is_this(stand_num, 1095)) { // 汉阳造88 MOD
+        if (Set_Special.get('hanyang88_buff_' + stand_num) >= global_frame) {
+            num *= enemy_num_left
+        }
     }
     if (info_self.get('type') === 6) { // SG攻击，目标数特殊处理
         if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
@@ -239,6 +244,24 @@ function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_bu
                         }
                     }
                 }
+            }
+        }
+    }
+    if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= global_frame) { // 多重攻击
+        num *= Set_Special.get('multi_' + stand_num)[0]
+        if (is_this(stand_num, 2014)) { // stella
+            var max_hit = 16
+            if (Set_Special.get('stella_num') === undefined) { // 积累层数
+                Set_Special.set('stella_num', 2)
+            } else {
+                Set_Special.set('stella_num', Set_Special.get('stella_num') + 2)
+            }
+            if (Set_Special.get('jill_winestart') === true) {
+                if (Set_Static.get('jill_winetype') === 5) max_hit = 10
+            }
+            if (Set_Special.get('stella_num') >= max_hit) {
+                Set_Special.set('stella_num', 0)
+                Set_Special.set('stella_buff', true)
             }
         }
     }
@@ -314,4 +337,37 @@ function settle_crit(stand_num, info_self, list_buff) {
     else if (must_crit || Math.random() + info_self.get('crit') >= 1) is_crit = true
     if (is_crit) critdmg_para *= info_self.get('critdmg') * _mul('critdmg', list_buff)
     return critdmg_para
+}
+function settle_extra(stand_num, info_self, enemy_arm, enemy_eva, list_buff) {
+    var extra_value = 0,
+        _para_arm = Math.min(2, _pro('ap', info_self) - _pro('e_arm', enemy_arm)),
+        _para_dmg = _pro('dmg', info_self) * _mul('dmg', list_buff)
+    if (is_this(stand_num, 160) && Set_Special.get('saiga_' + stand_num) > 0) { // saiga-12巨羚号角，必中/无视护甲/不能暴击/无视独头弹/强制三目标
+        if (Set_Special.get('saiga_' + stand_num) === 3) _para_dmg *= 1.5
+        else if (Set_Special.get('saiga_' + stand_num) === 2) _para_dmg *= 2.5
+        else if (Set_Special.get('saiga_' + stand_num) === 1) _para_dmg *= 3.5
+        _para_dmg = Math.ceil(this_formation(stand_num) * _para_dmg)
+        Set_Special.set('saiga_' + stand_num, Set_Special.get('saiga_' + stand_num) - 1)
+        if (enemy_num_left >= 3) extra_value = _para_dmg * explain_fgl_ff('single') + 2 * _para_dmg * explain_fgl_ff('around_single')
+        else extra_value = _para_dmg * explain_fgl_ff('single') + (enemy_num_left - 1) * _para_dmg * explain_fgl_ff('around_single')
+    } else if (is_this(stand_num, 1095)) { // 汉阳造全能战术技能
+        if (Set_Special.get('hanyang88_bomb_' + stand_num) === true) {
+            if (enemy_arm > 0) { // 导弹
+                extra_value += Math.ceil(Math.max(1, Math.ceil(_para_dmg * _pro('random') * 1.5 + _para_arm)) * explain_fgl_ff('single')) // 计算护甲1.5倍主目标
+                extra_value += Math.ceil(Math.max(1, Math.ceil(_para_dmg * _pro('random') * 0.5 + _para_arm)) * explain_fgl_ff('around_aoe')) // 计算护甲0.5倍周围
+            } else { // 手雷
+                if (settle_accuracy(stand_num, info_self, enemy_eva, list_buff)) {
+                    extra_value += Math.ceil(Math.max(1, Math.ceil(_para_dmg * _pro('random') * 0.5 + _para_arm)) * explain_fgl_ff('aoe')) // 计算护甲0.5倍aoe
+                    extra_value += 6 * Math.ceil(Math.max(1, Math.ceil(_para_dmg * _pro('random') * 0.25 + _para_arm)) * explain_fgl_ff('aoe')) // 计算护甲的6次0.25倍aoe
+                }
+            }
+            Set_Special.set('hanyang88_bomb_' + stand_num, false)
+        }
+    }
+    return extra_value
+}
+
+function settle_formation(stand_num, fire_status) {
+    if (fire_status.substr(5) === 'all') return this_formation(stand_num) // 全员攻击
+    else if (fire_status.substr(5) === 'four') return this_formation(stand_num) - 1 // 一人释放技能
 }

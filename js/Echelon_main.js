@@ -450,7 +450,7 @@ function reactAllSkill(command, current_time) {
   // 人形特殊状态
   for (var k = 0; k < 9; k++) {
     if (gs_tdoll[k]) {
-      if (is_this(k, 257)) { // m200
+      if (is_this(k, 257) || is_this(k, 273)) { // m200 ssg3000
         if (Set_Special.get('m200_end' + k) != undefined) {
           if (Set_Special.get('m200_end' + k) < global_frame) {
             Set_Special.delete('m200_end' + k)
@@ -631,62 +631,34 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       // 正常的攻击
       else {
         recordData(stand_num, current_time, 0)
-        // 计算BUFF——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+        // 计算BUFF———————————————————————————————————————————————————————————————————————————————————————————————————
         var list_buff = settle_buff(stand_num, current_Info)
-        // 结算命中——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
-        if (is_this(stand_num, 160) && Set_Special.get('saiga_' + stand_num) > 0) { // saiga-12巨羚号角，必中/无视护甲/不能暴击/无视独头弹/强制三目标
-          var final_dmg = current_Info.get('dmg')
-          if (Set_Special.get('saiga_' + stand_num) === 3) final_dmg *= 1.5
-          else if (Set_Special.get('saiga_' + stand_num) === 2) final_dmg *= 2.5
-          else if (Set_Special.get('saiga_' + stand_num) === 1) final_dmg *= 3.5
-          final_dmg = Math.ceil(this_formation(stand_num) * final_dmg)
-          Set_Special.set('saiga_' + stand_num, Set_Special.get('saiga_' + stand_num) - 1)
-          if (enemy_num_left >= 3) final_dmg = final_dmg * explain_fgl_ff('single') + 2 * final_dmg * explain_fgl_ff('around_single')
-          else final_dmg = final_dmg * explain_fgl_ff('single') + (enemy_num_left - 1) * final_dmg * explain_fgl_ff('around_single')
-          recordData(stand_num, current_time, final_dmg)
-        } else { // 否则先判断命中
-          if (settle_accuracy(stand_num, current_Info, enemy_eva, list_buff)) { // 命中
-            if (is_this(stand_num, 59)) { // AK-74U 排斥反应
-              if (Set_Special.get('aks' + stand_num) >= current_time) {
-                Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
-              }
+        // 非常规普攻伤害——————————————————————————————————————————————————————————————————————————————————————————————
+        var extra_damage = 0
+        extra_damage = settle_extra(stand_num, current_Info, enemy_arm, enemy_eva, list_buff)
+        // 普通射击———————————————————————————————————————————————————————————————————————————————————————————————————
+        var shoot_damage = 0
+        if (settle_accuracy(stand_num, current_Info, enemy_eva, list_buff)) { // 命中敌人
+          if (is_this(stand_num, 59)) { // AK-74U 排斥反应
+            if (Set_Special.get('aks' + stand_num) >= current_time) {
+              Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
             }
-            // 普攻结算————————————————————————————————————————————————————————————————————————————————————————————————
-            var final_dmg = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
-            // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
-            final_dmg *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
-            // 特殊结算————————————————————————————————————————————————————————————————————————————————————————————————
-            final_dmg = settle_specialskill(stand_num, current_Info, enemy_arm, final_dmg)
-            // 暴击结算————————————————————————————————————————————————————————————————————————————————————————————————
-            final_dmg *= settle_crit(stand_num, current_Info, list_buff)
-            // 伤害加深和力场结算————————————————————————————————————————————————————————————————————————————————————————————————
-            final_dmg = Math.ceil(final_dmg * explain_fgl_ff('single'))
-
-            if (fire_status.substr(5) === 'all') final_dmg *= this_formation(stand_num) // 全员攻击
-            else if (fire_status.substr(5) === 'four') final_dmg *= this_formation(stand_num) - 1 // 一人释放技能
-            if (Set_Special.get('multi_' + stand_num) != undefined && Set_Special.get('multi_' + stand_num)[1] >= current_time) { // 多重攻击
-              final_dmg *= Set_Special.get('multi_' + stand_num)[0]
-              if (is_this(stand_num, 2014)) { // stella
-                var max_hit = 16
-                if (Set_Special.get('stella_num') === undefined) { // 积累层数
-                  Set_Special.set('stella_num', 2)
-                } else {
-                  Set_Special.set('stella_num', Set_Special.get('stella_num') + 2)
-                }
-                if (Set_Special.get('jill_winestart') === true) {
-                  if (Set_Static.get('jill_winetype') === 5) max_hit = 10
-                }
-                if (Set_Special.get('stella_num') >= max_hit) {
-                  Set_Special.set('stella_num', 0)
-                  Set_Special.set('stella_buff', true)
-                }
-              }
-            }
-            recordData(stand_num, current_time, final_dmg)
-          } else {
-            recordData(stand_num, current_time, 0) // miss
           }
+          // 普攻结算————————————————————————————————————————————————————————————————————————————————————————————————
+          var shoot_damage = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
+          // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
+          shoot_damage *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
+          // 特殊结算————————————————————————————————————————————————————————————————————————————————————————————————
+          shoot_damage = settle_specialskill(stand_num, current_Info, enemy_arm, shoot_damage)
+          // 暴击结算————————————————————————————————————————————————————————————————————————————————————————————————
+          shoot_damage *= settle_crit(stand_num, current_Info, list_buff)
+          // 伤害加深和力场结算———————————————————————————————————————————————————————————————————————————————————————
+          shoot_damage = Math.ceil(shoot_damage * explain_fgl_ff('single'))
+          // 编制结算————————————————————————————————————————————————————————————————————————————————————————————————
+          shoot_damage *= settle_formation(stand_num, fire_status)
         }
+        // 记录伤害数据———————————————————————————————————————————————————————————————————————————————————————————————
+        recordData(stand_num, current_time, shoot_damage + extra_damage)
       }
 
       // 攻击间隔或者换弹判断————————————————————————————————————————————————————
@@ -1074,7 +1046,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       var snipe_num = (s_t[0].Describe).snipe_num
       var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
       var time_interval = ((1 - current_Info.get('cld')) * (s_t[0].Describe).time_interval).toFixed(2)
-      if (is_this(stand_num, 257)) {
+      if (is_this(stand_num, 257) || is_this(stand_num, 273)) {
         time_init = 1.5
         var frame_interval = Math.ceil(time_interval * 30)
         var time_block
@@ -1499,7 +1471,30 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     fragile_main *= 1.2
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  // debug mode
+  else if (skillname === 'mp5mod') {
+    if (enemy_num_left <= 3) changeStatus(stand_num, 'self', 'eva', Math.pow(1.2, enemy_num_left) - 1, 8)
+    else changeStatus(stand_num, 'self', 'eva', Math.pow(1.2, 3) - 1, 8)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'ump9mod') {
+    var list_member = get_ump9_samecolumn_list(stand_num)
+    var is_dmg_up = false
+    if (document.getElementById('special_ump9_stun_' + stand_num).checked) is_dmg_up = true
+    for (var member of list_member) {
+      if (is_dmg_up) changeStatus(member, 'self', 'dmg', 0.5, 5)
+      else {
+        changeStatus(member, 'self', 'shield', 25, 5)
+        changeStatus(member, 'self', 'eva', 0.25, 5)
+      }
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'hanyang88') {
+    Set_Special.set('hanyang88_buff_' + stand_num, global_frame + 180)
+    Set_Special.set('hanyang88_bomb_' + stand_num, true)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
   if (debug_mode && (debug_function[0] || debug_function[1])) {
     if (fire_status === 'stop' && skillname === 'attack') {
       true // log nothing
@@ -1885,7 +1880,9 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       }
     }
     if (num_leftsnipe === 0) { // 狙击次数完毕
-      if (!is_this(stand_num, 257)) Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+      if (!(is_this(stand_num, 257) || is_this(stand_num, 273))) { // 常规炮击
+        Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+      }
     } else {
       var new_n = labels.length
       for (var nn = 0; nn < new_n; nn++) {
@@ -2197,6 +2194,20 @@ function get_g36_standblo(stand_num) {
     if (list_tdoll[stand_num + 1][1] != null) num_all++
   }
   return num_all
+}
+function get_ump9_samecolumn_list(stand_num) {
+  var list_column = [], list_find = [], column = 0
+  if (document.getElementById('special_ump9_' + stand_num + '_2').checked) { // 特定列
+    column = parseInt(document.getElementById('special_ump9_column_' + stand_num).value) - 1
+  } else {
+    column = stand_num - 3 * Math.floor(stand_num / 3)
+  }
+  list_find = [column, column + 3, column + 6]
+  for (var member of list_find) {
+    if (gs_tdoll[member] && member != stand_num) list_column.push(member)
+  }
+  list_column.push(stand_num) // 一定对自己生效
+  return list_column
 }
 
 // 基本语义性函数

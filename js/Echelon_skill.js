@@ -342,6 +342,21 @@ function describe_hk416fragile() { // hk416 mod passive
   Describe.name = 'hk416_fragile'
   return Describe
 }
+function describe_mp5mod() { // mp5 mod
+  var Describe = {}
+  Describe.name = 'mp5mod'
+  return Describe
+}
+function describe_ump9mod() { // ump9 mod
+  var Describe = {}
+  Describe.name = 'ump9mod'
+  return Describe
+}
+function describe_hanyang88() { // hanyang88 mod
+  var Describe = {}
+  Describe.name = 'hanyang88'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -431,6 +446,7 @@ lib_describe.set('dmg_10', describe_property(['self'], ['dmg'], ['0.1'])) // 威
 lib_describe.set('dmgN_200', describe_propertyN(['self'], ['dmg'], ['2'])) // 火力专注N 200%
 lib_describe.set('dmgN_180', describe_propertyN(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
 lib_describe.set('dmgN_105', describe_propertyN(['self'], ['dmg'], ['1.05'])) // 火力专注N 105%
+lib_describe.set('dmgN_100', describe_propertyN(['self'], ['dmg'], ['1'])) // 火力专注N 100%
 lib_describe.set('dmgN_90', describe_propertyN(['self'], ['dmg'], ['0.9'])) // 火力专注N 90%
 lib_describe.set('dmgN_85', describe_propertyN(['self'], ['dmg'], ['0.85'])) // 火力专注N 85%
 lib_describe.set('dmgN_50', describe_propertyN(['self'], ['dmg'], ['0.5'])) // 火力专注N 50%
@@ -581,6 +597,7 @@ lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless
 lib_describe.set('falcon', describe_falcon(2.5, 1.33, 0, 1, 'armless/crit/evaless')) // 夕阳隼
 lib_describe.set('falcon_getbullet', describe_falcon_getbullet()) // 夕阳隼，特殊弹装填
 lib_describe.set('m200', describe_snipe(2, 1.5, 1.5, -1, 'arm/crit/evaless')) // 无言杀意，狙击数=-1表示动态
+lib_describe.set('ssg3000', describe_snipe(1.8, 1.5, 1.5, -1, 'arm/crit/evaless')) // 沉默猎手，狙击数=-1表示动态
 lib_describe.set('cz75', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 观测者直击
 lib_describe.set('thunder', describe_snipe(-1, 1, 2, 2, 'armless/critless/eva')) // 临界点射击，倍率-1表示要分别判断
 lib_describe.set('noel', describe_snipe(1.2, 0, 0.1, 8, 'armless/critless/evaless')) // 诺艾尔技能
@@ -624,7 +641,10 @@ lib_describe.set('stella_attack', describe_multihit(2)) // stella特殊攻击
 lib_describe.set('alma', describe_alma()) // alma技能
 lib_describe.set('ads', describe_ads()) // 风暴潮
 lib_describe.set('de', describe_de()) // 威慑印记
-lib_describe.set('hk416_fragile', describe_hk416fragile())
+lib_describe.set('hk416_fragile', describe_hk416fragile()) // 寄生榴弹脆弱
+lib_describe.set('mp5mod', describe_mp5mod()) // 立场防御
+lib_describe.set('ump9mod', describe_ump9mod()) // 白鸮轰鸣
+lib_describe.set('hanyang88', describe_hanyang88()) // 全能战术
 
 // lib_skill
 
@@ -731,9 +751,9 @@ lib_skill.set(139, [createSkill(6, 12, 8, lib_describe.get('com_dmg_18'))])
 lib_skill.set(141, [createSkill(6, 12, 8, lib_describe.get('com_acu_100'))])
 
 // ———————————————————————————————————————— AR ————————————————————————————————————————
-
+// ———————————————————————————————————————— AR - 6 ————————————————————————————————————————
 lib_skill.set(1065, []) // HK416 MOD 技能根据设定决定
-
+// ———————————————————————————————————————— AR - 5 ————————————————————————————————————————
 lib_skill.set(62, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))])
 lib_skill.set(65, [createSkill(8, 16, 0, lib_describe.get('grenade_15'))])
 lib_skill.set(73, [createSkill(4, 16, 7, lib_describe.get('aug'))])
@@ -777,7 +797,7 @@ lib_skill.set(1064, [
   createSkill(4, 16, 5, lib_describe.get('g36_eva'))
 ]) // 弧光契约，射速在react实现
 lib_skill.set(3054, [createSkill(8, 16, 0, lib_describe.get('grenade_90'))]) // BOSS M16A1
-
+// ———————————————————————————————————————— AR - 4 ————————————————————————————————————————
 lib_skill.set(54, [createSkill(7, 16, 0, lib_describe.get('flash_4'))]) // 闪光弹
 lib_skill.set(55, [createSkill(4, 16, 10, lib_describe.get('dmg_70'))])
 lib_skill.set(56, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
@@ -809,7 +829,7 @@ lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
 lib_skill.set(262, [createSkill(6, 16, 0, lib_describe.get('em2'))])
 lib_skill.set(1061, [createSkill(8, 16, 0, lib_describe.get('grenade_9.6'))]) // 后续详细做
 lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
-
+// ———————————————————————————————————————— AR - 3 ————————————————————————————————————————
 lib_skill.set(58, [createSkill(5, 8, 5, lib_describe.get('dmgacu_3'))])
 lib_skill.set(61, [createSkill(8, 16, 0, lib_describe.get('grenade_4.5'))])
 lib_skill.set(70, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
@@ -827,7 +847,7 @@ lib_skill.set(223, [createSkill(5, 8, 5, lib_describe.get('modelL'))])
 lib_skill.set(239, [createSkill(6, 8, 5, lib_describe.get('dmgcrit_3'))])
 lib_skill.set(258, [createSkill(6, 16, 10, lib_describe.get('magal'))])
 lib_skill.set(265, [createSkill(4, 16, 10, lib_describe.get('rof_60'))])
-
+// ———————————————————————————————————————— AR - 2 ————————————————————————————————————————
 lib_skill.set(63, [createSkill(8, 16, 0, lib_describe.get('grenade_10'))])
 lib_skill.set(68, [createSkill(6, 8, 5, lib_describe.get('l85a1'))])
 lib_skill.set(71, [createSkill(5, 16, 15, lib_describe.get('acu_500'))])
@@ -836,7 +856,7 @@ lib_skill.set(107, [createSkill(5, 8, 5, lib_describe.get('dmg_55'))])
 lib_skill.set(133, [createSkill(5, 16, 15, lib_describe.get('acu_500'))])
 
 // ———————————————————————————————————————— SMG ————————————————————————————————————————
-
+// ———————————————————————————————————————— SMG - 5 ————————————————————————————————————————
 lib_skill.set(16, [createSkill(8, 16, 4, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('incendiary_7'))]) // 燃烧弹
 lib_skill.set(28, [
@@ -865,11 +885,19 @@ lib_skill.set(259, [
   createSkill(6, 8, 5, lib_describe.get('pm9')),
   createSkill(6, 8, 5, lib_describe.get('pm9_buff'))
 ])
+lib_skill.set(1026, [
+  createSkill(8, 16, 4, lib_describe.get('ffs')), // 力场盾
+  createSkill(8, 16, 4, lib_describe.get('mp5mod')) // 回避提升
+]) // 力场盾
+lib_skill.set(1101, [
+  createSkill(7, 16, 0, lib_describe.get('flash_5')), // 闪光弹
+  createSkill(7, 16, 0, lib_describe.get('ump9mod')) // 白鸮轰鸣
+])
 lib_skill.set(1103, [
   createSkill(1, 16, 4, lib_describe.get('rof_40_enemy')),
   createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
 ]) // 迷雾盒，伤害没做
-
+// ———————————————————————————————————————— SMG - 4 ————————————————————————————————————————
 lib_skill.set(23, [createSkill(4, 16, 15, lib_describe.get('eva_45'))]) //
 lib_skill.set(26, [createSkill(8, 16, 3, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(101, [createSkill(7, 16, 0, lib_describe.get('flash_4'))]) // 闪光弹
@@ -896,7 +924,7 @@ lib_skill.set(1093, [
 lib_skill.set(1094, [
   createSkill(7, 16, 0, lib_describe.get('flash_4'))
 ]) // 闪光弹4星，被动没做
-
+// ———————————————————————————————————————— SMG - 3 ————————————————————————————————————————
 lib_skill.set(18, [
   createSkill(1, 16, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹36%
   createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
@@ -922,7 +950,7 @@ lib_skill.set(267, [
   createSkill(1, 16, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹36%
   createSkill(1, 16, 4, lib_describe.get('speed_down')) // 减速
 ])
-
+// ———————————————————————————————————————— SMG - 2 ————————————————————————————————————————
 lib_skill.set(17, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(21, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
 lib_skill.set(24, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_5.5'))])
@@ -937,7 +965,7 @@ lib_skill.set(93, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
 lib_skill.set(94, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 
 // ———————————————————————————————————————— RF ————————————————————————————————————————
-
+// ———————————————————————————————————————— RF - 5 ————————————————————————————————————————
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
 lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])
 lib_skill.set(50, [createSkill(5, 8, 5, lib_describe.get('dmg_75'))])
@@ -965,7 +993,7 @@ lib_skill.set(266, [
   createSkill(6, 8, 5, lib_describe.get('dmg_40'))
 ]) // 叠加射速特殊判断
 lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
-
+// ———————————————————————————————————————— RF - 4 ————————————————————————————————————————
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])
 lib_skill.set(39, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])
 lib_skill.set(42, [createSkill(15, 16, 0, lib_describe.get('snipe_7'))]) // ptrd
@@ -987,6 +1015,7 @@ lib_skill.set(247, [createSkill(6, 8, 5, lib_describe.get('k31'))])
 lib_skill.set(252, [createSkill(10, 16, 0, lib_describe.get('snipe_4'))])
 lib_skill.set(261, [createSkill(8, 16, 0, lib_describe.get('qbu88'))])
 lib_skill.set(270, [createSkill(6, 8, 5, lib_describe.get('rof_55'))]) // 四式
+lib_skill.set(273, [createSkill(6, 16, 0, lib_describe.get('ssg3000'))]) // SSG3000
 lib_skill.set(1037, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 6, lib_describe.get('critdmg_10'))
@@ -1000,7 +1029,12 @@ lib_skill.set(1051, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 5, lib_describe.get('rof_15'))
 ])
-
+lib_skill.set(1095, [
+  createSkill(6, 8, 6, lib_describe.get('dmgN_100')),
+  createSkill(6, 8, 6, lib_describe.get('dmgND_35')),
+  createSkill(6, 8, 6, lib_describe.get('hanyang88')) // 全能战术判断在攻击判定中解决
+])
+// ———————————————————————————————————————— RF - 3 ————————————————————————————————————————
 lib_skill.set(34, [createSkill(10, 16, 0, lib_describe.get('snipe_5.5'))])
 lib_skill.set(35, [createSkill(5, 16, 15, lib_describe.get('rof_40'))])
 lib_skill.set(37, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))]) // m14
@@ -1025,7 +1059,7 @@ lib_skill.set(230, [createSkill(6, 8, 6, lib_describe.get('obr'))]) // obr
 lib_skill.set(241, [createSkill(15, 16, 0, lib_describe.get('snipe_6.5_2'))])
 lib_skill.set(255, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(268, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
-
+// ———————————————————————————————————————— RF - 2 ————————————————————————————————————————
 lib_skill.set(40, [createSkill(10, 16, 0, lib_describe.get('snipe_5'))])
 lib_skill.set(41, [createSkill(5, 8, 5, lib_describe.get('rof_55'))])
 lib_skill.set(47, [
@@ -1120,6 +1154,10 @@ lib_skill.set(195, [
   createSkill(8, 18, 0, lib_describe.get('addclip_3'))
 ])
 lib_skill.set(249, [createSkill(8, 18, 6, lib_describe.get('62type'))])
+lib_skill.set(271, [
+  createSkill(8, 18, 8, lib_describe.get('dmg_30')),
+  createSkill(8, 18, 0, lib_describe.get('addclip_3'))
+])
 
 lib_skill.set(81, [ // 猎杀冲动
   createSkill(3, 18, 6, lib_describe.get('acu_60')),

@@ -442,6 +442,7 @@ function resetEquipment() {
     if (set_guntype === 1) {
       if (ID === 4 || ID === 272) set_equip = [11, 21, 31] // python & desert eagle
       else if (ID === 7) set_equip = [17, 21, 32] // stechkin
+      else if (ID === 10) set_equip = [110, 21, 32] // ppk
       else if (ID === 1001) set_equip = [11001, 21, 32] // colt mod
       else if (ID === 1002) set_equip = [11, 21002, 31] // m1911 mod
       else if (ID === 1005) set_equip = [11005, 21, 32] // m1895 mod
@@ -460,6 +461,7 @@ function resetEquipment() {
       else if (ID === 65) set_equip = [165, 22, 31] // hk416
       else if (ID === 58 || ID === 66) set_equip = [166, 22, 31] // ak47 56-1
       else if (ID === 69) set_equip = [169, 22, 31] // famas
+      else if (ID === 74) set_equip = [174, 22, 31] // sig-50
       else if (ID === 1056) set_equip = [12, 22, 11056] // sop2 mod
       else if (ID === 1057) set_equip = [12, 21057, 11057] // ar15 mod
       else if (ID === 1055) set_equip = [12, 22, 31055] // m4 mod
@@ -471,9 +473,11 @@ function resetEquipment() {
       else set_equip = [12, 22, 31]
     }
     else if (set_guntype === 3) {
-      if (ID === 26) set_equip = [326, 21, 11] // mp5
+      if (ID === 17) set_equip = [32, 21, 117] // M3
+      else if (ID === 26 || ID === 1026) set_equip = [326, 21, 11] // mp5
       else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
       else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 32 || ID === 135 || ID === 251 || ID === 136 || ID === 177 || ID === 1032) set_equip = [31, 21, 11] // 输出型
+      else if (ID === 1101) set_equip = [3103, 21, 11] // ump9 mod
       else if (ID === 1103) set_equip = [3103, 21, 11103] // ump45 mod
       else if (ID === 1029) set_equip = [32, 21, 11029] // sten mod
       else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
@@ -487,23 +491,27 @@ function resetEquipment() {
       else if (ID === 42) set_equip = [12, 23, 342] // ptrd
       else if (ID === 46) set_equip = [146, 23, 34] // kar98k
       else if (ID === 50) set_equip = [150, 23, 34] // lee'enfield
+      else if (ID === 52) set_equip = [152, 23, 34] // bm59
       else if (ID === 1039) set_equip = [11039, 23, 31039] // mosin mod
       else if (ID === 1037) set_equip = [11037, 23, 34] // m14 mod
       else if (ID === 1044) set_equip = [12, 23, 31044] // sv98 mod
       else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
+      else if (ID === 1095) set_equip = [11095, 23, 34] // hanyang88 mod
       else if (ID === 2014) set_equip = [12, 23, 32014] // Stella
       else set_equip = [12, 23, 34]
     }
     else if (set_guntype === 5) {
       if (ID === 75 || ID === 1075) set_equip = [12, 23, 31075] // m1918
       else if (ID === 88) set_equip = [12, 23, 388] // MG3
+      else if (ID === 110) set_equip = [1110, 23, 35] // fg42
       else if (ID === 185) set_equip = [12, 23, 3185] // ameli
       else if (ID === 1081) set_equip = [11081, 23, 35] // lwmmg mod
       else if (ID === 2015) set_equip = [12, 23, 32015] // Alma
       else set_equip = [12, 23, 35]
     }
     else if (set_guntype === 6) {
-      if (ID === 2016) set_equip = [32016, 24, 13] // Dana
+      if (ID === 158) set_equip = [33, 2158, 13] // ks23
+      else if (ID === 2016) set_equip = [32016, 24, 13] // Dana
       else set_equip = [33, 24, 13]
     }
     document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
@@ -540,7 +548,7 @@ function changePreview() { // 改变预览显示，也会改变装备对应全�
     set_equip[num_pickequip - 1] = ID_equip
   }
   // 刷新人物和装备显示
-  document.getElementById('img_display').style = 'background: url(../img/echelon/' + ID + '.png)'
+  document.getElementById('img_display').style = 'background: url(../img/echelon/tdoll/' + ID + '.png)'
   document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
   document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
   document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
@@ -914,8 +922,21 @@ function addTdoll() { // 添加战术人形
     else if (ID === 1065) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' HK416</h4><input type="checkbox" id="special_1065_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_1065 + '] ' + lib_language.DESCRIBE_1065
     }
+    else if (ID === 1101) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' UMP9</h4>'
+      str_html += '<input type="checkbox" id="special_ump9_stun_' + (num_pickblock - 1) + '" checked>' + lib_language.DESCRIBE_1101_3
+      str_html += '<h5>[' + lib_language.skillNAME_1101 + '] ' + lib_language.DESCRIBE_1101_0 + '</h5>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '" id="special_ump9_' + (num_pickblock - 1) + '_1" onchange=control_ump9(' + (num_pickblock - 1) + ')>' + lib_language.DESCRIBE_1101_1 + '</label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '" id="special_ump9_' + (num_pickblock - 1) + '_2" onchange=control_ump9(' + (num_pickblock - 1) + ') checked><span style="color:dodgerblue"> ' + lib_language.DESCRIBE_1101_2 + '</span></label></p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:100px"><tbody><tr><td>'
+      str_html += '<input class="form-control input-sm" placeholder="' + lib_language.INPUT_PI + '" id="special_ump9_column_' + (num_pickblock - 1) + '" onblur=inputCheck_ump9('
+      str_html += "'" + 'special_ump9_column_' + (num_pickblock - 1) + "'"
+      str_html += ') value="1"></td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     // 前台更新
-    document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/' + ID + '.png)'
+    document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/tdoll/' + ID + '.png)'
     manageUI('pick-block')
     // 计算影响格
     getBlockAffect()
@@ -934,7 +955,7 @@ function deleteTdoll() { // 删除战术人形
   list_tdoll[num_pickblock - 1][1] = null
   // 前台更新
   document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = ''
-  document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/0.png)'
+  document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)'
   // 取消选定
   pickBlock(-1)
   // 计算影响格
@@ -1057,6 +1078,16 @@ function inputCheck_r93(str_id) {
 function control_r93(position) {
   document.getElementById('special_r93_switch_' + position).disabled = document.getElementById('special_r93_' + position + '_1').checked
 }
+function inputCheck_ump9(str_id) {
+  var str_input = document.getElementById(str_id).value
+  if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) < 1 || parseInt(str_input) > 3 || !is_int(str_input)) {
+    document.getElementById(str_id).value = 1
+  }
+}
+function control_ump9(position) {
+  document.getElementById('special_ump9_column_' + position).disabled = document.getElementById('special_ump9_' + position + '_1').checked
+}
+
 function checkEnviInput() { // 纠正非法输入
   var edit_timeinit = document.getElementById('time_init').value
   if (edit_timeinit === '' || isNaN(edit_timeinit) || parseInt(edit_timeinit) < 0) { // 接敌时间，非负数
