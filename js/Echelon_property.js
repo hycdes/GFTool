@@ -782,6 +782,8 @@ lib_property_equip.set(32014, createProperty_equip(0, 0, 0, 3, 0, 0, 0.3, 0, 0, 
 lib_property_equip.set(32015, createProperty_equip(6, 0, -2, 0, 0, 0, 0, 6, 0, 0)) // Elma
 lib_property_equip.set(32016, createProperty_equip(6, 0, -2, 0, 11, 0, 0, 0, 0, 0)) // Dana
 
+lib_property_equip.set(23054, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 300, 100)) // BUG:M16A1
+
 lib_fairy.set(1, createFairy(lib_language.fairyNAME_1, 'dmg/acu/eva/arm', '0.25/0.8/0.4/0.1'))
 lib_fairy.set(2, createFairy(lib_language.fairyNAME_2, 'dmg/critdmg/eva/arm', '0.15/0.4/0.4/0.1'))
 lib_fairy.set(3, createFairy(lib_language.fairyNAME_3, 'dmg/critdmg/arm', '0.22/0.22/0.25'))

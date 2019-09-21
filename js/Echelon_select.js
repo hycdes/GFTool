@@ -461,6 +461,7 @@ function changeEquip() {
       if (ID === 1057 || ID === 57) str_items += '<option value=21057>' + lib_language.equipNAME_21057 + '</option>' // AR-15
       if (ID === 1060) str_items += '<option value=21060>' + lib_language.equipNAME_21060 + '</option>' // as val
       if (ID === 1061) str_items += '<option value=21061>7.92 KRUZ</option>' // StG44
+      if (ID === 3054) str_items += '<option value=23054>皇帝的口粮</option>' // sf-m16a1
     } else if (set_guntype === 3) { // SMG
       str_items += '<option value=21>' + lib_language.equipNAME_21 + '</option>'
       if (ID === 213) str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>' // CMS
