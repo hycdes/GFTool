@@ -188,6 +188,7 @@ lib_language = {
   equipNAME_2158: '20GA 벅 샷',
   equipNAME_11026: 'LED武器灯',
   equipNAME_11095: '加速线圈',
+  equipNAME_1129: '先进单兵瞄具',
 
   skillNAME_39: '저격개시',
   skillNAME_39_2: '하얀 사신',

@@ -309,6 +309,7 @@ function do_dorothy_drink(stand_num, duration) { // 抵消一半debuff
 
 // lable_init
 function init_resetAllConfig() { // 重置所有数据
+  global_frame = 0
   queue_tdoll = [] // 清空站位队列
   global_total_dmg = 0 // 总伤害重置
   // 重置存在开关

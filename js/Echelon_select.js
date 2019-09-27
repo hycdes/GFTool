@@ -393,6 +393,7 @@ function changeEquip() {
         if (ID === 74) str_items += '<option value=174>' + lib_language.equipNAME_174 + '</option>'
         if (ID === 69) str_items += '<option value=169>' + lib_language.equipNAME_169 + '</option>'
         if (ID === 118) str_items += '<option value=4118>' + lib_language.equipNAME_4118 + '</option>'
+        if (ID === 129 || ID === 130) str_items += '<option value=1129>' + lib_language.equipNAME_1129 + '</option>' // 先进单兵瞄具
         if (ID === 1063) str_items += '<option value=11063>' + lib_language.equipNAME_11063 + '</option>'
         if (ID === 1064) str_items += '<option value=11064>' + lib_language.equipNAME_11064 + '</option>'
       } else if (ID === 54 || ID === 3054) { // M16A1
@@ -417,7 +418,7 @@ function changeEquip() {
       str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
       str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
       if (ID === 17) str_items += '<option value=117>' + lib_language.equipNAME_117 + '</option>' // m3
-      if (ID === 26) str_items += '<option value=326>GSG UX' + lib_language.equipNAME_31 + '</option>' // MP5
+      if (ID === 26 || ID === 1026) str_items += '<option value=326>GSG UX' + lib_language.equipNAME_31 + '</option>' // MP5
       if (ID === 101 || ID === 102 || ID === 103 || ID === 1103) str_items += '<option value=3103>UMP UX' + lib_language.equipNAME_31 + '</option>' // UMP系列
       if (ID === 1093) str_items += '<option value=31093>' + lib_language.equipNAME_31093 + '</option>'
     } else if (set_guntype === 4) { // RF

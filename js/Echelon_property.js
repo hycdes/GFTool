@@ -726,6 +726,7 @@ lib_property_equip.set(169, createProperty_equip(4, 4, 0, 0, 0, 0.48, 0, 0, 0, 0
 lib_property_equip.set(174, createProperty_equip(9, 4, 0, 0, 0, 0.5, 0, 0, 0, 0)) // sig-50
 lib_property_equip.set(1110, createProperty_equip(0, 32, 0, -1, 0, 0.24, 0, 0, 0, 0)) // fg42
 lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0)) // mg4
+lib_property_equip.set(1129, createProperty_equip(5, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // qbz95 97
 lib_property_equip.set(11001, createProperty_equip(3, 0, 10, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(11005, createProperty_equip(0, 4, 14, 0, 0, 0.2, 0, 0, 0, 0))
 lib_property_equip.set(11026, createProperty_equip(10, 15, 0, -4, 0, 0, 0, 0, 0, 0)) // MP5

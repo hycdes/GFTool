@@ -1473,7 +1473,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   }
   else if (skillname === 'mp5mod') {
     if (enemy_num_left <= 3) changeStatus(stand_num, 'self', 'eva', Math.pow(1.2, enemy_num_left) - 1, 8)
-    else changeStatus(stand_num, 'self', 'eva', Math.pow(1.2, 3) - 1, 8)
+    else changeStatus(stand_num, 'self', 'eva', Math.pow(1.2, 3) - 1, 12)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'ump9mod') {

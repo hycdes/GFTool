@@ -188,6 +188,7 @@ lib_language = {
   equipNAME_2158: '20GA猎鹿弹',
   equipNAME_11026: 'LED武器灯',
   equipNAME_11095: '加速线圈',
+  equipNAME_1129: '先进单兵瞄具',
 
   skillNAME_39: '沉稳射击',
   skillNAME_39_2: '苍白收割者',

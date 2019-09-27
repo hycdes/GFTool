@@ -455,7 +455,6 @@ function resetEquipment() {
     }
     else if (set_guntype === 2) {
       if (ID === 54) set_equip = [32, 22, 354] // m16
-      else if (ID === 3054) set_equip = [32, 23054, 354] // sf m16
       else if (ID === 56) set_equip = [12, 22, 14] // sop2
       else if (ID === 57) set_equip = [12, 21057, 14] // ar15
       else if (ID === 62) set_equip = [12, 22, 362] // g41
@@ -463,6 +462,7 @@ function resetEquipment() {
       else if (ID === 58 || ID === 66) set_equip = [166, 22, 31] // ak47 56-1
       else if (ID === 69) set_equip = [169, 22, 31] // famas
       else if (ID === 74) set_equip = [174, 22, 31] // sig-50
+      else if (ID === 129 || ID === 130) set_equip = [1129, 22, 31] // qbz95 or 97
       else if (ID === 1056) set_equip = [12, 22, 11056] // sop2 mod
       else if (ID === 1057) set_equip = [12, 21057, 11057] // ar15 mod
       else if (ID === 1055) set_equip = [12, 22, 31055] // m4 mod
@@ -471,6 +471,7 @@ function resetEquipment() {
       else if (ID === 1063) set_equip = [11063, 22, 31] // g3 mod
       else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
       else if (ID === 1065) set_equip = [165, 22, 31065] // HK416 mod
+      else if (ID === 3054) set_equip = [32, 23054, 354] // sf m16
       else set_equip = [12, 22, 31]
     }
     else if (set_guntype === 3) {
