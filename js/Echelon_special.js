@@ -331,7 +331,7 @@ function settle_crit(stand_num, info_self, list_buff) {
         critdmg_para = 1
     must_crit = _mul('must_crit', list_buff) ||
         (Set_Special.get('must_crit_' + stand_num) != undefined) ||
-        (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= current_time)
+        (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= global_frame)
     no_crit = _mul('no_crit', list_buff)
     if (no_crit) is_crit = false
     else if (must_crit || Math.random() + info_self.get('crit') >= 1) is_crit = true
@@ -371,3 +371,17 @@ function settle_formation(stand_num, fire_status) {
     if (fire_status.substr(5) === 'all') return this_formation(stand_num) // 全员攻击
     else if (fire_status.substr(5) === 'four') return this_formation(stand_num) - 1 // 一人释放技能
 }
+
+
+// sample
+
+// _damage = toInt(Math.random() <= (_acu / (_acu + _eva))) *                      // accuracy
+//     Math.ceil(
+//         Math.floor(
+//             (Math.max(1, Math.ceil(_dmg * (0.85 + 0.3 * Math.random()) - _arm)) // armor penetrate
+//                 * (1 + (_critdmg - 1) * toInt(Math.random() <= _crit))          // crit
+//                 + _const_dmg)                                                   // constant damage
+//             * (_ff / _ffmax)                                                    // forcefield reduction
+//         )
+//         * _para_deepen * _para_reduce                                           // daamge deepen and reduction
+//     )
