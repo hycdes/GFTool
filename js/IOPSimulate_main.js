@@ -3,6 +3,11 @@ var fiveStarNum = 0, fiveStarNumH = 0, fiveStarNumE = 0, fiveStarNumEH = 0, fair
 var mul_smg = 1, mul_ar = 1, mul_rf = 1, mul_mg = 1, mul_sg = 1
 var allM = 0, allA = 0, allR = 0, allP = 0, allCon = 0, allCore = 0, allConE = 0
 var global_list, global_5list, global_listE, global_5listE, global_fairylist
+var reso_nt = [30, 30, 30, 30], // max 999
+  reso_ht = [1000, 1000, 1000, 1000], // max 9999
+  reso_ne = [10, 10, 10, 10], // max 300
+  reso_he = [500, 500, 500, 500] // max 5000
+
 window.onload = function () {
   var chart = document.getElementById('rankingChart')
   var chartE = document.getElementById('rankingChartE')
@@ -23,8 +28,572 @@ window.onload = function () {
   sumchartE.innerHTML = tab2E
   resochart.innerHTML = tab3
 }
-// function
-function swapImage (imageCode) {
+// UI display
+function get_decimal(num, ratio) {
+  return Math.floor(num / ratio) - 10 * Math.floor(num / (10 * ratio))
+}
+function swap_reso(produce_type, hum, amm, rat, pts) {
+  if (produce_type === 1) reso_nt = [hum, amm, rat, pts]
+  else if (produce_type === 2) reso_ht = [hum, amm, rat, pts]
+  else if (produce_type === 3) reso_ne = [hum, amm, rat, pts]
+  else if (produce_type === 4) reso_he = [hum, amm, rat, pts]
+  show_numbers(produce_type)
+}
+function change_reso(str) {
+  var action = 1
+  if (str[0] === '-') action = -1
+  var produce_type = parseInt(str[1]),
+    reso_type = parseInt(str[2]),
+    temp_reso = 0
+  if (produce_type === 1) {
+    var increment = action * Math.pow(10, 3 - parseInt(str[3]))
+    temp_reso = reso_nt[reso_type - 1] + increment
+    if (temp_reso < 30) temp_reso = 30
+    else if (temp_reso > 999) temp_reso = 999
+    reso_nt[reso_type - 1] = temp_reso
+  } else if (produce_type === 2) {
+    true
+  } else if (produce_type === 3) {
+    true
+  } else if (produce_type === 4) {
+    true
+  }
+  show_numbers(produce_type)
+}
+function show_numbers(produce_type) {
+  if (produce_type === 1) {
+    for (i = 1; i <= 4; i++) {
+      document.getElementById('num1' + i + '1').src = '../img/produce/normal-tdoll/img-' + get_decimal(reso_nt[i - 1], 100) + '.png'
+      document.getElementById('num1' + i + '2').src = '../img/produce/normal-tdoll/img-' + get_decimal(reso_nt[i - 1], 10) + '.png'
+      document.getElementById('num1' + i + '3').src = '../img/produce/normal-tdoll/img-' + get_decimal(reso_nt[i - 1], 1) + '.png'
+    }
+  }
+}
+
+// produce
+function produce(produce_type, produce_num) {
+  if (produce_type === 1) {
+    document.getElementById('panelT').className = 'active'
+    document.getElementById('panelE').className = ''
+    document.getElementById('TdollResult').className = 'tab-pane fade in active'
+    document.getElementById('EquipmentResult').className = 'tab-pane fade'
+    for (var pn = 0; pn < produce_num; pn++) {
+      listNum++
+      var chart = document.getElementById('rankingChart')
+      var sumchart = document.getElementById('sumChart')
+      var resochart = document.getElementById('resoChart')
+      var tabSum = sumchart.innerHTML
+      var tabReso = resochart.innerHTML
+      allM += reso_nt[0]
+      allA += reso_nt[1]
+      allR += reso_nt[2]
+      allP += reso_nt[3]
+      allCon++
+      var starNum = get_star(1)
+      var Tdoll = makeTdoll(reso_nt[0], reso_nt[1], reso_nt[2], reso_nt[3], starNum)
+      // add List
+      global_list = global_list.substring(0, global_list.length - 16)
+      global_list += '<tr><td>'
+      global_list += (listNum + '')
+      global_list += '</td><td>'
+      global_list += (reso_nt[0] + ' ')
+      global_list += (reso_nt[1] + ' ')
+      global_list += (reso_nt[2] + ' ')
+      global_list += (reso_nt[3] + ' ')
+      global_list += '</td><td>'
+      global_5list = global_5list.substring(0, global_5list.length - 16)
+      global_5list += '<tr>'
+      if (starNum === 5) {
+        global_5list += '<td>'
+        global_5list += (listNum + '')
+        global_5list += '</td><td>'
+        global_5list += (reso_nt[0] + ' ')
+        global_5list += (reso_nt[1] + ' ')
+        global_5list += (reso_nt[2] + ' ')
+        global_5list += (reso_nt[3] + ' ')
+        global_5list += '</td><td><span style="color:darkorange">'
+        global_5list += Tdoll
+        global_5list += '</span></td>'
+        global_list += '<span style="color:darkorange">'
+        global_list += Tdoll
+        global_list += '</span>'
+      } else if (starNum === 4) {
+        global_list += '<span style="color:chartreuse">'
+        global_list += Tdoll
+        global_list += '</span>'
+      } else if (starNum === 3) {
+        global_list += '<span style="color:dodgerblue">'
+        global_list += Tdoll
+        global_list += '</span>'
+      } else {
+        global_list += '<span style="color:darkseagreen">'
+        global_list += Tdoll
+        global_list += '</span>'
+      }
+      global_list += '</td></tr></tbody></table>'
+      global_5list += '</tr></tbody></table>'
+      tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>'
+      tabSum += '<tr>'
+      var RateNormal
+      if (listNum === listNumH) RateNormal = -1; // Not normal-produce
+      else RateNormal = Math.ceil(100 * fiveStarNum / (listNum - listNumH))
+      var RateHeavy
+      if (listNumH === 0) RateHeavy = -1; // Not heavy-produce
+      else RateHeavy = Math.ceil(100 * fiveStarNumH / listNumH)
+      tabSum += '<td>'
+      tabSum += (listNum + '')
+      tabSum += '</td><td>'
+      tabSum += (fiveStarNum + ' + ')
+      tabSum += (fiveStarNumH + '')
+      tabSum += '</td><td>'
+      if (RateNormal < 0) tabSum += '-'
+      else tabSum += (RateNormal + '%')
+      tabSum += ' / '
+      if (RateHeavy < 0) tabSum += '-'
+      else tabSum += (RateHeavy + '%')
+      tabSum += '</td><td>'
+      if ((RateNormal < 0 || RateNormal > 10) && (RateHeavy < 0 || RateHeavy > 30)) {
+        tabSum += '<span style="color:darkorange"><b>欧皇</b></span>'
+      } else if ((RateNormal <= 2 && RateNormal >= 0) && (RateHeavy < 0 || (RateHeavy <= 10 && RateHeavy >= 0))) {
+        tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>'
+      } else {
+        tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>'
+      }
+      tabSum += '</td></tr></tbody></table>'
+      tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>'
+      tabReso += '<td>'
+      tabReso += (allM + '')
+      tabReso += '</td><td>'
+      tabReso += (allA + '')
+      tabReso += '</td><td>'
+      tabReso += (allR + '')
+      tabReso += '</td><td>'
+      tabReso += (allP + '')
+      tabReso += '</td><td>'
+      tabReso += (allCon + '')
+      tabReso += '</td><td>'
+      tabReso += (allConE + '')
+      tabReso += '</td><td>'
+      tabReso += (allCore + '')
+      tabReso += '</td></tr></tbody></table>'
+      var switchA = document.getElementById('showAllSwitch')
+      if (switchA.checked === true) {
+        chart.innerHTML = global_list
+      } else {
+        chart.innerHTML = global_5list
+      }
+      sumchart.innerHTML = tabSum
+      resochart.innerHTML = tabReso
+    }
+  }
+}
+
+var list_name = [
+  [96, '灰熊 MkV'], [97, 'M950A'], [114, '维尔德MkⅡ'], [126, 'NZ75'], [183, '竞争者'], [233, 'Px4风暴'], [260, 'PA-15'],
+  [1, '柯尔特左轮'], [7, '斯捷奇金'], [99, 'Mk23'], [100, 'P7'], [168, 'Spitfire'], [212, 'K5'], [248, '杰里科'], [269, 'P30'],
+  [3, 'M9'], [6, '托卡列夫'], [8, '马卡洛夫'], [11, 'P08'], [12, 'C96'], [13, '92式'], [14, '阿斯特拉左轮'], [123, 'P99'],
+  [2, 'M1911'], [5, '纳甘左轮'], [9, 'P38'], [10, 'PPK'], [90, 'FNP-9'], [91, 'MP-446'], [139, 'Bren Ten'], [141, 'USP Compat'],
+  [62, 'G41'], [65, 'HK416'], [106, 'FAL'], [122, 'G11'], [129, '95式'], [130, '97式'], [172, 'RFB'], [181, 'T-91'], [194, 'K2'], [196, 'Zas M21'], [214, 'ADS'], [206, 'AK-12'], [205, 'AN-94'], [215, 'MDR'], [236, 'K11'], [243, '64式自'],
+  [60, 'AS Val'], [64, 'G36'], [66, '56-1式'], [69, 'FAMAS'], [72, 'TAR-21'], [118, '9A-91'], [171, '利贝罗勒'], [216, 'XM8'], [237, 'SAR-21'], [262, 'EM-2'],
+  [58, 'AK-47'], [61, 'StG44'], [70, 'FNC'], [105, 'OTs-12'],
+  [63, 'G3'], [68, 'L85A1'], [71, '加利尔'], [74, 'SIG-50'], [107, 'F2000'], [133, '63式'],
+  [16, '汤姆森'], [20, 'Vector'], [28, 'MP7'], [104, 'G36C'], [115, '索米'], [127, '79式'], [135, 'SR-3MP'], [213, 'C-MS'], [228, '樱花'], [245, 'P90'],
+  [23, 'PP-90'], [26, 'MP5'], [101, 'UMP9'], [103, 'UMP45'], [137, 'PP-19-01'], [150, '希普卡'],
+  [18, 'MAC-10'], [23, 'PPS-43'], [27, '蝎式'], [29, '司登 MkⅡ'], [32, '微型乌兹'], [116, 'Z-62'],
+  [17, 'M3'], [21, 'PPsh-41'], [24, 'PP2000'], [25, 'MP-40'], [31, '伯莱塔38型'], [33, 'M45'], [92, 'Spectre M4'], [93, 'IDW'], [94, '64式'],
+  [261, 'QBU-88'], [257, 'M200'], [198, '卡尔卡诺M91/38'], [197, '卡尔卡诺M1891'], [148, 'IWS2000'], [128, 'M99'], [53, 'NTW-20'], [50, '李·恩菲尔德'], [48, 'WA2000'], [46, 'Kar98k'],
+  [36, '春田'], [39, '莫辛·纳甘'], [42, 'PTRD'], [43, 'SVD'], [117, 'PSG-1'], [146, 'G28'], [180, 'PzB39'], [184, 'T-5000'], [235, 'SPR-A3G'], [247, 'K31'], [270, '四式'],
+  [34, 'M1加兰德'], [37, 'M14'], [44, 'SV-98'], [95, '汉阳造88式'],
+  [40, 'SVT-38'], [41, '西蒙诺夫'], [47, 'G43'], [51, 'FN-49'], [52, 'BM-59'],
+  [109, 'MG5'], [112, '内格夫'], [125, 'MG4'], [173, 'PKP'], [238, '88式'], [263, 'MG36'],
+  [75, 'M1918'], [78, 'M60'], [85, 'PK'], [88, 'MG3'], [121, 'Mk48'], [149, 'AEK-999'], [185, '阿梅利'], [199, '80式'], [264, '绍沙'],
+  [77, 'M2HB'], [80, 'M1919A4'], [86, 'MG42'], [89, '布伦'],
+  [81, 'LWMMG'], [82, 'DP28'], [87, 'MG34'], [110, 'FG-42'], [111, 'AAT-52']
+]
+function find_name(index) {
+  for (var entry of list_name) {
+    if (entry[0] === index) return entry[1]
+  }
+  return -1
+}
+
+function makeTdoll(Mw, Aw, Rw, Pw, starNum) { // Normal-produce T-doll, possibility*100
+  if (starNum === 5) fiveStarNum++
+  var TdollInfo = ''
+  var TdollList = []
+  // HG-total<=920
+  if (Mw + Aw + Rw + Pw <= 920) {
+    getMul_HG(Mw + Aw + Rw + Pw)
+    if (starNum === 5) {
+      TdollList.push(creatTdollInfo_HG('HG@96', 200))
+      TdollList.push(creatTdollInfo_HG('HG@126', 110))
+      TdollList.push(creatTdollInfo_HG('HG@233', 30))
+      TdollList.push(creatTdollInfo_HG('HG@260', 30))
+      if (Mw >= 130 && Aw >= 130 && Rw >= 130 && Pw >= 30) {
+        TdollList.push(creatTdollInfo_HG('HG@97', 80))
+        TdollList.push(creatTdollInfo_HG('HG@114', 100))
+        TdollList.push(creatTdollInfo_HG('HG@183', 30))
+      }
+    } else if (starNum === 4) {
+      TdollList.push(creatTdollInfo_HG('HG@1', 367))
+      TdollList.push(creatTdollInfo_HG('HG@99', 259))
+      TdollList.push(creatTdollInfo_HG('HG@100', 263))
+      TdollList.push(creatTdollInfo_HG('HG@269', 260))
+      if (Mw >= 130 && Aw >= 130 && Rw >= 130 && Pw >= 30) {
+        TdollList.push(creatTdollInfo_HG('HG@7', 87))
+        TdollList.push(creatTdollInfo_HG('HG@168', 147))
+        TdollList.push(creatTdollInfo_HG('HG@212', 140))
+        TdollList.push(creatTdollInfo_HG('HG@248', 80))
+      }
+    } else if (starNum === 3) {
+      TdollList.push(creatTdollInfo_HG('HG@3', 366))
+      TdollList.push(creatTdollInfo_HG('HG@6', 267))
+      TdollList.push(creatTdollInfo_HG('HG@8', 186))
+      TdollList.push(creatTdollInfo_HG('HG@11', 322))
+      TdollList.push(creatTdollInfo_HG('HG@12', 360))
+      TdollList.push(creatTdollInfo_HG('HG@13', 183))
+      TdollList.push(creatTdollInfo_HG('HG@14', 325))
+      TdollList.push(creatTdollInfo_HG('HG@123', 152))
+    } else {
+      TdollList.push(creatTdollInfo_HG('HG@2', 570))
+      TdollList.push(creatTdollInfo_HG('HG@5', 547))
+      TdollList.push(creatTdollInfo_HG('HG@9', 572))
+      TdollList.push(creatTdollInfo_HG('HG@10', 563))
+      TdollList.push(creatTdollInfo_HG('HG@90', 500))
+      TdollList.push(creatTdollInfo_HG('HG@91', 544))
+      TdollList.push(creatTdollInfo_HG('HG@139', 570))
+      TdollList.push(creatTdollInfo_HG('HG@141t', 556))
+    }
+  }
+  // SMG-always
+  if (true) {
+    getMul_SMG(Mw + Aw + Rw + Pw)
+    if (starNum === 5) {
+      TdollList.push(creatTdollInfo_SMG('SMG@16', 160)); // 4442 base:70,x2.4
+      if (Mw >= 400 && Aw >= 400) {
+        TdollList.push(creatTdollInfo_SMG('SMG@20', 108))
+        TdollList.push(creatTdollInfo_SMG('SMG@104', 24))
+        TdollList.push(creatTdollInfo_SMG('SMG@115', 48))
+        TdollList.push(creatTdollInfo_SMG('SMG@127', 132))
+        TdollList.push(creatTdollInfo_SMG('SMG@135', 57))
+        TdollList.push(creatTdollInfo_SMG('SMG@213', 22))
+        TdollList.push(creatTdollInfo_SMG('SMG@245', 14))
+        TdollList.push(creatTdollInfo_SMG('SMG@228', 108))
+      }
+    } else if (starNum === 4) {
+      TdollList.push(creatTdollInfo_SMG('SMG@23', 114)); // 4442 base:76,x1.5
+      TdollList.push(creatTdollInfo_SMG('SMG@26', 220))
+      TdollList.push(creatTdollInfo_SMG('SMG@137', 220))
+      if (Mw >= 400 && Aw >= 400) {
+        TdollList.push(creatTdollInfo_SMG('SMG@101', 220))
+        TdollList.push(creatTdollInfo_SMG('SMG@103', 155))
+        TdollList.push(creatTdollInfo_SMG('SMG@150', 120))
+      }
+    } else if (starNum === 3) {
+      TdollList.push(creatTdollInfo_SMG('SMG@18', 178))
+      TdollList.push(creatTdollInfo_SMG('SMG@23', 99))
+      TdollList.push(creatTdollInfo_SMG('SMG@27', 130))
+      TdollList.push(creatTdollInfo_SMG('SMG@29', 298))
+      TdollList.push(creatTdollInfo_SMG('SMG@32', 188))
+    } else {
+      TdollList.push(creatTdollInfo_SMG('SMG@93', 308)); // 4442 base:154,x2
+      TdollList.push(creatTdollInfo_SMG('SMG@17', 344))
+      TdollList.push(creatTdollInfo_SMG('SMG@21', 308))
+      TdollList.push(creatTdollInfo_SMG('SMG@24', 432))
+      TdollList.push(creatTdollInfo_SMG('SMG@31', 342))
+      TdollList.push(creatTdollInfo_SMG('SMG@33', 376))
+      TdollList.push(creatTdollInfo_SMG('SMG@92', 444))
+      TdollList.push(creatTdollInfo_SMG('SMG@94', 316))
+    }
+  }
+  // AR-total>=800
+  if (Mw + Aw + Rw + Pw >= 800) {
+    getMul_AR(Mw + Aw + Rw + Pw, Aw, Rw)
+    if (starNum === 5) {
+      TdollList.push(creatTdollInfo_AR('AR@65', 180)); // rounding down 20% from 1441
+      TdollList.push(creatTdollInfo_AR('AR@122', 50))
+      if (Aw >= 400 && Rw >= 400) {
+        TdollList.push(creatTdollInfo_AR('AR@62', 120))
+        TdollList.push(creatTdollInfo_AR('AR@106', 100))
+        TdollList.push(creatTdollInfo_AR('AR@129', 100))
+        TdollList.push(creatTdollInfo_AR('AR@130', 100))
+        TdollList.push(creatTdollInfo_AR('AR@172', 80))
+        TdollList.push(creatTdollInfo_AR('AR@181', 100))
+        TdollList.push(creatTdollInfo_AR('AR@194', 100))
+        TdollList.push(creatTdollInfo_AR('AR@196', 190))
+        TdollList.push(creatTdollInfo_AR('AR@205', 50))
+        TdollList.push(creatTdollInfo_AR('AR@206', 50))
+        TdollList.push(creatTdollInfo_AR('AR@215', 100))
+        TdollList.push(creatTdollInfo_AR('AR@236', 180))
+        TdollList.push(creatTdollInfo_AR('AR@243', 100))
+        TdollList.push(creatTdollInfo_AR('AR@214', 100))
+      }
+    } else if (starNum === 4) {
+      TdollList.push(creatTdollInfo_AR('AR@60', 200)) // avg rounding to 200
+      TdollList.push(creatTdollInfo_AR('AR@66', 200))
+      TdollList.push(creatTdollInfo_AR('AR@69', 200))
+      TdollList.push(creatTdollInfo_AR('AR@118', 200))
+      TdollList.push(creatTdollInfo_AR('AR@216', 200))
+      TdollList.push(creatTdollInfo_AR('AR@237', 200))
+      TdollList.push(creatTdollInfo_AR('AR@262', 200))
+      if (Aw >= 400 && Rw >= 400) {
+        TdollList.push(creatTdollInfo_AR('AR@64', 100))
+        TdollList.push(creatTdollInfo_AR('AR@72', 200))
+        TdollList.push(creatTdollInfo_AR('AR@171', 200))
+      }
+    } else if (starNum === 3) {
+      TdollList.push(creatTdollInfo_AR('AR@58', 290)); // 4442 base:180, 1441 base:400,avg
+      TdollList.push(creatTdollInfo_AR('AR@61', 315))
+      TdollList.push(creatTdollInfo_AR('AR@70', 290))
+      TdollList.push(creatTdollInfo_AR('AR@105', 270))
+    } else {
+      TdollList.push(creatTdollInfo_AR('AR@63', 350)); // 4442 base:233,1441 base:434,avg
+      TdollList.push(creatTdollInfo_AR('AR@68', 300))
+      TdollList.push(creatTdollInfo_AR('AR@71', 300))
+      TdollList.push(creatTdollInfo_AR('AR@74', 300))
+      TdollList.push(creatTdollInfo_AR('AR@107', 300))
+      TdollList.push(creatTdollInfo_AR('AR@133', 350))
+    }
+  }
+  // RF: Mw>=300 && Rw>=300
+  if (Mw >= 300 && Rw >= 300) {
+    getMul_RF(Mw + Aw + Rw + Pw, Mw, Rw)
+    if (starNum === 5) {
+      TdollList.push(creatTdollInfo_RF('RF@48', 85)) // all same rounding as ar
+      TdollList.push(creatTdollInfo_RF('RF@53', 90))
+      TdollList.push(creatTdollInfo_RF('RF@197', 60))
+      if (Mw >= 400 && Rw >= 400) {
+        TdollList.push(creatTdollInfo_RF('RF@46', 28))
+        TdollList.push(creatTdollInfo_RF('RF@50', 60))
+        TdollList.push(creatTdollInfo_RF('RF@128', 28))
+        TdollList.push(creatTdollInfo_RF('RF@148', 16))
+        TdollList.push(creatTdollInfo_RF('RF@198', 14))
+        TdollList.push(creatTdollInfo_RF('RF@257', 85))
+        TdollList.push(creatTdollInfo_RF('RF@261', 30))
+      }
+    } else if (starNum === 4) {
+      TdollList.push(creatTdollInfo_RF('RF@36', 300))
+      TdollList.push(creatTdollInfo_RF('RF@39', 260))
+      TdollList.push(creatTdollInfo_RF('RF@42', 160))
+      TdollList.push(creatTdollInfo_RF('RF@43', 110))
+      TdollList.push(creatTdollInfo_RF('RF@184', 100))
+      TdollList.push(creatTdollInfo_RF('RF@235', 100))
+      TdollList.push(creatTdollInfo_RF('RF@247', 100))
+      TdollList.push(creatTdollInfo_RF('RF@270', 100))
+    } else if (starNum === 3) {
+      TdollList.push(creatTdollInfo_RF('RF@34', 400))
+      TdollList.push(creatTdollInfo_RF('RF@37', 370))
+      TdollList.push(creatTdollInfo_RF('RF@44', 300))
+      if (Mw >= 400 && Aw >= 400) {
+        TdollList.push(creatTdollInfo_RF('RF@95', 90))
+      }
+    } else {
+      TdollList.push(creatTdollInfo_RF('RF@40', 500))
+      TdollList.push(creatTdollInfo_RF('RF@41', 500))
+      TdollList.push(creatTdollInfo_RF('RF@47', 440))
+      TdollList.push(creatTdollInfo_RF('RF@51', 430))
+      TdollList.push(creatTdollInfo_RF('RF@52', 460))
+    }
+  }
+  // MG: Mw>=400 && Aw>=600 && Pw>=300
+  if (Mw >= 400 && Aw >= 600 && Pw >= 300) {
+    getMul_MG(Mw + Aw + Rw + Pw)
+    if (starNum === 5) {
+      TdollList.push(creatTdollInfo_MG('MG@109', 90)) // all same rounding as ar
+      if (Mw >= 600 && Aw >= 600 && Rw >= 100 && Pw >= 400) {
+        TdollList.push(creatTdollInfo_MG('MG@112', 40))
+        TdollList.push(creatTdollInfo_MG('MG@125', 50))
+        TdollList.push(creatTdollInfo_MG('MG@173', 70))
+        TdollList.push(creatTdollInfo_MG('MG@238', 70))
+        TdollList.push(creatTdollInfo_MG('MG@263', 70))
+      }
+    } else if (starNum === 4) {
+      TdollList.push(creatTdollInfo_MG('MG@75', 230))
+      TdollList.push(creatTdollInfo_MG('MG@78', 150))
+      TdollList.push(creatTdollInfo_MG('MG@88', 200))
+      TdollList.push(creatTdollInfo_MG('MG@185', 55))
+      if (Mw >= 600 && Aw >= 600 && Rw >= 100 && Pw >= 400) {
+        TdollList.push(creatTdollInfo_MG('MG@85', 80))
+        TdollList.push(creatTdollInfo_MG('MG@121', 80))
+        TdollList.push(creatTdollInfo_MG('MG@149', 80))
+        TdollList.push(creatTdollInfo_MG('MG@199', 70))
+        TdollList.push(creatTdollInfo_MG('MG@264', 80))
+      }
+    } else if (starNum === 3) {
+      TdollList.push(creatTdollInfo_MG('MG@77', 170))
+      TdollList.push(creatTdollInfo_MG('MG@80', 350))
+      TdollList.push(creatTdollInfo_MG('MG@86', 350))
+      TdollList.push(creatTdollInfo_MG('MG@89', 380))
+    } else {
+      TdollList.push(creatTdollInfo_MG('MG@81', 590))
+      TdollList.push(creatTdollInfo_MG('MG@82', 790))
+      TdollList.push(creatTdollInfo_MG('MG@87', 650))
+      TdollList.push(creatTdollInfo_MG('MG@110', 630))
+      TdollList.push(creatTdollInfo_MG('MG@111', 680))
+    }
+  }
+
+  var totalPosiNum = 0
+  for (var i = 0; i < TdollList.length; i++) {
+    totalPosiNum += parseInt(TdollList[i].possibility)
+  }
+  var selectTdoll = Math.floor(Math.random() * totalPosiNum)
+  for (var i = 0; i < TdollList.length; i++) {
+    selectTdoll -= parseInt(TdollList[i].possibility)
+    if (selectTdoll <= 0) {
+      var str_pair = (TdollList[i].name).split('@')
+      var temp_index = parseInt(str_pair[1])
+      if (!isNaN(temp_index)) {
+        var temp_name = find_name(temp_index)
+        if (temp_name != -1) str_pair[1] = temp_name
+        TdollInfo += '<img src="../img/produce/avator/' + temp_index + '.png" width=50px height=50px> '
+      }
+      TdollInfo += '<img src="../img/produce/' + starNum + str_pair[0] + '.png" width=53px height=27px> ' // img icon
+      TdollInfo += str_pair[1]
+      break
+    }
+  }
+  return TdollInfo
+}
+function _sum(list) {
+  var sum = 0
+  for (var entry of list) sum += entry
+  return sum
+}
+function get_star(produce_type) {
+  if (produce_type === 1) {
+    var ran = Math.floor(Math.random() * 100)
+    if (_sum(reso_nt) >= 420) { // normal resources [3,10,27,60]
+      if (ran < 3) return 5
+      else if (ran >= 3 && ran < 13) return 4
+      else if (ran >= 13 && ran < 40) return 3
+      else return 2
+    } else if (_sum(reso_nt) >= 200 && _sum(reso_nt) < 420) { // low resource [2,8,25,65]
+      if (ran < 2) return 5
+      else if (ran >= 2 && ran < 10) return 4
+      else if (ran >= 10 && ran < 35) return 3
+      else return 2
+    } else { // very-low resource [1,7,22,70]
+      if (ran < 1) return 5
+      else if (ran >= 1 && ran < 8) return 4
+      else if (ran >= 8 && ran < 30) return 3
+      else return 2
+    }
+  }
+}
+
+function addList() { // Add Normal-produce info
+  listNum++
+  var chart = document.getElementById('rankingChart')
+  var sumchart = document.getElementById('sumChart')
+  var resochart = document.getElementById('resoChart')
+  var tabSum = sumchart.innerHTML
+  var tabReso = resochart.innerHTML
+  allM += reso_nt[0]
+  allA += reso_nt[1]
+  allR += reso_nt[2]
+  allP += reso_nt[3]
+  allCon++
+  var Tdoll = makeTdoll(reso_nt[0], reso_nt[1], reso_nt[2], reso_nt[3], get_star(1))
+  // add List
+  global_list = global_list.substring(0, global_list.length - 16)
+  global_list += '<tr><td>'
+  global_list += (listNum + '')
+  global_list += '</td><td>'
+  global_list += (reso_nt[0] + ' ')
+  global_list += (reso_nt[1] + ' ')
+  global_list += (reso_nt[2] + ' ')
+  global_list += (reso_nt[3] + ' ')
+  global_list += '</td><td>'
+  global_5list = global_5list.substring(0, global_5list.length - 16)
+  global_5list += '<tr>'
+  if (starNum === 5) {
+    global_5list += '<td>'
+    global_5list += (listNum + '')
+    global_5list += '</td><td>'
+    global_5list += (reso_nt[0] + ' ')
+    global_5list += (reso_nt[1] + ' ')
+    global_5list += (reso_nt[2] + ' ')
+    global_5list += (reso_nt[3] + ' ')
+    global_5list += '</td><td><span style="color:darkorange">'
+    global_5list += Tdoll
+    global_5list += '</span></td>'
+    global_list += '<span style="color:darkorange">'
+    global_list += Tdoll
+    global_list += '</span>'
+  } else if (starNum === 4) {
+    global_list += '<span style="color:chartreuse">'
+    global_list += Tdoll
+    global_list += '</span>'
+  } else if (starNum === 3) {
+    global_list += '<span style="color:dodgerblue">'
+    global_list += Tdoll
+    global_list += '</span>'
+  } else {
+    global_list += '<span style="color:darkseagreen">'
+    global_list += Tdoll
+    global_list += '</span>'
+  }
+  global_list += '</td></tr></tbody></table>'
+  global_5list += '</tr></tbody></table>'
+  tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>'
+  tabSum += '<tr>'
+  var RateNormal
+  if (listNum === listNumH) RateNormal = -1; // Not normal-produce
+  else RateNormal = Math.ceil(100 * fiveStarNum / (listNum - listNumH))
+  var RateHeavy
+  if (listNumH === 0) RateHeavy = -1; // Not heavy-produce
+  else RateHeavy = Math.ceil(100 * fiveStarNumH / listNumH)
+  tabSum += '<td>'
+  tabSum += (listNum + '')
+  tabSum += '</td><td>'
+  tabSum += (fiveStarNum + ' + ')
+  tabSum += (fiveStarNumH + '')
+  tabSum += '</td><td>'
+  if (RateNormal < 0) tabSum += '-'
+  else tabSum += (RateNormal + '%')
+  tabSum += ' / '
+  if (RateHeavy < 0) tabSum += '-'
+  else tabSum += (RateHeavy + '%')
+  tabSum += '</td><td>'
+  if ((RateNormal < 0 || RateNormal > 10) && (RateHeavy < 0 || RateHeavy > 30)) {
+    tabSum += '<span style="color:darkorange"><b>欧皇</b></span>'
+  } else if ((RateNormal <= 2 && RateNormal >= 0) && (RateHeavy < 0 || (RateHeavy <= 10 && RateHeavy >= 0))) {
+    tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>'
+  } else {
+    tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>'
+  }
+  tabSum += '</td></tr></tbody></table>'
+  tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>'
+  tabReso += '<td>'
+  tabReso += (allM + '')
+  tabReso += '</td><td>'
+  tabReso += (allA + '')
+  tabReso += '</td><td>'
+  tabReso += (allR + '')
+  tabReso += '</td><td>'
+  tabReso += (allP + '')
+  tabReso += '</td><td>'
+  tabReso += (allCon + '')
+  tabReso += '</td><td>'
+  tabReso += (allConE + '')
+  tabReso += '</td><td>'
+  tabReso += (allCore + '')
+  tabReso += '</td></tr></tbody></table>'
+  var switchA = document.getElementById('showAllSwitch')
+  if (switchA.checked === true) {
+    chart.innerHTML = global_list
+  } else {
+    chart.innerHTML = global_5list
+  }
+  sumchart.innerHTML = tabSum
+  resochart.innerHTML = tabReso
+}
+
+
+
+// old
+function swapImage(imageCode) {
   panelSetting = document.getElementById('panelSetting')
   if (imageCode === 1) panelSetting.style = 'background:url(../img/Produce-tdoll-normal.png) no-repeat right 15px bottom 15px'
   else if (imageCode === 2) panelSetting.style = 'background:url(../img/Produce-tdoll-heavy.png) no-repeat right 15px bottom 15px'
@@ -32,75 +601,7 @@ function swapImage (imageCode) {
   else if (imageCode === 4) panelSetting.style = 'background:url(../img/Produce-equip-heavy.png) no-repeat right 15px bottom 15px'
   else if (imageCode === 5) panelSetting.style = 'background:url(../img/Produce-contract.png) no-repeat right 15px bottom 15px'
 }
-function releaseResoLimit () { // unlimit resource
-  var MwOwn = document.getElementById('MwOwn')
-  MwOwn.disabled = !(MwOwn.disabled)
-  var AwOwn = document.getElementById('AwOwn')
-  AwOwn.disabled = !(AwOwn.disabled)
-  var RwOwn = document.getElementById('RwOwn')
-  RwOwn.disabled = !(RwOwn.disabled)
-  var PwOwn = document.getElementById('PwOwn')
-  PwOwn.disabled = !(PwOwn.disabled)
-}
-function releaseCoCoLimit () { // unlimit contract&core
-  var ConOwn = document.getElementById('ConOwn')
-  ConOwn.disabled = !(ConOwn.disabled)
-  var ConOwnE = document.getElementById('ConOwnE')
-  ConOwnE.disabled = !(ConOwnE.disabled)
-  var CoreOwn = document.getElementById('CoreOwn')
-  CoreOwn.disabled = !(CoreOwn.disabled)
-}
-function resetResoLimit () { // reset resource limit
-  var MwOwn = document.getElementById('MwOwn')
-  var AwOwn = document.getElementById('AwOwn')
-  var RwOwn = document.getElementById('RwOwn')
-  var PwOwn = document.getElementById('PwOwn')
-  var ConOwn = document.getElementById('ConOwn')
-  var ConOwnE = document.getElementById('ConOwnE')
-  var CoreOwn = document.getElementById('CoreOwn')
-  var unLimitReso = document.getElementById('unLimitReso')
-  var unLimitCoCo = document.getElementById('unLimitCoCo')
-  unLimitReso.checked = true
-  unLimitCoCo.checked = true
-  ConOwn.disabled = true; ConOwn.value = 100
-  ConOwnE.disabled = true; ConOwnE.value = 100
-  CoreOwn.disabled = true; CoreOwn.value = 100
-  MwOwn.disabled = true; MwOwn.value = 10000
-  AwOwn.disabled = true; AwOwn.value = 10000
-  RwOwn.disabled = true; RwOwn.value = 10000
-  PwOwn.disabled = true; PwOwn.value = 10000
-}
-function checkValueNormal () { // check input of Normal-product
-  var MwId = document.getElementById('Mw')
-  var Mw = parseInt(MwId.value)
-  var AwId = document.getElementById('Aw')
-  var Aw = parseInt(AwId.value)
-  var RwId = document.getElementById('Rw')
-  var Rw = parseInt(RwId.value)
-  var PwId = document.getElementById('Pw')
-  var Pw = parseInt(PwId.value)
-  if (isNaN(Mw) || Mw.length === 0) MwId.value = 30
-  else {
-    if (Mw < 30) MwId.value = 30
-    else if (Mw > 999) MwId.value = 999
-  }
-  if (isNaN(Aw) || Aw.length === 0) AwId.value = 30
-  else {
-    if (Aw < 30) AwId.value = 30
-    else if (Aw > 999) AwId.value = 999
-  }
-  if (isNaN(Rw) || Rw.length === 0) RwId.value = 30
-  else {
-    if (Rw < 30) RwId.value = 30
-    else if (Rw > 999) RwId.value = 999
-  }
-  if (isNaN(Pw) || Pw.length === 0) PwId.value = 30
-  else {
-    if (Pw < 30) PwId.value = 30
-    else if (Pw > 999) PwId.value = 999
-  }
-}
-function checkValueHeavy () { // check input of Heavy-product
+function checkValueHeavy() { // check input of Heavy-product
   var MwHId = document.getElementById('MwH')
   var MwH = parseInt(MwHId.value)
   var AwHId = document.getElementById('AwH')
@@ -130,7 +631,7 @@ function checkValueHeavy () { // check input of Heavy-product
     else if (PwH > 9999) PwHId.value = 9999
   }
 }
-function checkValueNormalE () { // check input of Normal-product-equip
+function checkValueNormalE() { // check input of Normal-product-equip
   var MwId = document.getElementById('MwE')
   var Mw = parseInt(MwId.value)
   var AwId = document.getElementById('AwE')
@@ -160,7 +661,7 @@ function checkValueNormalE () { // check input of Normal-product-equip
     else if (Pw > 300) PwId.value = 300
   }
 }
-function checkValueHeavyE () { // check input of Heavy-product-equip
+function checkValueHeavyE() { // check input of Heavy-product-equip
   var MwHId = document.getElementById('MwEH')
   var MwH = parseInt(MwHId.value)
   var AwHId = document.getElementById('AwEH')
@@ -190,154 +691,8 @@ function checkValueHeavyE () { // check input of Heavy-product-equip
     else if (PwH > 5000) PwHId.value = 5000
   }
 }
-function checkResource (typeInfo) { // Alert if resource not enough, 1=normal, 2=heavy, 3=NE, 4=HE
-  var Mw = parseInt(document.getElementById('Mw').value)
-  var Aw = parseInt(document.getElementById('Aw').value)
-  var Rw = parseInt(document.getElementById('Rw').value)
-  var Pw = parseInt(document.getElementById('Pw').value)
-  var MwH = parseInt(document.getElementById('MwH').value)
-  var AwH = parseInt(document.getElementById('AwH').value)
-  var RwH = parseInt(document.getElementById('RwH').value)
-  var PwH = parseInt(document.getElementById('PwH').value)
-  var MwE = parseInt(document.getElementById('MwE').value)
-  var AwE = parseInt(document.getElementById('AwE').value)
-  var RwE = parseInt(document.getElementById('RwE').value)
-  var PwE = parseInt(document.getElementById('PwE').value)
-  var MwEH = parseInt(document.getElementById('MwEH').value)
-  var AwEH = parseInt(document.getElementById('AwEH').value)
-  var RwEH = parseInt(document.getElementById('RwEH').value)
-  var PwEH = parseInt(document.getElementById('PwEH').value)
-  var MwOwn = parseInt(document.getElementById('MwOwn').value)
-  var AwOwn = parseInt(document.getElementById('AwOwn').value)
-  var RwOwn = parseInt(document.getElementById('RwOwn').value)
-  var PwOwn = parseInt(document.getElementById('PwOwn').value)
-  var unLimitReso = document.getElementById('unLimitReso')
-  var unLimitCoCo = document.getElementById('unLimitCoCo')
-  var ConOwn = document.getElementById('ConOwn')
-  var ConOwnE = document.getElementById('ConOwnE')
-  var CoreOwn = document.getElementById('CoreOwn')
-  var HClassId = document.getElementById('HClass')
-  var EHClassId = document.getElementById('EHClass')
-  var buttonNormal = document.getElementById('buttonNormal')
-  var buttonHeavy = document.getElementById('buttonHeavy')
-  var buttonNormalE = document.getElementById('buttonNormalE')
-  var buttonHeavyE = document.getElementById('buttonHeavyE')
-  var ConNum, CoreNum, ConNumE, CoreNumE
-  var nextM, nextA, nextR, nextP
-  switch (parseInt(HClassId.value)) {
-    case 1:
-      ConNum = 1; CoreNum = 3
-      break
-    case 2:
-      ConNum = 20; CoreNum = 5
-      break
-    case 3:
-      ConNum = 50; CoreNum = 10
-      break
-  }
-  switch (parseInt(EHClassId.value)) {
-    case 1:
-      ConNumE = 1; CoreNumE = 2
-      break
-    case 2:
-      ConNumE = 20; CoreNumE = 4
-      break
-    case 3:
-      ConNumE = 50; CoreNumE = 6
-      break
-  }
-  if (unLimitReso.checked === false) { // if reso not enough
-    switch (typeInfo) {
-      case 1:
-        nextM = Mw + allM; nextA = Aw + allA; nextR = Rw + allR; nextP = Pw + allP
-        break
-      case 2:
-        nextM = MwH + allM; nextA = AwH + allA; nextR = RwH + allR; nextP = PwH + allP
-        break
-      case 3:
-        nextM = MwE + allM; nextA = AwE + allA; nextR = RwE + allR; nextP = PwE + allP
-        break
-      case 4:
-        nextM = MwEH + allM; nextA = AwEH + allA; nextR = RwEH + allR; nextP = PwEH + allP
-        break
-    }
-    if (nextM > MwOwn || nextA > AwOwn || nextR > RwOwn || nextP > PwOwn) { // freeze button
-      switch (typeInfo) {
-        case 1:
-          buttonNormal.disabled = true
-          break
-        case 2:
-          buttonHeavy.disabled = true
-          break
-        case 3:
-          buttonNormalE.disabled = true
-          break
-        case 4:
-          buttonHeavyE.disabled = true
-          break
-      }
-      return false
-    }
-  }
-  if (unLimitCoCo.checked === false) { // if contract&core not enough
-    if (typeInfo === 1) {
-      if (allCon >= parseInt(ConOwn.value)) {
-        buttonNormal.disabled = true
-        return false
-      }
-    } else if (typeInfo === 2) {
-      if (allCon + ConNum > parseInt(ConOwn.value) || allCore + CoreNum > parseInt(CoreOwn.value)) {
-        buttonHeavy.disabled = true
-        return false
-      }
-    } else if (typeInfo === 3) {
-      if (allConE >= parseInt(ConOwnE.value)) {
-        buttonNormalE.disabled = true
-        return false
-      }
-    } else if (typeInfo === 4) {
-      if (allConE + ConNumE > parseInt(ConOwnE.value) || allCore + CoreNumE > parseInt(CoreOwn.value)) {
-        buttonHeavyE.disabled = true
-        return false
-      }
-    }
-  }
-  return true
-}
 
-function setWeight (typeInfo) { // set weight of Normal-product
-  var Mw = document.getElementById('Mw')
-  var Aw = document.getElementById('Aw')
-  var Rw = document.getElementById('Rw')
-  var Pw = document.getElementById('Pw')
-  switch (typeInfo) {
-    case 1:
-      Mw.value = 430; Aw.value = 430; Rw.value = 430; Pw.value = 230
-      break
-    case 2:
-      Mw.value = 130; Aw.value = 130; Rw.value = 130; Pw.value = 130
-      break
-    case 3:
-      Mw.value = 97; Aw.value = 404; Rw.value = 404; Pw.value = 97
-      break
-    case 4:
-      Mw.value = 430; Aw.value = 130; Rw.value = 430; Pw.value = 230
-      break
-    case 5:
-      Mw.value = 430; Aw.value = 430; Rw.value = 130; Pw.value = 230
-      break
-    case 6:
-      Mw.value = 730; Aw.value = 630; Rw.value = 130; Pw.value = 430
-      break
-    case 7:
-      Mw.value = 730; Aw.value = 630; Rw.value = 430; Pw.value = 430
-      break
-    default:
-      break
-  }
-}
-
-function setWeightH (typeInfo) { // set weight of Heavy-product
+function setWeightH(typeInfo) { // set weight of Heavy-product
   var Mw = document.getElementById('MwH')
   var Aw = document.getElementById('AwH')
   var Rw = document.getElementById('RwH')
@@ -357,7 +712,7 @@ function setWeightH (typeInfo) { // set weight of Heavy-product
   }
 }
 
-function setWeightE (typeInfo) { // set weight of Normal-product-equip
+function setWeightE(typeInfo) { // set weight of Normal-product-equip
   var Mw = document.getElementById('MwE')
   var Aw = document.getElementById('AwE')
   var Rw = document.getElementById('RwE')
@@ -374,7 +729,7 @@ function setWeightE (typeInfo) { // set weight of Normal-product-equip
   }
 }
 
-function setWeightEH (typeInfo) { // set weight of Normal-product-equip
+function setWeightEH(typeInfo) { // set weight of Normal-product-equip
   var Mw = document.getElementById('MwEH')
   var Aw = document.getElementById('AwEH')
   var Rw = document.getElementById('RwEH')
@@ -397,61 +752,59 @@ function setWeightEH (typeInfo) { // set weight of Normal-product-equip
   }
 }
 
-function creatTdollInfo_HG (name, possibility) {
-  var TdollInfo = { }
+function creatTdollInfo_HG(name, possibility) {
+  var TdollInfo = {}
   TdollInfo.name = name
   TdollInfo.possibility = parseInt(possibility) * mul_hg
   return TdollInfo
 }
 
-function creatTdollInfo_SMG (name, possibility) {
-  var TdollInfo = { }
+function creatTdollInfo_SMG(name, possibility) {
+  var TdollInfo = {}
   TdollInfo.name = name
   TdollInfo.possibility = parseInt(possibility) * mul_smg
   return TdollInfo
 }
 
-function creatTdollInfo_AR (name, possibility) {
-  var TdollInfo = { }
+function creatTdollInfo_AR(name, possibility) {
+  var TdollInfo = {}
   TdollInfo.name = name
   TdollInfo.possibility = parseInt(possibility) * mul_ar
   return TdollInfo
 }
 
-function creatTdollInfo_RF (name, possibility) {
-  var TdollInfo = { }
+function creatTdollInfo_RF(name, possibility) {
+  var TdollInfo = {}
   TdollInfo.name = name
   TdollInfo.possibility = parseInt(possibility) * mul_rf
   return TdollInfo
 }
 
-function creatTdollInfo_MG (name, possibility) {
-  var TdollInfo = { }
+function creatTdollInfo_MG(name, possibility) {
+  var TdollInfo = {}
   TdollInfo.name = name
   TdollInfo.possibility = parseInt(possibility) * mul_mg
   return TdollInfo
 }
 
-function creatTdollInfo_SG (name, possibility) {
-  var TdollInfo = { }
+function creatTdollInfo_SG(name, possibility) {
+  var TdollInfo = {}
   TdollInfo.name = name
   TdollInfo.possibility = parseInt(possibility) * mul_sg
   return TdollInfo
 }
 
-function creatEquipInfo (name, possibility) {
-  var EquipInfo = { }
+function creatEquipInfo(name, possibility) {
+  var EquipInfo = {}
   EquipInfo.name = name
   EquipInfo.possibility = parseInt(possibility)
   return EquipInfo
 }
 
-function getMul_HG (allReso) { // HG possibility decline
+function getMul_HG(allReso) { // HG possibility decline
   if (allReso >= 820 && allReso < 920) {
     mul_hg = 0.37
-  } else if (allReso >= 620 && allReso < 820) {
-    mul_hg = 0.7
-  } else if (allReso >= 420 && allReso < 620) {
+  } else if (allReso >= 420 && allReso < 820) {
     mul_hg = 1
   } else if (allReso >= 220 && allReso < 420) {
     mul_hg = 0.7
@@ -460,7 +813,7 @@ function getMul_HG (allReso) { // HG possibility decline
   }
 }
 
-function getMul_SMG (allReso) { // SMG possibility decline
+function getMul_SMG(allReso) { // SMG possibility decline
   if (allReso >= 1800) {
     mul_smg = 0.9
   } else if (allReso >= 1000 && allReso < 1800) {
@@ -472,7 +825,7 @@ function getMul_SMG (allReso) { // SMG possibility decline
   }
 }
 
-function getMul_AR (allReso, Aw, Rw) { // AR possibility decline
+function getMul_AR(allReso, Aw, Rw) { // AR possibility decline
   if (allReso >= 1000) { // allReso base
     mul_ar = 1
   } else {
@@ -486,7 +839,7 @@ function getMul_AR (allReso, Aw, Rw) { // AR possibility decline
   }
 }
 
-function getMul_RF (allReso, Mw, Rw) { // RF possibility decline
+function getMul_RF(allReso, Mw, Rw) { // RF possibility decline
   if (allReso >= 1100) { // allReso base
     mul_rf = 1
   } else if (allReso >= 800 && allReso < 1100) {
@@ -502,7 +855,7 @@ function getMul_RF (allReso, Mw, Rw) { // RF possibility decline
   }
 }
 
-function getMul_MG (allReso) { // MG possibility decline
+function getMul_MG(allReso) { // MG possibility decline
   if (allReso >= 1700) { // allReso base
     mul_mg = 1
   } else {
@@ -510,7 +863,7 @@ function getMul_MG (allReso) { // MG possibility decline
   }
 }
 
-function getMul_SG (allReso, AwH) { // SG possibility decline
+function getMul_SG(allReso, AwH) { // SG possibility decline
   if (allReso >= 18000) {
     mul_sg = 1
   } else if (allReso >= 17000 && allReso < 18000) {
@@ -527,7 +880,7 @@ function getMul_SG (allReso, AwH) { // SG possibility decline
   }
 }
 
-function getMul_SMG_H (allReso) { // SMG_Heavy possibility decline
+function getMul_SMG_H(allReso) { // SMG_Heavy possibility decline
   mul_smg = 3
   if (allReso >= 22000) {
     mul_smg *= 0.2
@@ -542,7 +895,7 @@ function getMul_SMG_H (allReso) { // SMG_Heavy possibility decline
   }
 }
 
-function getMul_AR_H (allReso) { // AR_Heavy possibility decline
+function getMul_AR_H(allReso) { // AR_Heavy possibility decline
   mul_ar = 3
   if (allReso >= 22000) {
     mul_ar *= 0.15
@@ -561,7 +914,7 @@ function getMul_AR_H (allReso) { // AR_Heavy possibility decline
   }
 }
 
-function getMul_RF_H (allReso) {
+function getMul_RF_H(allReso) {
   mul_rf = 3
   if (allReso >= 22000) {
     mul_rf *= 0.25
@@ -576,7 +929,7 @@ function getMul_RF_H (allReso) {
   }
 }
 
-function getMul_MG_H (allReso) {
+function getMul_MG_H(allReso) {
   mul_mg = 3
   if (allReso >= 22000) {
     mul_mg *= 0.4
@@ -591,31 +944,9 @@ function getMul_MG_H (allReso) {
   }
 }
 
-function makeStar () { // Star possibility=3,10,27,60
-  var Mw = parseInt(document.getElementById('Mw').value)
-  var Aw = parseInt(document.getElementById('Aw').value)
-  var Rw = parseInt(document.getElementById('Rw').value)
-  var Pw = parseInt(document.getElementById('Pw').value)
-  var starNum = Math.floor(Math.random() * 100)
-  if (Mw + Aw + Rw + Pw >= 420) {
-    if (starNum < 3) return 5
-    else if (starNum >= 3 && starNum < 13) return 4
-    else if (starNum >= 13 && starNum < 40) return 3
-    else return 2
-  } else if (Mw + Aw + Rw + Pw >= 200 && Mw + Aw + Rw + Pw < 420) { // low resource decline: 2,8,25,65
-    if (starNum < 2) return 5
-    else if (starNum >= 2 && starNum < 10) return 4
-    else if (starNum >= 10 && starNum < 35) return 3
-    else return 2
-  } else { // low resource decline: 1,7,22,70
-    if (starNum < 1) return 5
-    else if (starNum >= 1 && starNum < 8) return 4
-    else if (starNum >= 8 && starNum < 30) return 3
-    else return 2
-  }
-}
 
-function makeStar_Heavy (HClass) { // Star possibility=15,45,40/20,60,20/25,75,0
+
+function makeStar_Heavy(HClass) { // Star possibility=15,45,40/20,60,20/25,75,0
   var starNum = Math.floor(Math.random() * 100)
   if (HClass === 1) {
     if (starNum < 15) return 5
@@ -631,7 +962,7 @@ function makeStar_Heavy (HClass) { // Star possibility=15,45,40/20,60,20/25,75,0
   }
 }
 
-function makeStarE () { // Star possibility=6.5,15,30,48.5
+function makeStarE() { // Star possibility=6.5,15,30,48.5
   var Mw = parseInt(document.getElementById('MwE').value)
   var Aw = parseInt(document.getElementById('AwE').value)
   var Rw = parseInt(document.getElementById('RwE').value)
@@ -655,7 +986,7 @@ function makeStarE () { // Star possibility=6.5,15,30,48.5
   }
 }
 
-function makeStar_HeavyE (EHClass) { // Star possibility=27,11,22,40/37,18,45,0/47,26,27,0 , STAR=6 means Fairy
+function makeStar_HeavyE(EHClass) { // Star possibility=27,11,22,40/37,18,45,0/47,26,27,0 , STAR=6 means Fairy
   var starNum = Math.floor(Math.random() * 100)
   if (EHClass === 1) {
     if (starNum < 27) return 6
@@ -673,239 +1004,7 @@ function makeStar_HeavyE (EHClass) { // Star possibility=27,11,22,40/37,18,45,0/
   }
 }
 
-function makeTdoll (Mw, Aw, Rw, Pw, starNum) { // Normal-produce T-doll, possibility*100
-  if (starNum === 5) fiveStarNum++
-  var TdollInfo = '<b>'
-  var TdollList = []
-  for (var i = 0; i < starNum; i++) {
-    TdollInfo += '★'
-  }
-  // HG-total<=920
-  if (Mw + Aw + Rw + Pw <= 920) {
-    getMul_HG(Mw + Aw + Rw + Pw)
-    if (starNum === 5) {
-      TdollList.push(creatTdollInfo_HG('[HG] 灰熊MkV', 200))
-      TdollList.push(creatTdollInfo_HG('[HG] NZ75', 110))
-      TdollList.push(creatTdollInfo_HG('[HG] 风暴Px4', 30))
-      TdollList.push(creatTdollInfo_HG('[HG] PA-15', 30))
-      if (Mw >= 130 && Aw >= 130 && Rw >= 130 && Pw >= 30) {
-        TdollList.push(creatTdollInfo_HG('[HG] M950a', 80))
-        TdollList.push(creatTdollInfo_HG('[HG] 维尔德MkII', 100))
-        TdollList.push(creatTdollInfo_HG('[HG] 竞争者', 30))
-      }
-    } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_HG('[HG] 柯尔特左轮', 367))
-      TdollList.push(creatTdollInfo_HG('[HG] MK23', 259))
-      TdollList.push(creatTdollInfo_HG('[HG] P7', 263))
-      if (Mw >= 130 && Aw >= 130 && Rw >= 130 && Pw >= 30) {
-        TdollList.push(creatTdollInfo_HG('[HG] 斯捷奇金', 87))
-        TdollList.push(creatTdollInfo_HG('[HG] SpitFire', 147))
-        TdollList.push(creatTdollInfo_HG('[HG] K5', 140))
-        TdollList.push(creatTdollInfo_HG('[HG] 杰里科', 80))
-      }
-    } else if (starNum === 3) {
-      TdollList.push(creatTdollInfo_HG('[HG] M9', 366))
-      TdollList.push(creatTdollInfo_HG('[HG] 托卡列夫', 267))
-      TdollList.push(creatTdollInfo_HG('[HG] 马卡洛夫', 186))
-      TdollList.push(creatTdollInfo_HG('[HG] P08', 322))
-      TdollList.push(creatTdollInfo_HG('[HG] C96', 360))
-      TdollList.push(creatTdollInfo_HG('[HG] 92式', 183))
-      TdollList.push(creatTdollInfo_HG('[HG] 阿斯特拉左轮', 325))
-      TdollList.push(creatTdollInfo_HG('[HG] P99', 152))
-    } else {
-      TdollList.push(creatTdollInfo_HG('[HG] M1911', 570))
-      TdollList.push(creatTdollInfo_HG('[HG] 纳甘左轮', 547))
-      TdollList.push(creatTdollInfo_HG('[HG] P38', 572))
-      TdollList.push(creatTdollInfo_HG('[HG] PPK', 563))
-      TdollList.push(creatTdollInfo_HG('[HG] FNP-9', 500))
-      TdollList.push(creatTdollInfo_HG('[HG] MP-446', 544))
-      TdollList.push(creatTdollInfo_HG('[HG] Bren Ten', 570))
-      TdollList.push(creatTdollInfo_HG('[HG] USP Compact', 556))
-    }
-  }
-  // SMG-always
-  if (true) {
-    getMul_SMG(Mw + Aw + Rw + Pw)
-    if (starNum === 5) {
-      TdollList.push(creatTdollInfo_SMG('[SMG] 汤姆森', 160)); // 4442 base:70,x2.4
-      if (Mw >= 400 && Aw >= 400) {
-        TdollList.push(creatTdollInfo_SMG('[SMG] Vector', 108))
-        TdollList.push(creatTdollInfo_SMG('[SMG] G36C', 24))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 索米', 48))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 79式', 132))
-        TdollList.push(creatTdollInfo_SMG('[SMG] SR-3MP', 57))
-        TdollList.push(creatTdollInfo_SMG('[SMG] C-MS', 22))
-        TdollList.push(creatTdollInfo_SMG('[SMG] P90', 14))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 樱花', 108))
-      }
-    } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_SMG('[SMG] PP-90', 114)); // 4442 base:76,x1.5
-      TdollList.push(creatTdollInfo_SMG('[SMG] MP5', 220))
-      if (Mw >= 400 && Aw >= 400) {
-        TdollList.push(creatTdollInfo_SMG('[SMG] UMP9', 220))
-        TdollList.push(creatTdollInfo_SMG('[SMG] UMP45', 155))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 希普卡', 120))
-      }
-    } else if (starNum === 3) {
-      TdollList.push(creatTdollInfo_SMG('[SMG] MAC-10', 178))
-      TdollList.push(creatTdollInfo_SMG('[SMG] PPS-43', 99))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 蝎式', 130))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 司登MKII', 298))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 微型乌兹', 188))
-    } else {
-      TdollList.push(creatTdollInfo_SMG('[SMG] IDW', 308)); // 4442 base:154,x2
-      TdollList.push(creatTdollInfo_SMG('[SMG] M3', 344))
-      TdollList.push(creatTdollInfo_SMG('[SMG] PPSh-41', 308))
-      TdollList.push(creatTdollInfo_SMG('[SMG] PP2000', 432))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 伯莱塔38型', 342))
-      TdollList.push(creatTdollInfo_SMG('[SMG] M45', 376))
-      TdollList.push(creatTdollInfo_SMG('[SMG] SpectreM4', 444))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 64式', 316))
-    }
-  }
-  // AR-total>=800
-  if (Mw + Aw + Rw + Pw >= 800) {
-    getMul_AR(Mw + Aw + Rw + Pw, Aw, Rw)
-    if (starNum === 5) {
-      TdollList.push(creatTdollInfo_AR('[AR] HK416', 180)); // rounding down 20% from 1441
-      TdollList.push(creatTdollInfo_AR('[AR] G11', 50))
-      if (Aw >= 400 && Rw >= 400) {
-        TdollList.push(creatTdollInfo_AR('[AR] G41', 120))
-        TdollList.push(creatTdollInfo_AR('[AR] FAL', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] 95式', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] 97式', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] RFB', 80))
-        TdollList.push(creatTdollInfo_AR('[AR] T91', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] K2', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] Zas M21', 190))
-        TdollList.push(creatTdollInfo_AR('[AR] AN-94', 50))
-        TdollList.push(creatTdollInfo_AR('[AR] AK-12', 50))
-        TdollList.push(creatTdollInfo_AR('[AR] MDR', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] K11', 180))
-        TdollList.push(creatTdollInfo_AR('[AR] 64式自', 100))
-      }
-    } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_AR('[AR] AS Val', 200)) // avg rounding to 200
-      TdollList.push(creatTdollInfo_AR('[AR] 56-1式', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] FAMAS', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] 9A-91', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] XM8', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] SAR-21', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] EM-2', 200))
-      if (Aw >= 400 && Rw >= 400) {
-        TdollList.push(creatTdollInfo_AR('[AR] G36', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] TAR-21', 200))
-        TdollList.push(creatTdollInfo_AR('[AR] 利贝罗勒', 200))
-      }
-    } else if (starNum === 3) {
-      TdollList.push(creatTdollInfo_AR('[AR] AK-47', 290)); // 4442 base:180, 1441 base:400,avg
-      TdollList.push(creatTdollInfo_AR('[AR] StG44', 315))
-      TdollList.push(creatTdollInfo_AR('[AR] FNC', 290))
-      TdollList.push(creatTdollInfo_AR('[AR] OTs-12', 270))
-      TdollList.push(creatTdollInfo_AR('[AR] StG44', 315))
-    } else {
-      TdollList.push(creatTdollInfo_AR('[AR] G3', 350)); // 4442 base:233,1441 base:434,avg
-      TdollList.push(creatTdollInfo_AR('[AR] L85A1', 300))
-      TdollList.push(creatTdollInfo_AR('[AR] 加利尔', 300))
-      TdollList.push(creatTdollInfo_AR('[AR] SIG-510', 300))
-      TdollList.push(creatTdollInfo_AR('[AR] F2000', 300))
-      TdollList.push(creatTdollInfo_AR('[AR] 63式', 350))
-    }
-  }
-  // RF: Mw>=300 && Rw>=300
-  if (Mw >= 300 && Rw >= 300) {
-    getMul_RF(Mw + Aw + Rw + Pw, Mw, Rw)
-    if (starNum === 5) {
-      TdollList.push(creatTdollInfo_RF('[RF] WA2000', 85)) // all same rounding as ar
-      TdollList.push(creatTdollInfo_RF('[RF] NTW-20', 90))
-      TdollList.push(creatTdollInfo_RF('[RF] 卡尔卡诺M1891', 60))
-      if (Mw >= 400 && Rw >= 400) {
-        TdollList.push(creatTdollInfo_RF('[RF] Kar98k', 28))
-        TdollList.push(creatTdollInfo_RF('[RF] 李·恩菲尔德', 60))
-        TdollList.push(creatTdollInfo_RF('[RF] M99', 28))
-        TdollList.push(creatTdollInfo_RF('[RF] IWS2000', 16))
-        TdollList.push(creatTdollInfo_RF('[RF] 卡尔卡诺M91/38', 14))
-        TdollList.push(creatTdollInfo_RF('[RF] M200', 85))
-        TdollList.push(creatTdollInfo_RF('[RF] QBU-88', 30))
-      }
-    } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_RF('[RF] 春田', 300))
-      TdollList.push(creatTdollInfo_RF('[RF] 莫辛-纳甘', 260))
-      TdollList.push(creatTdollInfo_RF('[RF] PTRD', 160))
-      TdollList.push(creatTdollInfo_RF('[RF] SVD', 110))
-      TdollList.push(creatTdollInfo_RF('[RF] T-5000', 100))
-      TdollList.push(creatTdollInfo_RF('[RF] SPR-A3G', 40))
-      TdollList.push(creatTdollInfo_RF('[RF] K31', 100))
-    } else if (starNum === 3) {
-      TdollList.push(creatTdollInfo_RF('[RF] M1加兰德', 400))
-      TdollList.push(creatTdollInfo_RF('[RF] M14', 370))
-      TdollList.push(creatTdollInfo_RF('[RF] SV-98', 300))
-      if (Mw >= 400 && Aw >= 400) {
-        TdollList.push(creatTdollInfo_RF('[RF] 汉阳造88式', 90))
-      }
-    } else {
-      TdollList.push(creatTdollInfo_RF('[RF] SVT-38', 500))
-      TdollList.push(creatTdollInfo_RF('[RF] 西蒙诺夫 SKS', 500))
-      TdollList.push(creatTdollInfo_RF('[RF] G43', 440))
-      TdollList.push(creatTdollInfo_RF('[RF] FN-49', 430))
-      TdollList.push(creatTdollInfo_RF('[RF] BM59', 460))
-    }
-  }
-  // MG: Mw>=400 && Aw>=600 && Pw>=300
-  if (Mw >= 400 && Aw >= 600 && Pw >= 300) {
-    getMul_MG(Mw + Aw + Rw + Pw)
-    if (starNum === 5) {
-      TdollList.push(creatTdollInfo_MG('[MG] MG5', 90)) // all same rounding as ar
-      if (Mw >= 600 && Aw >= 600 && Rw >= 100 && Pw >= 400) {
-        TdollList.push(creatTdollInfo_MG('[MG] 内格夫', 40))
-        TdollList.push(creatTdollInfo_MG('[MG] MG4', 50))
-        TdollList.push(creatTdollInfo_MG('[MG] PKP', 70))
-        TdollList.push(creatTdollInfo_MG('[MG] 88式', 70))
-        TdollList.push(creatTdollInfo_MG('[MG] MG36', 70))
-      }
-    } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_MG('[MG] M1918', 230))
-      TdollList.push(creatTdollInfo_MG('[MG] M60', 150))
-      TdollList.push(creatTdollInfo_MG('[MG] MG3', 200))
-      TdollList.push(creatTdollInfo_MG('[MG] 阿梅丽', 55))
-      if (Mw >= 600 && Aw >= 600 && Rw >= 100 && Pw >= 400) {
-        TdollList.push(creatTdollInfo_MG('[MG] PK', 80))
-        TdollList.push(creatTdollInfo_MG('[MG] MK48', 80))
-        TdollList.push(creatTdollInfo_MG('[MG] AEK-999', 80))
-        TdollList.push(creatTdollInfo_MG('[MG] 80式', 70))
-        TdollList.push(creatTdollInfo_MG('[MG] 绍沙', 80))
-      }
-    } else if (starNum === 3) {
-      TdollList.push(creatTdollInfo_MG('[MG] M2HB', 170))
-      TdollList.push(creatTdollInfo_MG('[MG] M1919A4', 350))
-      TdollList.push(creatTdollInfo_MG('[MG] MG42', 350))
-      TdollList.push(creatTdollInfo_MG('[MG] 布伦', 380))
-    } else {
-      TdollList.push(creatTdollInfo_MG('[MG] LWMMG', 590))
-      TdollList.push(creatTdollInfo_MG('[MG] DP28', 790))
-      TdollList.push(creatTdollInfo_MG('[MG] MG34', 650))
-      TdollList.push(creatTdollInfo_MG('[MG] FG42', 630))
-      TdollList.push(creatTdollInfo_MG('[MG] AAT-52', 680))
-    }
-  }
-  var totalPosiNum = 0
-  for (var i = 0; i < TdollList.length; i++) {
-    totalPosiNum += parseInt(TdollList[i].possibility)
-  }
-  var selectTdoll = Math.floor(Math.random() * totalPosiNum)
-  for (var i = 0; i < TdollList.length; i++) {
-    selectTdoll -= parseInt(TdollList[i].possibility)
-    if (selectTdoll <= 0) {
-      TdollInfo += ' '
-      TdollInfo += TdollList[i].name
-      break
-    }
-  }
-  TdollInfo += '</b>'
-  return TdollInfo
-}
-
-function makeTdoll_Heavy (MwH, AwH, RwH, PwH, starNum) { // Heavy-produce T-doll, possibility*100
+function makeTdoll_Heavy(MwH, AwH, RwH, PwH, starNum) { // Heavy-produce T-doll, possibility*100
   if (starNum === 5) fiveStarNumH++
   var TdollInfo = '<b>'
   var TdollList = []
@@ -916,29 +1015,29 @@ function makeTdoll_Heavy (MwH, AwH, RwH, PwH, starNum) { // Heavy-produce T-doll
   if (MwH >= 4000 && AwH >= 1000 && RwH >= 6000 && PwH >= 3000) {
     getMul_SG(MwH + AwH + RwH + PwH)
     if (starNum === 5) {
-      TdollList.push(creatTdollInfo_SMG('[SG] KSG', 48))
+      TdollList.push(creatTdollInfo_SMG('SG@KSG', 48))
       if (MwH >= 6000 && AwH >= 1000 && RwH >= 6000 && PwH >= 4000) {
-        TdollList.push(creatTdollInfo_SMG('[SG] AA-12', 32))
-        TdollList.push(creatTdollInfo_SMG('[SG] FP-6', 24))
-        TdollList.push(creatTdollInfo_SMG('[SG] Saiga-12', 40))
-        TdollList.push(creatTdollInfo_SMG('[SG] S.A.T.8', 24))
+        TdollList.push(creatTdollInfo_SMG('SG@AA-12', 32))
+        TdollList.push(creatTdollInfo_SMG('SG@FP-6', 24))
+        TdollList.push(creatTdollInfo_SMG('SG@Saiga-12', 40))
+        TdollList.push(creatTdollInfo_SMG('SG@S.A.T.8', 24))
       }
     } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_SMG('[SG] M590', 200))
-      TdollList.push(creatTdollInfo_SMG('[SG] M1014', 60))
-      TdollList.push(creatTdollInfo_SMG('[SG] SPAS-12', 160))
-      TdollList.push(creatTdollInfo_SMG('[SG] USAS-12', 80))
+      TdollList.push(creatTdollInfo_SMG('SG@M590', 200))
+      TdollList.push(creatTdollInfo_SMG('SG@M1014', 60))
+      TdollList.push(creatTdollInfo_SMG('SG@SPAS-12', 160))
+      TdollList.push(creatTdollInfo_SMG('SG@USAS-12', 80))
       if (MwH >= 6000 && AwH >= 1000 && RwH >= 6000 && PwH >= 4000) {
-        TdollList.push(creatTdollInfo_SMG('[SG] M37', 180))
-        TdollList.push(creatTdollInfo_SMG('[SG] Super-Shorty', 130))
+        TdollList.push(creatTdollInfo_SMG('SG@M37', 180))
+        TdollList.push(creatTdollInfo_SMG('SG@Super-Shorty', 130))
       }
     } else {
-      TdollList.push(creatTdollInfo_SMG('[SG] M1897', 270))
-      TdollList.push(creatTdollInfo_SMG('[SG] M400', 290))
-      TdollList.push(creatTdollInfo_SMG('[SG] KS-23', 270))
-      TdollList.push(creatTdollInfo_SMG('[SG] NS2000', 150))
+      TdollList.push(creatTdollInfo_SMG('SG@M1897', 270))
+      TdollList.push(creatTdollInfo_SMG('SG@M400', 290))
+      TdollList.push(creatTdollInfo_SMG('SG@KS-23', 270))
+      TdollList.push(creatTdollInfo_SMG('SG@NS2000', 150))
       if (MwH >= 6000 && AwH >= 1000 && RwH >= 6000 && PwH >= 4000) {
-        TdollList.push(creatTdollInfo_SMG('[SG] RMB93', 260))
+        TdollList.push(creatTdollInfo_SMG('SG@RMB93', 260))
       }
     }
   }
@@ -946,140 +1045,140 @@ function makeTdoll_Heavy (MwH, AwH, RwH, PwH, starNum) { // Heavy-produce T-doll
   if (true) {
     getMul_SMG_H(MwH + AwH + RwH + PwH)
     if (starNum === 5) {
-      TdollList.push(creatTdollInfo_SMG('[SMG] 汤姆森', 160))
+      TdollList.push(creatTdollInfo_SMG('SMG@汤姆森', 160))
       if (MwH >= 4000 && AwH >= 4000) {
-        TdollList.push(creatTdollInfo_SMG('[SMG] Vector', 108))
-        TdollList.push(creatTdollInfo_SMG('[SMG] G36C', 24))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 索米', 48))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 79式', 132))
-        TdollList.push(creatTdollInfo_SMG('[SMG] SR-3MP', 57))
-        TdollList.push(creatTdollInfo_SMG('[SMG] C-MS', 22))
-        TdollList.push(creatTdollInfo_SMG('[SMG] P90', 14))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 樱花', 108))
+        TdollList.push(creatTdollInfo_SMG('SMG@Vector', 108))
+        TdollList.push(creatTdollInfo_SMG('SMG@G36C', 24))
+        TdollList.push(creatTdollInfo_SMG('SMG@索米', 48))
+        TdollList.push(creatTdollInfo_SMG('SMG@79式', 132))
+        TdollList.push(creatTdollInfo_SMG('SMG@SR-3MP', 57))
+        TdollList.push(creatTdollInfo_SMG('SMG@C-MS', 22))
+        TdollList.push(creatTdollInfo_SMG('SMG@P90', 14))
+        TdollList.push(creatTdollInfo_SMG('SMG@樱花', 108))
       }
     } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_SMG('[SMG] PP-90', 114))
-      TdollList.push(creatTdollInfo_SMG('[SMG] MP5', 220))
+      TdollList.push(creatTdollInfo_SMG('SMG@PP-90', 114))
+      TdollList.push(creatTdollInfo_SMG('SMG@MP5', 220))
       if (MwH >= 4000 && AwH >= 4000) {
-        TdollList.push(creatTdollInfo_SMG('[SMG] UMP9', 220))
-        TdollList.push(creatTdollInfo_SMG('[SMG] UMP45', 155))
-        TdollList.push(creatTdollInfo_SMG('[SMG] 希普卡', 120))
+        TdollList.push(creatTdollInfo_SMG('SMG@UMP9', 220))
+        TdollList.push(creatTdollInfo_SMG('SMG@UMP45', 155))
+        TdollList.push(creatTdollInfo_SMG('SMG@希普卡', 120))
       }
     } else {
-      TdollList.push(creatTdollInfo_SMG('[SMG] F1', 200))
-      TdollList.push(creatTdollInfo_SMG('[SMG] Z-62', 300))
-      TdollList.push(creatTdollInfo_SMG('[SMG] MAC-10', 178))
-      TdollList.push(creatTdollInfo_SMG('[SMG] PPS-43', 99))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 蝎式', 130))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 司登MKII', 298))
-      TdollList.push(creatTdollInfo_SMG('[SMG] 微型乌兹', 188))
+      TdollList.push(creatTdollInfo_SMG('SMG@F1', 200))
+      TdollList.push(creatTdollInfo_SMG('SMG@Z-62', 300))
+      TdollList.push(creatTdollInfo_SMG('SMG@MAC-10', 178))
+      TdollList.push(creatTdollInfo_SMG('SMG@PPS-43', 99))
+      TdollList.push(creatTdollInfo_SMG('SMG@蝎式', 130))
+      TdollList.push(creatTdollInfo_SMG('SMG@司登MKII', 298))
+      TdollList.push(creatTdollInfo_SMG('SMG@微型乌兹', 188))
     }
   }
   // AR-always+1441
   if (true) {
     getMul_AR_H(MwH + AwH + RwH + PwH)
     if (starNum === 5) {
-      TdollList.push(creatTdollInfo_AR('[AR] HK416', 180))
-      TdollList.push(creatTdollInfo_AR('[AR] G11', 50))
+      TdollList.push(creatTdollInfo_AR('AR@HK416', 180))
+      TdollList.push(creatTdollInfo_AR('AR@G11', 50))
       if (AwH >= 4000 && RwH >= 4000) {
-        TdollList.push(creatTdollInfo_AR('[AR] G41', 120))
-        TdollList.push(creatTdollInfo_AR('[AR] FAL', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] 95式', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] 97式', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] RFB', 80))
-        TdollList.push(creatTdollInfo_AR('[AR] T91', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] K2', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] Zas M21', 190))
-        TdollList.push(creatTdollInfo_AR('[AR] AN-94', 50))
-        TdollList.push(creatTdollInfo_AR('[AR] AK-12', 50))
-        TdollList.push(creatTdollInfo_AR('[AR] MDR', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] K11', 180))
-        TdollList.push(creatTdollInfo_AR('[AR] 64式自 ', 100))
+        TdollList.push(creatTdollInfo_AR('AR@G41', 120))
+        TdollList.push(creatTdollInfo_AR('AR@FAL', 100))
+        TdollList.push(creatTdollInfo_AR('AR@95式', 100))
+        TdollList.push(creatTdollInfo_AR('AR@97式', 100))
+        TdollList.push(creatTdollInfo_AR('AR@RFB', 80))
+        TdollList.push(creatTdollInfo_AR('AR@T91', 100))
+        TdollList.push(creatTdollInfo_AR('AR@K2', 100))
+        TdollList.push(creatTdollInfo_AR('AR@Zas M21', 190))
+        TdollList.push(creatTdollInfo_AR('AR@AN-94', 50))
+        TdollList.push(creatTdollInfo_AR('AR@AK-12', 50))
+        TdollList.push(creatTdollInfo_AR('AR@MDR', 100))
+        TdollList.push(creatTdollInfo_AR('AR@K11', 180))
+        TdollList.push(creatTdollInfo_AR('AR@64式自 ', 100))
       }
     } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_AR('[AR] AS Val', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] 56-1式', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] FAMAS', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] 9A-91', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] XM8', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] SAR-21', 200))
-      TdollList.push(creatTdollInfo_AR('[AR] EM-2', 200))
+      TdollList.push(creatTdollInfo_AR('AR@AS Val', 200))
+      TdollList.push(creatTdollInfo_AR('AR@56-1式', 200))
+      TdollList.push(creatTdollInfo_AR('AR@FAMAS', 200))
+      TdollList.push(creatTdollInfo_AR('AR@9A-91', 200))
+      TdollList.push(creatTdollInfo_AR('AR@XM8', 200))
+      TdollList.push(creatTdollInfo_AR('AR@SAR-21', 200))
+      TdollList.push(creatTdollInfo_AR('AR@EM-2', 200))
       if (AwH >= 4000 && RwH >= 4000) {
-        TdollList.push(creatTdollInfo_AR('[AR] G36', 100))
-        TdollList.push(creatTdollInfo_AR('[AR] TAR-21', 200))
-        TdollList.push(creatTdollInfo_AR('[AR] 利贝罗勒', 200))
+        TdollList.push(creatTdollInfo_AR('AR@G36', 100))
+        TdollList.push(creatTdollInfo_AR('AR@TAR-21', 200))
+        TdollList.push(creatTdollInfo_AR('AR@利贝罗勒', 200))
       }
     } else {
-      TdollList.push(creatTdollInfo_AR('[AR] ARX-160', 280))
-      TdollList.push(creatTdollInfo_AR('[AR] AK-47', 290))
-      TdollList.push(creatTdollInfo_AR('[AR] StG44', 315))
-      TdollList.push(creatTdollInfo_AR('[AR] FNC', 290))
-      TdollList.push(creatTdollInfo_AR('[AR] OTs-12', 270))
-      TdollList.push(creatTdollInfo_AR('[AR] StG44', 315))
+      TdollList.push(creatTdollInfo_AR('AR@ARX-160', 280))
+      TdollList.push(creatTdollInfo_AR('AR@AK-47', 290))
+      TdollList.push(creatTdollInfo_AR('AR@StG44', 315))
+      TdollList.push(creatTdollInfo_AR('AR@FNC', 290))
+      TdollList.push(creatTdollInfo_AR('AR@OTs-12', 270))
+      TdollList.push(creatTdollInfo_AR('AR@StG44', 315))
     }
   }
   // RF: 4141
   if (MwH >= 4000 && RwH >= 4000) {
     getMul_RF_H(MwH + AwH + RwH + PwH)
     if (starNum === 5) {
-      TdollList.push(creatTdollInfo_RF('[RF] WA2000', 85))
-      TdollList.push(creatTdollInfo_RF('[RF] NTW-20', 90))
-      TdollList.push(creatTdollInfo_RF('[RF] 卡尔卡诺M1891', 60))
-      TdollList.push(creatTdollInfo_RF('[RF] Kar98k', 28))
-      TdollList.push(creatTdollInfo_RF('[RF] 李·恩菲尔德', 60))
-      TdollList.push(creatTdollInfo_RF('[RF] M99', 28))
-      TdollList.push(creatTdollInfo_RF('[RF] IWS2000', 16))
-      TdollList.push(creatTdollInfo_RF('[RF] 卡尔卡诺M91/38', 14))
-      TdollList.push(creatTdollInfo_RF('[RF] M200', 85))
-      TdollList.push(creatTdollInfo_RF('[RF] QBU-88', 30))
+      TdollList.push(creatTdollInfo_RF('RF@WA2000', 85))
+      TdollList.push(creatTdollInfo_RF('RF@NTW-20', 90))
+      TdollList.push(creatTdollInfo_RF('RF@卡尔卡诺M1891', 60))
+      TdollList.push(creatTdollInfo_RF('RF@Kar98k', 28))
+      TdollList.push(creatTdollInfo_RF('RF@李·恩菲尔德', 60))
+      TdollList.push(creatTdollInfo_RF('RF@M99', 28))
+      TdollList.push(creatTdollInfo_RF('RF@IWS2000', 16))
+      TdollList.push(creatTdollInfo_RF('RF@卡尔卡诺M91/38', 14))
+      TdollList.push(creatTdollInfo_RF('RF@M200', 85))
+      TdollList.push(creatTdollInfo_RF('RF@QBU-88', 30))
     } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_RF('[RF] PSG-1', 200))
-      TdollList.push(creatTdollInfo_RF('[RF] G28', 170))
-      TdollList.push(creatTdollInfo_RF('[RF] PzB-39', 140))
-      TdollList.push(creatTdollInfo_RF('[RF] 春田', 300))
-      TdollList.push(creatTdollInfo_RF('[RF] 莫辛-纳甘', 260))
-      TdollList.push(creatTdollInfo_RF('[RF] PTRD', 160))
-      TdollList.push(creatTdollInfo_RF('[RF] SVD', 110))
-      TdollList.push(creatTdollInfo_RF('[RF] T-5000', 100))
-      TdollList.push(creatTdollInfo_RF('[RF] SPR-A3G', 40))
-      TdollList.push(creatTdollInfo_RF('[RF] K31', 100))
+      TdollList.push(creatTdollInfo_RF('RF@PSG-1', 200))
+      TdollList.push(creatTdollInfo_RF('RF@G28', 170))
+      TdollList.push(creatTdollInfo_RF('RF@PzB-39', 140))
+      TdollList.push(creatTdollInfo_RF('RF@春田', 300))
+      TdollList.push(creatTdollInfo_RF('RF@莫辛-纳甘', 260))
+      TdollList.push(creatTdollInfo_RF('RF@PTRD', 160))
+      TdollList.push(creatTdollInfo_RF('RF@SVD', 110))
+      TdollList.push(creatTdollInfo_RF('RF@T-5000', 100))
+      TdollList.push(creatTdollInfo_RF('RF@SPR-A3G', 40))
+      TdollList.push(creatTdollInfo_RF('RF@K31', 100))
     } else {
-      TdollList.push(creatTdollInfo_RF('[RF] Ots-44', 230))
-      TdollList.push(creatTdollInfo_RF('[RF] M1加兰德', 400))
-      TdollList.push(creatTdollInfo_RF('[RF] M14', 370))
-      TdollList.push(creatTdollInfo_RF('[RF] SV-98', 300))
-      TdollList.push(creatTdollInfo_RF('[RF] 汉阳造88式', 90))
+      TdollList.push(creatTdollInfo_RF('RF@Ots-44', 230))
+      TdollList.push(creatTdollInfo_RF('RF@M1加兰德', 400))
+      TdollList.push(creatTdollInfo_RF('RF@M14', 370))
+      TdollList.push(creatTdollInfo_RF('RF@SV-98', 300))
+      TdollList.push(creatTdollInfo_RF('RF@汉阳造88式', 90))
     }
   }
   // MG: 4614 6614
   if (MwH >= 4000 && AwH >= 6000 && PwH >= 4000) {
     getMul_MG_H(MwH + AwH + RwH + PwH)
     if (starNum === 5) {
-      TdollList.push(creatTdollInfo_MG('[MG] MG5', 90))
+      TdollList.push(creatTdollInfo_MG('MG@MG5', 90))
       if (MwH >= 6000 && AwH >= 6000 && PwH >= 4000) {
-        TdollList.push(creatTdollInfo_MG('[MG] 内格夫', 40))
-        TdollList.push(creatTdollInfo_MG('[MG] MG4', 50))
-        TdollList.push(creatTdollInfo_MG('[MG] PKP', 70))
-        TdollList.push(creatTdollInfo_MG('[MG] 88式', 70))
-        TdollList.push(creatTdollInfo_MG('[MG] MG36', 70))
+        TdollList.push(creatTdollInfo_MG('MG@内格夫', 40))
+        TdollList.push(creatTdollInfo_MG('MG@MG4', 50))
+        TdollList.push(creatTdollInfo_MG('MG@PKP', 70))
+        TdollList.push(creatTdollInfo_MG('MG@88式', 70))
+        TdollList.push(creatTdollInfo_MG('MG@MG36', 70))
       }
     } else if (starNum === 4) {
-      TdollList.push(creatTdollInfo_MG('[MG] M1918', 230))
-      TdollList.push(creatTdollInfo_MG('[MG] M60', 150))
-      TdollList.push(creatTdollInfo_MG('[MG] MG3', 200))
-      TdollList.push(creatTdollInfo_MG('[MG] 阿梅丽', 55))
+      TdollList.push(creatTdollInfo_MG('MG@M1918', 230))
+      TdollList.push(creatTdollInfo_MG('MG@M60', 150))
+      TdollList.push(creatTdollInfo_MG('MG@MG3', 200))
+      TdollList.push(creatTdollInfo_MG('MG@阿梅丽', 55))
       if (MwH >= 6000 && AwH >= 6000 && PwH >= 4000) {
-        TdollList.push(creatTdollInfo_MG('[MG] PK', 80))
-        TdollList.push(creatTdollInfo_MG('[MG] MK48', 80))
-        TdollList.push(creatTdollInfo_MG('[MG] AEK-999', 80))
-        TdollList.push(creatTdollInfo_MG('[MG] 80式', 70))
-        TdollList.push(creatTdollInfo_MG('[MG] 绍沙', 80))
+        TdollList.push(creatTdollInfo_MG('MG@PK', 80))
+        TdollList.push(creatTdollInfo_MG('MG@MK48', 80))
+        TdollList.push(creatTdollInfo_MG('MG@AEK-999', 80))
+        TdollList.push(creatTdollInfo_MG('MG@80式', 70))
+        TdollList.push(creatTdollInfo_MG('MG@绍沙', 80))
       }
     } else {
-      TdollList.push(creatTdollInfo_MG('[MG] M2HB', 170))
-      TdollList.push(creatTdollInfo_MG('[MG] M1919A4', 350))
-      TdollList.push(creatTdollInfo_MG('[MG] MG42', 350))
-      TdollList.push(creatTdollInfo_MG('[MG] 布伦', 380))
+      TdollList.push(creatTdollInfo_MG('MG@M2HB', 170))
+      TdollList.push(creatTdollInfo_MG('MG@M1919A4', 350))
+      TdollList.push(creatTdollInfo_MG('MG@MG42', 350))
+      TdollList.push(creatTdollInfo_MG('MG@布伦', 380))
     }
   }
   var totalPosiNum = 0
@@ -1099,7 +1198,7 @@ function makeTdoll_Heavy (MwH, AwH, RwH, PwH, starNum) { // Heavy-produce T-doll
   return TdollInfo
 }
 
-function makeEquip (Mw, Aw, Rw, Pw, starNum) { // Normal-produce Equip, possibility*100, refer to 150x4
+function makeEquip(Mw, Aw, Rw, Pw, starNum) { // Normal-produce Equip, possibility*100, refer to 150x4
   if (starNum === 5) fiveStarNumE++
   var EquipInfo = '<b>'
   var EquipList = []
@@ -1218,7 +1317,7 @@ function makeEquip (Mw, Aw, Rw, Pw, starNum) { // Normal-produce Equip, possibil
   return EquipInfo
 }
 
-function makeEquipH (Mw, Aw, Rw, Pw, starNum) { // Normal-produce Equip, possibility*100, refer to 150x4
+function makeEquipH(Mw, Aw, Rw, Pw, starNum) { // Normal-produce Equip, possibility*100, refer to 150x4
   if (starNum === 6) fairyNum++
   else if (starNum === 5) fiveStarNumEH++
   var EquipInfo = '<b>'
@@ -1347,126 +1446,7 @@ function makeEquipH (Mw, Aw, Rw, Pw, starNum) { // Normal-produce Equip, possibi
   return EquipInfo
 }
 
-function addList () { // Add Normal-produce info
-  listNum++
-  var chart = document.getElementById('rankingChart')
-  var sumchart = document.getElementById('sumChart')
-  var resochart = document.getElementById('resoChart')
-  var tabSum = sumchart.innerHTML
-  var tabReso = resochart.innerHTML
-  var MwId = document.getElementById('Mw')
-  var Mw = parseInt(MwId.value)
-  allM += Mw
-  var AwId = document.getElementById('Aw')
-  var Aw = parseInt(AwId.value)
-  allA += Aw
-  var RwId = document.getElementById('Rw')
-  var Rw = parseInt(RwId.value)
-  allR += Rw
-  var PwId = document.getElementById('Pw')
-  var Pw = parseInt(PwId.value)
-  allP += Pw
-  allCon++
-  var starNum = makeStar()
-  var Tdoll = makeTdoll(Mw, Aw, Rw, Pw, starNum)
-  // add List
-  global_list = global_list.substring(0, global_list.length - 16)
-  global_list += '<tr>'
-  global_list += '<td>'
-  global_list += (listNum + '')
-  global_list += '</td>'
-  global_list += '<td>'
-  global_list += (Mw + ' ')
-  global_list += (Aw + ' ')
-  global_list += (Rw + ' ')
-  global_list += (Pw + ' ')
-  global_list += '</td><td>'
-  global_5list = global_5list.substring(0, global_5list.length - 16)
-  global_5list += '<tr>'
-  if (starNum === 5) {
-    global_5list += '<td>'
-    global_5list += (listNum + '')
-    global_5list += '</td><td>'
-    global_5list += (Mw + ' ')
-    global_5list += (Aw + ' ')
-    global_5list += (Rw + ' ')
-    global_5list += (Pw + ' ')
-    global_5list += '</td><td><span style="color:darkorange">'
-    global_5list += Tdoll
-    global_5list += '</span></td>'
-    global_list += '<span style="color:darkorange">'
-    global_list += Tdoll
-    global_list += '</span>'
-  } else if (starNum === 4) {
-    global_list += '<span style="color:chartreuse">'
-    global_list += Tdoll
-    global_list += '</span>'
-  } else if (starNum === 3) {
-    global_list += '<span style="color:dodgerblue">'
-    global_list += Tdoll
-    global_list += '</span>'
-  } else {
-    global_list += '<span style="color:darkseagreen">'
-    global_list += Tdoll
-    global_list += '</span>'
-  }
-  global_list += '</td></tr></tbody></table>'
-  global_5list += '</tr></tbody></table>'
-  tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>'
-  tabSum += '<tr>'
-  var RateNormal
-  if (listNum === listNumH) RateNormal = -1; // Not normal-produce
-  else RateNormal = Math.ceil(100 * fiveStarNum / (listNum - listNumH))
-  var RateHeavy
-  if (listNumH === 0) RateHeavy = -1; // Not heavy-produce
-  else RateHeavy = Math.ceil(100 * fiveStarNumH / listNumH)
-  tabSum += '<td>'
-  tabSum += (listNum + '')
-  tabSum += '</td><td>'
-  tabSum += (fiveStarNum + ' + ')
-  tabSum += (fiveStarNumH + '')
-  tabSum += '</td><td>'
-  if (RateNormal < 0) tabSum += '-'
-  else tabSum += (RateNormal + '%')
-  tabSum += ' / '
-  if (RateHeavy < 0) tabSum += '-'
-  else tabSum += (RateHeavy + '%')
-  tabSum += '</td><td>'
-  if ((RateNormal < 0 || RateNormal > 10) && (RateHeavy < 0 || RateHeavy > 30)) {
-    tabSum += '<span style="color:darkorange"><b>欧皇</b></span>'
-  } else if ((RateNormal <= 2 && RateNormal >= 0) && (RateHeavy < 0 || (RateHeavy <= 10 && RateHeavy >= 0))) {
-    tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>'
-  } else {
-    tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>'
-  }
-  tabSum += '</td></tr></tbody></table>'
-  tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>'
-  tabReso += '<td>'
-  tabReso += (allM + '')
-  tabReso += '</td><td>'
-  tabReso += (allA + '')
-  tabReso += '</td><td>'
-  tabReso += (allR + '')
-  tabReso += '</td><td>'
-  tabReso += (allP + '')
-  tabReso += '</td><td>'
-  tabReso += (allCon + '')
-  tabReso += '</td><td>'
-  tabReso += (allConE + '')
-  tabReso += '</td><td>'
-  tabReso += (allCore + '')
-  tabReso += '</td></tr></tbody></table>'
-  var switchA = document.getElementById('showAllSwitch')
-  if (switchA.checked === true) {
-    chart.innerHTML = global_list
-  } else {
-    chart.innerHTML = global_5list
-  }
-  sumchart.innerHTML = tabSum
-  resochart.innerHTML = tabReso
-}
-
-function addListH () { // Add Heavy-produce info
+function addListH() { // Add Heavy-produce info
   listNum++
   listNumH++
   var chart = document.getElementById('rankingChart')
@@ -1610,7 +1590,7 @@ function addListH () { // Add Heavy-produce info
   resochart.innerHTML = tabReso
 }
 
-function addListE () { // Add Normal-produce-equip info
+function addListE() { // Add Normal-produce-equip info
   listNumE++
   var chart = document.getElementById('rankingChartE')
   var sumchart = document.getElementById('sumChartE')
@@ -1754,7 +1734,7 @@ function addListE () { // Add Normal-produce-equip info
   resochart.innerHTML = tabReso
 }
 
-function addListEH () { // Add Heavy-produce-equip info
+function addListEH() { // Add Heavy-produce-equip info
   listNumE++
   listNumEH++
   var chart = document.getElementById('rankingChartE')
@@ -1942,50 +1922,34 @@ function addListEH () { // Add Heavy-produce-equip info
   resochart.innerHTML = tabReso
 }
 
-function showAll () { // Show all results
+function showAll() { // Show all results
   var chart = document.getElementById('rankingChart')
   chart.innerHTML = global_list
 }
 
-function showFive () { // Show 5-star results
+function showFive() { // Show 5-star results
   var chart = document.getElementById('rankingChart')
   chart.innerHTML = global_5list
 }
 
-function showAllE () { // Show all-equip results
+function showAllE() { // Show all-equip results
   var chart = document.getElementById('rankingChartE')
   chart.innerHTML = global_listE
 }
 
-function showFiveE () { // Show 5-star-equip results
+function showFiveE() { // Show 5-star-equip results
   var chart = document.getElementById('rankingChartE')
   chart.innerHTML = global_5listE
 }
 
-function showFairy () { // Show fairy results
+function showFairy() { // Show fairy results
   var chart = document.getElementById('rankingChartE')
   chart.innerHTML = global_fairylist
 }
 
-function addListMulti () {
-  var panelT = document.getElementById('panelT')
-  var panelE = document.getElementById('panelE')
-  var resultT = document.getElementById('TdollResult')
-  var resultE = document.getElementById('EquipmentResult')
-  panelT.className = 'active'
-  panelE.className = ''
-  resultT.className = 'tab-pane fade in active'
-  resultE.className = 'tab-pane fade'
-  var NTimes = document.getElementById('NTimes')
-  var times = parseInt(NTimes.value)
-  for (var i = 0; i < times; i++) {
-    if (checkResource(1)) {
-      addList()
-    }
-  }
-}
 
-function addListHMulti () {
+
+function addListHMulti() {
   var panelT = document.getElementById('panelT')
   var panelE = document.getElementById('panelE')
   var resultT = document.getElementById('TdollResult')
@@ -1997,13 +1961,11 @@ function addListHMulti () {
   var NTimesH = document.getElementById('NTimesH')
   var timesH = parseInt(NTimesH.value)
   for (var i = 0; i < timesH; i++) {
-    if (checkResource(2)) {
-      addListH()
-    }
+    addListH()
   }
 }
 
-function addListEMulti () {
+function addListEMulti() {
   var panelT = document.getElementById('panelT')
   var panelE = document.getElementById('panelE')
   var resultT = document.getElementById('TdollResult')
@@ -2015,13 +1977,11 @@ function addListEMulti () {
   var NTimes = document.getElementById('NTimesE')
   var times = parseInt(NTimes.value)
   for (var i = 0; i < times; i++) {
-    if (checkResource(3)) {
-      addListE()
-    }
+    addListE()
   }
 }
 
-function addListEHMulti () {
+function addListEHMulti() {
   var panelT = document.getElementById('panelT')
   var panelE = document.getElementById('panelE')
   var resultT = document.getElementById('TdollResult')
@@ -2033,8 +1993,6 @@ function addListEHMulti () {
   var NTimesH = document.getElementById('NTimesEH')
   var timesH = parseInt(NTimesH.value)
   for (var i = 0; i < timesH; i++) {
-    if (checkResource(4)) {
-      addListEH()
-    }
+    addListEH()
   }
 }

@@ -13,7 +13,7 @@ str_jill_template += '</p>'
 
 function showAffect() {
   for (var i = 1; i <= 3; i++) {
-    for (var j = 1; j <= 3; j++) document.getElementById('a' + i + '' + j).style = 'background-color:#000000'
+    for (var j = 1; j <= 3; j++) document.getElementById('a' + i + '' + j).style = 'background-color:#6a696a'
   }
   if (set_guntype >= 1) {
     var ID = parseInt(document.getElementById('select_tdoll').value)

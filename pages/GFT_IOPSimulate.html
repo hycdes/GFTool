@@ -87,9 +87,6 @@
                                     <li>
                                         <a href="#HeavyEquipment" data-toggle="tab" onclick="swapImage(4)">装备重建</a>
                                     </li>
-                                    <li>
-                                        <a href="#ResourceLimit" data-toggle="tab" onclick="swapImage(5)">资源限制</a>
-                                    </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content">
@@ -97,46 +94,67 @@
                                     <div class="tab-pane fade in active" id="NormalProduce">
                                         <div class="col-lg-12">
                                             <p>&nbsp</p>
-                                            <p>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(1)">通用 4442</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(2)">HG 1111</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(3)">AR 1441</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(4)">RF 4142</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(5)">SMG 4412</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(6)">MG 7614</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeight(7)">MG-Plus 7644</button>
-                                            </p>
-                                        </div>
-                                        <!--Resource-->
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">人力</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=30 id="Mw" onblur="checkValueNormal()">
+                                            <!-- numbers = produce_type/resource_type/number_position -->
+                                            <div class="row" style="margin-bottom:10px">
+                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,400,400,400,200)"><img src="../img/produce/normal-tdoll/icon-mix.png"> 4442</button>
+                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,130,130,130,30)"><img src="../img/produce/normal-tdoll/icon-hg.png"> 1110</button>
+                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,100,400,400,100)"><img src="../img/produce/normal-tdoll/icon-ar.png"> 1441</button>
+                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,400,400,100,200)"><img src="../img/produce/normal-tdoll/icon-smg.png"> 4412</button>
+                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,400,100,400,200)"><img src="../img/produce/normal-tdoll/icon-rf.png"> 4142</button>
+                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,700,600,100,400)"><img src="../img/produce/normal-tdoll/icon-mg.png"> 7614</button>
                                             </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=30 id="Rw" onblur="checkValueNormal()">
+                                            <div class="row">
+                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-hum.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up111" onclick="change_reso('+111')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up112" onclick="change_reso('+112')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up113" onclick="change_reso('+113')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down111" onclick="change_reso('-111')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down112" onclick="change_reso('-112')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down113" onclick="change_reso('-113')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num111">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num112">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num113">
+                                                </div>
+                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-amm.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up121" onclick="change_reso('+121')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up122" onclick="change_reso('+122')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up123" onclick="change_reso('+123')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down121" onclick="change_reso('-121')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down122" onclick="change_reso('-122')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down123" onclick="change_reso('-123')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num121">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num122">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num123">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=30 id="Aw" onblur="checkValueNormal()">
+                                            <div class="row">
+                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-rat.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up131" onclick="change_reso('+131')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up132" onclick="change_reso('+132')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up133" onclick="change_reso('+133')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down131" onclick="change_reso('-131')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down132" onclick="change_reso('-132')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down133" onclick="change_reso('-133')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num131">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num132">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num133">
+                                                </div>
+                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-pts.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up141" onclick="change_reso('+141')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up142" onclick="change_reso('+142')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up143" onclick="change_reso('+143')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down141" onclick="change_reso('-141')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down142" onclick="change_reso('-142')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down143" onclick="change_reso('-143')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num141">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num142">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num143">
+                                                </div>
                                             </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">零件</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=30 id="Pw" onblur="checkValueNormal()">
+                                            <div class="row" style="margin-top:10px">
+                                                <button type="button" class="btn btn-outline btn-success" onclick="produce(1,1)">建造x1</button>
+                                                <button type="button" class="btn btn-outline btn-success" onclick="produce(1,10)">建造x10</button>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <p><select class="form-control" id="NTimes">
-                                                    <option value=1>单次建造</option>
-                                                    <option value=10>十连建造</option>
-                                                </select></p>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-success" id="buttonNormal" onclick="addListMulti()">普通建造</button>
-                                            </p>
                                         </div>
                                     </div>
                                     <!--HEAVY TDOLL-->
@@ -279,67 +297,6 @@
                                             <p><button type="button" class="btn btn-danger" id="buttonHeavyE" onclick="addListEHMulti()">重型建造</button></p>
                                         </div>
                                     </div>
-                                    <!--LIMITATION-->
-                                    <div class="tab-pane fade" id="ResourceLimit">
-                                        <!--Resource-->
-                                        <div class="col-lg-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="unLimitReso" checked onclick="releaseResoLimit()">
-                                                    无限资源
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">人力余量</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10000 id="MwOwn" disabled>
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">口粮余量</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10000 id="RwOwn" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">弹药余量</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10000 id="AwOwn" disabled>
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">零件余量</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10000 id="PwOwn" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="unLimitCoCo" checked onclick="releaseCoCoLimit()">
-                                                    无限契约核心
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">人形契约</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=100 id="ConOwn" disabled>
-                                            </div>
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">装备契约</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=100 id="ConOwnE" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-group input-group">
-                                                <span class="input-group-addon">核心</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=100 id="CoreOwn" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <p>
-                                                <button type="button" class="btn btn-primary" onclick="resetResoLimit()">重置资源限制</button>
-                                            </p>
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
@@ -347,20 +304,6 @@
                     </div>
                 </div>
 
-                <!--Resource -->
-                <div class="row">
-                    <div class="col-lg-10">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                资源消耗
-                            </div>
-                            <!-- /.panel-heading -->
-                            <div class="panel-body">
-                                <div class="table-responsive" id="resoChart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <!--Result -->
                 <div class="row">
                     <div class="col-lg-10">
@@ -370,6 +313,7 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
+                                <div class="table-responsive" id="resoChart"></div>
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs">
                                     <li id="panelT" class="active">
@@ -438,6 +382,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
