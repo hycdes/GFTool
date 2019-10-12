@@ -61,13 +61,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">建造模拟器 <button type="button" data-toggle="tooltip" data-placement="bottom" title="数据参考自IOP公司制造统计网站 格里芬魔术真实复刻" class="btn btn-outline btn-default">?</button></h1>
+                            <h1 class="page-header">建造模拟器(维护中) <button type="button" data-toggle="tooltip" data-placement="bottom" title="数据参考自IOP公司制造统计网站 格里芬魔术真实复刻" class="btn btn-outline btn-default">?</button></h1>
                         </div>
                     </div>
                 </div>
                 <!--Setting-->
                 <div class="row">
-                    <div class="col-lg-10">
+                    <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 建造
@@ -306,79 +306,139 @@
 
                 <!--Result -->
                 <div class="row">
-                    <div class="col-lg-10">
+                    <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 建造列表
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="table-responsive" id="resoChart"></div>
-                                <!-- Nav tabs -->
-                                <ul class="nav nav-tabs">
-                                    <li id="panelT" class="active">
-                                        <a href="#TdollResult" data-toggle="tab">人形</a>
-                                    </li>
-                                    <li id="panelE" class="">
-                                        <a href="#EquipmentResult" data-toggle="tab">装备</a>
-                                    </li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <!--TDOLL RESULTS-->
-                                    <div class="tab-pane fade in active" id="TdollResult">
-                                        <div class="panel-body">
-                                            <div class="col-lg-12">
-                                                <label>显示条目</label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="showAllSwitch" value="option1" onclick="showAll()" checked>
-                                                    <b><span style="color:dodgerblue">全部</span></b>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitch" id="showFiveSwitch" value="option2" onclick="showFive()">
-                                                    <b><span style="color:darkorange">★★★★★</span></b>
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="panel-body">
-                                                    <div class="table-responsive" id="sumChart"></div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="table-responsive" id="rankingChart" style='height:400px; overflow-y:scroll'></div>
+                                <div class="col-lg-2">
+                                    <table class="table table-bordered table-hover">
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><b>资源</b></td>
+                                            <td style="text-align:center;vertical-align:middle"><b>消耗</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-hum.png"></td>
+                                            <td style="text-align:center;vertical-align:middle" id="costs_hum">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-amm.png"></td>
+                                            <td style="text-align:center;vertical-align:middle" id="costs_amm">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-rat.png"></td>
+                                            <td style="text-align:center;vertical-align:middle" id="costs_rat">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-pts.png"></td>
+                                            <td style="text-align:center;vertical-align:middle" id="costs_pts">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-tc.png" width=30 height=30></td>
+                                            <td style="text-align:center;vertical-align:middle" id="costs_tc">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-ec.png" width=30 height=30></td>
+                                            <td style="text-align:center;vertical-align:middle" id="costs_ec">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-core.png" width=30 height=30></td>
+                                            <td style="text-align:center;vertical-align:middle" id="costs_core">0</td>
+                                        </tr>
+                                    </table>
+                                    <table class="table table-bordered table-hover">
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><b>普建五星率</b></td>
+                                            <td style="text-align:center;vertical-align:middle" id="ratio_nt">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><b>重建五星率</b></td>
+                                            <td style="text-align:center;vertical-align:middle" id="ratio_ht">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><b>装备五星率</b></td>
+                                            <td style="text-align:center;vertical-align:middle" id="ratio_ne">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><b>妖精出率</b></td>
+                                            <td style="text-align:center;vertical-align:middle" id="ratio_he">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><b>人形建造评价</b></td>
+                                            <td style="text-align:center;vertical-align:middle" id="rank_t">???</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;vertical-align:middle"><b>装备建造评价</b></td>
+                                            <td style="text-align:center;vertical-align:middle" id="rank_e">???</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-lg-10">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs">
+                                        <li id="panelT" class="active">
+                                            <a href="#TdollResult" data-toggle="tab">人形</a>
+                                        </li>
+                                        <li id="panelE" class="">
+                                            <a href="#EquipmentResult" data-toggle="tab">装备</a>
+                                        </li>
+                                    </ul>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <!--TDOLL RESULTS-->
+                                        <div class="tab-pane fade in active" id="TdollResult">
+                                            <div class="panel-body">
+                                                <h4>
+                                                    建造显示 <img src='../img/produce/show-all.png' style="cursor: pointer" id="btn_show_nt" onclick='swap_show(1)'>
+                                                </h4>
+                                                <div style='height:550px; overflow-y:scroll'>
+                                                    <table class="table table-bordered table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>订单号</th>
+                                                                <th>资源</th>
+                                                                <th>人形</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="produce_nt"></tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <!--EQUIPMENT RESULTS-->
-                                    <div class="tab-pane fade" id="EquipmentResult">
-                                        <div class="panel-body">
-                                            <div class="col-lg-12">
-                                                <label>显示条目</label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitchE" id="showAllSwitchE" value="option1" onclick="showAllE()" checked>
-                                                    <b><span style="color:dodgerblue">全部</span></b>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitchE" id="showFiveSwitchE" value="option2" onclick="showFiveE()">
-                                                    <b><span style="color:darkorange">★★★★★</span></b>
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input type="radio" name="ExpanSwitchE" id="showFairy" value="option3" onclick="showFairy()">
-                                                    <b><span style="color:red">妖精</span></b>
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="panel-body">
-                                                    <div class="table-responsive" id="sumChartE"></div>
+                                        <!--EQUIPMENT RESULTS-->
+                                        <div class="tab-pane fade" id="EquipmentResult">
+                                            <div class="panel-body">
+                                                <div class="col-lg-12">
+                                                    <label>显示条目</label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="ExpanSwitchE" id="showAllSwitchE" value="option1" onclick="showAllE()" checked>
+                                                        <b><span style="color:dodgerblue">全部</span></b>
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="ExpanSwitchE" id="showFiveSwitchE" value="option2" onclick="showFiveE()">
+                                                        <b><span style="color:darkorange">★★★★★</span></b>
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="ExpanSwitchE" id="showFairy" value="option3" onclick="showFairy()">
+                                                        <b><span style="color:red">妖精</span></b>
+                                                    </label>
                                                 </div>
-                                                <div class="panel-body">
-                                                    <div class="table-responsive" id="rankingChartE" style='height:500px; overflow-y:scroll'></div>
+                                                <div class="col-lg-12">
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive" id="sumChartE"></div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="table-responsive" id="rankingChartE" style='height:500px; overflow-y:scroll'></div>
+                                                    </div>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

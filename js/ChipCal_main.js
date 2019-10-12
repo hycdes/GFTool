@@ -1,3 +1,7 @@
+// 新重装 修改内容   (1)topology.js (2)chartBack添加形状 (3) getTopology添加分支判断 (3)searchValid确定搜索域长和具体芯片种类
+//                  (4)showAnalyze全部 (5)比较函数和统计函数
+//                  主界面：添加按钮
+
 var HeavyfireType = 1
 var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
 var switch_clear = false, switch_maxall = false, switch_blueall = false, switch_orangeall = false
@@ -16,8 +20,8 @@ var ignore_setting = new Map
 var readorder = ['dmg', 'dbk', 'acu', 'fil',
   'dmgblo', 'dbkblo', 'acublo', 'filblo']
 
-function creatChip (chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
-  var chipData = { }
+function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
+  var chipData = {}
   chipData.chipNum = chipNum // chip number
   chipData.color = chipColor // color
   chipData.classNum = chipClass // 56 or 551
@@ -30,8 +34,8 @@ function creatChip (chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu
   chipData.weight = Den_Level // density*level
   return chipData
 }
-function creatRepo (chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
-  var repoData = { }
+function creatRepo(chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
+  var repoData = {}
   repoData.chipNum = chipNum
   repoData.chipType = chipType
   repoData.chipLevel = chipLevel
@@ -41,7 +45,7 @@ function creatRepo (chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
   repoData.Dbk = Dbk
   return repoData
 }
-function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
+function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
   var ChipRepoChartId = document.getElementById('ChipRepoChart')
   var DeleteSelectId = document.getElementById('DeleteSelect')
   switch (typeInfo) {
@@ -119,7 +123,7 @@ function changeRepo (typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
     document.getElementById('orangeAllButton').disabled = true
   }
 }
-function maxAllChip () {
+function maxAllChip() {
   switch_blueall = false
   switch_orangeall = false
   if (switch_maxall === false) {
@@ -170,7 +174,7 @@ function maxAllChip () {
     }
   }
 }
-function blueAllChip () {
+function blueAllChip() {
   switch_maxall = false
   switch_orangeall = false
   if (switch_blueall === false) {
@@ -187,7 +191,7 @@ function blueAllChip () {
     loadSaveCode(code, mark_orange)
   }
 }
-function orangeAllChip () {
+function orangeAllChip() {
   switch_maxall = false
   switch_blueall = false
   if (switch_orangeall === false) {
@@ -204,14 +208,14 @@ function orangeAllChip () {
     loadSaveCode(code, mark_blue)
   }
 }
-function changeTopology (actionId) {
+function changeTopology(actionId) {
   if (actionId === 0) topologyNum = parseInt(document.getElementById('TopologySelect').value)
   if (actionId === 1) topologyNum++
   if (actionId === 2) topologyNum--
   document.getElementById('TopologySelect').value = topologyNum
   showSolution()
 }
-function getSaveCode () { // 获取存储码
+function getSaveCode() { // 获取存储码
   var SaveAlertId = document.getElementById('SaveAlert')
   var SaveCodeId = document.getElementById('SaveCode')
   SaveCodeId.value = createSaveCode()
@@ -219,7 +223,7 @@ function getSaveCode () { // 获取存储码
   document.execCommand('Copy')
   SaveAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_savedone + '</span>'
 }
-function createSaveCode () {
+function createSaveCode() {
   var code = '[' + rules[0].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + '!'
   for (var i = 0; i < chipRepo_data.length; i++) {
     code += (chipRepo_data[i].chipNum + ',')
@@ -236,7 +240,7 @@ function createSaveCode () {
   code += '?' + rules[1].substr(chipNum - 13 * parseInt(chipNum / 13), 1) + ']'
   return code
 }
-function repo_addChart (chipData) {
+function repo_addChart(chipData) {
   // Add chipRepo_chart
   var stren_parameter = 1
   if (chipData.levelNum <= 10) stren_parameter = 1 + 0.08 * chipData.levelNum
@@ -332,7 +336,7 @@ function repo_addChart (chipData) {
     document.getElementById('orangeAllButton').disabled = true
   }
 }
-function simpleCheck (LoadCode) { // 简单检查存储码
+function simpleCheck(LoadCode) { // 简单检查存储码
   if (LoadCode[0] != '[' || LoadCode[LoadCode.length - 1] != ']') return false
   var rule1 = LoadCode[1], rule2 = LoadCode[LoadCode.length - 2]
   var posi1 = [], posi2 = []
@@ -347,7 +351,7 @@ function simpleCheck (LoadCode) { // 简单检查存储码
   }
   return false
 }
-function setValue (elementNum, tempStr) { // get value from savecode
+function setValue(elementNum, tempStr) { // get value from savecode
   if (elementNum === 0) return chipNum + 1
   else if (elementNum === 1) return parseInt(tempStr)
   else if (elementNum === 2) return parseInt(tempStr)
@@ -358,7 +362,7 @@ function setValue (elementNum, tempStr) { // get value from savecode
   else if (elementNum === 7) return parseInt(tempStr)
   else if (elementNum === 8) return parseInt(tempStr)
 }
-function loadSaveCode () { // load save
+function loadSaveCode() { // load save
   var command = arguments['0'], disable_list
   var need_filter = false
   var chipIdx = 0
@@ -407,12 +411,12 @@ function loadSaveCode () { // load save
   }
   resetPage()
 }
-function manageDeleteButton () {
+function manageDeleteButton() {
   var DeleteSelectId = document.getElementById('DeleteSelect')
   if (parseInt(DeleteSelectId.value) > 0) document.getElementById('deleteChipButton').disabled = false
   else document.getElementById('deleteChipButton').disabled = true
 }
-function changeProperty (command) { // for change color/chipClass/chipShape
+function changeProperty(command) { // for change color/chipClass/chipShape
   if (command === 'color_b') { // color=blue
     color = 1
   } else if (command === 'color_o') { // color=orange
@@ -422,7 +426,7 @@ function changeProperty (command) { // for change color/chipClass/chipShape
     var SL2 = document.getElementById('ShapeLine2')
     var SL3 = document.getElementById('ShapeLine3')
     var SL4 = document.getElementById('ShapeLine4')
-    var SL1_html = '', SL2_html = '', SL3_html = '',SL4_html = ''
+    var SL1_html = '', SL2_html = '', SL3_html = '', SL4_html = ''
     if (block_class === 56) {
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-9.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-9")' + "'" + '></td>'
       SL1_html += '<td style="width:50px"><img src="../img/chip/shapebutton/6-8.png" style="cursor:pointer" onclick=' + "'" + 'changeBigImg("6-8")' + "'" + '></td>'
@@ -473,7 +477,7 @@ function changeProperty (command) { // for change color/chipClass/chipShape
   refreshPreview()
   manageButton()
 }
-function changeBigImg (command) { // change preview and change property
+function changeBigImg(command) { // change preview and change property
   var imgid = document.getElementById('bigsample')
   var imgsrc = imgid.src
   if (command === 'left' || command === 'right') {
@@ -573,13 +577,14 @@ function changeBigImg (command) { // change preview and change property
   refreshPreview()
 }
 
-function chartBack (typeInfo) {
+function chartBack(typeInfo) {
   HeavyfireType = typeInfo
   document.getElementById('HFSwitch1').className = 'btn btn-outline btn-primary'
   document.getElementById('HFSwitch2').className = 'btn btn-outline btn-warning'
   document.getElementById('HFSwitch3').className = 'btn btn-outline btn-warning'
   document.getElementById('HFSwitch4').className = 'btn btn-outline btn-primary'
   document.getElementById('HFSwitch5').className = 'btn btn-outline btn-primary'
+  document.getElementById('HFSwitch6').className = 'btn btn-outline btn-warning'
   var name_str = (document.getElementById('HFSwitch' + HeavyfireType).className).split(' ')
   document.getElementById('HFSwitch' + HeavyfireType).className = name_str[0] + ' ' + name_str[2]
   var line1 = document.getElementById('solutionLine1')
@@ -666,16 +671,31 @@ function chartBack (typeInfo) {
       line8.innerHTML = '<td class="td_black"></td><td class="td_black"></td><td class="td_black"></td><td class="td_blueback"></td><td class="td_blueback"></td><td class="td_black"></td><td class="td_black"></td><td class="td_black"></td>'
       document.getElementById('M2_options').innerHTML = ''
       break
+    case 6:
+      Process_Text_Dmg.innerHTML = '0/122'
+      Process_Text_Dbk.innerHTML = '0/143'
+      Process_Text_Acu.innerHTML = '0/132'
+      Process_Text_Fil.innerHTML = '0/233'
+      line1.innerHTML = '<td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black">'
+      line2.innerHTML = '<td class="td_orangeback"><td class="td_orangeback"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_black"><td class="td_orangeback"><td class="td_orangeback">'
+      line3.innerHTML = '<td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_black"><td class="td_black"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback">'
+      line4.innerHTML = '<td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback">'
+      line5.innerHTML = '<td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback">'
+      line6.innerHTML = '<td class="td_black"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_black">'
+      line7.innerHTML = '<td class="td_black"><td class="td_black"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_orangeback"><td class="td_black"><td class="td_black">'
+      line8.innerHTML = '<td class="td_black"><td class="td_black"><td class="td_black"><td class="td_orangeback"><td class="td_orangeback"><td class="td_black"><td class="td_black"><td class="td_black">'
+      document.getElementById('M2_options').innerHTML = ''
+      break
   }
   ignore_UI()
 }
-function countMS (td1, td2, timeclip) { return (timeclip + (60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
-function notIn (num, rank) {
+function countMS(td1, td2, timeclip) { return (timeclip + (60 * td2.getMinutes() + td2.getSeconds()) * 1000 + td2.getMilliseconds()) - ((60 * td1.getMinutes() + td1.getSeconds()) * 1000 + td1.getMilliseconds()); }
+function notIn(num, rank) {
   var ranklen = rank.length
   for (var i = 0; i < ranklen; i++) if (rank[i] === num) return false
   return true
 }
-function refresh_displayUI () {
+function refresh_displayUI() {
   document.getElementById('ChipComboChart').innerHTML = ''
   document.getElementById('sort_btn_content').innerHTML = ''
   document.getElementById('TopologySelect').innerHTML = ''
@@ -693,7 +713,7 @@ function refresh_displayUI () {
   document.getElementById('SbCo').disabled = true
   document.getElementById('SortInfo').innerHTML = ''
 }
-function getTopology () {
+function getTopology() {
   // img init
   refresh_displayUI()
   // calculate
@@ -740,11 +760,14 @@ function getTopology () {
       else if (chipRepo_data[i].typeNum === 9) chipShape_6[9][1]++
     }
   }
-  if (HeavyfireType === 1 || HeavyfireType === 2 || HeavyfireType === 3) validSet = searchValid(chipShape_6, chipShape_5, HeavyfireType)
-  else if (HeavyfireType === 4) {
+  // ————————————————————————————NEW ITEM MODIFY HERE————————————————————————————
+  if (HeavyfireType === 1 || HeavyfireType === 2 || HeavyfireType === 3 || HeavyfireType === 6) { // BGM, AGS, 2B, QLZ
+    validSet = searchValid(chipShape_6, chipShape_5, HeavyfireType)
+  }
+  else if (HeavyfireType === 4) { // M2, consider 552
     validSet = searchValid(chipShape_6, chipShape_5.concat(chipShape_5_2), HeavyfireType)
   }
-  else if (HeavyfireType === 5) {
+  else if (HeavyfireType === 5) { // AT4, only consider 56
     validSet = searchValid(chipShape_6, [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]], HeavyfireType)
   }
   var allTopoNum = validSet.length
@@ -764,7 +787,9 @@ function getTopology () {
       }
     }
     else if (HeavyfireType === 5) topologySet.push(topologyLib_AT4_6x6[validSet[num_topo]])
+    else if (HeavyfireType === 6) topologySet.push(topologyLib_qlz04[validSet[num_topo]])
   }
+  // ————————————————————————————NEW ITEM MODIFY HERE————————————————————————————
   allCombi = 0
   if (topologySet.length > 0) {
     if (filter_switch) { // show sort
@@ -800,7 +825,7 @@ function getTopology () {
   }
 }
 
-function check_if_done () {
+function check_if_done() {
   if (global_workdone) {
     filter_switch_finalpick = true
     solutionSet = buffer_solu
@@ -850,13 +875,13 @@ function check_if_done () {
     setTimeout(check_if_done, 10)
   }
 }
-function refresh_timebar () {
+function refresh_timebar() {
   document.getElementById('soluText').innerHTML = seperate_thousands(allCombi)
   document.getElementById('timeText').innerHTML = lib_lang.totaltime + (globaltime[0] / 1000).toFixed(2) + 's'
   document.getElementById('processText').innerHTML = Math.ceil(100 * global_process / global_totalwork)
   document.getElementById('Process_Bar_Time').style = 'width:' + Math.ceil(100 * global_process / global_totalwork) + '%'
 }
-function seperate_thousands (num) {
+function seperate_thousands(num) {
   var new_format = num + ''
   var count = 0
   for (var i = new_format.length - 1; i > 0; i--) {
@@ -869,19 +894,14 @@ function seperate_thousands (num) {
   return new_format
 }
 
-function isPossible (chipShape_65, chipRefer, border) {
+function isPossible(chipShape_65, chipRefer, border) {
   for (var i = 0; i < border; i++) if (parseInt(chipRefer[i]) > chipShape_65[i][1]) return false
   return true
 }
-// function getChipShape6_total (chipShape_6) {
-//   var total = 0
-//   for (var e of chipShape_6) total += e[1]
-//   return total
-// }
-function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
+function searchValid(chipShape_6, chipShape_5, HeavyfireType) {
   var chipShape_65 = chipShape_6.concat(chipShape_5)
   var validSet = []
-  var searchlen = [0, 0, 0]
+  var searchlen = [0, 0, 0] // 不同芯片参与种类，确定搜索域长
   if (HeavyfireType === 1) {
     searchlen[0] = topologyLibRefer_BGM_1.length
     searchlen[1] = topologyLibRefer_BGM_2.length
@@ -895,23 +915,26 @@ function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
     searchlen[2] = topologyLibRefer_M2.length
   } else if (HeavyfireType === 5) {
     searchlen[0] = topologyLibRefer_AT4_6x6.length
+  } else if (HeavyfireType === 6) {
+    searchlen[0] = topologyLibRefer_qlz04.length
   }
-  if (HeavyfireType === 1) {
+  // 在搜索域中搜索可行图解isPossible，56芯片长度10，551芯片长度9，552芯片长度9
+  if (HeavyfireType === 1) { // BGM-71
     for (var i = 0; i < searchlen[0]; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_BGM_1[i], 10)) validSet.push(i) // BGM 6x6
     }
     for (var i = 0; i < searchlen[1]; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_BGM_2[i], 19)) validSet.push(i + searchlen[0]) // BGM 6x5+5
     }
-  } else if (HeavyfireType === 2) {
+  } else if (HeavyfireType === 2) { // AGS-30
     for (var i = 0; i < searchlen[0]; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_AGS[i], 19)) validSet.push(i)
     }
-  } else if (HeavyfireType === 3) {
+  } else if (HeavyfireType === 3) { // 2B-14
     for (var i = 0; i < searchlen[0]; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_2B14[i], 19)) validSet.push(i)
     }
-  } else if (HeavyfireType === 4) {
+  } else if (HeavyfireType === 4) { // M2
     if (document.getElementById('M2_can_unfill').checked) {
       for (var i = 0; i < searchlen[0]; i++) {
         if (isPossible(chipShape_65, topologyLibRefer_M2_6x6[i], 10)) validSet.push(i) // M2 6x6
@@ -924,14 +947,18 @@ function searchValid (chipShape_6, chipShape_5, HeavyfireType) {
         if (isPossible(chipShape_65, topologyLibRefer_M2[i], 28)) validSet.push(i) // M2 full with 552
       }
     }
-  } else if (HeavyfireType === 5) {
+  } else if (HeavyfireType === 5) { // AT-4
     for (var i = 0; i < searchlen[0]; i++) {
       if (isPossible(chipShape_65, topologyLibRefer_AT4_6x6[i], 10)) validSet.push(i) // AT4 6x6
+    }
+  } else if (HeavyfireType === 6) { // QLZ-04
+    for (var i = 0; i < searchlen[0]; i++) {
+      if (isPossible(chipShape_65, topologyLibRefer_qlz04[i], 19)) validSet.push(i)
     }
   }
   return validSet
 }
-function showTopology (solution, HeavyfireType) {
+function showTopology(solution, HeavyfireType) {
   var line1 = document.getElementById('solutionLine1')
   var line2 = document.getElementById('solutionLine2')
   var line3 = document.getElementById('solutionLine3')
@@ -986,6 +1013,12 @@ function showTopology (solution, HeavyfireType) {
         putChip(0, 0, 8, i, solution[i], htmlSet)
       }
       break
+    case 6:
+      var soluChipNum = solution.length
+      for (var i = 0; i < soluChipNum; i++) {
+        putChip(0, 0, 8, i, solution[i], htmlSet)
+      }
+      break
   }
   for (var i = 0; i < 8; i++) {
     var htmlText = ''
@@ -995,14 +1028,14 @@ function showTopology (solution, HeavyfireType) {
     lineSet[i].innerHTML = htmlText
   }
 }
-function putChip (bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
+function putChip(bios_x, bios_y, border_x, chipOrder, chipRank, htmlSet) {
   var ranklen = chipRank.length
   for (var i = 1; i < ranklen; i++) {
     if (chipRank[i] === 1) htmlSet[parseInt((i - 1) / border_x) + bios_y][i - border_x * parseInt((i - 1) / border_x) - 1 + bios_x] = '<td class="td_b' + (chipOrder - 7 * parseInt(chipOrder / 7) + 1) + '">' + '</td>'
   }
 }
 
-function changeAnalyze (actionId) {
+function changeAnalyze(actionId) {
   var SolutionSelect = document.getElementById('SolutionSelect')
   var SSV = parseInt(SolutionSelect.value)
   if (actionId === 1) SSV++
@@ -1010,7 +1043,7 @@ function changeAnalyze (actionId) {
   SolutionSelect.value = SSV
   showAnalyze()
 }
-function showAnalyze () {
+function showAnalyze() {
   var AdTp = document.getElementById('AdTp')
   var SbTp = document.getElementById('SbTp')
   var AdCo = document.getElementById('AdCo')
@@ -1100,6 +1133,7 @@ function showAnalyze () {
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
       else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
       else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
+      else if (HeavyfireType === 6) { dmg_max = 122; dbk_max = 143; acu_max = 132; fil_max = 233; }
       for (var c = 0; c < c_num; c++) {
         dmg += chipRepo_chart[solutionSet[SSNum][c] - 1].Dmg
         dbk += chipRepo_chart[solutionSet[SSNum][c] - 1].Dbk
@@ -1119,7 +1153,7 @@ function showAnalyze () {
         Process_Text_Dbk.innerHTML = '<span style="color:red">' + dbk + '</span>' + '/' + dbk_max
         DbkAlert.innerHTML = '* ' + lib_lang.over_dbk
         Process_Bar_Dbk.style = 'width:100%'
-      }else {
+      } else {
         Process_Text_Dbk.innerHTML = dbk + '/' + dbk_max
         DbkAlert.innerHTML = ''
         Process_Bar_Dbk.style = ('width:' + (dbk / dbk_max).toFixed(2) * 100 + '%')
@@ -1140,6 +1174,7 @@ function showAnalyze () {
       else if (HeavyfireType === 3) fil_base = 194 + 22
       else if (HeavyfireType === 4) fil_base = 225 + 28
       else if (HeavyfireType === 5) fil_base = 161 + 15
+      else if (HeavyfireType === 6) fil_base = 368 + 39
       if (fil > fil_max) {
         fil_to_interval = ((Math.ceil(45000 / (300 + fil_max + fil_base))) / 30).toFixed(2)
         Process_Text_Fil.innerHTML = '<span style="color:red">' + fil + '</span>' + '/' + fil_max + ' (' + fil_to_interval + 's/a) '
@@ -1161,6 +1196,7 @@ function showAnalyze () {
       else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
       else if (HeavyfireType === 4) { dmg_blomax = 19; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 10; }
       else if (HeavyfireType === 5) { dmg_blomax = 16; dbk_blomax = 8; acu_blomax = 10; fil_blomax = 6; }
+      else if (HeavyfireType === 6) { dmg_blomax = 11; dbk_blomax = 5; acu_blomax = 8; fil_blomax = 17; }
       for (var c = 0; c < c_num; c++) {
         dmg_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDmg
         dbk_blo += chipRepo_data[solutionSet[SSNum][c] - 1].bDbk
@@ -1227,6 +1263,7 @@ function showAnalyze () {
       else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
       else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
       else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
+      else if (HeavyfireType === 6) { dmg_max = 122; dbk_max = 143; acu_max = 132; fil_max = 233; }
       Process_Text_Dmg.innerHTML = 0 + '/' + dmg_max
       DmgAlert.innerHTML = ''
       Process_Bar_Dmg.style = ('width:0%')
@@ -1248,6 +1285,7 @@ function showAnalyze () {
       else if (HeavyfireType === 3) { dmg_blomax = 21; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 8; }
       else if (HeavyfireType === 4) { dmg_blomax = 19; dbk_blomax = 2; acu_blomax = 6; fil_blomax = 10; }
       else if (HeavyfireType === 5) { dmg_blomax = 16; dbk_blomax = 8; acu_blomax = 10; fil_blomax = 6; }
+      else if (HeavyfireType === 6) { dmg_blomax = 11; dbk_blomax = 5; acu_blomax = 8; fil_blomax = 17; }
       Process_Text_Dmg.innerHTML = 0 + '/' + dmg_blomax
       DmgAlert.innerHTML = ''
       Process_Bar_Dmg.style = ('width:0%')
@@ -1263,13 +1301,13 @@ function showAnalyze () {
     }
   }
 }
-function showSolution () {
+function showSolution() {
   solutionSet = getSolution(topologySet[topologyNum])
   SolutionSelect.disabled = false
   sortSolution(ranking_switch)
   showAnalyze()
 }
-function getSolution (topology) {
+function getSolution(topology) {
   var tempChipRepo = []; // 待选芯片数据的二维数组
   var topolen = topology.length
   var type = [], typeNum = [], totalType = 0
@@ -1319,7 +1357,7 @@ function getSolution (topology) {
   }
   return solution
 }
-function changeCombination (rank, pickLimit) {
+function changeCombination(rank, pickLimit) {
   var currentCombination = rank
   var cuComlen = currentCombination.length
   var isCompact = true
@@ -1353,7 +1391,7 @@ function changeCombination (rank, pickLimit) {
     }
   }
 }
-function searchChipSet (chipCode) {
+function searchChipSet(chipCode) {
   var chipString = chipCode + ''
   var tempChipSet = []
   var class_num, type_num
@@ -1363,7 +1401,7 @@ function searchChipSet (chipCode) {
   for (var i = 0; i < chipNum; i++) if (chipRepo_data[i].classNum === class_num && chipRepo_data[i].typeNum === type_num) tempChipSet.push(chipRepo_data[i])
   return tempChipSet
 }
-function editLevel (actionInfo) {
+function editLevel(actionInfo) {
   var ChipLevel = document.getElementById('ChipLevel')
   if (actionInfo === 1) ChipLevel.value = parseInt(ChipLevel.value) + 1
   else if (actionInfo === 2) ChipLevel.value = parseInt(ChipLevel.value) - 1
@@ -1373,7 +1411,7 @@ function editLevel (actionInfo) {
   changeProperty('level')
   manageButton()
 }
-function compare_sumpro (solu_a, solu_b) {
+function compare_sumpro(solu_a, solu_b) {
   var value_a = 0, value_b = 0
   var dmg_a = 0, dmg_b = 0, dbk_a = 0, dbk_b = 0, acu_a = 0, acu_b = 0, fil_a = 0, fil_b = 0
   var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
@@ -1382,6 +1420,7 @@ function compare_sumpro (solu_a, solu_b) {
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
   else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
+  else if (HeavyfireType === 6) { dmg_max = 122; dbk_max = 143; acu_max = 132; fil_max = 233; }
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1405,13 +1444,14 @@ function compare_sumpro (solu_a, solu_b) {
   value_b = (dmg_b / dmg_max) + (dbk_b / dbk_max) + (acu_b / acu_max) + (fil_b / fil_max)
   return value_b - value_a
 }
-function compare_dmg (solu_a, solu_b) {
+function compare_dmg(solu_a, solu_b) {
   var dmg_a = 0, dmg_b = 0, dmg_max = 0
   if (HeavyfireType === 1) dmg_max = 190
   else if (HeavyfireType === 2) dmg_max = 106
   else if (HeavyfireType === 3) dmg_max = 227
   else if (HeavyfireType === 4) dmg_max = 206
   else if (HeavyfireType === 5) dmg_max = 169
+  else if (HeavyfireType === 6) dmg_max = 122
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1420,13 +1460,14 @@ function compare_dmg (solu_a, solu_b) {
   if (dmg_a > dmg_max) dmg_a = dmg_max; if (dmg_b > dmg_max) dmg_b = dmg_max
   return dmg_b - dmg_a
 }
-function compare_dbk (solu_a, solu_b) {
+function compare_dbk(solu_a, solu_b) {
   var dbk_a = 0, dbk_b = 0, dbk_max = 0
   if (HeavyfireType === 1) dbk_max = 329
   else if (HeavyfireType === 2) dbk_max = 130
   else if (HeavyfireType === 3) dbk_max = 58
   else if (HeavyfireType === 4) dbk_max = 60
   else if (HeavyfireType === 5) dbk_max = 261
+  else if (HeavyfireType === 6) dbk_max = 143
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1435,13 +1476,14 @@ function compare_dbk (solu_a, solu_b) {
   if (dbk_a > dbk_max) dbk_a = dbk_max; if (dbk_b > dbk_max) dbk_b = dbk_max
   return dbk_b - dbk_a
 }
-function compare_acu (solu_a, solu_b) {
+function compare_acu(solu_a, solu_b) {
   var acu_a = 0, acu_b = 0, acu_max = 0
   if (HeavyfireType === 1) acu_max = 191
   else if (HeavyfireType === 2) acu_max = 120
   else if (HeavyfireType === 3) acu_max = 90
   else if (HeavyfireType === 4) acu_max = 97
   else if (HeavyfireType === 5) acu_max = 190
+  else if (HeavyfireType === 6) acu_max = 132
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1450,13 +1492,14 @@ function compare_acu (solu_a, solu_b) {
   if (acu_a > acu_max) acu_a = acu_max; if (acu_b > acu_max) acu_b = acu_max
   return acu_b - acu_a
 }
-function compare_fil (solu_a, solu_b) {
+function compare_fil(solu_a, solu_b) {
   var fil_a = 0, fil_b = 0, fil_max = 0
   if (HeavyfireType === 1) fil_max = 46
   else if (HeavyfireType === 2) fil_max = 233
   else if (HeavyfireType === 3) fil_max = 107
   else if (HeavyfireType === 4) fil_max = 148
   else if (HeavyfireType === 5) fil_max = 90
+  else if (HeavyfireType === 6) fil_max = 233
   var looplen_a = solu_a.length, looplen_b = solu_b.length
   if (isNaN(solu_a[looplen_a - 1])) looplen_a--
   if (isNaN(solu_b[looplen_b - 1])) looplen_b--
@@ -1465,7 +1508,7 @@ function compare_fil (solu_a, solu_b) {
   if (fil_a > fil_max) fil_a = fil_max; if (fil_b > fil_max) fil_b = fil_max
   return fil_b - fil_a
 }
-function ignore_readinfo () {
+function ignore_readinfo() {
   ignore_setting.clear()
   for (var entry of readorder) {
     if (document.getElementById('ignore_' + entry).checked) {
@@ -1483,7 +1526,7 @@ function ignore_readinfo () {
     } else ignore_setting.set(entry, false)
   }
 } // entry-min/max, entry-minv
-function ignoreSolution (list_max) {
+function ignoreSolution(list_max) {
   var propertyorder = ['Dmg', 'Dbk', 'Acu', 'Fil', 'bDmg', 'bDbk', 'bAcu', 'bFil']
   ignore_readinfo()
   var solution_filtered = []
@@ -1522,11 +1565,11 @@ function ignoreSolution (list_max) {
   }
   return solution_filtered
 }
-function changeRankingSwitch (sortType) {
+function changeRankingSwitch(sortType) {
   sortSolution(sortType)
   showAnalyze()
 }
-function sortSolution (sortType) {
+function sortSolution(sortType) {
   ranking_switch = parseInt(sortType)
   if (sortType === 1) analyze_switch = 1
   else if (sortType === 2) analyze_switch = -1
@@ -1537,6 +1580,7 @@ function sortSolution (sortType) {
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
   else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
+  else if (HeavyfireType === 6) { dmg_max = 122; dbk_max = 143; acu_max = 132; fil_max = 233; dmgblo_max = 11; dbkblo_max = 5; acublo_max = 8; filblo_max = 17; }
   solutionSet = ignoreSolution([dmg_max, dbk_max, acu_max, fil_max, dmgblo_max, dbkblo_max, acublo_max, filblo_max])
   switch (ranking_switch) {
     case 1: // All property
@@ -1591,8 +1635,8 @@ function sortSolution (sortType) {
     SolutionSelect.innerHTML = SSText
   }
 }
-function switchAnalyze () { analyze_switch *= -1; showAnalyze(); }
-function setBest (typeInfo) {
+function switchAnalyze() { analyze_switch *= -1; showAnalyze(); }
+function setBest(typeInfo) {
   if (typeInfo === 1) {
     filter_switch = false
     document.getElementById('best_num').disabled = true
@@ -1601,7 +1645,7 @@ function setBest (typeInfo) {
     document.getElementById('best_num').disabled = false
   }
 }
-function setBestSort (typeInfo) {
+function setBestSort(typeInfo) {
   document.getElementById('sbs_1').src = '../img/chip/btn-s1-no.png'
   document.getElementById('sbs_3').src = '../img/chip/btn-s3-no.png'
   document.getElementById('sbs_4').src = '../img/chip/btn-s4-no.png'
@@ -1610,7 +1654,7 @@ function setBestSort (typeInfo) {
   ranking_switch = typeInfo
   document.getElementById('sbs_' + typeInfo).src = '../img/chip/btn-s' + typeInfo + '.png'
 }
-function setBestNum () {
+function setBestNum() {
   var best_num = document.getElementById('best_num')
   if ((best_num.value).length === 0) best_num.value = 10
   if (isNaN(parseInt(best_num.value))) best_num.value = 10
@@ -1622,7 +1666,7 @@ function setBestNum () {
  * this part made by kirA, thanks him
  * return a function that can compute the value for specified HeavyfireType
  */
-function value_sumpro_of_HeavyfireType (HeavyfireType) {
+function value_sumpro_of_HeavyfireType(HeavyfireType) {
   var dmg_max = 0, dbk_max = 0, acu_max = 0, fil_max = 0
   // Init max value of each property for different Heavyfire.
   if (HeavyfireType === 1) { dmg_max = 190; dbk_max = 329; acu_max = 191; fil_max = 46; }
@@ -1630,9 +1674,9 @@ function value_sumpro_of_HeavyfireType (HeavyfireType) {
   else if (HeavyfireType === 3) { dmg_max = 227; dbk_max = 58; acu_max = 90; fil_max = 107; }
   else if (HeavyfireType === 4) { dmg_max = 206; dbk_max = 60; acu_max = 97; fil_max = 148; }
   else if (HeavyfireType === 5) { dmg_max = 169; dbk_max = 261; acu_max = 190; fil_max = 90; }
-
+  else if (HeavyfireType === 6) { dmg_max = 122; dbk_max = 143; acu_max = 132; fil_max = 233; }
   // get value for a solution
-  function getValue (solu_a) {
+  function getValue(solu_a) {
     var looplen_a = solu_a.length
     if (isNaN(solu_a[looplen_a - 1])) looplen_a--
 
@@ -1655,15 +1699,15 @@ function value_sumpro_of_HeavyfireType (HeavyfireType) {
   return getValue
 }
 
-function value_sumblo_of_HeavyfireType (HeavyfireType) {
+function value_sumblo_of_HeavyfireType(HeavyfireType) {
   var dmgblo_max = 0, dbkblo_max = 0, acublo_max = 0, filblo_max = 0
   if (HeavyfireType === 1) { dmgblo_max = 18; dbkblo_max = 11; acublo_max = 11; filblo_max = 4; }
   else if (HeavyfireType === 2) { dmgblo_max = 10; dbkblo_max = 4; acublo_max = 7; filblo_max = 17; }
   else if (HeavyfireType === 3) { dmgblo_max = 21; dbkblo_max = 2; acublo_max = 6; filblo_max = 8; }
   else if (HeavyfireType === 4) { dmgblo_max = 19; dbkblo_max = 2; acublo_max = 6; filblo_max = 10; }
   else if (HeavyfireType === 5) { dmgblo_max = 16; dbkblo_max = 8; acublo_max = 10; filblo_max = 6; }
-
-  function getValue (solu_a) {
+  else if (HeavyfireType === 6) { dmgblo_max = 11; dbkblo_max = 5; acublo_max = 8; filblo_max = 17; }
+  function getValue(solu_a) {
     var looplen_a = solu_a.length
     if (isNaN(solu_a[looplen_a - 1])) looplen_a--
 
@@ -1692,7 +1736,7 @@ function value_sumblo_of_HeavyfireType (HeavyfireType) {
  * @param {Number} topN the number of solutions which will be select
  * @param {Function} getValue a function can compute the value of solution
  */
-function selectOptimal (solutionSet, topN, getValue) {
+function selectOptimal(solutionSet, topN, getValue) {
   // store value for each solution
   var value_array = []
   var setsize = solutionSet.length
@@ -1712,7 +1756,7 @@ function selectOptimal (solutionSet, topN, getValue) {
   }
   return topNsolutionSet
 }
-function TopNheap (N, compare) {
+function TopNheap(N, compare) {
   this.array = []
   this.size = 0
   this.N = N

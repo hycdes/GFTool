@@ -6,31 +6,42 @@ var global_list, global_5list, global_listE, global_5listE, global_fairylist
 var reso_nt = [30, 30, 30, 30], // max 999
   reso_ht = [1000, 1000, 1000, 1000], // max 9999
   reso_ne = [10, 10, 10, 10], // max 300
-  reso_he = [500, 500, 500, 500] // max 5000
+  reso_he = [500, 500, 500, 500], // max 5000
+  reso_costs = {
+    hum: 0,
+    amm: 0,
+    rat: 0,
+    pts: 0,
+    tc: 0,
+    ec: 0,
+    core: 0
+  },
+  list_produce = {
+    nt: '',
+    nt_5: '',
+    ht: '',
+    ht_5: '',
+    ne: '',
+    ne_5: '',
+    he: '',
+    he_5: ''
+  },
+  controller = {
+    show_nt: 'all',
+    show_ht: 'all',
+    show_ne: 'all',
+    show_he: 'all'
+  }
 
-window.onload = function () {
-  var chart = document.getElementById('rankingChart')
-  var chartE = document.getElementById('rankingChartE')
-  var sumchart = document.getElementById('sumChart')
-  var sumchartE = document.getElementById('sumChartE')
-  var resochart = document.getElementById('resoChart')
-  global_list = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>人形</th></tr></thead><tbody></tbody></table>'
-  global_5list = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>人形</th></tr></thead><tbody></tbody></table>'
-  global_listE = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>装备</th></tr></thead><tbody></tbody></table>'
-  global_5listE = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>装备</th></tr></thead><tbody></tbody></table>'
-  global_fairylist = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>订单号</th><th>资源</th><th>装备</th></tr></thead><tbody></tbody></table>'
-  var tab2 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody></tbody></table>'
-  var tab2E = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星装备/妖精获取数</th><th>获取率</th><th>评价</th></tr></thead><tbody></tbody></table>'
-  var tab3 = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody></tbody></table>'
-  chart.innerHTML = global_list
-  chartE.innerHTML = global_listE
-  sumchart.innerHTML = tab2
-  sumchartE.innerHTML = tab2E
-  resochart.innerHTML = tab3
-}
 // UI display
 function get_decimal(num, ratio) {
   return Math.floor(num / ratio) - 10 * Math.floor(num / (10 * ratio))
+}
+function get_color(num) {
+  if (num === 5) return 'darkorange'
+  if (num === 4) return 'chartreuse'
+  if (num === 3) return 'dodgerblue'
+  if (num === 2) return 'darkseagreed'
 }
 function swap_reso(produce_type, hum, amm, rat, pts) {
   if (produce_type === 1) reso_nt = [hum, amm, rat, pts]
@@ -38,6 +49,14 @@ function swap_reso(produce_type, hum, amm, rat, pts) {
   else if (produce_type === 3) reso_ne = [hum, amm, rat, pts]
   else if (produce_type === 4) reso_he = [hum, amm, rat, pts]
   show_numbers(produce_type)
+}
+function swap_show(produce_type) {
+  if (produce_type === 1) {
+    if (controller.show_nt === 'all') controller.show_nt = 'five'
+    else controller.show_nt = 'all'
+    if (controller.show_nt === 'all') document.getElementById('btn_show_nt').src = '../img/produce/show-all.png'
+    else document.getElementById('btn_show_nt').src = '../img/produce/show-five.png'
+  }
 }
 function change_reso(str) {
   var action = 1
@@ -69,8 +88,43 @@ function show_numbers(produce_type) {
     }
   }
 }
+function show_costs() {
+  document.getElementById('costs_hum').innerHTML = reso_costs.hum
+  document.getElementById('costs_amm').innerHTML = reso_costs.amm
+  document.getElementById('costs_rat').innerHTML = reso_costs.rat
+  document.getElementById('costs_pts').innerHTML = reso_costs.pts
+  document.getElementById('costs_tc').innerHTML = reso_costs.tc
+  document.getElementById('costs_ec').innerHTML = reso_costs.ec
+  document.getElementById('costs_core').innerHTML = reso_costs.core
+}
+function show_produce(produce_type) {
+  if (produce_type === 1) {
+    if (controller.show_nt === 'all') document.getElementById('produce_nt').innerHTML = list_produce.nt
+    else document.getElementById('produce_nt').innerHTML = list_produce.nt_5
+  }
+}
 
 // produce
+function record_costs(reso_list, tc, ec, core) {
+  reso_costs.hum += reso_list[0]
+  reso_costs.amm += reso_list[1]
+  reso_costs.rat += reso_list[2]
+  reso_costs.pts += reso_list[3]
+  reso_costs.tc += tc
+  reso_costs.ec += ec
+  reso_costs.core += core
+}
+function record_produce(produce_type, starNum, str_info) {
+  var temp_str = ''
+  temp_str += '<tr><td>' + listNum + '</td><td>'
+  temp_str += reso_nt[0] + ' ' + reso_nt[1] + ' ' + reso_nt[2] + ' ' + reso_nt[3] + '</td><td>'
+  temp_str += '<span style="color:' + get_color(starNum) + '">' + str_info + '</span>'
+  temp_str += '</td></tr>'
+  if (produce_type === 1) {
+    list_produce.nt += temp_str
+    if (starNum >= 5) list_produce.nt_5 += temp_str
+  }
+}
 function produce(produce_type, produce_num) {
   if (produce_type === 1) {
     document.getElementById('panelT').className = 'active'
@@ -79,112 +133,46 @@ function produce(produce_type, produce_num) {
     document.getElementById('EquipmentResult').className = 'tab-pane fade'
     for (var pn = 0; pn < produce_num; pn++) {
       listNum++
-      var chart = document.getElementById('rankingChart')
-      var sumchart = document.getElementById('sumChart')
-      var resochart = document.getElementById('resoChart')
-      var tabSum = sumchart.innerHTML
-      var tabReso = resochart.innerHTML
-      allM += reso_nt[0]
-      allA += reso_nt[1]
-      allR += reso_nt[2]
-      allP += reso_nt[3]
-      allCon++
       var starNum = get_star(1)
-      var Tdoll = makeTdoll(reso_nt[0], reso_nt[1], reso_nt[2], reso_nt[3], starNum)
-      // add List
-      global_list = global_list.substring(0, global_list.length - 16)
-      global_list += '<tr><td>'
-      global_list += (listNum + '')
-      global_list += '</td><td>'
-      global_list += (reso_nt[0] + ' ')
-      global_list += (reso_nt[1] + ' ')
-      global_list += (reso_nt[2] + ' ')
-      global_list += (reso_nt[3] + ' ')
-      global_list += '</td><td>'
-      global_5list = global_5list.substring(0, global_5list.length - 16)
-      global_5list += '<tr>'
-      if (starNum === 5) {
-        global_5list += '<td>'
-        global_5list += (listNum + '')
-        global_5list += '</td><td>'
-        global_5list += (reso_nt[0] + ' ')
-        global_5list += (reso_nt[1] + ' ')
-        global_5list += (reso_nt[2] + ' ')
-        global_5list += (reso_nt[3] + ' ')
-        global_5list += '</td><td><span style="color:darkorange">'
-        global_5list += Tdoll
-        global_5list += '</span></td>'
-        global_list += '<span style="color:darkorange">'
-        global_list += Tdoll
-        global_list += '</span>'
-      } else if (starNum === 4) {
-        global_list += '<span style="color:chartreuse">'
-        global_list += Tdoll
-        global_list += '</span>'
-      } else if (starNum === 3) {
-        global_list += '<span style="color:dodgerblue">'
-        global_list += Tdoll
-        global_list += '</span>'
-      } else {
-        global_list += '<span style="color:darkseagreen">'
-        global_list += Tdoll
-        global_list += '</span>'
-      }
-      global_list += '</td></tr></tbody></table>'
-      global_5list += '</tr></tbody></table>'
-      tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>'
-      tabSum += '<tr>'
-      var RateNormal
-      if (listNum === listNumH) RateNormal = -1; // Not normal-produce
-      else RateNormal = Math.ceil(100 * fiveStarNum / (listNum - listNumH))
-      var RateHeavy
-      if (listNumH === 0) RateHeavy = -1; // Not heavy-produce
-      else RateHeavy = Math.ceil(100 * fiveStarNumH / listNumH)
-      tabSum += '<td>'
-      tabSum += (listNum + '')
-      tabSum += '</td><td>'
-      tabSum += (fiveStarNum + ' + ')
-      tabSum += (fiveStarNumH + '')
-      tabSum += '</td><td>'
-      if (RateNormal < 0) tabSum += '-'
-      else tabSum += (RateNormal + '%')
-      tabSum += ' / '
-      if (RateHeavy < 0) tabSum += '-'
-      else tabSum += (RateHeavy + '%')
-      tabSum += '</td><td>'
-      if ((RateNormal < 0 || RateNormal > 10) && (RateHeavy < 0 || RateHeavy > 30)) {
-        tabSum += '<span style="color:darkorange"><b>欧皇</b></span>'
-      } else if ((RateNormal <= 2 && RateNormal >= 0) && (RateHeavy < 0 || (RateHeavy <= 10 && RateHeavy >= 0))) {
-        tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>'
-      } else {
-        tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>'
-      }
-      tabSum += '</td></tr></tbody></table>'
-      tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>'
-      tabReso += '<td>'
-      tabReso += (allM + '')
-      tabReso += '</td><td>'
-      tabReso += (allA + '')
-      tabReso += '</td><td>'
-      tabReso += (allR + '')
-      tabReso += '</td><td>'
-      tabReso += (allP + '')
-      tabReso += '</td><td>'
-      tabReso += (allCon + '')
-      tabReso += '</td><td>'
-      tabReso += (allConE + '')
-      tabReso += '</td><td>'
-      tabReso += (allCore + '')
-      tabReso += '</td></tr></tbody></table>'
-      var switchA = document.getElementById('showAllSwitch')
-      if (switchA.checked === true) {
-        chart.innerHTML = global_list
-      } else {
-        chart.innerHTML = global_5list
-      }
-      sumchart.innerHTML = tabSum
-      resochart.innerHTML = tabReso
+      var str_info = makeTdoll(reso_nt[0], reso_nt[1], reso_nt[2], reso_nt[3], starNum)
+      record_costs(reso_nt, 1, 0, 0)
+      record_produce(produce_type, starNum, str_info)
+      // var RateNormal
+      // if (listNum === listNumH) RateNormal = -1; // Not normal-produce
+      // else RateNormal = Math.ceil(100 * fiveStarNum / (listNum - listNumH))
+      // var RateHeavy
+      // if (listNumH === 0) RateHeavy = -1; // Not heavy-produce
+      // else RateHeavy = Math.ceil(100 * fiveStarNumH / listNumH)
+      // tabSum += '<td>'
+      // tabSum += (listNum + '')
+      // tabSum += '</td><td>'
+      // tabSum += (fiveStarNum + ' + ')
+      // tabSum += (fiveStarNumH + '')
+      // tabSum += '</td><td>'
+      // if (RateNormal < 0) tabSum += '-'
+      // else tabSum += (RateNormal + '%')
+      // tabSum += ' / '
+      // if (RateHeavy < 0) tabSum += '-'
+      // else tabSum += (RateHeavy + '%')
+      // tabSum += '</td><td>'
+      // if ((RateNormal < 0 || RateNormal > 10) && (RateHeavy < 0 || RateHeavy > 30)) {
+      //   tabSum += '<span style="color:darkorange"><b>欧皇</b></span>'
+      // } else if ((RateNormal <= 2 && RateNormal >= 0) && (RateHeavy < 0 || (RateHeavy <= 10 && RateHeavy >= 0))) {
+      //   tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>'
+      // } else {
+      //   tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>'
+      // }
+      // tabSum += '</td></tr></tbody></table>'
+      // var switchA = document.getElementById('showAllSwitch')
+      // if (switchA.checked === true) {
+      //   chart.innerHTML = global_list
+      // } else {
+      //   chart.innerHTML = global_5list
+      // }
+      // sumchart.innerHTML = tabSum
     }
+    show_costs()
+    show_produce(produce_type)
   }
 }
 
@@ -214,7 +202,6 @@ function find_name(index) {
   for (var entry of list_name) {
     if (entry[0] === index) return entry[1]
   }
-  return -1
 }
 
 function makeTdoll(Mw, Aw, Rw, Pw, starNum) { // Normal-produce T-doll, possibility*100
@@ -432,7 +419,6 @@ function makeTdoll(Mw, Aw, Rw, Pw, starNum) { // Normal-produce T-doll, possibil
       TdollList.push(creatTdollInfo_MG('MG@111', 680))
     }
   }
-
   var totalPosiNum = 0
   for (var i = 0; i < TdollList.length; i++) {
     totalPosiNum += parseInt(TdollList[i].possibility)
@@ -442,12 +428,9 @@ function makeTdoll(Mw, Aw, Rw, Pw, starNum) { // Normal-produce T-doll, possibil
     selectTdoll -= parseInt(TdollList[i].possibility)
     if (selectTdoll <= 0) {
       var str_pair = (TdollList[i].name).split('@')
-      var temp_index = parseInt(str_pair[1])
-      if (!isNaN(temp_index)) {
-        var temp_name = find_name(temp_index)
-        if (temp_name != -1) str_pair[1] = temp_name
-        TdollInfo += '<img src="../img/produce/avator/' + temp_index + '.png" width=50px height=50px> '
-      }
+      var index = parseInt(str_pair[1])
+      str_pair[1] = find_name(index)
+      TdollInfo += '<img src="../img/produce/avator/' + index + '.png" width=50px height=50px> '
       TdollInfo += '<img src="../img/produce/' + starNum + str_pair[0] + '.png" width=53px height=27px> ' // img icon
       TdollInfo += str_pair[1]
       break
