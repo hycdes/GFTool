@@ -1,10 +1,10 @@
-function resetBlock () {
+function resetBlock() {
   block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0
-  changeBlock(1, 0); changeBlock(2, 0); changeBlock(3, 0);changeBlock(4, 0)
+  changeBlock(1, 0); changeBlock(2, 0); changeBlock(3, 0); changeBlock(4, 0)
   refreshPreview()
   manageButton()
 }
-function resetPage () {
+function resetPage() {
   mul_property = 1
   color = 1, block_class = 56, block_shape = 9
   changeBigImg('addblo')
@@ -13,7 +13,7 @@ function resetPage () {
   refreshPreview()
   resetBlock()
 }
-function ignore_UI () {
+function ignore_UI() {
   var str = ['', '', '', '']
   var valueorder = [ // value[0~3],block[4~7]
     190, 329, 191, 46,
@@ -34,6 +34,9 @@ function ignore_UI () {
   } else if (HeavyfireType === 5) {
     valueorder[0] = 169; valueorder[1] = 261; valueorder[2] = 190; valueorder[3] = 90
     valueorder[4] = 16; valueorder[5] = 8; valueorder[6] = 10; valueorder[7] = 6
+  } else if (HeavyfireType === 6) {
+    valueorder[0] = 122; valueorder[1] = 143; valueorder[2] = 132; valueorder[3] = 233
+    valueorder[4] = 11; valueorder[5] = 5; valueorder[6] = 8; valueorder[7] = 17
   }
   var str_pro = ['杀伤', '破防', '精度', '装填']
   for (var pro = 0; pro < 4; pro++) {
@@ -70,11 +73,11 @@ function ignore_UI () {
     document.getElementById('ignore_display' + pro).innerHTML = str[pro]
   }
 }
-function ignore_modify () {
+function ignore_modify() {
   ignore_readinfo()
   ignore_UI()
 }
-function setIgnore (typeInfo) {
+function setIgnore(typeInfo) {
   switch (typeInfo) {
     case 1:
       document.getElementById('ignore_dmgmax').disabled = !(document.getElementById('ignore_dmgmax').disabled)
@@ -112,7 +115,7 @@ function setIgnore (typeInfo) {
   ignore_readinfo()
   ignore_UI()
 }
-function allIgnore (typeInfo) {
+function allIgnore(typeInfo) {
   switch (typeInfo) {
     case 1:
       document.getElementById('ignore_dmg').checked = true
@@ -215,7 +218,7 @@ function allIgnore (typeInfo) {
   ignore_readinfo()
   ignore_UI()
 }
-function manageButton () {
+function manageButton() {
   var AdLv = document.getElementById('AdLv')
   var SbLv = document.getElementById('SbLv')
   AdLv.disabled = true
@@ -236,7 +239,7 @@ function manageButton () {
   if (block_class === 551) bn = 5
   if (block_dmg + block_dbk + block_acu + block_fil === bn) addChipButtonId.disabled = false
 }
-function refreshPreview () {
+function refreshPreview() {
   if (block_class === 551 && (block_shape === 81 || block_shape === 82 || block_shape === 9 || block_shape === 10 || block_shape === 111 || block_shape === 112 || block_shape === 120 || block_shape === 131 || block_shape === 132)) {
     // 五格2类低属性显示
     for (var i = 0; i <= 5; i++) {
@@ -255,7 +258,7 @@ function refreshPreview () {
   }
   manageButton()
 }
-function changeBlock (type, blocknum) {
+function changeBlock(type, blocknum) {
   var totalblo = 6
   document.getElementById('dmg' + block_dmg).className = 'btn btn-primary'
   document.getElementById('dbk' + block_dbk).className = 'btn btn-primary'
@@ -323,6 +326,6 @@ function changeBlock (type, blocknum) {
   }
   manageButton()
 }
-function allblo () { return block_dmg + block_dbk + block_acu + block_fil;}
-function getHelp (helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png') }
-function newPage (url) { window.open(url)}
+function allblo() { return block_dmg + block_dbk + block_acu + block_fil; }
+function getHelp(helpnum) { window.open('../img/chip/tutorial/cc-' + helpnum + '-' + lang_type + '.png') }
+function newPage(url) { window.open(url) }

@@ -5,10 +5,10 @@ lib_lang = {
 
   check_M2: '允许空出1~3格(不使用五格2类)',
 
-  btn_clear: '再按一次确认清空芯片仓库',
-  btn_maxall: '再按一次确认全部满强化',
-  btn_blueall: '再按一次确认只保留【蓝色】芯片',
-  btn_orangeall: '再按一次确认只保留【橙色】芯片',
+  btn_clear: '再按一次，确认清空芯片仓库',
+  btn_maxall: '再按一次，确认全部满强化',
+  btn_blueall: '再按一次，确认只保留【蓝色】芯片',
+  btn_orangeall: '再按一次，确认只保留【橙色】芯片',
   btn_savedone: '存储码已复制到剪贴板',
   btn_loaderror: '不正确的存储码',
   btn_showblock: '显示有效格数',
@@ -25,7 +25,7 @@ lib_lang = {
   num: '编号',
   topo: '图解',
   toponum: '图解编号',
-  notopo: '没有可能的解',
+  notopo: '现有芯片不足以拼出图解',
   totaltime: '总时间',
   refer: '按',
   valid_value: '有效总属性',

@@ -354,6 +354,9 @@
                                 结果 <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(2)">设置教学</button>
                             </div>
                             <div class="panel-body">
+                                <div class="col-lg-12">
+                                    <h4>请一定先<span style="color:red">保存存储码</span>！如果出现错误，有可能是浏览器尚未加载完代码就开始运行，请刷新尝试</h4>
+                                </div>
                                 <div class="col-lg-6">
                                     <!--Basic setting-->
                                     <div class="panel panel-default">
@@ -396,19 +399,19 @@
                                     </div>
                                     <!-- Adcaned setting-->
                                     <div class="panel panel-default">
-                                        <div class="panel-heading">高级计算设置</div>
+                                        <div class="panel-heading">高级计算设置 (该部分不了解请不要设置)</div>
                                         <div class="panel-body">
                                             <h4>一键设置 <span style="font-size:12px;color:gray">套用模板推荐的筛选值</span></h4>
                                             <p>
                                                 <div class="tooltip-demo">
                                                     <button type="button" class="btn btn-outline btn-primary" onclick="allIgnore(1)">全选</button>
                                                     <button type="button" class="btn btn-outline btn-danger" onclick="allIgnore(2)">全不选</button>
-                                                    <button type="button" class="btn btn-default" onclick="allIgnore(5)">还原</button>
+                                                    <button type="button" class="btn btn-outline btn-success" onclick="allIgnore(5)">还原</button>
                                                     <button type="button" data-toggle="tooltip" data-placement="bottom" title="AGS-30/M2可以达到满属性" class="btn btn-outline btn-default" onclick="allIgnore(5)">AGS-30 / M2</button>
                                                     <button type="button" data-toggle="tooltip" data-placement="bottom" title="满迭代2B-14装填86即满射速" class="btn btn-outline btn-default" onclick="allIgnore(4)">2B-14</button>
                                                 </div>
                                             </p>
-                                            <h4>设定筛选区间 <span style="font-size:12px;color:gray">勾选需要设定的属性并输入筛选值，<span style="color:red">输入为空</span>代表无要求</span></h4>
+                                            <h4>手动设置 <span style="font-size:12px;color:gray">勾选并输入筛选值，<span style="color:red">输入为空</span>代表无要求，不满足勾选限定条件的解会被<span style="color:red">舍弃</span></span></h4>
                                             <table class="table_other table-bordered table-hover" style="width:540px" id="table_advset">
                                                 <tbody>
                                                     <tr>
@@ -418,7 +421,7 @@
                                                         <td>属性格</td>
                                                         <td>下限</td>
                                                         <td>上限</td>
-                                                        <td>实际效果预览</td>
+                                                        <td><b>数值限定效果</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td style="width:70px"><input type="checkbox" id="ignore_dmg" onclick="setIgnore(1)"> <img src="../img/icon-dmg.png"></td>

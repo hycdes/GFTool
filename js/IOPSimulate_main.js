@@ -31,7 +31,29 @@ var reso_nt = [30, 30, 30, 30], // max 999
     show_ht: 'all',
     show_ne: 'all',
     show_he: 'all'
-  }
+  },
+  list_name = [
+    [96, '灰熊 MkV'], [97, 'M950A'], [114, '维尔德MkⅡ'], [126, 'NZ75'], [183, '竞争者'], [233, 'Px4风暴'], [260, 'PA-15'],
+    [1, '柯尔特左轮'], [7, '斯捷奇金'], [99, 'Mk23'], [100, 'P7'], [168, 'Spitfire'], [212, 'K5'], [248, '杰里科'], [269, 'P30'],
+    [3, 'M9'], [6, '托卡列夫'], [8, '马卡洛夫'], [11, 'P08'], [12, 'C96'], [13, '92式'], [14, '阿斯特拉左轮'], [123, 'P99'],
+    [2, 'M1911'], [5, '纳甘左轮'], [9, 'P38'], [10, 'PPK'], [90, 'FNP-9'], [91, 'MP-446'], [139, 'Bren Ten'], [141, 'USP Compat'],
+    [62, 'G41'], [65, 'HK416'], [106, 'FAL'], [122, 'G11'], [129, '95式'], [130, '97式'], [172, 'RFB'], [181, 'T-91'], [194, 'K2'], [196, 'Zas M21'], [214, 'ADS'], [206, 'AK-12'], [205, 'AN-94'], [215, 'MDR'], [236, 'K11'], [243, '64式自'],
+    [60, 'AS Val'], [64, 'G36'], [66, '56-1式'], [69, 'FAMAS'], [72, 'TAR-21'], [118, '9A-91'], [171, '利贝罗勒'], [216, 'XM8'], [237, 'SAR-21'], [262, 'EM-2'],
+    [58, 'AK-47'], [61, 'StG44'], [70, 'FNC'], [105, 'OTs-12'],
+    [63, 'G3'], [68, 'L85A1'], [71, '加利尔'], [74, 'SIG-50'], [107, 'F2000'], [133, '63式'],
+    [16, '汤姆森'], [20, 'Vector'], [28, 'MP7'], [104, 'G36C'], [115, '索米'], [127, '79式'], [135, 'SR-3MP'], [213, 'C-MS'], [228, '樱花'], [245, 'P90'],
+    [23, 'PP-90'], [26, 'MP5'], [101, 'UMP9'], [103, 'UMP45'], [137, 'PP-19-01'], [150, '希普卡'],
+    [18, 'MAC-10'], [23, 'PPS-43'], [27, '蝎式'], [29, '司登 MkⅡ'], [32, '微型乌兹'], [116, 'Z-62'],
+    [17, 'M3'], [21, 'PPsh-41'], [24, 'PP2000'], [25, 'MP-40'], [31, '伯莱塔38型'], [33, 'M45'], [92, 'Spectre M4'], [93, 'IDW'], [94, '64式'],
+    [261, 'QBU-88'], [257, 'M200'], [198, '卡尔卡诺M91/38'], [197, '卡尔卡诺M1891'], [148, 'IWS2000'], [128, 'M99'], [53, 'NTW-20'], [50, '李·恩菲尔德'], [48, 'WA2000'], [46, 'Kar98k'],
+    [36, '春田'], [39, '莫辛·纳甘'], [42, 'PTRD'], [43, 'SVD'], [117, 'PSG-1'], [146, 'G28'], [180, 'PzB39'], [184, 'T-5000'], [235, 'SPR-A3G'], [247, 'K31'], [270, '四式'],
+    [34, 'M1加兰德'], [37, 'M14'], [44, 'SV-98'], [95, '汉阳造88式'],
+    [40, 'SVT-38'], [41, '西蒙诺夫'], [47, 'G43'], [51, 'FN-49'], [52, 'BM-59'],
+    [109, 'MG5'], [112, '内格夫'], [125, 'MG4'], [173, 'PKP'], [238, '88式'], [263, 'MG36'],
+    [75, 'M1918'], [78, 'M60'], [85, 'PK'], [88, 'MG3'], [121, 'Mk48'], [149, 'AEK-999'], [185, '阿梅利'], [199, '80式'], [264, '绍沙'],
+    [77, 'M2HB'], [80, 'M1919A4'], [86, 'MG42'], [89, '布伦'],
+    [81, 'LWMMG'], [82, 'DP28'], [87, 'MG34'], [110, 'FG-42'], [111, 'AAT-52']
+  ]
 
 // UI display
 function get_decimal(num, ratio) {
@@ -56,6 +78,7 @@ function swap_show(produce_type) {
     else controller.show_nt = 'all'
     if (controller.show_nt === 'all') document.getElementById('btn_show_nt').src = '../img/produce/show-all.png'
     else document.getElementById('btn_show_nt').src = '../img/produce/show-five.png'
+    show_produce(produce_type)
   }
 }
 function change_reso(str) {
@@ -137,67 +160,14 @@ function produce(produce_type, produce_num) {
       var str_info = makeTdoll(reso_nt[0], reso_nt[1], reso_nt[2], reso_nt[3], starNum)
       record_costs(reso_nt, 1, 0, 0)
       record_produce(produce_type, starNum, str_info)
-      // var RateNormal
-      // if (listNum === listNumH) RateNormal = -1; // Not normal-produce
-      // else RateNormal = Math.ceil(100 * fiveStarNum / (listNum - listNumH))
-      // var RateHeavy
-      // if (listNumH === 0) RateHeavy = -1; // Not heavy-produce
-      // else RateHeavy = Math.ceil(100 * fiveStarNumH / listNumH)
-      // tabSum += '<td>'
-      // tabSum += (listNum + '')
-      // tabSum += '</td><td>'
-      // tabSum += (fiveStarNum + ' + ')
-      // tabSum += (fiveStarNumH + '')
-      // tabSum += '</td><td>'
-      // if (RateNormal < 0) tabSum += '-'
-      // else tabSum += (RateNormal + '%')
-      // tabSum += ' / '
-      // if (RateHeavy < 0) tabSum += '-'
-      // else tabSum += (RateHeavy + '%')
-      // tabSum += '</td><td>'
-      // if ((RateNormal < 0 || RateNormal > 10) && (RateHeavy < 0 || RateHeavy > 30)) {
-      //   tabSum += '<span style="color:darkorange"><b>欧皇</b></span>'
-      // } else if ((RateNormal <= 2 && RateNormal >= 0) && (RateHeavy < 0 || (RateHeavy <= 10 && RateHeavy >= 0))) {
-      //   tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>'
-      // } else {
-      //   tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>'
-      // }
-      // tabSum += '</td></tr></tbody></table>'
-      // var switchA = document.getElementById('showAllSwitch')
-      // if (switchA.checked === true) {
-      //   chart.innerHTML = global_list
-      // } else {
-      //   chart.innerHTML = global_5list
-      // }
-      // sumchart.innerHTML = tabSum
     }
     show_costs()
     show_produce(produce_type)
+  } else if (produce_type === 2) {
+    ;
   }
 }
 
-var list_name = [
-  [96, '灰熊 MkV'], [97, 'M950A'], [114, '维尔德MkⅡ'], [126, 'NZ75'], [183, '竞争者'], [233, 'Px4风暴'], [260, 'PA-15'],
-  [1, '柯尔特左轮'], [7, '斯捷奇金'], [99, 'Mk23'], [100, 'P7'], [168, 'Spitfire'], [212, 'K5'], [248, '杰里科'], [269, 'P30'],
-  [3, 'M9'], [6, '托卡列夫'], [8, '马卡洛夫'], [11, 'P08'], [12, 'C96'], [13, '92式'], [14, '阿斯特拉左轮'], [123, 'P99'],
-  [2, 'M1911'], [5, '纳甘左轮'], [9, 'P38'], [10, 'PPK'], [90, 'FNP-9'], [91, 'MP-446'], [139, 'Bren Ten'], [141, 'USP Compat'],
-  [62, 'G41'], [65, 'HK416'], [106, 'FAL'], [122, 'G11'], [129, '95式'], [130, '97式'], [172, 'RFB'], [181, 'T-91'], [194, 'K2'], [196, 'Zas M21'], [214, 'ADS'], [206, 'AK-12'], [205, 'AN-94'], [215, 'MDR'], [236, 'K11'], [243, '64式自'],
-  [60, 'AS Val'], [64, 'G36'], [66, '56-1式'], [69, 'FAMAS'], [72, 'TAR-21'], [118, '9A-91'], [171, '利贝罗勒'], [216, 'XM8'], [237, 'SAR-21'], [262, 'EM-2'],
-  [58, 'AK-47'], [61, 'StG44'], [70, 'FNC'], [105, 'OTs-12'],
-  [63, 'G3'], [68, 'L85A1'], [71, '加利尔'], [74, 'SIG-50'], [107, 'F2000'], [133, '63式'],
-  [16, '汤姆森'], [20, 'Vector'], [28, 'MP7'], [104, 'G36C'], [115, '索米'], [127, '79式'], [135, 'SR-3MP'], [213, 'C-MS'], [228, '樱花'], [245, 'P90'],
-  [23, 'PP-90'], [26, 'MP5'], [101, 'UMP9'], [103, 'UMP45'], [137, 'PP-19-01'], [150, '希普卡'],
-  [18, 'MAC-10'], [23, 'PPS-43'], [27, '蝎式'], [29, '司登 MkⅡ'], [32, '微型乌兹'], [116, 'Z-62'],
-  [17, 'M3'], [21, 'PPsh-41'], [24, 'PP2000'], [25, 'MP-40'], [31, '伯莱塔38型'], [33, 'M45'], [92, 'Spectre M4'], [93, 'IDW'], [94, '64式'],
-  [261, 'QBU-88'], [257, 'M200'], [198, '卡尔卡诺M91/38'], [197, '卡尔卡诺M1891'], [148, 'IWS2000'], [128, 'M99'], [53, 'NTW-20'], [50, '李·恩菲尔德'], [48, 'WA2000'], [46, 'Kar98k'],
-  [36, '春田'], [39, '莫辛·纳甘'], [42, 'PTRD'], [43, 'SVD'], [117, 'PSG-1'], [146, 'G28'], [180, 'PzB39'], [184, 'T-5000'], [235, 'SPR-A3G'], [247, 'K31'], [270, '四式'],
-  [34, 'M1加兰德'], [37, 'M14'], [44, 'SV-98'], [95, '汉阳造88式'],
-  [40, 'SVT-38'], [41, '西蒙诺夫'], [47, 'G43'], [51, 'FN-49'], [52, 'BM-59'],
-  [109, 'MG5'], [112, '内格夫'], [125, 'MG4'], [173, 'PKP'], [238, '88式'], [263, 'MG36'],
-  [75, 'M1918'], [78, 'M60'], [85, 'PK'], [88, 'MG3'], [121, 'Mk48'], [149, 'AEK-999'], [185, '阿梅利'], [199, '80式'], [264, '绍沙'],
-  [77, 'M2HB'], [80, 'M1919A4'], [86, 'MG42'], [89, '布伦'],
-  [81, 'LWMMG'], [82, 'DP28'], [87, 'MG34'], [110, 'FG-42'], [111, 'AAT-52']
-]
 function find_name(index) {
   for (var entry of list_name) {
     if (entry[0] === index) return entry[1]
