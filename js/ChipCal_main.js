@@ -722,10 +722,10 @@ function getTopology() {
   filter_switch_finalpick = false // 当所有组合都筛选完才能进进入总筛选
   global_process = 0
   topologySet = [], solutionSet = []
-  var validSet
-  var chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]]
-  var chipShape_5_2 = [[81, 0], [82, 0], [9, 0], [10, 0], [111, 0], [112, 0], [120, 0], [131, 0], [132, 0]]
-  var chipShape_6 = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]]
+  var validSet,
+    chipShape_5 = [[11, 0], [12, 0], [21, 0], [22, 0], [31, 0], [32, 0], [4, 0], [5, 0], [6, 0]],
+    chipShape_5_2 = [[81, 0], [82, 0], [9, 0], [10, 0], [111, 0], [112, 0], [120, 0], [131, 0], [132, 0]],
+    chipShape_6 = [[1, 0], [2, 0], [3, 0], [41, 0], [42, 0], [5, 0], [6, 0], [7, 0], [8, 0], [9, 0]]
   for (var i = 0; i < chipNum; i++) {
     if (chipRepo_data[i].classNum === 551) {
       if (chipRepo_data[i].typeNum === 11) chipShape_5[0][1]++
@@ -1600,7 +1600,7 @@ function sortSolution(sortType) {
       break
   }
   // UI refresh
-  if (!filter_switch) {
+  if (!filter_switch) { // 显示所有图解
     var SolutionSelect = document.getElementById('SolutionSelect')
     var SSText = ''
     switch (ranking_switch) {
@@ -1622,7 +1622,13 @@ function sortSolution(sortType) {
     }
     SolutionSelect.disabled = false
     var solulen = solutionSet.length
+    // 下拉框填充
     if (solulen > 0) {
+      if (solulen > 100) { // 最多显示100项
+        solutionSet = solutionSet.slice(0, 100)
+        solulen = 100
+        document.getElementById('SortInfo').innerHTML += '(显示前100个)'
+      }
       for (var i = 0; i < solulen; i++) {
         SSText += '<option value=' + i + '>' + lib_lang.num + ' '
         var c_num = solutionSet[i].length

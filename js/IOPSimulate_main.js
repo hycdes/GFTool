@@ -1,32 +1,22 @@
 var listNum = 0, listNumH = 0, listNumE = 0, listNumEH = 0
 var fiveStarNum = 0, fiveStarNumH = 0, fiveStarNumE = 0, fiveStarNumEH = 0, fairyNum = 0
 var mul_smg = 1, mul_ar = 1, mul_rf = 1, mul_mg = 1, mul_sg = 1
-var allM = 0, allA = 0, allR = 0, allP = 0, allCon = 0, allCore = 0, allConE = 0
-var global_list, global_5list, global_listE, global_5listE, global_fairylist
 var reso_nt = [30, 30, 30, 30], // max 999
   reso_ht = [1000, 1000, 1000, 1000], // max 9999
   reso_ne = [10, 10, 10, 10], // max 300
   reso_he = [500, 500, 500, 500], // max 5000
-  reso_costs = {
-    hum: 0,
-    amm: 0,
-    rat: 0,
-    pts: 0,
-    tc: 0,
-    ec: 0,
+  reso_costs = { // total costs
+    hum: 0, amm: 0, rat: 0, pts: 0,
+    tc: 0, ec: 0,
     core: 0
   },
-  list_produce = {
-    nt: '',
-    nt_5: '',
-    ht: '',
-    ht_5: '',
-    ne: '',
-    ne_5: '',
-    he: '',
-    he_5: ''
+  list_produce = { // produce list for display innerHTML
+    nt: '', nt_5: '',
+    ht: '', ht_5: '',
+    ne: '', ne_5: '',
+    he: '', he_5: ''
   },
-  controller = {
+  controller = { // show which produce list controller
     show_nt: 'all',
     show_ht: 'all',
     show_ne: 'all',
@@ -65,14 +55,14 @@ function get_color(num) {
   if (num === 3) return 'dodgerblue'
   if (num === 2) return 'darkseagreed'
 }
-function swap_reso(produce_type, hum, amm, rat, pts) {
+function swap_reso(produce_type, hum, amm, rat, pts) { // 建造模板，一键设置资源
   if (produce_type === 1) reso_nt = [hum, amm, rat, pts]
   else if (produce_type === 2) reso_ht = [hum, amm, rat, pts]
   else if (produce_type === 3) reso_ne = [hum, amm, rat, pts]
   else if (produce_type === 4) reso_he = [hum, amm, rat, pts]
   show_numbers(produce_type)
 }
-function swap_show(produce_type) {
+function swap_show(produce_type) { // 更换显示全部和稀有建造
   if (produce_type === 1) {
     if (controller.show_nt === 'all') controller.show_nt = 'five'
     else controller.show_nt = 'all'
@@ -81,7 +71,7 @@ function swap_show(produce_type) {
     show_produce(produce_type)
   }
 }
-function change_reso(str) {
+function change_reso(str) { // 按钮调整资源
   var action = 1
   if (str[0] === '-') action = -1
   var produce_type = parseInt(str[1]),
@@ -435,116 +425,6 @@ function get_star(produce_type) {
   }
 }
 
-function addList() { // Add Normal-produce info
-  listNum++
-  var chart = document.getElementById('rankingChart')
-  var sumchart = document.getElementById('sumChart')
-  var resochart = document.getElementById('resoChart')
-  var tabSum = sumchart.innerHTML
-  var tabReso = resochart.innerHTML
-  allM += reso_nt[0]
-  allA += reso_nt[1]
-  allR += reso_nt[2]
-  allP += reso_nt[3]
-  allCon++
-  var Tdoll = makeTdoll(reso_nt[0], reso_nt[1], reso_nt[2], reso_nt[3], get_star(1))
-  // add List
-  global_list = global_list.substring(0, global_list.length - 16)
-  global_list += '<tr><td>'
-  global_list += (listNum + '')
-  global_list += '</td><td>'
-  global_list += (reso_nt[0] + ' ')
-  global_list += (reso_nt[1] + ' ')
-  global_list += (reso_nt[2] + ' ')
-  global_list += (reso_nt[3] + ' ')
-  global_list += '</td><td>'
-  global_5list = global_5list.substring(0, global_5list.length - 16)
-  global_5list += '<tr>'
-  if (starNum === 5) {
-    global_5list += '<td>'
-    global_5list += (listNum + '')
-    global_5list += '</td><td>'
-    global_5list += (reso_nt[0] + ' ')
-    global_5list += (reso_nt[1] + ' ')
-    global_5list += (reso_nt[2] + ' ')
-    global_5list += (reso_nt[3] + ' ')
-    global_5list += '</td><td><span style="color:darkorange">'
-    global_5list += Tdoll
-    global_5list += '</span></td>'
-    global_list += '<span style="color:darkorange">'
-    global_list += Tdoll
-    global_list += '</span>'
-  } else if (starNum === 4) {
-    global_list += '<span style="color:chartreuse">'
-    global_list += Tdoll
-    global_list += '</span>'
-  } else if (starNum === 3) {
-    global_list += '<span style="color:dodgerblue">'
-    global_list += Tdoll
-    global_list += '</span>'
-  } else {
-    global_list += '<span style="color:darkseagreen">'
-    global_list += Tdoll
-    global_list += '</span>'
-  }
-  global_list += '</td></tr></tbody></table>'
-  global_5list += '</tr></tbody></table>'
-  tabSum = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>总建造数</th><th>五星人形获取数</th><th>五星人形获取率</th><th>评价</th></tr></thead><tbody>'
-  tabSum += '<tr>'
-  var RateNormal
-  if (listNum === listNumH) RateNormal = -1; // Not normal-produce
-  else RateNormal = Math.ceil(100 * fiveStarNum / (listNum - listNumH))
-  var RateHeavy
-  if (listNumH === 0) RateHeavy = -1; // Not heavy-produce
-  else RateHeavy = Math.ceil(100 * fiveStarNumH / listNumH)
-  tabSum += '<td>'
-  tabSum += (listNum + '')
-  tabSum += '</td><td>'
-  tabSum += (fiveStarNum + ' + ')
-  tabSum += (fiveStarNumH + '')
-  tabSum += '</td><td>'
-  if (RateNormal < 0) tabSum += '-'
-  else tabSum += (RateNormal + '%')
-  tabSum += ' / '
-  if (RateHeavy < 0) tabSum += '-'
-  else tabSum += (RateHeavy + '%')
-  tabSum += '</td><td>'
-  if ((RateNormal < 0 || RateNormal > 10) && (RateHeavy < 0 || RateHeavy > 30)) {
-    tabSum += '<span style="color:darkorange"><b>欧皇</b></span>'
-  } else if ((RateNormal <= 2 && RateNormal >= 0) && (RateHeavy < 0 || (RateHeavy <= 10 && RateHeavy >= 0))) {
-    tabSum += '<span style="color:darkseagreen"><b>非酋</b></span>'
-  } else {
-    tabSum += '<span style="color:dodgerblue"><b>亚洲人</b></span>'
-  }
-  tabSum += '</td></tr></tbody></table>'
-  tabReso = '<table class="table table-striped table-bordered table-hover"><thead><tr><th>人力消耗</th><th>弹药消耗</th><th>口粮消耗</th><th>零件消耗</th><th>人形契约消耗</th><th>装备契约消耗</th><th>核心消耗</th></tr></thead><tbody><tr>'
-  tabReso += '<td>'
-  tabReso += (allM + '')
-  tabReso += '</td><td>'
-  tabReso += (allA + '')
-  tabReso += '</td><td>'
-  tabReso += (allR + '')
-  tabReso += '</td><td>'
-  tabReso += (allP + '')
-  tabReso += '</td><td>'
-  tabReso += (allCon + '')
-  tabReso += '</td><td>'
-  tabReso += (allConE + '')
-  tabReso += '</td><td>'
-  tabReso += (allCore + '')
-  tabReso += '</td></tr></tbody></table>'
-  var switchA = document.getElementById('showAllSwitch')
-  if (switchA.checked === true) {
-    chart.innerHTML = global_list
-  } else {
-    chart.innerHTML = global_5list
-  }
-  sumchart.innerHTML = tabSum
-  resochart.innerHTML = tabReso
-}
-
-
-
 // old
 function swapImage(imageCode) {
   panelSetting = document.getElementById('panelSetting')
@@ -553,156 +433,6 @@ function swapImage(imageCode) {
   else if (imageCode === 3) panelSetting.style = 'background:url(../img/Produce-equip-normal.png) no-repeat right 15px bottom 15px'
   else if (imageCode === 4) panelSetting.style = 'background:url(../img/Produce-equip-heavy.png) no-repeat right 15px bottom 15px'
   else if (imageCode === 5) panelSetting.style = 'background:url(../img/Produce-contract.png) no-repeat right 15px bottom 15px'
-}
-function checkValueHeavy() { // check input of Heavy-product
-  var MwHId = document.getElementById('MwH')
-  var MwH = parseInt(MwHId.value)
-  var AwHId = document.getElementById('AwH')
-  var AwH = parseInt(AwHId.value)
-  var RwHId = document.getElementById('RwH')
-  var RwH = parseInt(RwHId.value)
-  var PwHId = document.getElementById('PwH')
-  var PwH = parseInt(PwHId.value)
-  if (isNaN(MwH) || MwH.length === 0) MwHId.value = 1000
-  else {
-    if (MwH < 1000) MwHId.value = 1000
-    else if (MwH > 9999) MwHId.value = 9999
-  }
-  if (isNaN(AwH) || AwH.length === 0) AwHId.value = 1000
-  else {
-    if (AwH < 1000) AwHId.value = 1000
-    else if (AwH > 9999) AwHId.value = 9999
-  }
-  if (isNaN(RwH) || RwH.length === 0) RwHId.value = 1000
-  else {
-    if (RwH < 1000) RwHId.value = 1000
-    else if (RwH > 9999) RwHId.value = 9999
-  }
-  if (isNaN(PwH) || PwH.length === 0) PwHId.value = 1000
-  else {
-    if (PwH < 1000) PwHId.value = 1000
-    else if (PwH > 9999) PwHId.value = 9999
-  }
-}
-function checkValueNormalE() { // check input of Normal-product-equip
-  var MwId = document.getElementById('MwE')
-  var Mw = parseInt(MwId.value)
-  var AwId = document.getElementById('AwE')
-  var Aw = parseInt(AwId.value)
-  var RwId = document.getElementById('RwE')
-  var Rw = parseInt(RwId.value)
-  var PwId = document.getElementById('PwE')
-  var Pw = parseInt(PwId.value)
-  if (isNaN(Mw) || Mw.length === 0) MwId.value = 10
-  else {
-    if (Mw < 10) MwId.value = 10
-    else if (Mw > 300) MwId.value = 300
-  }
-  if (isNaN(Aw) || Aw.length === 0) AwId.value = 10
-  else {
-    if (Aw < 10) AwId.value = 10
-    else if (Aw > 300) AwId.value = 300
-  }
-  if (isNaN(Rw) || Rw.length === 0) RwId.value = 10
-  else {
-    if (Rw < 10) RwId.value = 10
-    else if (Rw > 300) RwId.value = 300
-  }
-  if (isNaN(Pw) || Pw.length === 0) PwId.value = 10
-  else {
-    if (Pw < 10) PwId.value = 10
-    else if (Pw > 300) PwId.value = 300
-  }
-}
-function checkValueHeavyE() { // check input of Heavy-product-equip
-  var MwHId = document.getElementById('MwEH')
-  var MwH = parseInt(MwHId.value)
-  var AwHId = document.getElementById('AwEH')
-  var AwH = parseInt(AwHId.value)
-  var RwHId = document.getElementById('RwEH')
-  var RwH = parseInt(RwHId.value)
-  var PwHId = document.getElementById('PwEH')
-  var PwH = parseInt(PwHId.value)
-  if (isNaN(MwH) || MwH.length === 0) MwHId.value = 500
-  else {
-    if (MwH < 500) MwHId.value = 500
-    else if (MwH > 5000) MwHId.value = 5000
-  }
-  if (isNaN(AwH) || AwH.length === 0) AwHId.value = 500
-  else {
-    if (AwH < 500) AwHId.value = 500
-    else if (AwH > 5000) AwHId.value = 5000
-  }
-  if (isNaN(RwH) || RwH.length === 0) RwHId.value = 500
-  else {
-    if (RwH < 500) RwHId.value = 500
-    else if (RwH > 5000) RwHId.value = 5000
-  }
-  if (isNaN(PwH) || PwH.length === 0) PwHId.value = 500
-  else {
-    if (PwH < 500) PwHId.value = 500
-    else if (PwH > 5000) PwHId.value = 5000
-  }
-}
-
-function setWeightH(typeInfo) { // set weight of Heavy-product
-  var Mw = document.getElementById('MwH')
-  var Aw = document.getElementById('AwH')
-  var Rw = document.getElementById('RwH')
-  var Pw = document.getElementById('PwH')
-  switch (typeInfo) {
-    case 1:
-      Mw.value = 4000; Aw.value = 1000; Rw.value = 6000; Pw.value = 3000
-      break
-    case 2:
-      Mw.value = 6000; Aw.value = 2000; Rw.value = 6000; Pw.value = 4000
-      break
-    case 3:
-      Mw.value = 6000; Aw.value = 6000; Rw.value = 6000; Pw.value = 4000
-      break
-    default:
-      break
-  }
-}
-
-function setWeightE(typeInfo) { // set weight of Normal-product-equip
-  var Mw = document.getElementById('MwE')
-  var Aw = document.getElementById('AwE')
-  var Rw = document.getElementById('RwE')
-  var Pw = document.getElementById('PwE')
-  switch (typeInfo) {
-    case 1:
-      Mw.value = 150; Aw.value = 150; Rw.value = 150; Pw.value = 150
-      break
-    case 2:
-      Mw.value = 151; Aw.value = 151; Rw.value = 151; Pw.value = 151
-      break
-    default:
-      break
-  }
-}
-
-function setWeightEH(typeInfo) { // set weight of Normal-product-equip
-  var Mw = document.getElementById('MwEH')
-  var Aw = document.getElementById('AwEH')
-  var Rw = document.getElementById('RwEH')
-  var Pw = document.getElementById('PwEH')
-  switch (typeInfo) {
-    case 1:
-      Mw.value = 500; Aw.value = 500; Rw.value = 500; Pw.value = 500
-      break
-    case 2:
-      Mw.value = 2000; Aw.value = 500; Rw.value = 2000; Pw.value = 1000
-      break
-    case 3:
-      Mw.value = 500; Aw.value = 2000; Rw.value = 2000; Pw.value = 1000
-      break
-    case 4:
-      Mw.value = 2000; Aw.value = 2000; Rw.value = 2000; Pw.value = 2000
-      break
-    default:
-      break
-  }
 }
 
 function creatTdollInfo_HG(name, possibility) {
