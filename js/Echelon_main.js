@@ -486,6 +486,13 @@ function reactAllSkill(command, current_time) {
             Set_Special.set('p30_' + k, 'done')
           }
         }
+      } else if (is_this(k, 275)) { // m1895cb子弹回复
+        if (!_spE('attack_permission_' + k, 'stop')) { // 只要不处于停火状态
+          if (_spG('m1895cb_add_' + k) <= global_frame) {
+            _spS('m1895cb_' + k, _spG('m1895cb_' + k) + 1) // 备用弹量+1
+            _spS('m1895cb_add_' + k, global_frame + 90) // 下一次子弹回复
+          }
+        }
       } else if (is_this(k, 2011)) { // jill醉酒状态施加
         if (Set_Special.get('jill_drunk') != undefined && Set_Special.get('jill_drunk') <= global_frame) {
           changeStatus(k, 'all', 'dmg', -0.15, 3, 'unrepeat')
@@ -735,6 +742,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       } else {
         var cs = Set_Special.get('clipsize_' + stand_num)
         var extra_shoot_pkp = false
+        if (is_this(stand_num, 275)) {
+          if (_spE('m1895cb_skillon_' + stand_num, true) && _spG('m1895cb_' + stand_num) > 0) {
+            _spS('m1895cb_' + stand_num, _spG('m1895cb_' + stand_num) - 1)
+            cs++
+          }
+        }
         cs--
         if (is_this(stand_num, 173)) { // PKP暴动宣告相关处理
           if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'ready' && Math.random() <= 0.2) {
@@ -1492,6 +1505,15 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   else if (skillname === 'hanyang88') {
     Set_Special.set('hanyang88_buff_' + stand_num, global_frame + 180)
     Set_Special.set('hanyang88_bomb_' + stand_num, true)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'm1895cb') {
+    if (document.getElementById('special_275_' + stand_num).checked) {
+      Set_Special.set('m1895cb_skillon_' + stand_num, true)
+    } else {
+      if (Set_Special.get('m1895cb_skillon_' + stand_num) === undefined) Set_Special.set('m1895cb_skillon_' + stand_num, true) // skill init
+      else Set_Special.set('m1895cb_skillon_' + stand_num, !Set_Special.get('m1895cb_skillon_' + stand_num)) // close or open skill
+    }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————

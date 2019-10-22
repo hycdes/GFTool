@@ -125,6 +125,14 @@ function settle_buff(stand_num, info_self) {
         }
         if (num_debuff > 0) _mul_dmg = 1.05 + 0.05 * num_debuff
     }
+    else if (is_this(stand_num, 275)) {
+        var buffnum = multilayer_process('m1895cb_buff_acu_' + stand_num, 'get')
+        if (buffnum > 10) buffnum = 10
+        _mul_acu *= Math.pow(0.85, buffnum)
+        if (_spG('m1895cb_skillon_' + stand_num) && _spG('m1895cb_' + stand_num) > 0) {
+            _mul_dmg *= 1.2
+        }
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
@@ -320,6 +328,7 @@ function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {
         e_eva = info_enemy,
         is_hit = false,
         must_acu = _mul('must_acu', list_buff)
+    acu *= _mul('acu', list_buff)
     if (must_acu || (Math.random() <= acu / (acu + e_eva))) is_hit = true
     return is_hit
 }
@@ -350,6 +359,10 @@ function settle_extra(stand_num, info_self, enemy_arm, enemy_eva, list_buff) {
         Set_Special.set('saiga_' + stand_num, Set_Special.get('saiga_' + stand_num) - 1)
         if (enemy_num_left >= 3) extra_value = _para_dmg * explain_fgl_ff('single') + 2 * _para_dmg * explain_fgl_ff('around_single')
         else extra_value = _para_dmg * explain_fgl_ff('single') + (enemy_num_left - 1) * _para_dmg * explain_fgl_ff('around_single')
+    } else if (is_this(stand_num, 275)) { // M1895CB备用子弹层数计算
+        if (_spG('m1895cb_skillon_' + stand_num) && _spG('m1895cb_' + stand_num) > 0) { // 技能开启且备用子弹足够
+            multilayer_process('m1895cb_buff_acu_' + stand_num, 'add', ['acu', 0.2, 150])
+        }
     } else if (is_this(stand_num, 1095)) { // 汉阳造全能战术技能
         if (Set_Special.get('hanyang88_bomb_' + stand_num) === true) {
             if (enemy_arm > 0) { // 导弹

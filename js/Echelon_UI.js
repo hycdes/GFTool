@@ -905,6 +905,7 @@ function addTdoll() { // 添加战术人形
       str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 0)
     else if (ID === 276) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' Kord</h4>'
@@ -944,6 +945,40 @@ function addTdoll() { // 添加战术人形
     getBlockAffect()
   }
 }
+
+// —————————————— NEW TEMPLATE ————————————————
+function addSpecialSetting() { // ID,_position,_type
+  var list_specialName = [[275, 'M1895CB']]
+  var ID = arguments['0'],
+    _position = arguments['1'],
+    _block = arguments['2'],
+    _type = arguments['3'],
+    str_html = '',
+    _name = _search(list_specialName, 275)
+  if (_type === 0) { // type_0 单一勾选框
+    var _skill = _skillName(ID),
+      _describe = _describeInfo(ID)
+    str_html += '<h4>' + _position + lib_language.UI_num + ' '
+      + _name + '</h4><input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" checked> ['
+      + _skill + '] ' + _describe
+    document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
+  }
+}
+function _search(list, index) {
+  for (var entry of list) {
+    if (entry[0] === index) return entry[1]
+  }
+  return ''
+}
+function _skillName(ID) {
+  var str = ''
+  eval('str=lib_language.skillNAME_' + ID)
+  return str
+}
+function _describeInfo(ID) {
+  if (ID === 275) { return lib_language.DESCRIBE_275 }
+}
+// —————————————— NEW TEMPLATE ————————————————
 
 function deleteTdoll() { // 删除战术人形
   // 删除强制延时
@@ -1001,6 +1036,13 @@ function changeFairy() {
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_3"><span style="color:green"> ' + lib_language.fairyDESCRIBE_19_3 + '</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_4"><span style="color:blue"> ' + lib_language.fairyDESCRIBE_19_4 + '</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_5"><span style="color:purple"> ' + lib_language.fairyDESCRIBE_19_5 + '</span></label></p>'
+      document.getElementById('special_fairy').innerHTML = str_html
+    } else if (fairy_no === 23) {
+      var str_html = ''
+      str_html += '<h4>' + '连击层数' + '</h4>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_0" checked> 3层</label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_1"> 2层</span></label></p>'
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_fairy" id="special_fairyskill_2"> 1层</span></label></p>'
       document.getElementById('special_fairy').innerHTML = str_html
     } else {
       document.getElementById('special_fairy').innerHTML = ''

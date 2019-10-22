@@ -806,6 +806,7 @@ lib_fairy.set(18, createFairy(lib_language.fairyNAME_18, 'dmg/critdmg/acu/eva/ar
 lib_fairy.set(19, createFairy(lib_language.fairyNAME_19, 'dmg/critdmg/acu/eva/arm', '0.1/0.1/0.2/0.8/0.2'))
 lib_fairy.set(20, createFairy(lib_language.fairyNAME_20, 'dmg/acu/eva/arm', '0.32/0.75/0.32/0.08'))
 lib_fairy.set(21, createFairy(lib_language.fairyNAME_21, 'dmg/critdmg/eva/arm', '0.25/0.25/0.2/0.2'))
+lib_fairy.set(23, createFairy('连击妖精', 'dmg/critdmg/acu', '0.3/0.15/0.85'))
 
 // unique t-doll
 lib_unique.set(4, 'can_add_python') // python
@@ -834,6 +835,7 @@ lib_special_info.set(261, lib_language.special_info_common) // 88-rf
 lib_special_info.set(266, lib_language.special_info_common) // r93
 lib_special_info.set(269, lib_language.special_info_common) // P30
 lib_special_info.set(270, lib_language.special_info_common) // 四式
+lib_special_info.set(275, lib_language.special_info_common) // M1895CB
 lib_special_info.set(276, lib_language.special_info_common) // kord
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4

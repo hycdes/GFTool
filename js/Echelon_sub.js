@@ -36,6 +36,9 @@ function is_python_unrepeat(command) {
 }
 
 // lable_transfer
+function _spE(code, is_value) { return Set_Special.get(code) === is_value }
+function _spS(code, new_value) { Set_Special.set(code, new_value) }
+function _spG(code) { return Set_Special.get(code) }
 function num_to_name(num_type) {
   if (num_type === 1) return 'hg'
   else if (num_type === 2) return 'ar'
@@ -65,8 +68,10 @@ function rof_to_frame(num_tn, rof, ID) {
       else shootframe = Math.floor(1500 / base_rof)
     }
   } else if (str_tn === 'mg') {
-    if (ID === 77 || ID === 85 || ID === 109 || ID === 173) { // 连珠终结、暴动宣告
+    if (ID === 77 || ID === 85 || ID === 109 || ID === 173) { // 连珠终结、暴动宣告射击间隔11帧
       shootframe = 11
+    } else if (ID === 275) { // M1895CB间隔9帧
+      shootframe = 9
     }
     else shootframe = 10
   } else if (str_tn === 'sg') {
@@ -440,6 +445,8 @@ function init_loadPrepareStatus() { // 初始化战前属性
         Set_Special.set('chauchat_nextreload_' + i, 0)
       } else if (is_this(i, 270)) { // 四式死线一击层数
         Set_Special.set('type4_' + i, 0)
+      } else if (is_this(i, 275)) { // M1895CB备用弹链状态层数
+        _spS('m1895cb_buff_acu_' + i, [])
       } else if (is_this(i, 276)) {
         if (document.getElementById('special_kord_' + i + '_0').checked) {
           Set_Special.set('kord_' + i, 'type_p')
@@ -477,7 +484,11 @@ function init_loadPrepareStatus() { // 初始化战前属性
   // 载入特殊设定——————————————————————
   for (var i = 0; i < 9; i++) {
     if (is_stand(i)) {
-      if (is_this(i, 2014)) { // stella
+      if (is_this(i, 275)) { // m1895cb
+        Set_Special.set('m1895cb_' + i, 30) // initial 30x bullets
+        Set_Special.set('m1895cb_add_' + i, 90) // first time add reload
+      }
+      else if (is_this(i, 2014)) { // stella
         changeStatus(i, 'self', 'dmg', -0.5, -1)
       }
     }
@@ -588,6 +599,13 @@ function init_loadEnemyInfo() {
   }
 }
 function init_loadFairy(common_position) {
+  if (document.getElementById('check_init_construction').checked) {
+    changeStatus(common_position, 'all', 'dmg', '0.3', -1)
+    changeStatus(common_position, 'all', 'acu', '0.3', -1)
+    changeStatus(common_position, 'all', 'eva', '0.3', -1)
+    changeStatus(common_position, 'all', 'arm', '0.3', -1)
+    changeStatus(common_position, 'all', 'crit', '0.3', -1)
+  }
   if (document.getElementById('fairyskill_active').checked) { // 可被蟒蛇复读的妖精技能
     if (fairy_no === 1) { // 战斗效率
       changeStatus(common_position, 'all', 'dmg', '0.2', 20)
@@ -629,11 +647,13 @@ function init_loadFairy(common_position) {
     } else if (fairy_no === 13) { // 阵地死神（暂时没做）
       //
     } else if (fairy_no === 14) { // 紧急堡垒
-      changeStatus(common_position, 'all', 'dmg', '0.3', -1)
-      changeStatus(common_position, 'all', 'acu', '0.3', -1)
-      changeStatus(common_position, 'all', 'eva', '0.3', -1)
-      changeStatus(common_position, 'all', 'arm', '0.3', -1)
-      changeStatus(common_position, 'all', 'crit', '0.3', -1)
+      if (!document.getElementById('check_init_construction').checked) { // 不重复叠加紧急壁垒
+        changeStatus(common_position, 'all', 'dmg', '0.3', -1)
+        changeStatus(common_position, 'all', 'acu', '0.3', -1)
+        changeStatus(common_position, 'all', 'eva', '0.3', -1)
+        changeStatus(common_position, 'all', 'arm', '0.3', -1)
+        changeStatus(common_position, 'all', 'crit', '0.3', -1)
+      }
     } else if (fairy_no === 17) { // 夜间照明
       if (Set_Special.get('sunrise') === 'night') changeStatus(common_position, 'all', 'acu', '0.3', 20)
     } else if (fairy_no === 19) { // 紧急开饭
@@ -665,6 +685,17 @@ function init_loadFairy(common_position) {
       changeStatus(common_position, 'all', 'acu', '0.8', 10)
     } else if (fairy_no === 21) { // 爆竹迎春（暂时没做）
       //
+    } else if (fairy_no === 23) {
+      if (document.getElementById('special_fairyskill_0').checked) {
+        changeStatus(common_position, 'all', 'dmg', 0.520875, 20)
+        changeStatus(common_position, 'all', 'acu', 1.197, 20)
+      } else if (document.getElementById('special_fairyskill_1').checked) {
+        changeStatus(common_position, 'all', 'dmg', 0.3225, 20)
+        changeStatus(common_position, 'all', 'acu', 0.69, 20)
+      } else if (document.getElementById('special_fairyskill_2').checked) {
+        changeStatus(common_position, 'all', 'dmg', 0.15, 20)
+        changeStatus(common_position, 'all', 'acu', 0.3, 20)
+      }
     }
   }
   // 妖精天赋
@@ -797,4 +828,35 @@ function debug_addinfo() {
     }
   }
 }
+
+function multilayer_process(special_id, command) { // 多层buff生效数层处理
+  // new_layer: [property_type,value,duration]
+  // layer: [property_type,value,lifetime]
+  if (command === 'add') {
+    var layers = _spG(special_id),
+      new_layer = arguments['2']
+    new_layer[2] += global_frame // transfer duration to lifetime
+    layers.push(new_layer)
+    _spS(special_id, layers)
+    _clean_layer(special_id)
+  }
+  else if (command === 'get') {
+    _clean_layer(special_id)
+    return _spG(special_id).length
+  }
+}
+function _clean_layer(special_id) {
+  var layers = _spG(special_id),
+    is_dirty = true
+  while (is_dirty) {
+    if (layers.length === 0) is_dirty = false // no buff layer
+    else {
+      if (layers[0][2] < global_frame) {
+        is_dirty = true
+        layers.splice(0, 1)
+      } else is_dirty = false
+    }
+  }
+}
+
 function debug_clear() { document.getElementById('debug_content').innerHTML = ''; debug_line = 0; }

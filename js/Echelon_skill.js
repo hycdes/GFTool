@@ -357,6 +357,11 @@ function describe_hanyang88() { // hanyang88 mod
   Describe.name = 'hanyang88'
   return Describe
 }
+function describe_m1895cb() { // m1895cb
+  var Describe = {}
+  Describe.name = 'm1895cb'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -645,6 +650,7 @@ lib_describe.set('hk416_fragile', describe_hk416fragile()) // 寄生榴弹脆弱
 lib_describe.set('mp5mod', describe_mp5mod()) // 立场防御
 lib_describe.set('ump9mod', describe_ump9mod()) // 白鸮轰鸣
 lib_describe.set('hanyang88', describe_hanyang88()) // 全能战术
+lib_describe.set('m1895cb', describe_m1895cb()) // 有备无患
 
 // lib_skill
 
@@ -1070,7 +1076,7 @@ lib_skill.set(51, [createSkill(5, 8, 5, lib_describe.get('dmg_55'))])
 lib_skill.set(52, [createSkill(5, 8, 5, lib_describe.get('rof_55'))])
 
 // ———————————————————————————————————————— MG ————————————————————————————————————————
-
+// ———————————————————————————————————————— MG - 5 ————————————————————————————————————————
 lib_skill.set(109, []) // 连珠终结实现于攻击
 lib_skill.set(112, []) // 狂躁血脉实现于换弹
 lib_skill.set(125, [ // MG4蓄势待发
@@ -1090,7 +1096,7 @@ lib_skill.set(263, [
 ])
 lib_skill.set(276, []) // Kord
 lib_skill.set(1075, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))]) // m1918 mod
-
+// ———————————————————————————————————————— MG - 4 ————————————————————————————————————————
 lib_skill.set(75, [createSkill(8, 18, 6, lib_describe.get('dmg_70'))]) // m1918
 lib_skill.set(78, [
   createSkill(8, 18, 6, lib_describe.get('dmgN_105')),
@@ -1124,6 +1130,7 @@ lib_skill.set(254, [
   createSkill(8, 18, 0, lib_describe.get('addclip_dynamic'))
 ]) // 白夜独奏曲换弹单独判断
 lib_skill.set(264, [createSkill(6, 2, 0, lib_describe.get('chauchat'))]) // 百合纹章
+lib_skill.set(275, [createSkill(3, 5, 0, lib_describe.get('m1895cb'))]) // 有备无患
 lib_skill.set(1081, [ // 猎杀冲动
   createSkill(3, 18, 6, lib_describe.get('acu_70')),
   createSkill(3, 18, 6, lib_describe.get('mustcrit'))
@@ -1132,7 +1139,7 @@ lib_skill.set(1089, [ // 被动在换弹实现，类似刘易斯
   createSkill(8, 18, 8, lib_describe.get('dmg_30')),
   createSkill(8, 18, 0, lib_describe.get('addclip_4'))
 ])
-
+// ———————————————————————————————————————— MG - 3 ————————————————————————————————————————
 lib_skill.set(77, []) // 连珠终结实现于攻击
 lib_skill.set(79, [
   createSkill(8, 18, 8, lib_describe.get('dmgN_45')),
@@ -1158,7 +1165,7 @@ lib_skill.set(271, [
   createSkill(8, 18, 8, lib_describe.get('dmg_30')),
   createSkill(8, 18, 0, lib_describe.get('addclip_3'))
 ])
-
+// ———————————————————————————————————————— MG - 2 ————————————————————————————————————————
 lib_skill.set(81, [ // 猎杀冲动
   createSkill(3, 18, 6, lib_describe.get('acu_60')),
   createSkill(3, 18, 6, lib_describe.get('mustcrit'))
