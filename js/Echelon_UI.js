@@ -785,9 +785,6 @@ function addTdoll() { // 添加战术人形
       str_html += '<input type="checkbox" id="special_mosin_skillkill_' + num_pickblock + '" checked> [' + lib_language.skillNAME_39_2 + '] ' + lib_language.DESCRIBE_39_4
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
-    else if (ID === 2006) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_2006 + '</h4><input type="checkbox" id="special_theresa_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_2006 + '] ' + lib_language.DESCRIBE_2006
-    }
     else if (ID === 102) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' UMP40</h4>'
@@ -795,15 +792,6 @@ function addTdoll() { // 添加战术人形
       str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_ump40_' + num_pickblock + '_1"> ' + lib_language.DESCRIBE_102_2 + '</label>'
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
-    }
-    else if (ID === 180) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' PzB39</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
-    }
-    else if (ID === 192) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' JS05</h4><input type="checkbox" id="special_js05_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_180 + '] ' + lib_language.DESCRIBE_180
-    }
-    else if (ID === 252) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' KSVK</h4><input type="checkbox" id="special_KSVK_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_252 + '] ' + lib_language.DESCRIBE_252
     }
     else if (ID === 194) {
       var str_html = ''
@@ -842,12 +830,6 @@ function addTdoll() { // 添加战术人形
       str_html += "'" + 'special_k11_' + num_pickblock + "'"
       str_html += ') value="28"></td><td>' + lib_language.DESCRIBE_236 + '</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
-    }
-    else if (ID === 238) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_238 + '</h4><input type="checkbox" id="special_88type_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_238 + '] ' + lib_language.DESCRIBE_238
-    }
-    else if (ID === 256) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_256 + '</h4><input type="checkbox" id="special_falcon_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_256 + '] ' + lib_language.DESCRIBE_256
     }
     else if (ID === 243) {
       var str_html = ''
@@ -905,7 +887,14 @@ function addTdoll() { // 添加战术人形
       str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
-    else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 0)
+    else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 0, 'checked') // PzB39
+    else if (ID === 192) addSpecialSetting(192, reverse_position, num_pickblock, 0, 'checked') // JS05
+    else if (ID === 252) addSpecialSetting(252, reverse_position, num_pickblock, 0, 'checked') // KSVK
+    else if (ID === 238) addSpecialSetting(238, reverse_position, num_pickblock, 0, '') // 88-type
+    else if (ID === 256) addSpecialSetting(256, reverse_position, num_pickblock, 0, '') // falcon
+    else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 0, 'checked') // M1895CB
+    else if (ID === 1065) addSpecialSetting(1065, reverse_position, num_pickblock, 0, 'checked') // HK416 MOD
+    else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 0, 'checked') // Theresa
     else if (ID === 276) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' Kord</h4>'
@@ -921,9 +910,6 @@ function addTdoll() { // 添加战术人形
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '_dorothy" id="special_dorothy_' + (num_pickblock - 1) + '_1" checked><span style="color:dodgerblue"> MIRD113</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + (num_pickblock - 1) + '_dorothy" id="special_dorothy_' + (num_pickblock - 1) + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_2013_1 + '</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
-    }
-    else if (ID === 1065) {
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' HK416</h4><input type="checkbox" id="special_1065_' + (num_pickblock - 1) + '" checked> [' + lib_language.skillNAME_1065 + '] ' + lib_language.DESCRIBE_1065
     }
     else if (ID === 1101) {
       var str_html = ''
@@ -948,26 +934,31 @@ function addTdoll() { // 添加战术人形
 
 // —————————————— NEW TEMPLATE ————————————————
 function addSpecialSetting() { // ID,_position,_type
-  var list_specialName = [[275, 'M1895CB']]
-  var ID = arguments['0'],
-    _position = arguments['1'],
-    _block = arguments['2'],
-    _type = arguments['3'],
+  var list_specialName = [
+    [2006, lib_language.NAME_2006],
+    [1065, 'HK416'],
+    [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256],
+    [238, lib_language.NAME_238], [275, 'M1895CB']
+  ]
+  var ID = arguments['0'], // T-doll ID
+    _position = arguments['1'], // position number for display (reverse_position)
+    _block = arguments['2'], // stand block
+    _type = arguments['3'], // template type
+    _check = arguments['4'], // check parameters, different template has different structure
     str_html = '',
-    _name = _search(list_specialName, 275)
+    _name = _search(list_specialName, ID)
   if (_type === 0) { // type_0 单一勾选框
     var _skill = _skillName(ID),
-      _describe = _describeInfo(ID)
+      _describe = _describeInfo(ID, _type)
     str_html += '<h4>' + _position + lib_language.UI_num + ' '
-      + _name + '</h4><input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" checked> ['
+      + _name + '</h4><input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" '
+      + _check + '> ['
       + _skill + '] ' + _describe
     document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
   }
 }
 function _search(list, index) {
-  for (var entry of list) {
-    if (entry[0] === index) return entry[1]
-  }
+  for (var entry of list) if (entry[0] === index) return entry[1]
   return ''
 }
 function _skillName(ID) {
@@ -975,8 +966,12 @@ function _skillName(ID) {
   eval('str=lib_language.skillNAME_' + ID)
   return str
 }
-function _describeInfo(ID) {
-  if (ID === 275) { return lib_language.DESCRIBE_275 }
+function _describeInfo(ID, _type) {
+  if (_type === 0) {
+    var str_return = ''
+    eval('str_return=lib_language.DESCRIBE_' + ID)
+    return str_return
+  }
 }
 // —————————————— NEW TEMPLATE ————————————————
 

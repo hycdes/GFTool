@@ -822,7 +822,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             Set_Special.set('angel_strength' + stand_num, angel_num)
             Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num - 1)
           } else if (is_this(stand_num, 238)) { // 88式
-            if (!document.getElementById('special_88type_' + stand_num).checked) {
+            if (!document.getElementById('special_238_' + stand_num).checked) {
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
               if (Set_Special.get('88type_buffon' + stand_num) === undefined) {
                 changeStatus(stand_num, 'self', 'acu', '0.3', -1)
@@ -1288,7 +1288,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   }
   else if (skillname === 'falcon') { // 夕阳隼：狙击
     Set_Special.set('saiga_' + stand_num, 3)
-    if (Set_Special.get('falcon_' + stand_num) > 0 && !document.getElementById('special_falcon_' + stand_num).checked) {
+    if (Set_Special.get('falcon_' + stand_num) > 0 && !document.getElementById('special_256_' + stand_num).checked) {
       var ratio = (s_t[0].Describe).ratio
       var snipe_num = (s_t[0].Describe).snipe_num
       var time_init = (1 - current_Info.get('cld')) * (s_t[0].Describe).time_init
@@ -1816,14 +1816,19 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     Set_Special.set('snipe_num_' + stand_num, num_leftsnipe)
     var damage_snipe_single = 0
     var this_ID = list_tdoll[stand_num][1].ID
-    if (this_ID === 180 || this_ID === 192) { // 贯通射击
+    if (this_ID === 180) { // 贯通射击
       damage_snipe_single = Math.ceil(2 * ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
-      if (document.getElementById('special_js05_' + stand_num).checked) {
+      if (document.getElementById('special_180_' + stand_num).checked) {
+        damage_snipe_single += Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('around_multiple'))
+      }
+    } else if (this_ID === 192) { // 贯通射击
+      damage_snipe_single = Math.ceil(2 * ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
+      if (document.getElementById('special_192_' + stand_num).checked) {
         damage_snipe_single += Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('around_multiple'))
       }
     } else if (this_ID === 252) { // 震荡冲击弹
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
-      if (document.getElementById('special_KSVK_' + stand_num).checked) {
+      if (document.getElementById('special_252_' + stand_num).checked) {
         damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
     } else if (this_ID === 260) { // 劲爆乐园
