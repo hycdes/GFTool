@@ -714,9 +714,11 @@ lib_property_equip.set(34, createProperty_equip(0, 0, 0, 0, 0, 0, 0.25, 0, 0, 0)
 lib_property_equip.set(35, createProperty_equip(0, 0, -2, 0, 0, 0, 0, 5, 0, 0)) // 弹链
 lib_property_equip.set(41, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 夜视仪
 // exclusive equipment
-lib_property_equip.set(17, createProperty_equip(0, 4, 10, 0, 0, 0.2, 0, 0, 0, -100))
+lib_property_equip.set(19993, createProperty_equip(0, 3, 20, 0, 0, 0.2, 0, 0, 0, 0)) // M9
+lib_property_equip.set(17, createProperty_equip(0, 4, 10, 0, 0, 0.2, 0, 0, 0, -100)) // stechkin
 lib_property_equip.set(110, createProperty_equip(0, 0, 18, 0, 0, 0.3, 0, 0, 0, 0)) // ppk
 lib_property_equip.set(117, createProperty_equip(4, 0, 21, 0, 0, 0.28, 0, 0, 0, 0)) // m3
+lib_property_equip.set(118, createProperty_equip(0, 0, 20, -4, 0, 0.35, 0, 0, 0, 0)) // MAC-10
 lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0, 0)) // Kar98k
 lib_property_equip.set(150, createProperty_equip(0, 0, 0, 4, 0, 0.48, 0, 0, 0, 0)) // Lee Enfield
 lib_property_equip.set(152, createProperty_equip(0, 8, 0, 6, 0, 0.5, 0, 0, 0, 0)) // bm59
@@ -724,6 +726,7 @@ lib_property_equip.set(166, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.44, 0, 0
 lib_property_equip.set(165, createProperty_equip(8, 14, 0, 0, 0, 0.25, 0, 0, 0, 0)) // hk416-scope
 lib_property_equip.set(169, createProperty_equip(4, 4, 0, 0, 0, 0.48, 0, 0, 0, 0)) // famas
 lib_property_equip.set(174, createProperty_equip(9, 4, 0, 0, 0, 0.5, 0, 0, 0, 0)) // sig-50
+lib_property_equip.set(384, createProperty_equip(6, 0, 0, -2, 0, 0, 0, 5, 0, 0)) // RPD
 lib_property_equip.set(1110, createProperty_equip(0, 32, 0, -1, 0, 0.24, 0, 0, 0, 0)) // fg42
 lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0)) // mg4
 lib_property_equip.set(1129, createProperty_equip(5, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // qbz95 97

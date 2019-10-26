@@ -198,8 +198,8 @@ function showEquip(value) {
     }
     if (equip_info.crit != 0) {
       equip_str += lib_language.crit
-      if (equip_info.crit > 0) equip_str += '<span style="color:green">+' + equip_info.crit * 100 + '% ' + '</span>'
-      else equip_str += '<span style="color:red">' + equip_info.crit * 100 + '% ' + '</span>'
+      if (equip_info.crit > 0) equip_str += '<span style="color:green">+' + (equip_info.crit * 100).toFixed(0) + '% ' + '</span>'
+      else equip_str += '<span style="color:red">' + (equip_info.crit * 100).toFixed(0) + '% ' + '</span>'
     }
     if (equip_info.critdmg != 0) {
       equip_str += lib_language.critdmg
@@ -440,7 +440,8 @@ function resetEquipment() {
   } else {
     var ID = parseInt(document.getElementById('select_tdoll').value)
     if (set_guntype === 1) {
-      if (ID === 4 || ID === 272) set_equip = [11, 21, 31] // python & desert eagle
+      if (ID === 3) set_equip = [19993, 21, 32] // M9
+      else if (ID === 4 || ID === 272) set_equip = [11, 21, 31] // python & desert eagle
       else if (ID === 7) set_equip = [17, 21, 32] // stechkin
       else if (ID === 10) set_equip = [110, 21, 32] // ppk
       else if (ID === 1001) set_equip = [11001, 21, 32] // colt mod
@@ -476,6 +477,7 @@ function resetEquipment() {
     }
     else if (set_guntype === 3) {
       if (ID === 17) set_equip = [32, 21, 117] // M3
+      else if (ID === 18) set_equip = [32, 21, 118] // MAC-10
       else if (ID === 26 || ID === 1026) set_equip = [326, 21, 11] // mp5
       else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
       else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 32 || ID === 135 || ID === 251 || ID === 136 || ID === 177 || ID === 1032) set_equip = [31, 21, 11] // 输出型
@@ -504,6 +506,7 @@ function resetEquipment() {
     }
     else if (set_guntype === 5) {
       if (ID === 75 || ID === 1075) set_equip = [12, 23, 31075] // m1918
+      else if (ID === 84) set_equip = [12, 21, 384] // RPD
       else if (ID === 88) set_equip = [12, 23, 388] // MG3
       else if (ID === 110) set_equip = [1110, 23, 35] // fg42
       else if (ID === 185) set_equip = [12, 23, 3185] // ameli

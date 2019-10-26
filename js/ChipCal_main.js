@@ -924,15 +924,15 @@ function searchValid(chipShape_6, chipShape_5, HeavyfireType) {
       if (isPossible(chipShape_65, topologyLibRefer_BGM_1[i], 10)) validSet.push(i) // BGM 6x6
     }
     for (var i = 0; i < searchlen[1]; i++) {
-      if (isPossible(chipShape_65, topologyLibRefer_BGM_2[i], 19)) validSet.push(i + searchlen[0]) // BGM 6x5+5
+      if (isPossible(chipShape_65, topologyLibRefer_BGM_2[i], 10 + 9)) validSet.push(i + searchlen[0]) // BGM 6x5+5
     }
   } else if (HeavyfireType === 2) { // AGS-30
     for (var i = 0; i < searchlen[0]; i++) {
-      if (isPossible(chipShape_65, topologyLibRefer_AGS[i], 19)) validSet.push(i)
+      if (isPossible(chipShape_65, topologyLibRefer_AGS[i], 10 + 9)) validSet.push(i)
     }
   } else if (HeavyfireType === 3) { // 2B-14
     for (var i = 0; i < searchlen[0]; i++) {
-      if (isPossible(chipShape_65, topologyLibRefer_2B14[i], 19)) validSet.push(i)
+      if (isPossible(chipShape_65, topologyLibRefer_2B14[i], 10 + 9)) validSet.push(i)
     }
   } else if (HeavyfireType === 4) { // M2
     if (document.getElementById('M2_can_unfill').checked) {
@@ -940,11 +940,11 @@ function searchValid(chipShape_6, chipShape_5, HeavyfireType) {
         if (isPossible(chipShape_65, topologyLibRefer_M2_6x6[i], 10)) validSet.push(i) // M2 6x6
       }
       for (var i = 0; i < searchlen[1]; i++) {
-        if (isPossible(chipShape_65, topologyLibRefer_M2_6x5n5[i], 19)) validSet.push(i + searchlen[0]) // M2 6x5+5
+        if (isPossible(chipShape_65, topologyLibRefer_M2_6x5n5[i], 10 + 9)) validSet.push(i + searchlen[0]) // M2 6x5+5
       }
     } else {
       for (var i = 0; i < searchlen[2]; i++) {
-        if (isPossible(chipShape_65, topologyLibRefer_M2[i], 28)) validSet.push(i) // M2 full with 552
+        if (isPossible(chipShape_65, topologyLibRefer_M2[i], 10 + 9 + 9)) validSet.push(i) // M2 full with 552
       }
     }
   } else if (HeavyfireType === 5) { // AT-4
@@ -953,7 +953,7 @@ function searchValid(chipShape_6, chipShape_5, HeavyfireType) {
     }
   } else if (HeavyfireType === 6) { // QLZ-04
     for (var i = 0; i < searchlen[0]; i++) {
-      if (isPossible(chipShape_65, topologyLibRefer_qlz04[i], 19)) validSet.push(i)
+      if (isPossible(chipShape_65, topologyLibRefer_qlz04[i], 10 + 9)) validSet.push(i)
     }
   }
   return validSet

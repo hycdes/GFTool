@@ -369,6 +369,7 @@ function changeEquip() {
     if (set_guntype === 1) { // HG
       str_items += '<option value=11>[' + lib_language.equipNAME_11 + '] AC4' + lib_language.equipNAME_11 + '</option>'
       str_items += '<option value=41>[' + lib_language.equipNAME_41 + '] PEQ-16A</option>'
+      if (ID === 3) str_items += '<option value=19993>' + lib_language.equipNAME_19993 + '</option>' // M9
       if (ID === 7) str_items += '<option value=17>' + lib_language.equipNAME_17 + '</option>' // 斯捷奇金
       if (ID === 10) str_items += '<option value=110>' + lib_language.equipNAME_110 + '</option>' // ppk
       if (ID === 1001) str_items += '<option value=11001>' + lib_language.equipNAME_11001 + '</option>' // 柯尔特左轮
@@ -517,6 +518,8 @@ function changeEquip() {
       str_items += '<option value=13>[' + lib_language.equipNAME_13 + '] ITI MARS</option>'
       str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'
       str_items += '<option value=41>[' + lib_language.equipNAME_41 + '] PEQ-16A</option>'
+      if (ID === 17) str_items += '<option value=117>' + lib_language.equipNAME_117 + '</option>'
+      if (ID === 18) str_items += '<option value=118>' + lib_language.equipNAME_118 + '</option>'
       if (ID === 1026) str_items += '<option value=11026>' + lib_language.equipNAME_11026 + '</option>'
       if (ID === 1029) str_items += '<option value=11029>' + lib_language.equipNAME_11029 + '</option>'
       if (ID === 1032) str_items += '<option value=11032>MPL M21</option>'
@@ -531,6 +534,7 @@ function changeEquip() {
       if (ID === 2014) str_items += '<option value=32014>' + lib_language.equipNAME_32014 + '</option>'
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=35>' + lib_language.equipNAME_35 + '</option>'
+      if (ID === 84) str_items += '<option value=384>' + lib_language.equipNAME_384 + '</option>'
       if (ID === 88) str_items += '<option value=388>' + lib_language.equipNAME_388 + '</option>' // MG3
       if (ID === 185) str_items += '<option value=3185>' + lib_language.equipNAME_3185 + '</option>' // 阿梅利
       if (ID === 75 || ID === 1075) str_items += '<option value=31075>' + lib_language.equipNAME_31075 + '</option>'
