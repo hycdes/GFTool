@@ -202,11 +202,10 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         if (Set_Special.get('m1911_' + stand_num) > 0) _para_dmg *= 2
     }
     else if (is_this(stand_num, 1039)) { // Mosin Nagant MOD
-        if (Set_Special.get('mosin_bufftime_' + stand_num) >= global_frame) _para_dmg *= 1.2
-        if (Set_Special.get('mosin_' + stand_num) <= 1) { // can refresh buff
-            Set_Special.set('mosin_bufftime_' + stand_num, global_frame + 89)
-            Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_numneed_' + stand_num))
-        } else Set_Special.set('mosin_' + stand_num, Set_Special.get('mosin_' + stand_num) - 1)
+        if (document.getElementById('special_1039_3_' + stand_num).checked) {
+            if (_spG('mosin_bufftime_' + stand_num) >= global_frame) _para_dmg *= 1.2
+            _spS('mosin_bufftime_' + stand_num, global_frame + 90)
+        }
     }
     else if (is_this(stand_num, 1075)) { // M1918 MOD
         if (_pro('cs', info_self) - Set_Special.get('clipsize_' + stand_num) < 3) _para_dmg *= 1.4

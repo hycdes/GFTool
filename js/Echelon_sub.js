@@ -460,8 +460,6 @@ function init_loadPrepareStatus() { // 初始化战前属性
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         Set_Special.set('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动
-        Set_Special.set('mosin_numneed_' + i, parseInt(document.getElementById('special_mosin_attackkill_' + (i + 1)).value))
-        Set_Special.set('mosin_' + i, Set_Special.get('mosin_numneed_' + i))
         Set_Special.set('mosin_bufftime_' + i, 0)
       } else if (is_this(i, 1093)) { // IDW电光大狂欢初始3层
         changeStatus(i, 'self', 'dmg', '0.2', 2)
@@ -506,7 +504,7 @@ function init_loadPrepareStatus() { // 初始化战前属性
       for (var v_skill of list_tdoll[i][1].Skill) {
         list_Skill.push([v_skill, Math.ceil(30 * ((v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))]) // 载入技能表
       }
-      if (is_this(i, 1065)) {
+      if (is_this(i, 1065)) { // HK416 MOD
         var s1 = createSkill(6, 16, 0, lib_describe.get('grenade_19.5')),
           s2 = createSkill(6, 16, 0, lib_describe.get('hk416_dot')),
           s3 = createSkill(6, 16, 0, lib_describe.get('hk416_fragile'))
@@ -514,6 +512,15 @@ function init_loadPrepareStatus() { // 初始化战前属性
         else {
           list_Skill.push([s2, Math.ceil(30 * (6 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
           list_Skill.push([s3, Math.ceil(30 * (6 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        }
+      }
+      if (is_this(i, 1039)) {
+        var s1 = createSkill(10, 16, 0, lib_describe.get('snipe_6.5')), // full-energy
+          s2 = createSkill(5, 11, 0, lib_describe.get('snipe_3'))
+        if (document.getElementById('special_1039_1_' + i).checked) {
+          list_Skill.push([s1, Math.ceil(30 * (10 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        } else {
+          list_Skill.push([s2, Math.ceil(30 * (5 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
         }
       }
       if (is_this(i, 2014)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Stella普攻在技能后

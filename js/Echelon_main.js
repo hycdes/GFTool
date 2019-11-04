@@ -902,7 +902,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     var list_value = []
     for (var i = 0; i < len_list_target; i++) {
       if (list_target[i].substr(0, 3) === 'blo') { // 影响格上
-        if (is_this(stand_num, 1064) && list_target[i] === 'bloall') { // 如果是G36MOD发动的弧光契约
+        if (is_this(stand_num, 1064) && list_target[i] === 'bloall') { // G36MOD发动的弧光契约
           var num_at_blo = get_g36_standblo(stand_num)
           for (var nb = 0; nb < num_at_blo; nb++) changeStatus(stand_num, 'self', 'rof', '0.1', 5)
         }
@@ -1052,7 +1052,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'snipe') { // 狙击
-    if (is_this(stand_num, 1039) && document.getElementById('special_mosin_' + (stand_num + 1)).checked) {
+    if (is_this(stand_num, 1039) && !document.getElementById('special_1039_0_' + stand_num).checked) {
       // snipe disabled, do nothing
     } else {
       var ratio = (s_t[0].Describe).ratio
@@ -1875,7 +1875,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     recordData(stand_num, current_time, 0)
     recordData(stand_num, current_time, damage_snipe_single)
-    if (is_this(stand_num, 1039) && document.getElementById('special_mosin_skillkill_' + (stand_num + 1)).checked) { // 苍白收割者：沉稳射击击杀目标
+    if (is_this(stand_num, 1039) && document.getElementById('special_1039_2_' + stand_num).checked) { // 苍白收割者：沉稳射击击杀目标
       changeStatus(stand_num, 'self', 'rof', '0.3', 5)
     }
     if (is_this(stand_num, 2009)) { // 克莉尔：再接再厉

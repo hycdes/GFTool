@@ -479,6 +479,7 @@ lib_describe.set('rofN_90', describe_propertyN(['self'], ['rof'], ['0.9'])) // �
 lib_describe.set('rofND_30', describe_propertyND(['self'], ['rof'], ['0.3'])) // 突击专注ND 30%
 lib_describe.set('rofN_85', describe_propertyN(['self'], ['rof'], ['0.85'])) // 突击专注N 85%
 lib_describe.set('rofND_28', describe_propertyND(['self'], ['rof'], ['0.28'])) // 突击专注ND 28%
+lib_describe.set('rof_15', describe_property(['self'], ['rof'], ['0.15'])) // 凛冽斗志 15%
 lib_describe.set('acu_500', describe_property(['self'], ['acu'], ['5'])) // 精确专注 500%
 lib_describe.set('acu_70', describe_property(['self'], ['acu'], ['0.7'])) // 猎杀冲动 70%
 lib_describe.set('acu_65', describe_property(['self'], ['acu'], ['0.65'])) // 猎杀冲动 65%
@@ -495,7 +496,6 @@ lib_describe.set('eva_110', describe_property(['self'], ['eva'], ['1.1'])) // �
 lib_describe.set('eva_70', describe_property(['self'], ['eva'], ['0.7'])) // 心智威慑 70%
 lib_describe.set('eva_45', describe_property(['self'], ['eva'], ['0.45'])) // 掩护专注 45%
 lib_describe.set('eva_40', describe_property(['self'], ['eva'], ['0.4'])) // 掩护专注 40%
-lib_describe.set('rof_15', describe_property(['self'], ['rof'], ['0.15'])) // 凛冽斗志 15%
 lib_describe.set('cz2000_N', describe_propertyN(['self'], ['acu/rof'], ['0.4/0.5'])) // 黎明气焰-N
 lib_describe.set('cz2000_ND', describe_propertyND(['self'], ['dmg/crit'], ['0.65/0.25'])) // 黎明气焰-ND
 lib_describe.set('a91_N', describe_propertyN(['self'], ['dmg/acu'], ['0.5/0.5'])) // A91杀伤榴弹N-属性加成
@@ -584,13 +584,14 @@ lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
 lib_describe.set('snipe_7', describe_snipe(7, 2, 0, 1, 'armless/critless/evaless')) // 7倍炮狙
-lib_describe.set('snipe_6.5', describe_snipe(6.5, 1.5, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
+lib_describe.set('snipe_6.5', describe_snipe(6.5, 1, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
 lib_describe.set('snipe_6.5_2', describe_snipe(6.5, 2, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙，2秒瞄准
 lib_describe.set('snipe_7.08', describe_snipe(7.08, 1.5, 0, 1, 'armless/critless/evaless')) // 7.08倍炮狙，sv-98 mod狙击近似化处理
 lib_describe.set('snipe_6', describe_snipe(6, 1.5, 0, 1, 'armless/critless/evaless')) // 6倍炮狙
 lib_describe.set('snipe_5.5', describe_snipe(5.5, 1.5, 0, 1, 'armless/critless/evaless')) // 5.5倍炮狙
 lib_describe.set('snipe_5', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 5倍炮狙
 lib_describe.set('snipe_4', describe_snipe(4, 1.5, 0, 1, 'armless/critless/evaless')) // 4倍炮狙：震荡冲击弹
+lib_describe.set('snipe_3', describe_snipe(3, 1, 0, 1, 'armless/critless/evaless')) // 3倍炮狙
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
 lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击2倍，目标数特殊变量设定
 lib_describe.set('pzb39', describe_snipe(1.8, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击1.8倍
@@ -998,7 +999,7 @@ lib_skill.set(266, [
   createSkill(6, 8, 5, lib_describe.get('r93')),
   createSkill(6, 8, 5, lib_describe.get('dmg_40'))
 ]) // 叠加射速特殊判断
-lib_skill.set(1039, [createSkill(10, 16, 0, lib_describe.get('snipe_6.5'))])
+lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])
 lib_skill.set(39, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])
