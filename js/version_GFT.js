@@ -4,5 +4,5 @@ var _version = {
   ES: 'v4.4.0 (2019.10.22)'
 }
 var _updateinfo = {
-  ES: '1. debug K2<br>2. add exclusive equipments in forward basecamp'
+  ES: '1. debug K2<br>2. add exclusive equipments in forward basecamp<br>3. debug Theresa skill'
 }

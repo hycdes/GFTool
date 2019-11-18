@@ -1136,7 +1136,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'theresa') {
-    if (document.getElementById('special_theresa_' + stand_num).checked) {
+    if (document.getElementById('special_2006_' + stand_num).checked) {
       Set_Special.set('fragile_100', global_frame + 150)
       fragile_main *= 2
       fragile_all *= 2
