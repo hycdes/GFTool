@@ -614,15 +614,15 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         // 必中，不可暴击，护甲减免的直击
         dmg_direct = this_formation(stand_num) * Math.max(1, Math.ceil(6 * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
         // 能闪避，可暴击，护甲减免的溅射
-        for (var i = 0; i < enemy_num - 1; i++) {
+        for (var i = 0; i < enemy_num_left; i++) {
           if (Math.random() <= current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) { // 命中
             var final_crit = 1
             if (Math.random() + current_Info.get('crit') >= 1) final_crit *= current_Info.get('critdmg')
-            dmg_aoe += this_formation(stand_num) * final_crit * (enemy_num - 1) * Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+            dmg_aoe += this_formation(stand_num) * final_crit * Math.max(1, Math.ceil(current_Info.get('dmg') * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
           }
         }
         dmg_direct = Math.ceil(dmg_direct * explain_fgl_ff('single'))
-        dmg_aoe = Math.ceil(dmg_aoe * explain_fgl_ff('around_multiple'))
+        dmg_aoe = Math.ceil(dmg_aoe * explain_fgl_ff('attack_all'))
         final_dmg = dmg_direct + dmg_aoe
         recordData(stand_num, current_time, final_dmg)
       }
@@ -1181,14 +1181,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   }
   else if (skillname === '64howa') { // 未来预警
     Set_Special.set('64howa_' + stand_num, current_time + 149)
-    if (enemy_num > 5) {
+    if (enemy_num_left > 5) {
       changeStatus(stand_num, 'self', 'rof', '0.8', 3)
       changeStatus(stand_num, 'self', 'acu', '0.8', 3)
     } else changeStatus(stand_num, 'self', 'dmg', '0.9', 3)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'js9') {
-    var num_dmg = 4 - enemy_num, num_eva = enemy_num - 1
+    var num_dmg = 4 - enemy_num_left, num_eva = enemy_num_left - 1
     if (num_dmg < 0) num_dmg = 0
     if (num_eva > 6) num_eva = 6
     for (var n = 0; n < num_dmg; n++) changeStatus(stand_num, 'self', 'dmg', '0.5', 5)
@@ -2248,6 +2248,10 @@ function explain_fgl_ff(damage_type) {
   if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
   else if (display_type === 'suffer' && enemy_forcefield_2 > 0) ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
   if (damage_type === 'single') return fragile_main * ff_ratio
+  else if (damage_type === 'attack_all') {
+    if (aoe_num <= enemy_num_left) return fragile_all * ff_ratio * aoe_num
+    else fragile_all * ff_ratio * enemy_num_left
+  }
   else if (damage_type === 'around_single') return fragile_all * ff_ratio
   else if (damage_type === 'around_multiple') return fragile_all * ff_ratio * (aoe_num - 1)
   else if (damage_type === 'aoe') {

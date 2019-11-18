@@ -4,7 +4,7 @@
 
 var HeavyfireType = 1
 var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
-var switch_clear = false, switch_maxall = false, switch_blueall = false, switch_orangeall = false
+var switch_clear = false, switch_blueall = false, switch_orangeall = false
 var filter_switch = false, filter_switch_finalpick = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -111,14 +111,12 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
   if (chipNum > 0) {
     document.getElementById('SaveButton').disabled = false
     document.getElementById('clearChipButton').disabled = false
-    document.getElementById('maxAllButton').disabled = false
     document.getElementById('blueAllButton').disabled = false
     document.getElementById('orangeAllButton').disabled = false
   } else {
     document.getElementById('SaveButton').disabled = true
     document.getElementById('deleteChipButton').disabled = true
     document.getElementById('clearChipButton').disabled = true
-    document.getElementById('maxAllButton').disabled = true
     document.getElementById('blueAllButton').disabled = true
     document.getElementById('orangeAllButton').disabled = true
   }
@@ -126,63 +124,54 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
 function maxAllChip() {
   switch_blueall = false
   switch_orangeall = false
-  if (switch_maxall === false) {
-    switch_maxall = true
-    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang.btn_maxall
-  } else {
-    switch_maxall = false
-    document.getElementById('alert_maxall').innerHTML = ''
-    var ChipRepoChartId = document.getElementById('ChipRepoChart')
-    ChipRepoChartId.innerHTML = ''
-    for (var c = 0; c < chipNum; c++) {
-      if (chipRepo_data[c].levelNum < 20) {
-        chipRepo_data[c].levelNum = 20
-        chipRepo_chart[c].chipLevel = '+20'
-        if (chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'b' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'd' ||
-          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + '|' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'C' ||
-          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'Z' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'Z-' ||
-          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'V' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'L' ||
-          chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'L-') {
-          chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 0.92 * 7.1))
-          chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 0.92 * 5.7))
-          chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 0.92 * 4.4))
-          chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 0.92 * 12.7))
-        } else {
-          chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1))
-          chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7))
-          chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 4.4))
-          chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
-        }
+  for (var c = 0; c < chipNum; c++) {
+    if (chipRepo_data[c].levelNum < 20) {
+      chipRepo_data[c].levelNum = 20
+      chipRepo_chart[c].chipLevel = '+20'
+      if (chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'b' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'd' ||
+        chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + '|' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'C' ||
+        chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'Z' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'Z-' ||
+        chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'V' || chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'L' ||
+        chipRepo_chart[c].chipType === lib_lang.blo_5 + ' ' + lib_lang.shape + 'L-') {
+        chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 0.92 * 7.1))
+        chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 0.92 * 5.7))
+        chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 0.92 * 4.4))
+        chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 0.92 * 12.7))
+      } else {
+        chipRepo_chart[c].Acu = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bAcu * 7.1))
+        chipRepo_chart[c].Fil = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bFil * 5.7))
+        chipRepo_chart[c].Dmg = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDmg * 4.4))
+        chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
       }
     }
-    for (var c = 0; c < chipNum; c++) {
-      var colorName
-      if (chipRepo_data[c].color === 1) colorName = 'b'
-      else colorName = 'o'
-      var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[c].classNum + '-' + chipRepo_data[c].typeNum + '.png">'
-      var ChartAdd = ''
-      ChartAdd += '<tr>'
-      ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].chipNum + '</td>'
-      ChartAdd += '<td style="width:22%">' + htmlString + ' ' + chipRepo_chart[c].chipType + '</td>'
-      ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].chipLevel + '</td>'
-      ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Acu + '</td>'
-      ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Fil + '</td>'
-      ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Dmg + '</td>'
-      ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Dbk + '</td>'
-      ChartAdd += '</tr>'
-      ChipRepoChartId.innerHTML += ChartAdd
-    }
+    //ui alert
+    // var ChipRepoChartId = document.getElementById('ChipRepoChart')
+    // ChipRepoChartId.innerHTML = ''
+    // for (var c = 0; c < chipNum; c++) {
+    //   var colorName
+    //   if (chipRepo_data[c].color === 1) colorName = 'b'
+    //   else colorName = 'o'
+    //   var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[c].classNum + '-' + chipRepo_data[c].typeNum + '.png">'
+    //   var ChartAdd = ''
+    //   ChartAdd += '<tr>'
+    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].chipNum + '</td>'
+    //   ChartAdd += '<td style="width:22%">' + htmlString + ' ' + chipRepo_chart[c].chipType + '</td>'
+    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].chipLevel + '</td>'
+    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Acu + '</td>'
+    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Fil + '</td>'
+    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Dmg + '</td>'
+    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Dbk + '</td>'
+    //   ChartAdd += '</tr>'
+    //   ChipRepoChartId.innerHTML += ChartAdd
+    // }
   }
 }
 function blueAllChip() {
-  switch_maxall = false
   switch_orangeall = false
   if (switch_blueall === false) {
     switch_blueall = true
-    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang.btn_blueall
   } else {
     switch_blueall = false
-    document.getElementById('alert_maxall').innerHTML = ''
     var mark_orange = [], code = ''
     for (var i = 0; i < chipNum; i++) { // stat orange idx
       if (chipRepo_data[i].color === 2) mark_orange.push(i)
@@ -192,14 +181,11 @@ function blueAllChip() {
   }
 }
 function orangeAllChip() {
-  switch_maxall = false
   switch_blueall = false
   if (switch_orangeall === false) {
     switch_orangeall = true
-    document.getElementById('alert_maxall').innerHTML = ' * ' + lib_lang.btn_orangeall
   } else {
     switch_orangeall = false
-    document.getElementById('alert_maxall').innerHTML = ''
     var mark_blue = [], code = ''
     for (var i = 0; i < chipNum; i++) { // stat blue idx
       if (chipRepo_data[i].color === 1) mark_blue.push(i)
@@ -324,14 +310,12 @@ function repo_addChart(chipData) {
   if (chipNum > 0) {
     document.getElementById('SaveButton').disabled = false
     document.getElementById('clearChipButton').disabled = false
-    document.getElementById('maxAllButton').disabled = false
     document.getElementById('blueAllButton').disabled = false
     document.getElementById('orangeAllButton').disabled = false
   } else {
     document.getElementById('SaveButton').disabled = true
     document.getElementById('deleteChipButton').disabled = true
     document.getElementById('clearChipButton').disabled = true
-    document.getElementById('maxAllButton').disabled = true
     document.getElementById('blueAllButton').disabled = true
     document.getElementById('orangeAllButton').disabled = true
   }
@@ -714,6 +698,8 @@ function refresh_displayUI() {
   document.getElementById('SortInfo').innerHTML = ''
 }
 function getTopology() {
+  // max all
+  maxAllChip()
   // img init
   refresh_displayUI()
   // calculate
