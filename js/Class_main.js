@@ -1,4 +1,4 @@
-function create_entry (info_name, info_taglist0, info_taglist1, info_taglist2, info_taglist3) {
+function create_entry(info_name, info_taglist0, info_taglist1, info_taglist2, info_taglist3) {
   var entry = {}
   entry.type = info_name[0]
   entry.star = info_name[1]
@@ -16,43 +16,43 @@ var pick_tag = [
 ]
 // ====================人形添加：修改lib_name和lib_tdoll====================
 var lib_name = {
-  t2001: '诺艾尔',t2003: '琪亚娜',t2006: '德丽莎',t2009: '克莉尔',t2010: '菲尔',t2017: '吉尔·斯汀雷',t2018: '塞伊·朝雾',
+  t2001: '诺艾尔', t2003: '琪亚娜', t2006: '德丽莎', t2009: '克莉尔', t2010: '菲尔', t2017: '吉尔·斯汀雷', t2018: '塞伊·朝雾',
   t1001: '柯尔特左轮 MOD',
-  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15',
+  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰',
   t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1091: 'MP-446 MOD',
-  t1: '柯尔特左轮', t7: '斯捷奇金',t98: 'SPP-1',t99: 'Mk23',t100: 'P7',t168: 'SpitFire',t202: '雷电',t212: 'K5',t248: '杰里科',
-  t3: 'M9',t14: '阿斯特拉左轮',t132: '59式',
-  t5: '纳甘左轮',t10: 'PPK',
+  t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科',
+  t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
+  t5: '纳甘左轮', t10: 'PPK',
 
   t2007: '无量塔姬子',
-  t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD',t1060: 'AS Val MOD', t1064: 'G36 MOD',
+  t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
   t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t215: 'MDR', t236: 'K11', t243: '64式自',
-  t1061: 'StG44 MOD',t1063: 'G3 MOD',
-  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36',t66: '56-1式',t69: 'FAMAS',t72: 'TAR-21',t118: '9A-91',t171: '利贝罗勒',t187: 'Ak 5',t207: 'CZ2000',t216: 'XM8',t227: 'A-91',t237: 'SAR-21',t262: 'EM-2',
+  t1061: 'StG44 MOD', t1063: 'G3 MOD',
+  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2',
   t70: 'FNC',
 
   t2019: '多萝西·海兹',
   t1103: 'UMP45 MOD',
   t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9',
-  t1029: '司登MkⅡ MOD',t1093: 'IDW MOD',t1094: '64式 MOD',
-  t23: 'PP-90',t26: 'MP5',t101: 'UMP9',t102: 'UMP40',t103: 'UMP45',t136: 'PP-19',t137: 'PP-19-01',t150: '希普卡',t177: 'KLIN',t203: '蜜獾',t225: 'Cx4 风暴',
-  t27: '蝎式',t29: '司登MkⅡ',
+  t1029: '司登MkⅡ MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
+  t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴',
+  t27: '蝎式', t29: '司登MkⅡ',
 
   t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井',
   t1039: '莫辛-纳甘 MOD',
-  t46: 'Kar98K',t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99',t148: 'IWS2000', t179: 'DSR-50',t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38',t204: '芭莉斯塔', t211: 'SRS',t222: 'TAC-50',t231: 'M82A1',t257: 'M200',t261: 'QBU-88', t266: 'R93',
-  t1037: 'M14 MOD',t1044: 'SV-98 MOD',t1051: 'FN-49 MOD',
-  t36: '春田',t39: '莫辛-纳甘',t42: 'PTRD',t43: 'SVD',t117: 'PSG-1',t146: 'G28',t180: 'PzB39',t184: 'T-5000',t200: 'XM3',t226: 'Mk12',t235: 'SPR A3G',t247: 'K31',t252: 'KSVK',
-  t37: 'M14',t256: '隼',
+  t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93',
+  t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD',
+  t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t273: 'SSG3000',
+  t37: 'M14', t256: '隼',
 
   t2021: '阿尔玛·阿玛斯',
-  t1075: 'M1918 MOD',t1089: '布伦 MOD',
+  t1075: 'M1918 MOD', t1089: '布伦 MOD',
   t109: 'MG5', t112: '内格夫', t125: 'MG4', t173: 'PKP', t208: 'HK21', t238: '88式', t253: '刘易斯', t263: 'MG36',
   t1081: 'LWMMG MOD',
-  t75: 'M1918',t78: 'M60',t85: 'PK',t88: 'MG3',t121: 'Mk48',t149: 'AEK-999',t185: '阿梅利',t199: '80式',t240: 'Mk46',t254: 'UKM2000',t264: '绍沙',
+  t75: 'M1918', t78: 'M60', t85: 'PK', t88: 'MG3', t121: 'Mk48', t149: 'AEK-999', t185: '阿梅利', t199: '80式', t240: 'Mk46', t254: 'UKM2000', t264: '绍沙',
   t77: 'M2HB',
 
-  t2002: '艾尔菲尔特',t2008: '希儿',t2022: '达娜·赞恩',
+  t2002: '艾尔菲尔特', t2008: '希儿', t2022: '达娜·赞恩',
   t151: 'M1887', t157: 'KSG', t160: 'Saiga-12', t163: 'AA-12', t164: 'FP-6', t188: 'S.A.T.8', t229: 'M870',
   t153: 'M37', t155: 'M590', t156: 'Super-Shorty', t161: '97式霰', t162: 'SPAS-12', t165: 'M1014', t189: 'USAS-12',
   t159: 'RMB-93'
@@ -78,6 +78,7 @@ var lib_tdoll = [
   create_entry([1, 5, 242], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_eva', 'shield'], []),
   create_entry([1, 5, 250], ['supportdps', 'supportdfs', 'af_rof', 'af_eva'], ['random'], ['command_dmg', 'shield'], []),
   create_entry([1, 5, 260], ['dps', 'supportdps', 'supportdfs', 'af_rof', 'af_acu'], ['random'], ['snipe', 'dizz'], []),
+  create_entry([1, 5, 272], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['random'], ['forcus_rof', 'deepdmg'], []),
   create_entry([1, 4, 1002], ['dps', 'supportdfs', 'af_rof', 'af_acu'], ['back', 'random'], ['fastcd', 'sweep', 'rofstatic', 'smoke'], []),
   create_entry([1, 4, 1005], ['supportdps', 'supportdfs', 'startdps', 'af_dmg', 'af_crit'], ['random'], ['command_dmg', 'command_acu', 'weak_dmg'], ['night']),
   create_entry([1, 4, 1091], ['supportdps', 'supportdfs', 'af_dmg'], ['random'], ['command_rof', 'weak_rof'], []),
@@ -119,7 +120,7 @@ var lib_tdoll = [
   create_entry([2, 5, 206], ['dps', 'af_dmg'], ['front', 'suggest_7'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], []),
   create_entry([2, 5, 215], ['dps', 'supportdfs', 'af_dmg'], ['front'], ['forcus_dmg', 'shield'], []),
   create_entry([2, 5, 236], ['dps'], ['front'], ['grenade'], []),
-  create_entry([2, 5, 243], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu'], []),
+  create_entry([2, 5, 243], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'shield'], []),
   create_entry([2, 4, 1061], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 1063], ['dps'], ['front'], ['grenade', 'dizz'], []),
   create_entry([2, 4, 54], ['tank_eva', 'tank_arm'], ['front'], ['dizz'], ['laomo']),
@@ -176,27 +177,27 @@ var lib_tdoll = [
   create_entry([3, 3, 27], ['dps', 'tank_eva'], ['random'], ['incendinary'], ['mengxin']),
   create_entry([3, 3, 29], ['tank_eva'], ['random'], ['handgrenade'], ['mengxin']),
 
-  create_entry([4, 1, 2004], ['dps'], ['back' ], ['ap', 'dizz'], []),
-  create_entry([4, 1, 2005], ['dps'], ['back' ], ['ap'], ['cluster']),
-  create_entry([4, 1, 2020], ['dps'], ['back' ], ['forcus_dmg', 'forcus_critdmg', 'ap', 'passive', 'multihit', 'multitarget'], []),
-  create_entry([4, 5, 1039], ['dps'], ['back' ], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
-  create_entry([4, 5, 46], ['dps'], ['back' ], ['ap', 'snipe'], []),
-  create_entry([4, 5, 48], ['dps'], ['back' ], ['forcus_rof', 'ap'], []),
+  create_entry([4, 1, 2004], ['dps'], ['back'], ['ap', 'dizz'], []),
+  create_entry([4, 1, 2005], ['dps'], ['back'], ['ap'], ['cluster']),
+  create_entry([4, 1, 2020], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap', 'passive', 'multihit', 'multitarget'], []),
+  create_entry([4, 5, 1039], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
+  create_entry([4, 5, 46], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 5, 48], ['dps'], ['back'], ['forcus_rof', 'ap'], []),
   create_entry([4, 5, 50], ['dps'], ['back'], ['forcus_dmg', 'ap'], []),
-  create_entry([4, 5, 53], ['dps'], ['back' ], ['ap', 'snipe'], []),
-  create_entry([4, 5, 128], ['dps'], ['back' ], ['ap', 'snipe'], []),
-  create_entry([4, 5, 148], ['dps'], ['back' ], ['forcus_dmg', 'ap'], []),
-  create_entry([4, 5, 179], ['dps'], ['back' ], ['ap', 'snipe'], []),
-  create_entry([4, 5, 192], ['dps'], ['back' ], ['ap', 'snipe'], []),
-  create_entry([4, 5, 197], ['dps', 'supportdps'], ['back' ], ['forcus_rof', 'forcus_crit', 'command_rof', 'command_crit', 'ap'], []),
-  create_entry([4, 5, 198], ['dps'], ['back' ], ['ap', 'fastcd', 'snipe'], ['normalkiller']),
-  create_entry([4, 5, 204], ['dps'], ['back' ], ['ap', 'passive', 'multihit', 'multitarget'], []),
-  create_entry([4, 5, 211], ['dps'], ['back' ], ['forcus_dmg', 'forcus_acu', 'ap'], []),
-  create_entry([4, 5, 222], ['dps'], ['back' ], ['ap', 'snipe'], ['skillcrit']),
-  create_entry([4, 5, 231], ['dps'], ['back' ], ['ap', 'fastcd', 'snipe'], ['stronger']),
-  create_entry([4, 5, 257], ['dps'], ['back' ], ['ap', 'passive', 'snipe'], ['skillcrit', 'skillarm']),
-  create_entry([4, 5, 261], ['dps'], ['back' ], ['ap', 'passive', 'snipe'], []),
-  create_entry([4, 5, 266], ['dps'], ['back' ], ['forcus_dmg', 'forcus_rof', 'ap', 'passive'], []),
+  create_entry([4, 5, 53], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 5, 128], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 5, 148], ['dps'], ['back'], ['forcus_dmg', 'ap'], []),
+  create_entry([4, 5, 179], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 5, 192], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 5, 197], ['dps', 'supportdps'], ['back'], ['forcus_rof', 'forcus_crit', 'command_rof', 'command_crit', 'ap'], []),
+  create_entry([4, 5, 198], ['dps'], ['back'], ['ap', 'fastcd', 'snipe'], ['normalkiller']),
+  create_entry([4, 5, 204], ['dps'], ['back'], ['ap', 'passive', 'multihit', 'multitarget'], []),
+  create_entry([4, 5, 211], ['dps'], ['back'], ['forcus_dmg', 'forcus_acu', 'ap'], []),
+  create_entry([4, 5, 222], ['dps'], ['back'], ['ap', 'snipe'], ['skillcrit']),
+  create_entry([4, 5, 231], ['dps'], ['back'], ['ap', 'fastcd', 'snipe'], ['stronger']),
+  create_entry([4, 5, 257], ['dps'], ['back'], ['forcus_dmg', 'max_acu', 'weak_dmg', 'ap', 'passive', 'rofstatic'], []),
+  create_entry([4, 5, 261], ['dps'], ['back'], ['ap', 'passive', 'snipe'], []),
+  create_entry([4, 5, 266], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'passive'], []),
   create_entry([4, 4, 1037], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap'], []),
   create_entry([4, 4, 1044], ['dps'], ['back'], ['forcus_rof', 'forcus_acu', 'ap', 'snipe'], []),
   create_entry([4, 4, 1051], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap'], []),
@@ -213,32 +214,33 @@ var lib_tdoll = [
   create_entry([4, 4, 235], ['dps'], ['back'], ['forcus_rof', 'ap', 'snipe'], []),
   create_entry([4, 4, 247], ['dps'], ['back'], ['forcus_rof', 'ap'], []),
   create_entry([4, 4, 252], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 4, 273], ['dps'], ['back'], ['forcus_dmg', 'max_acu', 'weak_dmg', 'ap', 'rofstatic'], []),
   create_entry([4, 3, 37], ['dps'], ['back'], ['forcus_dmg', 'ap'], ['mengxin']),
   create_entry([4, 3, 256], ['dps'], ['back'], ['forcus_dmg', 'forcus_acu', 'ap', 'fastcd', 'passive', 'snipe'], ['skillcrit']),
 
   create_entry([5, 1, 2021], ['dps', 'supportdfs', 'af_arm'], ['random'], ['forcus_dmg', 'ap', 'multihit', 'multitarget'], []),
-  create_entry([5, 5, 1075], ['dps'], ['random' ], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
-  create_entry([5, 5, 109], ['dps'], ['random' ], ['ap', 'passive'], []),
-  create_entry([5, 5, 112], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random' ], ['forcus_dmg', 'ap', 'passive'], []),
-  create_entry([5, 5, 125], ['dps', 'supportdfs', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_addcs', 'ap'], []),
-  create_entry([5, 5, 173], ['dps'], ['random' ], ['ap', 'passive'], []),
-  create_entry([5, 5, 208], ['dps', 'supportdfs', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'ap', 'sweep'], []),
+  create_entry([5, 5, 1075], ['dps'], ['random'], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
+  create_entry([5, 5, 109], ['dps'], ['random'], ['ap', 'passive'], []),
+  create_entry([5, 5, 112], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random'], ['forcus_dmg', 'ap', 'passive'], []),
+  create_entry([5, 5, 125], ['dps', 'supportdfs', 'af_arm'], ['random'], ['forcus_dmg', 'forcus_addcs', 'ap'], []),
+  create_entry([5, 5, 173], ['dps'], ['random'], ['ap', 'passive'], []),
+  create_entry([5, 5, 208], ['dps', 'supportdfs', 'af_arm'], ['random'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'ap', 'sweep'], []),
   create_entry([5, 5, 238], ['dps', 'supportdfs', 'af_arm'], ['random', 'suggest_7'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'ap', 'status'], []),
-  create_entry([5, 5, 253], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
-  create_entry([5, 5, 263], ['dps', 'supportdps'], ['random' ], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'forcus_fastcs', 'ap', 'reducehurt'], []),
-  create_entry([5, 4, 1081], ['dps'], ['random' ], ['forcus_acu', 'max_crit', 'ap', 'shield'], []),
-  create_entry([5, 4, 1089], ['dps'], ['random' ], ['forcus_acu', 'forcus_addcs', 'ap'], []),
-  create_entry([5, 4, 75], ['dps'], ['random' ], ['forcus_dmg', 'ap'], []),
-  create_entry([5, 4, 78], ['dps'], ['random' ], ['forcus_dmg', 'ap'], ['night']),
-  create_entry([5, 4, 85], ['dps'], ['random' ], ['ap', 'passive'], []),
-  create_entry([5, 4, 88], ['dps'], ['random' ], ['forcus_dmg', 'forcus_addcs', 'ap'], []),
-  create_entry([5, 4, 121], ['dps'], ['random' ], ['forcus_acu', 'max_crit', 'ap'], []),
-  create_entry([5, 4, 149], ['dps'], ['random' ], ['forcus_acu', 'max_crit', 'ap'], ['night']),
-  create_entry([5, 4, 185], ['dps', 'supportdfs', 'af_arm'], ['random' ], ['forcus_dmg', 'forcus_addcs', 'ap'], ['night']),
-  create_entry([5, 4, 199], ['dps'], ['random' ], ['forcus_dmg', 'ap'], []),
-  create_entry([5, 4, 240], ['dps'], ['random' ], ['forcus_dmg', 'forcus_acu', 'ap'], []),
-  create_entry([5, 4, 254], ['dps'], ['random' ], ['forcus_acu', 'forcus_addcs', 'ap'], ['night']),
-  create_entry([5, 4, 264], ['dps'], ['random' ], [ 'forcus_fastcs', 'ap', 'passive'], []),
+  create_entry([5, 5, 253], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random'], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
+  create_entry([5, 5, 263], ['dps', 'supportdps'], ['random'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'forcus_fastcs', 'ap', 'reducehurt'], []),
+  create_entry([5, 4, 1081], ['dps'], ['random'], ['forcus_acu', 'max_crit', 'ap', 'shield'], []),
+  create_entry([5, 4, 1089], ['dps'], ['random'], ['forcus_acu', 'forcus_addcs', 'ap'], []),
+  create_entry([5, 4, 75], ['dps'], ['random'], ['forcus_dmg', 'ap'], []),
+  create_entry([5, 4, 78], ['dps'], ['random'], ['forcus_dmg', 'ap'], ['night']),
+  create_entry([5, 4, 85], ['dps'], ['random'], ['ap', 'passive'], []),
+  create_entry([5, 4, 88], ['dps'], ['random'], ['forcus_dmg', 'forcus_addcs', 'ap'], []),
+  create_entry([5, 4, 121], ['dps'], ['random'], ['forcus_acu', 'max_crit', 'ap'], []),
+  create_entry([5, 4, 149], ['dps'], ['random'], ['forcus_acu', 'max_crit', 'ap'], ['night']),
+  create_entry([5, 4, 185], ['dps', 'supportdfs', 'af_arm'], ['random'], ['forcus_dmg', 'forcus_addcs', 'ap'], ['night']),
+  create_entry([5, 4, 199], ['dps'], ['random'], ['forcus_dmg', 'ap'], []),
+  create_entry([5, 4, 240], ['dps'], ['random'], ['forcus_dmg', 'forcus_acu', 'ap'], []),
+  create_entry([5, 4, 254], ['dps'], ['random'], ['forcus_acu', 'forcus_addcs', 'ap'], ['night']),
+  create_entry([5, 4, 264], ['dps'], ['random'], ['forcus_fastcs', 'ap', 'passive'], []),
   create_entry([5, 3, 77], ['dps'], ['random'], ['ap', 'passive'], []),
 
   create_entry([6, 1, 2002], ['dps', 'tank_arm'], ['random'], ['grenade'], ['skillcrit']),
@@ -256,18 +258,18 @@ var lib_tdoll = [
 var lib_tag = [
   [['dps', 'supportdps', 'supportdfs', 'tank_eva', 'tank_arm']
     , ['startdps', 'skilldps', 'longfill', 'longdps'],
-    ['af_dmg', 'af_rof', 'af_acu', 'af_eva', 'af_arm', 'af_crit']
+  ['af_dmg', 'af_rof', 'af_acu', 'af_eva', 'af_arm', 'af_crit']
   ],
 
   [['front', 'back', 'random', 'lowhp'],
-    ['suggest_2', 'suggest_3', 'suggest_7']
+  ['suggest_2', 'suggest_3', 'suggest_7']
   ],
 
   [['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_eva', 'forcus_arm', 'forcus_crit', 'forcus_critdmg', 'forcus_addcs', 'forcus_fastcs', 'max_acu', 'max_crit'],
-    ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg'],
-    ['weak_dmg', 'weak_rof', 'weak_acu', 'weak_eva', 'deepdmg'],
-    ['ap', 'fastcd', 'passive', 'multihit', 'multitarget', 'sweep', 'beakback', 'rofstatic'],
-    ['smoke', 'handgrenade', 'incendinary', 'grenade', 'snipe', 'dizz', 'ffshield', 'shield', 'reducehurt', 'status']],
+  ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg'],
+  ['weak_dmg', 'weak_rof', 'weak_acu', 'weak_eva', 'deepdmg'],
+  ['ap', 'fastcd', 'passive', 'multihit', 'multitarget', 'sweep', 'beakback', 'rofstatic'],
+  ['smoke', 'handgrenade', 'incendinary', 'grenade', 'snipe', 'dizz', 'ffshield', 'shield', 'reducehurt', 'status']],
 
   [['night', 'mengxin', 'laomo', 'skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'illusion', 'stronger', 'stun', 'cluster']]
 ]
@@ -494,13 +496,13 @@ special_weight.set('tank_arm', 4)
 
 // 函数
 
-function find_tdoll (id) {
+function find_tdoll(id) {
   var len = lib_tdoll.length
   for (var i = 0; i < len; i++) {
     if (lib_tdoll[i].id === id) return lib_tdoll[i]
   }
 }
-function generate_map () {
+function generate_map() {
   for (var tdoll of lib_tdoll) {
     for (var i = 0; i < 4; i++) {
       for (var tag of tdoll.tag[i]) {
@@ -509,7 +511,7 @@ function generate_map () {
     }
   }
 }
-function make_starstr (num) {
+function make_starstr(num) {
   var str = ''
   if (num === 5) str += '<span style="color:darkorange">'
   else if (num === 4) str += '<span style="color:chartreuse">'
@@ -520,19 +522,19 @@ function make_starstr (num) {
   str += '</span>'
   return str
 }
-function make_color (num) {
+function make_color(num) {
   if (num === 0) return 'primary'
   if (num === 1) return 'success'
   if (num === 2) return 'warning'
   if (num === 3) return 'danger'
 }
-function is_exist (taglist, tag) {
+function is_exist(taglist, tag) {
   for (var element of taglist) {
     if (tag === element) return true
   }
   return false
 }
-function fill_tag () { // 按标签，按钮名btn_tag_0_support
+function fill_tag() { // 按标签，按钮名btn_tag_0_support
   var str_btn = ''
   for (var i = 0; i < 4; i++) {
     var len = lib_tag[i].length
@@ -547,7 +549,7 @@ function fill_tag () { // 按标签，按钮名btn_tag_0_support
     }
   }
 }
-function fill_tag_tdoll () { // 按人形搜索，按钮名btn_tdoll_233
+function fill_tag_tdoll() { // 按人形搜索，按钮名btn_tdoll_233
   var str_pid = '', str_btn = '', str_tdoll = ''
   for (var entry of lib_tdoll) {
     str_tdoll = '<img src="../img/class/' + entry.id + '.png" style="width:37px;height:37px"> '
@@ -559,14 +561,14 @@ function fill_tag_tdoll () { // 按人形搜索，按钮名btn_tdoll_233
     document.getElementById(str_pid).innerHTML += str_btn
   }
 }
-function empty_taglist (tag_type) {
+function empty_taglist(tag_type) {
   for (var currenttag of pick_tag[tag_type]) {
     document.getElementById('btn_tag_' + tag_type + '_' + currenttag).className = 'btn btn-default'
   }
   pick_tag[tag_type] = []
   change_tag(tag_type)
 }
-function jump_tag (tag_type, tag) {
+function jump_tag(tag_type, tag) {
   document.getElementById('sort_tdoll').className = 'tab-pane fade'
   document.getElementById('sort_tag').className = 'tab-pane fade in active'
   document.getElementById('sort_tdoll_li').className = ''
@@ -579,7 +581,7 @@ function jump_tag (tag_type, tag) {
   pick_tag = [[], [], [], []]
   change_tag(tag_type, tag)
 }
-function change_tag (tag_type) { // 改变标签，按钮名btn_tag_0_TAGNAME
+function change_tag(tag_type) { // 改变标签，按钮名btn_tag_0_TAGNAME
   if (arguments['1'] != undefined) {
     var tag = arguments['1']
     var is_tag = true
@@ -600,7 +602,7 @@ function change_tag (tag_type) { // 改变标签，按钮名btn_tag_0_TAGNAME
   }
   classify_by_tag()
 }
-function classify_by_tag () {
+function classify_by_tag() {
   var str_btn_display = ''
   var num_type = -1
   var str_alert = ''
@@ -671,14 +673,14 @@ function classify_by_tag () {
   }
   document.getElementById('result_1_alert').innerHTML = str_alert
 }
-function jump_tdoll (id) {
+function jump_tdoll(id) {
   document.getElementById('sort_tdoll').className = 'tab-pane fade in active'
   document.getElementById('sort_tag').className = 'tab-pane fade'
   document.getElementById('sort_tdoll_li').className = 'active'
   document.getElementById('sort_tag_li').className = ''
   classify_by_tdoll(id)
 }
-function classify_by_tdoll (id) {
+function classify_by_tdoll(id) {
   var str_btn = '', str_pickname = ''
   var tdoll = find_tdoll(id)
   str_pickname = '<img src="../img/class/' + id + '.png" style="width:37px;height:37px"> '
@@ -696,13 +698,13 @@ function classify_by_tdoll (id) {
   document.getElementById('result_2').innerHTML = str_btn
   find_similar(id)
 }
-function find_weight (level) {
+function find_weight(level) {
   if (level === 0) return 100
   else if (level === 1) return 100
   else if (level === 2) return 110 // skill
   else if (level === 3) return 200 // special characteristic
 }
-function find_relatedpara (list1, list2) {
+function find_relatedpara(list1, list2) {
   var relativity = 0
   var list_relation = [ // 相关性标签
     [['rofstatic', 'forcus_rof'], 1], // 固定射速=突击专注
@@ -715,13 +717,13 @@ function find_relatedpara (list1, list2) {
   }
   return relativity
 }
-function find_samepara (tag1, tag2) { // weight determination
+function find_samepara(tag1, tag2) { // weight determination
   if (tag1 === tag2) { // equal
     if (special_weight.get(tag1) != undefined) return special_weight.get(tag1)
     else return 1
   } else return 0
 }
-function find_decline (tag1, tag2, id1, id2) { // 特殊处理
+function find_decline(tag1, tag2, id1, id2) { // 特殊处理
   var decline = 1
   var list_decline = [ // 衰退规则
     [184, ['forcus_rof'], [0.8]], // t5000
@@ -733,6 +735,7 @@ function find_decline (tag1, tag2, id1, id2) { // 特殊处理
     [235, ['forcus_rof'], [0.2]], // SPR
     [256, ['forcus_dmg', 'forcus_acu', 'snipe'], [0.5, 0.5, 0.4]], // falcon
     [266, ['forcus_dmg', 'forcus_rof'], [0.8, 0.5]], // R93
+    [272, ['deepdmg'], [0.25]], // DE
     [1001, ['forcus_rof'], [0.8]], // colt
     [1039, ['forcus_dmg', 'forcus_rof'], [0.7, 0.4]], // mosin
     [1044, ['forcus_rof', 'forcus_acu'], [0.2, 0.2]], // sv98
@@ -743,14 +746,14 @@ function find_decline (tag1, tag2, id1, id2) { // 特殊处理
   for (var decline_pair of list_decline) {
     if (is_someone_equaltag(tag1, tag2, id1, id2, decline_pair[0])) {
       var num_tag = decline_pair[1].length
-      for (var t = 0; t < num_tag;t++) {
+      for (var t = 0; t < num_tag; t++) {
         if (tag1 === decline_pair[1][t]) decline *= decline_pair[2][t]
       }
     }
   }
   return decline
 }
-function find_sametag (list1, list2, id1, id2, weight) { // decline here
+function find_sametag(list1, list2, id1, id2, weight) { // decline here
   var sim = 0, decline = 1
   for (var tag1 of list1) {
     for (var tag2 of list2) {
@@ -761,7 +764,7 @@ function find_sametag (list1, list2, id1, id2, weight) { // decline here
   sim += weight * find_relatedpara(list1, list2) // related tag
   return Math.ceil(sim)
 }
-function find_similar (ID) {
+function find_similar(ID) {
   var sim = 0
   var simlist = []
   var this_tdoll = find_tdoll(ID)
@@ -814,7 +817,7 @@ window.onload = function () {
   fill_tag_tdoll()
   generate_map()
 }
-function find_favor (type, taglist) {
+function find_favor(type, taglist) {
   var favor = [[], [], [], [], []] // five-dimision means type
   // type-duality
   if (type === 1 || type === 4) favor[4].push(1)
@@ -830,7 +833,7 @@ function find_favor (type, taglist) {
   }
   return favor
 }
-function find_partner (ID) {
+function find_partner(ID) {
   var par = 0
   var parlist = []
   var this_tdoll = find_tdoll(ID)
@@ -840,13 +843,13 @@ function find_partner (ID) {
   var favor = find_favor(this_taglist)
   // what kind of skill she have?
 
-// calculate co-supporting parameter
+  // calculate co-supporting parameter
 }
 
 // 基础语义函数
 
-function comp_sim (pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // 相似对比较
-function is_related_pair (list1, list2, tag1, tag2) { // 是否是相关tag
+function comp_sim(pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // 相似对比较
+function is_related_pair(list1, list2, tag1, tag2) { // 是否是相关tag
   var loop_tag = [tag1, tag2]
   var loop_list = [list1, list2]
   var is_in = [false, false, false, false]
@@ -863,16 +866,16 @@ function is_related_pair (list1, list2, tag1, tag2) { // 是否是相关tag
   if ((is_in[0] && !is_in[1] && !is_in[2] && is_in[3]) || (!is_in[0] && is_in[1] && is_in[2] && !is_in[3])) return true
   else return false
 }
-function is_self (id1, id2) { // 是否是自己，包括改造
+function is_self(id1, id2) { // 是否是自己，包括改造
   if (id1 === id2) return true
   else if (id1 + 1000 === id2 && id1 < 1000) return true
   else if (id1 - 1000 === id2 && id1 > 1000) return true
   else return false
 }
-function is_someone_equaltag (tag1, tag2, id1, id2, special_id) { // 两人是否有同样的某个标签
+function is_someone_equaltag(tag1, tag2, id1, id2, special_id) { // 两人是否有同样的某个标签
   return (id1 === special_id || id2 === special_id) && (tag1 === tag2)
 }
-function is_tag_in (tag, taglist) { // tag是否在taglist中
+function is_tag_in(tag, taglist) { // tag是否在taglist中
   for (var in_tag of taglist) {
     if (tag === in_tag) return true
   }
