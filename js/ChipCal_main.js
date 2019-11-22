@@ -5,7 +5,7 @@
 var HeavyfireType = 1
 var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
 var switch_clear = false, switch_blueall = false, switch_orangeall = false
-var filter_switch = false, filter_switch_finalpick = false
+var filter_switch = true, filter_switch_finalpick = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
@@ -19,6 +19,28 @@ var global_refresher
 var ignore_setting = new Map
 var readorder = ['dmg', 'dbk', 'acu', 'fil',
   'dmgblo', 'dbkblo', 'acublo', 'filblo']
+var list_density = [[4.4, 12.7, 7.1, 5.7], [4.048, 11.684, 6.532, 5.244]]
+var chipDataSet = []
+
+function create_data(typeNum, bDmg, bDbk, bAcu, bFil) { // chip data for calculate
+  var den_num = 0
+  if (typeNum === 81 || typeNum === 82 || typeNum === 9 || typeNum === 10 || typeNum === 111 || typeNum === 112 || typeNum === 120 || typeNum === 131 || typeNum === 132) den_num = 1
+  var cdata = {
+    _dmg: Math.ceil(Math.ceil(bDmg * list_density[den_num][0]) * 2.5),
+    _dbk: Math.ceil(Math.ceil(bDbk * list_density[den_num][1]) * 2.5),
+    _acu: Math.ceil(Math.ceil(bAcu * list_density[den_num][2]) * 2.5),
+    _fil: Math.ceil(Math.ceil(bFil * list_density[den_num][3]) * 2.5),
+    b_dmg: bDmg,
+    b_dbk: bDbk,
+    b_acu: bAcu,
+    b_fil: bFil
+  }
+  return cdata
+}
+function create_dataset() {
+  chipDataSet = [] // init empty
+  for (var entry of chipRepo_data) chipDataSet.push(create_data(entry.typeNum, entry.bDmg, entry.bDbk, entry.bAcu, entry.bFil))
+}
 
 function creatChip(chipNum, chipColor, chipClass, chipType, chipLevel, blockAcu, blockFil, blockDmg, blockDbk, Den_Level) {
   var chipData = {}
@@ -144,26 +166,6 @@ function maxAllChip() {
         chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
       }
     }
-    //ui alert
-    // var ChipRepoChartId = document.getElementById('ChipRepoChart')
-    // ChipRepoChartId.innerHTML = ''
-    // for (var c = 0; c < chipNum; c++) {
-    //   var colorName
-    //   if (chipRepo_data[c].color === 1) colorName = 'b'
-    //   else colorName = 'o'
-    //   var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[c].classNum + '-' + chipRepo_data[c].typeNum + '.png">'
-    //   var ChartAdd = ''
-    //   ChartAdd += '<tr>'
-    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].chipNum + '</td>'
-    //   ChartAdd += '<td style="width:22%">' + htmlString + ' ' + chipRepo_chart[c].chipType + '</td>'
-    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].chipLevel + '</td>'
-    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Acu + '</td>'
-    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Fil + '</td>'
-    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Dmg + '</td>'
-    //   ChartAdd += '<td style="width:13%">' + chipRepo_chart[c].Dbk + '</td>'
-    //   ChartAdd += '</tr>'
-    //   ChipRepoChartId.innerHTML += ChartAdd
-    // }
   }
 }
 function blueAllChip() {
@@ -702,10 +704,13 @@ function getTopology() {
   maxAllChip()
   // img init
   refresh_displayUI()
+  // data init
+  create_dataset()
+  console.log(chipDataSet)
   // calculate
   globaltime[0] = 0
   global_workdone = false
-  filter_switch_finalpick = false // 当所有组合都筛选完才能进进入总筛选
+  filter_switch_finalpick = false // 当所有组合都筛选完才能进入总筛选
   global_process = 0
   topologySet = [], solutionSet = []
   var validSet,
