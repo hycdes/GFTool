@@ -726,6 +726,7 @@ lib_property_equip.set(166, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.44, 0, 0
 lib_property_equip.set(165, createProperty_equip(8, 14, 0, 0, 0, 0.25, 0, 0, 0, 0)) // hk416-scope
 lib_property_equip.set(169, createProperty_equip(4, 4, 0, 0, 0, 0.48, 0, 0, 0, 0)) // famas
 lib_property_equip.set(174, createProperty_equip(9, 4, 0, 0, 0, 0.5, 0, 0, 0, 0)) // sig-50
+lib_property_equip.set(372, createProperty_equip(3, 0, 20, 3, 0, 0, 0, 0, 0, 0)) // tar-21
 lib_property_equip.set(384, createProperty_equip(6, 0, 0, -2, 0, 0, 0, 5, 0, 0)) // RPD
 lib_property_equip.set(1110, createProperty_equip(0, 32, 0, -1, 0, 0.24, 0, 0, 0, 0)) // fg42
 lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0)) // mg4

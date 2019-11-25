@@ -492,6 +492,7 @@ function changeEquip() {
         str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
         str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
         if (ID === 62) str_items += '<option value=362>' + lib_language.equipNAME_362 + '</option>' // G41
+        if (ID === 72) str_items += '<option value=372>' + lib_language.equipNAME_372 + '</option>' // tar-21
         if (ID === 1055) str_items += '<option value=31055>' + lib_language.equipNAME_31055 + '</option>' // M4A1 mod
         if (ID === 1065) str_items += '<option value=31065>' + lib_language.equipNAME_31065 + '</option>' // HK16 MOD
       } else if (ID === 54 || ID === 3054) { // M16A1

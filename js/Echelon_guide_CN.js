@@ -192,6 +192,7 @@ lib_language = {
   equipNAME_384: 'RPD单兵装具',
   equipNAME_118: 'MAX10上机匣',
   equipNAME_19993: 'M9 BC2握把',
+  equipNAME_372: '战术耳机',
 
   skillNAME_39: '沉稳射击',
   skillNAME_39_2: '苍白收割者',

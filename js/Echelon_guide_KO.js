@@ -192,6 +192,7 @@ lib_language = {
   equipNAME_384: 'RPD单兵装具',
   equipNAME_118: 'MAX10上机匣',
   equipNAME_19993: 'M9 BC2握把',
+  equipNAME_372: 'Tactical Earphone',
 
   skillNAME_39: '저격개시',
   skillNAME_39_2: '하얀 사신',
