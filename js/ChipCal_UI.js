@@ -218,6 +218,19 @@ function allIgnore(typeInfo) {
   ignore_readinfo()
   ignore_UI()
 }
+function manage_repobutton() {
+  if (chipNum > 0) {
+    document.getElementById('SaveButton').disabled = false
+    document.getElementById('clearChipButton').disabled = false
+    document.getElementById('blueAllButton').disabled = false
+    document.getElementById('orangeAllButton').disabled = false
+  } else {
+    document.getElementById('SaveButton').disabled = true
+    document.getElementById('clearChipButton').disabled = true
+    document.getElementById('blueAllButton').disabled = true
+    document.getElementById('orangeAllButton').disabled = true
+  }
+}
 function manageButton() {
   var AdLv = document.getElementById('AdLv')
   var SbLv = document.getElementById('SbLv')

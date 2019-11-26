@@ -4,14 +4,15 @@
 
 var HeavyfireType = 1
 var globaltime = [0, 0, 0, 0]; // global timer, for test and all result counting
-var switch_clear = false, switch_blueall = false, switch_orangeall = false
+var switch_clear = false
 var filter_switch = true, filter_switch_finalpick = false
 var topologySet = [], solutionSet = [], topologyNum = 0
 var topology_noresult = [56041, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 var buffer_topo = [], buffer_solu = [], buffer_num = 10 // for buffer result for ranking
 var rules = ['InfinityFrost', 'FatalChapters']
 var color = 1, block_dmg = 0, block_dbk = 0, block_acu = 0, block_fil = 0, mul_property = 1, block_class = 56, block_shape = 9
-var chipNum = 0
+var chipNum = 0 // total chipnum
+var deleteNum = -1 // delete num
 var chipRepo_data = [], chipRepo_chart = []; // Chip data; Repository information that display at repository-table
 var analyze_switch = 1, ranking_switch = 1; // show_percentage[1=validProperty,-1=validBlocknum] rank_result_by[1~6]
 var global_workdone = false, global_process = 0, global_totalwork = 0, allCombi = 0
@@ -67,19 +68,17 @@ function creatRepo(chipNum, chipType, chipLevel, Acu, Fil, Dmg, Dbk) {
   repoData.Dbk = Dbk
   return repoData
 }
-function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空
+function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某个，3=清空，4=保留蓝色，5=保留橙色
   var ChipRepoChartId = document.getElementById('ChipRepoChart')
-  var DeleteSelectId = document.getElementById('DeleteSelect')
   switch (typeInfo) {
-    case 1:
+    case 1: // add
       chipNum++
       var ChipLevel = document.getElementById('ChipLevel').value
       var newChipData = creatChip(chipNum, color, block_class, block_shape, parseInt(ChipLevel), block_acu, block_fil, block_dmg, block_dbk, 1)
       chipRepo_data.push(newChipData)
       repo_addChart(newChipData)
       break
-    case 2:
-      var deleteNum = parseInt(document.getElementById('DeleteSelect').value)
+    case 2: // delete one
       for (var i = 0; i < chipNum; i++) {
         if (i + 1 > deleteNum) {
           chipRepo_data[i].chipNum--
@@ -90,7 +89,6 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
       chipRepo_chart.splice(deleteNum - 1, 1)
       chipNum--
       ChipRepoChartId.innerHTML = '' // CLEAR chart
-      deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
       for (var i = 0; i < chipNum; i++) {
         var ChartAdd = ''
         var colorName
@@ -98,7 +96,7 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
         else colorName = 'o'
         var htmlString = '<img src="../img/chip/' + colorName + '_' + chipRepo_data[i].classNum + '-' + chipRepo_data[i].typeNum + '.png">'
         ChartAdd += '<tr>'
-        ChartAdd += '<td style="width:13%">' + chipRepo_chart[i].chipNum + '</td>'
+        ChartAdd += '<td style="width:13%">' + '<button type="button" style="padding:2px;width:20px;height:25px" class="btn btn-danger" onclick="repo_deleteChart(' + chipRepo_chart[i].chipNum + ')">x</button> ' + chipRepo_chart[i].chipNum + '</td>'
         ChartAdd += '<td style="width:22%">' + htmlString + ' ' + chipRepo_chart[i].chipType + '</td>'
         ChartAdd += '<td style="width:13%">' + chipRepo_chart[i].chipLevel + '</td>'
         ChartAdd += '<td style="width:13%">' + chipRepo_chart[i].Acu + '</td>'
@@ -107,14 +105,9 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
         ChartAdd += '<td style="width:13%">' + chipRepo_chart[i].Dbk + '</td>'
         ChartAdd += '</tr>'
         ChipRepoChartId.innerHTML += ChartAdd
-        deleteSelectHTML.push(('<option value=' + chipRepo_chart[i].chipNum) + ('>' + chipRepo_chart[i].chipNum) + '</option>')
       }
-      var selectText = ''
-      for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i]
-      DeleteSelectId.innerHTML = selectText
-      document.getElementById('deleteChipButton').disabled = true
       break
-    case 3:
+    case 3: // clear all
       if (switch_clear === false) {
         switch_clear = true
         document.getElementById('alert_clear').innerHTML = ' * ' + lib_lang.btn_clear
@@ -125,27 +118,28 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
         chipRepo_chart = []
         chipNum = 0
         ChipRepoChartId.innerHTML = '' // CLEAR chart
-        deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
-        DeleteSelectId.innerHTML = deleteSelectHTML[0]
         break
       }
+    case 4:
+      var mark_orange = [], code = ''
+      for (var i = 0; i < chipNum; i++) { // stat orange idx
+        if (chipRepo_data[i].color === 2) mark_orange.push(i)
+      }
+      code = createSaveCode()
+      loadSaveCode(code, mark_orange)
+      break
+    case 5:
+      var mark_blue = [], code = ''
+      for (var i = 0; i < chipNum; i++) { // stat blue idx
+        if (chipRepo_data[i].color === 1) mark_blue.push(i)
+      }
+      code = createSaveCode()
+      loadSaveCode(code, mark_blue)
+      break
   }
-  if (chipNum > 0) {
-    document.getElementById('SaveButton').disabled = false
-    document.getElementById('clearChipButton').disabled = false
-    document.getElementById('blueAllButton').disabled = false
-    document.getElementById('orangeAllButton').disabled = false
-  } else {
-    document.getElementById('SaveButton').disabled = true
-    document.getElementById('deleteChipButton').disabled = true
-    document.getElementById('clearChipButton').disabled = true
-    document.getElementById('blueAllButton').disabled = true
-    document.getElementById('orangeAllButton').disabled = true
-  }
+  manage_repobutton()
 }
 function maxAllChip() {
-  switch_blueall = false
-  switch_orangeall = false
   for (var c = 0; c < chipNum; c++) {
     if (chipRepo_data[c].levelNum < 20) {
       chipRepo_data[c].levelNum = 20
@@ -166,34 +160,6 @@ function maxAllChip() {
         chipRepo_chart[c].Dbk = Math.ceil(2.5 * Math.ceil(chipRepo_data[c].bDbk * 12.7))
       }
     }
-  }
-}
-function blueAllChip() {
-  switch_orangeall = false
-  if (switch_blueall === false) {
-    switch_blueall = true
-  } else {
-    switch_blueall = false
-    var mark_orange = [], code = ''
-    for (var i = 0; i < chipNum; i++) { // stat orange idx
-      if (chipRepo_data[i].color === 2) mark_orange.push(i)
-    }
-    code = createSaveCode()
-    loadSaveCode(code, mark_orange)
-  }
-}
-function orangeAllChip() {
-  switch_blueall = false
-  if (switch_orangeall === false) {
-    switch_orangeall = true
-  } else {
-    switch_orangeall = false
-    var mark_blue = [], code = ''
-    for (var i = 0; i < chipNum; i++) { // stat blue idx
-      if (chipRepo_data[i].color === 1) mark_blue.push(i)
-    }
-    code = createSaveCode()
-    loadSaveCode(code, mark_blue)
   }
 }
 function changeTopology(actionId) {
@@ -289,13 +255,12 @@ function repo_addChart(chipData) {
   chipRepo_chart.push(newRepo)
   // Add chart entry
   var ChipRepoChartId = document.getElementById('ChipRepoChart')
-  var DeleteSelectId = document.getElementById('DeleteSelect')
   var colorName = 'b'
   if (chipData.color === 2) colorName = 'o'
   var htmlString = '<img src="../img/chip/' + colorName + '_' + chipData.classNum + '-' + chipData.typeNum + '.png">'
   var ChartAdd = ''
   ChartAdd += '<tr>'
-  ChartAdd += '<td style="width:13%">' + chipData.chipNum + '</td>'
+  ChartAdd += '<td style="width:13%">' + '<button type="button" style="padding:2px;width:20px;height:25px" class="btn btn-danger" onclick="repo_deleteChart(' + chipData.chipNum + ')">x</button> ' + chipData.chipNum + '</td>'
   ChartAdd += '<td style="width:22%">' + htmlString + ' ' + newRepo.chipType + '</td>'
   ChartAdd += '<td style="width:13%">' + newRepo.chipLevel + '</td>'
   ChartAdd += '<td style="width:13%">' + newRepo.Acu + '</td>'
@@ -304,11 +269,7 @@ function repo_addChart(chipData) {
   ChartAdd += '<td style="width:13%">' + newRepo.Dbk + '</td>'
   ChartAdd += '</tr>'
   ChipRepoChartId.innerHTML += ChartAdd
-  // Add delete-chip-selection
-  deleteSelectHTML.push(('<option value=' + chipNum) + ('>' + chipNum) + '</option>')
-  var selectText = ''
-  for (var i = 0; i < deleteSelectHTML.length; i++) selectText += deleteSelectHTML[i]
-  DeleteSelectId.innerHTML = selectText
+  // button update
   if (chipNum > 0) {
     document.getElementById('SaveButton').disabled = false
     document.getElementById('clearChipButton').disabled = false
@@ -316,12 +277,16 @@ function repo_addChart(chipData) {
     document.getElementById('orangeAllButton').disabled = false
   } else {
     document.getElementById('SaveButton').disabled = true
-    document.getElementById('deleteChipButton').disabled = true
     document.getElementById('clearChipButton').disabled = true
     document.getElementById('blueAllButton').disabled = true
     document.getElementById('orangeAllButton').disabled = true
   }
 }
+function repo_deleteChart(chipID) {
+  deleteNum = chipID
+  changeRepo(2)
+}
+
 function simpleCheck(LoadCode) { // 简单检查存储码
   if (LoadCode[0] != '[' || LoadCode[LoadCode.length - 1] != ']') return false
   var rule1 = LoadCode[1], rule2 = LoadCode[LoadCode.length - 2]
@@ -365,7 +330,7 @@ function loadSaveCode() { // load save
     chipNum = 0
     chipRepo_chart = [], chipRepo_data = []
     document.getElementById('ChipRepoChart').innerHTML = ''
-    chipRepo_chart = []; chipRepo_data = []; deleteSelectHTML = ['<option value=0 selected>' + lib_lang.sele_selenum + '</option>']
+    chipRepo_chart = []; chipRepo_data = [];
     resetPage()
     var scan = 3, elementNum = 0, tempStr = '', disable_count = 0
     var chipEntry = []
@@ -396,11 +361,6 @@ function loadSaveCode() { // load save
     LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_loaderror + '</span>'
   }
   resetPage()
-}
-function manageDeleteButton() {
-  var DeleteSelectId = document.getElementById('DeleteSelect')
-  if (parseInt(DeleteSelectId.value) > 0) document.getElementById('deleteChipButton').disabled = false
-  else document.getElementById('deleteChipButton').disabled = true
 }
 function changeProperty(command) { // for change color/chipClass/chipShape
   if (command === 'color_b') { // color=blue
