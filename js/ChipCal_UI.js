@@ -219,11 +219,24 @@ function allIgnore(typeInfo) {
   ignore_UI()
 }
 function manage_repobutton() {
+  var have_blue = false, have_orange = false
   if (chipNum > 0) {
+    for (var i = 0; i < chipNum; i++) {
+      if (chipRepo_data[i].color === 1) {
+        have_blue = true
+        break
+      }
+    }
+    for (var i = 0; i < chipNum; i++) {
+      if (chipRepo_data[i].color === 2) {
+        have_orange = true
+        break
+      }
+    }
     document.getElementById('SaveButton').disabled = false
     document.getElementById('clearChipButton').disabled = false
-    document.getElementById('blueAllButton').disabled = false
-    document.getElementById('orangeAllButton').disabled = false
+    document.getElementById('blueAllButton').disabled = !have_blue
+    document.getElementById('orangeAllButton').disabled = !have_orange
   } else {
     document.getElementById('SaveButton').disabled = true
     document.getElementById('clearChipButton').disabled = true

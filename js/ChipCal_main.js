@@ -118,9 +118,9 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
         chipRepo_chart = []
         chipNum = 0
         ChipRepoChartId.innerHTML = '' // CLEAR chart
-        break
       }
-    case 4:
+      break
+    case 4: // blue all
       var mark_orange = [], code = ''
       for (var i = 0; i < chipNum; i++) { // stat orange idx
         if (chipRepo_data[i].color === 2) mark_orange.push(i)
@@ -128,7 +128,7 @@ function changeRepo(typeInfo) { // 刷新仓库显示，1=添加，2=删除某�
       code = createSaveCode()
       loadSaveCode(code, mark_orange)
       break
-    case 5:
+    case 5: // orange all
       var mark_blue = [], code = ''
       for (var i = 0; i < chipNum; i++) { // stat blue idx
         if (chipRepo_data[i].color === 1) mark_blue.push(i)
@@ -361,6 +361,7 @@ function loadSaveCode() { // load save
     LoadAlertId.innerHTML = '<span style="color:#FF0066">&nbsp&nbsp* ' + lib_lang.btn_loaderror + '</span>'
   }
   resetPage()
+  manage_repobutton()
 }
 function changeProperty(command) { // for change color/chipClass/chipShape
   if (command === 'color_b') { // color=blue
