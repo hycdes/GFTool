@@ -326,10 +326,14 @@ lib_affect.set(273, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // SSG3000
 lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65])) // SSG3000
 lib_affect.set(275, createAffect('rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
 lib_affect.set(276, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
+lib_affect.set(281, createAffect('ll/lld/', 'mg', ['dmg', 'acu'], [0.18, 0.12])) // CAWS
+lib_affect.set(282, createAffect('ll/llu/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // DP-12
+lib_affect.set(283, createAffect('ll/lldd/', 'mg', ['dmg', 'acu'], [0.1, 0.25])) // 解放者
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
 lib_affect.set(1005, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.36, 0.2])) // 纳甘左轮改
+lib_affect.set(1007, createAffect('u/ur/d/dr/', 'all', ['dmg', 'rof'], [0.16, 0.24])) // 斯捷奇金改
 lib_affect.set(1026, createAffect('lu/ld/', 'ar/rf', ['acu', 'crit'], [0.45, 0.2])) // MP5改
 lib_affect.set(1029, createAffect('lu/l/ld/', 'ar', ['acu', 'eva'], [0.3, 0.4])) // 司登MkⅡ改
 lib_affect.set(1032, createAffect('u/l/d/', 'ar', ['dmg', 'acu'], [0.18, 0.15])) // UZI改
@@ -645,11 +649,15 @@ lib_property.set(273, createProperty(126, 77, 30, 37, 0, 440, 0.4, -1)) // SSG30
 lib_property.set(274, createProperty(54, 54, 48, 77, 0, 580, 0.3, -1)) // ACR
 lib_property.set(275, createProperty(90, 26, 23, 131, 0, 950, 0.05, 10)) // M1895 CB
 lib_property.set(276, createProperty(109, 22, 21, 110, 0, 990, 0.05, 9)) // kord
+lib_property.set(281, createProperty(30, 12, 13, 35, 23, 1235, 0.4, 5)) // CAWS
+lib_property.set(282, createProperty(31, 13, 13, 30, 23, 1265, 0.4, 5)) // DP-12
+lib_property.set(283, createProperty(36, 12, 15, 30, 21, 1155, 0.4, 4)) // 解放者
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
 lib_property.set(1002, createProperty(29, 52, 78, 58, 0, 375, 0.2, -1))
 lib_property.set(1005, createProperty(35, 48, 100, 45, 0, 360, 0.2, -1))
+lib_property.set(1007, createProperty(32, 51, 69, 66, 0, 425, 0.2, -1)) // stechkin
 lib_property.set(1026, createProperty(32, 14, 71, 90, 0, 905, 0.05, -1)) // MP5 MOD
 lib_property.set(1029, createProperty(29, 17, 79, 86, 0, 975, 0.05, -1))
 lib_property.set(1032, createProperty(26, 13, 83, 104, 0, 885, 0.05, -1)) // UZI
@@ -764,6 +772,7 @@ lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0, 0))
 lib_property_equip.set(388, createProperty_equip(-25, -10, -2, 0, 0, 0, 0, 30, 0, 0)) // mg3
 lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0, 0)) // UMP series
 lib_property_equip.set(3185, createProperty_equip(8, -3, 0, 0, 0, 0, 0, 6, 0, 0)) // ameli
+lib_property_equip.set(31007, createProperty_equip(0, 0, 20, 0, 0, 0.2, 0, 0, 0, 0)) // stechkin
 lib_property_equip.set(31039, createProperty_equip(30, 0, 5, 0, 0, 0, 0.3, 0, 0, 0)) // mosin
 lib_property_equip.set(31044, createProperty_equip(6, 0, 0, 0, 0, 0, 0.25, 0, 0, 0)) // sv98 mod
 lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0))
@@ -810,7 +819,10 @@ lib_fairy.set(18, createFairy(lib_language.fairyNAME_18, 'dmg/critdmg/acu/eva/ar
 lib_fairy.set(19, createFairy(lib_language.fairyNAME_19, 'dmg/critdmg/acu/eva/arm', '0.1/0.1/0.2/0.8/0.2'))
 lib_fairy.set(20, createFairy(lib_language.fairyNAME_20, 'dmg/acu/eva/arm', '0.32/0.75/0.32/0.08'))
 lib_fairy.set(21, createFairy(lib_language.fairyNAME_21, 'dmg/critdmg/eva/arm', '0.25/0.25/0.2/0.2'))
-lib_fairy.set(23, createFairy('连击妖精', 'dmg/critdmg/acu', '0.3/0.15/0.85'))
+lib_fairy.set(22, createFairy(lib_language.fairyNAME_22, 'dmg/critdmg/eva', '0.32/0.32/0.4'))
+lib_fairy.set(23, createFairy(lib_language.fairyNAME_23, 'dmg/critdmg/acu', '0.3/0.15/0.85'))
+lib_fairy.set(24, createFairy(lib_language.fairyNAME_24, 'acu/eva/arm', '0.72/0.32/0.22'))
+lib_fairy.set(25, createFairy(lib_language.fairyNAME_25, 'dmg/acu/eva/arm', '0.18/0.6/0.48/0.12'))
 
 // unique t-doll
 lib_unique.set(4, 'can_add_python') // python

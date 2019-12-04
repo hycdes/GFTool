@@ -108,6 +108,7 @@ lib_language = {
   NAME_264: 'Chaucha',
   NAME_270: 'Type 4',
   NAME_272: 'Desert Eagle',
+  NAME_283: 'Liberator',
   NAME_2001: '노엘',
   NAME_2002: '엘펠트',
   NAME_2003: '키아나',
@@ -193,6 +194,7 @@ lib_language = {
   equipNAME_118: 'MAX10上机匣',
   equipNAME_19993: 'M9 BC2握把',
   equipNAME_372: 'Tactical Earphone',
+  equipNAME_31007: '战术闪电呆毛',
 
   skillNAME_39: '저격개시',
   skillNAME_39_2: '하얀 사신',
@@ -311,6 +313,10 @@ lib_language = {
   fairyDESCRIBE_19_5: '…화상(화력-0%)',
   fairyNAME_20: '폭죽요정',
   fairyNAME_21: '도깨비요정',
+  fairyNAME_22: '海滩妖精',
+  fairyNAME_23: '连击妖精',
+  fairyNAME_24: '立盾妖精',
+  fairyNAME_25: '双生妖精',
 
   fairyskillstr: '스킬 ',
   fairy_skillNAME_0: '없는',
@@ -335,6 +341,10 @@ lib_language = {
   fairy_skillNAME_19: '긴급배식',
   fairy_skillNAME_20: '늦여름 폭죽',
   fairy_skillNAME_21: '귀신 쫓기',
+  fairy_skillNAME_22: '懈怠浪潮',
+  fairy_skillNAME_23: '连携奥义',
+  fairy_skillNAME_24: '护甲加固',
+  fairy_skillNAME_25: '双倍守护',
 
   hfNAME_0: 'BGM-71',
   hfNAME_1: 'AGS-30',

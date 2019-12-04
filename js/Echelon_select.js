@@ -19,6 +19,7 @@ function changeSelectItems() {
       str_items += '<option value=260>No.260 PA-15</option>'
       str_items += '<option value=272>No.272 ' + lib_language.NAME_272 + '</option>'
       str_items += '<option value=1001>No.1 [MOD] ' + lib_language.NAME_1 + '</option>'
+      str_items += '<option value=1007>No.7 [MOD] ' + lib_language.NAME_7 + '</option>'
       str_items += '<option value=2001>No.EX1 ' + lib_language.NAME_2001 + '</option>'
       str_items += '<option value=2003>No.EX3 ' + lib_language.NAME_2003 + '</option>'
       str_items += '<option value=2006>No.EX6 ' + lib_language.NAME_2006 + '</option>'
@@ -334,6 +335,8 @@ function changeSelectItems() {
       str_items += '<option value=164>No.164 FP-6</option>'
       str_items += '<option value=188>No.188 S.A.T.8</option>'
       str_items += '<option value=229>No.229 M870</option>'
+      str_items += '<option value=281>No.281 CAWS</option>'
+      str_items += '<option value=282>No.282 DP-12</option>'
       str_items += '<option value=2002>No.EX2 ' + lib_language.NAME_2002 + '</option>'
       str_items += '<option value=2008>No.EX8 ' + lib_language.NAME_2008 + '</option>'
       str_items += '<option value=2016>No.EX16 ' + lib_language.NAME_2016 + '</option>'
@@ -345,6 +348,7 @@ function changeSelectItems() {
       str_items += '<option value=162>No.162 SPAS-12</option>'
       str_items += '<option value=165>No.165 M1014</option>'
       str_items += '<option value=189>No.189 USAS-12</option>'
+      str_items += '<option value=189>No.283 ' + lib_language.NAME_283 + '</option>'
     } else if (num_star === 3) {
       str_items += '<option value=152 selected>No.152 M897</option>'
       str_items += '<option value=154>No.154 M200</option>'
@@ -486,6 +490,7 @@ function changeEquip() {
         str_items += '<option value=320111>Pwd delta</option>'
         str_items += '<option value=320112>Karmotrine</option>'
       }
+      if (ID === 1007) str_items += '<option value=31007>' + lib_language.equipNAME_31007 + '</option>'
       if (ID === 2012) str_items += '<option value=32012>' + lib_language.equipNAME_32012 + '</option>'
     } else if (set_guntype === 2) { // AR
       if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057 && ID != 3054) {

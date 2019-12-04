@@ -423,6 +423,7 @@ lib_describe.set('rof_28_enemy', describe_property(['enemy'], ['rof'], ['-0.28']
 lib_describe.set('rof_25_enemy', describe_property(['enemy'], ['rof'], ['-0.25'])) // 突击压制 25%
 lib_describe.set('rof_22_enemy', describe_property(['enemy'], ['rof'], ['-0.22'])) // 突击压制 22%
 lib_describe.set('eva_55_enemy', describe_property(['enemy'], ['eva'], ['-0.55'])) // 掩护压制 55%
+lib_describe.set('eva_50_enemy', describe_property(['enemy'], ['eva'], ['-0.5'])) // 掩护压制 50%
 lib_describe.set('eva_46_enemy', describe_property(['enemy'], ['eva'], ['-0.46'])) // 掩护压制 46%
 lib_describe.set('eva_40_enemy', describe_property(['enemy'], ['eva'], ['-0.4'])) // 掩护压制 40%
 lib_describe.set('evaN_75_enemy', describe_propertyN(['enemy'], ['eva'], ['-0.75'])) // 掩护压制N 75%
@@ -447,6 +448,7 @@ lib_describe.set('dmg_40', describe_property(['self'], ['dmg'], ['0.4'])) // 火
 lib_describe.set('dmg_35', describe_property(['self'], ['dmg'], ['0.35'])) // 火力专注 35%
 lib_describe.set('dmg_30', describe_property(['self'], ['dmg'], ['0.3'])) // 火力专注 30%
 lib_describe.set('dmg_28', describe_property(['self'], ['dmg'], ['0.28'])) // 火力专注 28%
+lib_describe.set('dmg_25', describe_property(['self'], ['dmg'], ['0.25'])) // 短板敲击乐 25%
 lib_describe.set('dmg_10', describe_property(['self'], ['dmg'], ['0.1'])) // 威慑印记
 lib_describe.set('dmgN_200', describe_propertyN(['self'], ['dmg'], ['2'])) // 火力专注N 200%
 lib_describe.set('dmgN_180', describe_propertyN(['self'], ['dmg'], ['1.8'])) // 火力专注N 180%
@@ -496,6 +498,7 @@ lib_describe.set('eva_110', describe_property(['self'], ['eva'], ['1.1'])) // �
 lib_describe.set('eva_70', describe_property(['self'], ['eva'], ['0.7'])) // 心智威慑 70%
 lib_describe.set('eva_45', describe_property(['self'], ['eva'], ['0.45'])) // 掩护专注 45%
 lib_describe.set('eva_40', describe_property(['self'], ['eva'], ['0.4'])) // 掩护专注 40%
+lib_describe.set('crit_100', describe_property(['self'], ['crit'], ['1'])) // 短板敲击乐 暴击100%
 lib_describe.set('cz2000_N', describe_propertyN(['self'], ['acu/rof'], ['0.4/0.5'])) // 黎明气焰-N
 lib_describe.set('cz2000_ND', describe_propertyND(['self'], ['dmg/crit'], ['0.65/0.25'])) // 黎明气焰-ND
 lib_describe.set('a91_N', describe_propertyN(['self'], ['dmg/acu'], ['0.5/0.5'])) // A91杀伤榴弹N-属性加成
@@ -656,7 +659,7 @@ lib_describe.set('m1895cb', describe_m1895cb()) // 有备无患
 // lib_skill
 
 // ———————————————————————————————————————— HG ————————————————————————————————————————
-
+// ———————————————————————————————————————— HG - 5 ————————————————————————————————————————
 lib_skill.set(4, [createSkill(6, 12, 5, lib_describe.get('python'))]) // 被动通过特殊变量实现
 lib_skill.set(96, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
 lib_skill.set(97, [createSkill(6, 12, 8, lib_describe.get('com_rof_25'))])
@@ -682,7 +685,14 @@ lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))
 ])
-
+lib_skill.set(1007, [
+  createSkill(6, 12, 8, lib_describe.get('com_rof_25')),
+  createSkill(6, 12, 0, lib_describe.get('stechkin')),
+  createSkill(6, 12, 8, lib_describe.get('dmg_25')), // 短板敲击乐 火力
+  createSkill(6, 12, 8, lib_describe.get('crit_100')), // 短板敲击乐 暴击率
+  createSkill(6, 12, 8, lib_describe.get('eva_50_enemy')) // 短板敲击乐 回避
+])
+// ———————————————————————————————————————— HG - 4 ————————————————————————————————————————
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
 lib_skill.set(7, [
   createSkill(6, 12, 8, lib_describe.get('com_rof_22')),
@@ -712,7 +722,7 @@ lib_skill.set(1091, [
   createSkill(6, 12, 8, lib_describe.get('rof_28_enemy')),
   createSkill(6, 12, 4, lib_describe.get('mp446')) // 潮音侵袭
 ])
-
+// ———————————————————————————————————————— HG - 3 ————————————————————————————————————————
 lib_skill.set(3, [createSkill(7, 12, 0, lib_describe.get('flash_3'))]) // 闪光弹
 lib_skill.set(6, [createSkill(6, 12, 8, lib_describe.get('com_eva_55'))]) // 掩护号令 55%
 lib_skill.set(8, [createSkill(6, 12, 6, lib_describe.get('acu_36_enemy'))]) // 精确压制
@@ -741,7 +751,7 @@ lib_skill.set(244, [
   createSkill(6, 12, 8, lib_describe.get('dmgN_40_enemy')),
   createSkill(6, 12, 5, lib_describe.get('dmgND_22_enemy'))
 ])
-
+// ———————————————————————————————————————— HG - 2 ————————————————————————————————————————
 lib_skill.set(2, [
   createSkill(1, 12, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹 36%
   createSkill(1, 12, 4, lib_describe.get('speed_down')) // 减速
@@ -1186,7 +1196,7 @@ lib_skill.set(111, [
 ])
 
 // ———————————————————————————————————————— SG ————————————————————————————————————————
-
+// ———————————————————————————————————————— SG - 5 ————————————————————————————————————————
 lib_skill.set(151, [createSkill(15, 16, 0, lib_describe.get('m1887'))]) // 终结打击
 lib_skill.set(157, [createSkill(10, 16, 6, lib_describe.get('armeva_5'))]) // 生存本能-5星
 lib_skill.set(160, [createSkill(8, 16, 0, lib_describe.get('saiga'))]) // 巨羚号角
@@ -1200,7 +1210,9 @@ lib_skill.set(164, [
 ]) //
 lib_skill.set(188, [createSkill(2, 8, 5, lib_describe.get('sat8'))]) // 坚壁理论
 lib_skill.set(229, [createSkill(8, 16, 4, lib_describe.get('m870'))]) // 地狱公路
-
+lib_skill.set(281, []) // 
+lib_skill.set(282, []) // 
+// ———————————————————————————————————————— SG - 4 ————————————————————————————————————————
 lib_skill.set(153, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(155, [createSkill(10, 16, 6, lib_describe.get('arm_70'))]) // 防护专注-4星
 lib_skill.set(156, [createSkill(10, 16, 6, lib_describe.get('armeva_4'))]) // 生存本能-4星
@@ -1217,7 +1229,8 @@ lib_skill.set(189, [
   createSkill(1, 16, 8, lib_describe.get('rof_60')),
   createSkill(1, 16, 0, lib_describe.get('addclip_4'))
 ])
-
+lib_skill.set(283, []) // 
+// ———————————————————————————————————————— SG - 3 ————————————————————————————————————————
 lib_skill.set(152, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(154, [createSkill(10, 16, 6, lib_describe.get('arm_60'))]) // 防护专注-3星
 lib_skill.set(158, [ // 火力专注SG
@@ -1228,7 +1241,6 @@ lib_skill.set(159, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(190, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 
 // EXTRA
-
 lib_skill.set(2001, [createSkill(6, 12, 0, lib_describe.get('noel'))]) // 零枪-魔狼牙/思兼
 lib_skill.set(2002, [
   createSkill(10, 16, 0, lib_describe.get('grenade_8')),

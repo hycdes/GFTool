@@ -447,6 +447,7 @@ function resetEquipment() {
       else if (ID === 1001) set_equip = [11001, 21, 32] // colt mod
       else if (ID === 1002) set_equip = [11, 21002, 31] // m1911 mod
       else if (ID === 1005) set_equip = [11005, 21, 32] // m1895 mod
+      else if (ID === 1007) set_equip = [17, 21, 31007] // stechkin mod
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
@@ -1065,7 +1066,7 @@ function changeFairy() {
     document.getElementById('fairy_skill').innerHTML = lib_language.fairyskillstr + '-'
     changeTalent(0)
   }
-  document.getElementById('fairy_img').src = '../img/echelon/fairy/f' + fairy_no + '.png'
+  document.getElementById('fairy_img').src = '../img/echelon/fairy/' + fairy_no + '.png'
   document.getElementById('fairy_dmg').innerHTML = lib_language.dmg + ' -'
   document.getElementById('fairy_critdmg').innerHTML = lib_language.critdmg + ' -'
   document.getElementById('fairy_acu').innerHTML = lib_language.acu + ' -'
