@@ -22,11 +22,10 @@ function settle_buff(stand_num, info_self) {
         no_crit = false
     if (is_this(stand_num, 4)) { // python active
         if (Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) {
-            if (Set_Special.get('python_active') === 1) _mul_dmg *= 2
             var num_left = Set_Special.get('python_active') - 1
             Set_Special.set('python_active', num_left)
             changeStatus(stand_num, 'self', 'dmg', '0.3', 5)
-            if (num_left === 0) {
+            if (num_left === 0) { // 无畏者之拥结束攻击两发
                 Set_Skill.get(stand_num)[0][1] = 0 // re-attack
             }
         }
