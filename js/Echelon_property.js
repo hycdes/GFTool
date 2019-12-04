@@ -341,6 +341,7 @@ lib_affect.set(1037, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // M14改
 lib_affect.set(1039, createAffect('d/', 'hg', ['cld'], [0.18])) // 莫辛-纳甘改
 lib_affect.set(1044, createAffect('rd/', 'hg', ['cld'], [0.15])) // SV-98改
 lib_affect.set(1051, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // FN-49改
+lib_affect.set(1053, createAffect('r/ru/', 'hg', ['cld'], [0.2])) // NTW-20改
 lib_affect.set(1055, createAffect('ru/u/r/rd/d/', 'ar', ['dmg', 'crit'], [0.2, 0.32])) // M4A1改
 lib_affect.set(1056, createAffect('ru/r/rd/', 'smg', ['acu', 'eva'], [0.5, 0.15])) // M4 SOPMODII改
 lib_affect.set(1057, createAffect('ru/r/rd/', 'smg', ['rof', 'eva'], [0.1, 0.15])) // ST AR-15改
@@ -662,9 +663,10 @@ lib_property.set(1026, createProperty(32, 14, 71, 90, 0, 905, 0.05, -1)) // MP5 
 lib_property.set(1029, createProperty(29, 17, 79, 86, 0, 975, 0.05, -1))
 lib_property.set(1032, createProperty(26, 13, 83, 104, 0, 885, 0.05, -1)) // UZI
 lib_property.set(1037, createProperty(111, 74, 28, 44, 0, 430, 0.4, -1))
-lib_property.set(1039, createProperty(136, 89, 40, 31, 0, 455, 0.4, -1))
+lib_property.set(1039, createProperty(136, 89, 40, 31, 0, 455, 0.4, -1)) // mosin
 lib_property.set(1044, createProperty(128, 81, 29, 37, 0, 430, 0.4, -1))
 lib_property.set(1051, createProperty(120, 64, 33, 34, 0, 475, 0.4, -1))
+lib_property.set(1053, createProperty(170, 82, 31, 32, 0, 475, 0.4, -1)) // ntw-20
 lib_property.set(1055, createProperty(50, 50, 50, 80, 0, 565, 0.2, -1))
 lib_property.set(1056, createProperty(52, 51, 46, 79, 0, 565, 0.3, -1))
 lib_property.set(1057, createProperty(50, 55, 52, 78, 0, 540, 0.2, -1))
@@ -762,6 +764,7 @@ lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(2158, createProperty_equip(18, 4, 0, 0, 0, 0, 0.27, 0, 0, 0)) // ks-23
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0))
+lib_property_equip.set(21053, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ntw-20
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
 lib_property_equip.set(21060, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // as val
 lib_property_equip.set(21061, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // stg44

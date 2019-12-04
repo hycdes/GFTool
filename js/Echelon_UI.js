@@ -346,7 +346,7 @@ function manageUI() { // 管理图标变化，不涉及后台数值
       document.getElementById('icon-addstar').onclick = ''
     }
     if (num_star === 5) {
-      if (set_guntype != 2) {
+      if (set_guntype != 2 && set_guntype != 4) { // 目前只有AR、RF有六星
         document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
         document.getElementById('icon-addstar').style = 'cursor: default'
         document.getElementById('icon-addstar').onclick = ''
@@ -502,6 +502,7 @@ function resetEquipment() {
       else if (ID === 1037) set_equip = [11037, 23, 34] // m14 mod
       else if (ID === 1044) set_equip = [12, 23, 31044] // sv98 mod
       else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
+      else if (ID === 1053) set_equip = [12, 21053, 34] // ntw20 mod
       else if (ID === 1095) set_equip = [11095, 23, 34] // hanyang88 mod
       else if (ID === 2014) set_equip = [12, 23, 32014] // Stella
       else set_equip = [12, 23, 34]

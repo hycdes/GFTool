@@ -585,6 +585,7 @@ lib_describe.set('k11', describe_k11()) // 恐惧榴弹
 lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 // snipe
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
+lib_describe.set('snipe_10', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 10倍炮狙
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
 lib_describe.set('snipe_7', describe_snipe(7, 2, 0, 1, 'armless/critless/evaless')) // 7倍炮狙
 lib_describe.set('snipe_6.5', describe_snipe(6.5, 1, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
@@ -982,6 +983,7 @@ lib_skill.set(93, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
 lib_skill.set(94, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 
 // ———————————————————————————————————————— RF ————————————————————————————————————————
+lib_skill.set(1053, [createSkill(15, 16, 0, lib_describe.get('snipe_10'))])
 // ———————————————————————————————————————— RF - 5 ————————————————————————————————————————
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
 lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])

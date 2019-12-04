@@ -212,7 +212,9 @@ function changeSelectItems() {
       str_items += '<option value=94>No.94 ' + lib_language.NAME_94 + '</option>'
     }
   } else if (set_guntype === 4) { // RF
-    if (num_star === 5) {
+    if (num_star === 6) {
+      str_items += '<option value=1053>No.53 [MOD] NTW-20</option>'
+    } else if (num_star === 5) {
       str_items += '<option value=46 selected>No.46 Kar98k</option>'
       str_items += '<option value=48>No.48 WA2000</option>'
       str_items += '<option value=50>No.50 ' + lib_language.NAME_50 + '</option>'
@@ -475,6 +477,7 @@ function changeEquip() {
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
       if (ID === 36) str_items += '<option value=236>' + lib_language.equipNAME_236 + '</option>' // 春田
+      if (ID === 1053) str_items += '<option value=21053>20mm HEI</option>' // NTW-20
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
     } else if (set_guntype === 6) { // SG
