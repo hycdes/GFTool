@@ -727,6 +727,7 @@ lib_property_equip.set(41, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 100))
 lib_property_equip.set(19993, createProperty_equip(0, 3, 20, 0, 0, 0.2, 0, 0, 0, 0)) // M9
 lib_property_equip.set(17, createProperty_equip(0, 4, 10, 0, 0, 0.2, 0, 0, 0, -100)) // stechkin
 lib_property_equip.set(110, createProperty_equip(0, 0, 18, 0, 0, 0.3, 0, 0, 0, 0)) // ppk
+
 lib_property_equip.set(117, createProperty_equip(4, 0, 21, 0, 0, 0.28, 0, 0, 0, 0)) // m3
 lib_property_equip.set(118, createProperty_equip(0, 0, 20, -4, 0, 0.35, 0, 0, 0, 0)) // MAC-10
 lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0, 0)) // Kar98k
@@ -741,9 +742,13 @@ lib_property_equip.set(384, createProperty_equip(6, 0, 0, -2, 0, 0, 0, 5, 0, 0))
 lib_property_equip.set(1110, createProperty_equip(0, 32, 0, -1, 0, 0.24, 0, 0, 0, 0)) // fg42
 lib_property_equip.set(1125, createProperty_equip(0, 36, 0, -1, 0, 0.25, 0, 0, 0, 0)) // mg4
 lib_property_equip.set(1129, createProperty_equip(5, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // qbz95 97
-lib_property_equip.set(11001, createProperty_equip(3, 0, 10, 0, 0, 0.2, 0, 0, 0, 0))
-lib_property_equip.set(11005, createProperty_equip(0, 4, 14, 0, 0, 0.2, 0, 0, 0, 0))
-lib_property_equip.set(11026, createProperty_equip(10, 15, 0, -4, 0, 0, 0, 0, 0, 0)) // MP5
+lib_property_equip.set(1172, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.18, 0, 0, 0)) // rfb
+lib_property_equip.set(1228, createProperty_equip(0, 0, 25, 0, 0, 0.2, 0, 0, 0, 0)) // sakura
+lib_property_equip.set(11001, createProperty_equip(3, 0, 10, 0, 0, 0.2, 0, 0, 0, 0)) // colt revolver
+lib_property_equip.set(11005, createProperty_equip(0, 4, 14, 0, 0, 0.2, 0, 0, 0, 0)) // nagant revolver
+lib_property_equip.set(11012, createProperty_equip(0, 0, 20, 0, 0, 0.25, 0, 0, 0, 0)) // c96
+lib_property_equip.set(11026, createProperty_equip(10, 15, 0, -4, 0, 0, 0, 0, 0, 0)) // mp5
+lib_property_equip.set(11031, createProperty_equip(11, 16, 0, -4, 0, 0, 0, 0, 0, 0)) // beleta
 lib_property_equip.set(11081, createProperty_equip(2, 34, 0, -1, 0, 0, 0, 0, 0, 0)) // lwmmg mod
 lib_property_equip.set(11089, createProperty_equip(5, 30, 0, -1, 0, 0, 0, 0, 0, 0)) // bren mod
 lib_property_equip.set(11091, createProperty_equip(0, 8, 10, 0, 0, 0.2, 0, 0, 0, 0))

@@ -195,6 +195,11 @@ lib_language = {
   equipNAME_19993: 'M9 BC2握把',
   equipNAME_372: 'Tactical Earphone',
   equipNAME_31007: '战术闪电呆毛',
+  equipNAME_1172: 'RFB前导轨',
+  equipNAME_1228: '折叠枪托',
+  equipNAME_11012: 'C96橡木枪托',
+  equipNAME_11031: 'DO反射瞄具',
+
 
   skillNAME_39: '저격개시',
   skillNAME_39_2: '하얀 사신',

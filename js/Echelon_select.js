@@ -371,7 +371,8 @@ function changeEquip() {
   var ID = parseInt(document.getElementById('select_tdoll').value)
   var selectID = document.getElementById('select_equip')
   var str_items = ''
-  if (num_pickequip === 1) { // 第一格装备
+  // ———————————————————— 第一格装备 ————————————————————
+  if (num_pickequip === 1) {
     if (set_guntype === 1) { // HG
       str_items += '<option value=11>[' + lib_language.equipNAME_11 + '] AC4' + lib_language.equipNAME_11 + '</option>'
       str_items += '<option value=41>[' + lib_language.equipNAME_41 + '] PEQ-16A</option>'
@@ -380,6 +381,7 @@ function changeEquip() {
       if (ID === 10) str_items += '<option value=110>' + lib_language.equipNAME_110 + '</option>' // ppk
       if (ID === 1001) str_items += '<option value=11001>' + lib_language.equipNAME_11001 + '</option>' // 柯尔特左轮
       if (ID === 1005) str_items += '<option value=11005>' + lib_language.equipNAME_11005 + '</option>' // 纳甘左轮
+      if (ID === 1012) str_items += '<option value=11012>' + lib_language.equipNAME_11012 + '</option>' // C96
       if (ID === 1091) str_items += '<option value=11091>' + lib_language.equipNAME_11091 + '</option>' // MP446
       if (ID === 2009) str_items += '<option value=42009>' + lib_language.equipNAME_42009 + '</option>'
       if (ID === 2010) str_items += '<option value=42010>' + lib_language.equipNAME_42010 + '</option>'
@@ -401,6 +403,7 @@ function changeEquip() {
         if (ID === 69) str_items += '<option value=169>' + lib_language.equipNAME_169 + '</option>'
         if (ID === 118) str_items += '<option value=4118>' + lib_language.equipNAME_4118 + '</option>'
         if (ID === 129 || ID === 130) str_items += '<option value=1129>' + lib_language.equipNAME_1129 + '</option>' // 先进单兵瞄具
+        if (ID === 172) str_items += '<option value=1172>' + lib_language.equipNAME_1172 + '</option>' // RFB前导轨
         if (ID === 1063) str_items += '<option value=11063>' + lib_language.equipNAME_11063 + '</option>'
         if (ID === 1064) str_items += '<option value=11064>' + lib_language.equipNAME_11064 + '</option>'
       } else if (ID === 54 || ID === 3054) { // M16A1
@@ -453,7 +456,8 @@ function changeEquip() {
       str_items += '<option value=33>Type3' + lib_language.equipNAME_33 + '</option>'
       if (ID === 2016) str_items += '<option value=32016>' + lib_language.equipNAME_32016 + '</option>'
     }
-  } else if (num_pickequip === 2) { // 第二格装备（AR小队双瞄具/人形放在第三）
+    // ———————————————————— 第二格装备（AR小队双瞄具/人形放在第三） ————————————————————
+  } else if (num_pickequip === 2) {
     if (set_guntype === 1) { // HG
       str_items += '<option value=21>' + lib_language.equipNAME_21 + '</option>'
       if (ID === 1002) str_items += '<option value=21002>' + lib_language.equipNAME_21002 + '</option>' // M1911
@@ -485,7 +489,8 @@ function changeEquip() {
       str_items += '<option value=25>' + lib_language.equipNAME_25 + '</option>'
       if (ID === 158) str_items += '<option value=2158>' + lib_language.equipNAME_2158 + '</option>'
     }
-  } else if (num_pickequip === 3) { // 第三格装备
+    // ———————————————————— 第三格装备 ————————————————————
+  } else if (num_pickequip === 3) {
     if (set_guntype === 1) { // HG
       str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
       str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
@@ -529,8 +534,10 @@ function changeEquip() {
       str_items += '<option value=41>[' + lib_language.equipNAME_41 + '] PEQ-16A</option>'
       if (ID === 17) str_items += '<option value=117>' + lib_language.equipNAME_117 + '</option>'
       if (ID === 18) str_items += '<option value=118>' + lib_language.equipNAME_118 + '</option>'
+      if (ID === 228) str_items += '<option value=1228>' + lib_language.equipNAME_1228 + '</option>'
       if (ID === 1026) str_items += '<option value=11026>' + lib_language.equipNAME_11026 + '</option>'
       if (ID === 1029) str_items += '<option value=11029>' + lib_language.equipNAME_11029 + '</option>'
+      if (ID === 1031) str_items += '<option value=11031>' + lib_language.equipNAME_11031 + '</option>' // beleta
       if (ID === 1032) str_items += '<option value=11032>MPL M21</option>'
       if (ID === 1094) str_items += '<option value=11094>' + lib_language.equipNAME_11094 + '</option>'
       if (ID === 1101) str_items += '<option value=11101>AMP COMPSP</option>'

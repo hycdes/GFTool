@@ -448,6 +448,7 @@ function resetEquipment() {
       else if (ID === 1002) set_equip = [11, 21002, 31] // m1911 mod
       else if (ID === 1005) set_equip = [11005, 21, 32] // m1895 mod
       else if (ID === 1007) set_equip = [17, 21, 31007] // stechkin mod
+      else if (ID === 1012) set_equip = [11012, 21, 32] // c96 mod
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
@@ -466,6 +467,7 @@ function resetEquipment() {
       else if (ID === 72) set_equip = [12, 22, 372] // tar-21
       else if (ID === 74) set_equip = [174, 22, 31] // sig-50
       else if (ID === 129 || ID === 130) set_equip = [1129, 22, 31] // qbz95 or 97
+      else if (ID === 172) set_equip = [1172, 22, 31] // rfb
       else if (ID === 1056) set_equip = [12, 22, 11056] // sop2 mod
       else if (ID === 1057) set_equip = [12, 21057, 11057] // ar15 mod
       else if (ID === 1055) set_equip = [12, 22, 31055] // m4 mod
@@ -482,10 +484,12 @@ function resetEquipment() {
       else if (ID === 18) set_equip = [32, 21, 118] // MAC-10
       else if (ID === 26 || ID === 1026) set_equip = [326, 21, 11] // mp5
       else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
+      else if (ID === 228) set_equip = [32, 21, 1228] // sakura
       else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 32 || ID === 135 || ID === 251 || ID === 136 || ID === 177 || ID === 1032) set_equip = [31, 21, 11] // 输出型
       else if (ID === 1101) set_equip = [3103, 21, 11] // ump9 mod
       else if (ID === 1103) set_equip = [3103, 21, 11103] // ump45 mod
       else if (ID === 1029) set_equip = [32, 21, 11029] // sten mod
+      else if (ID === 1031) set_equip = [31, 21, 11031] // beleta mod
       else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
       else if (ID === 1094) set_equip = [32, 21, 11094] // 64type mod
       else if (ID === 2013) set_equip = [31, 22013, 11] // Dorothy
