@@ -31,8 +31,10 @@ function settle_buff(stand_num, info_self) {
         }
     }
     else if (is_this(stand_num, 77) || is_this(stand_num, 85) || is_this(stand_num, 109)) { // 连珠 no crit
-        var cs_base = (info_self.get('cs') - Set_Special.get('clipsize_' + stand_num) + 1)
-        if (parseInt(cs_base / 4) > 0 && cs_base - 4 * parseInt(cs_base / 4) === 0) {
+        if (_spG('MG_terminate_' + stand_num) === undefined) _spS('MG_terminate_' + stand_num, 0)
+        _spS('MG_terminate_' + stand_num, _spG('MG_terminate_' + stand_num) + 1)
+        var cs_hit = _spG('MG_terminate_' + stand_num)
+        if (cs_hit > 0 && cs_hit - 4 * parseInt(cs_hit / 4) === 0) {
             if (is_this(stand_num, 77)) _mul_dmg *= 2.4
             else if (is_this(stand_num, 85)) _mul_dmg *= 2.6
             else if (is_this(stand_num, 109)) _mul_dmg *= 3

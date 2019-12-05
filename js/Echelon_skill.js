@@ -362,6 +362,11 @@ function describe_m1895cb() { // m1895cb
   Describe.name = 'm1895cb'
   return Describe
 }
+function describe_c96cs() { // m1895cb
+  var Describe = {}
+  Describe.name = 'c96cs'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -384,6 +389,8 @@ lib_describe.set('com_evaN_85', describe_propertyN(['all'], ['eva'], ['0.85'])) 
 lib_describe.set('com_evaND_35', describe_propertyND(['all'], ['eva'], ['0.35'])) // 掩护号令ND 35%
 lib_describe.set('com_acuN_90', describe_propertyN(['all'], ['acu'], ['0.9'])) // 照明弹 90%
 lib_describe.set('com_acuN_100', describe_propertyN(['all'], ['acu'], ['1'])) // 照明弹 100%
+lib_describe.set('com_acuN_120', describe_propertyN(['all'], ['acu'], ['1.2'])) // 照明弹 120%
+lib_describe.set('com_critdmgN_20', describe_propertyN(['all'], ['critdmg'], ['0.2'])) // 夜空追击者：暴伤20%
 lib_describe.set('com_rofcrit_5', describe_property(['all'], ['rof/crit'], ['0.2/0.2'])) // 穿刺号令 20%/20%
 lib_describe.set('com_dmgrof_3', describe_property(['all'], ['dmg/rof'], ['0.1/0.1'])) // 冲锋号令-3星 10%/10%
 lib_describe.set('com_dmgacu_3', describe_property(['all'], ['dmg/acu'], ['0.15/0.1'])) // 强袭号令-3星 15%/10%
@@ -560,6 +567,7 @@ lib_describe.set('incendiary_7', describe_bomb(7, 1, 3, 5)) // 燃烧弹-5星
 lib_describe.set('incendiary_6.5', describe_bomb(6.5, 1, 3, 5)) // 燃烧弹-4星
 lib_describe.set('incendiary_6', describe_bomb(6, 1, 3, 5)) // 燃烧弹-3星
 lib_describe.set('incendiary_5.5', describe_bomb(5.5, 1, 3, 5)) // 燃烧弹-2星
+lib_describe.set('beretta_inc', describe_bomb(2.8, 0.6, 3, 4)) // 绯焰追击
 lib_describe.set('hk416_dot', describe_bomb(16, 0.6, 3, 3)) // 寄生榴弹-持续伤害
 lib_describe.set('bronya', describe_bomb(0.2, 0.2, 1, 5)) // 黑洞触媒
 lib_describe.set('hand_grenade_6.5', describe_bomb(6.5, 0, 0, 0)) // 手榴弹-4星
@@ -656,6 +664,7 @@ lib_describe.set('mp5mod', describe_mp5mod()) // 立场防御
 lib_describe.set('ump9mod', describe_ump9mod()) // 白鸮轰鸣
 lib_describe.set('hanyang88', describe_hanyang88()) // 全能战术
 lib_describe.set('m1895cb', describe_m1895cb()) // 有备无患
+lib_describe.set('c96cs', describe_c96cs()) // 夜空追击者：弹量
 
 // lib_skill
 
@@ -718,6 +727,11 @@ lib_skill.set(1002, [
 lib_skill.set(1005, [ // 纳甘左轮被动实现于特殊变量表
   createSkill(6, 12, 8, lib_describe.get('dmgN_40_enemy')),
   createSkill(6, 12, 5, lib_describe.get('dmgND_25_enemy'))
+])
+lib_skill.set(1012, [
+  createSkill(3, 16, 15, lib_describe.get('com_acuN_120')),
+  createSkill(3, 16, 8, lib_describe.get('com_critdmgN_20')), // 夜空追击者：暴伤
+  createSkill(3, 16, 0, lib_describe.get('c96cs')) // 夜空追击者：弹量
 ])
 lib_skill.set(1091, [
   createSkill(6, 12, 8, lib_describe.get('rof_28_enemy')),
@@ -906,7 +920,7 @@ lib_skill.set(259, [
 lib_skill.set(1026, [
   createSkill(8, 16, 4, lib_describe.get('ffs')), // 力场盾
   createSkill(8, 16, 4, lib_describe.get('mp5mod')) // 回避提升
-]) // 力场盾
+])
 lib_skill.set(1101, [
   createSkill(7, 16, 0, lib_describe.get('flash_5')), // 闪光弹
   createSkill(7, 16, 0, lib_describe.get('ump9mod')) // 白鸮轰鸣
@@ -934,6 +948,10 @@ lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) 
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))]) // storm cx4
 lib_skill.set(225, [createSkill(6, 16, 10, lib_describe.get('evaacu_4'))]) //
 lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
+lib_skill.set(1031, [  // beretta mod
+  createSkill(7, 16, 0, lib_describe.get('flash_4')),
+  createSkill(7, 16, 0, lib_describe.get('beretta_inc'))
+])
 lib_skill.set(1032, [createSkill(3, 16, 0, lib_describe.get('uzi_burn'))]) // uzi mod
 lib_skill.set(1093, [
   createSkill(6, 8, 5, lib_describe.get('eva_130')),

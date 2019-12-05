@@ -40,6 +40,7 @@ function changeSelectItems() {
       str_items += '<option value=269>No.269 P30</option>'
       str_items += '<option value=1002>No.2 [MOD] M1911</option>'
       str_items += '<option value=1005>No.5 [MOD] ' + lib_language.NAME_5 + '</option>'
+      str_items += '<option value=1012>No.12 [MOD] C96</option>'
       str_items += '<option value=1091>No.91 [MOD] MP-446</option>'
     } else if (num_star === 3) {
       str_items += '<option value=3 selected>No.3 M9</option>'
@@ -180,6 +181,7 @@ function changeSelectItems() {
       str_items += '<option value=203>No.203 ' + lib_language.NAME_203 + '</option>'
       str_items += '<option value=225>No.225 ' + lib_language.NAME_225 + '</option>'
       str_items += '<option value=1029>No.29 [MOD] ' + lib_language.NAME_29 + '</option>'
+      str_items += '<option value=1031>No.31 [MOD] ' + lib_language.NAME_31 + '</option>'
       str_items += '<option value=1032>No.32 [MOD] ' + lib_language.NAME_32 + '</option>'
       str_items += '<option value=1093>No.93 [MOD] IDW</option>'
       str_items += '<option value=1094>No.94 [MOD] ' + lib_language.NAME_94 + '</option>'

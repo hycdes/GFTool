@@ -815,6 +815,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
           Set_Special.set('reloading_' + stand_num, true)
           changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
+          if (_spG('MG_terminate_' + stand_num) != undefined) _spS('MG_terminate_' + stand_num, 0) // 连珠类重置计数器
           Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
           if (is_this(stand_num, 253)) { // 刘易斯增加弹量
             var angel_num = Set_Special.get('angel_strength' + stand_num)
@@ -1516,6 +1517,20 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'c96cs') {
+    if (_spG('sunrise') === 'night') {
+      for (var i = 0; i < 9; i++) {
+        if (gs_tdoll[i]) {
+          var _ctype = ((Set_Base.get(i)).Info).get('type')
+          if (_ctype === 5 || _ctype === 6) {
+            _spS('clipsize_' + i, _spG('clipsize_' + i) + 2) // 弹量+2
+          }
+        }
+      }
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
   if (debug_mode && (debug_function[0] || debug_function[1])) {
     if (fire_status === 'stop' && skillname === 'attack') {

@@ -334,8 +334,10 @@ lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6]
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
 lib_affect.set(1005, createAffect('u/l/d/', 'all', ['dmg', 'crit'], [0.36, 0.2])) // 纳甘左轮改
 lib_affect.set(1007, createAffect('u/ur/d/dr/', 'all', ['dmg', 'rof'], [0.16, 0.24])) // 斯捷奇金改
+lib_affect.set(1012, createAffect('lu/ld/r/', 'all', ['acu', 'eva'], [0.8, 0.4])) // C96改
 lib_affect.set(1026, createAffect('lu/ld/', 'ar/rf', ['acu', 'crit'], [0.45, 0.2])) // MP5改
 lib_affect.set(1029, createAffect('lu/l/ld/', 'ar', ['acu', 'eva'], [0.3, 0.4])) // 司登MkⅡ改
+lib_affect.set(1031, createAffect('lu/ld/', 'ar/rf', ['dmg', 'rof'], [0.08, 0.1])) // 伯莱塔改
 lib_affect.set(1032, createAffect('u/l/d/', 'ar', ['dmg', 'acu'], [0.18, 0.15])) // UZI改
 lib_affect.set(1037, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // M14改
 lib_affect.set(1039, createAffect('d/', 'hg', ['cld'], [0.18])) // 莫辛-纳甘改
@@ -659,9 +661,11 @@ lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
 lib_property.set(1002, createProperty(29, 52, 78, 58, 0, 375, 0.2, -1))
 lib_property.set(1005, createProperty(35, 48, 100, 45, 0, 360, 0.2, -1))
 lib_property.set(1007, createProperty(32, 51, 69, 66, 0, 425, 0.2, -1)) // stechkin
+lib_property.set(1012, createProperty(32, 52, 71, 64, 0, 425, 0.2, -1)) // c96
 lib_property.set(1026, createProperty(32, 14, 71, 90, 0, 905, 0.05, -1)) // MP5 MOD
 lib_property.set(1029, createProperty(29, 17, 79, 86, 0, 975, 0.05, -1))
-lib_property.set(1032, createProperty(26, 13, 83, 104, 0, 885, 0.05, -1)) // UZI
+lib_property.set(1031, createProperty(33, 12, 61, 80, 0, 1085, 0.05, -1)) // beretta
+lib_property.set(1032, createProperty(26, 13, 83, 104, 0, 885, 0.05, -1)) // uzi
 lib_property.set(1037, createProperty(111, 74, 28, 44, 0, 430, 0.4, -1))
 lib_property.set(1039, createProperty(136, 89, 40, 31, 0, 455, 0.4, -1)) // mosin
 lib_property.set(1044, createProperty(128, 81, 29, 37, 0, 430, 0.4, -1))
