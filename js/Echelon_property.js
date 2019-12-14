@@ -327,7 +327,7 @@ lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65
 lib_affect.set(275, createAffect('rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
 lib_affect.set(276, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
 lib_affect.set(281, createAffect('ll/lld/', 'mg', ['dmg', 'acu'], [0.18, 0.12])) // CAWS
-lib_affect.set(282, createAffect('ll/llu/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // DP-12
+lib_affect.set(282, createAffect('ll/llu/', 'mg/rf', ['dmg', 'acu'], [0.15, 0.15])) // DP-12
 lib_affect.set(283, createAffect('ll/lldd/', 'mg', ['dmg', 'acu'], [0.1, 0.25])) // 解放者
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
@@ -731,7 +731,6 @@ lib_property_equip.set(41, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 100))
 lib_property_equip.set(19993, createProperty_equip(0, 3, 20, 0, 0, 0.2, 0, 0, 0, 0)) // M9
 lib_property_equip.set(17, createProperty_equip(0, 4, 10, 0, 0, 0.2, 0, 0, 0, -100)) // stechkin
 lib_property_equip.set(110, createProperty_equip(0, 0, 18, 0, 0, 0.3, 0, 0, 0, 0)) // ppk
-
 lib_property_equip.set(117, createProperty_equip(4, 0, 21, 0, 0, 0.28, 0, 0, 0, 0)) // m3
 lib_property_equip.set(118, createProperty_equip(0, 0, 20, -4, 0, 0.35, 0, 0, 0, 0)) // MAC-10
 lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0, 0)) // Kar98k

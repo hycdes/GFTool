@@ -58,18 +58,18 @@ function settle_buff(stand_num, info_self) {
         }
     }
     else if (is_this(stand_num, 197)) { // carcano m1891
-        if (Set_Special.get('karm1891') === undefined) Set_Special.set('karm1891', 0)
-        if (Math.random() <= 0.4 && Set_Special.get('karm1891') < 3) {
+        if (Set_Special.get('carcano1891') === undefined) Set_Special.set('carcano1891', 0)
+        if (Math.random() <= 0.4 && Set_Special.get('carcano1891') < 3) {
             var num_col = Math.ceil(stand_num / 3) + 1
             react([createSkill(0, 0, 2, describe_property(['col' + num_col], ['rof/crit'], ['0.04/0.04'])), 0], stand_num, global_frame)
             changeStatus(stand_num, 'self', 'rof', '0', 2)
-            Set_Special.set('karm1891', Set_Special.get('karm1891') + 1)
+            Set_Special.set('carcano1891', Set_Special.get('carcano1891') + 1)
         }
     }
     else if (is_this(stand_num, 198)) { // carcano m91/38 passive
-        if (Set_Special.get('karm9138_' + stand_num) === undefined) Set_Special.set('karm9138_' + stand_num, 0)
+        if (Set_Special.get('carcano9138_' + stand_num) === undefined) Set_Special.set('carcano9138_' + stand_num, 0)
         if (Math.random() <= 0.7) {
-            Set_Special.set('karm9138_' + stand_num, Set_Special.get('karm9138_' + stand_num) + 2)
+            Set_Special.set('carcano9138_' + stand_num, Set_Special.get('carcano9138_' + stand_num) + 2)
         }
     }
     else if (is_this(stand_num, 214)) { // ADS

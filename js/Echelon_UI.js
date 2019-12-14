@@ -589,6 +589,20 @@ function changePreview() { // 改变预览显示，也会改变装备对应全�
         break
       }
     }
+    // show skill for debug
+    if (document.getElementById('check_showskilltable').checked) {
+      document.getElementById('ui_skilltable').innerHTML = ''
+      var temp_skillset = lib_skill.get(ID)
+      var str_display = '', num = 1
+      for (var skill of temp_skillset) {
+        if (num > 1) str_display += '<br>'
+        str_display += '技能#' + num + ': <span style="color:dodgerblue">' + skill.Describe.name + '</span>, '
+        str_display += '(initcd,cd,dur)=(' + skill.init_cld + ',' + skill.cld + ',' + skill.duration + ')'
+        num++
+      }
+      if (str_display === '') str_display = '没有被显式定义的技能'
+      document.getElementById('ui_skilltable').innerHTML = str_display
+    } else document.getElementById('ui_skilltable').innerHTML = ''
     // create info
     for (var i = 0; i < num_star; i++) str_type += '★'
     if (set_guntype === 1) str_type += ' HG'

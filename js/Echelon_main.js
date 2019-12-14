@@ -726,14 +726,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
           }
         }
-        else if (is_this(stand_num, 198) && Set_Special.get('karm9138_' + stand_num) === 18) {
+        else if (is_this(stand_num, 198) && Set_Special.get('carcano9138_' + stand_num) === 18) {
           recordData(stand_num, current_time, 0)
           var mors_ratio
           if (enemy_type === 'normal') mors_ratio = 45
           else mors_ratio = 3
           var mors_dmg = this_formation(stand_num) * Math.ceil(mors_ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
           recordData(stand_num, current_time, mors_dmg)
-          Set_Special.set('karm9138_' + stand_num, 0)
+          Set_Special.set('carcano9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
         } else {
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
@@ -1110,11 +1110,11 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     changeStatus(stand_num, 'snipe', labels, ratio, time_init)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
-  else if (skillname === 'karm9138') { // 墨尔斯假面
+  else if (skillname === 'carcano9138') { // 墨尔斯假面
     var ratio
     if (enemy_type === 'normal') ratio = 45
     else ratio = 3
-    Set_Special.set('karm9138_' + stand_num, 0)
+    Set_Special.set('carcano9138_' + stand_num, 0)
     Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
     Set_Special.set('snipe_num_' + stand_num, 1)
     Set_Special.set('snipe_interval_' + stand_num, 0)
@@ -1170,7 +1170,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     Set_Special.set('aug_' + stand_num, global_frame + s_t[0].duration * 30)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
-  else if (skillname === 'karm1891') { // 玛尔斯号角：主动
+  else if (skillname === 'carcano1891') { // 玛尔斯号角：主动
     var num_rf = 0
     for (var n = 0; n < 9; n++) {
       if (list_tdoll[n][1] != null && list_tdoll[n][1].Type === 4) num_rf++
@@ -1712,8 +1712,8 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
           }
         }
         if (_type === 'rof' && _value === 1) { // 玛尔斯号角被动消失一层
-          if (Set_Special.get('karm1891') > 0) {
-            Set_Special.set('karm1891', Set_Special.get('karm1891') - 1)
+          if (Set_Special.get('carcano1891') > 0) {
+            Set_Special.set('carcano1891', Set_Special.get('carcano1891') - 1)
           }
         }
         if (_type === 'acu' && _value === 1) { // M2致命干扰消失一层

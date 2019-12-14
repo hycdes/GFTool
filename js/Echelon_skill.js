@@ -110,14 +110,14 @@ function describe_falcon(ratio, time_init, time_interval, snipe_num, labels) { /
   Describe.labels = labels
   return Describe
 }
-function describe_karm1891() {
+function describe_carcano1891() {
   var Describe = {}
-  Describe.name = 'karm1891'
+  Describe.name = 'carcano1891'
   return Describe
 }
-function describe_karm9138() {
+function describe_carcano9138() {
   var Describe = {}
-  Describe.name = 'karm9138'
+  Describe.name = 'carcano9138'
   return Describe
 }
 function describe_hs2000() { // 反击者壁垒
@@ -608,8 +608,8 @@ lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) 
 lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击2倍，目标数特殊变量设定
 lib_describe.set('pzb39', describe_snipe(1.8, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击1.8倍
 lib_describe.set('tac50', describe_snipe(4.5, 1, 0, 1, 'armless/crit/evaless')) // 枫华萤火
-lib_describe.set('karm1891', describe_karm1891()) // 玛尔斯号角
-lib_describe.set('karm9138', describe_karm9138()) // 墨尔斯假面
+lib_describe.set('carcano1891', describe_carcano1891()) // 玛尔斯号角
+lib_describe.set('carcano9138', describe_carcano9138()) // 墨尔斯假面
 lib_describe.set('iws2000_reset', describe_iws2000reset()) // 巨鹰攻势重置普攻
 lib_describe.set('m82a1', describe_m82a1(4.2, 1, 0, 1, 'armless/critless/evaless')) // 伪神的启示
 lib_describe.set('falcon', describe_falcon(2.5, 1.33, 0, 1, 'armless/crit/evaless')) // 夕阳隼
@@ -1014,8 +1014,8 @@ lib_skill.set(148, [
 ])
 lib_skill.set(179, [createSkill(15, 16, 0, lib_describe.get('dsr50'))])
 lib_skill.set(192, [createSkill(6, 16, 0, lib_describe.get('js05'))])
-lib_skill.set(197, [createSkill(6, 8, 7.5, lib_describe.get('karm1891'))])
-lib_skill.set(198, [createSkill(6, 8, 0, lib_describe.get('karm9138'))])
+lib_skill.set(197, [createSkill(6, 8, 7.5, lib_describe.get('carcano1891'))])
+lib_skill.set(198, [createSkill(6, 8, 0, lib_describe.get('carcano9138'))])
 lib_skill.set(204, [createSkill(8, 16, 6, lib_describe.get('blst'))])
 lib_skill.set(211, [createSkill(6, 8, 5, lib_describe.get('srs'))])
 lib_skill.set(222, [createSkill(10, 16, 0, lib_describe.get('tac50'))])
