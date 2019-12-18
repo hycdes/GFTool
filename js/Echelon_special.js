@@ -52,6 +52,7 @@ function settle_buff(stand_num, info_self) {
         if (Set_Special.get('k2_temp_' + stand_num) > 15) _mul_acu *= Math.pow(0.98, Set_Special.get('k2_temp_' + stand_num) - 15) // overheat
         if (Set_Special.get('k2_' + stand_num) === 'fever') {
             if (Set_Special.get('k2_temp_' + stand_num) < 35) Set_Special.set('k2_temp_' + stand_num, Set_Special.get('k2_temp_' + stand_num) + 1) // fever temp up
+            _spS('k2_dmgup_' + stand_num, 0) // note dmg buff clear
         } else {
             if (Set_Special.get('k2_temp_' + stand_num) > 0) Set_Special.set('k2_temp_' + stand_num, Set_Special.get('k2_temp_' + stand_num) - 1) // note temp down
             if (Set_Special.get('k2_dmgup_' + stand_num) < 10) Set_Special.set('k2_dmgup_' + stand_num, Set_Special.get('k2_dmgup_' + stand_num) + 1) // note dmg up
