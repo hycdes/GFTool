@@ -1,5 +1,19 @@
-var info_update = '2019/06/23'
-var num_ref = 2000, num_relia = 10000
+var info_update = '2019/12/22'
+var num_ref = 2000, num_relia = 10000, num_valid = 100
+var lib_cache = new Map
+var lib_valid = new Map
+var is_alert = false
+var data_map = { // [回合，战斗，S胜，判定]
+  m124e: [1, 4, true, 5],
+  m116: [2, 8, true, 9],
+  m115: [1, 5, false, 3],
+  m104e4: [2, 4, false, 4],
+  m104e5: [2, 5, false, 5],
+  m104e6: [2, 6, false, 6],
+  m104e7: [2, 7, false, 6],
+  m02: [2, 5, true, 5]
+}
+
 
 // function
 function num_split(num) {
@@ -230,21 +244,25 @@ function loadScript(url) {
 }
 
 // data
+var data_124etrue = [[5, 'MDR', 2], // 12-4e，搜救
+[4, 'MAT-49', 1], [4, 'M1918', 1], [4, 'PK', 1],
+[3, 'Astra Revolver', 1], [3, 'C96', 5], [3, 'M9', 9], [3, 'Makarov', 5],
+[3, 'AK-47', 4], [3, 'FNC', 4],
+[3, 'MAC-10', 5], [3, 'Micro-UZI', 4], [3, 'Skorpion', 5],
+[3, 'M14', 2],
+[3, 'M2HB', 3], [3, 'MG42', 6]],
+  num_124etrue = 45
 
-var lib_cache = new Map
-var lib_valid = new Map
-var num_valid = 300
-var is_alert = false
-var data_map = {
-  m116: [2, 8, true, 9],
-  m115: [1, 5, false, 3],
-  m104e4: [2, 4, false, 4],
-  m104e5: [2, 5, false, 5],
-  m104e6: [2, 6, false, 6],
-  m104e7: [2, 7, false, 6],
-  m02: [2, 5, true, 5]
-}
-var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2],
+var data_124efalse = [[5, 'MDR', 0], // 12-4e，无搜救
+[4, 'MAT-49', 0], [4, 'M1918', 0], [4, 'PK', 0],
+[3, 'Astra Revolver', 0], [3, 'C96', 0], [3, 'M9', 0], [3, 'Makarov', 0],
+[3, 'AK-47', 0], [3, 'FNC', 0],
+[3, 'MAC-10', 0], [3, 'Micro-UZI', 0], [3, 'Skorpion', 0],
+[3, 'M14', 0],
+[3, 'M2HB', 0], [3, 'MG42', 0]],
+  num_124efalse = 3
+
+var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2], // 11-6，搜救
 [3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
 [3, 'OTs-12', 9], [3, 'StG44', 10],
 [3, 'MAC-10', 1], [3, 'PPS-43', 3], [3, 'Sten MkII', 6],
@@ -252,7 +270,7 @@ var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField'
 [3, 'Bren', 10], [3, 'M1919A4', 7]],
   num_116true = 56
 
-var data_116false = [[4, 'Mk46', 2],
+var data_116false = [[4, 'Mk46', 2], // 11-6，无搜救
 [3, 'M9', 9], [3, 'P08', 3], [3, 'Type 92', 3], [3, 'Tokarev', 7],
 [3, 'OTs-12', 8], [3, 'StG44', 2],
 [3, 'PPS-43', 2], [3, 'Sten MkII', 4],
@@ -260,7 +278,7 @@ var data_116false = [[4, 'Mk46', 2],
 [3, 'Bren', 4], [3, 'M1919A4', 1]],
   num_116false = 37
 
-var data_104e4true = [
+var data_104e4true = [ // 10-4e，搜救四战
   [4, 'PP-90', 1],
   [3, 'M9', 3], [3, 'Makarov', 1],
   [3, 'AK-47', 2], [3, 'FNC', 1],
@@ -269,7 +287,7 @@ var data_104e4true = [
 ],
   num_104e4true = 15
 
-var data_104e4false = [
+var data_104e4false = [ // 10-4e，无搜救四战
   [4, 'Mk23', 2], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
   [3, 'Astra Revolver', 4], [3, 'C96', 9], [3, 'M9', 3], [3, 'Makarov', 6],
   [3, 'AK-47', 5], [3, 'FNC', 6],
@@ -278,7 +296,7 @@ var data_104e4false = [
   [3, 'M2HB', 4], [3, 'MG42', 4]],
   num_104e4false = 119
 
-var data_104e5true = [[5, 'SR-3MP', 3], // 搜救五战
+var data_104e5true = [[5, 'SR-3MP', 3], // 10-4e，搜救五战
 [4, 'Mk23', 5], [4, 'AS Val', 5], [4, 'PP-90', 4], [4, 'XM3', 17], [4, 'M60', 2],
 [3, 'Astra Revolver', 25], [3, 'C96', 44], [3, 'M9', 27], [3, 'Makarov', 30],
 [3, 'AK-47', 26], [3, 'FNC', 28],
@@ -287,7 +305,7 @@ var data_104e5true = [[5, 'SR-3MP', 3], // 搜救五战
 [3, 'M2HB', 31], [3, 'MG42', 26]],
   num_104e5true = 422
 
-var data_104e5false = [[5, 'SR-3MP', 1],
+var data_104e5false = [[5, 'SR-3MP', 1], // 10-4e，无搜救五战
 [4, 'Mk23', 2], [4, 'PP-90', 1], [4, 'XM3', 4],
 [3, 'Astra Revolver', 8], [3, 'C96', 15], [3, 'M9', 10], [3, 'Makarov', 14],
 [3, 'AK-47', 15], [3, 'FNC', 9],
@@ -296,7 +314,7 @@ var data_104e5false = [[5, 'SR-3MP', 1],
 [3, 'M2HB', 8], [3, 'MG42', 15]],
   num_104e5false = 210
 
-var data_104e6false = [[5, 'SR-3MP', 34],
+var data_104e6false = [[5, 'SR-3MP', 34], // 10-4e，无搜救六战
 [4, 'Mk23', 39], [4, 'AS Val', 32], [4, 'PP-90', 33], [4, 'XM3', 107], [4, 'M60', 31],
 [3, 'Astra Revolver', 306], [3, 'C96', 345], [3, 'M9', 370], [3, 'Makarov', 305],
 [3, 'AK-47', 283], [3, 'FNC', 291],
@@ -305,8 +323,8 @@ var data_104e6false = [[5, 'SR-3MP', 34],
 [3, 'M2HB', 305], [3, 'MG42', 292]],
   num_104e6false = 4921
 
-var data_104e7true = [[5, 'SR-3MP', 6],
-[4, 'Mk23', 8], [4, 'AS Val', 7], [4, 'PP-90', 9], [4, 'XM3', 10], [4, 'XM3', 21], [4, 'M60', 9],
+var data_104e7true = [[5, 'SR-3MP', 6], // 10-4e，搜救七战
+[4, 'Mk23', 8], [4, 'AS Val', 7], [4, 'PP-90', 9], [4, 'XM3', 31], [4, 'M60', 9],
 [3, 'Astra Revolver', 58], [3, 'C96', 88], [3, 'M9', 110], [3, 'Makarov', 64],
 [3, 'AK-47', 72], [3, 'FNC', 76],
 [3, 'MAC-10', 65], [3, 'Micro UZI', 79], [3, 'Skorpion', 84],
@@ -314,19 +332,19 @@ var data_104e7true = [[5, 'SR-3MP', 6],
 [3, 'M2HB', 81], [3, 'MG42', 74]],
   num_104e7true = 938
 
-var data_104e7false = [[5, 'SR-3MP', 1],
+var data_104e7false = [[5, 'SR-3MP', 1], // 10-4e，无搜救七战
 [3, 'C96', 2], [3, 'Makarov', 2],
 [3, 'AK-47', 2], [3, 'FNC', 2],
 [3, 'MAC-10', 4], [3, 'Micro UZI', 2],
 [3, 'M2HB', 4], [3, 'MG42', 1]],
   num_104e7false = 26
 
-var data_115true = [
+var data_115true = [ // 11-5，搜救
   [3, 'Astra Revolver', 1], [3, 'Makarov', 1],
   [3, 'MAC-10', 1], [3, 'Skorpion', 1],
   [3, 'M2HB', 1]]
 
-var data_115false = [[4, 'P7', 10], [4, '9A-91', 2], [4, 'PP-90', 1], [4, 'PK', 2],
+var data_115false = [[4, 'P7', 10], [4, '9A-91', 2], [4, 'PP-90', 1], [4, 'PK', 2],// 11-5，无搜救
 [3, 'Astra Revolver', 64], [3, 'C96', 74], [3, 'M9', 73], [3, 'Makarov', 83],
 [3, 'AK-47', 73], [3, 'FNC', 72],
 [3, 'MAC-10', 62], [3, 'Micro UZI', 63], [3, 'Skorpion', 62],
@@ -435,18 +453,22 @@ var data_drag_resident = [
   ['塌缩点-弱子死局4', 5, 'EOT XPS3(HK416)', 0, 0, 1, 340]
 ]
 var str_current_statname = [
-  'stat_116true', 'stat_116false',
-  'stat_115true', 'stat_115false',
+  'stat_124etrue', 'stat_124efalse',
+  'stat_116true', 'stat_116false', 'stat_115true', 'stat_115false',
   'stat_104e7true', 'stat_104e5true', 'stat_104e4true',
   'stat_104e7false', 'stat_104e6false', 'stat_104e5false', 'stat_104e4false']
 var bar_info = [], bar_data = [], bar_name = [], bar_num = 0, y_max = 0
 
-var list_card = ['card_116', 'card_116_2', 'card_115', 'card_115_2',
+var list_card = [
+  'card_124e', 'card_124e_2',
+  'card_116', 'card_116_2', 'card_115', 'card_115_2',
   'card_104e7', 'card_104e7_2', 'card_104e6_2', 'card_104e5', 'card_104e5_2', 'card_104e4', 'card_104e4_2',
   'card_02']
-var list_data_card = [data_map.m116, data_map.m116, data_map.m115, data_map.m115,
-data_map.m104e7, data_map.m104e7, data_map.m104e6, data_map.m104e5, data_map.m104e5, data_map.m104e4, data_map.m104e4,
-data_map.m02]
+var list_data_card = [
+  data_map.m124e, data_map.m124e,
+  data_map.m116, data_map.m116, data_map.m115, data_map.m115,
+  data_map.m104e7, data_map.m104e7, data_map.m104e6, data_map.m104e5, data_map.m104e5, data_map.m104e4, data_map.m104e4,
+  data_map.m02]
 
 window.onload = function () {
   // drag
@@ -481,6 +503,8 @@ window.onload = function () {
   deduplicateTable('table_drag_normal', data_drag_normal, false)
   // cores
   get_cards(list_card, list_data_card)
+  fill_table('stat_124etrue', true, 'table_124etrue', data_124etrue, 4 * num_124etrue)
+  fill_table('stat_124efalse', true, 'table_124efalse', data_124efalse, 4 * num_124efalse)
   fill_table('stat_116true', true, 'table_116true', data_116true, 8 * num_116true)
   fill_table('stat_116false', false, 'table_116false', data_116false, 8 * num_116false)
   fill_table('stat_115true', true, 'table_115true', data_115true, 50)
