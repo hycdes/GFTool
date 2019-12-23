@@ -1,5 +1,5 @@
 var info_update = '2019/12/22'
-var num_ref = 2000, num_relia = 10000, num_valid = 100
+var num_ref = 2000, num_relia = 10000, num_valid = 200
 var lib_cache = new Map
 var lib_valid = new Map
 var is_alert = false
@@ -78,7 +78,11 @@ function fill_table(stat, fairy_status, table, data, num_total) {
       info += '<span style="color:dodgerblue">★★★ ' + entry[1] + '</span></td>'
       cores += entry[2]
     }
-    info += '<td>' + entry[2] + '</tr></td>'
+    info += '<td>' + entry[2]
+    if (num_total > 0) {
+      info += '&nbsp&nbsp&nbsp<span style="color:gray">(' + (100 * entry[2] / num_total).toFixed(2) + '%)</span>'
+    }
+    info += '</tr></td>'
   }
   if (num_total >= num_relia) stat_info += '<i class="fa fa-star fa-fw"></i>'
   else if (num_total < num_relia && num_total >= num_ref) stat_info += '<i class="fa fa-check fa-fw"></i>'
@@ -245,22 +249,22 @@ function loadScript(url) {
 
 // data
 var data_124etrue = [[5, 'MDR', 2], // 12-4e，搜救
-[4, 'MAT-49', 1], [4, 'M1918', 1], [4, 'PK', 1],
-[3, 'Astra Revolver', 1], [3, 'C96', 5], [3, 'M9', 9], [3, 'Makarov', 5],
-[3, 'AK-47', 4], [3, 'FNC', 4],
-[3, 'MAC-10', 5], [3, 'Micro-UZI', 4], [3, 'Skorpion', 5],
+[4, 'TAR-21', 0], [4, 'MAT-49', 2], [4, 'M1918', 1], [4, 'M60', 0], [4, 'PK', 1],
+[3, 'Astra Revolver', 1], [3, 'C96', 8], [3, 'M9', 12], [3, 'Makarov', 9],
+[3, 'AK-47', 5], [3, 'FNC', 7],
+[3, 'MAC-10', 7], [3, 'Micro-UZI', 6], [3, 'Skorpion', 5],
 [3, 'M14', 2],
-[3, 'M2HB', 3], [3, 'MG42', 6]],
-  num_124etrue = 45
+[3, 'M2HB', 6], [3, 'MG42', 7]],
+  num_124etrue = 65
 
-var data_124efalse = [[5, 'MDR', 0], // 12-4e，无搜救
-[4, 'MAT-49', 0], [4, 'M1918', 0], [4, 'PK', 0],
-[3, 'Astra Revolver', 0], [3, 'C96', 0], [3, 'M9', 0], [3, 'Makarov', 0],
-[3, 'AK-47', 0], [3, 'FNC', 0],
-[3, 'MAC-10', 0], [3, 'Micro-UZI', 0], [3, 'Skorpion', 0],
-[3, 'M14', 0],
-[3, 'M2HB', 0], [3, 'MG42', 0]],
-  num_124efalse = 3
+var data_124efalse = [[5, 'MDR', 1], // 12-4e，无搜救
+[4, 'TAR-21', 1], [4, 'MAT-49', 4], [4, 'M1918', 1], [4, 'M60', 0], [4, 'PK', 0],
+[3, 'Astra Revolver', 2], [3, 'C96', 5], [3, 'M9', 11], [3, 'Makarov', 3],
+[3, 'AK-47', 1], [3, 'FNC', 5],
+[3, 'MAC-10', 1], [3, 'Micro-UZI', 1], [3, 'Skorpion', 6],
+[3, 'M14', 2],
+[3, 'M2HB', 6], [3, 'MG42', 2]],
+  num_124efalse = 86
 
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2], // 11-6，搜救
 [3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
@@ -392,7 +396,7 @@ var data_dragsc = [ // shattered connexion
 var list_supporter_1 = [
   '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
   '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
-  'cookiesiclink', 'Airnors', 'Scottdoha'
+  'cookiesiclink', 'Airnors', 'Scottdoha', 'AT4', '白金世界'
 ],
   list_supporter_2 = [
     '哒酱', '门对千竿竹', '莉莉丝爱你哦', 'Flonne', 'mrduck',
@@ -438,6 +442,13 @@ var data_drag_normal = [
     find_in_data('Mk46', [data_116false]),
     3 * num_116false],
   ['11-4E', 4, 'Mk46 <span style="color:black">[Ch.11 only]</span>', 0, 0, 2, 288],
+  ['11-6', 4, 'MAT-49 <span style="color:black">[Ch.12 only]</span>', 0, 0, 0, 0],
+  ['12-4E', 4, 'MAT-49 <span style="color:black">[Ch.12 only]</span>',
+    find_in_data('MAT-49', [data_124etrue]),
+    3 * num_124etrue,
+    find_in_data('MAT-49', [data_124efalse]),
+    3 * num_124efalse
+  ],
   ['0-2', 4, 'PK', 0, 0, 5, 3228],
   ['6-4E', 5, 'Vector', 0, 0, 1, 165],
   ['10-4E', 5, 'SR-3MP',
@@ -480,6 +491,7 @@ window.onload = function () {
   mergeCell('table_drag1', 0, 1, 0)
   fill_drag('drag1', data_drag1, 6)
   // mergeCell()
+  // shattered connexion
   mergeCell('table_dragsc', 32, 35, 0)
   mergeCell('table_dragsc', 28, 31, 0)
   mergeCell('table_dragsc', 24, 27, 0)
@@ -490,7 +502,7 @@ window.onload = function () {
   mergeCell('table_dragsc', 4, 7, 0)
   mergeCell('table_dragsc', 0, 3, 0)
   fill_drag('dragsc', data_dragsc, 18)
-
+  // vall-halla
   mergeCell('table_dragva11', 10, 11, 0)
   mergeCell('table_dragva11', 8, 9, 0)
   mergeCell('table_dragva11', 6, 7, 0)
@@ -500,6 +512,7 @@ window.onload = function () {
   fill_drag('dragva11', data_dragva11, 6)
   fill_drag_normal('table_drag_normal', data_drag_normal)
   fill_drag_normal('table_drag_resident', data_drag_resident)
+  // main-story deduplicate
   deduplicateTable('table_drag_normal', data_drag_normal, false)
   // cores
   get_cards(list_card, list_data_card)

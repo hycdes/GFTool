@@ -10,7 +10,7 @@ var list_show = [
 ]
 var list_show_fairy = [true, true]
 var list_show_HF = [true, true, true, true, true]
-function makeGraph () {
+function makeGraph() {
   var base_data = []
   var base_yaxis = []
   var Set_Label = new Map
@@ -56,7 +56,8 @@ function makeGraph () {
   }
   // fairy data
   if (gs_fairy && list_show_fairy[0]) {
-    base_data.push({ data: Set_Data.get(9),
+    base_data.push({
+      data: Set_Data.get(9),
       label: Glabel_name.get('fairy') + 'd',
       color: list_color[9],
       yaxis: 1
@@ -127,7 +128,7 @@ function makeGraph () {
       }
     })
 }
-function tooltip_string (label, x, y) {
+function tooltip_string(label, x, y) {
   var name = label.substr(0, label.length - 1)
   var position = trans_if_need(parseInt(label[0])) - 1
   var datatype = label[label.length - 1]
@@ -140,7 +141,7 @@ function tooltip_string (label, x, y) {
       return '[' + name + '] ' + lib_language.main_formatDPS_1 + ':%xs, ' + lib_language.main_makeGraph_3 + (100 * y).toFixed(2) + '%, ' + lib_language.form + ':' + Math.ceil(5 * y)
   }
 }
-function label_string (label) {
+function label_string(label) {
   var datatype = label[label.length - 1]
   if (datatype === 'd') { // dmg data
     return label.substr(0, label.length - 1) + ' ' + lib_language.UI_dmg
