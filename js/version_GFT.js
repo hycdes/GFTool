@@ -2,7 +2,7 @@ var _version = {
   DB: 'v3.3',
   CC: 'v5.3 (2019.11.26)',
   ES: 'v4.4.3 (2019.12.14)',
-  ST: 'v2.0'
+  ST: 'v3.0 (2019.12.25)'
 }
 var _updateinfo = {
   ES: '1. debug K2<br>2. add exclusive equipments in forward basecamp<br>3. debug Theresa skill'

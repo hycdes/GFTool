@@ -1,19 +1,8 @@
 var info_update = '2019/12/23'
-var num_ref = 2000, num_relia = 10000, num_valid = 200
+var num_ref = 2000, num_relia = 10000, num_valid = 300
 var lib_cache = new Map
 var lib_valid = new Map
 var is_alert = false
-var data_map = { // [回合，战斗，S胜，判定]
-  m124e: [1, 4, true, 5],
-  m116: [2, 8, true, 9],
-  m115: [1, 5, false, 3],
-  m104e4: [2, 4, false, 4],
-  m104e5: [2, 5, false, 5],
-  m104e6: [2, 6, false, 6],
-  m104e7: [2, 7, false, 6],
-  m02: [2, 5, true, 5]
-}
-
 
 // function
 function num_split(num) {
@@ -29,7 +18,7 @@ function showAlert() {
   if (is_alert) {
     document.getElementById('info_alert').innerHTML = ''
     document.getElementById('btn_alert').className = 'btn btn-warning'
-    document.getElementById('btn_alert').innerHTML = '本页须知'
+    document.getElementById('btn_alert').innerHTML = '我要贡献数据'
   } else {
     var str_info = ''
     str_info += '<h5 id="version"></h5>'
@@ -44,58 +33,87 @@ function showAlert() {
     str_info += '<h5>&nbsp</h5>'
     document.getElementById('info_alert').innerHTML = str_info
     document.getElementById('btn_alert').className = 'btn btn-primary'
-    document.getElementById('btn_alert').innerHTML = '隐藏须知'
+    document.getElementById('btn_alert').innerHTML = '隐藏本页须知'
     document.getElementById('version').innerHTML = '更新时间: ' + info_update
   }
   is_alert = !is_alert
 }
-function get_card(id, data_entry) {
-  var info = ''
-  info += '回合 ' + data_entry[0]
-  info += ' / ' + data_entry[1] + '战'
-  if (data_entry[2]) info += ' <span style="color:darkorange">S胜</span>'
-  else info += ' <span style="color:dodgerblue">撤退</span>'
-  info += ' / ' + '判定' + data_entry[3]
-  document.getElementById(id).innerHTML = info
-}
-function get_cards(list_id, list_data) {
-  var len = list_id.length
-  for (var i = 0; i < len; i++) get_card(list_id[i], list_data[i])
-}
-function fill_table(stat, fairy_status, table, data, num_total) {
-  var cores = 0
-  var info = '', stat_info = ''
-  for (var entry of data) {
-    info += '<tr><td>'
-    if (entry[0] === 5) {
-      info += '<span style="color:darkorange">★★★★★ ' + entry[1] + '</span></td>'
-      cores += 5 * entry[2]
+
+function fill_table(command) {
+  if (command === 'corestat') { // str_map, num_battle
+    var str_map = arguments['1'], num_battle = arguments[2]
+    var data_true, data_false, num_true = 0, num_false = 0 // 开搜救和不开搜救
+    var cores_true = 0, cores_false = 0, stat_true = 0, stat_false = 0,
+      info_table = '', info_th = '', stat_info = '', str_img = ''
+    eval('data_true=data_' + str_map + 'true')
+    eval('data_false=data_' + str_map + 'false')
+    eval('num_true=num_' + str_map + 'true*num_battle')
+    eval('num_false=num_' + str_map + 'false*num_battle')
+    var len_entry = data_true.length, entry_true, entry_false
+    // 填表
+    for (var i = 0; i < len_entry; i++) {
+      entry_true = data_true[i], entry_false = data_false[i]
+      str_img = find_image(entry_true[1], list_tdollid)
+      // 人形头像、星级、名字
+      info_table += '<tr><td style="font-size:large">' + str_img
+      if (entry_true[0] === 5) {
+        info_table += '<span style="color:darkorange">★★★★★ ' + entry_true[1] + '</span></td>'
+        cores_true += 5 * entry_true[2]
+        cores_false += 5 * entry_false[2]
+      }
+      else if (entry_true[0] === 4) {
+        info_table += '<span style="color:rgb(50, 250, 0)">★★★★ ' + entry_true[1] + '</span></td>'
+        cores_true += 3 * entry_true[2]
+        cores_false += 3 * entry_false[2]
+      } else {
+        info_table += '<span style="color:dodgerblue">★★★ ' + entry_true[1] + '</span></td>'
+        cores_true += entry_true[2]
+        cores_false += entry_false[2]
+      }
+      // 数量及占比
+      info_table += '<td style="font-size:large;vertical-align:middle">' + entry_true[2]
+      if (num_true > 0) {
+        info_table += '&nbsp&nbsp&nbsp<span style="color:gray">(' + (100 * entry_true[2] / num_true).toFixed(2) + '%)</span>'
+      }
+      info_table += '</td>'
+      info_table += '<td style="font-size:large;vertical-align:middle">' + entry_false[2]
+      if (num_false > 0) {
+        info_table += '&nbsp&nbsp&nbsp<span style="color:gray">(' + (100 * entry_false[2] / num_false).toFixed(2) + '%)</span>'
+      }
+      info_table += '</td></tr>'
     }
-    else if (entry[0] === 4) {
-      info += '<span style="color:rgb(50, 250, 0)">★★★★ ' + entry[1] + '</span></td>'
-      cores += 3 * entry[2]
-    } else {
-      info += '<span style="color:dodgerblue">★★★ ' + entry[1] + '</span></td>'
-      cores += entry[2]
+    // 填表头
+    info_th += '<th style="width:40%">核心人形</th>'
+    if (num_true > 0) {
+      info_th += '<th style="width:30%">满级搜救 ' + cores_true + '核心 / ' + num_true + '战 '
+      stat_true = (100 * cores_true / num_true).toFixed(2)
+      info_th += '(<span style="color:dodgerblue">' + stat_true + '%</span>)'
+      info_th += '</th>'
     }
-    info += '<td>' + entry[2]
-    if (num_total > 0) {
-      info += '&nbsp&nbsp&nbsp<span style="color:gray">(' + (100 * entry[2] / num_total).toFixed(2) + '%)</span>'
+    else info_th += '<th style="width:30%">满级搜救 (无数据)</th>'
+    if (num_false > 0) {
+      info_th += '<th style="width:30%">无搜救 ' + cores_false + '核心 / ' + num_false + '战 '
+      stat_false = (100 * cores_false / num_false).toFixed(2)
+      info_th += '(<span style="color:dodgerblue">' + stat_false + '%</span>)'
+      info_th += '</th>'
     }
-    info += '</tr></td>'
+    else info_th += '<th style="width:30%">无搜救 (无数据)</th>'
+    // 缓存统计数据
+    var str_stat_true = '', str_stat_false = ''
+    eval('str_stat_true="stat_"+str_map+"true"')
+    eval('str_stat_false="stat_"+str_map+"false"')
+    lib_cache.set(str_stat_true, stat_true)
+    lib_cache.set(str_stat_false, stat_false)
+    if (num_true > num_valid) lib_valid.set(str_stat_true, true)
+    else lib_valid.set(str_stat_true, false)
+    if (num_false > num_valid) lib_valid.set(str_stat_false, true)
+    else lib_valid.set(str_stat_false, false)
+    // 载入
+    document.getElementById('th_' + str_map).innerHTML = info_th
+    document.getElementById('table_' + str_map).innerHTML = info_table
   }
-  if (num_total >= num_relia) stat_info += '<i class="fa fa-star fa-fw"></i>'
-  else if (num_total < num_relia && num_total >= num_ref) stat_info += '<i class="fa fa-check fa-fw"></i>'
-  stat_info += cores + ' / ' + num_total + ' (<span style="color:dodgerblue">'
-  lib_cache.set(stat, (100 * cores / num_total).toFixed(2))
-  if (num_total > num_valid) lib_valid.set(stat, true)
-  else lib_valid.set(stat, false)
-  stat_info += lib_cache.get(stat) + '%</span>)'
-  if (fairy_status) stat_info += ' 搜救:<span style="color:red">Lv.10</span>'
-  else stat_info += ' 搜救:未开启'
-  document.getElementById(stat).innerHTML = stat_info
-  document.getElementById(table).innerHTML = info
 }
+
 function fill_drag(dragID, stat_data, num_card) {
   for (var n_map = 0; n_map < num_card; n_map++) {
     for (var i = 0; i < 4; i++) {
@@ -147,6 +165,12 @@ function fill_supporter(list_supporter, body_id) {
     str += '</tr>'
   }
   document.getElementById(body_id).innerHTML = str
+}
+function find_image(name, list_tdollid) {
+  for (var data of list_tdollid) {
+    if (name === data[0]) return '<img src="../img/class/' + data[1] + '.png" style="width=50px;height:50px"> '
+  }
+  return ''
 }
 function find_in_data(name, list_data) {
   var sum = 0
@@ -249,22 +273,22 @@ function loadScript(url) {
 
 // data
 var data_124etrue = [[5, 'MDR', 2], // 12-4e，搜救
-[4, 'TAR-21', 0], [4, 'MAT-49', 5], [4, 'M1918', 1], [4, 'M60', 0], [4, 'PK', 3],
-[3, 'Astra Revolver', 4], [3, 'C96', 13], [3, 'M9', 14], [3, 'Makarov', 11],
-[3, 'AK-47', 11], [3, 'FNC', 7],
-[3, 'MAC-10', 11], [3, 'Micro-UZI', 8], [3, 'Skorpion', 7],
-[3, 'M14', 5],
-[3, 'M2HB', 9], [3, 'MG42', 10]],
-  num_124etrue = 114
+[4, 'TAR-21', 0], [4, 'MAT-49', 9], [4, 'M1918', 1], [4, 'M60', 1], [4, 'PK', 3],
+[3, 'Astra Revolver', 6], [3, 'C96', 15], [3, 'M9', 18], [3, 'Makarov', 14],
+[3, 'AK-47', 17], [3, 'FNC', 11],
+[3, 'MAC-10', 13], [3, 'Micro UZI', 11], [3, 'Skorpion', 11],
+[3, 'M14', 8],
+[3, 'M2HB', 13], [3, 'MG42', 12]],
+  num_124etrue = 160
 
 var data_124efalse = [[5, 'MDR', 2], // 12-4e，无搜救
 [4, 'TAR-21', 2], [4, 'MAT-49', 5], [4, 'M1918', 1], [4, 'M60', 0], [4, 'PK', 4],
-[3, 'Astra Revolver', 7], [3, 'C96', 7], [3, 'M9', 16], [3, 'Makarov', 5],
-[3, 'AK-47', 2], [3, 'FNC', 8],
-[3, 'MAC-10', 9], [3, 'Micro-UZI', 4], [3, 'Skorpion', 10],
-[3, 'M14', 6],
-[3, 'M2HB', 9], [3, 'MG42', 6]],
-  num_124efalse = 166
+[3, 'Astra Revolver', 7], [3, 'C96', 8], [3, 'M9', 18], [3, 'Makarov', 8],
+[3, 'AK-47', 3], [3, 'FNC', 9],
+[3, 'MAC-10', 9], [3, 'Micro UZI', 6], [3, 'Skorpion', 11],
+[3, 'M14', 8],
+[3, 'M2HB', 10], [3, 'MG42', 7]],
+  num_124efalse = 186
 
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2], // 11-6，搜救
 [3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
@@ -274,58 +298,29 @@ var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField'
 [3, 'Bren', 10], [3, 'M1919A4', 7]],
   num_116true = 56
 
-var data_116false = [[4, 'Mk46', 2], // 11-6，无搜救
+var data_116false = [[4, 'Colt Revolver', 0], [4, 'AS Val', 0], [4, 'SpringField', 0], [4, 'M1918', 0], [4, 'Mk46', 2], // 11-6，无搜救
 [3, 'M9', 9], [3, 'P08', 3], [3, 'Type 92', 3], [3, 'Tokarev', 7],
 [3, 'OTs-12', 8], [3, 'StG44', 2],
-[3, 'PPS-43', 2], [3, 'Sten MkII', 4],
+[3, 'MAC-10', 0], [3, 'PPS-43', 2], [3, 'Sten MkII', 4],
 [3, 'SV-98', 2], [3, 'M1 Garand', 5],
 [3, 'Bren', 4], [3, 'M1919A4', 1]],
   num_116false = 37
 
-var data_104e4true = [ // 10-4e，搜救四战
-  [4, 'PP-90', 1],
-  [3, 'M9', 3], [3, 'Makarov', 1],
-  [3, 'AK-47', 2], [3, 'FNC', 1],
-  [3, 'M14', 3],
-  [3, 'M2HB', 1], [3, 'MG42', 1]
-],
-  num_104e4true = 15
+var data_115true = [[4, 'P7', 0], [4, '9A-91', 0], [4, 'PP-90', 0], [4, 'PK', 0], // 11-5，搜救
+[3, 'Astra Revolver', 1], [3, 'C96', 0], [3, 'M9', 0], [3, 'Makarov', 1],
+[3, 'AK-47', 0], [3, 'FNC', 0],
+[3, 'MAC-10', 1], [3, 'Micro UZI', 0], [3, 'Skorpion', 1],
+[3, 'M14', 0],
+[3, 'M2HB', 1], [3, 'MG42', 0]],
+  num_115true = 10
 
-var data_104e4false = [ // 10-4e，无搜救四战
-  [4, 'Mk23', 2], [4, 'AS Val', 2], [4, 'XM3', 3], [4, 'M60', 1],
-  [3, 'Astra Revolver', 4], [3, 'C96', 9], [3, 'M9', 3], [3, 'Makarov', 6],
-  [3, 'AK-47', 5], [3, 'FNC', 6],
-  [3, 'MAC-10', 4], [3, 'Micro UZI', 3], [3, 'Skorpion', 2],
-  [3, 'M14', 2],
-  [3, 'M2HB', 4], [3, 'MG42', 4]],
-  num_104e4false = 119
-
-var data_104e5true = [[5, 'SR-3MP', 3], // 10-4e，搜救五战
-[4, 'Mk23', 5], [4, 'AS Val', 5], [4, 'PP-90', 4], [4, 'XM3', 17], [4, 'M60', 2],
-[3, 'Astra Revolver', 25], [3, 'C96', 44], [3, 'M9', 27], [3, 'Makarov', 30],
-[3, 'AK-47', 26], [3, 'FNC', 28],
-[3, 'MAC-10', 38], [3, 'Micro UZI', 35], [3, 'Skorpion', 28],
-[3, 'M14', 31],
-[3, 'M2HB', 31], [3, 'MG42', 26]],
-  num_104e5true = 422
-
-var data_104e5false = [[5, 'SR-3MP', 1], // 10-4e，无搜救五战
-[4, 'Mk23', 2], [4, 'PP-90', 1], [4, 'XM3', 4],
-[3, 'Astra Revolver', 8], [3, 'C96', 15], [3, 'M9', 10], [3, 'Makarov', 14],
-[3, 'AK-47', 15], [3, 'FNC', 9],
-[3, 'MAC-10', 9], [3, 'Micro UZI', 9], [3, 'Skorpion', 10],
-[3, 'M14', 7],
-[3, 'M2HB', 8], [3, 'MG42', 15]],
-  num_104e5false = 210
-
-var data_104e6false = [[5, 'SR-3MP', 34], // 10-4e，无搜救六战
-[4, 'Mk23', 39], [4, 'AS Val', 32], [4, 'PP-90', 33], [4, 'XM3', 107], [4, 'M60', 31],
-[3, 'Astra Revolver', 306], [3, 'C96', 345], [3, 'M9', 370], [3, 'Makarov', 305],
-[3, 'AK-47', 283], [3, 'FNC', 291],
-[3, 'MAC-10', 266], [3, 'Micro UZI', 298], [3, 'Skorpion', 297],
-[3, 'M14', 299],
-[3, 'M2HB', 305], [3, 'MG42', 292]],
-  num_104e6false = 4921
+var data_115false = [[4, 'P7', 10], [4, '9A-91', 2], [4, 'PP-90', 1], [4, 'PK', 2], // 11-5，无搜救
+[3, 'Astra Revolver', 64], [3, 'C96', 74], [3, 'M9', 73], [3, 'Makarov', 83],
+[3, 'AK-47', 73], [3, 'FNC', 72],
+[3, 'MAC-10', 62], [3, 'Micro UZI', 63], [3, 'Skorpion', 62],
+[3, 'M14', 73],
+[3, 'M2HB', 68], [3, 'MG42', 69]],
+  num_115false = 2290
 
 var data_104e7true = [[5, 'SR-3MP', 6], // 10-4e，搜救七战
 [4, 'Mk23', 8], [4, 'AS Val', 7], [4, 'PP-90', 9], [4, 'XM3', 31], [4, 'M60', 9],
@@ -337,24 +332,67 @@ var data_104e7true = [[5, 'SR-3MP', 6], // 10-4e，搜救七战
   num_104e7true = 938
 
 var data_104e7false = [[5, 'SR-3MP', 1], // 10-4e，无搜救七战
-[3, 'C96', 2], [3, 'Makarov', 2],
+[4, 'Mk23', 0], [4, 'AS Val', 0], [4, 'PP-90', 0], [4, 'XM3', 0], [4, 'M60', 0],
+[3, 'Astra Revolver', 0], [3, 'C96', 2], [3, 'M9', 0], [3, 'Makarov', 2],
 [3, 'AK-47', 2], [3, 'FNC', 2],
-[3, 'MAC-10', 4], [3, 'Micro UZI', 2],
+[3, 'MAC-10', 4], [3, 'Micro UZI', 2], [3, 'Skorpion', 0],
+[3, 'M14', 0],
 [3, 'M2HB', 4], [3, 'MG42', 1]],
   num_104e7false = 26
 
-var data_115true = [ // 11-5，搜救
-  [3, 'Astra Revolver', 1], [3, 'Makarov', 1],
-  [3, 'MAC-10', 1], [3, 'Skorpion', 1],
-  [3, 'M2HB', 1]]
+var data_104e6true = [[5, 'SR-3MP', 0], // 10-4e，搜救六战
+[4, 'Mk23', 0], [4, 'AS Val', 0], [4, 'PP-90', 0], [4, 'XM3', 0], [4, 'M60', 0],
+[3, 'Astra Revolver', 0], [3, 'C96', 0], [3, 'M9', 0], [3, 'Makarov', 0],
+[3, 'AK-47', 0], [3, 'FNC', 0],
+[3, 'MAC-10', 0], [3, 'Micro UZI', 0], [3, 'Skorpion', 0],
+[3, 'M14', 0],
+[3, 'M2HB', 0], [3, 'MG42', 0]],
+  num_104e6true = 0
 
-var data_115false = [[4, 'P7', 10], [4, '9A-91', 2], [4, 'PP-90', 1], [4, 'PK', 2],// 11-5，无搜救
-[3, 'Astra Revolver', 64], [3, 'C96', 74], [3, 'M9', 73], [3, 'Makarov', 83],
-[3, 'AK-47', 73], [3, 'FNC', 72],
-[3, 'MAC-10', 62], [3, 'Micro UZI', 63], [3, 'Skorpion', 62],
-[3, 'M14', 73],
-[3, 'M2HB', 68], [3, 'MG42', 69]],
-  num_115false = 2290
+var data_104e6false = [[5, 'SR-3MP', 34], // 10-4e，无搜救六战
+[4, 'Mk23', 39], [4, 'AS Val', 32], [4, 'PP-90', 33], [4, 'XM3', 107], [4, 'M60', 31],
+[3, 'Astra Revolver', 306], [3, 'C96', 345], [3, 'M9', 370], [3, 'Makarov', 305],
+[3, 'AK-47', 283], [3, 'FNC', 291],
+[3, 'MAC-10', 266], [3, 'Micro UZI', 298], [3, 'Skorpion', 297],
+[3, 'M14', 299],
+[3, 'M2HB', 305], [3, 'MG42', 292]],
+  num_104e6false = 4921
+
+var data_104e5true = [[5, 'SR-3MP', 3], // 10-4e，搜救五战
+[4, 'Mk23', 5], [4, 'AS Val', 5], [4, 'PP-90', 4], [4, 'XM3', 17], [4, 'M60', 2],
+[3, 'Astra Revolver', 25], [3, 'C96', 44], [3, 'M9', 27], [3, 'Makarov', 30],
+[3, 'AK-47', 26], [3, 'FNC', 28],
+[3, 'MAC-10', 38], [3, 'Micro UZI', 35], [3, 'Skorpion', 28],
+[3, 'M14', 31],
+[3, 'M2HB', 31], [3, 'MG42', 26]],
+  num_104e5true = 422
+
+var data_104e5false = [[5, 'SR-3MP', 1], // 10-4e，无搜救五战
+[4, 'Mk23', 2], [4, 'AS Val', 0], [4, 'PP-90', 1], [4, 'XM3', 4], [4, 'M60', 0],
+[3, 'Astra Revolver', 8], [3, 'C96', 15], [3, 'M9', 10], [3, 'Makarov', 14],
+[3, 'AK-47', 15], [3, 'FNC', 9],
+[3, 'MAC-10', 9], [3, 'Micro UZI', 9], [3, 'Skorpion', 10],
+[3, 'M14', 7],
+[3, 'M2HB', 8], [3, 'MG42', 15]],
+  num_104e5false = 210
+
+var data_104e4true = [[5, 'SR-3MP', 0], // 10-4e，搜救四战
+[4, 'Mk23', 0], [4, 'AS Val', 0], [4, 'PP-90', 1], [4, 'XM3', 0], [4, 'M60', 0],
+[3, 'Astra Revolver', 0], [3, 'C96', 0], [3, 'M9', 3], [3, 'Makarov', 1],
+[3, 'AK-47', 2], [3, 'FNC', 1],
+[3, 'MAC-10', 0], [3, 'Micro UZI', 0], [3, 'Skorpion', 0],
+[3, 'M14', 3],
+[3, 'M2HB', 1], [3, 'MG42', 1]],
+  num_104e4true = 15
+
+var data_104e4false = [[5, 'SR-3MP', 0], // 10-4e，无搜救四战
+[4, 'Mk23', 2], [4, 'AS Val', 2], [4, 'PP-90', 0], [4, 'XM3', 3], [4, 'M60', 1],
+[3, 'Astra Revolver', 4], [3, 'C96', 9], [3, 'M9', 3], [3, 'Makarov', 6],
+[3, 'AK-47', 5], [3, 'FNC', 6],
+[3, 'MAC-10', 4], [3, 'Micro UZI', 3], [3, 'Skorpion', 2],
+[3, 'M14', 2],
+[3, 'M2HB', 4], [3, 'MG42', 4]],
+  num_104e4false = 119
 
 var data_drag1 = [ // 5月4日打捞
   [[1, 60], [5, 450], [1, 140], [21, 1939]],
@@ -393,11 +431,29 @@ var data_dragsc = [ // shattered connexion
   [[0, 0], [0, 0], [0, 0], [0, 0]] // Kord 4-5
 ]
 
+var list_tdollid = [
+  // ★★★★★
+  ['MDR', 215],
+  ['SR-3MP', 135],
+  // ★★★★
+  ['Colt Revolver', 1], ['Mk23', 99], ['P7', 100],
+  ['9A-91', 118], ['AS Val', 60], ['TAR-21', 72],
+  ['MAT-49', 280], ['PP-90', 23],
+  ['SpringField', 36], ['XM3', 200],
+  ['M1918', 75], ['M60', 78], ['Mk46', 240], ['PK', 85],
+  // ★★★
+  ['Astra Revolver', 14], ['C96', 12], ['M9', 3], ['Makarov', 8], ['P08', 11], ['Tokarev', 6], ['Type 92', 13],
+  ['AK-47', 58], ['FNC', 70], ['OTs-12', 105], ['StG44', 61],
+  ['MAC-10', 18], ['Micro UZI', 32], ['Skorpion', 27], ['Sten MkII', 29], ['PPS-43', 22],
+  ['M14', 37], ['M1 Garand', 34], ['SV-98', 44],
+  ['Bren', 89], ['M1919A4', 80], ['M2HB', 77], ['MG42', 86]
+]
+
 var list_supporter_1 = [
   '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
   '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
   'cookiesiclink', 'Airnors', 'Scottdoha', 'AT4', '白金世界',
-  '一瞬の感质'
+  '一瞬の感质', '十五酱'
 ],
   list_supporter_2 = [
     '哒酱', '门对千竿竹', '莉莉丝爱你哦', 'Flonne', 'mrduck',
@@ -471,16 +527,6 @@ var str_current_statname = [
   'stat_104e7false', 'stat_104e6false', 'stat_104e5false', 'stat_104e4false']
 var bar_info = [], bar_data = [], bar_name = [], bar_num = 0, y_max = 0
 
-var list_card = [
-  'card_124e', 'card_124e_2',
-  'card_116', 'card_116_2', 'card_115', 'card_115_2',
-  'card_104e7', 'card_104e7_2', 'card_104e6_2', 'card_104e5', 'card_104e5_2', 'card_104e4', 'card_104e4_2',
-  'card_02']
-var list_data_card = [
-  data_map.m124e, data_map.m124e,
-  data_map.m116, data_map.m116, data_map.m115, data_map.m115,
-  data_map.m104e7, data_map.m104e7, data_map.m104e6, data_map.m104e5, data_map.m104e5, data_map.m104e4, data_map.m104e4,
-  data_map.m02]
 
 window.onload = function () {
   // drag
@@ -516,20 +562,13 @@ window.onload = function () {
   // main-story deduplicate
   deduplicateTable('table_drag_normal', data_drag_normal, false)
   // cores
-  get_cards(list_card, list_data_card)
-  fill_table('stat_124etrue', true, 'table_124etrue', data_124etrue, 4 * num_124etrue)
-  fill_table('stat_124efalse', true, 'table_124efalse', data_124efalse, 4 * num_124efalse)
-  fill_table('stat_116true', true, 'table_116true', data_116true, 8 * num_116true)
-  fill_table('stat_116false', false, 'table_116false', data_116false, 8 * num_116false)
-  fill_table('stat_115true', true, 'table_115true', data_115true, 50)
-  fill_table('stat_115false', false, 'table_115false', data_115false, 5 * num_115false)
-  fill_table('stat_104e7true', true, 'table_104e7true', data_104e7true, 7 * num_104e7true)
-  fill_table('stat_104e7false', false, 'table_104e7false', data_104e7false, 7 * num_104e7false)
-  fill_table('stat_104e6false', false, 'table_104e6false', data_104e6false, 6 * num_104e6false)
-  fill_table('stat_104e5true', true, 'table_104e5true', data_104e5true, 5 * num_104e5true) // 五战搜救
-  fill_table('stat_104e5false', false, 'table_104e5false', data_104e5false, 5 * num_104e5false)
-  fill_table('stat_104e4true', true, 'table_104e4true', data_104e4true, 4 * num_104e4true)
-  fill_table('stat_104e4false', false, 'table_104e4false', data_104e4false, 4 * num_104e4false)
+  fill_table('corestat', '124e', 4)
+  fill_table('corestat', '116', 8)
+  fill_table('corestat', '115', 5)
+  fill_table('corestat', '104e7', 7)
+  fill_table('corestat', '104e6', 6)
+  fill_table('corestat', '104e5', 5)
+  fill_table('corestat', '104e4', 4)
   // supporters
   fill_supporter(list_supporter_1, 'spt_1')
   fill_supporter(list_supporter_2, 'spt_2')
