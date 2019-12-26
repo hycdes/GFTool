@@ -447,7 +447,7 @@ function reactAllSkill(command, current_time) {
       }
     }
   }
-  // 人形特殊状态
+  // ———————————————————————————————————————— 人形特殊状态 ————————————————————————————————————————
   for (var k = 0; k < 9; k++) {
     if (gs_tdoll[k]) {
       if (is_this(k, 257) || is_this(k, 273)) { // m200 ssg3000
@@ -492,6 +492,10 @@ function reactAllSkill(command, current_time) {
             _spS('m1895cb_' + k, _spG('m1895cb_' + k) + 1) // 备用弹量+1
             _spS('m1895cb_add_' + k, global_frame + 90) // 下一次子弹回复
           }
+        }
+      } else if (is_this(k, 287)) { // SIG-556
+        if (global_frame >= _spG('sig556_dizz_' + k)) {
+          _spS('attack_permission_' + k, 'fire_all') // 恢复攻击
         }
       } else if (is_this(k, 2011)) { // jill醉酒状态施加
         if (Set_Special.get('jill_drunk') != undefined && Set_Special.get('jill_drunk') <= global_frame) {
@@ -697,8 +701,30 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           Set_Special.delete('r93_timestack_' + stand_num)
         }
       }
-      if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && !is_this(stand_num, 256)) { // HG/AR/SMG/RF 并排除 隼
-        if ((is_this(stand_num, 73) || is_this(stand_num, 237)) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9 // 葬仪之雨固定150射速
+      // 常规人形攻击间隔判断：HG/AR/SMG/RF 并排除 隼
+      if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && !is_this(stand_num, 256)) {
+        // 葬仪之雨固定150射速
+        if ((is_this(stand_num, 73) || is_this(stand_num, 237)) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9
+        // SIG-556极限射速
+        else if (is_this(stand_num, 287)) {
+          if (_spG('sig556_skill_' + stand_num) === undefined || _spG('sig556_debuff_' + stand_num) === undefined) { // 初始化
+            _spS('sig556_skill_' + stand_num, false)
+            _spS('sig556_debuff_' + stand_num, 0)
+          }
+          if (_spG('sig556_skill_' + stand_num) === true) { // 技能期间
+            _spPlus('sig556_debuff_' + stand_num) // 过载一层
+            if (_spE('sig556_debuff_' + stand_num, 12)) { // 过载12层眩晕
+              _spS('attack_permission_' + stand_num, 'stop') // 停火
+              _spS('sig556_dizz_' + stand_num, global_frame + 60) // 眩晕2s
+              _spS('sig556_debuff_' + stand_num, 0) // 重置层数
+              _spS('sig556_skill_' + stand_num, false) // 强制关闭技能
+            }
+            else s_t[1] = 11 // 正常射击，极限射速
+          } else { // 非技能期间
+            if (_spG('sig556_debuff_' + stand_num) > 0) _spDecl('sig556_debuff_' + stand_num) // 冷却一层
+            s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1 // 正常射速间隔
+          }
+        }
         else if (is_this(stand_num, 1002) && Set_Special.get('m1911_' + stand_num) > 0) { // 绝境神枪手15帧
           s_t[1] = 14
           Set_Special.set('m1911_' + stand_num, Set_Special.get('m1911_' + stand_num) - 1)
@@ -1529,6 +1555,25 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       }
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'sig556') {
+    if (_spG('sig556_skill_' + stand_num) === undefined || _spG('sig556_debuff_' + stand_num) === undefined) { // 初始化
+      _spS('sig556_skill_' + stand_num, false)
+      _spS('sig556_debuff_' + stand_num, 0)
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+    }
+    else if (_spG('sig556_skill_' + stand_num) === true) { // 技能激活时，冷却就绪
+      if (document.getElementById('special_287_' + stand_num).checked) {
+        if (_spG('sig556_debuff_' + stand_num) < 11) s_t[1] = 0 // 仅使过热终止技能时，如果下一枪不致晕，则不主动终止技能
+        else s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 否则下一枪必晕，进入冷却
+      } else {
+        _spS('sig556_skill_' + stand_num, false) // 自动技能将其关闭
+        s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+      }
+    } else if (_spG('sig556_skill_' + stand_num) === false) { // 技能关闭时，冷却就绪
+      _spS('sig556_skill_' + stand_num, true) // 手动开启
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+    }
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————

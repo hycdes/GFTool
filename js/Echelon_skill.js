@@ -367,6 +367,11 @@ function describe_c96cs() { // m1895cb
   Describe.name = 'c96cs'
   return Describe
 }
+function describe_sig556() { // SIG-556
+  var Describe = {}
+  Describe.name = 'sig556'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -665,6 +670,7 @@ lib_describe.set('ump9mod', describe_ump9mod()) // 白鸮轰鸣
 lib_describe.set('hanyang88', describe_hanyang88()) // 全能战术
 lib_describe.set('m1895cb', describe_m1895cb()) // 有备无患
 lib_describe.set('c96cs', describe_c96cs()) // 夜空追击者：弹量
+lib_describe.set('SIG-556', describe_sig556()) // 战场弄潮儿
 
 // lib_skill
 
@@ -815,6 +821,7 @@ lib_skill.set(274, [
   createSkill(6, 8, 5, lib_describe.get('rof_50')), // buff
   createSkill(6, 8, 5, lib_describe.get('dmg_20_enemy')) // debuff
 ]) // acr
+lib_skill.set(287, [createSkill(5, 4, 0, lib_describe.get('SIG-556'))]) // SIG-556
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
@@ -859,6 +866,7 @@ lib_skill.set(227, [
 ])
 lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
 lib_skill.set(262, [createSkill(6, 16, 0, lib_describe.get('em2'))])
+lib_skill.set(288, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(1061, [createSkill(8, 16, 0, lib_describe.get('grenade_9.6'))]) // 后续详细做
 lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
 // ———————————————————————————————————————— AR - 3 ————————————————————————————————————————
@@ -879,6 +887,7 @@ lib_skill.set(223, [createSkill(5, 8, 5, lib_describe.get('modelL'))])
 lib_skill.set(239, [createSkill(6, 8, 5, lib_describe.get('dmgcrit_3'))])
 lib_skill.set(258, [createSkill(6, 16, 10, lib_describe.get('magal'))])
 lib_skill.set(265, [createSkill(4, 16, 10, lib_describe.get('rof_60'))])
+lib_skill.set(279, [createSkill(5, 8, 5, lib_describe.get('dmgacu_3'))])
 // ———————————————————————————————————————— AR - 2 ————————————————————————————————————————
 lib_skill.set(63, [createSkill(8, 16, 0, lib_describe.get('grenade_10'))])
 lib_skill.set(68, [createSkill(6, 8, 5, lib_describe.get('l85a1'))])
@@ -1096,6 +1105,7 @@ lib_skill.set(230, [createSkill(6, 8, 6, lib_describe.get('obr'))]) // obr
 lib_skill.set(241, [createSkill(15, 16, 0, lib_describe.get('snipe_6.5_2'))])
 lib_skill.set(255, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(268, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
+lib_skill.set(284, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))]) // zas m76
 // ———————————————————————————————————————— RF - 2 ————————————————————————————————————————
 lib_skill.set(40, [createSkill(10, 16, 0, lib_describe.get('snipe_5'))])
 lib_skill.set(41, [createSkill(5, 8, 5, lib_describe.get('rof_55'))])

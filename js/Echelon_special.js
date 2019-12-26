@@ -135,6 +135,11 @@ function settle_buff(stand_num, info_self) {
             _mul_dmg *= 1.2
         }
     }
+    else if (is_this(stand_num, 287)) { // SIG-556
+        if (_spG('sig556_skill_' + stand_num) === true) {
+            _mul_dmg *= 1.5
+        }
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)

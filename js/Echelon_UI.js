@@ -914,6 +914,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 0, 'checked') // PzB39
     else if (ID === 192) addSpecialSetting(192, reverse_position, num_pickblock, 0, 'checked') // JS05
     else if (ID === 252) addSpecialSetting(252, reverse_position, num_pickblock, 0, 'checked') // KSVK
+    else if (ID === 287) addSpecialSetting(287, reverse_position, num_pickblock, 0, '') // SIG-556
     else if (ID === 238) addSpecialSetting(238, reverse_position, num_pickblock, 0, '') // 88-type
     else if (ID === 256) addSpecialSetting(256, reverse_position, num_pickblock, 0, '') // falcon
     else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 0, 'checked') // M1895CB
@@ -963,7 +964,7 @@ function addTdoll() { // 添加战术人形
 function addSpecialSetting() { // ID,_position,_type
   var list_specialName = [
     [2006, lib_language.NAME_2006],
-    [1065, 'HK416'],
+    [287, 'SIG-556'], [1065, 'HK416'],
     [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39],
     [238, lib_language.NAME_238], [275, 'M1895CB']
   ]

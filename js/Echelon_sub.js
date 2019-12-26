@@ -39,6 +39,8 @@ function is_python_unrepeat(command) {
 function _spE(code, is_value) { return Set_Special.get(code) === is_value }
 function _spS(code, new_value) { Set_Special.set(code, new_value) }
 function _spG(code) { return Set_Special.get(code) }
+function _spPlus(code) { _spS(code, _spG(code) + 1) }
+function _spDecl(code) { _spS(code, _spG(code) - 1) }
 function num_to_name(num_type) {
   if (num_type === 1) return 'hg'
   else if (num_type === 2) return 'ar'
