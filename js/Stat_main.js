@@ -30,6 +30,8 @@ function showAlert() {
     str_info += '<h4>数据要求</h4>'
     str_info += '<h5><b><span style="color:dodgerblue">核心统计</span></b> (1) 路线 (2) 核心枪类型及数量 (3) Lv10搜救或无搜救 (4) 至少10场</h5>'
     str_info += '<h5><b><span style="color:darkorange">打捞统计</span></b> (1) 地图 (2) Lv10搜救或无搜救 (3) 至少10场 (4) 最好提供所有该活动打捞记录</h5>'
+    str_info += '<h5>如下是一个数据提供的样例</h5>'
+    str_info += '<img src="../img/sample_stat.png">'
     str_info += '<h5>&nbsp</h5>'
     document.getElementById('info_alert').innerHTML = str_info
     document.getElementById('btn_alert').className = 'btn btn-primary'
@@ -272,14 +274,14 @@ function loadScript(url) {
 }
 
 // data
-var data_124etrue = [[5, 'MDR', 3], // 12-4e，搜救
-[4, 'TAR-21', 1], [4, 'MAT-49', 12], [4, 'M1918', 2], [4, 'M60', 2], [4, 'PK', 3],
-[3, 'Astra Revolver', 11], [3, 'C96', 27], [3, 'M9', 21], [3, 'Makarov', 19],
-[3, 'AK-47', 22], [3, 'FNC', 13],
-[3, 'MAC-10', 14], [3, 'Micro UZI', 16], [3, 'Skorpion', 18],
-[3, 'M14', 13],
-[3, 'M2HB', 18], [3, 'MG42', 13]],
-  num_124etrue = 226
+var data_124etrue = [[5, 'MDR', 4], // 12-4e，搜救
+[4, 'TAR-21', 3], [4, 'MAT-49', 16], [4, 'M1918', 3], [4, 'M60', 2], [4, 'PK', 3],
+[3, 'Astra Revolver', 19], [3, 'C96', 34], [3, 'M9', 27], [3, 'Makarov', 23],
+[3, 'AK-47', 27], [3, 'FNC', 16],
+[3, 'MAC-10', 21], [3, 'Micro UZI', 23], [3, 'Skorpion', 27],
+[3, 'M14', 19],
+[3, 'M2HB', 23], [3, 'MG42', 18]],
+  num_124etrue = 305
 
 var data_124efalse = [[5, 'MDR', 2], // 12-4e，无搜救
 [4, 'TAR-21', 3], [4, 'MAT-49', 5], [4, 'M1918', 2], [4, 'M60', 1], [4, 'PK', 4],

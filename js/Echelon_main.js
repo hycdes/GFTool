@@ -1564,8 +1564,9 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     }
     else if (_spG('sig556_skill_' + stand_num) === true) { // 技能激活时，冷却就绪
       if (document.getElementById('special_287_' + stand_num).checked) {
-        if (_spG('sig556_debuff_' + stand_num) < 11) s_t[1] = 0 // 仅使过热终止技能时，如果下一枪不致晕，则不主动终止技能
-        else s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 否则下一枪必晕，进入冷却
+        true // 实际上因眩晕强制停止技能不会进入冷却
+        //if (_spG('sig556_debuff_' + stand_num) < 11) s_t[1] = 0 // 仅使过热终止技能时，如果下一枪不致晕，则不主动终止技能
+        //else s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 否则下一枪必晕，进入冷却
       } else {
         _spS('sig556_skill_' + stand_num, false) // 自动技能将其关闭
         s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
@@ -1574,6 +1575,19 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       _spS('sig556_skill_' + stand_num, true) // 手动开启
       s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
     }
+  }
+  else if (skillname === 'c93') {
+    if (document.getElementById('special_285_0_' + stand_num).checked) {
+      changeStatus(stand_num, 'all', 'rof', 0.08, 4, 'unrepeat')
+    } else if (document.getElementById('special_285_1_' + stand_num).checked) {
+      changeStatus(stand_num, 'all', 'rof', 0.08, 4, 'unrepeat')
+      changeStatus(stand_num, 'all', 'rof', 0.08, 4, 'unrepeat')
+    } else if (document.getElementById('special_285_2_' + stand_num).checked) {
+      changeStatus(stand_num, 'all', 'rof', 0.08, 4, 'unrepeat')
+      changeStatus(stand_num, 'all', 'rof', 0.08, 4, 'unrepeat')
+      changeStatus(stand_num, 'all', 'rof', 0.08, 4, 'unrepeat')
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————

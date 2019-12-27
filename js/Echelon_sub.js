@@ -422,9 +422,9 @@ function init_loadPrepareStatus() { // 初始化战前属性
         Set_Special.set('k2_temp_' + i, 0)
         Set_Special.set('k2_dmgup_' + i, 0)
       } else if (is_this(i, 213)) { // CMS
-        if (document.getElementById('special_cms_' + (i + 1) + '_1').checked) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
-        else if (document.getElementById('special_cms_' + (i + 1) + '_2').checked) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
-        else if (document.getElementById('special_cms_' + (i + 1) + '_3').checked) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
+        if (document.getElementById('special_213_0_' + i).checked) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
+        else if (document.getElementById('special_213_1_' + i).checked) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
+        else if (document.getElementById('special_213_2_' + i).checked) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
       } else if (is_this(i, 231)) { // M82A1
         if (document.getElementById('special_m82a1_' + (i + 1) + '_0').checked) Set_Special.set('m82a1_win_' + i, 0) // 0胜场
         else if (document.getElementById('special_m82a1_' + (i + 1) + '_1').checked) Set_Special.set('m82a1_win_' + i, 1) // 1胜场

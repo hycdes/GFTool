@@ -798,17 +798,7 @@ function addTdoll() { // 添加战术人形
     if (ID === 1055) {
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = '<h4>' + reverse_position + lib_language.UI_num + ' M4A1</h4><input type="checkbox" id="special_m4_' + (num_pickblock - 1) + '"> [' + lib_language.skillNAME_55 + '] ' + lib_language.DESCRIBE_55
     }
-    // else if (ID === 1039) {
-    //   var str_html = ''
-    //   str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_39 + '</h4>'
-    //   str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 10%">' + lib_language.DESCRIBE_39_1 + '</td><td style="width: 30%">'
-    //   str_html += '<input class="form-control input-sm" placeholder="' + lib_language.INPUT_PI + '" id="special_mosin_attackkill_' + num_pickblock + '" onblur=inputCheck_mosin('
-    //   str_html += "'" + 'special_mosin_attackkill_' + num_pickblock + "'"
-    //   str_html += ') value="2"></td><td>' + lib_language.DESCRIBE_39_2 + '</td></tr></tbody></table>'
-    //   str_html += '<input type="checkbox" id="special_mosin_' + num_pickblock + '"> [' + lib_language.skillNAME_39 + '] ' + lib_language.DESCRIBE_39_3 + ' '
-    //   str_html += '<input type="checkbox" id="special_mosin_skillkill_' + num_pickblock + '" checked> [' + lib_language.skillNAME_39_2 + '] ' + lib_language.DESCRIBE_39_4
-    //   document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
-    // }
+
     else if (ID === 102) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' UMP40</h4>'
@@ -824,16 +814,6 @@ function addTdoll() { // 添加战术人形
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_1" checked> ' + lib_language.DESCRIBE_194_1 + '</label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_194_2 + '</span></label></p>'
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_3"><span style="color:orange"> ' + lib_language.DESCRIBE_194_3 + '</span></label></p>'
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
-    }
-    else if (ID === 213) {
-      var str_html = ''
-      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' C-MS</h4>'
-      str_html += '<h5>[' + lib_language.skillNAME_213 + '] ' + lib_language.DESCRIBE_213_0 + '</h5>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_1" checked><span style="color:dodgerblue"> ' + lib_language.DESCRIBE_213_1 + '</span></label></p>'
-
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_2"><span style="color:red"> ' + lib_language.DESCRIBE_213_2 + '</span></label></p>'
-      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_cms_' + num_pickblock + '_3"><span style="color:orange"> ' + lib_language.DESCRIBE_213_3 + '</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 231) {
@@ -914,14 +894,17 @@ function addTdoll() { // 添加战术人形
     else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 0, 'checked') // PzB39
     else if (ID === 192) addSpecialSetting(192, reverse_position, num_pickblock, 0, 'checked') // JS05
     else if (ID === 252) addSpecialSetting(252, reverse_position, num_pickblock, 0, 'checked') // KSVK
-    else if (ID === 287) addSpecialSetting(287, reverse_position, num_pickblock, 0, '') // SIG-556
     else if (ID === 238) addSpecialSetting(238, reverse_position, num_pickblock, 0, '') // 88-type
     else if (ID === 256) addSpecialSetting(256, reverse_position, num_pickblock, 0, '') // falcon
     else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 0, 'checked') // M1895CB
+    else if (ID === 287) addSpecialSetting(287, reverse_position, num_pickblock, 0, 'checked') // SIG-556
     else if (ID === 1065) addSpecialSetting(1065, reverse_position, num_pickblock, 0, 'checked') // HK416 MOD
     else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 0, 'checked') // Theresa
 
-    else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 1, 4, ['checked', '', 'checked', 'checked'])
+    else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 1, 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD
+
+    else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 2, 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
+    else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 2, 3, 0, ['', '', '']) // C-93
 
     else if (ID === 276) {
       var str_html = ''
@@ -964,7 +947,9 @@ function addTdoll() { // 添加战术人形
 function addSpecialSetting() { // ID,_position,_type
   var list_specialName = [
     [2006, lib_language.NAME_2006],
+    [285, 'C-93'],
     [287, 'SIG-556'], [1065, 'HK416'],
+    [213, 'C-MS'],
     [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39],
     [238, lib_language.NAME_238], [275, 'M1895CB']
   ]
@@ -978,8 +963,8 @@ function addSpecialSetting() { // ID,_position,_type
     var _skill = _skillName(ID),
       _describe = _describeInfo(ID),
       _check = arguments['4'] // check parameters, different template has different structure
-    str_html += '<h4>' + _position + lib_language.UI_num + ' '
-      + _name + '</h4><input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" '
+    str_html += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
+      + '<input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" '
       + _check + '> ['
       + _skill + '] ' + _describe
     document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
@@ -993,6 +978,22 @@ function addSpecialSetting() { // ID,_position,_type
         + _describelist[i] + '</p>'
     }
     document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
+  } else if (_type === 2) { // type_2 N选1
+    var _checknum = arguments['4'],
+      _initcheck = arguments['5'],
+      _colorlist = arguments['6'],
+      _describelist = _describeInfo(ID)
+    str_html += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
+    for (var i = 0; i < _checknum; i++) {
+      str_html += '<p><label class="radio-inline"><input type="radio" name="switch_'
+        + _position + '" id="special_' + ID + '_' + i + '_' + (_block - 1)
+      if (i === _initcheck) str_html += '" checked> '
+      else str_html += '"> '
+      if (_colorlist[i] != '') str_html += '<span style="color:' + _colorlist[i] + '">'
+      else str_html += '<span>'
+      str_html += _describelist[i] + '</span></label></p>'
+    }
+    document.getElementById('special_num' + (_block - 1)).innerHTML = str_html // 写入html
   }
 }
 function _search(list, index) {

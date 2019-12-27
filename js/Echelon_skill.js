@@ -372,6 +372,12 @@ function describe_sig556() { // SIG-556
   Describe.name = 'sig556'
   return Describe
 }
+function describe_c93() { // c-93
+  var Describe = {}
+  Describe.name = 'c93'
+  return Describe
+}
+
 
 // lib_decribe
 // universal
@@ -508,6 +514,7 @@ lib_describe.set('eva_130', describe_property(['self'], ['eva'], ['1.3'])) // �
 lib_describe.set('eva_120', describe_property(['self'], ['eva'], ['1.2'])) // 掩护专注 120%
 lib_describe.set('eva_110', describe_property(['self'], ['eva'], ['1.1'])) // 掩护专注 110%
 lib_describe.set('eva_70', describe_property(['self'], ['eva'], ['0.7'])) // 心智威慑 70%
+lib_describe.set('eva_60', describe_property(['self'], ['eva'], ['0.6'])) // D-守护 60%
 lib_describe.set('eva_45', describe_property(['self'], ['eva'], ['0.45'])) // 掩护专注 45%
 lib_describe.set('eva_40', describe_property(['self'], ['eva'], ['0.4'])) // 掩护专注 40%
 lib_describe.set('crit_100', describe_property(['self'], ['crit'], ['1'])) // 短板敲击乐 暴击100%
@@ -548,8 +555,9 @@ lib_describe.set('armeva_4', describe_property(['self'], ['arm/eva'], ['0.5/0.55
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
 lib_describe.set('pm9_buff', describe_property(['self'], ['eva/dmg/acu'], ['1/-0.3/-0.3'])) // 幻重暗劲-闪避+100%，火力命中-30%
 // forcefield
-lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 4)) // 力场盾
+lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 0)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
+lib_describe.set('ffs_d_protect', describe_ffshield(9999, 9999, 0, 0)) // D-守护 力场效果
 // shield
 lib_describe.set('sat8', describe_shield(35, 5, 'col1')) // 坚壁理论
 lib_describe.set('sei', describe_sei()) // 白骑士之盾
@@ -671,6 +679,7 @@ lib_describe.set('hanyang88', describe_hanyang88()) // 全能战术
 lib_describe.set('m1895cb', describe_m1895cb()) // 有备无患
 lib_describe.set('c96cs', describe_c96cs()) // 夜空追击者：弹量
 lib_describe.set('SIG-556', describe_sig556()) // 战场弄潮儿
+lib_describe.set('c93', describe_c93()) // 兰蝶遗音
 
 // lib_skill
 
@@ -697,6 +706,10 @@ lib_skill.set(272, [
   createSkill(6, 12, 8, lib_describe.get('dmg_10')), // ***need to be done as fragile***
   createSkill(6, 12, 8, lib_describe.get('de'))
 ])
+lib_skill.set(285, [
+  createSkill(5, 12, 8, lib_describe.get('com_dmg_18')),
+  createSkill(5, 12, 0, lib_describe.get('c93'))
+]) // C-93技能暂定特殊设定控制射速层
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))
@@ -822,6 +835,7 @@ lib_skill.set(274, [
   createSkill(6, 8, 5, lib_describe.get('dmg_20_enemy')) // debuff
 ]) // acr
 lib_skill.set(287, [createSkill(5, 4, 0, lib_describe.get('SIG-556'))]) // SIG-556
+lib_skill.set(289, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // R5
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
@@ -956,6 +970,10 @@ lib_skill.set(150, [createSkill(6, 8, 5, lib_describe.get('eva_130'))]) // 掩�
 lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) // klin
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))]) // storm cx4
 lib_skill.set(225, [createSkill(6, 16, 10, lib_describe.get('evaacu_4'))]) //
+lib_skill.set(286, [
+  createSkill(6, 8, 1, lib_describe.get('ffs')),
+  createSkill(7, 8, 5, lib_describe.get('eva_60'))
+]) // KAC-PDW
 lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
 lib_skill.set(1031, [  // beretta mod
   createSkill(7, 16, 0, lib_describe.get('flash_4')),
