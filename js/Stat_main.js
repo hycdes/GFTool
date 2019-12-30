@@ -275,22 +275,22 @@ function loadScript(url) {
 
 // data
 var data_124etrue = [[5, 'MDR', 6], // 12-4e，搜救
-[4, 'TAR-21', 3], [4, 'MAT-49', 17], [4, 'M1918', 3], [4, 'M60', 2], [4, 'PK', 3],
-[3, 'Astra Revolver', 20], [3, 'C96', 34], [3, 'M9', 29], [3, 'Makarov', 25],
-[3, 'AK-47', 27], [3, 'FNC', 16],
-[3, 'MAC-10', 24], [3, 'Micro UZI', 24], [3, 'Skorpion', 28],
-[3, 'M14', 20],
-[3, 'M2HB', 25], [3, 'MG42', 19]],
-  num_124etrue = 325
+[4, 'TAR-21', 4], [4, 'MAT-49', 21], [4, 'M1918', 5], [4, 'M60', 2], [4, 'PK', 3],
+[3, 'Astra Revolver', 23], [3, 'C96', 36], [3, 'M9', 35], [3, 'Makarov', 28],
+[3, 'AK-47', 30], [3, 'FNC', 19],
+[3, 'MAC-10', 27], [3, 'Micro UZI', 27], [3, 'Skorpion', 32],
+[3, 'M14', 21],
+[3, 'M2HB', 27], [3, 'MG42', 23]],
+  num_124etrue = 375
 
-var data_124efalse = [[5, 'MDR', 2], // 12-4e，无搜救
+var data_124efalse = [[5, 'MDR', 4], // 12-4e，无搜救
 [4, 'TAR-21', 3], [4, 'MAT-49', 5], [4, 'M1918', 2], [4, 'M60', 1], [4, 'PK', 4],
-[3, 'Astra Revolver', 10], [3, 'C96', 10], [3, 'M9', 23], [3, 'Makarov', 11],
+[3, 'Astra Revolver', 11], [3, 'C96', 11], [3, 'M9', 25], [3, 'Makarov', 12],
 [3, 'AK-47', 5], [3, 'FNC', 12],
-[3, 'MAC-10', 14], [3, 'Micro UZI', 8], [3, 'Skorpion', 13],
+[3, 'MAC-10', 15], [3, 'Micro UZI', 9], [3, 'Skorpion', 13],
 [3, 'M14', 10],
-[3, 'M2HB', 12], [3, 'MG42', 12]],
-  num_124efalse = 226
+[3, 'M2HB', 12], [3, 'MG42', 13]],
+  num_124efalse = 236
 
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2], // 11-6，搜救
 [3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
@@ -455,7 +455,7 @@ var list_supporter_1 = [
   '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
   '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
   'cookiesiclink', 'Airnors', 'Scottdoha', 'AT4', '白金世界',
-  '一瞬の感质', '十五酱'
+  '一瞬の感质', '十五酱', '没有肝的晷璃'
 ],
   list_supporter_2 = [
     '哒酱', '门对千竿竹', '莉莉丝爱你哦', 'Flonne', 'mrduck',

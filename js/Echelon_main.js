@@ -1589,6 +1589,30 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === '89type') {
+    if (document.getElementById('special_290_' + stand_num).checked) { // 必须满分模式启动
+      if (_spE('89_mode_' + stand_num, 'full-score')) {
+        changeStatus(stand_num, 'self', 'dmg', 0.3, 6)
+        changeStatus(stand_num, 'self', 'rof', 0.6, 6)
+        changeStatus(stand_num, 'self', 'acu', 0.6, 6)
+        s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+      } else {
+        s_t[1] = 0
+      }
+    } else { // 否则正常启动
+      if (_spE('89_mode_' + stand_num, 'full-score')) {
+        changeStatus(stand_num, 'self', 'dmg', 0.3, 6)
+        changeStatus(stand_num, 'self', 'rof', 0.6, 6)
+        changeStatus(stand_num, 'self', 'acu', 0.6, 6)
+      } else {
+        changeStatus(stand_num, 'self', 'dmg', 0.3, 4)
+        changeStatus(stand_num, 'self', 'rof', 0.3, 4)
+        if (_spG('89_buff_' + stand_num) > 6) _spS('89_buff_' + stand_num, _spG('89_buff_' + stand_num) - 6)
+        else _spS('89_buff_' + stand_num, 0)
+      }
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+    }
+  }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
   if (debug_mode && (debug_function[0] || debug_function[1])) {

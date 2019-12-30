@@ -140,6 +140,27 @@ function settle_buff(stand_num, info_self) {
             _mul_dmg *= 1.5
         }
     }
+    else if (is_this(stand_num, 290)) { // 89 type
+        // 检查模式转换和状态
+        if (_spE('89_mode_' + stand_num, 'learn')) { // 学习模式
+            if (_spG('89_buff_' + stand_num) === 18) {
+                _spS('89_mode_' + stand_num, 'full-score') // 18层转化满分模式
+            }
+        } else { // 满分模式
+            _mul_dmg *= 1 + 0.1 * (_spG('89_forcus_' + stand_num))
+            if (_spG('89_buff_' + stand_num) === 0) {
+                _spS('89_mode_' + stand_num, 'learn') // 0层转化学习模式
+                _spS('89_forcus_' + stand_num, 0) // 清空专注层数 
+            }
+        }
+        // 处理层数消耗和积累
+        if (_spE('89_mode_' + stand_num, 'learn')) _spPlus('89_buff_' + stand_num) // 学习模式积累层数
+        else { // 满分模式
+            if (_spG('89_forcus_' + stand_num) < 3) _spPlus('89_forcus_' + stand_num) // 未满则积累伤害专注
+            _spDecl('89_buff_' + stand_num) // 降低层数
+        }
+        //console.log('[', global_frame, '] ', 'mode=', _spG('89_mode_' + stand_num), '; level=', _spG('89_buff_' + stand_num), '; forcus=', _spG('89_forcus_' + stand_num))
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)

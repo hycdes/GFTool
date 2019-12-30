@@ -336,6 +336,7 @@ lib_affect.set(286, createAffect('l/lu/', 'ar', ['dmg', 'acu'], [0.15, 0.3])) //
 lib_affect.set(287, createAffect('r/ru/', 'smg', ['rof', 'eva'], [0.12, 0.15])) // SIG-556
 lib_affect.set(288, createAffect('r/ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // CR-21
 lib_affect.set(289, createAffect('ru/rd/', 'smg', ['rof', 'eva'], [0.12, 0.15])) // R5
+lib_affect.set(290, createAffect('r/ru/rd/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // 89式
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -669,6 +670,7 @@ lib_property.set(286, createProperty(33, 14, 71, 81, 0, 900, 0.05, 0)) // KAC-PD
 lib_property.set(287, createProperty(51, 46, 45, 76, 0, 605, 0.2, 0)) // SIG-556
 lib_property.set(288, createProperty(48, 52, 43, 81, 0, 550, 0.2, 0)) // CR-21
 lib_property.set(289, createProperty(55, 54, 43, 76, 0, 620, 0.2, 0)) // R5
+lib_property.set(290, createProperty(54, 45, 48, 79, 0, 605, 0.2, 0)) // 89 式
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))

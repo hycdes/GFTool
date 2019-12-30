@@ -377,6 +377,11 @@ function describe_c93() { // c-93
   Describe.name = 'c93'
   return Describe
 }
+function describe_89type() { // 89式
+  var Describe = {}
+  Describe.name = '89type'
+  return Describe
+}
 
 
 // lib_decribe
@@ -680,6 +685,7 @@ lib_describe.set('m1895cb', describe_m1895cb()) // 有备无患
 lib_describe.set('c96cs', describe_c96cs()) // 夜空追击者：弹量
 lib_describe.set('SIG-556', describe_sig556()) // 战场弄潮儿
 lib_describe.set('c93', describe_c93()) // 兰蝶遗音
+lib_describe.set('89type', describe_89type()) // 89式技能
 
 // lib_skill
 
@@ -836,6 +842,7 @@ lib_skill.set(274, [
 ]) // acr
 lib_skill.set(287, [createSkill(5, 4, 0, lib_describe.get('SIG-556'))]) // SIG-556
 lib_skill.set(289, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // R5
+lib_skill.set(290, [createSkill(3, 4, 0, lib_describe.get('89type'))]) // 89type
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))

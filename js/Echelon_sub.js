@@ -459,6 +459,10 @@ function init_loadPrepareStatus() { // 初始化战前属性
           changeStatus(i, 'self', 'dmg', 0.2, -1)
           changeStatus(i, 'self', 'acu', 0.2, -1)
         }
+      } else if (is_this(i, 290)) { // 89 type
+        _spS('89_mode_' + i, 'learn')
+        _spS('89_buff_' + i, 0)
+        _spS('89_forcus_' + i, 0)
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         Set_Special.set('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动
