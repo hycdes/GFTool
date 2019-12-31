@@ -1600,7 +1600,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === '89type') {
-    if (document.getElementById('special_290_' + stand_num).checked) { // 必须满分模式启动，且保证两次buff衔接
+    if (document.getElementById('special_290_' + stand_num).checked) { // 必须满分模式启动
       if (_spE('89_mode_' + stand_num, 'full-score') && _spG('89_fsbuff_' + stand_num) < global_frame) {
         if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
         else _spS('89_fsbuff_' + stand_num, global_frame + 180) // 刷新
@@ -1969,7 +1969,8 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     }
     // 狙击标识符识别
     if (list_labels[1] != 'armless') { // 有视护甲
-      damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
+      if (explain_fgl_ff('is_maxff')) damage_snipe_single = 0
+      else damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
     }
     if (list_labels[2] != 'critless') { // 能够暴击
       if (Math.random() <= current_Info.get('crit') || Set_Special.get('must_crit_' + stand_num) === true) damage_snipe_single *= current_Info.get('critdmg')
@@ -2350,6 +2351,16 @@ function explain_fgl_ff(damage_type) {
   // around_multiple周遭群体（乘数量，贯通射击）,
   // aoe范围（乘数量和编制，榴弹等）, around_aoe周遭溅射（乘数量和编制，炮击溅射等）
   // forcefield damage reduction 
+  if (damage_type === 'is_maxff') {
+    if (display_type === 'damage' && enemy_forcefield > 0) {
+      if (1 - enemy_forcefield / enemy_forcefield_max === 0) return true
+      else return false
+    }
+    else if (display_type === 'suffer' && enemy_forcefield_2 > 0) {
+      if (1 - enemy_forcefield_2 / enemy_forcefield_2_max === 0) return true
+      else return false
+    }
+  }
   var ff_ratio = 1
   if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
   else if (display_type === 'suffer' && enemy_forcefield_2 > 0) ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
