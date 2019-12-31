@@ -159,6 +159,11 @@ function settle_buff(stand_num, info_self) {
             if (_spG('89_forcus_' + stand_num) < 3) _spPlus('89_forcus_' + stand_num) // 未满则积累伤害专注
             _spDecl('89_buff_' + stand_num) // 降低层数
         }
+        // 结算满分模式的增益
+        if (_spG('89_fsbuff_' + stand_num) != undefined && _spG('89_fsbuff_' + stand_num) >= global_frame) {
+            _mul_dmg *= 1.3
+            _mul_acu *= 1.6
+        }
         //console.log('[', global_frame, '] ', 'mode=', _spG('89_mode_' + stand_num), '; level=', _spG('89_buff_' + stand_num), '; forcus=', _spG('89_forcus_' + stand_num))
     }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod

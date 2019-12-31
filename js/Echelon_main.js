@@ -761,8 +761,18 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           recordData(stand_num, current_time, mors_dmg)
           Set_Special.set('carcano9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
-        } else {
-          s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+        }
+        // ——————————————————————————————————————常规人形按射速折算射击间隔——————————————————————————————————————
+        else {
+          var final_rof = current_Info.get('rof')
+          // 这里将处理一些特殊的射速计算，例如可刷新的射速类状态，将不会在状态类属性中结算——————————————————————————————————————
+          // 89式
+          if (is_this(stand_num, 290)) {
+            if (_spG('89_fsbuff_' + stand_num) != undefined && _spG('89_fsbuff_' + stand_num) >= global_frame) { // 满分模式buff射速
+              final_rof *= 1.6
+            }
+          }
+          s_t[1] = rof_to_frame(current_Info.get('type'), final_rof, list_tdoll[stand_num][1].ID) - 1
         }
         // ——————————————————————————————————————MG和SG扣除子弹——————————————————————————————————————
       } else {
@@ -1592,18 +1602,16 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   else if (skillname === '89type') {
     if (document.getElementById('special_290_' + stand_num).checked) { // 必须满分模式启动
       if (_spE('89_mode_' + stand_num, 'full-score')) {
-        changeStatus(stand_num, 'self', 'dmg', 0.3, 6)
-        changeStatus(stand_num, 'self', 'rof', 0.6, 6)
-        changeStatus(stand_num, 'self', 'acu', 0.6, 6)
+        if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
+        else _spS('89_fsbuff_' + stand_num, global_frame + 180) // 刷新
         s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
       } else {
         s_t[1] = 0
       }
     } else { // 否则正常启动
       if (_spE('89_mode_' + stand_num, 'full-score')) {
-        changeStatus(stand_num, 'self', 'dmg', 0.3, 6)
-        changeStatus(stand_num, 'self', 'rof', 0.6, 6)
-        changeStatus(stand_num, 'self', 'acu', 0.6, 6)
+        if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
+        else _spS('89_fsbuff_' + stand_num, global_frame + 180) // 刷新
       } else {
         changeStatus(stand_num, 'self', 'dmg', 0.3, 4)
         changeStatus(stand_num, 'self', 'rof', 0.3, 4)
