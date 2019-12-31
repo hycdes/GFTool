@@ -226,7 +226,7 @@ lib_language = {
   skillNAME_1101: '白鸮轰鸣',
   DESCRIBE_213: ['아음속탄(회피 65% 상승)', 'ST탄(화력 85% 상승)', '일반탄(명중 200% 상승)'],
   DESCRIBE_285: ['1层射速', '2层射速', '3层射速'],
-  DESCRIBE_290: 'Open only in full-score mode',
+  DESCRIBE_290: 'Open only in full-score mode, and open 2nd skill when 1st buff end',
   DESCRIBE_1101_0: '作用列',
   DESCRIBE_1101_1: '当前列',
   DESCRIBE_1101_2: '特定列(从左往右):',

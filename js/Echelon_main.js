@@ -1600,8 +1600,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === '89type') {
-    if (document.getElementById('special_290_' + stand_num).checked) { // 必须满分模式启动
-      if (_spE('89_mode_' + stand_num, 'full-score')) {
+    if (document.getElementById('special_290_' + stand_num).checked) { // 必须满分模式启动，且保证两次buff衔接
+      if (_spE('89_mode_' + stand_num, 'full-score') && _spG('89_fsbuff_' + stand_num) < global_frame) {
         if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
         else _spS('89_fsbuff_' + stand_num, global_frame + 180) // 刷新
         s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
