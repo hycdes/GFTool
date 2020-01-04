@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Girls' Frontline logistics calculator">
+    <meta name="author" content="ChantXu">
+    <meta name="keywords" content="少女前线, 后勤, 计算, Girls' Frontline, Logistics Support, Calculator">
+    <title>少女前线-后勤组合排序器</title>
+    <link href="../vendor/LogiCalculatorDependent/css/LogiCaluculator_dependent.css" rel="stylesheet">
+    <link href="../css/LogiCalculator.min.css" rel="stylesheet">
+    <script src="../vendor/LogiCalculatorDependent/js/LogiCaluculator_dependent.min.js"></script>
+    <script src="../js/LogiCalculator.min.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+            </div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav in" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                        <li><a href="index.html">主页</a></li>
+                        <li><a href="GFT_Database.html">资料库</a></li>
+                        <li><a href="GFT_LogiRank.html">后勤排序器</a></li>
+                        <li><a href="GFT_LogiCalculator.html" class="active">后勤组合排序器</a></li>
+                        <li><a href="GFT_LevelCal.html">练级计算器</a></li>
+                        <li><a href="GFT_IOPSimulate.html">建造模拟器</a></li>
+                        <li><a href="GFT_ChipCal.html">芯片计算器</a></li>
+                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp;阵形模拟器</a></li>
+                        <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp;掉落统计</a></li>
+                        <li><a href="GFT_Class.html">格里芬人事部</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="page-wrapper" style="min-width: 300px;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <h1 class="page-header">
+                            <span id="header"></span> <button type="button" data-toggle="tooltip"
+                                data-placement="bottom" title="" class="btn btn-outline btn-default">?</button>
+                            <div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle"
+                                    data-toggle="dropdown">中文 <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" id="lang-zh-CN">简体中文</a></li>
+                                    <li><a href="#" id="lang-zh-TW">繁體中文</a></li>
+                                </ul>
+                            </div>
+                        </h1>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="form-group input-group"
+                            style="max-width: 360px; margin-top: 20px; margin-right: 0; margin-left: auto;">
+                            <span class="input-group-addon" id="Config_text"></span>
+                            <input type="text" class="form-control" style="min-width: 40px;" id="Config_importInput"
+                                value="" onclick="this.select()" autocomplete="off">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default" id="Config_importButton">
+                                    <span class="glyphicon glyphicon-import" style="top: 2px;"></span></button>
+                                <button type="button" class="btn btn-default" id="Config_export"><span
+                                        class="glyphicon glyphicon-export" style="top: 2px;"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="alert alert-warning" id="description" role="alert" style="color:#000000">
+                            <span id="description_text"></span>
+                            <span id="neverShowAgain_description" style="cursor:pointer;"></span>
+                        </div>
+                        <div class="alert alert-danger" id="localstorageDoesNotWork" style="color:#000000"></div>
+                        <div class="alert alert-warning" id="localstorageWarning" role="alert" style="color: #000000;">
+                            <span id="localstorageWarning_text"></span>
+                            <span id="neverShowAgain_localstorageWarning" style="cursor:pointer;"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="padding-top: 8px; padding-bottom: 8px;">
+                                <span id="setting"
+                                    style="width: auto; float: left; padding-top: 2px; padding-bottom: 2px;"></span>
+                                <div class="switch" style="margin-left: auto;">
+                                    <input type="radio" class="switch-input" name="Display_PerHourOrTotal" value=""
+                                        id="Display_PerHour">
+                                    <label tabindex="0" for="Display_PerHour" class="switch-label switch-label-off"
+                                        id="Display_PerHour_text"></label>
+                                    <input type="radio" class="switch-input" name="Display_PerHourOrTotal" value=""
+                                        id="Display_Total" checked>
+                                    <label tabindex="0" for="Display_Total" class="switch-label switch-label-on"
+                                        id="Display_Total_text"></label>
+                                    <span class="switch-selection"></span>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding-left: 5px; padding-right: 5px;">
+                                <div class="col-lg-7">
+                                    <ul class="nav nav nav-tabs nav-justified">
+                                        <li class="active">
+                                            <a href="#Tab_Anytime" id="Tab_Anytime_name" data-toggle="tab"></a>
+                                        </li>
+                                        <li>
+                                            <a href="#Tab_Timetable" id="Tab_Timetable_name" data-toggle="tab"></a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="Tab_Anytime">
+                                            <h4 id="tab_Anytime_time"></h4>
+                                            <div class="form-group input-group">
+                                                <input type="number" pattern="\d*" min="0" max="168"
+                                                    class="form-control" id="Time_Anytime_hours" value=16
+                                                    onclick="this.select()" autocomplete="off">
+                                                <label for="Time_Anytime_hours" class="input-group-addon"
+                                                    style="border-left-width: 0" id="tab_Anytime_hour"></label>
+                                                <input type="number" pattern="\d*" min="0" max="60" class="form-control"
+                                                    style="border-left-width: 0" id="Time_Anytime_minutes" value=0
+                                                    onclick="this.select()" autocomplete="off">
+                                                <label for="Time_Anytime_minutes" class="input-group-addon"
+                                                    id="tab_Anytime_minute"></label>
+                                            </div>
+                                            <h4 id="tab_Anytime_MinimumIntervalTime"></h4>
+                                            <div class="form-group input-group">
+                                                <input type="number" pattern="\d*" min="0" max="60" class="form-control"
+                                                    id="Tab_Anytime_MinimumIntervalTime_minutes" value=0
+                                                    onclick="this.select()" autocomplete="off">
+                                                <label for="Tab_Anytime_MinimumIntervalTime_minutes"
+                                                    class="input-group-addon"
+                                                    id="tab_Anytime_MinimumIntervalTime_minute"></label>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="Tab_Timetable">
+                                            <h4 id="tab_Timetable_time"></h4>
+                                            <div class="row" style="margin-left: 0; margin-right: 0;">
+                                                <div class="col-lg-10" style="padding-left: 0; padding-right: 0;">
+                                                    <div class="form-group input-group">
+                                                        <input type="number" pattern="\d*" min="0" max="168"
+                                                            class="form-control" id="Time_Timetable_hours" value=5
+                                                            onclick="this.select()" autocomplete="off">
+                                                        <label for="Time_Timetable_hours" class="input-group-addon"
+                                                            style="border-left-width: 0"
+                                                            id="tab_Timetable_hour"></label>
+                                                        <input type="number" pattern="\d*" min="0" max="60"
+                                                            class="form-control" style="border-left-width: 0"
+                                                            id="Time_Timetable_minutes" value=0 onclick="this.select()"
+                                                            autocomplete="off">
+                                                        <label for="Time_Timetable_minutes" class="input-group-addon"
+                                                            id="tab_Timetable_minute"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2" align="right"
+                                                    style="padding-left: 0; padding-right: 0;">
+                                                    <button type="button" class="btn btn-default"
+                                                        id="tab_Timetable_deleteall" title="">
+                                                        <span class="glyphicon glyphicon-remove-sign"
+                                                            style="font-size: 17px; top: 3px;"></span></button>
+                                                </div>
+                                            </div>
+                                            <div slider style="margin: 20px 0 32px 0;">
+                                                <div id="Tab_Timetable_range" style="right: 49px;">
+                                                    <div inverse-left style="width:70%;"></div>
+                                                    <div inverse-right style="width:70%;"></div>
+                                                    <div range style="left:0%;right:0%; background-color:#CCC;"></div>
+                                                    <span thumb id="Tab_Timetable_range_thumb"
+                                                        style="left:100%; background-color:rgb(221, 155, 155); cursor:default;"></span>
+                                                    <div id="Tab_Timetable_range_tooltip"
+                                                        class="tooltip right custom-tooltip"
+                                                        style="right: -72px; top:-15px;">
+                                                        <div class="tooltip-arrow"></div>
+                                                        <div id="Tab_Timetable_range_tooltip_0_value"
+                                                            class="tooltip-inner">5:00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <label id="tab_Timetable_addtimeh5" for="Tab_Timetable_AddNew"></label>
+                                            <div class="form-group input-group" id="Tab_Timetable_AddNew">
+                                                <input type="number" pattern="\d*" min="0" max="168"
+                                                    class="form-control" id="Tab_Timetable_new_hours"
+                                                    onclick="this.select()" autocomplete="off">
+                                                <label for="Tab_Timetable_new_hours" class="input-group-addon"
+                                                    style="border-left-width: 0" id="tab_Timetable_new_hour"></label>
+                                                <input type="number" pattern="\d*" min="0" max="60" class="form-control"
+                                                    style="border-left-width: 0" id="Tab_Timetable_new_minutes"
+                                                    onclick="this.select()" autocomplete="off">
+                                                <label for="Tab_Timetable_new_minutes" class="input-group-addon"
+                                                    style="border-left-width: 0" id="tab_Timetable_new_minute"></label>
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-info"
+                                                        id="Tab_Timetable_AddNewTimePoint">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 id="h4GreatSuccessRate"></h4>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6" style="min-width: 180px;">
+                                            <div class="form-group input-group"
+                                                style="margin-bottom: 0; min-width: 180px;">
+                                                <input type="number" pattern="\d*" min="15" max="69"
+                                                    class="form-control" id="GreatSuccessRate" value=60
+                                                    onclick="this.select()" style="min-width: 60px;" autocomplete="off">
+                                                <label for="GreatSuccessRate" class="input-group-addon"
+                                                    id="Display_UPRate" style="border-left-width: 0"></label>
+                                                <label for="GreatSuccessRate" class="input-group-addon">%</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="checkbox">
+                                                <label id="GreatSuccessRateUp_label" style="min-width: 110px;"> <input
+                                                        type="checkbox" id="GreatSuccessRateUp" autocomplete="off">
+                                                    <span id="GreatSuccessRateUp_text"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 id="h4ChapterLimit"></h4>
+                                    <select class="form-control" id="ChapterLimit" autocomplete="off">
+                                        <option value=6 id="chapter6"></option>
+                                        <option value=7 id="chapter7"></option>
+                                        <option value=8 id="chapter8"></option>
+                                        <option value=9 id="chapter9"></option>
+                                        <option value=10 id="chapter10"></option>
+                                        <option value=11 id="chapter11"></option>
+                                        <option value=12 id="chapter12" selected></option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-5" id="target">
+                                    <h4 id="Demand"></h4>
+                                    <div id="setTargetButton"></div>
+                                    <div slider style="margin-top: 5px; margin-bottom: 35px;">
+                                        <label id="ContractWeight_label" style="width:100%;">
+                                            <span id="ContractWeight_notImportant" style="font-weight: normal;"></span>
+                                            <span id="ContractWeight_Important"
+                                                style="float: right; font-weight: normal;"></span>
+                                        </label>
+                                        <div>
+                                            <div inverse-left style="width:100%;"></div>
+                                            <div range id="ContractWeight_range" style="left:0;right:50%;"></div>
+                                            <span thumb id="ContractWeight_thumb"
+                                                style="left:50%; background-color:rgb(112, 166, 236);"></span>
+                                        </div>
+                                        <input id="ContractWeight" type="range" tabindex="0" style="margin-top: 26px;"
+                                            value="50" max="100" min="0" step="2" oninput="
+                                        var value=(100/(parseFloat(this.max)-parseInt(this.min)))*parseFloat(this.value)-(100/(parseInt(this.max)-parseFloat(this.min)))*parseFloat(this.min);
+                                        document.getElementById('ContractWeight_range').style.right=(100-value)+'%';
+                                        document.getElementById('ContractWeight_thumb').style.left=value+'%';" />
+                                    </div>
+                                    <div id="setTargetInput"></div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button type="button" class="btn btn-primary" style="outline:none;"
+                                        id="start_sorting"></button>
+                                    <button type="button" class="btn btn-danger" style="outline: none;"
+                                        id="clear_sorting" disabled="disabled"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5" float="top">
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div data-toggle="collapse" data-parent="#accordion" href="#Saved" class=""
+                                        id="Saved_heading" tabindex="0" aria-expanded="false" style="cursor: pointer;">
+                                        <span class="glyphicon glyphicon-align-justify" style="font-size: 14px;"
+                                            id="Saved_Title"></span>
+                                    </div>
+                                </div>
+                                <div id="Saved" class="panel-collapse collapse" aria-expanded="false">
+                                    <div class="table-responsive"
+                                        style="max-height: 400px; overflow-y: auto; margin-bottom: 0;">
+                                        <table class="table table-responsive text-nowrap table-condensed"
+                                            style="margin-bottom: 0; text-align: center; cursor: default;">
+                                            <tbody id="Saved_Body">
+                                                <tr id="importSaved">
+                                                    <td colspan=5>
+                                                        <div class="form-group input-group"
+                                                            style="margin-bottom: 0; width:100%; max-width: 320px;">
+                                                            <input type="text" class="form-control"
+                                                                style="min-width: 140px;" id="importSaved_input"
+                                                                value="" onclick="this.select()" autocomplete="off">
+                                                            <div class="input-group-btn">
+                                                                <button type="button" class="btn btn-default"
+                                                                    id="importSaved_importButton" title="">
+                                                                    <span class="glyphicon glyphicon-import"
+                                                                        style="top: 2px;"></span></button>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="NoSaved" colspan=5></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <div data-toggle="collapse" data-parent="#accordion" href="#MissionTable_panel"
+                                        class="" id="MissionTable_heading" tabindex="0" aria-expanded="true"
+                                        style="cursor: pointer;">
+                                        <span class="glyphicon glyphicon-align-justify" style="font-size: 14px;"
+                                            id="MissionTableTitle"></span>
+                                    </div>
+                                </div>
+                                <div id="MissionTable_panel" class="panel-collapse collapse in" aria-expanded="true">
+                                    <div class="panel-body" style="padding: 0;">
+                                        <div class="table-responsive"
+                                            style="max-height: 500px; overflow-y: auto; margin-bottom: 0; border: 0;">
+                                            <table class="table table-responsive text-nowrap table-condensed"
+                                                style="border: 0;text-align: center; margin-bottom: 0;">
+                                                <thead>
+                                                    <tr>
+                                                        <th id="MissionTable_head_Mission" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_Manp" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_Ammu" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_Rati" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_Part" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_TPro" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_Equi" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_QPro" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_QRes" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                        <th id="MissionTable_head_Time" tabindex="0"
+                                                            style="text-align: center; width: 10%; position: sticky; top: 0; background: white;box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.2); cursor:pointer;">
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="MissionTable_tbody"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12" style="float: right;">
+                                <div class="panel panel-default" style="max-width: 582px;">
+
+                                    <div class="panel-heading" id="PlanDetailsTitle" style="cursor: default;"></div>
+                                    <div class="panel-body" style="padding: 0;">
+                                        <div class="table-responsive" style="margin-bottom: 0; border: 0;">
+                                            <table class="table table-responsive text-nowrap table-condensed"
+                                                style="border: 0;margin-bottom: 0; width: 580px; font-size: 13px; text-align: center; cursor: default;"
+                                                id="PlanDetails">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 30%;" colspan=3 id="PlanDetails_ShownTab">
+                                                        </td>
+                                                        <td style="width: 30%;" colspan=3 id="PlanDetails_TotalTime">
+                                                        </td>
+                                                        <td style="width: 30%;" colspan=3
+                                                            id="PlanDetails_GreatSuccessRate"></td>
+                                                        <td style="width: 10%;"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td id="PlanDetails_Mission"></td>
+                                                        <td id="PlanDetails_Manp"></td>
+                                                        <td id="PlanDetails_Ammu"></td>
+                                                        <td id="PlanDetails_Rati"></td>
+                                                        <td id="PlanDetails_Part"></td>
+                                                        <td id="PlanDetails_TPro"></td>
+                                                        <td id="PlanDetails_Equi"></td>
+                                                        <td id="PlanDetails_QPro"></td>
+                                                        <td id="PlanDetails_QRes"></td>
+                                                        <td id="PlanDetails_Time"></td>
+                                                    </tr>
+                                                    <tr id="PlanDetails_Mission_1"></tr>
+                                                    <tr id="PlanDetails_Mission_2"></tr>
+                                                    <tr id="PlanDetails_Mission_3"></tr>
+                                                    <tr id="PlanDetails_Mission_4"></tr>
+                                                    <tr id="PlanDetails_PerHour"></tr>
+                                                    <tr id="PlanDetails_Total"></tr>
+                                                    <tr id="PlanDetails_Chart_row">
+                                                        <td colspan=10 id="PlanDetails_Chart"
+                                                            style="width: 580px;height:120px;"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="savePlan"
+                                                style="width:100px;padding-top:3px;padding-bottom:3px;font-size:13px;"></button>
+                                            <button class="btn btn-default" type="button" id="Capture"
+                                                style="width:100px;padding-top:3px;padding-bottom:3px;font-size:13px;"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" style="float: left;">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" id="result"></div>
+                                    <div class="panel-body">
+                                        <div id="start_sorting_html"></div>
+                                        <div id="Plan_Table"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr style="margin-top: 0; margin-bottom: 0;">
+                <div class="row" style="padding-top: 5px; padding-bottom: 10px;">
+                    <div class="col-lg-3" style="margin-right: 15px;">
+                        GitHub: <a
+                            href="https://github.com/CHANTXU64/Girls-Frontline">https://github.com/CHANTXU64/Girls-Frontline</a>
+                    </div>
+                    <div class="col-lg-3">
+                        <span id="permanentAddress"></span>: <a
+                            href="https://chantxu64.github.io/GF_logistics.html">https://chantxu64.github.io/GF_logistics.html</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
