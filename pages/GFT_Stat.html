@@ -75,12 +75,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">掉落统计
-                                <span style="font-size:15px;color:gray" id="info_version"></span>
-                                <button type="button" class="btn btn-warning" id="btn_alert" onclick="showAlert()">我要贡献数据</button></h1>
+                            <h1 class="page-header">掉落统计 <span style="font-size:15px;color:gray" id="info_version"></span></h1>
                         </div>
                     </div>
-                    <div class="col-lg-12" id="info_alert" style="background:url(../img/GK-small.png) no-repeat right 50% center;"></div>
 
                     <div class="col-lg-8">
                         <div class="panel panel-default">
@@ -94,6 +91,9 @@
                                     </li>
                                     <li>
                                         <a href="#mainpanel_drag" data-toggle="tab">打捞掉率统计</a>
+                                    </li>
+                                    <li>
+                                        <a href="#mainpanel_iwantsupport" data-toggle="tab">贡献数据方式</a>
                                     </li>
                                     <li>
                                         <a href="#mainpanel_supporter" data-toggle="tab">贡献者列表</a>
@@ -660,6 +660,20 @@
 
                                         </div>
 
+                                    </div>
+                                    <!-- 贡献数据方式 -->
+                                    <div class="tab-pane fade" id="mainpanel_iwantsupport">
+                                        <h4>数据可靠性</h4>
+                                        <h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b id="b_refer"></b></span></h5>
+                                        <h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b id="b_relia"></b></span></h5>
+                                        <h4>如何提供数据</h4>
+                                        <h5><i class="fa fa-envelope fa-fw"></i> hycdes@qq.com</h5>
+                                        <h5><i class="fa fa-qq fa-fw"></i> 693606343 (务必进群<b>私聊</b>)</h5>
+                                        <h4>数据要求</h4>
+                                        <h5><b><span style="color:dodgerblue">核心统计</span></b> (1) 路线 (2) 核心枪类型及数量 (3) Lv10搜救或无搜救 (4) 至少10场</h5>
+                                        <h5><b><span style="color:darkorange">打捞统计</span></b> (1) 地图 (2) Lv10搜救或无搜救 (3) 至少10场 (4) 最好提供所有该活动打捞记录</h5>
+                                        <h5>如下是一个数据提供的样例</h5>
+                                        <img src="../img/sample_stat.png">
                                     </div>
                                     <!-- 贡献者列表 -->
                                     <div class="tab-pane fade" id="mainpanel_supporter">

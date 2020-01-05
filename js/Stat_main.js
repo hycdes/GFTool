@@ -15,30 +15,8 @@ function num_split(num) {
   return str_new
 }
 function showAlert() {
-  if (is_alert) {
-    document.getElementById('info_alert').innerHTML = ''
-    document.getElementById('btn_alert').className = 'btn btn-warning'
-    document.getElementById('btn_alert').innerHTML = '我要贡献数据'
-  } else {
-    var str_info = ''
-    str_info += '<h5 id="version"></h5>'
-    str_info += '<h4>注释</h4>'
-    str_info += '<h5><i class="fa fa-check fa-fw"></i><b>值得参考</b> 样本量 <span style="color:dodgerblue"><b>' + num_split(num_ref) + '+</b></span></h5>'
-    str_info += '<h5><i class="fa fa-star fa-fw"></i><b>值得信赖</b> 样本量 <span style="color:dodgerblue"><b>' + num_split(num_relia) + '+</b></span></h5>'
-    str_info += '<h4>联系</h4>'
-    str_info += '<h5><i class="fa fa-qq fa-fw"></i> 693606343 (务必进群<b>私聊</b>) <i class="fa fa-envelope fa-fw"></i> hycdes@qq.com</h5>'
-    str_info += '<h4>数据要求</h4>'
-    str_info += '<h5><b><span style="color:dodgerblue">核心统计</span></b> (1) 路线 (2) 核心枪类型及数量 (3) Lv10搜救或无搜救 (4) 至少10场</h5>'
-    str_info += '<h5><b><span style="color:darkorange">打捞统计</span></b> (1) 地图 (2) Lv10搜救或无搜救 (3) 至少10场 (4) 最好提供所有该活动打捞记录</h5>'
-    str_info += '<h5>如下是一个数据提供的样例</h5>'
-    str_info += '<img src="../img/sample_stat.png">'
-    str_info += '<h5>&nbsp</h5>'
-    document.getElementById('info_alert').innerHTML = str_info
-    document.getElementById('btn_alert').className = 'btn btn-primary'
-    document.getElementById('btn_alert').innerHTML = '隐藏本页须知'
-    document.getElementById('version').innerHTML = '更新时间: ' + info_update
-  }
-  is_alert = !is_alert
+  document.getElementById('b_refer').innerHTML = num_split(num_ref)
+  document.getElementById('b_relia').innerHTML = num_split(num_relia)
 }
 
 function fill_table(command) {
@@ -274,23 +252,23 @@ function loadScript(url) {
 }
 
 // data
-var data_124etrue = [[5, 'MDR', 6], // 12-4e，搜救
-[4, 'TAR-21', 4], [4, 'MAT-49', 21], [4, 'M1918', 5], [4, 'M60', 2], [4, 'PK', 3],
-[3, 'Astra Revolver', 23], [3, 'C96', 36], [3, 'M9', 35], [3, 'Makarov', 28],
-[3, 'AK-47', 30], [3, 'FNC', 19],
-[3, 'MAC-10', 27], [3, 'Micro UZI', 27], [3, 'Skorpion', 32],
-[3, 'M14', 21],
-[3, 'M2HB', 27], [3, 'MG42', 23]],
-  num_124etrue = 375
+var data_124etrue = [[5, 'MDR', 7], // 12-4e，搜救
+[4, 'TAR-21', 4], [4, 'MAT-49', 23], [4, 'M1918', 5], [4, 'M60', 3], [4, 'PK', 4],
+[3, 'Astra Revolver', 28], [3, 'C96', 38], [3, 'M9', 38], [3, 'Makarov', 31],
+[3, 'AK-47', 34], [3, 'FNC', 23],
+[3, 'MAC-10', 30], [3, 'Micro UZI', 33], [3, 'Skorpion', 35],
+[3, 'M14', 26],
+[3, 'M2HB', 33], [3, 'MG42', 28]],
+  num_124etrue = 431
 
-var data_124efalse = [[5, 'MDR', 4], // 12-4e，无搜救
-[4, 'TAR-21', 3], [4, 'MAT-49', 5], [4, 'M1918', 2], [4, 'M60', 1], [4, 'PK', 4],
-[3, 'Astra Revolver', 11], [3, 'C96', 11], [3, 'M9', 25], [3, 'Makarov', 12],
-[3, 'AK-47', 5], [3, 'FNC', 12],
-[3, 'MAC-10', 15], [3, 'Micro UZI', 9], [3, 'Skorpion', 13],
-[3, 'M14', 10],
-[3, 'M2HB', 12], [3, 'MG42', 13]],
-  num_124efalse = 236
+var data_124efalse = [[5, 'MDR', 6], // 12-4e，无搜救
+[4, 'TAR-21', 4], [4, 'MAT-49', 12], [4, 'M1918', 4], [4, 'M60', 4], [4, 'PK', 4],
+[3, 'Astra Revolver', 20], [3, 'C96', 20], [3, 'M9', 35], [3, 'Makarov', 22],
+[3, 'AK-47', 21], [3, 'FNC', 21],
+[3, 'MAC-10', 23], [3, 'Micro UZI', 15], [3, 'Skorpion', 20],
+[3, 'M14', 14],
+[3, 'M2HB', 25], [3, 'MG42', 24]],
+  num_124efalse = 406
 
 var data_116true = [[4, 'Colt Revolver', 1], [4, 'AS Val', 1], [4, 'SpringField', 1], [4, 'M1918', 1], [4, 'Mk46', 2], // 11-6，搜救
 [3, 'M9', 5], [3, 'P08', 11], [3, 'Type 92', 7], [3, 'Tokarev', 5],
@@ -455,7 +433,7 @@ var list_supporter_1 = [
   '命运の乐章', '夏季末至', 'AsLegend', 'Mapleaf', 'falcon',
   '老徐', '榭榆', 'MIЯЯOЯ', '欣欢症', '君漓莒',
   'cookiesiclink', 'Airnors', 'Scottdoha', 'AT4', '白金世界',
-  '一瞬の感质', '十五酱', '没有肝的晷璃'
+  '一瞬の感质', '十五酱', '没有肝的晷璃', '流年'
 ],
   list_supporter_2 = [
     '哒酱', '门对千竿竹', '莉莉丝爱你哦', 'Flonne', 'mrduck',
@@ -531,6 +509,7 @@ var bar_info = [], bar_data = [], bar_name = [], bar_num = 0, y_max = 0
 
 
 window.onload = function () {
+  showAlert()
   // drag
   mergeCell('table_drag1', 10, 11, 0)
   mergeCell('table_drag1', 8, 9, 0)
