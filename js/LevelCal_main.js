@@ -22,7 +22,7 @@ var levelUpExp_Fairy = [0, 0, 300, 600, 900, 1200, 1500, 1800, 2100, 2400,
   196900, 203200, 209600, 216100, 222800, 229600, 236500, 243500, 250600, 257900,
   265300, 272800, 280400, 288200, 296100, 304100, 312300, 320600, 329000, 337500, 357000]
 
-function freeTeamExpan () {
+function freeTeamExpan() {
   var ExpanF1 = document.getElementById('ExpanF1')
   var teamExpan = document.getElementById('teamExpan')
   if (ExpanF1.checked) {
@@ -33,25 +33,25 @@ function freeTeamExpan () {
   }
 }
 
-function inputCardData (cardname, value, declinelevel) {
-  var expData = { }
+function inputCardData(cardname, value, declinelevel) {
+  var expData = {}
   expData.cardname = cardname
   expData.value = value
   expData.declinelevel = declinelevel
   return expData
 }
 
-function setMap (mapInfo) {
+function setMap(mapInfo) {
   var MP = document.getElementById('MapInfo')
   if (mapInfo === 1) MP.value = 1
   else if (mapInfo === 2) MP.value = 54
   else if (mapInfo === 3) MP.value = 71
-  else if (mapInfo === 4) MP.value = 86
-  else if (mapInfo === 5) MP.value = 112
-  else if (mapInfo === 6) MP.value = 140
+  else if (mapInfo === 4) MP.value = 112
+  else if (mapInfo === 5) MP.value = 140
+  else if (mapInfo === 6) MP.value = 146
 }
 
-function setLevel (levelInfo) {
+function setLevel(levelInfo) {
   var CL = document.getElementById('CurLev')
   var TL = document.getElementById('TarLev')
   switch (levelInfo) {
@@ -70,7 +70,7 @@ function setLevel (levelInfo) {
   }
 }
 
-function setLevelF (levelInfo) {
+function setLevelF(levelInfo) {
   var CLF = document.getElementById('CurLevF')
   var TLF = document.getElementById('TarLevF')
   switch (levelInfo) {
@@ -89,7 +89,7 @@ function setLevelF (levelInfo) {
   }
 }
 
-function setLevelH (levelInfo) {
+function setLevelH(levelInfo) {
   var CLH = document.getElementById('CurLevH')
   var TLH = document.getElementById('TarLevH')
   switch (levelInfo) {
@@ -108,7 +108,7 @@ function setLevelH (levelInfo) {
   }
 }
 
-function checkError (levelUpExp) {
+function checkError(levelUpExp) {
   var CurLevId = document.getElementById('CurLev')
   var CurLev = parseInt(CurLevId.value)
   var TarLevId = document.getElementById('TarLev')
@@ -137,7 +137,7 @@ function checkError (levelUpExp) {
   return 0
 }
 
-function correctInput (inputLable) { // page+inputNum, X0 means whole page
+function correctInput(inputLable) { // page+inputNum, X0 means whole page
   switch (inputLable) {
     case 20:
       var CurLevId = document.getElementById('CurLevF')
@@ -187,7 +187,7 @@ function correctInput (inputLable) { // page+inputNum, X0 means whole page
   }
 }
 
-function checkErrorH (levelUpExp) {
+function checkErrorH(levelUpExp) {
   var CurLevId = document.getElementById('CurLevH')
   var CurLev = parseInt(CurLevId.value)
   var TarLevId = document.getElementById('TarLevH')
@@ -204,7 +204,7 @@ function checkErrorH (levelUpExp) {
   return 0
 }
 
-function getChart (selectMapInfo, Num_normal, Num_leader, Num_MVP, Num_leaderMVP, Num_book, total_EXP) {
+function getChart(selectMapInfo, Num_normal, Num_leader, Num_MVP, Num_leaderMVP, Num_book, total_EXP) {
   var SimuNum = parseInt(document.getElementById('SimuNum').value)
   var SimuType = parseInt(document.getElementById('SimuType').value)
   var kineticNum, simuBattleNum, simuExp
@@ -305,7 +305,7 @@ function getChart (selectMapInfo, Num_normal, Num_leader, Num_MVP, Num_leaderMVP
   chart.innerHTML = tab
 }
 
-function getChartF (selectMapInfo, Num, Num_book, total_EXP, fairyExp) {
+function getChartF(selectMapInfo, Num, Num_book, total_EXP, fairyExp) {
   var TimeAvgId = document.getElementById('TimeAvg')
   var Time = parseFloat(TimeAvgId.value) * Num / 60
   var AmmAvgId = document.getElementById('AmmAvg')
@@ -352,7 +352,7 @@ function getChartF (selectMapInfo, Num, Num_book, total_EXP, fairyExp) {
   chart.innerHTML = tab
 }
 
-function getChartH (trainTime, Num_book, total_EXP) {
+function getChartH(trainTime, Num_book, total_EXP) {
   var chart = document.getElementById('resultChartH')
   var tab = '<p><h4>训练信息</h4></p>'
   tab += '<table class="table table-striped table-bordered table-hover"><thead><tr><th>所需经验</th><th>特种作战报告书</th><th>训练时间</th></tr></thead>'
@@ -370,7 +370,7 @@ function getChartH (trainTime, Num_book, total_EXP) {
   chart.innerHTML = tab
 }
 
-function getOnceExp (onceExpFull, declinelevel, currentlevel, expUp, OATHValue, Multiple) {
+function getOnceExp(onceExpFull, declinelevel, currentlevel, expUp, OATHValue, Multiple) {
   var Exp = onceExpFull * expUp * Multiple
   var Ep1 = document.getElementById('Expan1')
   var Ep2 = document.getElementById('Expan2')
@@ -405,7 +405,7 @@ function getOnceExp (onceExpFull, declinelevel, currentlevel, expUp, OATHValue, 
   return Exp
 }
 
-function getNum (levelUpExp, selectMapInfo, CurLev, TarLev, CurExp, expUp, OATHValue, Multiple) {
+function getNum(levelUpExp, selectMapInfo, CurLev, TarLev, CurExp, expUp, OATHValue, Multiple) {
   var resultNum = 0
   var this_level = CurLev
   var this_leftexp = CurExp
@@ -420,7 +420,7 @@ function getNum (levelUpExp, selectMapInfo, CurLev, TarLev, CurExp, expUp, OATHV
   return resultNum
 }
 
-function getFairyExp (selectMapInfo, expUp) {
+function getFairyExp(selectMapInfo, expUp) {
   var ExpanF1 = document.getElementById('ExpanF1')
   var teamExpanId = document.getElementById('teamExpan')
   var teamExpan = parseInt(teamExpanId.value)
@@ -431,7 +431,7 @@ function getFairyExp (selectMapInfo, expUp) {
   this_exp *= expUp
   return this_exp
 }
-function getFairyTotalExp (levelUpExp, CurLev, TarLev, CurExp) {
+function getFairyTotalExp(levelUpExp, CurLev, TarLev, CurExp) {
   var thisLevel = CurLev
   var totalExp = 0
   while (thisLevel < TarLev) {
@@ -441,7 +441,7 @@ function getFairyTotalExp (levelUpExp, CurLev, TarLev, CurExp) {
   return totalExp - CurExp
 }
 
-function getHFTotalExp (levelUpExp, CurLev, TarLev, CurExp) {
+function getHFTotalExp(levelUpExp, CurLev, TarLev, CurExp) {
   var thisLevel = CurLev
   var totalExp = 0
   while (thisLevel < TarLev) {
@@ -451,14 +451,14 @@ function getHFTotalExp (levelUpExp, CurLev, TarLev, CurExp) {
   return totalExp - CurExp
 }
 
-function getHFTrainTime (Num_book) { // 1,3,3,5,7,7,9,11,11,13,15
+function getHFTrainTime(Num_book) { // 1,3,3,5,7,7,9,11,11,13,15
   var TCLevel = parseInt(document.getElementById('TrainingCourse').value)
   var list_map = [1, 3, 3, 5, 7, 7, 9, 11, 11, 13, 15]
   var bph = list_map[TCLevel]
   return Math.ceil(Num_book / bph)
 }
 
-function getNumBook (levelUpExp, CurLev, TarLev, CurExp, OATHValue) {
+function getNumBook(levelUpExp, CurLev, TarLev, CurExp, OATHValue) {
   var resultNum
   var totalExp
   if (TarLev <= 100) {
@@ -472,7 +472,7 @@ function getNumBook (levelUpExp, CurLev, TarLev, CurExp, OATHValue) {
   return resultNum
 }
 
-function getResult (typeInfo) { // 1=T-dool, 2=Fairy, 3=Heavy-Fire
+function getResult(typeInfo) { // 1=T-dool, 2=Fairy, 3=Heavy-Fire
   var panelT = document.getElementById('panelT')
   var panelF = document.getElementById('panelF')
   var panelH = document.getElementById('panelH')
@@ -631,6 +631,7 @@ function getResult (typeInfo) { // 1=T-dool, 2=Fairy, 3=Heavy-Fire
   mapList.push(inputCardData('11-2E', 570, 120))
   mapList.push(inputCardData('11-3E', 580, 120))
   mapList.push(inputCardData('11-4E', 600, 120))
+  mapList.push(inputCardData('12-4E', 600, 120))
   switch (typeInfo) {
     case 1: // T-doll
       panelT.className = 'active'

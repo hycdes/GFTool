@@ -1014,6 +1014,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'stechkin_eva') {
+    if (document.getElementById('special_1007_' + stand_num).checked) {
+      Set_Status.get(-2).push([['enemy_eva', -0.5], 240])
+      do_debuff('enemy_eva', 240)
+      endStatus(-1, [['enemy_eva', -0.5], 240], 'enemy_get')
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'm4') {
     Set_EnemyStatus.set('avenger_mark', true) // 敌人施加伸冤者印记
     if (document.getElementById('special_m4_' + stand_num).checked) { // 使用武器库炮击
@@ -1071,7 +1079,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     }
     else changeStatus(stand_num, 'self', 'dmg', '0.6', 8)
     changeStatus(stand_num, 'grenade', current_time, ratio, 1)
-    s_t[1] = s_t[0].cld * 30 - 1 // �������入冷却
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'k11') { // 恐惧榴弹
     var ratio = parseInt(document.getElementById('special_k11_' + (stand_num + 1)).value)
@@ -1230,6 +1238,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     if (num_eva > 6) num_eva = 6
     for (var n = 0; n < num_dmg; n++) changeStatus(stand_num, 'self', 'dmg', '0.5', 5)
     for (var n = 0; n < num_eva; n++) changeStatus(stand_num, 'self', 'eva', '0.35', 5)
+    s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
+  }
+  else if (skillname === 'mat49') {
+    var num_dmg = 4 - enemy_num_left, num_eva = enemy_num_left - 1
+    if (num_dmg < 0) num_dmg = 0
+    if (num_eva > 6) num_eva = 6
+    for (var n = 0; n < num_dmg; n++) changeStatus(stand_num, 'self', 'dmg', '0.45', 5)
+    for (var n = 0; n < num_eva; n++) changeStatus(stand_num, 'self', 'eva', '0.3', 5)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'mdr') {

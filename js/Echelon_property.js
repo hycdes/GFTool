@@ -327,6 +327,7 @@ lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65
 lib_affect.set(275, createAffect('rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
 lib_affect.set(276, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
 lib_affect.set(279, createAffect('r/ru/', 'smg', ['dmg', 'eva'], [0.1, 0.1])) // insas
+lib_affect.set(280, createAffect('l/luu/', 'ar', ['dmg', 'crit'], [0.2, 0.2])) // MAT-49
 lib_affect.set(281, createAffect('ll/lld/', 'mg', ['dmg', 'acu'], [0.18, 0.12])) // CAWS
 lib_affect.set(282, createAffect('ll/llu/', 'mg/rf', ['dmg', 'acu'], [0.15, 0.15])) // DP-12
 lib_affect.set(283, createAffect('ll/lldd/', 'mg', ['dmg', 'acu'], [0.1, 0.25])) // 解放者
@@ -660,17 +661,18 @@ lib_property.set(273, createProperty(126, 77, 30, 37, 0, 440, 0.4, -1)) // SSG30
 lib_property.set(274, createProperty(54, 54, 48, 77, 0, 580, 0.3, -1)) // ACR
 lib_property.set(275, createProperty(90, 26, 23, 131, 0, 950, 0.05, 10)) // M1895 CB
 lib_property.set(276, createProperty(109, 22, 21, 110, 0, 990, 0.05, 9)) // kord
-lib_property.set(279, createProperty(49, 52, 45, 71, 0, 550, 0.2, 0)) // insas
+lib_property.set(279, createProperty(49, 52, 45, 71, 0, 550, 0.2, -1)) // insas
+lib_property.set(280, createProperty(29, 14, 73, 81, 0, 925, 0.05, -1)) // MAT-49
 lib_property.set(281, createProperty(30, 12, 13, 35, 23, 1235, 0.4, 5)) // CAWS
 lib_property.set(282, createProperty(31, 13, 13, 30, 23, 1265, 0.4, 5)) // DP-12
 lib_property.set(283, createProperty(36, 12, 15, 30, 21, 1155, 0.4, 4)) // 解放者
-lib_property.set(284, createProperty(110, 78, 35, 37, 0, 420, 0.4, 0)) // Zas M76
-lib_property.set(285, createProperty(33, 62, 98, 64, 0, 315, 0.2, 0)) // C-93
-lib_property.set(286, createProperty(33, 14, 71, 81, 0, 900, 0.05, 0)) // KAC-PDW
-lib_property.set(287, createProperty(51, 46, 45, 76, 0, 605, 0.2, 0)) // SIG-556
-lib_property.set(288, createProperty(48, 52, 43, 81, 0, 550, 0.2, 0)) // CR-21
-lib_property.set(289, createProperty(55, 54, 43, 76, 0, 620, 0.2, 0)) // R5
-lib_property.set(290, createProperty(54, 45, 48, 79, 0, 605, 0.2, 0)) // 89 式
+lib_property.set(284, createProperty(110, 78, 35, 37, 0, 420, 0.4, -1)) // Zas M76
+lib_property.set(285, createProperty(33, 62, 98, 64, 0, 315, 0.2, -1)) // C-93
+lib_property.set(286, createProperty(33, 14, 71, 81, 0, 900, 0.05, -1)) // KAC-PDW
+lib_property.set(287, createProperty(51, 46, 45, 76, 0, 605, 0.2, -1)) // SIG-556
+lib_property.set(288, createProperty(48, 52, 43, 81, 0, 550, 0.2, -1)) // CR-21
+lib_property.set(289, createProperty(55, 54, 43, 76, 0, 620, 0.2, -1)) // R5
+lib_property.set(290, createProperty(54, 45, 48, 79, 0, 605, 0.2, -1)) // 89 式
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
@@ -882,6 +884,7 @@ lib_special_info.set(275, lib_language.special_info_common) // M1895CB
 lib_special_info.set(276, lib_language.special_info_common) // kord
 lib_special_info.set(285, lib_language.special_info_common) // C-93
 lib_special_info.set(287, lib_language.special_info_common) // SIG-556
+lib_special_info.set(1007, lib_language.special_info_common) // Stechkin
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4
 lib_special_info.set(1065, lib_language.special_info_common) // hk416

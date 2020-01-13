@@ -196,6 +196,11 @@ function describe_js9() { // 临阵磨枪
   Describe.name = 'js9'
   return Describe
 }
+function describe_mat49() { // 临阵磨枪
+  var Describe = {}
+  Describe.name = 'mat49'
+  return Describe
+}
 function describe_x95() { // 花之锁
   var Describe = {}
   Describe.name = 'x95'
@@ -380,6 +385,11 @@ function describe_c93() { // c-93
 function describe_89type() { // 89式
   var Describe = {}
   Describe.name = '89type'
+  return Describe
+}
+function describe_stechkin_eva() { // 斯捷奇金 mod
+  var Describe = {}
+  Describe.name = 'stechkin_eva'
   return Describe
 }
 
@@ -645,6 +655,7 @@ lib_describe.set('qbu88', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless
 lib_describe.set('em2', describe_snipe(3.5, 0, -1, 3, 'arm/crit/evaless')) // 碎碎曲奇弹
 // special
 lib_describe.set('js9', describe_js9()) // 临阵磨枪
+lib_describe.set('mat49', describe_mat49()) // 临阵磨枪
 lib_describe.set('x95', describe_x95()) // 花之锁
 lib_describe.set('p90', describe_p90()) // 灰鼠
 lib_describe.set('ump40', describe_ump40()) // 烙印过载
@@ -655,6 +666,7 @@ lib_describe.set('contender', describe_contender()) // 断罪者魔弹
 lib_describe.set('hs2000', describe_hs2000()) // 反击者壁垒
 lib_describe.set('theresa', describe_theresa()) // 圣光制裁
 lib_describe.set('stechkin', describe_stechkin()) // 斯捷奇金专属增强
+lib_describe.set('stechkin_reduce_eva', describe_stechkin_eva()) // 短板敲击乐
 lib_describe.set('an94', describe_multihit(2)) // 人偶扳机
 lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('gsh18', describe_multihit(2)) // 锁链冲击
@@ -725,7 +737,7 @@ lib_skill.set(1007, [
   createSkill(6, 12, 0, lib_describe.get('stechkin')),
   createSkill(6, 12, 8, lib_describe.get('dmg_25')), // 短板敲击乐 火力
   createSkill(6, 12, 8, lib_describe.get('crit_100')), // 短板敲击乐 暴击率
-  createSkill(6, 12, 8, lib_describe.get('eva_50_enemy')) // 短板敲击乐 回避
+  createSkill(6, 12, 0, lib_describe.get('stechkin_reduce_eva')) // 短板敲击乐 降低回避
 ])
 // ———————————————————————————————————————— HG - 4 ————————————————————————————————————————
 lib_skill.set(1, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))])
@@ -977,6 +989,7 @@ lib_skill.set(150, [createSkill(6, 8, 5, lib_describe.get('eva_130'))]) // 掩�
 lib_skill.set(177, [createSkill(3, 16, 0, lib_describe.get('incendiary_6.5'))]) // klin
 lib_skill.set(203, [createSkill(6, 8, 5, lib_describe.get('dmgeva_16040'))]) // storm cx4
 lib_skill.set(225, [createSkill(6, 16, 10, lib_describe.get('evaacu_4'))]) //
+lib_skill.set(280, [createSkill(6, 8, 5, lib_describe.get('mat49'))])
 lib_skill.set(286, [
   createSkill(6, 8, 1, lib_describe.get('ffs')),
   createSkill(7, 8, 5, lib_describe.get('eva_60'))
