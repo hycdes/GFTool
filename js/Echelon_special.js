@@ -166,6 +166,11 @@ function settle_buff(stand_num, info_self) {
         }
         //console.log('[', global_frame, '] ', 'mode=', _spG('89_mode_' + stand_num), '; level=', _spG('89_buff_' + stand_num), '; forcus=', _spG('89_forcus_' + stand_num))
     }
+    else if (is_this(stand_num, 292)) { // rpk-16 ar-mode buff
+        if (_spE('rpk16_' + stand_num, 'ar')) { // rof-buff counting in attack-duration calculation
+            _mul_acu *= 2
+        }
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)

@@ -776,117 +776,154 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         }
         // ——————————————————————————————————————MG和SG扣除子弹——————————————————————————————————————
       } else {
-        var cs = Set_Special.get('clipsize_' + stand_num)
-        var extra_shoot_pkp = false
-        if (is_this(stand_num, 275)) {
-          if (_spE('m1895cb_skillon_' + stand_num, true) && _spG('m1895cb_' + stand_num) > 0) {
-            _spS('m1895cb_' + stand_num, _spG('m1895cb_' + stand_num) - 1)
-            cs++
+        if (is_this(stand_num, 292)) { // RPK-16
+          var cs = Set_Special.get('clipsize_' + stand_num)
+          if (_spE('rpk16_' + stand_num, 'ar')) { // AR模式
+            if (_spE('rpk16_skill_' + stand_num, 'close')) { // AR模式未开启技能，不能换弹
+              var final_rof = current_Info.get('rof')
+              s_t[1] = rof_to_frame(2, final_rof * 0.6, list_tdoll[stand_num][1].ID) - 1 // 攻击间隔按AR结算
+            } else { // 否则换弹
+              _spS('rpk16_' + stand_num, 'mg') // 切换为MG模式
+              _spS('rpk16_skill_' + stand_num, 'close') // 关闭技能
+              Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
+              Set_Special.set('reloading_' + stand_num, true)
+              changeStatus(stand_num, 'reload', null, 30, null) // 1s换弹
+              Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
+              s_t[1] = 29 // 攻击间隔按1s算
+            }
           }
-        }
-        cs--
-        if (is_this(stand_num, 173)) { // PKP暴动宣告相关处理
-          if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'ready' && Math.random() <= 0.2) {
-            cs++
-            extra_shoot_pkp = true
-            Set_Special.set('pkp_nextcrit_' + stand_num, 'extra')
-          }
-          if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'over') {
-            Set_Special.set('pkp_nextcrit_' + stand_num, 'ready')
-          }
-        }
-        if (cs === 0) { // 需要换弹
-          var reload_frame = 0
-          var rof = current_Info.get('rof')
-          if (current_Info.get('type') === 5) { // MG的换弹
-            if (is_this(stand_num, 1075)) { // M1918-MOD 战地魔术
-              reload_frame = 150
+          else { // MG模式
+            cs--
+            if (cs === 0) {
+              if (_spE('rpk16_skill_' + stand_num, 'close')) { // 未开启技能，不能换弹
+                _spS('rpk16_' + stand_num, 'ar') // 切换为AR模式
+                s_t[1] = 9  // * 这里不是很确定是立刻射击还是10帧间隔，先以10帧暂定
+              } else { // 否则换弹
+                _spS('rpk16_skill_' + stand_num, 'close') // 关闭技能
+                Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
+                Set_Special.set('reloading_' + stand_num, true)
+                changeStatus(stand_num, 'reload', null, 30, null) // 1s换弹
+                Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
+                _spS('rpk16_' + stand_num, 'mg') // 切换为MG模式
+              }
             } else {
-              if (rof > 1000) rof = 1000
-              else if (rof < 1) rof = 1
-              reload_frame = Math.floor((4 + 200 / rof) * 30)
-              if (is_this(stand_num, 253)) { // 刘易斯 力天使
-                reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.15 * Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
-              } else if (is_this(stand_num, 254)) { // 白夜独奏曲：夜战减换弹
-                if (Set_Special.get('sunrise') === 'night') reload_frame = Math.ceil(0.7 * reload_frame)
-              } else if (is_this(stand_num, 263)) {
-                if (Set_Special.get('mg36_reload_' + stand_num) != undefined) {
-                  reload_frame = Math.ceil((1 - 0.25 * Set_Special.get('mg36_reload_' + stand_num)) * reload_frame)
-                  Set_Special.set('mg36_reload_' + stand_num, 0)
-                }
-              } else if (is_this(stand_num, 264)) { // 百合纹章：加速换弹
-                reload_frame = Math.floor(reload_frame * (1 - 0.2 * Set_Special.get('chauchat_nextreload_' + stand_num)))
-                Set_Special.set('chauchat_nextreload_' + stand_num, 0)
-              }
+              Set_Special.set('clipsize_' + stand_num, cs) // 计算扣弹
+              s_t[1] = rof_to_frame(5, current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1  // 按MG结算
             }
-          } else if (current_Info.get('type') === 6) { // SG的换弹
-            if (Set_Special.get('usas12_' + stand_num) === true) { // 狂热突袭增加1s换弹
-              reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs)) + 30
-            } else if (is_this(stand_num, 2008)) { // 量子回溯瞬间完成换弹
-              reload_frame = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
-            } else {
-              reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
-            }
-          } else if (current_Info.get('type') === 4 && is_this(stand_num, 256)) { // 隼的换弹
-            reload_frame = 30 + Math.floor(3600 / (current_Info.get('rof') + 10))
-          }
-          if (Set_Special.get('jericho_exist') === true) {
-            var jericho_standset = Set_Special.get('jericho_standset')
-            for (var jrc of jericho_standset) {
-              if (is_in_affect_of(jrc, stand_num)) {
-                if (Set_Special.get('jericho_buff_' + stand_num) === undefined) {
-                  Set_Special.set('jericho_buff_' + stand_num, 1)
-                  changeStatus(stand_num, 'self', 'dmg', '0.05', 15)
-                  changeStatus(stand_num, 'self', 'acu', '0.05', 15)
-                  changeStatus(stand_num, 'self', 'critdmg', '0', 15) // 记录buff层数专用
-                } else if (Set_Special.get('jericho_buff_' + stand_num) < 3) {
-                  Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) + 1)
-                  changeStatus(stand_num, 'self', 'dmg', '0.05', 15)
-                  changeStatus(stand_num, 'self', 'acu', '0.05', 15)
-                  changeStatus(stand_num, 'self', 'critdmg', '0', 15)
-                }
-              }
-            }
-          }
-          Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
-          Set_Special.set('reloading_' + stand_num, true)
-          changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
-          if (_spG('MG_terminate_' + stand_num) != undefined) _spS('MG_terminate_' + stand_num, 0) // 连珠类重置计数器
-          Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
-          if (is_this(stand_num, 253)) { // 刘易斯增加弹量
-            var angel_num = Set_Special.get('angel_strength' + stand_num)
-            if (angel_num < 3) angel_num++
-            Set_Special.set('angel_strength' + stand_num, angel_num)
-            Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num - 1)
-          } else if (is_this(stand_num, 238)) { // 88式
-            if (!document.getElementById('special_238_' + stand_num).checked) {
-              Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
-              if (Set_Special.get('88type_buffon' + stand_num) === undefined) {
-                changeStatus(stand_num, 'self', 'acu', '0.3', -1)
-                Set_Special.set('88type_buffon' + stand_num, true)
-              }
-            } else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
-          } else if (is_this(stand_num, 1089)) { // 布伦MOD
-            if (Set_Special.get('bren_buff_' + stand_num) < 3) {
-              Set_Special.set('bren_buff_' + stand_num, Set_Special.get('bren_buff_' + stand_num) + 1)
-              changeStatus(stand_num, 'self', 'acu', 0.15, -1)
-            }
-            Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + Set_Special.get('bren_buff_' + stand_num))
-          }
-          if (is_this(stand_num, 112)) { // 狂躁血脉
-            changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
           }
         } else {
-          if (extra_shoot_pkp) {
-            s_t[1] = 0
-          } else if (is_this(stand_num, 276)) { // kord射速单独判断
-            if (Set_Special.get('kord_' + stand_num) === 'type_p') s_t[1] = 9
-            else s_t[1] = 10
-          } else {
-            s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+          var cs = Set_Special.get('clipsize_' + stand_num)
+          var extra_shoot_pkp = false
+          if (is_this(stand_num, 275)) {
+            if (_spE('m1895cb_skillon_' + stand_num, true) && _spG('m1895cb_' + stand_num) > 0) {
+              _spS('m1895cb_' + stand_num, _spG('m1895cb_' + stand_num) - 1)
+              cs++
+            }
           }
-          Set_Special.set('clipsize_' + stand_num, cs)
-        }
+          cs--
+          if (is_this(stand_num, 173)) { // PKP暴动宣告相关处理
+            if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'ready' && Math.random() <= 0.2) {
+              cs++
+              extra_shoot_pkp = true
+              Set_Special.set('pkp_nextcrit_' + stand_num, 'extra')
+            }
+            if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'over') {
+              Set_Special.set('pkp_nextcrit_' + stand_num, 'ready')
+            }
+          }
+          if (cs === 0) { // 需要换弹
+            var reload_frame = 0
+            var rof = current_Info.get('rof')
+            if (current_Info.get('type') === 5) { // MG的换弹
+              if (is_this(stand_num, 1075)) { // M1918-MOD 战地魔术
+                reload_frame = 150
+              } else {
+                if (rof > 1000) rof = 1000
+                else if (rof < 1) rof = 1
+                reload_frame = Math.floor((4 + 200 / rof) * 30)
+                if (is_this(stand_num, 253)) { // 刘易斯 力天使
+                  reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.15 * Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
+                } else if (is_this(stand_num, 254)) { // 白夜独奏曲：夜战减换弹
+                  if (Set_Special.get('sunrise') === 'night') reload_frame = Math.ceil(0.7 * reload_frame)
+                } else if (is_this(stand_num, 263)) {
+                  if (Set_Special.get('mg36_reload_' + stand_num) != undefined) {
+                    reload_frame = Math.ceil((1 - 0.25 * Set_Special.get('mg36_reload_' + stand_num)) * reload_frame)
+                    Set_Special.set('mg36_reload_' + stand_num, 0)
+                  }
+                } else if (is_this(stand_num, 264)) { // 百合纹章：加速换弹
+                  reload_frame = Math.floor(reload_frame * (1 - 0.2 * Set_Special.get('chauchat_nextreload_' + stand_num)))
+                  Set_Special.set('chauchat_nextreload_' + stand_num, 0)
+                }
+              }
+            } else if (current_Info.get('type') === 6) { // SG的换弹
+              if (Set_Special.get('usas12_' + stand_num) === true) { // 狂热突袭增加1s换弹
+                reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs)) + 30
+              } else if (is_this(stand_num, 2008)) { // 量子回溯瞬间完成换弹
+                reload_frame = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+              } else {
+                reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
+              }
+            } else if (current_Info.get('type') === 4 && is_this(stand_num, 256)) { // 隼的换弹
+              reload_frame = 30 + Math.floor(3600 / (current_Info.get('rof') + 10))
+            }
+            if (Set_Special.get('jericho_exist') === true) {
+              var jericho_standset = Set_Special.get('jericho_standset')
+              for (var jrc of jericho_standset) {
+                if (is_in_affect_of(jrc, stand_num)) {
+                  if (Set_Special.get('jericho_buff_' + stand_num) === undefined) {
+                    Set_Special.set('jericho_buff_' + stand_num, 1)
+                    changeStatus(stand_num, 'self', 'dmg', '0.05', 15)
+                    changeStatus(stand_num, 'self', 'acu', '0.05', 15)
+                    changeStatus(stand_num, 'self', 'critdmg', '0', 15) // 记录buff层数专用
+                  } else if (Set_Special.get('jericho_buff_' + stand_num) < 3) {
+                    Set_Special.set('jericho_buff_' + stand_num, Set_Special.get('jericho_buff_' + stand_num) + 1)
+                    changeStatus(stand_num, 'self', 'dmg', '0.05', 15)
+                    changeStatus(stand_num, 'self', 'acu', '0.05', 15)
+                    changeStatus(stand_num, 'self', 'critdmg', '0', 15)
+                  }
+                }
+              }
+            }
+            Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
+            Set_Special.set('reloading_' + stand_num, true)
+            changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
+            if (_spG('MG_terminate_' + stand_num) != undefined) _spS('MG_terminate_' + stand_num, 0) // 连珠类重置计数器
+            Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
+            if (is_this(stand_num, 253)) { // 刘易斯增加弹量
+              var angel_num = Set_Special.get('angel_strength' + stand_num)
+              if (angel_num < 3) angel_num++
+              Set_Special.set('angel_strength' + stand_num, angel_num)
+              Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num - 1)
+            } else if (is_this(stand_num, 238)) { // 88式
+              if (!document.getElementById('special_238_' + stand_num).checked) {
+                Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
+                if (Set_Special.get('88type_buffon' + stand_num) === undefined) {
+                  changeStatus(stand_num, 'self', 'acu', '0.3', -1)
+                  Set_Special.set('88type_buffon' + stand_num, true)
+                }
+              } else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
+            } else if (is_this(stand_num, 1089)) { // 布伦MOD
+              if (Set_Special.get('bren_buff_' + stand_num) < 3) {
+                Set_Special.set('bren_buff_' + stand_num, Set_Special.get('bren_buff_' + stand_num) + 1)
+                changeStatus(stand_num, 'self', 'acu', 0.15, -1)
+              }
+              Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + Set_Special.get('bren_buff_' + stand_num))
+            }
+            if (is_this(stand_num, 112)) { // 狂躁血脉
+              changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
+            }
+          } else {
+            if (extra_shoot_pkp) {
+              s_t[1] = 0
+            } else if (is_this(stand_num, 276)) { // kord射速单独判断
+              if (Set_Special.get('kord_' + stand_num) === 'type_p') s_t[1] = 9
+              else s_t[1] = 10
+            } else {
+              s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+            }
+            Set_Special.set('clipsize_' + stand_num, cs)
+          }
+        } // other outof rpk-16
       }
 
       // 攻击后判断————————————————————————————————————————————————————————————————————————————————————————————
@@ -1636,6 +1673,11 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       }
       s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
     }
+  }
+  else if (skillname === 'rpk16') {
+    _spS('rpk16_skill_' + stand_num, 'on')
+    changeStatus(stand_num, 'self', 'dmg', 0.4, 5)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————

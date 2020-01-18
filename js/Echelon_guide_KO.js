@@ -110,6 +110,7 @@ lib_language = {
   NAME_272: 'Desert Eagle',
   NAME_283: 'Liberator',
   NAME_290: '89 type',
+  NAME_294: 'Webley',
   NAME_2001: '노엘',
   NAME_2002: '엘펠트',
   NAME_2003: '키아나',

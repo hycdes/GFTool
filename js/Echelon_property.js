@@ -338,6 +338,12 @@ lib_affect.set(287, createAffect('r/ru/', 'smg', ['rof', 'eva'], [0.12, 0.15])) 
 lib_affect.set(288, createAffect('r/ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // CR-21
 lib_affect.set(289, createAffect('ru/rd/', 'smg', ['rof', 'eva'], [0.12, 0.15])) // R5
 lib_affect.set(290, createAffect('r/ru/rd/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // 89式
+lib_affect.set(292, createAffect('d/dd/dr/drr/rr/', 'smg/ar/mg', ['dmg', 'arm'], [0.12, 0.18])) // RPK-16
+lib_affect.set(293, createAffect('r/ru/rd/', 'smg', ['dmg', 'acu'], [0.25, 0.65])) // AK-15
+lib_affect.set(294, createAffect('l/lu/luu/u/r/', 'all', ['dmg', 'rof'], [0.16, 0.2])) // 韦伯利
+lib_affect.set(295, createAffect('l/ld/ldd/', 'ar', ['dmg', 'acu'], [0.2, 0.25])) // CF05
+lib_affect.set(296, createAffect('u/uu//ur/urr/', 'all', ['dmg', 'eva'], [0.1, 0.18])) // SL8
+lib_affect.set(297, createAffect('r/ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // M82
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -673,6 +679,12 @@ lib_property.set(287, createProperty(51, 46, 45, 76, 0, 605, 0.2, -1)) // SIG-55
 lib_property.set(288, createProperty(48, 52, 43, 81, 0, 550, 0.2, -1)) // CR-21
 lib_property.set(289, createProperty(55, 54, 43, 76, 0, 620, 0.2, -1)) // R5
 lib_property.set(290, createProperty(54, 45, 48, 79, 0, 605, 0.2, -1)) // 89 式
+lib_property.set(292, createProperty(85, 37, 36, 129, 0, 825, 0.05, 10)) // RPK-16
+lib_property.set(293, createProperty(58, 52, 51, 77, 0, 550, 0.2, -1)) // AK-15
+lib_property.set(294, createProperty(29, 66, 81, 57, 0, 430, 0.2, -1)) // 韦伯利
+lib_property.set(295, createProperty(26, 13, 73, 87, 0, 950, 0.05, -1)) // CF05
+lib_property.set(296, createProperty(120, 78, 39, 41, 0, 425, 0.4, -1)) // SL8
+lib_property.set(297, createProperty(51, 45, 46, 75, 0, 565, 0.2, -1)) // M82
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))

@@ -490,8 +490,12 @@ function init_loadPrepareStatus() { // 初始化战前属性
   for (var i = 0; i < 9; i++) {
     if (is_stand(i)) {
       if (is_this(i, 275)) { // m1895cb
-        Set_Special.set('m1895cb_' + i, 30) // initial 30x bullets
-        Set_Special.set('m1895cb_add_' + i, 90) // first time add reload
+        _spS('m1895cb_' + i, 30) // initial 30x bullets
+        _spS('m1895cb_add_' + i, 90) // first time add reload
+      }
+      else if (is_this(i, 292)) { // rpk-16
+        _spS('rpk16_' + i, 'mg')
+        _spS('rpk16_skill_' + i, 'close')
       }
       else if (is_this(i, 2014)) { // stella
         changeStatus(i, 'self', 'dmg', -0.5, -1)

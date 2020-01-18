@@ -392,6 +392,11 @@ function describe_stechkin_eva() { // 斯捷奇金 mod
   Describe.name = 'stechkin_eva'
   return Describe
 }
+function describe_rpk16() { // RPK-16
+  var Describe = {}
+  Describe.name = 'rpk16'
+  return Describe
+}
 
 
 // lib_decribe
@@ -698,6 +703,7 @@ lib_describe.set('c96cs', describe_c96cs()) // 夜空追击者：弹量
 lib_describe.set('SIG-556', describe_sig556()) // 战场弄潮儿
 lib_describe.set('c93', describe_c93()) // 兰蝶遗音
 lib_describe.set('89type', describe_89type()) // 89式技能
+lib_describe.set('rpk16', describe_rpk16()) // 银狐的狡黠
 
 // lib_skill
 
@@ -900,6 +906,7 @@ lib_skill.set(227, [
 lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
 lib_skill.set(262, [createSkill(6, 16, 0, lib_describe.get('em2'))])
 lib_skill.set(288, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
+lib_skill.set(297, [createSkill(6, 16, 5, lib_describe.get('tar21'))])
 lib_skill.set(1061, [createSkill(8, 16, 0, lib_describe.get('grenade_9.6'))]) // 后续详细做
 lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
 // ———————————————————————————————————————— AR - 3 ————————————————————————————————————————
@@ -1174,6 +1181,7 @@ lib_skill.set(263, [
   createSkill(8, 18, 0, lib_describe.get('mg36'))
 ])
 lib_skill.set(276, []) // Kord
+lib_skill.set(292, [createSkill(8, 18, 0, lib_describe.get('rpk16'))]) // RPK-16
 lib_skill.set(1075, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))]) // m1918 mod
 // ———————————————————————————————————————— MG - 4 ————————————————————————————————————————
 lib_skill.set(75, [createSkill(8, 18, 6, lib_describe.get('dmg_70'))]) // m1918
