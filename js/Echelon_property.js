@@ -338,7 +338,7 @@ lib_affect.set(287, createAffect('r/ru/', 'smg', ['rof', 'eva'], [0.12, 0.15])) 
 lib_affect.set(288, createAffect('r/ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // CR-21
 lib_affect.set(289, createAffect('ru/rd/', 'smg', ['rof', 'eva'], [0.12, 0.15])) // R5
 lib_affect.set(290, createAffect('r/ru/rd/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // 89式
-lib_affect.set(292, createAffect('d/dd/dr/drr/rr/', 'smg/ar/mg', ['dmg', 'arm'], [0.12, 0.18])) // RPK-16
+lib_affect.set(292, createAffect('d/dd/dr/drr/rr/', 'smg/ar/sg', ['dmg', 'arm'], [0.12, 0.18])) // RPK-16
 lib_affect.set(293, createAffect('r/ru/rd/', 'smg', ['dmg', 'acu'], [0.25, 0.65])) // AK-15
 lib_affect.set(294, createAffect('l/lu/luu/u/r/', 'all', ['dmg', 'rof'], [0.16, 0.2])) // 韦伯利
 lib_affect.set(295, createAffect('l/ld/ldd/', 'ar', ['dmg', 'acu'], [0.2, 0.25])) // CF05

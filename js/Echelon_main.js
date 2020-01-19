@@ -1679,6 +1679,27 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     changeStatus(stand_num, 'self', 'dmg', 0.4, 5)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'sl8') {
+    // 影响格枪种统计
+    var l_type = [0, 0, 0, 0, 0, 0], // typenum on block
+      num_type = 0,
+      stand_y = Math.floor(stand_num / 3),
+      stand_x = stand_num - 3 * stand_y,
+      l_block = [[0, -1], [0, -2], [1, -1], [2, -1]], l_find = []
+    for (var coor of l_block) { // find valid block
+      if (stand_x + coor[0] >= 0 && stand_x + coor[0] <= 2 && stand_y + coor[1] >= 0 && stand_y + coor[1] <= 2) {
+        l_find.push((stand_x + coor[0]) + 3 * (stand_y + coor[1]))
+      }
+    }
+    for (var stb of l_find) {
+      if (gs_tdoll[stb]) l_type[((Set_Base.get(stb)).Info).get('type') - 1]++
+    }
+    for (var element of l_type) if (element > 0) num_type++
+    num_type = Math.min(3, num_type)
+    changeStatus(stand_num, 'self', 'rof', 0.6, 5)
+    for (var buffn = 0; buffn < num_type; buffn++) changeStatus(stand_num, 'self', 'dmg', 0.05, 5)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
   if (debug_mode && (debug_function[0] || debug_function[1])) {

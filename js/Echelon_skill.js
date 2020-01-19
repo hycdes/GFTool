@@ -397,6 +397,11 @@ function describe_rpk16() { // RPK-16
   Describe.name = 'rpk16'
   return Describe
 }
+function describe_sl8() { // SL8
+  var Describe = {}
+  Describe.name = 'sl8'
+  return Describe
+}
 
 
 // lib_decribe
@@ -704,6 +709,7 @@ lib_describe.set('SIG-556', describe_sig556()) // 战场弄潮儿
 lib_describe.set('c93', describe_c93()) // 兰蝶遗音
 lib_describe.set('89type', describe_89type()) // 89式技能
 lib_describe.set('rpk16', describe_rpk16()) // 银狐的狡黠
+lib_describe.set('sl8', describe_sl8()) // 遥光海波
 
 // lib_skill
 
@@ -1083,6 +1089,7 @@ lib_skill.set(266, [
   createSkill(6, 8, 5, lib_describe.get('r93')),
   createSkill(6, 8, 5, lib_describe.get('dmg_40'))
 ]) // 叠加射速特殊判断
+lib_skill.set(296, [createSkill(5, 8, 0, lib_describe.get('sl8'))]) // SL8
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])
