@@ -171,6 +171,11 @@ function settle_buff(stand_num, info_self) {
             _mul_acu *= 2
         }
     }
+    else if (is_this(stand_num, 293)) { // ak-15怒火buff刷新判定
+        if (Math.random() <= 0.15) {
+            _spS('ak15_angry_frame_' + stand_num, global_frame + 90)
+        }
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
@@ -332,6 +337,13 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) {
             Set_Special.set('DE_multiple_' + stand_num, 1)
         }
         final_dmg *= Set_Special.get('DE_multiple_' + stand_num)
+    }
+    else if (is_this(stand_num, 293)) {
+        var extra_dmg = 0
+        if (_spG('ak15_angry_frame_' + stand_num) >= global_frame) { // 怒火期间
+            extra_dmg = Math.max(1, Math.ceil(0.4 * info_self.get('dmg') * _pro('random') + _para_arm)) // 20%火力
+            final_dmg += extra_dmg
+        }
     }
     else if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
         var ar15_list_status = Set_Status.get(stand_num)

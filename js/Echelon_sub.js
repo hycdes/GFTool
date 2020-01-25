@@ -497,6 +497,14 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('rpk16_' + i, 'mg')
         _spS('rpk16_skill_' + i, 'close')
       }
+      else if (is_this(i, 293)) { // ak-15
+        _spS('ak15_angry_frame_' + i, 0) // 怒火时间
+        _spS('ak15_debuff_num_' + i, 0) // 过载层数
+        _spS('ak15_debuff_frame_' + i, 0) // 过载debuff持续
+        _spS('ak15_skill_frame_' + i, 0) // 技能持续
+        _spS('ak15_nexttime_' + i, 0) // 下次debuff数结算时间
+        _spS('ak15_debufflevel_' + i, 0) // 每次debuff层数增量
+      }
       else if (is_this(i, 2014)) { // stella
         changeStatus(i, 'self', 'dmg', -0.5, -1)
       }

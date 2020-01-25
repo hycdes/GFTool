@@ -497,6 +497,19 @@ function reactAllSkill(command, current_time) {
         if (global_frame >= _spG('sig556_dizz_' + k)) {
           _spS('attack_permission_' + k, 'fire_all') // 恢复攻击
         }
+      } else if (is_this(k, 293)) { // AK-15
+        if (_spG('ak15_skill_frame_' + k) >= global_frame) { // 主动技能启动期间
+          if (_spE('ak15_nexttime_' + k, global_frame)) {
+            _spS('ak15_debuff_num_' + k, _spG('ak15_debuff_num_' + k) + _spG('ak15_debufflevel_' + k)) // 叠debuff层
+            if (_spG('ak15_debuff_num_' + k) >= 24) { // 过载
+              _spS('ak15_debuff_num_' + k, 0) // 清空debuff层数
+              changeStatus(k, 'self', 'rof', -0.2, 5)
+              changeStatus(k, 'self', 'acu', -0.2, 5)
+              _spS('ak15_debuff_frame_' + k, global_frame + 150)
+            }
+            if (_spG('ak15_skill_frame_' + k) - global_frame >= 60) _spS('ak15_nexttime_' + k, global_frame + 60) // 如果还有则设置下一次计时点
+          }
+        }
       } else if (is_this(k, 2011)) { // jill醉酒状态施加
         if (Set_Special.get('jill_drunk') != undefined && Set_Special.get('jill_drunk') <= global_frame) {
           changeStatus(k, 'all', 'dmg', -0.15, 3, 'unrepeat')
@@ -1699,6 +1712,20 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     changeStatus(stand_num, 'self', 'rof', 0.6, 5)
     for (var buffn = 0; buffn < num_type; buffn++) changeStatus(stand_num, 'self', 'dmg', 0.05, 5)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'ak15') {
+    if (_spG('ak15_debuff_frame_' + stand_num) >= global_frame) s_t[1] = 0 // debuff未结束，不能开启技能
+    else {
+      changeStatus(stand_num, 'self', 'dmg', 0.4, 6)
+      changeStatus(stand_num, 'self', 'acu', 0.4, 6)
+      changeStatus(stand_num, 'self', 'crit', 0.4, 6)
+      changeStatus(stand_num, 'self', 'eva', 0.4, 6)
+      _spS('ak15_debuff_num_' + stand_num, 0) // 清空debuff层数
+      _spS('ak15_skill_frame_' + stand_num, global_frame + 180) // 技能启动6s
+      _spS('ak15_nexttime_' + stand_num, global_frame + 60) // 设置下一次debuff检测点              
+      _spS('ak15_debufflevel_' + stand_num, 5 + enemy_num_left) // 每次debuff增量
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld
+    }
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————

@@ -402,7 +402,11 @@ function describe_sl8() { // SL8
   Describe.name = 'sl8'
   return Describe
 }
-
+function describe_ak15() { // ak15
+  var Describe = {}
+  Describe.name = 'ak15'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -710,6 +714,7 @@ lib_describe.set('c93', describe_c93()) // 兰蝶遗音
 lib_describe.set('89type', describe_89type()) // 89式技能
 lib_describe.set('rpk16', describe_rpk16()) // 银狐的狡黠
 lib_describe.set('sl8', describe_sl8()) // 遥光海波
+lib_describe.set('ak15', describe_ak15()) // 白獒之瞳
 
 // lib_skill
 
@@ -867,6 +872,7 @@ lib_skill.set(274, [
 lib_skill.set(287, [createSkill(5, 4, 0, lib_describe.get('SIG-556'))]) // SIG-556
 lib_skill.set(289, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // R5
 lib_skill.set(290, [createSkill(3, 4, 0, lib_describe.get('89type'))]) // 89type
+lib_skill.set(293, [createSkill(6, 8, 0, lib_describe.get('ak15'))]) // ak15
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
