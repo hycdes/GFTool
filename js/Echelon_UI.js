@@ -790,6 +790,8 @@ function addTdoll() { // 添加战术人形
     }
     // 添加数据
     list_tdoll[new_stand][1] = createTdoll(ID, str_name, set_guntype, new_affect, new_skill, new_property, new_equip)
+    // 队长选择下拉框
+    refresh_selectleader()
     // 特殊处理
     if (ID === 2011) {
       Set_Static.set('jill_winetype', jill_wine_explain(set_equip[0], set_equip[1], set_equip[2]))
@@ -916,6 +918,13 @@ function addTdoll() { // 添加战术人形
       str_html += '</p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 294) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_294 + '</h4>'
+      str_html += '韦伯利的技能会根据<b>自己是否为队长</b>而有所不同，请在<b>人形九宫格下方队长位</b>进行选择。如果选择"default"，那么队长将会指定为站位号数最小的一位。'
+      str_html += '此外，模拟器同一帧技能从1到9号位依次执行，如果韦伯利和她的队长同一帧发动技能，她们所占格子的号数先后可能影响到队长技能的冷却缩短。你可以设定<b>技能强制延时0.03</b>，即1帧。'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
     else if (ID === 2013) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_2013 + '</h4>'
@@ -1012,6 +1021,26 @@ function _describeInfo(ID) {
   eval('str_return=lib_language.DESCRIBE_' + ID)
   return str_return
 }
+function refresh_selectleader() {
+  // 队长位选项下拉框改变
+  var temp_str = '<option value=-1>default</option>',
+    temp_leader = parseInt(document.getElementById('select_leader').value),
+    temp_position = 0
+  for (var i = 0; i < 9; i++) {
+    if (list_tdoll[i][1] != null) {
+      temp_position = i + 1
+      if (lang_type === 'ko') {
+        if (temp_position >= 7) temp_position -= 6
+        else if (temp_position <= 3) temp_position += 6
+      }
+      var temp_selectitem = '#' + temp_position
+      if (i === temp_leader) temp_str += '<option value=' + i + ' selected>' + temp_selectitem + '</option>'
+      else temp_str += '<option value=' + i + '>' + temp_selectitem + '</option>'
+    }
+  }
+  document.getElementById('select_leader').innerHTML = temp_str
+}
+
 // —————————————— NEW TEMPLATE ————————————————
 
 function deleteTdoll() { // 删除战术人形
@@ -1031,6 +1060,8 @@ function deleteTdoll() { // 删除战术人形
   pickBlock(-1)
   // 计算影响格
   getBlockAffect()
+  // 队长选择下拉框
+  refresh_selectleader()
   // 人数不足无法承伤计算
   var have_tdoll = false
   for (var i = 0; i < 9; i++) {

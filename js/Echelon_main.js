@@ -1727,6 +1727,23 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld
     }
   }
+  else if (skillname === 'webley') {
+    var num_leader = get_leader()
+    if (num_leader === stand_num) { // 韦伯利是队长
+      changeStatus(stand_num, 'all', 'dmg', 0.25, 8)
+    } else { // 其他人是队长
+      changeStatus(num_leader, 'self', 'dmg', 0.22, 8)
+      changeStatus(num_leader, 'self', 'rof', 0.22, 8)
+      var list_skill = Set_Skill.get(num_leader)
+      for (var pair_skill_time of list_skill) {
+        var s_name = pair_skill_time[0].Describe.name
+        if (s_name != 'attack') { // 除普攻外所有技能
+          pair_skill_time[1] = Math.floor(pair_skill_time[1] * 0.75)
+        }
+      }
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
   if (debug_mode && (debug_function[0] || debug_function[1])) {
@@ -2424,6 +2441,18 @@ function recordData_suffer(stand_num, current_time, decrement) {
 function formater_DPS(e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
 function formater_ALL(e) { return 'x=' + e.x + ', y=' + e.y }
 
+function get_leader() {
+  var num_leader = parseInt(document.getElementById('select_leader').value)
+  if (num_leader === -1) {
+    for (var i = 0; i < 9; i++) {
+      if (list_tdoll[i][1] != null) {
+        num_leader = i
+        break
+      }
+    }
+  }
+  return num_leader
+}
 function get_g36_standblo(stand_num) {
   var num_all = 0
   if (stand_num === 2 || stand_num === 5 || stand_num === 8) true

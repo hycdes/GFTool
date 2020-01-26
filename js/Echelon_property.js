@@ -326,6 +326,7 @@ lib_affect.set(273, createAffect('ru/r/', 'hg', ['cld'], [0.15])) // SSG3000
 lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65])) // SSG3000
 lib_affect.set(275, createAffect('rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
 lib_affect.set(276, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
+lib_affect.set(277, createAffect('u/ul/d/dl/', 'sg', ['rof', 'acu'], [0.2, 0.5])) // vp70
 lib_affect.set(279, createAffect('r/ru/', 'smg', ['dmg', 'eva'], [0.1, 0.1])) // insas
 lib_affect.set(280, createAffect('l/luu/', 'ar', ['dmg', 'crit'], [0.2, 0.2])) // MAT-49
 lib_affect.set(281, createAffect('ll/lld/', 'mg', ['dmg', 'acu'], [0.18, 0.12])) // CAWS
@@ -667,6 +668,7 @@ lib_property.set(273, createProperty(126, 77, 30, 37, 0, 440, 0.4, -1)) // SSG30
 lib_property.set(274, createProperty(54, 54, 48, 77, 0, 580, 0.3, -1)) // ACR
 lib_property.set(275, createProperty(90, 26, 23, 131, 0, 950, 0.05, 10)) // M1895 CB
 lib_property.set(276, createProperty(109, 22, 21, 110, 0, 990, 0.05, 9)) // kord
+lib_property.set(277, createProperty(31, 54, 75, 60, 0, 330, 0.2, -1)) // vp70
 lib_property.set(279, createProperty(49, 52, 45, 71, 0, 550, 0.2, -1)) // insas
 lib_property.set(280, createProperty(29, 14, 73, 81, 0, 925, 0.05, -1)) // MAT-49
 lib_property.set(281, createProperty(30, 12, 13, 35, 23, 1235, 0.4, 5)) // CAWS
@@ -896,6 +898,7 @@ lib_special_info.set(275, lib_language.special_info_common) // M1895CB
 lib_special_info.set(276, lib_language.special_info_common) // kord
 lib_special_info.set(285, lib_language.special_info_common) // C-93
 lib_special_info.set(287, lib_language.special_info_common) // SIG-556
+lib_special_info.set(294, lib_language.special_info_common) // webley
 lib_special_info.set(1007, lib_language.special_info_common) // Stechkin
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4

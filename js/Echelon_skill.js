@@ -407,6 +407,12 @@ function describe_ak15() { // ak15
   Describe.name = 'ak15'
   return Describe
 }
+function describe_webley() { // webley
+  var Describe = {}
+  Describe.name = 'webley'
+  return Describe
+}
+
 
 // lib_decribe
 // universal
@@ -715,6 +721,7 @@ lib_describe.set('89type', describe_89type()) // 89式技能
 lib_describe.set('rpk16', describe_rpk16()) // 银狐的狡黠
 lib_describe.set('sl8', describe_sl8()) // 遥光海波
 lib_describe.set('ak15', describe_ak15()) // 白獒之瞳
+lib_describe.set('webley', describe_webley()) // webley
 
 // lib_skill
 
@@ -745,6 +752,7 @@ lib_skill.set(285, [
   createSkill(5, 12, 8, lib_describe.get('com_dmg_18')),
   createSkill(5, 12, 0, lib_describe.get('c93'))
 ]) // C-93技能暂定特殊设定控制射速层
+lib_skill.set(294, [createSkill(6, 12, 0, lib_describe.get('webley'))]) // webley
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))
@@ -820,6 +828,7 @@ lib_skill.set(244, [
   createSkill(6, 12, 8, lib_describe.get('dmgN_40_enemy')),
   createSkill(6, 12, 5, lib_describe.get('dmgND_22_enemy'))
 ])
+lib_skill.set(277, [createSkill(6, 12, 8, lib_describe.get('dmg_25_enemy'))]) // 火力压制 25%
 // ———————————————————————————————————————— HG - 2 ————————————————————————————————————————
 lib_skill.set(2, [
   createSkill(1, 12, 4, lib_describe.get('rof_36_enemy')), // 烟雾弹 36%

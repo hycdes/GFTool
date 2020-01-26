@@ -154,8 +154,25 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <p><input type="checkbox" id="check_showskilltable"> 显示技能表</p>
-                                        <h5 id="ui_skilltable"></h5>
+                                        <table class="table_other" style="width:360px">
+                                            <tr>
+                                                <td style="text-align:left">
+                                                    <input type="checkbox" id="check_showskilltable"> 显示技能表
+                                                </td>
+                                                <td style="width:25%">
+                                                    队长位
+                                                </td>
+                                                <td style="width:25%">
+                                                    <select class="form-control input-sm" id='select_leader' onchange="" style="width:100px">
+                                                        <option value=-1 selected>default</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <h5 id="ui_skilltable"></h5>
+                                            </tr>
+                                        </table>
+
                                     </div>
                                     <!--INFO-->
                                     <div class="col-lg-8">
