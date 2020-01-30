@@ -1721,7 +1721,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       changeStatus(stand_num, 'self', 'acu', 0.4, 6)
       changeStatus(stand_num, 'self', 'crit', 0.4, 6)
       changeStatus(stand_num, 'self', 'eva', 0.4, 6)
-      _spS('ak15_debuff_num_' + stand_num, 0) // 清空debuff层数
+      //_spS('ak15_debuff_num_' + stand_num, 0) // 清空debuff层数
+      // 实际发现技能启动并不能清空debuff
       _spS('ak15_skill_frame_' + stand_num, global_frame + 180) // 技能启动6s
       _spS('ak15_nexttime_' + stand_num, global_frame + 60) // 设置下一次debuff检测点              
       _spS('ak15_debufflevel_' + stand_num, 5 + enemy_num_left) // 每次debuff增量
