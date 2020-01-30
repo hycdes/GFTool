@@ -853,6 +853,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               } else {
                 if (rof > 1000) rof = 1000
                 else if (rof < 1) rof = 1
+                // —————————————————————————————————————— MG换弹计算公式 ——————————————————————————————————————
                 reload_frame = Math.floor((4 + 200 / rof) * 30)
                 if (is_this(stand_num, 253)) { // 刘易斯 力天使
                   reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.15 * Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
