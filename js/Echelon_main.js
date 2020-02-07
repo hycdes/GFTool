@@ -1163,7 +1163,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         else if (frame_interval === 41) { snipe_num = 7; time_block = 9.7 }
         else if (frame_interval === 36) { snipe_num = 7; time_block = 9 }
         Set_Special.set('m200_end' + stand_num, current_time + time_block * 30)
-      } else if (is_this(stand_num, 262)) time_interval = rof_to_frame(2, current_Info.get('rof'), 262) / 30
+      }
+      else if (is_this(stand_num, 262)) time_interval = 0.34 //纠正：EM-2是10帧固定间隔
       var labels = (s_t[0].Describe).labels
       Set_Special.set('attack_permission_' + stand_num, 'stop') // 全体瞄准
       Set_Special.set('snipe_num_' + stand_num, snipe_num)

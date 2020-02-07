@@ -1822,7 +1822,8 @@ function add_cd() {
   var str_new = ''
   str_new += '<td>'
   str_new += '<input type="checkbox" id="check_cd_' + (num_pickblock - 1) + '" onclick="release_cd(' + (num_pickblock - 1) + ')">' + trans_if_need(num_pickblock) + lib_language.main_draw_1 + '&nbsp&nbsp&nbsp</td>'
-  str_new += '<td><input class="form-control input-sm" id="addcd_' + (num_pickblock - 1) + '" value=0 onchange="check_cd(' + (num_pickblock - 1) + ')" disabled></td>'
+  str_new += '<td style="width:100px"><input class="form-control input-sm" id="addcd_' + (num_pickblock - 1) + '" value=0 onchange="check_cd(' + (num_pickblock - 1) + ')" disabled></td>'
+  str_new += '<td style="width:100px"><span style="color:dodgerblue" id="add_cd_frame_' + (num_pickblock - 1) + '">0</span>f</td>'
   trID.innerHTML = str_new
 }
 function delete_cd() { document.getElementById('special_addcd_' + (num_pickblock - 1)).innerHTML = '' }
@@ -1833,10 +1834,11 @@ function replace_cd() {
 function release_cd(num) { document.getElementById('addcd_' + num).disabled = !(document.getElementById('check_cd_' + num).checked) }
 function check_cd(num) {
   var str_input = document.getElementById('addcd_' + num).value
-  if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) <= 0) {
+  if (str_input === '' || str_input === null || isNaN(str_input) || parseInt(str_input) < 0) {
     str_input = 0
     document.getElementById('addcd_' + num).value = str_input
   }
+  document.getElementById('add_cd_frame_' + num).innerHTML = Math.ceil(parseFloat(str_input) * 30)
 }
 function jill_equip(wine_type) {
   if (wine_type === 1) set_equip = [120112, 220112, 320112]
