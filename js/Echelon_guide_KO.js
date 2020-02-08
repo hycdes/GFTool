@@ -228,7 +228,7 @@ lib_language = {
   skillNAME_1101: '白鸮轰鸣',
   DESCRIBE_213: ['아음속탄(회피 65% 상승)', 'ST탄(화력 85% 상승)', '일반탄(명중 200% 상승)'],
   DESCRIBE_285: ['1层射速', '2层射速', '3层射速'],
-  DESCRIBE_290: 'Open only in full-score mode, and open 2nd skill when 1st buff end',
+  DESCRIBE_290: '极限化手操：进行如下的操作循环，自动使用一次温习模式技能后，等待进入满分模式开启第二次技能，等满分buff结束后开启第三次',
   DESCRIBE_1007: '攻击低血量敌人降低回避50%',
   DESCRIBE_1101_0: '作用列',
   DESCRIBE_1101_1: '当前列',

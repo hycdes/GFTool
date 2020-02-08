@@ -898,6 +898,7 @@ lib_special_info.set(275, lib_language.special_info_common) // M1895CB
 lib_special_info.set(276, lib_language.special_info_common) // kord
 lib_special_info.set(285, lib_language.special_info_common) // C-93
 lib_special_info.set(287, lib_language.special_info_common) // SIG-556
+lib_special_info.set(290, lib_language.special_info_common) // howa type 89
 lib_special_info.set(294, lib_language.special_info_common) // webley
 lib_special_info.set(1007, lib_language.special_info_common) // Stechkin
 lib_special_info.set(1039, lib_language.special_info_common) // mosin

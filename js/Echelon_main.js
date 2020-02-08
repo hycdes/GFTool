@@ -1668,14 +1668,34 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === '89type') {
-    if (document.getElementById('special_290_' + stand_num).checked) { // 必须满分模式启动
-      if (_spE('89_mode_' + stand_num, 'full-score') && _spG('89_fsbuff_' + stand_num) < global_frame) {
-        if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
-        else _spS('89_fsbuff_' + stand_num, global_frame + 180) // 刷新
+    if (document.getElementById('special_290_' + stand_num).checked) { // 手操优化
+      if (!_spG('89_manual_' + stand_num)) {
+        // console.log('do1,status=', _spG('89_mode_' + stand_num))
+        changeStatus(stand_num, 'self', 'dmg', 0.3, 4) // 首次复习
+        changeStatus(stand_num, 'self', 'rof', 0.3, 4)
+        _spS('89_manual_' + stand_num, true)
         s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
       } else {
-        s_t[1] = 0
+        if (_spE('89_mode_' + stand_num, 'full-score') && _spG('89_fsbuff_' + stand_num) < global_frame) { // 进入满分且满分buff结束
+          // console.log('do2,status=', _spG('89_mode_' + stand_num))
+          _spS('89_fsbuff_' + stand_num, global_frame + 180)
+          _spPlus('89_auto_' + stand_num)
+          if (_spG('89_auto_' + stand_num) >= 2) {
+            _spS('89_manual_' + stand_num, false)
+            _spS('89_auto_' + stand_num, 0)
+          }
+          s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+        } else {
+          s_t[1] = 0 // standby
+        }
       }
+      // if (_spE('89_mode_' + stand_num, 'full-score') && _spG('89_fsbuff_' + stand_num) < global_frame) {
+      //   if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
+      //   else _spS('89_fsbuff_' + stand_num, global_frame + 180) // 刷新
+      //   s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+      // } else {
+      //   s_t[1] = 0
+      // }
     } else { // 否则正常启动
       if (_spE('89_mode_' + stand_num, 'full-score')) {
         if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
