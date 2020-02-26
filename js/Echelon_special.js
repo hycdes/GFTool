@@ -150,13 +150,13 @@ function settle_buff(stand_num, info_self) {
             _mul_dmg *= 1 + 0.1 * (_spG('89_forcus_' + stand_num))
             if (_spG('89_buff_' + stand_num) === 0) {
                 _spS('89_mode_' + stand_num, 'learn') // 0层转化学习模式
-                _spS('89_forcus_' + stand_num, 0) // 清空专注层数 
+                _spS('89_forcus_' + stand_num, 0) // 清空伤害加深
             }
         }
         // 处理层数消耗和积累
         if (_spE('89_mode_' + stand_num, 'learn')) _spPlus('89_buff_' + stand_num) // 学习模式积累层数
         else { // 满分模式
-            if (_spG('89_forcus_' + stand_num) < 3) _spPlus('89_forcus_' + stand_num) // 未满则积累伤害专注
+            if (_spG('89_forcus_' + stand_num) < 3) _spPlus('89_forcus_' + stand_num) // 未满则积累伤害加深
             _spDecl('89_buff_' + stand_num) // 降低层数
         }
         // 结算满分模式的增益

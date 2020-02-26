@@ -447,7 +447,7 @@ function changeEquip() {
       str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
       if (ID === 17) str_items += '<option value=117>' + lib_language.equipNAME_117 + '</option>' // m3
       if (ID === 26 || ID === 1026) str_items += '<option value=326>GSG UX' + lib_language.equipNAME_31 + '</option>' // MP5
-      if (ID === 101 || ID === 102 || ID === 103 || ID === 1103) str_items += '<option value=3103>UMP UX' + lib_language.equipNAME_31 + '</option>' // UMP系列
+      if (ID === 101 || ID === 102 || ID === 103 || ID === 1101 || ID === 1103) str_items += '<option value=3103>UMP UX' + lib_language.equipNAME_31 + '</option>' // UMP系列
       if (ID === 1093) str_items += '<option value=31093>' + lib_language.equipNAME_31093 + '</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'

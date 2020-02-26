@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>少女前线-练级计算器 by 命运の乐章</title>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">Toolpage</span> by 命运の乐章 (GF tools)</a>
+            </div>
+            <!-- <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                        <li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>
+                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库</a></li>
+                        <li><a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器</a></li>
+                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
+                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
+                        <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
+                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
+                        <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp掉落统计</a></li>
+                        <li><a href="GFT_Class.html"><i class="fa fa-search"></i> &nbsp格里芬人事部</a></li>
+                    </ul>
+                </div>
+            </div> -->
+        </nav>
+        <!-- Main Pages -->
+        <script>
+            function cal() {
+                var dmg_total = 0
+                var crit_base = parseFloat(document.getElementById('crit_base').value),             // 基础暴击率
+                    critdmg_base = parseFloat(document.getElementById('critdmg_base').value),       // 基础暴击伤害
+                    time_interval = parseFloat(document.getElementById('time_interval').value),     // 伤害间隔
+                    num_ran = parseInt(document.getElementById('num_ran').value),                 // 模拟次数
+                    num_notcrit = 0,            // 不暴击次数
+                    num_dmgbuff = 0,            // 暴击叠伤层数
+                    time_total = 0,             // 总时间
+                    time_buff = 0,              // 伤害增益结束时间
+                    crit = crit_base + 0.05,    // 实际暴击率
+                    num_critall = 0,            // 总暴击次数
+                    expectation_base = 1 + crit_base * (critdmg_base - 1)
+                for (var i = 0; i < num_ran; i++) {
+                    crit = crit_base + 0.05 + 0.02 * Math.min(10, num_notcrit)
+                    if (Math.random() < crit) { // 如果暴击
+                        num_critall++
+                        if (time_total > time_buff) { // 伤害buff消失
+                            num_dmgbuff = 0
+                        }
+                        num_dmgbuff = Math.min(3, num_dmgbuff + 1)  // 累加伤害层数
+                        dmg_total += critdmg_base * (1 + 0.05 * num_dmgbuff) * 1.05
+                        time_buff = time_total + 3       // 刷新伤害时间
+                        num_notcrit = 0
+                    } else {
+                        num_notcrit++
+                        if (time_total > time_buff) { // 伤害buff消失
+                            num_dmgbuff = 0
+                        }
+                        dmg_total += 1.05 * (1 + 0.05 * num_dmgbuff)
+                    }
+                    time_total += time_interval // 计时
+                }
+                document.getElementById('result').innerHTML = '平均收益=' + (dmg_total / (expectation_base * num_ran)) + '，平均暴击率=' + (num_critall / num_ran)
+            }
+        </script>
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h4>巴顿收益计算</h4>
+                        <h5>二件套：暴击率+5%，物理伤害+5%。</h5>
+                        <h5>四件套：物理伤害未暴击则累加2%暴击率，最多累加20%暴击率，暴击后层数清零。暴击后3s内提升5%物理伤害，最多叠3层。</h5>
+                        <h5>* 同类buff叠加时加法计算并刷新时间</h5>
+                        <div class="form-group input-group" style="width:500px">
+                            <span class="input-group-addon">基础暴击率（取值0~1）</span>
+                            <input type="text" class="form-control" placeholder="num" id="crit_base" value=0>
+                        </div>
+                        <div class="form-group input-group" style="width:500px">
+                            <span class="input-group-addon">基础暴击伤害（基础为2倍，比安卡2.3）</span>
+                            <input type="text" class="form-control" placeholder="num" id="critdmg_base" value=2>
+                        </div>
+                        <div class="form-group input-group" style="width:500px">
+                            <span class="input-group-addon">造成伤害间隔（白毛2分钟战区1200hit）</span>
+                            <input type="text" class="form-control" placeholder="num" id="time_interval" value=0.1>
+                        </div>
+                        <div class="form-group input-group" style="width:500px">
+                            <span class="input-group-addon">模拟次数</span>
+                            <input type="text" class="form-control" placeholder="num" id="num_ran" value=100000>
+                        </div>
+                        <p><button type="button" class="btn btn-warning" onclick="cal()" data-toggle="tab">计算</button></p>
+                        <p id="result">结果</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+</body>
+
+</html>
