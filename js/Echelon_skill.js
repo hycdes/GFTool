@@ -412,7 +412,11 @@ function describe_webley() { // webley
   Describe.name = 'webley'
   return Describe
 }
-
+function describe_ntwmod() { // ntw20-mod
+  var Describe = {}
+  Describe.name = 'ntwmod'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -642,6 +646,7 @@ lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 // snipe
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_10', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 10倍炮狙
+lib_describe.set('snipe_10_1.5', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 10倍炮狙，1.5瞄准
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
 lib_describe.set('snipe_7', describe_snipe(7, 2, 0, 1, 'armless/critless/evaless')) // 7倍炮狙
 lib_describe.set('snipe_6.5', describe_snipe(6.5, 1, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
@@ -722,6 +727,7 @@ lib_describe.set('rpk16', describe_rpk16()) // 银狐的狡黠
 lib_describe.set('sl8', describe_sl8()) // 遥光海波
 lib_describe.set('ak15', describe_ak15()) // 白獒之瞳
 lib_describe.set('webley', describe_webley()) // webley
+lib_describe.set('ntwmod', describe_ntwmod()) // 狂猎燃魂+连锁反应
 
 // lib_skill
 
@@ -1076,7 +1082,7 @@ lib_skill.set(93, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
 lib_skill.set(94, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 
 // ———————————————————————————————————————— RF ————————————————————————————————————————
-lib_skill.set(1053, [createSkill(15, 16, 0, lib_describe.get('snipe_10'))])
+lib_skill.set(1053, []) // NTW MOD根据特殊设定单独判断
 // ———————————————————————————————————————— RF - 5 ————————————————————————————————————————
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
 lib_skill.set(48, [createSkill(5, 8, 5, lib_describe.get('rof_75'))])

@@ -906,6 +906,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 0, 'checked') // Theresa
 
     else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 1, 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD
+    else if (ID === 1053) addSpecialSetting(1053, reverse_position, num_pickblock, 1, 3, ['checked', 'checked', 'checked']) // NTW-20 MOD
 
     else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 2, 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
     else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 2, 3, 0, ['', '', '']) // C-93
@@ -961,7 +962,7 @@ function addSpecialSetting() { // ID,_position,_type
     [285, 'C-93'], [1007, lib_language.NAME_7],
     [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
     [213, 'C-MS'],
-    [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39],
+    [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20'],
     [238, lib_language.NAME_238], [275, 'M1895CB']
   ]
   var ID = arguments['0'], // T-doll ID

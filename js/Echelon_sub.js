@@ -535,13 +535,22 @@ function init_loadPrepareStatus() { // 初始化战前属性
           list_Skill.push([s3, Math.ceil(30 * (6 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
         }
       }
-      if (is_this(i, 1039)) {
+      if (is_this(i, 1039)) { // Mosin-nagant MOD skill
         var s1 = createSkill(10, 16, 0, lib_describe.get('snipe_6.5')), // full-energy
           s2 = createSkill(5, 11, 0, lib_describe.get('snipe_3'))
         if (document.getElementById('special_1039_1_' + i).checked) {
           list_Skill.push([s1, Math.ceil(30 * (10 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
         } else {
           list_Skill.push([s2, Math.ceil(30 * (5 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        }
+      }
+      if (is_this(i, 1053)) { // NTW-20 MOD skill
+        var s1 = createSkill(14, 16, 0, lib_describe.get('ntwmod')), // full-energy, 7-level
+          s2 = createSkill(7, 9, 0, lib_describe.get('ntwmod')) // zero-enenrgy
+        if (document.getElementById('special_1053_0_' + i).checked) {
+          list_Skill.push([s1, Math.ceil(30 * (14 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        } else {
+          list_Skill.push([s2, Math.ceil(30 * (7 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
         }
       }
       if (is_this(i, 2014)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Stella普攻在技能后

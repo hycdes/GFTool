@@ -1,11 +1,11 @@
 var _version = {
   DB: 'v3.3',
   CC: 'v5.3 (2019.11.26)',
-  ES: 'v4.6.0 (2020.02.08)',
+  ES: 'v4.7.0 (2020.03.06)',
   ST: 'v3.1 (2020.01.05)'
 }
 var _updateinfo = {
-  ES: '1. debug K2<br>2. add exclusive equipments in forward basecamp<br>3. debug Theresa skill'
+  ES: '1. finish NTW-20 MOD'
 }
 var _navitem = [
   '<li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>',

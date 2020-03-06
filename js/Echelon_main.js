@@ -1670,14 +1670,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   else if (skillname === '89type') {
     if (document.getElementById('special_290_' + stand_num).checked) { // 手操优化
       if (!_spG('89_manual_' + stand_num)) {
-        // console.log('do1,status=', _spG('89_mode_' + stand_num))
         changeStatus(stand_num, 'self', 'dmg', 0.3, 4) // 首次复习
         changeStatus(stand_num, 'self', 'rof', 0.3, 4)
         _spS('89_manual_' + stand_num, true)
         s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
       } else {
         if (_spE('89_mode_' + stand_num, 'full-score') && _spG('89_fsbuff_' + stand_num) < global_frame) { // 进入满分且满分buff结束
-          // console.log('do2,status=', _spG('89_mode_' + stand_num))
           _spS('89_fsbuff_' + stand_num, global_frame + 180)
           _spPlus('89_auto_' + stand_num)
           if (_spG('89_auto_' + stand_num) >= 2) {
@@ -1689,13 +1687,6 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           s_t[1] = 0 // standby
         }
       }
-      // if (_spE('89_mode_' + stand_num, 'full-score') && _spG('89_fsbuff_' + stand_num) < global_frame) {
-      //   if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
-      //   else _spS('89_fsbuff_' + stand_num, global_frame + 180) // 刷新
-      //   s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
-      // } else {
-      //   s_t[1] = 0
-      // }
     } else { // 否则正常启动
       if (_spE('89_mode_' + stand_num, 'full-score')) {
         if (_spE('89_fsbuff_' + stand_num, undefined)) _spS('89_fsbuff_' + stand_num, global_frame + 180) // 首次施加状态
@@ -1765,6 +1756,25 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         }
       }
     }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  }
+  else if (skillname === 'ntwmod') {
+    var ratio = 5
+    if (document.getElementById('special_1053_0_' + stand_num).checked) ratio = 10
+    if (document.getElementById('special_1053_2_' + stand_num).checked) { // 高血量额外10%伤害
+      ratio *= 1.1
+      _spS('ntw_exratio_' + stand_num, 4.4)
+    } else {
+      _spS('ntw_exratio_' + stand_num, 4)
+    }
+    var snipe_num = 1, time_init = (1 - current_Info.get('cld')) * 1.5, time_interval = 0, labels = 'armless/critless/evaless'
+    _spS('attack_permission_' + stand_num, 'stop') // 全体瞄准
+    _spS('snipe_num_' + stand_num, snipe_num)
+    _spS('snipe_interval_' + stand_num, time_interval)
+    _spS('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
+    _spS('ntw_numleft_' + stand_num, 3) // 最大追加次数
+    _spS('ntw_exenable_' + stand_num, true) // 第一次必可以追加
+    changeStatus(stand_num, 'snipe', labels, ratio, time_init)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
   }
 
@@ -1983,7 +1993,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       }
     }
   }
-  else if (situation === 'dot') {
+  else if (situation === 'dot') { // 持续伤害类技能处理逻辑————————————————————————————————
     var _type = status[0][0],
       _value = status[0][1]
     var dot_para = _value.split('/')
@@ -2011,7 +2021,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       Set_Special.set('dot_isrecord_' + stand_num, false)
     }
   }
-  else if (situation === 'grenade') {
+  else if (situation === 'grenade') { // 榴弹类技能处理逻辑————————————————————————————————
     Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
     var grenade_para = status[0][1].split('/')
     if (grenade_para[0] === '-1') {
@@ -2049,7 +2059,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     recordData(stand_num, current_time, 0)
     recordData(stand_num, current_time, damage_explode)
   }
-  else if (situation === 'snipe') {
+  else if (situation === 'snipe') { // 狙击类技能处理逻辑————————————————————————————————
     var current_Info = (Set_Base.get(stand_num)).Info
     var labels = status[0][1]
     var list_labels = labels.split('/') // ratio,arm,crit,eva
@@ -2122,7 +2132,12 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       if (Math.random() <= current_Info.get('crit') || Set_Special.get('must_crit_' + stand_num) === true) damage_snipe_single *= current_Info.get('critdmg')
     }
     if (list_labels[3] != 'evaless') { // 可以回避
-      if (Math.random() > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) damage_snipe_single = 0
+      if (Math.random() > current_Info.get('acu') / (current_Info.get('acu') + enemy_eva)) {
+        damage_snipe_single = 0
+        if (is_this(stand_num, 1053)) { // 如果是NTW追加狙击，则下一次无法狙击
+          _spS('ntw_exenable_' + stand_num, false)
+        }
+      }
     }
     damage_snipe_single = Math.ceil(damage_snipe_single * this_formation(stand_num))
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
@@ -2159,8 +2174,19 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
         }
       }
     }
-    if (num_leftsnipe === 0) { // 狙击次数完毕
-      if (!(is_this(stand_num, 257) || is_this(stand_num, 273))) { // 常规炮击
+    if (num_leftsnipe <= 0) { // 狙击次数完毕
+      if (is_this(stand_num, 1053)) { // NTW追加次数
+        if (document.getElementById('special_1053_1_' + stand_num).checked
+          && _spG('ntw_numleft_' + stand_num) > 0
+          && _spG('ntw_exenable_' + stand_num)) { // 需要追加，能够追加且有剩余次数
+          _spDecl('ntw_numleft_' + stand_num)
+          _spS('snipe_arriveframe_' + stand_num, current_time + 18)
+          changeStatus(stand_num, 'snipe', 'armless/critless/eva', _spG('ntw_exratio_' + stand_num), 0.6)
+        } else { // 否则不需要追加
+          Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+        }
+      }
+      else if (!(is_this(stand_num, 257) || is_this(stand_num, 273))) { // 常规炮击
         Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
       }
     } else {

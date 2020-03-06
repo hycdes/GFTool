@@ -318,16 +318,16 @@ function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_bu
     return num
 }
 
-function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) {
+function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // 特殊判定结算，包括额外段数伤害、对自身伤害加深等
     var _para_arm = Math.min(2, _pro('ap', info_self) - _pro('e_arm', info_enemy))
-    if (is_this(stand_num, 4)) {
+    if (is_this(stand_num, 4)) { // 蟒蛇
         if (Set_Special.get('python_active') === 0 && Set_Special.get('python_opening') === true) {
             final_dmg *= 2 // 无畏者之拥结束双发
             Set_Special.set('python_active', -1)
             Set_Special.set('python_opening', false)
         }
     }
-    else if (is_this(stand_num, 272)) { // desert eagle
+    else if (is_this(stand_num, 272)) { // 沙漠之鹰额外伤害
         if (Set_Special.get('DE_active_' + stand_num) != undefined && Set_Special.get('DE_active_' + stand_num) >= global_frame) { // active skill-on
             if (Set_Special.get('DE_bullet_' + stand_num) != undefined && Set_Special.get('DE_bullet_' + stand_num) > 0) { // bullet dmg_up
                 Set_Special.set('DE_bullet_' + stand_num, Set_Special.get('DE_bullet_' + stand_num) - 1) // lost bullet buff
@@ -338,14 +338,19 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) {
         }
         final_dmg *= Set_Special.get('DE_multiple_' + stand_num)
     }
-    else if (is_this(stand_num, 293)) {
+    else if (is_this(stand_num, 293)) { // AK-15 怒火
         var extra_dmg = 0
         if (_spG('ak15_angry_frame_' + stand_num) >= global_frame) { // 怒火期间
             extra_dmg = Math.max(1, Math.ceil(0.4 * info_self.get('dmg') * _pro('random') + _para_arm)) // 20%火力
             final_dmg += extra_dmg
         }
     }
-    else if (is_this(stand_num, 1057)) { // 如果AR-15 MOD
+    else if (is_this(stand_num, 1053)) { // NTW-20 MOD 普攻伤害加深
+        if (document.getElementById('special_1053_2_' + stand_num).checked) { // 半血以上额外10%伤害
+            final_dmg *= 1.1
+        }
+    }
+    else if (is_this(stand_num, 1057)) { // AR-15 MOD 罪与罚
         var ar15_list_status = Set_Status.get(stand_num)
         var len_list = ar15_list_status.length
         for (var i = 0; i < len_list; i++) {
