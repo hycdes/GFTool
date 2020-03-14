@@ -409,7 +409,7 @@ function changeEquip() {
         str_items += '<option value=120113>Karmotrine</option>'
       }
     } else if (set_guntype === 2) { // AR
-      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057 && ID != 3054) {
+      if (ID != 54 && ID != 56 && ID != 57 && ID != 1056 && ID != 1057 && ID != 3054) { // 除AR小队特殊队员外
         str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'
         str_items += '<option value=14>[' + lib_language.equipNAME_14 + '] EOT 518</option>'
         str_items += '<option value=13>[' + lib_language.equipNAME_13 + '] ITI MARS</option>'
@@ -422,6 +422,7 @@ function changeEquip() {
         if (ID === 118) str_items += '<option value=4118>' + lib_language.equipNAME_4118 + '</option>'
         if (ID === 129 || ID === 130) str_items += '<option value=1129>' + lib_language.equipNAME_1129 + '</option>' // 先进单兵瞄具
         if (ID === 172) str_items += '<option value=1172>' + lib_language.equipNAME_1172 + '</option>' // RFB前导轨
+        if (ID === 215) str_items += '<option value=1215>BPR4&SRM6</option>' // MDR装备：BPR4&SRM6
         if (ID === 1063) str_items += '<option value=11063>' + lib_language.equipNAME_11063 + '</option>'
         if (ID === 1064) str_items += '<option value=11064>' + lib_language.equipNAME_11064 + '</option>'
       } else if (ID === 54 || ID === 3054) { // M16A1

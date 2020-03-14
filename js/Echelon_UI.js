@@ -468,6 +468,7 @@ function resetEquipment() {
       else if (ID === 74) set_equip = [174, 22, 31] // sig-50
       else if (ID === 129 || ID === 130) set_equip = [1129, 22, 31] // qbz95 or 97
       else if (ID === 172) set_equip = [1172, 22, 31] // rfb
+      else if (ID === 215) set_equip = [1215, 22, 31] // mdr
       else if (ID === 1056) set_equip = [12, 22, 11056] // sop2 mod
       else if (ID === 1057) set_equip = [12, 21057, 11057] // ar15 mod
       else if (ID === 1055) set_equip = [12, 22, 31055] // m4 mod
