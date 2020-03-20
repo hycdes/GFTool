@@ -1,6 +1,7 @@
-function _show (id_table, lib) {
-  for (var id of id_table) eval('document.getElementById(id).innerHTML=lib.' + id); }
-function load_indexinfo (lang_type) {
+function _show(id_table, lib) {
+  for (var id of id_table) eval('document.getElementById(id).innerHTML=lib.' + id);
+}
+function load_indexinfo(lang_type) {
   var currnet_lib = lib_info.get(lang_type)
   var id_table = [
     'title_page', 'title_panel', 'title_tab1', 'title_tab2', 'title_tab3',
@@ -19,7 +20,7 @@ var idxinfo_cn = {
 
   content_1_1: '少女前线工具 v6.7',
   content_1_2_1: '<b>所有部分内容更新公告现<span style="color:deeppink">放入对应页面中</span></b>',
-  content_1_2_2: '...',
+  content_1_2_2: '<b>命运の乐章 <a href="../rank.html">B站攻略合集页面</a></b>',
   content_1_4: '联系方式',
   content_2_1_1: '1. 本站纯公益，由<span style="color:#FF0066">命运の乐章</span>运营 (=・ω・=)',
   content_2_1_2: '2. 本站全部代码和素材开源，获取源码请前往 <a href="https://github.com/hycdes/GFTool" target="_blank"><u><span style="color:dodgerblue">GFTool-github仓库 </span></u></a> Σ( ￣□￣||)',
