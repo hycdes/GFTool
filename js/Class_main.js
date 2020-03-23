@@ -73,7 +73,7 @@ var lib_tdoll = [
   create_entry([1, 5, 126], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['weak_rof'], []),
   create_entry([1, 5, 142], ['supportdps', 'af_rof', 'af_crit'], ['random'], ['command_rof', 'command_crit'], []),
   create_entry([1, 5, 166], ['dps', 'supportdps', 'af_dmg', 'af_rof'], ['random'], ['snipe'], []),
-  create_entry([1, 5, 183], ['supportdps', 'af_dmg', 'af_crit'], ['random'], ['deepdmg', 'ap', 'snipe'], ['shootguide']),
+  create_entry([1, 5, 183], ['supportdps', 'af_dmg', 'af_crit'], ['random'], ['deepdmg', 'ap', 'snipe'], ['shootguide', 'burstsupport']),
   create_entry([1, 5, 233], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_critdmg'], []),
   create_entry([1, 5, 242], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_eva', 'shield'], []),
   create_entry([1, 5, 250], ['supportdps', 'supportdfs', 'af_rof', 'af_eva'], ['random'], ['command_dmg', 'shield'], []),
@@ -101,18 +101,18 @@ var lib_tdoll = [
   create_entry([2, 5, 1055], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['front'], ['forcus_dmg', 'fastcd'], ['laomo']),
   create_entry([2, 5, 1056], ['dps'], ['front'], ['grenade', 'multitarget'], []),
   create_entry([2, 5, 1057], ['dps', 'longfill'], ['front'], ['forcus_rof', 'fastcd', 'multihit'], []),
-  create_entry([2, 5, 1060], ['dps', 'af_dmg'], ['front'], ['forcus_dmg', 'max_acu'], ['night']),
+  create_entry([2, 5, 1060], ['dps', 'skilldps', 'af_dmg'], ['front'], ['forcus_dmg', 'max_acu'], ['night']),
   create_entry([2, 5, 1064], ['dps', 'supportdfs', 'af_dmg'], ['front'], ['forcus_dmg', 'forcus_rof', 'command_eva', 'fastcd'], []),
   create_entry([2, 5, 62], ['dps'], ['front'], ['forcus_dmg'], []),
   create_entry([2, 5, 65], ['dps', 'af_dmg'], ['front'], ['grenade'], []),
   create_entry([2, 5, 73], ['dps', 'supportdps'], ['front'], ['fastcd', 'sweep', 'rofstatic'], []),
   create_entry([2, 5, 106], ['dps', 'supportdfs', 'af_eva'], ['front'], ['grenade'], []),
-  create_entry([2, 5, 119], ['dps', 'af_acu'], ['front'], ['forcus_dmg'], ['night']),
+  create_entry([2, 5, 119], ['dps', 'skilldps', 'af_acu'], ['front'], ['forcus_dmg'], ['night']),
   create_entry([2, 5, 122], ['dps', 'skilldps', 'af_dmg'], ['front'], ['multihit'], []),
   create_entry([2, 5, 129], ['dps', 'longfill'], ['front'], ['forcus_dmg', 'fastcd'], []),
   create_entry([2, 5, 130], ['dps', 'longfill'], ['front'], ['forcus_rof', 'fastcd'], []),
   create_entry([2, 5, 172], ['dps'], ['front', 'back'], ['forcus_dmg', 'forcus_acu'], []),
-  create_entry([2, 5, 175], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
+  create_entry([2, 5, 175], ['dps', 'skilldps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
   create_entry([2, 5, 181], ['dps'], ['front'], ['forcus_dmg', 'forcus_crit'], ['night']),
   create_entry([2, 5, 194], ['dps', 'startdps', 'af_dmg'], ['front'], ['status'], []),
   create_entry([2, 5, 196], ['dps'], ['front'], ['grenade', 'forcus_dmg'], ['laomo']),
@@ -127,13 +127,13 @@ var lib_tdoll = [
   create_entry([2, 4, 55], ['dps', 'af_dmg', 'af_crit'], ['front'], ['forcus_dmg', 'fastcd'], ['mengxin']),
   create_entry([2, 4, 56], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 57], ['dps', 'longfill'], ['front'], ['forcus_rof', 'fastcd'], []),
-  create_entry([2, 4, 60], ['dps', 'af_dmg'], ['front'], ['forcus_dmg'], ['night']),
+  create_entry([2, 4, 60], ['dps', 'skilldps', 'af_dmg'], ['front'], ['forcus_dmg'], ['night']),
   create_entry([2, 4, 64], ['dps', 'af_dmg'], ['front'], ['forcus_dmg', 'fastcd'], []),
   create_entry([2, 4, 66], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 69], ['dps', 'af_dmg'], ['front'], ['grenade'], []),
   create_entry([2, 4, 72], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
-  create_entry([2, 4, 118], ['dps'], ['front'], ['forcus_dmg'], ['night']),
-  create_entry([2, 4, 171], ['supportdps', 'skilldps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], []),
+  create_entry([2, 4, 118], ['dps', 'skilldps'], ['front'], ['forcus_dmg'], ['night']),
+  create_entry([2, 4, 171], ['supportdps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], ['burstsupport']),
   create_entry([2, 4, 187], ['dps'], ['front'], ['forcus_dmg'], []),
   create_entry([2, 4, 207], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], []),
   create_entry([2, 4, 216], ['dps'], ['front'], ['grenade'], []),
@@ -271,7 +271,7 @@ var lib_tag = [
   ['ap', 'fastcd', 'passive', 'multihit', 'multitarget', 'sweep', 'beakback', 'rofstatic'],
   ['smoke', 'handgrenade', 'incendinary', 'grenade', 'snipe', 'dizz', 'ffshield', 'shield', 'reducehurt', 'status']],
 
-  [['night', 'mengxin', 'laomo', 'skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'illusion', 'stronger', 'stun', 'cluster']]
+  [['night', 'mengxin', 'laomo', 'skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'burstsupport', 'illusion', 'stronger', 'stun', 'cluster']]
 ]
 // tag0————————————————————————————————————————
 var lib_tag_0 = {
@@ -435,6 +435,7 @@ var lib_tag_3 = {
   normalkiller: '<img src="../img/class-icon/icon-x45.png" style="width:19px;height:19px">非精英超伤害',
   feedback: '<img src="../img/class-icon/icon-python.png" style="width:19px;height:19px">反馈增益',
   shootguide: '<img src="../img/class-icon/icon-snipe.png" style="width:19px;height:19px">集火目标',
+  burstsupport: '爆发辅助',
   illusion: '<img src="../img/class-icon/icon-illusion.png" style="width: 19px; height: 19px">幻象',
   stronger: '<img src="../img/class-icon/icon-m82a1.png" style="width:19px;height:19px">越战越勇',
   stun: '<img src="../img/class-icon/icon-stun.png" style="width:19px;height:19px">麻痹',
@@ -449,6 +450,7 @@ var tag3_night = new Map,
   tag3_normalkiller = new Map,
   tag3_feedback = new Map,
   tag3_shootguide = new Map,
+  tag3_burstsupport = new Map,
   tag3_illusion = new Map,
   tag3_stronger = new Map,
   tag3_stun = new Map,
@@ -493,6 +495,7 @@ special_weight.set('shield', 1.5)
 special_weight.set('grenade', 1.5)
 special_weight.set('tank_eva', 3)
 special_weight.set('tank_arm', 4)
+special_weight.set('burstsupport', 2)
 
 // 函数
 
