@@ -131,7 +131,7 @@ var lib_tdoll = [
   create_entry([2, 4, 64], ['dps', 'af_dmg'], ['front'], ['forcus_dmg', 'fastcd'], []),
   create_entry([2, 4, 66], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 69], ['dps', 'af_dmg'], ['front'], ['grenade'], []),
-  create_entry([2, 4, 72], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
+  create_entry([2, 4, 72], ['dps', 'skilldps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
   create_entry([2, 4, 118], ['dps', 'skilldps'], ['front'], ['forcus_dmg'], ['night']),
   create_entry([2, 4, 171], ['supportdps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], ['burstsupport']),
   create_entry([2, 4, 187], ['dps'], ['front'], ['forcus_dmg'], []),
