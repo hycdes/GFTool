@@ -66,9 +66,14 @@ function get_item(_info) { // [num,type,star,name,rank1,[list_rank2]]
     var temp_str = ''
     temp_str += '<tr>'
     // 图鉴序号
-    temp_str += '<td style="text-align:center">' + '<img src="img/class/' + get_imgid(_num, _name) + '.png" style="width:30px;height:30px">' + ' #' + _num + ' ' + '</td>'
+    temp_str += '<td style="text-align:center">'
+    if (!document.getElementById('btn_showimg').checked)
+        temp_str += '<img src="img/class/' + get_imgid(_num, _name) + '.png" style="width:30px;height:30px">'
+    temp_str += ' #' + _num + ' ' + '</td>'
     // 人形
-    temp_str += '<td style="vertical-align:middle"><img src="img/produce/' + _star + _type + '.png" style="width:53.5px;height:27.5px"> '
+    temp_str += '<td style="vertical-align:middle">'
+    if (!document.getElementById('btn_showimg').checked)
+        temp_str += '<img src="img/produce/' + _star + _type + '.png" style="width:53.5px;height:27.5px"> '
     temp_str += '<b><span style="color:' + get_color(_star) + '">' + _name + '</span></b>' + get_mod(_name) + '</td>'
     // 泛用
     temp_str += '<td style="text-align:center"><b><span style="font-size:18px;color:' + get_rank_color(_rank1) + '">' + _rank1 + '</span></b></td>'
@@ -112,6 +117,7 @@ var review_data = [
     [20, 'SMG', 5, 'Vector', 'A', [], 'https://www.bilibili.com/read/cv5014972'],
     [26, 'SMG', 5, 'MP5 [MOD]', 'B+', [['A+', '']], 'https://www.bilibili.com/read/cv3654973'],
     [28, 'SMG', 5, 'MP7', 'A', [['S', '']], 'https://www.bilibili.com/read/cv3765548'],
+    [29, 'SMG', 4, '司登MkⅡ [MOD]', 'C', [], 'https://www.bilibili.com/read/cv5389108'],
     [31, 'SMG', 4, '伯莱塔38型 [MOD]', 'A', [], 'https://www.bilibili.com/read/cv4351815'],
     [32, 'SMG', 4, '微型乌兹 [MOD]', 'A+', [], 'https://www.bilibili.com/read/cv4300299'],
     [37, 'RF', 4, 'M14 [MOD]', 'S', [], 'https://www.bilibili.com/read/cv5155672'],
@@ -151,6 +157,7 @@ var review_data = [
     [171, 'AR', 4, '利贝罗勒', 'A+', [[' ', '爆发辅助']], 'https://www.bilibili.com/read/cv5253514'],
     [172, 'AR', 5, 'RFB', 'A+', [[' ', '后排打击']], 'https://www.bilibili.com/read/cv4145669'],
     [173, 'MG', 5, 'PKP', 'S', [], 'https://www.bilibili.com/read/cv4438541'],
+    [175, 'AR', 5, 'ART556', 'A-', [], 'https://www.bilibili.com/read/cv5268440'],
     [177, 'SMG', 5, 'KLIN', 'A-', [], 'https://www.bilibili.com/read/cv5138129'],
     [183, 'HG', 5, '竞争者', 'A', [['A', '']], 'https://www.bilibili.com/read/cv3627805'],
     [192, 'RF', 5, 'JS05', 'B', [['A-', '']], 'https://www.bilibili.com/read/cv3742277'],
@@ -172,6 +179,8 @@ var review_data = [
     [224, 'SMG', 5, 'PM-06', 'A', [], 'https://www.bilibili.com/read/cv3706386'],
     [233, 'HG', 5, 'Px4 风暴', 'S', [], 'https://www.bilibili.com/read/cv3753669'],
     [234, 'SMG', 5, 'JS 9', 'S', [], 'https://www.bilibili.com/read/cv4548637'],
+    [236, 'AR', 5, 'K11', 'A+', [], 'https://www.bilibili.com/read/cv5302364'],
+    [238, 'MG', 5, '88式', 'A-', [['A', '']], 'https://www.bilibili.com/read/cv5335378'],
     [242, 'HG', 5, 'P22', 'S+', [], 'https://www.bilibili.com/read/cv3781592'],
     [243, 'AR', 5, '64式自', 'A-', [['N', '待定']], 'https://www.bilibili.com/read/cv3943508'],
     [245, 'SMG', 5, 'P90', 'A+', [['S+', '']], 'https://www.bilibili.com/read/cv2994209'],
@@ -213,7 +222,8 @@ var review_data = [
     ['EX 21', 'MG', 1, '阿尔玛·阿玛斯', 'A+', [], 'https://www.bilibili.com/read/cv2899402'],
     ['EX 22', 'SG', 1, '达娜·赞恩', 'A+', [], 'https://www.bilibili.com/read/cv2916327'],
 ]
-var review_head = '<tr><th style="text-align:center;vertical-align:middle;width:100px">图鉴序号(共' + review_data.length + '篇)</th>'
+var review_head = '<tr><th style="text-align:center;vertical-align:middle;width:100px">图鉴序号<br>'
+    + '(共<span style="color:blue">' + review_data.length + '</span>篇)</th>'
     + '<th style="text-align:center;vertical-align:middle;width:250px">'
     + '<select class="form-control input-sm" style="width:120px" id="select_type" onchange="fix(' + "'" + 'filter_type' + "'" + ')">'
     + '<option value="ALL" selected>全部人形</option><option value="HG">HG</option><option value="AR">AR</option><option value="SMG">SMG</option>'

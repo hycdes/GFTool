@@ -430,6 +430,8 @@ function init_loadPrepareStatus() { // 初始化战前属性
         else if (document.getElementById('special_m82a1_' + (i + 1) + '_1').checked) Set_Special.set('m82a1_win_' + i, 1) // 1胜场
         else if (document.getElementById('special_m82a1_' + (i + 1) + '_2').checked) Set_Special.set('m82a1_win_' + i, 2) // 2胜场
         else if (document.getElementById('special_m82a1_' + (i + 1) + '_3').checked) Set_Special.set('m82a1_win_' + i, 3) // 3胜场
+      } else if (is_this(i, 238)) { // 88式：初始默认轻机枪
+        changeStatus(i, 'self', 'acu', -0.2, -1)
       } else if (is_this(i, 248)) { // 杰里科：深红月蚀被动
         Set_Special.set('jericho_exist', true)
         if (Set_Special.get('jericho_standset') === undefined) {

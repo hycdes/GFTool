@@ -909,13 +909,13 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               Set_Special.set('angel_strength' + stand_num, angel_num)
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num - 1)
             } else if (is_this(stand_num, 238)) { // 88式
-              if (!document.getElementById('special_238_' + stand_num).checked) {
+              if (!document.getElementById('special_238_' + stand_num).checked) { // 重机枪模式
                 Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
                 if (Set_Special.get('88type_buffon' + stand_num) === undefined) {
-                  changeStatus(stand_num, 'self', 'acu', '0.3', -1)
+                  changeStatus(stand_num, 'self', 'acu', 0.625, -1) // +62.5%与-20%平衡为+30%
                   Set_Special.set('88type_buffon' + stand_num, true)
                 }
-              } else changeStatus(stand_num, 'self', 'acu', '-0.2', -1)
+              } else true // do nothing
             } else if (is_this(stand_num, 1089)) { // 布伦MOD
               if (Set_Special.get('bren_buff_' + stand_num) < 3) {
                 Set_Special.set('bren_buff_' + stand_num, Set_Special.get('bren_buff_' + stand_num) + 1)
