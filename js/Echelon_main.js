@@ -1776,6 +1776,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     _spS('ntw_exenable_' + stand_num, true) // 第一次必可以追加
     changeStatus(stand_num, 'snipe', labels, ratio, time_init)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  } else if (skillname === 'm950amod') {
+    if (document.getElementById('special_1097_' + stand_num).checked) {
+      changeStatus(stand_num, 'all', 'rof', 0.05, 5)
+    } else {
+      do_debuff('enemy_eva', 6 * 30)
+      endStatus(-1, [['enemy_eva', -0.3], 6 * 30], 'enemy_get')
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -2091,6 +2099,11 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     } else if (this_ID === 252) { // 震荡冲击弹
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
       if (document.getElementById('special_252_' + stand_num).checked) {
+        damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
+      }
+    } else if (this_ID === 1252) { // 震荡冲击弹 MOD
+      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
+      if (document.getElementById('special_1252_' + stand_num).checked) {
         damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
     } else if (this_ID === 260) { // 劲爆乐园

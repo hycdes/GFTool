@@ -346,7 +346,7 @@ function manageUI() { // 管理图标变化，不涉及后台数值
       document.getElementById('icon-addstar').onclick = ''
     }
     if (num_star === 5) {
-      if (set_guntype != 2 && set_guntype != 4) { // 目前只有AR、RF有六星
+      if (set_guntype != 1 && set_guntype != 2 && set_guntype != 4) { // 目前只有HG、AR、RF有六星
         document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
         document.getElementById('icon-addstar').style = 'cursor: default'
         document.getElementById('icon-addstar').onclick = ''
@@ -450,6 +450,7 @@ function resetEquipment() {
       else if (ID === 1007) set_equip = [17, 21, 31007] // stechkin mod
       else if (ID === 1012) set_equip = [11012, 21, 32] // c96 mod
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
+      else if (ID === 1097) set_equip = [11097, 21, 32] // mp446 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
       else if (ID === 2011) set_equip = [120112, 220112, 320111] // Jill
@@ -509,6 +510,7 @@ function resetEquipment() {
       else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
       else if (ID === 1053) set_equip = [12, 21053, 34] // ntw20 mod
       else if (ID === 1095) set_equip = [11095, 23, 34] // hanyang88 mod
+      else if (ID === 1252) set_equip = [12, 21252, 34] // ksvk mod
       else if (ID === 2014) set_equip = [12, 23, 32014] // Stella
       else set_equip = [12, 23, 34]
     }
@@ -904,6 +906,8 @@ function addTdoll() { // 添加战术人形
     else if (ID === 290) addSpecialSetting(290, reverse_position, num_pickblock, 0, '') // 89 type
     else if (ID === 1007) addSpecialSetting(1007, reverse_position, num_pickblock, 0, '') // Stechkin MOD
     else if (ID === 1065) addSpecialSetting(1065, reverse_position, num_pickblock, 0, 'checked') // HK416 MOD
+    else if (ID === 1097) addSpecialSetting(1097, reverse_position, num_pickblock, 0, 'checked') // M950A MOD
+    else if (ID === 1252) addSpecialSetting(1252, reverse_position, num_pickblock, 0, 'checked') // KSVK MOD
     else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 0, 'checked') // Theresa
 
     else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 1, 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD

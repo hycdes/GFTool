@@ -417,6 +417,11 @@ function describe_ntwmod() { // ntw20-mod
   Describe.name = 'ntwmod'
   return Describe
 }
+function describe_m950amod() { // m950a-mod
+  var Describe = {}
+  Describe.name = 'm950amod'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -429,6 +434,7 @@ lib_describe.set('com_dmg_20', describe_property(['all'], ['dmg'], ['0.2'])) // 
 lib_describe.set('com_dmg_18', describe_property(['all'], ['dmg'], ['0.18'])) // 火力号令 18%
 lib_describe.set('com_dmgN_35', describe_propertyN(['all'], ['dmg'], ['0.35'])) // 火力号令N 35%
 lib_describe.set('com_dmgND_20', describe_propertyND(['all'], ['dmg'], ['0.2'])) // 火力号令ND 20%
+lib_describe.set('com_rof_28', describe_property(['all'], ['rof'], ['0.28'])) // 突击号令 28%
 lib_describe.set('com_rof_25', describe_property(['all'], ['rof'], ['0.25'])) // 突击号令 25%
 lib_describe.set('com_rof_22', describe_property(['all'], ['rof'], ['0.22'])) // 突击号令 22%
 lib_describe.set('com_rof_20', describe_property(['all'], ['rof'], ['0.20'])) // 突击号令 20%
@@ -728,10 +734,16 @@ lib_describe.set('sl8', describe_sl8()) // 遥光海波
 lib_describe.set('ak15', describe_ak15()) // 白獒之瞳
 lib_describe.set('webley', describe_webley()) // webley
 lib_describe.set('ntwmod', describe_ntwmod()) // 狂猎燃魂+连锁反应
+lib_describe.set('m950amod', describe_m950amod()) // 灵魂LIVE
 
 // lib_skill
 
 // ———————————————————————————————————————— HG ————————————————————————————————————————
+// ———————————————————————————————————————— HG - 5 ————————————————————————————————————————
+lib_skill.set(1097, [
+  createSkill(6, 12, 8, lib_describe.get('com_rof_28')),
+  createSkill(0, -1, 0, lib_describe.get('m950amod'))
+])
 // ———————————————————————————————————————— HG - 5 ————————————————————————————————————————
 lib_skill.set(4, [createSkill(6, 12, 5, lib_describe.get('python'))]) // 被动通过特殊变量实现
 lib_skill.set(96, [createSkill(6, 12, 8, lib_describe.get('com_dmg_25'))])
@@ -1112,6 +1124,7 @@ lib_skill.set(266, [
 ]) // 叠加射速特殊判断
 lib_skill.set(296, [createSkill(5, 8, 0, lib_describe.get('sl8'))]) // SL8
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
+lib_skill.set(1252, [createSkill(10, 16, 0, lib_describe.get('snipe_5'))])
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])
 lib_skill.set(39, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])

@@ -375,8 +375,10 @@ lib_affect.set(1091, createAffect('u/lu/l/d/ld/', 'all', ['dmg'], [0.36])) // MP
 lib_affect.set(1093, createAffect('lu/l/ld/', 'ar', ['eva', 'crit'], [0.2, 0.1])) // IDW改
 lib_affect.set(1094, createAffect('l/', 'ar', ['rof'], [0.24])) // 64式改
 lib_affect.set(1095, createAffect('r/rd/', 'hg', ['cld'], [0.15])) // 汉阳造88式改
+lib_affect.set(1097, createAffect('lu/ld/l/ru/rd/', 'all', ['rof', 'acu'], [0.32, 0.6])) // M950A改
 lib_affect.set(1101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])) // UMP9改
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改
+lib_affect.set(1252, createAffect('r/rd/rr/', 'hg/sg', ['cld'], [0.15])) // KSVK改
 // EXTRA
 lib_affect.set(2001, createAffect('lu/u/ru/ld/d/rd/', 'all', ['rof', 'eva'], [0.3, 0.2])) // 诺爱尔
 lib_affect.set(2002, createAffect('llu/lld/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // 艾尔菲尔特
@@ -718,8 +720,10 @@ lib_property.set(1091, createProperty(31, 57, 80, 60, 0, 340, 0.2, -1))
 lib_property.set(1093, createProperty(27, 16, 92, 75, 0, 770, 0.05, -1))
 lib_property.set(1094, createProperty(28, 12, 70, 93, 0, 905, 0.05, -1))
 lib_property.set(1095, createProperty(118, 69, 39, 37, 0, 520, 0.4, -1)) // hanyang-88
+lib_property.set(1097, createProperty(33, 57, 77, 72, 0, 400, 0.2, -1)) // m950a
 lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9 MOD
 lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45 MOD
+lib_property.set(1252, createProperty(163, 85, 30, 32, 0, 450, 0.4, -1)) // KSVK MOD
 // EXTRA
 lib_property.set(2001, createProperty(39, 60, 82, 65, 0, 300, 0.2, -1))
 lib_property.set(2002, createProperty(36, 13, 9, 28, 23, 1375, 0.4, 5))
@@ -800,12 +804,14 @@ lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0,
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0, 0))
 lib_property_equip.set(11094, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // 64type mod
 lib_property_equip.set(11095, createProperty_equip(5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0)) // hanyang88
+lib_property_equip.set(11097, createProperty_equip(0, 0, 20, 0, 0, 0.2, 0, 0, 0, 0)) // m950a
 lib_property_equip.set(11101, createProperty_equip(10, 14, 0, -3, 0, 0, 0, 0, 0, 0)) // ump9
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0)) // ump45
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(2158, createProperty_equip(18, 4, 0, 0, 0, 0, 0.27, 0, 0, 0)) // ks-23
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0))
 lib_property_equip.set(21053, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ntw-20
+lib_property_equip.set(21252, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ksvk
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
 lib_property_equip.set(21060, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // as val
 lib_property_equip.set(21061, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // stg44

@@ -4,7 +4,9 @@ function changeSelectItems() {
   if (set_guntype === 0) {
     str_items += '<option value=0 selected></option>'
   } else if (set_guntype === 1) { // HG
-    if (num_star === 5) {
+    if (num_star === 6) {
+      str_items += '<option value=1097>No.97 M950A [MOD]</option>'
+    } else if (num_star === 5) {
       str_items += '<option value=4 selected>No.4 ' + lib_language.NAME_4 + '</option>'
       str_items += '<option value=96>No.96 ' + lib_language.NAME_96 + '</option>'
       str_items += '<option value=97>No.97 M950A</option>'
@@ -249,6 +251,7 @@ function changeSelectItems() {
       str_items += '<option value=266>No.266 R93</option>'
       str_items += '<option value=296>No.296 SL8</option>'
       str_items += '<option value=1039>No.39 [MOD] ' + lib_language.NAME_39 + '</option>'
+      str_items += '<option value=1252>No.252 [MOD] KSVK</option>'
       str_items += '<option value=2004>No.EX4 ' + lib_language.NAME_2004 + '</option>'
       str_items += '<option value=2005>No.EX5 ' + lib_language.NAME_2005 + '</option>'
       str_items += '<option value=2014>No.EX14 ' + lib_language.NAME_2014 + '</option>'
@@ -371,7 +374,7 @@ function changeSelectItems() {
       str_items += '<option value=189>No.283 ' + lib_language.NAME_283 + '</option>'
     } else if (num_star === 3) {
       str_items += '<option value=152 selected>No.152 M897</option>'
-      str_items += '<option value=154>No.154 M200</option>'
+      str_items += '<option value=154>No.154 M500</option>'
       str_items += '<option value=158>No.158 KS-23</option>'
       str_items += '<option value=159>No.159 RMb-93</option>'
       str_items += '<option value=190>No.190 NS2000</option>'
@@ -401,6 +404,7 @@ function changeEquip() {
       if (ID === 1005) str_items += '<option value=11005>' + lib_language.equipNAME_11005 + '</option>' // 纳甘左轮
       if (ID === 1012) str_items += '<option value=11012>' + lib_language.equipNAME_11012 + '</option>' // C96
       if (ID === 1091) str_items += '<option value=11091>' + lib_language.equipNAME_11091 + '</option>' // MP446
+      if (ID === 1097) str_items += '<option value=11097>WML&战术护木</option>' // M950A
       if (ID === 2009) str_items += '<option value=42009>' + lib_language.equipNAME_42009 + '</option>'
       if (ID === 2010) str_items += '<option value=42010>' + lib_language.equipNAME_42010 + '</option>'
       if (ID === 2011) { // Jill
@@ -501,6 +505,7 @@ function changeEquip() {
       str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
       if (ID === 36) str_items += '<option value=236>' + lib_language.equipNAME_236 + '</option>' // 春田
       if (ID === 1053) str_items += '<option value=21053>20mm HEI</option>' // NTW-20
+      if (ID === 1252) str_items += '<option value=21252>12.7mm 1SL</option>' // KSVK
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
     } else if (set_guntype === 6) { // SG
