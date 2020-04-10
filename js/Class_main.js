@@ -7,7 +7,8 @@ function create_entry(info_name, info_taglist0, info_taglist1, info_taglist2, in
   return entry
 }
 
-var pick_id = 0
+var num_sort = 7
+var pick_id = -1
 var pick_tag = [
   [],
   [],
@@ -18,9 +19,10 @@ var pick_tag = [
 var lib_name = {
   // —————————————— HG ——————————————
   t2001: '诺艾尔', t2003: '琪亚娜', t2006: '德丽莎', t2009: '克莉尔', t2010: '菲尔', t2017: '吉尔·斯汀雷', t2018: '塞伊·朝雾',
-  t1001: '柯尔特左轮 MOD',
+  t1097: 'M950A MOD',
+  t1001: '柯尔特左轮 MOD', t1007: '斯捷奇金 MOD',
   t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93',
-  t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1091: 'MP-446 MOD',
+  t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD',
   t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科', t269: 'P30',
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
   t5: '纳甘左轮', t10: 'PPK',
@@ -63,13 +65,15 @@ var lib_name = {
 var lib_tdoll = [
   // —————————————— HG ——————————————
   create_entry([1, 1, 2001], ['dps', 'supportdps', 'af_rof'], ['random'], ['snipe'], []),
-  create_entry([1, 1, 2003], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['snipe'], ['stun']),
+  create_entry([1, 1, 2003], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['snipe', 'stun'], []),
   create_entry([1, 1, 2006], ['supportdfs', 'af_rof', 'af_acu'], ['random'], ['deepdmg', 'dizz'], []),
   create_entry([1, 1, 2009], ['supportdps', 'af_rof', 'af_acu'], ['random'], ['command_dmg', 'command_acu'], []),
   create_entry([1, 1, 2010], ['supportdfs', 'af_dmg', 'af_acu'], ['random'], ['weak_rof', 'weak_acu'], []),
   create_entry([1, 1, 2017], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], [], ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg'], []),
   create_entry([1, 1, 2018], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['shield'], []),
+  create_entry([1, 6, 1097], ['supportdps', 'startdps', 'af_rof', 'af_acu'], ['random'], ['command_rof', 'command_movespeed', 'weak_eva', 'weak_movespeed'], []),
   create_entry([1, 5, 1001], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_rof', 'command_acu'], []),
+  create_entry([1, 5, 1007], ['supportdps', 'af_rof'], ['random'], ['command_rof', 'forcus_dmg', 'forcus_crit', 'weak_eva'], []),
   create_entry([1, 5, 4], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['random'], ['forcus_dmg', 'command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_crit'], ['feedback']),
   create_entry([1, 5, 96], ['supportdps', 'af_dmg', 'af_eva'], ['random'], ['command_dmg'], []),
   create_entry([1, 5, 97], ['supportdps', 'af_rof', 'af_acu'], ['random'], ['command_rof'], []),
@@ -86,6 +90,7 @@ var lib_tdoll = [
   create_entry([1, 5, 285], ['supportdps', 'af_dmg', 'af_acu'], ['random', 'suggest_7'], ['command_dmg', 'command_rof'], []),
   create_entry([1, 4, 1002], ['dps', 'supportdfs', 'af_rof', 'af_acu'], ['back', 'random'], ['fastcd', 'sweep', 'rofstatic', 'smoke'], []),
   create_entry([1, 4, 1005], ['supportdps', 'supportdfs', 'startdps', 'af_dmg', 'af_crit'], ['random'], ['command_dmg', 'command_acu', 'weak_dmg'], ['night']),
+  create_entry([1, 4, 1012], ['supportdps', 'af_acu', 'af_eva'], ['random'], ['command_acu', 'command_critdmg', 'command_addcs'], ['night']),
   create_entry([1, 4, 1091], ['supportdps', 'supportdfs', 'af_dmg'], ['random'], ['command_rof', 'weak_rof'], []),
   create_entry([1, 4, 1], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg'], []),
   create_entry([1, 4, 7], ['supportdps', 'af_rof'], ['random'], ['command_rof'], []),
@@ -274,42 +279,59 @@ var lib_tdoll = [
   create_entry([6, 4, 283], ['tank_arm'], ['random'], ['multihit'], []),
 ]
 
-// —————————————— 特殊处理：过高过低数值权衡 ————————————————
-function find_decline(tag1, tag2, id1, id2) {
-  var decline = 1
-  var list_decline = [ // 调整规则
-    [102, ['forcus_eva'], [50 / 150]], // UMP40
-    [184, ['forcus_rof'], [50 / 75]], // t5000
-    [197, ['forcus_rof'], [17 / 75]], // carcano
-    [206, ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], [0.467, 0.467, 0.467, 0.467]], // AK-12
-    [207, ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], [65 / 150, 50 / 150, 0.5, 0.5]], // CZ2000
-    [211, ['forcus_dmg'], [0.9]], // srs
-    [213, ['forcus_dmg', 'forcus_acu'], [0.7, 0.7]], // cms
-    [226, ['forcus_dmg'], [0.6]], // mk12
-    [235, ['forcus_rof'], [0.2]], // SPR
-    [256, ['forcus_dmg', 'forcus_acu', 'snipe'], [0.5, 0.5, 0.4]], // falcon
-    [266, ['forcus_dmg', 'forcus_rof'], [0.8, 0.5]], // R93
-    [269, ['command_rof'], [0.4]], // P30 (10/25)
-    [272, ['deepdmg'], [0.25]], // DE (10/40)
-    [285, ['command_dmg', 'command_rof'], [18 / 25, 16 / 25]], // C-93
-    [287, ['forcus_dmg', 'forcus_rof'], [50 / 75, 50 / 75]], // SIG-556
-    [1001, ['command_rof'], [0.48]], // colt (12/25)
-    [1039, ['forcus_dmg', 'forcus_rof'], [0.7, 20 / 75]], // mosin
-    [1044, ['forcus_rof', 'forcus_acu'], [0.2, 0.2]], // sv98
-    [1051, ['forcus_rof'], [0.3]], // fn49
-    [1093, ['forcus_dmg', 'forcus_rof'], [0.2, 0.2]], // idw
-    [2020, ['forcus_dmg'], [0.8]] // stella
-  ]
-  for (var decline_pair of list_decline) {
-    if (is_someone_equaltag(tag1, tag2, id1, id2, decline_pair[0])) {
-      var num_tag = decline_pair[1].length
-      for (var t = 0; t < num_tag; t++) {
-        if (tag1 === decline_pair[1][t]) decline *= decline_pair[2][t]
-      }
-    }
-  }
-  return decline
-}
+// ———————————————————————————— 特殊处理：过高过低数值权衡 ————————————————————————————
+var list_decline = [ // 调整规则
+  [102, ['forcus_eva'], [50 / 150]], // UMP40
+  [184, ['forcus_rof'], [50 / 75]], // t5000
+  [197, ['forcus_rof'], [17 / 75]], // carcano
+  [206, ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], [0.467, 0.467, 0.467, 0.467]], // AK-12
+  [207, ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], [65 / 150, 50 / 150, 0.5, 0.5]], // CZ2000
+  [211, ['forcus_dmg'], [0.9]], // srs
+  [213, ['forcus_dmg', 'forcus_acu'], [0.7, 0.7]], // cms
+  [226, ['forcus_dmg'], [0.6]], // mk12
+  [235, ['forcus_rof'], [0.2]], // SPR
+  [256, ['forcus_dmg', 'forcus_acu', 'snipe'], [0.5, 0.5, 0.4]], // falcon
+  [266, ['forcus_dmg', 'forcus_rof'], [0.8, 0.5]], // R93
+  [269, ['command_rof'], [0.4]], // P30 (10/25)
+  [272, ['deepdmg'], [0.25]], // DE (10/40)
+  [285, ['command_dmg', 'command_rof'], [18 / 25, 16 / 25]], // C-93
+  [287, ['forcus_dmg', 'forcus_rof'], [50 / 75, 50 / 75]], // SIG-556
+  [1001, ['command_rof'], [0.48]], // colt (12/25)
+  [1039, ['forcus_dmg', 'forcus_rof'], [0.7, 20 / 75]], // mosin
+  [1044, ['forcus_rof', 'forcus_acu'], [0.2, 0.2]], // sv98
+  [1051, ['forcus_rof'], [0.3]], // fn49
+  [1093, ['forcus_dmg', 'forcus_rof'], [0.2, 0.2]], // idw
+  [2020, ['forcus_dmg'], [0.8]] // stella
+]
+// ———————————————————————————— 特殊处理：类似tag关联度 ——————————————————————————————
+var list_relation = [
+  [['rofstatic', 'forcus_rof'], 1], // 固定射速 & 突击专注
+  [['command_acu', 'weak_eva'], 1], // 命中提升 & 回避降低
+  [['command_eva', 'weak_acu'], 1], // 回避提升 & 命中降低
+  [['smoke', 'weak_rof'], 0.4], // 烟雾弹 & 射速降低
+  [['smoke', 'weak_movespeed'], 0.5], // 烟雾弹 & 移速降低
+  [['dizz', 'stun'], 0.7], // 闪光弹 & 麻痹
+  [['ap', 'forcus_dmg'], 0.4], // 穿甲 & 火力专注
+]
+// ———————————————————————————— 特殊处理：特殊权重 ——————————————————————————————
+var special_weight = new Map
+special_weight.set('front', 0.1)
+special_weight.set('random', 0.1)
+special_weight.set('laomo', 0.1)
+special_weight.set('af_eva', 0.6)
+special_weight.set('af_acu', 0.8)
+special_weight.set('command_movespeed', 1.5)
+special_weight.set('passive', 0.7)
+special_weight.set('multihit', 1.1)
+special_weight.set('af_rof', 1.5)
+special_weight.set('suggest_2', 1.5)
+special_weight.set('shield', 1.5)
+special_weight.set('grenade', 1.5)
+special_weight.set('tank_eva', 3)
+special_weight.set('tank_arm', 4)
+special_weight.set('burstsupport', 2)
+special_weight.set('startdps', 2)
+
 
 // ====================标签添加：（1）修改lib_tag（2）修改lib_tag_NUMBER（2）添加一个新的MAP类tagNUMBER_TAGNAME====================
 var lib_tag = [
@@ -324,14 +346,14 @@ var lib_tag = [
   ],
   // 3
   [['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_eva', 'forcus_arm', 'forcus_crit', 'forcus_critdmg', 'forcus_addcs', 'forcus_fastcs', 'max_acu', 'max_crit'],
-  ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg', 'command_movespeed'],
+  ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg', 'command_movespeed', 'command_addcs'],
   ['weak_dmg', 'weak_rof', 'weak_acu', 'weak_eva', 'weak_movespeed', 'deepdmg'],
   ['ap', 'fastcd', 'passive', 'multihit', 'multitarget', 'sweep', 'penetrate', 'beakback', 'rofstatic'],
-  ['smoke', 'handgrenade', 'incendinary', 'grenade', 'snipe', 'dizz', 'ffshield', 'shield', 'shield_break', 'reducehurt', 'status']
+  ['smoke', 'handgrenade', 'incendinary', 'grenade', 'snipe', 'dizz', 'stun', 'ffshield', 'shield', 'shield_break', 'reducehurt', 'status']
   ],
   // 4
   [['night', 'mengxin', 'laomo', 'burstsupport',],
-  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'illusion', 'stronger', 'stun', 'cluster', 'purify']
+  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'illusion', 'stronger', 'cluster', 'purify']
   ]
 ]
 // tag0————————————————————————————————————————
@@ -415,6 +437,7 @@ var lib_tag_2 = {
   command_crit: '<img src="../img/icon-crit.png" style="width:19px;height:19px">团队暴击率UP',
   command_critdmg: '<img src="../img/icon-critdmg.png" style="width:19px;height:19px">团队暴击伤害UP',
   command_movespeed: '<img src="../img/class-icon/icon-movespeed.png" style="width:19px;height:19px">团队移速UP',
+  command_addcs: '<img src="../img/class-icon/icon-addcs.png" style="width:19px;height:19px">团队增加弹量',
 
   weak_dmg: '<img src="../img/class-icon/icon-atkdmg-decline.png" style="width:19px;height:19px">火力削弱',
   weak_rof: '<img src="../img/class-icon/icon-rof-decline.png" style="width:19px;height:19px">射速削弱',
@@ -439,6 +462,7 @@ var lib_tag_2 = {
   grenade: '<img src="../img/class-icon/icon-grenade.png" style="width:19px;height:19px">榴弹',
   snipe: '<img src="../img/class-icon/icon-snipe.png" style="width:19px;height:19px">狙击',
   dizz: '<img src="../img/class-icon/icon-dizz.png" style="width:19px;height:19px">眩晕',
+  stun: '<img src="../img/class-icon/icon-stun.png" style="width:19px;height:19px">麻痹',
   ffshield: '<img src="../img/icon-ff.png" style="width:19px;height:19px">力场',
   shield: '<img src="../img/class-icon/icon-shield.png" style="width:19px;height:19px">护盾',
   shield_break: '<img src="../img/class-icon/icon-shield_break.png" style="width:19px;height:19px">护盾穿透',
@@ -465,6 +489,7 @@ var tag2_forcus_dmg = new Map,
   tag2_command_crit = new Map,
   tag2_command_critdmg = new Map,
   tag2_command_movespeed = new Map,
+  tag2_command_addcs = new Map,
 
   tag2_weak_dmg = new Map,
   tag2_weak_rof = new Map,
@@ -485,6 +510,7 @@ var tag2_forcus_dmg = new Map,
   tag2_grenade = new Map,
   tag2_snipe = new Map,
   tag2_dizz = new Map,
+  tag2_stun = new Map,
   tag2_ffshield = new Map,
   tag2_shield = new Map,
   tag2_shield_break = new Map,
@@ -509,7 +535,6 @@ var lib_tag_3 = {
   burstsupport: '<img src="../img/class-icon/icon-burstsupport.png" style="width:19px;height:19px">爆发辅助',
   illusion: '<img src="../img/class-icon/icon-illusion.png" style="width: 19px; height: 19px">幻象',
   stronger: '<img src="../img/class-icon/icon-m82a1.png" style="width:19px;height:19px">越战越勇',
-  stun: '<img src="../img/class-icon/icon-stun.png" style="width:19px;height:19px">麻痹',
   cluster: '<img src="../img/class-icon/icon-cluster.png" style="width:19px;height:19px">聚怪',
   purify: '<img src="../img/class-icon/icon-purify.png" style="width:19px;height:19px">净化',
 }
@@ -525,7 +550,6 @@ var tag3_night = new Map,
   tag3_burstsupport = new Map,
   tag3_illusion = new Map,
   tag3_stronger = new Map,
-  tag3_stun = new Map,
   tag3_cluster = new Map,
   tag3_purify = new Map
 
@@ -553,23 +577,6 @@ lib_alert.set('3_laomo', '高密度参与日常游戏内容的人形')
 lib_alert.set('3_feedback', '受某类增益将以一定数值反馈给影响格队友')
 lib_alert.set('3_shootguide', '引导全队射击目标，无法引导自带锁敌逻辑的技能')
 
-// 特殊权重
-var special_weight = new Map
-special_weight.set('front', 0.1)
-special_weight.set('random', 0.1)
-special_weight.set('laomo', 0.1)
-special_weight.set('af_eva', 0.6)
-special_weight.set('passive', 0.7)
-special_weight.set('af_acu', 0.8)
-special_weight.set('multihit', 1.1)
-special_weight.set('af_rof', 1.5)
-special_weight.set('suggest_2', 1.5)
-special_weight.set('shield', 1.5)
-special_weight.set('grenade', 1.5)
-special_weight.set('tank_eva', 3)
-special_weight.set('tank_arm', 4)
-special_weight.set('burstsupport', 2)
-
 // 函数
 
 function find_tdoll(id) {
@@ -590,8 +597,8 @@ function generate_map() {
 function make_starstr(num) {
   var str = ''
   if (num === 6) str += '<span style="color:red">'
-  else if (num === 5) str += '<span style="color:darkorange">'
-  else if (num === 4) str += '<span style="color:chartreuse">'
+  else if (num === 5) str += '<span style="color:#FF6600">'
+  else if (num === 4) str += '<span style="color:#33CC00">'
   else if (num === 3) str += '<span style="color:dodgerblue">'
   else if (num === 2) str += '<span style="color:darkseagreen">'
   else if (num === 1) str += '<span style="color:#FF00FF">'
@@ -781,12 +788,20 @@ function find_weight(level) {
   else if (level === 2) return 110 // skill
   else if (level === 3) return 200 // special characteristic
 }
-function find_relatedpara(list1, list2) {
+function find_decline(tag1, tag2, id1, id2) { // 特殊处理：过高过低数值权衡
+  var decline = 1
+  for (var decline_pair of list_decline) {
+    if (is_someone_equaltag(tag1, tag2, id1, id2, decline_pair[0])) {
+      var num_tag = decline_pair[1].length
+      for (var t = 0; t < num_tag; t++) {
+        if (tag1 === decline_pair[1][t]) decline *= decline_pair[2][t]
+      }
+    }
+  }
+  return decline
+}
+function find_relatedpara(list1, list2) { // 特殊处理：类似tag关联度，相关性标签
   var relativity = 0
-  var list_relation = [ // 相关性标签
-    [['rofstatic', 'forcus_rof'], 1], // 固定射速=突击专注
-    [['ap', 'forcus_dmg'], 0.4] // 穿甲-火力专注
-  ]
   for (var related_pair of list_relation) {
     if (is_related_pair(list1, list2, related_pair[0][0], related_pair[0][1])) {
       relativity += related_pair[1]
@@ -812,51 +827,55 @@ function find_sametag(list1, list2, id1, id2, weight) { // decline here
   return Math.ceil(sim)
 }
 function find_similar(ID) {
-  var sim = 0
-  var simlist = []
-  var this_tdoll = find_tdoll(ID)
-  var this_type = this_tdoll.type
-  var this_taglist = this_tdoll.tag
-  // find similarity
-  for (var tdoll of lib_tdoll) {
-    if (is_self(tdoll.id, ID)) {
-      true // do nothing
-    } else {
-      sim = 0
-      if (tdoll.type === this_type) sim += 250
-      for (var i = 0; i < 4; i++) {
-        sim += find_sametag(this_taglist[i], tdoll.tag[i], ID, tdoll.id, find_weight(i))
-      }
-      if (sim > 0) {
-        simlist.push([tdoll.id, sim])
-      }
-    }
-  }
-  simlist.sort(comp_sim)
-  var max_num = 7 // can be modify
-  if (simlist.length < max_num) max_num = simlist.length
-  var str_display = ''
-  for (var n = 0; n < max_num; n++) {
-    var current_tdoll = find_tdoll(simlist[n][0])
-    var current_str = ''
-    current_str += '<tr><td style="vertical-align:middle"><button type="button" style="padding:5px" class="btn btn-default" onclick="classify_by_tdoll(' + current_tdoll.id + ')">'
-    current_str += '<img src="../img/class/' + current_tdoll.id + '.png" style="width:37px;height:37px"> ' + make_starstr(current_tdoll.star)
-    eval('current_str+=lib_name.t' + current_tdoll.id)
-    current_str += '</button></td><td style="vertical-align:middle;text-align:center"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b></td>'
-    current_str += '<td style="line-height:40px;vertical-align:middle">'
-    for (var i = 0; i < 4; i++) {
-      for (var name of current_tdoll.tag[i]) {
-        if (is_tag_in(name, this_taglist[i])) {
-          current_str += '<button type="button" style="padding:5px" class="btn btn-' + make_color(i) + '" disabled>'
-          eval('current_str+=lib_tag_' + i + '.' + name)
-          current_str += '</button> '
+  if (ID === -1) true
+  else {
+    pick_id = ID
+    var sim = 0
+    var simlist = []
+    var this_tdoll = find_tdoll(ID)
+    var this_type = this_tdoll.type
+    var this_taglist = this_tdoll.tag
+    // find similarity
+    for (var tdoll of lib_tdoll) {
+      if (is_self(tdoll.id, ID)) {
+        true // do nothing
+      } else {
+        sim = 0
+        if (tdoll.type === this_type) sim += 250
+        for (var i = 0; i < 4; i++) {
+          sim += find_sametag(this_taglist[i], tdoll.tag[i], ID, tdoll.id, find_weight(i))
+        }
+        if (sim > 0) {
+          simlist.push([tdoll.id, sim])
         }
       }
     }
-    current_str += '</td></tr>'
-    str_display += current_str
+    simlist.sort(comp_sim)
+    var max_num = num_sort // can be modify
+    if (simlist.length < max_num) max_num = simlist.length
+    var str_display = ''
+    for (var n = 0; n < max_num; n++) {
+      var current_tdoll = find_tdoll(simlist[n][0])
+      var current_str = ''
+      current_str += '<tr><td style="vertical-align:middle"><button type="button" style="padding:5px" class="btn btn-default" onclick="classify_by_tdoll(' + current_tdoll.id + ')">'
+      current_str += '<img src="../img/class/' + current_tdoll.id + '.png" style="width:37px;height:37px"> ' + make_starstr(current_tdoll.star)
+      eval('current_str+=lib_name.t' + current_tdoll.id)
+      current_str += '</button></td><td style="vertical-align:middle;text-align:center"><b><span style="color:dodgerblue">' + simlist[n][1] + '</span></b></td>'
+      current_str += '<td style="line-height:40px;vertical-align:middle">'
+      for (var i = 0; i < 4; i++) {
+        for (var name of current_tdoll.tag[i]) {
+          if (is_tag_in(name, this_taglist[i])) {
+            current_str += '<button type="button" style="padding:5px" class="btn btn-' + make_color(i) + '" disabled>'
+            eval('current_str+=lib_tag_' + i + '.' + name)
+            current_str += '</button> '
+          }
+        }
+      }
+      current_str += '</td></tr>'
+      str_display += current_str
+    }
+    document.getElementById('result_2_sim').innerHTML = str_display
   }
-  document.getElementById('result_2_sim').innerHTML = str_display
 }
 
 window.onload = function () {
@@ -927,4 +946,32 @@ function is_tag_in(tag, taglist) { // tag是否在taglist中
     if (tag === in_tag) return true
   }
   return false
+}
+
+var is_detail_shown = false
+function show_details() {
+  var t_details = '', t_showdetails = '点击展开详情'
+  if (!is_detail_shown) {
+    t_details += '相似用途条目相似度关联使得推荐更客观<br>'
+    t_details += '&nbsp-&nbsp固定射速 ↔ 突击专注：1<br>'
+    t_details += '&nbsp-&nbsp精确号令 ↔ 掩护压制：1<br>'
+    t_details += '&nbsp-&nbsp掩护号令 ↔ 精确压制：1<br>'
+    t_details += '&nbsp-&nbsp闪光弹 ↔ 麻痹：0.7<br>'
+    t_details += '&nbsp-&nbsp烟雾弹 ↔ 减速：0.5<br>'
+    t_details += '&nbsp-&nbsp烟雾弹 ↔ 突击压制：0.4<br>'
+    t_details += '&nbsp-&nbsp穿甲 ↔ 火力专注：0.4<br>'
+    t_showdetails = '点击收起详情'
+  }
+  is_detail_shown = !is_detail_shown
+  document.getElementById('text_details').innerHTML = t_details
+  document.getElementById('text_showdetails').innerHTML = t_showdetails
+}
+function sortnum(n) {
+  document.getElementById('btn_show7').className = 'btn btn-outline btn-success'
+  document.getElementById('btn_show10').className = 'btn btn-outline btn-success'
+  document.getElementById('btn_show20').className = 'btn btn-outline btn-success'
+  // do
+  document.getElementById('btn_show' + n).className = 'btn btn-success'
+  num_sort = n
+  find_similar(pick_id)
 }

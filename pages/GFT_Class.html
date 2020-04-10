@@ -46,15 +46,6 @@
                                 </span>
                             </div>
                         </li>
-                        <li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>
-                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库</a></li>
-                        <li><a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器</a></li>
-                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
-                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
-                        <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
-                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
-                        <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp掉落统计</a></li>
-                        <li><a href="GFT_Class.html"><i class="fa fa-search"></i> &nbsp格里芬人事部</a></li>
                     </ul>
                 </div>
             </div>
@@ -65,7 +56,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">格里芬人事部 (测试版beta2.0)</h1>
+                            <h1 class="page-header">格里芬人事部 <span style="font-size:15px;color:gray" id="info_version"></span></h1>
                         </div>
                     </div>
                     <script src="../js/Class_main.js"></script>
@@ -148,6 +139,9 @@
                                                     <td style="width:30%">
                                                         <h4>当前选择：<span id="result_2_name">无</span></h4>
                                                         <h4 id="result_2" style="line-height:40px">请选择一个人形</h4>
+                                                        <h5>&nbsp</h5>
+                                                        <h5>部分条目换算准则：<a onclick="show_details()" id="text_showdetails" style="cursor:pointer">点击展开详情</a></h5>
+                                                        <h5><span style="color:gray" id="text_details"></span></h5>
                                                     </td>
                                                     <td>
                                                         <ul class="nav nav-pills">
@@ -161,6 +155,11 @@
                                                         <div class="tab-content">
                                                             <div class="tab-pane fade in active" id="commit_similar">
                                                                 <h5>请结合<u><a href="../img/database/data_3-1.jpg" target="_blank">人形强度榜</a></u>选择，并且注意如<span style="color:red">夜战特化</span>等标签可能影响实际发挥</h5>
+                                                                <p>
+                                                                    <button type="button" style="width:70px;padding:3px" class="btn btn-success" onclick="sortnum(7)" id="btn_show7">显示7条</button>
+                                                                    <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-success" onclick="sortnum(10)" id="btn_show10">显示10条</button>
+                                                                    <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-success" onclick="sortnum(20)" id="btn_show20">显示20条</button>
+                                                                </p>
                                                                 <table class="table table-bordered table-hovered">
                                                                     <thead>
                                                                         <th style="text-align:center">人形</th>
@@ -313,6 +312,14 @@
     <script src="../vendor/flot/jquery.flot.resize.js"></script>
     <script src="../vendor/flot/jquery.flot.time.js"></script>
     <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+    <!--version info-->
+    <script src="../js/version_GFT.js"></script>
+    <script>
+        document.getElementById('info_version').innerHTML = _version.CL
+        for (var item of _navitem) {
+            document.getElementById('side-menu').innerHTML += item
+        }
+    </script>
 </body>
 
 </html>
