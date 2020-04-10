@@ -46,6 +46,7 @@ function changeSelectItems() {
       str_items += '<option value=1005>No.5 [MOD] ' + lib_language.NAME_5 + '</option>'
       str_items += '<option value=1012>No.12 [MOD] C96</option>'
       str_items += '<option value=1091>No.91 [MOD] MP-446</option>'
+      str_items += '<option value=1221>No.221 [MOD] GSh-18</option>'
     } else if (num_star === 3) {
       str_items += '<option value=3 selected>No.3 M9</option>'
       str_items += '<option value=6>No.6 ' + lib_language.NAME_6 + '</option>'
@@ -485,6 +486,7 @@ function changeEquip() {
       str_items += '<option value=21>' + lib_language.equipNAME_21 + '</option>'
       if (ID === 1002) str_items += '<option value=21002>' + lib_language.equipNAME_21002 + '</option>' // M1911
       if (ID === 183) str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
+      if (ID === 1221) str_items += '<option value=21221>7N31</option>'
       if (ID === 2011) { // Jill
         str_items += '<option value=220111>Adelhyde</option>'
         str_items += '<option value=220112>Bronson Ext</option>'

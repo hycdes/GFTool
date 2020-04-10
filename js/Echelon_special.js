@@ -19,7 +19,8 @@ function settle_buff(stand_num, info_self) {
         _mul_critdmg = 1,
         must_acu = false,
         must_crit = false,
-        no_crit = false
+        no_crit = false,
+        ignore_arm = false
     if (is_this(stand_num, 4)) { // python active
         if (Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) {
             var num_left = Set_Special.get('python_active') - 1
@@ -116,7 +117,7 @@ function settle_buff(stand_num, info_self) {
     else if (is_this(stand_num, 270)) { // type4
         Set_Special.set('type4_' + stand_num, Set_Special.get('type4_' + stand_num) + 1)
     }
-    else if (is_this(stand_num, 274)) {
+    else if (is_this(stand_num, 274)) { // ACR计算debuff个数
         var list_debuff = ['enemy_dmg', 'enemy_rof', 'enemy_acu', 'enemy_eva', 'enemy_arm',
             'enemy_speed', 'enemy_dot', 'enemy_dizz']
         var num_debuff = 0
@@ -166,7 +167,7 @@ function settle_buff(stand_num, info_self) {
         }
         //console.log('[', global_frame, '] ', 'mode=', _spG('89_mode_' + stand_num), '; level=', _spG('89_buff_' + stand_num), '; forcus=', _spG('89_forcus_' + stand_num))
     }
-    else if (is_this(stand_num, 292)) { // rpk-16 ar-mode buff
+    else if (is_this(stand_num, 292)) { // rpk-16 AR模式 buff
         if (_spE('rpk16_' + stand_num, 'ar')) { // rof-buff counting in attack-duration calculation
             _mul_acu *= 2
         }
@@ -201,14 +202,18 @@ function settle_buff(stand_num, info_self) {
     }
     return [
         ['dmg', _mul_dmg], ['acu', _mul_acu], ['critdmg', _mul_critdmg],
-        ['must_acu', must_acu], ['must_crit', must_crit],
-        ['no_crit', no_crit]]
+        ['must_acu', must_acu],
+        ['must_crit', must_crit], ['no_crit', no_crit],
+        ['ignore_arm', ignore_arm]]
 }
 
 function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
     var _para_arm = Math.min(2, _pro('ap', info_self) - _pro('e_arm', info_enemy)),
+        ignore_arm = _mul('ignore_arm', list_buff),
         _para_dmg = _pro('dmg', info_self) * _mul('dmg', list_buff)
-    // damage benifit for special t-doll skill
+    // 无视护甲条目生效
+    if (ignore_arm) _para_arm = 0
+    // 特殊人形技能的上海增益
     if (info_self.get('type') === 6) { // SG normal attack
         if (is_this(stand_num, 2016)) true // Dana do nothing
         else {
@@ -261,6 +266,7 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
     return Math.max(1, Math.ceil(_para_dmg * _pro('random') + _para_arm))
 }
 
+// 多重攻击
 function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_buff) {
     var num = 1
     if (is_this(stand_num, 194)) { // K2判断模式射击次数
@@ -439,6 +445,27 @@ function settle_formation(stand_num, fire_status) {
     else if (fire_status.substr(5) === 'four') return this_formation(stand_num) - 1 // 一人释放技能
 }
 
+function settle_addition(stand_num, info_self, info_enemy, enemy_num_left, list_buff) {
+    var addition_dmg = 0
+    if (is_this(stand_num, 1252)) { // KSVK MOD
+        var list_debuff = ['enemy_dmg', 'enemy_rof', 'enemy_acu', 'enemy_eva', 'enemy_arm',
+            'enemy_speed', 'enemy_dot', 'enemy_dizz']
+        var is_in_debuff = false
+        for (var debuff of list_debuff) {
+            if (Set_Special.get(debuff) >= global_frame) {
+                is_in_debuff = true
+                break
+            }
+        }
+        if (is_in_debuff) {
+            addition_dmg = Math.ceil(0.3 * info_self.get('dmg') * _pro('random')) * this_formation(stand_num) // 0.3火力技能伤害普攻，无视护甲/必中/不可暴击
+            if (document.getElementById('special_1252_' + stand_num).checked) {
+                addition_dmg *= enemy_num_left
+            }
+        }
+    }
+    return addition_dmg
+}
 
 // sample
 

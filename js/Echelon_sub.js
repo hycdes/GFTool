@@ -724,8 +724,13 @@ function init_loadFairy(common_position) {
       changeStatus(common_position, 'all', 'acu', '0.8', 10)
     } else if (fairy_no === 21) { // 爆竹迎春（暂时没做）
       //
+    } else if (fairy_no === 22) { // 懈怠浪潮
+      do_debuff('enemy_rof', 5 * 30)
+      endStatus(-1, [['enemy_rof', -0.25], 5 * 30], 'enemy_get')
+      do_debuff('enemy_speed', 5 * 30)
+      endStatus(-1, [['enemy_speed', -0.25], 5 * 30], 'enemy_get')
     } else if (fairy_no === 23) {
-      if (document.getElementById('special_fairyskill_0').checked) {
+      if (document.getElementById('special_fairyskill_0').checked) { // 连携号令
         changeStatus(common_position, 'all', 'dmg', 0.520875, 20)
         changeStatus(common_position, 'all', 'acu', 1.197, 20)
       } else if (document.getElementById('special_fairyskill_1').checked) {

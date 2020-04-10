@@ -562,6 +562,7 @@ lib_describe.set('eva_70', describe_property(['self'], ['eva'], ['0.7'])) // 心
 lib_describe.set('eva_60', describe_property(['self'], ['eva'], ['0.6'])) // D-守护 60%
 lib_describe.set('eva_45', describe_property(['self'], ['eva'], ['0.45'])) // 掩护专注 45%
 lib_describe.set('eva_40', describe_property(['self'], ['eva'], ['0.4'])) // 掩护专注 40%
+lib_describe.set('critdmg_20', describe_property(['self'], ['critdmg'], ['0.2'])) // 暴击伤害 20%
 lib_describe.set('crit_100', describe_property(['self'], ['crit'], ['1'])) // 短板敲击乐 暴击100%
 lib_describe.set('cz2000_N', describe_propertyN(['self'], ['acu/rof'], ['0.4/0.5'])) // 黎明气焰-N
 lib_describe.set('cz2000_ND', describe_propertyND(['self'], ['dmg/crit'], ['0.65/0.25'])) // 黎明气焰-ND
@@ -816,6 +817,10 @@ lib_skill.set(1012, [
 lib_skill.set(1091, [
   createSkill(6, 12, 8, lib_describe.get('rof_28_enemy')),
   createSkill(6, 12, 4, lib_describe.get('mp446')) // 潮音侵袭
+])
+lib_skill.set(1221, [
+  createSkill(6, 12, 6, lib_describe.get('gsh18')),
+  createSkill(6, 12, 6, lib_describe.get('critdmg_20'))
 ])
 // ———————————————————————————————————————— HG - 3 ————————————————————————————————————————
 lib_skill.set(3, [createSkill(7, 12, 0, lib_describe.get('flash_3'))]) // 闪光弹

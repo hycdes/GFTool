@@ -451,6 +451,7 @@ function resetEquipment() {
       else if (ID === 1012) set_equip = [11012, 21, 32] // c96 mod
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
       else if (ID === 1097) set_equip = [11097, 21, 32] // mp446 mod
+      else if (ID === 1221) set_equip = [11, 21221, 31] // ghs-18 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
       else if (ID === 2011) set_equip = [120112, 220112, 320111] // Jill

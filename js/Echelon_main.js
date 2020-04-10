@@ -680,6 +680,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           shoot_damage = Math.ceil(shoot_damage * explain_fgl_ff('single'))
           // 编制结算————————————————————————————————————————————————————————————————————————————————————————————————
           shoot_damage *= settle_formation(stand_num, fire_status)
+          // 附加伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
+          shoot_damage += settle_addition(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
         }
         // 记录伤害数据———————————————————————————————————————————————————————————————————————————————————————————————
         recordData(stand_num, current_time, shoot_damage + extra_damage)
@@ -2199,7 +2201,14 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
           Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
         }
       }
-      else if (!(is_this(stand_num, 257) || is_this(stand_num, 273))) { // 常规炮击
+      else if (is_this(stand_num, 252) || is_this(stand_num, 1252)) { // KSVK附加debuff
+        do_debuff('enemy_acu', 5 * 30)
+        endStatus(-1, [['enemy_acu', -0.2], 5 * 30], 'enemy_get')
+        do_debuff('enemy_rof', 5 * 30)
+        endStatus(-1, [['enemy_rof', -0.2], 5 * 30], 'enemy_get')
+        Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+      }
+      else if (!(is_this(stand_num, 257) || is_this(stand_num, 273))) { // 不属于 M200/SSG-3000 的常规炮击
         Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
       }
     } else {
