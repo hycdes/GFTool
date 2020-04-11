@@ -44,7 +44,7 @@ var lib_name = {
   // —————————————— RF ——————————————
   t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井',
   t1053: 'NTW-20 MOD',
-  t1039: '莫辛-纳甘 MOD',
+  t1039: '莫辛-纳甘 MOD', t1252: 'KSVK MOD',
   t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93',
   t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: '汉阳造88式 MOD',
   t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000',
@@ -204,6 +204,7 @@ var lib_tdoll = [
   create_entry([4, 1, 2020], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap', 'passive', 'multihit', 'multitarget'], []),
   create_entry([4, 6, 1053], ['dps'], ['back'], ['ap', 'snipe', 'shield_break'], []),
   create_entry([4, 5, 1039], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
+  create_entry([4, 5, 1252], ['dps'], ['back'], ['ap', 'passive', 'grenade'], []),
   create_entry([4, 5, 46], ['dps'], ['back'], ['ap', 'snipe'], []),
   create_entry([4, 5, 48], ['dps'], ['back'], ['forcus_rof', 'ap'], []),
   create_entry([4, 5, 50], ['dps'], ['back'], ['forcus_dmg', 'ap'], []),
@@ -219,7 +220,7 @@ var lib_tdoll = [
   create_entry([4, 5, 222], ['dps'], ['back'], ['ap', 'snipe'], ['skillcrit']),
   create_entry([4, 5, 231], ['dps'], ['back'], ['ap', 'fastcd', 'snipe'], ['stronger']),
   create_entry([4, 5, 257], ['dps'], ['back'], ['forcus_dmg', 'max_acu', 'weak_dmg', 'ap', 'passive', 'rofstatic'], []),
-  create_entry([4, 5, 261], ['dps'], ['back'], ['ap', 'passive', 'snipe'], []),
+  create_entry([4, 5, 261], ['dps'], ['back'], ['ap', 'passive', 'grenade'], []),
   create_entry([4, 5, 266], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'passive'], []),
   create_entry([4, 4, 1037], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap'], []),
   create_entry([4, 4, 1044], ['dps'], ['back'], ['forcus_rof', 'forcus_acu', 'ap', 'snipe'], []),
@@ -237,7 +238,7 @@ var lib_tdoll = [
   create_entry([4, 4, 226], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap'], []),
   create_entry([4, 4, 235], ['dps'], ['back'], ['forcus_rof', 'ap', 'snipe'], []),
   create_entry([4, 4, 247], ['dps'], ['back'], ['forcus_rof', 'ap'], []),
-  create_entry([4, 4, 252], ['dps'], ['back'], ['ap', 'snipe'], []),
+  create_entry([4, 4, 252], ['dps'], ['back'], ['ap', 'grenade'], []),
   create_entry([4, 4, 270], ['dps'], ['back'], ['forcus_rof', 'max_acu', 'ap', 'penetrate', 'snipe'], []),
   create_entry([4, 4, 273], ['dps'], ['back'], ['forcus_dmg', 'max_acu', 'weak_dmg', 'ap', 'rofstatic'], []),
   create_entry([4, 3, 37], ['dps'], ['back'], ['forcus_dmg', 'ap'], ['mengxin']),
@@ -316,9 +317,11 @@ var list_relation = [
   [['rofstatic', 'forcus_rof'], 1], // 固定射速 & 突击专注
   [['command_acu', 'weak_eva'], 1], // 命中提升 & 回避降低
   [['command_eva', 'weak_acu'], 1], // 回避提升 & 命中降低
-  [['smoke', 'weak_rof'], 0.4], // 烟雾弹 & 射速降低
-  [['smoke', 'weak_movespeed'], 0.5], // 烟雾弹 & 移速降低
   [['dizz', 'stun'], 0.7], // 闪光弹 & 麻痹
+  [['incendinary', 'handgrenade'], 0.7], // 燃烧弹 & 手榴弹
+  [['grenade', 'penetrate'], 0.5], // 榴弹 & 穿透攻击
+  [['smoke', 'weak_movespeed'], 0.5], // 烟雾弹 & 移速降低
+  [['smoke', 'weak_rof'], 0.4], // 烟雾弹 & 射速降低
   [['ap', 'forcus_dmg'], 0.4], // 穿甲 & 火力专注
 ]
 // ———————————————————————————— 特殊处理：特殊权重 ——————————————————————————————
@@ -967,6 +970,8 @@ function show_details() {
     t_details += '&nbsp-&nbsp精确号令 ↔ 掩护压制：1<br>'
     t_details += '&nbsp-&nbsp掩护号令 ↔ 精确压制：1<br>'
     t_details += '&nbsp-&nbsp闪光弹 ↔ 麻痹：0.7<br>'
+    t_details += '&nbsp-&nbsp燃烧弹 ↔ 手榴弹：0.7<br>'
+    t_details += '&nbsp-&nbsp榴弹 ↔ 穿透攻击：0.5<br>'
     t_details += '&nbsp-&nbsp烟雾弹 ↔ 减速：0.5<br>'
     t_details += '&nbsp-&nbsp烟雾弹 ↔ 突击压制：0.4<br>'
     t_details += '&nbsp-&nbsp穿甲 ↔ 火力专注：0.4<br>'
