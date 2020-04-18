@@ -1129,7 +1129,7 @@ lib_skill.set(266, [
 ]) // 叠加射速特殊判断
 lib_skill.set(296, [createSkill(5, 8, 0, lib_describe.get('sl8'))]) // SL8
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
-lib_skill.set(1252, [createSkill(10, 16, 0, lib_describe.get('snipe_5'))])
+lib_skill.set(1252, [createSkill(9, 16, 0, lib_describe.get('snipe_5'))])
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])
 lib_skill.set(39, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])

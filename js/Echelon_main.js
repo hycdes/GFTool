@@ -1782,8 +1782,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     if (document.getElementById('special_1097_' + stand_num).checked) {
       changeStatus(stand_num, 'all', 'rof', 0.05, 5)
     } else {
-      do_debuff('enemy_eva', 6 * 30)
-      endStatus(-1, [['enemy_eva', -0.3], 6 * 30], 'enemy_get')
+      do_debuff('enemy_eva', 9999 * 30)
+      endStatus(-1, [['enemy_eva', -0.3], 9999 * 30], 'enemy_get')
+      do_debuff('enemy_speed', 9999 * 30)
+      endStatus(-1, [['enemy_speed', -0.3], 9999 * 30], 'enemy_get')
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
   }

@@ -16,14 +16,21 @@
     <style type="text/css">
         .table_other {
             padding: 0px;
-            text-align: center
+            text-align: center;
+            background-color: white;
+        }
+
+        .table_left {
+            padding: 0px;
+            text-align: left;
+            background-color: white;
         }
 
         .td_affect {
             padding: 0px;
             width: 10px;
             height: 10px;
-            background-color: black;
+            background-color: #6a696a;
             text-align: center
         }
 
@@ -84,25 +91,7 @@
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                        </li>
-                        <li><a href="index-EN.html"><i class="fa fa-home fa-fw"></i> Home</a></li>
-                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> Database</a></li>
-                        <li><a href="GFT_LogiRank-EN.html"><i class="fa fa-briefcase fa-fw"></i> Logistics ranking</a></li>
-                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> Levelup calculator</a></li>
-                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> IOP simulator</a></li>
-                        <li><a href="GFT_ChipCal-EN.html"><i class="fa fa-delicious fa-fw"></i> Chip calculator</a></li>
-                        <li><a href="GFT_Echelon-EN.html"><i class="glyphicon glyphicon-screenshot"></i> &nbspEchelon simulator</a></li>
-                    </ul>
+                    <ul class="nav" id="side-menu"></ul>
                 </div>
             </div>
         </nav>
@@ -119,7 +108,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">Echelon simulator
+                            <h1 class="page-header">Echelon simulator <span style="font-size:15px;color:gray" id="info_version"></span>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文" class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="English language" class="btn btn-outline btn-default" onclick="Language('English')">English</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어" class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
@@ -130,56 +119,73 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    Echelon setting
+                                    Echelon configure <button type="button" style="padding:5px" class="btn btn-success" onclick="getHelp(1)">How to configure</button>
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
                                         <h4>Echelon preview<span style="color:red" id="alert_display"></span></h4>
-                                        <h5>Click a block to <span style="color:orangered">add/delete T-doll</span>, press <span style="color:orangered">Place T-doll</span> to cover</h5>
-                                        <div class="table-responsive">
-                                            <table class="table_other" style="width:360px; height:360px; overflow:hidden">
-                                                <tbody>
-                                                    <tr>
-                                                        <td id="blockimg_1" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_1" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(1)'></td>
-                                                        <td id="blockimg_2" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_2" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(2)'></td>
-                                                        <td id="blockimg_3" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_3" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(3)'></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td id="blockimg_4" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_4" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(4)'></td>
-                                                        <td id="blockimg_5" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_5" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(5)'></td>
-                                                        <td id="blockimg_6" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_6" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(6)'></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td id="blockimg_7" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_7" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(7)'></td>
-                                                        <td id="blockimg_8" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_8" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(8)'></td>
-                                                        <td id="blockimg_9" style="width:120px;height:120px;background:url(../img/echelon/0.png)"><img id="img_9" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(9)'></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <table class="table_other" style="width:360px; height:360px; overflow:hidden">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="blockimg_1" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_1" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(1)'></td>
+                                                    <td id="blockimg_2" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_2" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(2)'></td>
+                                                    <td id="blockimg_3" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_3" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(3)'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="blockimg_4" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_4" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(4)'></td>
+                                                    <td id="blockimg_5" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_5" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(5)'></td>
+                                                    <td id="blockimg_6" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_6" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(6)'></td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="blockimg_7" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_7" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(7)'></td>
+                                                    <td id="blockimg_8" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_8" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(8)'></td>
+                                                    <td id="blockimg_9" style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)"><img id="img_9" src="../img/echelon/select-no.png" style="cursor:pointer" onclick='pickBlock(9)'></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other" style="width:360px">
+                                            <tr>
+                                                <td style="text-align:left">
+                                                    <input type="checkbox" id="check_showskilltable"> Show skill list
+                                                </td>
+                                                <td style="width:25%">
+                                                    Team leader:
+                                                </td>
+                                                <td style="width:25%">
+                                                    <select class="form-control input-sm" id='select_leader' onchange="" style="width:100px">
+                                                        <option value=-1 selected>default</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <h5 id="ui_skilltable"></h5>
+                                            </tr>
+                                        </table>
+
                                     </div>
                                     <!--INFO-->
                                     <div class="col-lg-8">
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#make_tdoll" data-toggle="tab">T-doll setting</a>
+                                                <li class="active"><a href="#make_tdoll" data-toggle="tab">T-doll</a>
                                                 </li>
-                                                <li><a href="#make_fairy" data-toggle="tab">Fairy setting</a>
+                                                <li><a href="#make_fairy" data-toggle="tab">Technical fairy</a>
                                                 </li>
-                                                <li><a href="#make_hf" data-toggle="tab">Heavy-fire force setting</a>
+                                                <li><a href="#make_hf" data-toggle="tab">HOC</a>
+                                                </li>
+                                                <li><a href="#make_special" data-toggle="tab">Special setting</a>
                                                 </li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="make_tdoll">
                                                     <div class="col-lg-6">
-                                                        <h4>T-doll info</h4>
-                                                        <h5>Press chibi to <span style="color:orangered">change affection</span></h5>
+                                                        <h4>T-doll info <span style="font-size:15px" id="info_special"></span></h4>
                                                         <table class="table_other table-bordered table-hover" style="width:240px; overflow:hidden" id="table_property">
                                                             <tr>
-                                                                <td class="td_info" style="background: url(../img/echelon/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
-                                                                <td class="td_info" id='info_name'><b>Click a <span style="color: red">block</span> first</b></td>
+                                                                <td class="td_info" style="background: url(../img/echelon/tdoll/0.png)" id="img_display"><img id="img_affection" src="../img/echelon/icon-love.png" style="cursor:pointer" onclick='changeAffection()'></td>
+                                                                <td class="td_info" id='info_name'>Click a <b><span style="color: red">block</span></b></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td_info"></td>
@@ -190,24 +196,24 @@
                                                                 <td class="td_info" id='info_type'>-</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_hp'>hp -</td>
-                                                                <td class="td_info" id='info_cs'>clipsize -</td>
+                                                                <td class="td_info" id='info_hp'>HP -</td>
+                                                                <td class="td_info" id='info_cs'>Clipsize -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_dmg'>dmg -</td>
-                                                                <td class="td_info" id='info_rof'>rof -</td>
+                                                                <td class="td_info" id='info_dmg'>Dmg -</td>
+                                                                <td class="td_info" id='info_rof'>Rof -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_acu'>acu -</td>
-                                                                <td class="td_info" id='info_eva'>eva -</td>
+                                                                <td class="td_info" id='info_acu'>Acu -</td>
+                                                                <td class="td_info" id='info_eva'>Eva -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_crit'>crit -</td>
-                                                                <td class="td_info" id='info_critdmg'>critdmg -</td>
+                                                                <td class="td_info" id='info_crit'>Crit -</td>
+                                                                <td class="td_info" id='info_critdmg'>Critdmg -</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="td_info" id='info_arm'>arm -</td>
-                                                                <td class="td_info" id='info_ap'>ap -</td>
+                                                                <td class="td_info" id='info_arm'>Arm -</td>
+                                                                <td class="td_info" id='info_ap'>AP -</td>
                                                             </tr>
                                                         </table>
                                                         <table class="table_other table-bordered table-hover" style="width:240px" id="table_affect">
@@ -242,7 +248,7 @@
                                                     </div>
                                                     <!--SETTING-->
                                                     <div class="col-lg-6">
-                                                        <h4>T-doll</h4>
+                                                        <h4>Tactical doll</h4>
                                                         <table class="table_other table-bordered table-hover" style="width:210px">
                                                             <tbody>
                                                                 <tr>
@@ -278,7 +284,7 @@
                                                             </tbody>
                                                         </table>
                                                         <h4>Equipment</h4>
-                                                        <h5>Select a bar to <span style="color:orangered">change equipment</span></h5>
+                                                        <div class="tooltip-demo" id="special_equip_setting"></div>
                                                         <table class="table_other table-bordered table-hover" style="width:228px">
                                                             <tbody>
                                                                 <tr>
@@ -300,10 +306,16 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <h5>After modification press <span style="color:orangered">Place T-doll</span> to cover</h5>
-                                                        <h5>How some special skills work set in <span style="color:orangered">Special setting</span></h5>
+                                                        <table class="table_other table-bordered table-hover" style="width:228px">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td id='equip_info'></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <h8>&nbsp</h8>
                                                         <p>
-                                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>Place T-doll</button>
+                                                            <button type="button" class="btn btn-primary" onclick="addTdoll()" id="button_addTdoll" disabled>Add T-doll</button>
                                                             <button type="button" class="btn btn-danger" onclick="deleteTdoll()" id="button_deleteTdoll" disabled>Delete T-doll</button>
                                                         </p>
                                                     </div>
@@ -311,7 +323,7 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="make_fairy">
                                                     <div class='col-lg-4'>
-                                                        <h4>Fairy select</h4>
+                                                        <h4>Technical fairy</h4>
                                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                                             <tbody>
                                                                 <tr>
@@ -344,30 +356,34 @@
                                                                             <option value=19>No.19 Kitchen Fairy</option>
                                                                             <option value=20>No.20 Firework Fairy</option>
                                                                             <option value=21>No.21 Nian Fairy</option>
+                                                                            <option value=22>No.22 Beach Fairy</option>
+                                                                            <option value=23>No.23 Combo Fairy</option>
+                                                                            <option value=24>No.24 Barrier Fairy</option>
+                                                                            <option value=25>No.25 Twin Fairy</option>
                                                                         </select>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
                                                                         <select class="form-control input-sm" id='select_talent' onchange="changeTalent(1)" disabled>
-                                                                            <option value=0 selected>No Talent</option>
-                                                                            <option value=1>激昂型</option>
-                                                                            <option value=2>杀伤型Ⅰ</option>
-                                                                            <option value=3>杀伤型Ⅱ</option>
-                                                                            <option value=4>精准型Ⅰ</option>
-                                                                            <option value=5>精准型Ⅱ</option>
-                                                                            <option value=6>回避型Ⅰ</option>
-                                                                            <option value=7>回避型Ⅱ</option>
-                                                                            <option value=8>护甲型Ⅰ</option>
-                                                                            <option value=9>护甲型Ⅱ</option>
-                                                                            <option value=10>必杀型Ⅰ</option>
-                                                                            <option value=11>必杀型Ⅱ</option>
-                                                                            <option value=12>冲锋型</option>
-                                                                            <option value=13>突击型</option>
-                                                                            <option value=14>瞄准型</option>
-                                                                            <option value=15>坚韧型</option>
-                                                                            <option value=16>镇压型</option>
-                                                                            <option value=17>敏锐型</option>
+                                                                            <option value=0 selected>No talent</option>
+                                                                            <option value=1>Fervor</option>
+                                                                            <option value=2>Damage I</option>
+                                                                            <option value=3>Damage I</option>
+                                                                            <option value=4>Accuracy I</option>
+                                                                            <option value=5>Accuracy II</option>
+                                                                            <option value=6>Evasion I</option>
+                                                                            <option value=7>Evasion II</option>
+                                                                            <option value=8>Armor I</option>
+                                                                            <option value=9>Armor II</option>
+                                                                            <option value=10>Critical I</option>
+                                                                            <option value=11>Critical II</option>
+                                                                            <option value=12>Charge</option>
+                                                                            <option value=13>Assault</option>
+                                                                            <option value=14>Aim</option>
+                                                                            <option value=15>Sturdy</option>
+                                                                            <option value=16>Suppressive</option>
+                                                                            <option value=17>Keen</option>
                                                                         </select>
                                                                     </td>
                                                                 </tr>
@@ -375,38 +391,230 @@
                                                         </table>
                                                     </div>
                                                     <div class='col-lg-8'>
-                                                        <h4>Property</h4>
+                                                        <h4>Statistics</h4>
                                                         <table class="table_other table-bordered table-hover" style="width:200px">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td id="fairy_dmg">dmg -</td>
+                                                                    <td id="fairy_dmg">Dmg -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_critdmg">critdmg -</td>
+                                                                    <td id="fairy_critdmg">Critdmg -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_acu">acu -</td>
+                                                                    <td id="fairy_acu">Acu -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_eva">eva -</td>
+                                                                    <td id="fairy_eva">Eva -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_arm">arm -</td>
+                                                                    <td id="fairy_arm">Arm -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td id="fairy_skill">skill -</td>
+                                                                    <td id="fairy_skill">Skill -</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td><input type="checkbox" id="fairyskill_active" disabled> skill active</td>
+                                                                    <td><input type="checkbox" id="fairyskill_active" disabled> Skill active</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
-
                                                 </div>
                                                 <div class="tab-pane fade" id="make_hf">
-                                                    <h4>To be done</h4>
+                                                    <div class='col-lg-4'>
+                                                        <h4>Heavy Ordnance Corps</h4>
+                                                        <table class="table_other table-bordered table-hover">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td><img id="hfselect_1" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(1)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-1.png)"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img id="hfselect_2" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(2)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-2.png)"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img id="hfselect_3" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: pointer" onclick='selectHF(3)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-3.png)"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img id="hfselect_4" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: default" onclick='selectHF(4)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-4.png)"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><img id="hfselect_5" src="../img/echelon/heavyfire/hf-select-no.png" style="cursor: default" onclick='selectHF(5)'></td>
+                                                                    <td style="width:187px;height:62px;background:url(../img/echelon/heavyfire/hf-5.png)"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class='col-lg-8'>
+                                                        <h4>Statistics</h4>
+                                                        <table class="table_left table-striped table-bordered table-hover">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">200</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf1_pro1' value=190 onblur="changeHFPro(1,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">158</span></span></td>
+                                                                    <td style="width:25px;height:28px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">497</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf1_pro2' value=329 onblur="changeHFPro(1,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">66</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp400</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">418</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf1_pro3' value=191 onblur="changeHFPro(1,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">38</span></span></td>
+                                                                    <td style="width:25px;height:28px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">99</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf1_pro4' value=46 onblur="changeHFPro(1,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">9</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf1_rof">&nbsp3.33s</td>
+                                                                </tr>
 
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">102</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf2_pro1' value=106 onblur="changeHFPro(2,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">84</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">180</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf2_pro2' value=130 onblur="changeHFPro(2,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">26</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp80</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">239</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf2_pro3' value=120 onblur="changeHFPro(2,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">465</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf2_pro4' value=233 onblur="changeHFPro(2,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">46</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf2_rof">&nbsp1.47s</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">202</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf3_pro1' value=227 onblur="changeHFPro(3,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">192</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">73</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf3_pro2' value=58 onblur="changeHFPro(3,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">15</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp40</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">164</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf3_pro3' value=90 onblur="changeHFPro(3,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:orangered">194</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf3_pro4' value=107 onblur="changeHFPro(3,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:orangered">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf3_rof">&nbsp2.43s</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">154</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf4_pro1' value=206 onblur="changeHFPro(4,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">159</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">63</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf4_pro2' value=60 onblur="changeHFPro(4,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp40</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">147</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf4_pro3' value=97 onblur="changeHFPro(4,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">22</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">225</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf4_pro4' value=148 onblur="changeHFPro(4,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">28</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf4_rof">&nbsp2.17s</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-dmg.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">147</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf5_pro1' value=169 onblur="changeHFPro(5,1)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">120</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-dbk.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">325</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf5_pro2' value=261 onblur="changeHFPro(5,2)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">45</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-ap.png"></td>
+                                                                    <td style="width:50px">&nbsp400</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width:25px"><img src="../img/icon-acu.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">343</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf5_pro3' value=190 onblur="changeHFPro(5,3)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">33</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-fil.png"></td>
+                                                                    <td style="width:50px">&nbsp<span style="color:dodgerblue">161</span> +</td>
+                                                                    <td style="width:50px"><input class="form-control input-sm" placeholder="+Integer" id='hf5_pro4' value=90 onblur="changeHFPro(5,4)" disabled></td>
+                                                                    <td style="width:50px">&nbsp+ <span style="color:dodgerblue">15</span></span></td>
+                                                                    <td style="width:25px"><img src="../img/icon-rof.png"></td>
+                                                                    <td style="width:50px" id="hf5_rof">&nbsp2.67s</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="make_special">
+                                                    <div class="col-lg-6">
+                                                        <h4>Special setting</h4>
+                                                        <p id="special_num0"></p>
+                                                        <p id="special_num1"></p>
+                                                        <p id="special_num2"></p>
+                                                        <p id="special_num3"></p>
+                                                        <p id="special_num4"></p>
+                                                        <p id="special_num5"></p>
+                                                        <p id="special_num6"></p>
+                                                        <p id="special_num7"></p>
+                                                        <p id="special_num8"></p>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <h4>Team buff</h4>
+                                                        <p><input type="checkbox" id="check_init_critmax"> Max critical</p>
+                                                        <p><input type="checkbox" id="check_init_construction"> Enter "Emergency Bunker" (skill of Construction fairy)</p>
+                                                        <p><input type="checkbox" id="check_init_buff"> Buff code (unreleased))</p>
+                                                        <textarea class="form-control" rows="5" placeholder="每行代表一种增幅 [standnum,type,ratio]; standnum: 1~9; type: dmg,acu,eva,rof,arm,crit,critdmg; ratio: number。例如：[1,dmg,0.3] 或者 [4,acu,-0.4]"></textarea>
+                                                        <p id="special_fairy"></p>
+                                                        <h4>Skill delay <span style="font-size:12px;color:gray">may delay passive skill</span></h4>
+                                                        <h5><span style="font-size:12px;color:gray">add to front cd, not affected by cooldown</span></h5>
+                                                        <table class="table_other">
+                                                            <tbody>
+                                                                <tr id="special_addcd_0"></tr>
+                                                                <tr id="special_addcd_1"></tr>
+                                                                <tr id="special_addcd_2"></tr>
+                                                                <tr id="special_addcd_3"></tr>
+                                                                <tr id="special_addcd_4"></tr>
+                                                                <tr id="special_addcd_5"></tr>
+                                                                <tr id="special_addcd_6"></tr>
+                                                                <tr id="special_addcd_7"></tr>
+                                                                <tr id="special_addcd_8"></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -419,11 +627,11 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default" style="background:url(../img/Produce-16lab.png) no-repeat right 100px top 100px;">
                                 <div class="panel-heading">
-                                    Results
+                                    Simulation
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
-                                        <h4>Environment</h4>
+                                        <h4>Context</h4>
                                         <table class="table_other table-bordered table-hover" style="width:300px">
                                             <tbody>
                                                 <tr>
@@ -435,15 +643,10 @@
                                         <table class="table_other table-bordered table-hover" style="width:300px">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 30%">Encounter</td>
-                                                    <td style="width: 70%">
-                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="changeEnvironment()">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="width: 30%">Battle</td>
-                                                    <td style="width: 70%">
-                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="changeEnvironment()">
+                                                    <td style="height: 30px">
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked><b>Normal</b></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite"><span style="color:dodgerblue"><b>Elite</b></span></label>
+                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss"><span style="color:red"><b>BOSS</b></span></label>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -451,10 +654,23 @@
                                         <table class="table_other table-bordered table-hover" style="width:300px">
                                             <tbody>
                                                 <tr>
-                                                    <td style="height: 30px">
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_normal" checked onclick="changeEnvironment()"><b>Normal</b></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_elite" onclick="changeEnvironment()"><span style="color:dodgerblue"><b>Elite</b></span></label>
-                                                        <label class="radio-inline"><input type="radio" name="switch_class" id="switch_boss" onclick="changeEnvironment()"><span style="color:red"><b>BOSS</b></span></label>
+                                                    <td style="width: 25%">Running</td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入非负数" id="time_init" value=0 onblur="checkEnviInput()">
+                                                    </td>
+                                                    <td style="width: 25%">Battle</td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入正数" id="time_battle" value=20 onblur="checkEnviInput()">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 25%">Formation</td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="checkEnviInput()">
+                                                    </td>
+                                                    <td style="width: 25%">Group</td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -463,11 +679,9 @@
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#Setting1" data-toggle="tab">Dmg simu</a>
+                                                <li class="active"><a href="#Setting1" data-toggle="tab">Damage simulate</a>
                                                 </li>
-                                                <li><a href="#Setting1-2" data-toggle="tab">Inj simu</a>
-                                                </li>
-                                                <li><a href="#Setting2" data-toggle="tab">Special setting</a>
+                                                <li><a href="#Setting1-2" data-toggle="tab">Injury simulate</a>
                                                 </li>
                                                 <li><a href="#Setting3" data-toggle="tab">Others</a>
                                                 </li>
@@ -475,7 +689,7 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Setting1">
-                                                    <h4>Enemy properties</h4>
+                                                    <h4>Enemy defensive statistics</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
@@ -494,56 +708,46 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 30%">eva</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="changeEnvironment()">
+                                                                <td style="width: 25%">Eva</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_eva' value=0 onblur="checkEnviInput()">
+                                                                </td>
+                                                                <td style="width: 25%">Arm</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 30%">arm</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_arm' value=0 onblur="changeEnvironment()">
+                                                                <td style="width: 25%">Forcefield</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 onblur="checkEnviInput()">
                                                                 </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 30%">form</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form' value=1 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 30%">num</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num' value=1 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 30%">forcefield</td>
-                                                                <td style="width: 70%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield' value=0 disabled>
+                                                                <td style="width: 25%">Ff_max</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                     <h4>Damage simulate</h4>
                                                     <p>
-                                                        <button type="button" class="btn btn-outline btn-info" onclick="getResult(1,'damage')">Simulate once</button>
-                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100,'damage')">Simulate 100</button>
+                                                        <button type="button" class="btn btn-outline btn-info" onclick="getResult(1,'damage')">do x1</button>
+                                                        <button type="button" class="btn btn-outline btn-primary" onclick="getResult(100,'damage')" id="btn_dmg100">do x100</button>
                                                     </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting1-2">
-                                                    <h4>Enemy properties</h4>
+                                                    <h4>Enemy damage statistics</h4>
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width:100px; height:40px">-</td>
-                                                                <td style="width:100px; height:40px">-</td>
-                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-s-1.png" style="cursor: pointer" onclick='templatePro(11)'></td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-s-2.png" style="cursor: pointer" onclick='templatePro(12)'></td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-s-3.png" style="cursor: pointer" onclick='templatePro(13)'></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width:100px; height:40px">-</td>
-                                                                <td style="width:100px; height:40px">-</td>
-                                                                <td style="width:100px; height:40px">-</td>
+                                                                <td style="width:100px; height:40px"><img id="" src="../img/echelon/enemy-tpl-s-4.png" style="cursor: pointer" onclick='templatePro(14)'></td>
+                                                                <td style="width:100px; height:40px">TBD</td>
+                                                                <td style="width:100px; height:40px">TBD</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -551,13 +755,13 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">dmg</td>
+                                                                <td style="width: 25%">Dmg</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_dmg' value=10 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="+Integer" id='enemy_dmg' value=10 onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">rof</td>
+                                                                <td style="width: 25%">Rof</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_rof' value=30 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="+Integer" id='enemy_rof' value=40 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -565,10 +769,10 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 50%"><input type="checkbox" id="enemy_hp_check"> 100% accuracy</td>
-                                                                <td style="width: 25%">acu</td>
+                                                                <td style="width: 50%"><input type="checkbox" id="enemy_acumax" onchange="checkEnviInput()"> max_acu</td>
+                                                                <td style="width: 25%">Acu</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_acu' value=10 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="0/+Integer" id='enemy_acu' value=10 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -576,32 +780,13 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">ap</td>
+                                                                <td style="width: 25%">AP</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_ap' value=0 onblur="changeEnvironment()">
+                                                                    <input class="form-control input-sm" placeholder="0/+Integer" id='enemy_ap' value=0 onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">dbk</td>
+                                                                <td style="width: 25%">Dbk</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入非负整数" id='enemy_dbk' value=0 disabled>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 25%">form</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入1~5整数" id='enemy_form_2' value=1 onblur="changeEnvironment()">
-                                                                </td>
-                                                                <td style="width: 25%">num</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_num_2' value=1 onblur="changeEnvironment()">
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <table class="table_other table-bordered table-hover" style="width:300px">
-                                                        <tbody>
-                                                            <tr style="height: 30px">
-                                                                <td>
-                                                                    <input type="checkbox" id="enemy_hp_check" onchange="releaseEnemyPro()"> Enemies<span style="color:orangered"> can be killed</span>
+                                                                    <input class="form-control input-sm" placeholder="0/+Integer" id='enemy_dbk' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -609,136 +794,202 @@
                                                     <table class="table_other table-bordered table-hover" style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">hp</td>
+                                                                <td style="width: 25%">Eva</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_hp' value=1000 disabled>
+                                                                    <input class="form-control input-sm" placeholder="+Integer" id='enemy_eva_2' value=10 onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">eva</td>
+                                                                <td style="width: 25%">Arm</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_eva_2' value=10 disabled>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 25%">arm</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_arm_2' value=0 disabled>
-                                                                </td>
-                                                                <td style="width: 25%">forcefield</td>
-                                                                <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="+Integer" id='enemy_arm_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 25%">AOE affect</td>
+                                                                <td style="width: 25%">Ff</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_aoe' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2' value=0 onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">immortal time</td>
+                                                                <td style="width: 25%">Ff_max</td>
                                                                 <td style="width: 25%">
-                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_immortal' value=0 disabled>
+                                                                    <input class="form-control input-sm" placeholder="输入正整数" id='enemy_forcefield_2_max' value=0 onblur="checkEnviInput()">
                                                                 </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%">
+                                                                    <input type="checkbox" id="enemy_hp_check" onchange="checkEnviInput()"> Can <span style="color:orangered">be killed</span>
+                                                                </td>
+                                                                <td style="width: 25%">HP</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm" placeholder="+Integer" id='enemy_hp' value=1000 onblur="checkEnviInput()" disabled>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 35%"><label class="radio-inline"><input type="radio" name="inj_type" id="inj_type1" onchange="checkEnviInput()" checked><b>Injury order</b></label></td>
+                                                                <td style="width: 30%"><input class="form-control input-sm" placeholder="输入顺序" id='inj_order' value=639528417 onblur="checkEnviInput()"></td>
+                                                                <td style="width: 35%"><label class="radio-inline"><input type="radio" name="inj_type" id="inj_type2" onchange="checkEnviInput()"><b>Injury all</b></label></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                     <h4>Injury simulate</h4>
                                                     <p>
-                                                        <button type="button" class="btn btn-outline btn-warning" onclick="getResult(1,'suffer')" disabled>Simulate once</button>
-                                                        <button type="button" class="btn btn-outline btn-danger" onclick="getResult(100,'suffer')" disabled>Simulate 100</button>
+                                                        <button type="button" class="btn btn-outline btn-warning" id="suffer_1" onclick="getResult(1,'suffer')" disabled>do x1</button>
+                                                        <button type="button" class="btn btn-outline btn-danger" id="suffer_100" onclick="getResult(100,'suffer')" disabled>do x100</button>
                                                     </p>
-                                                </div>
-                                                <div class="tab-pane fade" id="Setting2">
-                                                    <h4>BUFF All</h4>
-                                                    <input type="checkbox" id="check_init_critmax"> Must crit
-                                                    <p id="special_fairy"></p>
-                                                    <p id="special_num0"></p>
-                                                    <p id="special_num1"></p>
-                                                    <p id="special_num2"></p>
-                                                    <p id="special_num3"></p>
-                                                    <p id="special_num4"></p>
-                                                    <p id="special_num5"></p>
-                                                    <p id="special_num6"></p>
-                                                    <p id="special_num7"></p>
-                                                    <p id="special_num8"></p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting3">
                                                     <h4>Note and reference</h4>
                                                     <p> * Bullets arrive immediately</p>
-                                                    <p> * 1s from grenade preparation to launching</p>
-                                                    <p>Formulations <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA-link]</span></a></p>
-                                                    <p>T-doll/equip resources <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[enwiki-link]</span></a></p>
-                                                    <h4>Special thanks</h4>
-                                                    <p>T-dolls' propertire/affect block info support: @AsLegend</p>
-                                                    <p>Game details guide: @白金·世界</p>
-                                                    <p>Korean translation: @pohcy @marty @KOZ39</p>
-                                                    <p>BUG feedback: @a232430</p>
+                                                    <p> * Grenade launch in 1s</p>
+                                                    <p> * R93 passive duration is 92f for mechanism reason</p>
+                                                    <p>伤害判定流程和公式 <a href="https://bbs.nga.cn/read.php?tid=15377235" target="_blank"><span style="color:gray">[NGA链接]</span></a></p>
+                                                    <p>人物和装备素材来源 <a href="https://en.gfwiki.com" target="_blank"><span style="color:gray">[英文维基链接]</span></a></p>
+                                                    <p>敌人数据 <a href="https://gf.underseaworld.net/" target="_blank"><span style="color:gray">[少女前线数据网站]</span></a></p>
+                                                    <h4>特别感谢</h4>
+                                                    <p>人物属性/影响格数据填写：@AsLegend</p>
+                                                    <p>游戏机制细节指导：@白金·世界</p>
+                                                    <p>韩文翻译：@pohcy @marty @KOZ39</p>
+                                                    <p>BUG排查：@a232430</p>
+                                                    <h4>Update log</h4>
+                                                    <h5 id="info_updatelog"></h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
-                                        <h4>Simulation</h4>
-                                        <p>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(300)">Mobile vertical</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(700)">Default</button>
-                                            <button type="button" class="btn btn-default" onclick="setWidth(900)">Max width</button>
-                                        </p>
-                                        <table class="table_other table-bordered table-hover" style="width:200px">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 50%">Wid(300~900)</td>
-                                                    <td style="width: 40%">
-                                                        <input class="form-control input-sm" placeholder="输入300~900整数" id="container_len" value=700 onblur="setWidth('input')">
-                                                    </td>
-                                                    <td>px</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <h5><b>[Battlefield environment]</b>
-                                            <b><span style="color:darkorange" id='envi_day'>Daytime</span><span style="color:darkblue" id='envi_night'></span></b>
-                                            <span id='envi_fairy'>No fairy</span>
-                                            <span id='envi_talent' style="color:orangered">No talent</span>
-                                            <span id='envi_fairyskill' style="color:dodgerblue">No skill</span>
-                                            <span style="color: red" id="envi_allpro"></span>
-                                        </h5>
-                                        <h5><b>[Enemy properties]</b>
-                                            Type [ <span style="color:black" id='envi_ene_type'>Normal</span> ]
-                                            eva [ <span style="color:green" id='envi_ene_eva'>0</span> ]
-                                            aem [ <span style="color:green" id='envi_ene_arm'>0</span> ]
-                                            form [ <span style="color:green" id='envi_ene_form'>1</span> ]
-                                            num [ <span style="color:green" id='envi_ene_num'>1</span> ]
-                                            ff [ <span style="color:green" id='envi_ene_ff'>0</span> ]
-                                        </h5>
-                                        <h5><b>[Statistics]</b>
-                                            All dmg [ <b><span style="color:orangered" id='envi_alldmg'>0</span></b> ]
-                                            Battle-time [ <span style="color:green" id='envi_alltime'>50</span> ]
-                                            Encounter [ <span style="color:green" id='envi_contertime'>0</span> ]
-                                        </h5>
-                                        <div id="container" style="width: 700px"></div>
+                                        <div class="panel-body">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#Table_stat" data-toggle="tab">Result</a>
+                                                </li>
+                                                <li><a href="#Table_set" data-toggle="tab">Display setting</a>
+                                                </li>
+                                                <li><a href="#Table_debug" data-toggle="tab">Debug</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade in active" id="Table_stat">
+                                                    <h4>Simulation results</h4>
+                                                    <table class="table_other table-bordered table-hover" id="table_envi">
+                                                        <tbody>
+                                                            <tr style="height:31px">
+                                                                <td style="width:62px"><img src="../img/icon-daytime.png" id="envi_day"></td>
+                                                                <td style="width:100px">Running <span style="color:green" id='envi_contertime'>-</span>s</td>
+                                                                <td style="width:62px"><img src="../img/echelon/fairy/icon-f0.png" id="envi_fairy"></td>
+                                                                <td style="width:100px">Talent <span id='envi_talent' style="color:orangered">-</span></td>
+                                                            </tr>
+                                                            <tr style="height:31px">
+                                                                <td style="width:62px"></td>
+                                                                <td style="width:100px">Battle <span style="color:green" id='envi_alltime'>-</span>s</td>
+                                                                <td style="width:62px">Skill <span id='envi_fairyskill' style="color:dodgerblue">-</span></td>
+                                                                <td style="width:100px"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">Type <span style="color:black" id='envi_ene_type'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-atkdmg.png"> <span style="color:green" id='envi_ene_dmg'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-rof.png"> <span style="color:green" id='envi_ene_rof'>-</span></td>
+                                                                <td style="width:150px">&nbsp<img src="../img/icon-hp.png"> <span style="color:green" id='envi_ene_hp'>-</span></td>
+                                                            </tr>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">Formation <span style="color:green" id='envi_ene_form'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-eva.png"> <span style="color:green" id='envi_ene_eva'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-atkacu.png"> <span style="color:green" id='envi_ene_acu'>-</span></td>
+                                                                <td style="width:150px">&nbsp<img src="../img/icon-ff.png"> <span style="color:green" id='envi_ene_ff'>-</span></td>
+                                                            </tr>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">Group <span style="color:green" id='envi_ene_num'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-arm.png"> <span style="color:green" id='envi_ene_arm'>-</span></td>
+                                                                <td style="width:100px">&nbsp<img src="../img/icon-ap.png"> <span style="color:green" id='envi_ene_ap'>-</span></td>
+                                                                <td style="width:150px">&nbsp<img src="../img/icon-dbk.png"> <span style="color:green" id='envi_ene_dbk'>-</span></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center">Total damage</td>
+                                                                <td style="width:350px">&nbsp&nbsp<b><span style="color:orangered" id='envi_alldmg'>0</span></b></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody id="envi_stat"></tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="Table_set">
+                                                    <h8>&nbsp</h8>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr id="allcontrol_showhide"></tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr id="fairyHF_showhide"></tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover" id="table_showhide">
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="Table_debug">
+                                                    <h4>Debug mode: display code running status</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-default" onclick="debug_switch()" id="debug_button" style="width:200px">Click to open debug mode</button>
+                                                        <button type="button" class="btn btn-default" onclick="debug_clear()">Clear console</button>
+                                                    </p>
+                                                    <p>
+                                                        <button type="button" style="padding:2px;width:100px" class="btn btn-warning" id="debug_s_attack" onclick="debug_display(0)">Show attack</button>
+                                                        <button type="button" style="padding:2px;width:100px" class="btn btn-warning" id="debug_s_skill" onclick="debug_display(1)">Show skill</button>
+                                                        <button type="button" style="padding:2px;width:100px" class="btn btn-default" id="debug_s_status" onclick="debug_display(2)">No status</button>
+                                                    </p>
+                                                    <div class="form-group" style="height:400px;overflow-y:scroll;text-align:left">
+                                                        <table class="table table-bordered">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td id="debug_content"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>Flot chart</h4>
+                                        <div id="placeholder" style="height:400px"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
-        <script src="../js/flotr2.min.js"></script>
     </div>
     <!-- /#wrapper -->
-
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Flot Charts JavaScript -->
+    <script src="../vendor/flot/excanvas.min.js"></script>
+    <script src="../vendor/flot/jquery.flot.js"></script>
+    <script src="../vendor/flot/jquery.flot.resize.js"></script>
+    <script src="../vendor/flot/jquery.flot.time.js"></script>
+    <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
     <script>
         // tooltip demo
         $('.tooltip-demo').tooltip({
@@ -748,6 +999,15 @@
         // popover demo
         $("[data-toggle=popover]")
             .popover()
+    </script>
+    <!--version info-->
+    <script src="../js/version_GFT-EN.js"></script>
+    <script>
+        document.getElementById('info_version').innerHTML = _version.ES
+        document.getElementById('info_updatelog').innerHTML = _updateinfo.ES
+        for (var item of _navitem) {
+            document.getElementById('side-menu').innerHTML += item
+        }
     </script>
 
 </body>

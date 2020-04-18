@@ -22,7 +22,7 @@ var lib_name = {
   t1097: 'M950A MOD',
   t1001: '柯尔特左轮 MOD', t1007: '斯捷奇金 MOD',
   t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93',
-  t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD',
+  t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD', t1221: 'GSh-18 MOD',
   t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科', t269: 'P30',
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
   t5: '纳甘左轮', t10: 'PPK',
@@ -92,6 +92,7 @@ var lib_tdoll = [
   create_entry([1, 4, 1005], ['supportdps', 'supportdfs', 'startdps', 'af_dmg', 'af_crit'], ['random'], ['command_dmg', 'command_acu', 'weak_dmg'], ['night']),
   create_entry([1, 4, 1012], ['supportdps', 'af_acu', 'af_eva'], ['random'], ['command_acu', 'command_critdmg', 'command_addcs'], ['night']),
   create_entry([1, 4, 1091], ['supportdps', 'supportdfs', 'af_dmg'], ['random'], ['command_rof', 'weak_rof'], []),
+  create_entry([1, 4, 1221], ['dps', 'supportdps', 'af_dmg', 'af_acu'], ['random'], ['forcus_critdmg', 'max_crit', 'multihit', 'shield'], []),
   create_entry([1, 4, 1], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg'], []),
   create_entry([1, 4, 7], ['supportdps', 'af_rof'], ['random'], ['command_rof'], []),
   create_entry([1, 4, 98], ['supportdps', 'af_acu'], ['random'], ['weak_eva'], []),
@@ -332,7 +333,7 @@ special_weight.set('laomo', 0.1)
 special_weight.set('af_eva', 0.6)
 special_weight.set('af_acu', 0.8)
 special_weight.set('command_movespeed', 1.5)
-special_weight.set('passive', 0.7)
+special_weight.set('passive', 0.2)
 special_weight.set('multihit', 1.1)
 special_weight.set('af_rof', 1.5)
 special_weight.set('suggest_2', 1.5)

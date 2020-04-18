@@ -215,6 +215,58 @@
                     (stat_2 / test_num).toFixed(2)
                     + '</b>个二星'
             }
+            function temp_test(num) {
+                var total_add = 0, total_mul = 0
+                var p = parseFloat(document.getElementById('tp_1').value), dmg = parseFloat(document.getElementById('tp_2').value)
+                var level = 0
+                for (var i = 0; i < num; i++) {
+                    if (Math.random() <= p) {
+                        total_add += dmg + 0.15 * level
+                        total_mul += dmg * Math.pow(1.15, level)
+                        level = 0
+                    } else {
+                        total_add += 1
+                        total_mul += 1
+                        level++
+                    }
+                }
+                document.getElementById('tp_result1').innerHTML = (100 * (total_add) / num).toFixed(2) + '%'
+                document.getElementById('tp_result2').innerHTML = (100 * (total_mul) / num).toFixed(2) + '%'
+            }
+            function temp_console(numbers) {
+                var sele = 1, box1 = [0, 0, 0, 0, 0], box2 = [0, 0, 0, 0, 0],
+                    num_avgcfl = 0
+                for (var i = 0; i < numbers; i++) {
+                    box1 = [0, 0, 0, 0, 0], box2 = [0, 0, 0, 0, 0]
+                    for (var j = 0; j < 3; j++) {
+                        var current_idx = Math.floor(5 * Math.random())
+                        if (box1[current_idx] === 0) box1[current_idx] = 1
+                        else {
+                            while (box1[current_idx] === 1) {
+                                if (current_idx === 4) current_idx = 0
+                                else current_idx++
+                            }
+                            box1[current_idx] = 1
+                        }
+                        current_idx = Math.floor(5 * Math.random())
+                        if (box2[current_idx] === 0) box2[current_idx] = 1
+                        else {
+                            while (box2[current_idx] === 1) {
+                                if (current_idx === 4) current_idx = 0
+                                else current_idx++
+                            }
+                            box2[current_idx] = 1
+                        }
+                    }
+                    for (var j = 0; j < 5; j++) {
+                        if (box1[j] === 1 && box2[j] === 1) {
+                            num_avgcfl++
+                        }
+                    }
+                }
+                console.log('如果开局一个队伍每个人不选择重复的宝藏点')
+                console.log('在' + numbers + '局中，开局有' + num_avgcfl + '次冲突，平均每局冲突数:' + (num_avgcfl / numbers).toFixed(2))
+            }
         </script>
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -225,6 +277,25 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
+                        <p><button type="button" class="btn btn-warning" onclick="temp_console(1000000)" data-toggle="tab">console计算</button></p>
+                        <h4>临时：猎手技能</h4>
+                        <p><button type="button" class="btn btn-warning" onclick="temp_test(10000)" data-toggle="tab">计算</button></p>
+                        <table class="table table-bordered table-hover">
+                            <tbody>
+                                <tr>
+                                    <td style="width:100px">&nbsp基础暴击率</td>
+                                    <td style="width:100px"><input type="text" class="form-control" placeholder="integer" id="tp_1" value=0.3></td>
+                                    <td style="width:100px">&nbsp基础暴击伤害</td>
+                                    <td style="width:100px"><input type="text" class="form-control" placeholder="integer" id="tp_2" value=1.5></td>
+                                    <td style="width:100px">&nbsp技能</td>
+                                    <td style="width:100px"><span id="tp_result">每次未暴击，下次爆伤+15%</td>
+                                    <td style="width:100px">&nbsp如果是加法收益</td>
+                                    <td style="width:100px"><span id="tp_result1">?</td>
+                                    <td style="width:100px">&nbsp如果是乘法收益</td>
+                                    <td style="width:100px"><span id="tp_result2">?</td>
+                                </tr>
+                            </tbody>
+                        </table>
                         <h4>基础捕获设定</h4>
                         <table class="table table-bordered table-hover">
                             <tbody>
