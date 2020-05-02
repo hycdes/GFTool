@@ -447,7 +447,7 @@ function reactAllSkill(command, current_time) {
       }
     }
   }
-  // ———————————————————————————————————————— 人形特殊状态 ————————————————————————————————————————
+  // ———————————————————————————————————————— 随时检查型人形特殊状态 ————————————————————————————————————————
   for (var k = 0; k < 9; k++) {
     if (gs_tdoll[k]) {
       if (is_this(k, 257) || is_this(k, 273)) { // m200 ssg3000
@@ -509,6 +509,17 @@ function reactAllSkill(command, current_time) {
             }
             if (_spG('ak15_skill_frame_' + k) - global_frame >= 60) _spS('ak15_nexttime_' + k, global_frame + 60) // 如果还有则设置下一次计时点
           }
+        }
+      } else if (is_this(k, 307)) { // ZB-26
+        if (_spG('zb26_reload_addcsall_' + k) <= global_frame) {
+          for (var stn = 0; stn < 9; stn++) { // 换弹为其它MG增加弹量
+            if (gs_tdoll[stn] && stn != k) {
+              if (is_this_type(stn, 5)) {
+                _spPlus('clipsize_' + stn) // +1 cs
+              }
+            }
+          }
+          _spDelete('zb26_reload_addcsall_' + k)
         }
       } else if (is_this(k, 2011)) { // jill醉酒状态施加
         if (Set_Special.get('jill_drunk') != undefined && Set_Special.get('jill_drunk') <= global_frame) {
@@ -914,8 +925,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                 }
               }
             }
-            Set_Special.set('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
-            Set_Special.set('reloading_' + stand_num, true)
+            _spS('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
+            _spS('reloading_' + stand_num, true)
             changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
             if (_spG('MG_terminate_' + stand_num) != undefined) _spS('MG_terminate_' + stand_num, 0) // 连珠类重置计数器
             // ———————————————————— 弹量还原 ————————————————————
@@ -927,15 +938,9 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               Set_Special.set('angel_strength' + stand_num, angel_num)
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num - 1)
             } else if (is_this(stand_num, 307)) { // ZB-26层数积累
-              if (_spG('zb26_reload+' + stand_num) < 3) {
+              if (_spG('zb26_reload_' + stand_num) < 3) {
                 _spPlus('zb26_reload_' + stand_num)
-                for (var stn = 0; stn < 9; stn++) {
-                  if (gs_tdoll[stn] && stn != stand_num) {
-                    if (is_this_type(stn, 5)) {
-                      _spPlus('clipsize_' + stand_num) // +1 cs
-                    }
-                  }
-                }
+                _spS('zb26_reload_addcsall_' + stand_num, global_frame + reload_frame) // 换弹完毕生效
               }
             } else if (is_this(stand_num, 238)) { // 88式
               if (!document.getElementById('special_238_' + stand_num).checked) { // 重机枪模式
@@ -1818,6 +1823,13 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   } else if (skillname === 'zb26') {
     _spS('zb26_currentbullet_' + stand_num, _spG('clipsize_' + stand_num)) // 当前剩余子弹数
     _spS('clipsize_' + stand_num, _spG('clipsize_' + stand_num) + 8) // 增加技能弹量8发
+    for (var stn = 0; stn < 9; stn++) {
+      if (gs_tdoll[stn] && stn != stand_num) {
+        if (is_this_type(stn, 5)) {
+          _spPlus('clipsize_' + stn) // +1 cs
+        }
+      }
+    }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld
   } else if (skillname === 'hp35_passive') { // 暴走伴奏
     var is_debuff = false

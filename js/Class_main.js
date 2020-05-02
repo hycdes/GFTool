@@ -52,7 +52,7 @@ var lib_name = {
   // —————————————— MG ——————————————
   t2021: '阿尔玛·阿玛斯',
   t1075: 'M1918 MOD', t1089: '布伦 MOD',
-  t109: 'MG5', t112: '内格夫', t125: 'MG4', t173: 'PKP', t208: 'HK21', t238: '88式', t253: '刘易斯', t263: 'MG36', t276: 'Kord',
+  t109: 'MG5', t112: '内格夫', t125: 'MG4', t173: 'PKP', t208: 'HK21', t238: '88式', t253: '刘易斯', t263: 'MG36', t276: 'Kord', t307: 'ZB-26',
   t1081: 'LWMMG MOD',
   t75: 'M1918', t78: 'M60', t85: 'PK', t88: 'MG3', t121: 'Mk48', t149: 'AEK-999', t185: '阿梅利', t199: '80式', t240: 'Mk46', t254: 'UKM2000', t264: '绍沙', t275: 'M1895CB',
   t77: 'M2HB',
@@ -256,6 +256,7 @@ var lib_tdoll = [
   create_entry([5, 5, 253], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random'], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
   create_entry([5, 5, 263], ['dps', 'supportdps'], ['random'], ['forcus_dmg', 'forcus_acu', 'forcus_addcs', 'forcus_fastcs', 'ap', 'reducehurt'], []),
   create_entry([5, 5, 276], ['dps'], ['random'], ['forcus_dmg', 'forcus_acu', 'ap', 'penetrate', 'status'], []),
+  create_entry([5, 5, 307], ['dps', 'af_arm'], ['random'], ['forcus_dmg', 'forcus_acu', 'forcus_fastcs', 'command_addcs', 'ap', 'passive'], []),
   create_entry([5, 4, 1081], ['dps'], ['random'], ['forcus_acu', 'max_crit', 'ap', 'shield'], []),
   create_entry([5, 4, 1089], ['dps'], ['random'], ['forcus_acu', 'forcus_addcs', 'ap'], []),
   create_entry([5, 4, 75], ['dps'], ['random'], ['forcus_dmg', 'ap'], []),
