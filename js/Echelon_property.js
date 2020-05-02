@@ -345,6 +345,11 @@ lib_affect.set(294, createAffect('l/lu/luu/u/r/', 'all', ['dmg', 'rof'], [0.16, 
 lib_affect.set(295, createAffect('l/ld/ldd/', 'ar', ['dmg', 'acu'], [0.2, 0.25])) // CF05
 lib_affect.set(296, createAffect('u/uu/ur/urr/', 'all', ['dmg', 'eva'], [0.1, 0.18])) // SL8
 lib_affect.set(297, createAffect('r/ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // M82
+lib_affect.set(303, createAffect('l/lu/r/ru/u/uu/', 'all', ['dmg', 'eva'], [0.3, 0.2])) // HP-35
+lib_affect.set(304, createAffect('l/ld/', 'ar', ['dmg'], [0.22])) // SAF
+lib_affect.set(305, createAffect('u/d/', 'hg', ['cld'], [0.15])) // tabuk
+lib_affect.set(306, createAffect('r/ru/rr/', 'smg/ar', ['dmg', 'eva'], [0.2, 0.15])) // AK-alpha
+lib_affect.set(307, createAffect('r/rr/rru/', 'sg', ['rof', 'arm'], [0.15, 0.15])) // ZB-26
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -690,6 +695,11 @@ lib_property.set(294, createProperty(29, 66, 81, 57, 0, 430, 0.2, -1)) // 韦伯
 lib_property.set(295, createProperty(26, 13, 73, 87, 0, 950, 0.05, -1)) // CF05
 lib_property.set(296, createProperty(120, 78, 39, 41, 0, 425, 0.4, -1)) // SL8
 lib_property.set(297, createProperty(51, 45, 46, 75, 0, 565, 0.2, -1)) // M82
+lib_property.set(303, createProperty(31, 64, 89, 58, 0, 380, 0.2, -1)) // HP-35
+lib_property.set(304, createProperty(25, 14, 69, 99, 0, 900, 0.05, -1)) // SAF
+lib_property.set(305, createProperty(115, 81, 36, 39, 0, 420, 0.4, -1)) // tabuk
+lib_property.set(306, createProperty(56, 53, 52, 75, 0, 580, 0.2, -1)) // AK-alpha
+lib_property.set(307, createProperty(100, 31, 30, 116, 0, 910, 0.05, 9)) // ZB-26
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
@@ -910,6 +920,7 @@ lib_special_info.set(285, lib_language.special_info_common) // C-93
 lib_special_info.set(287, lib_language.special_info_common) // SIG-556
 lib_special_info.set(290, lib_language.special_info_common) // howa type 89
 lib_special_info.set(294, lib_language.special_info_common) // webley
+lib_special_info.set(306, lib_language.special_info_common) // AK-Alfa
 lib_special_info.set(1007, lib_language.special_info_common) // Stechkin
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4

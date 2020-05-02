@@ -104,6 +104,7 @@ lib_language = {
   NAME_283: 'Liberator',
   NAME_290: 'Howa type 89',
   NAME_294: 'Webley',
+  NAME_305: 'Tabuk',
 
   NAME_2001: 'Noel',
   NAME_2002: 'Elphelt',
@@ -183,6 +184,7 @@ lib_language = {
   skillNAME_238: 'Slothful Rage',
   skillNAME_243: 'Future Warning',
   skillNAME_252: 'Concussive Strike',
+  skillNAME_306: 'Blazar',
   skillNAME_2006: 'Sanctions of Light',
   DESCRIBE_39_1: 'Each',
   DESCRIBE_39_2: 'attacks kill',
@@ -208,6 +210,7 @@ lib_language = {
   DESCRIBE_243_2: 'Sheild 25',
   DESCRIBE_251: 'Lock of Flowers',
   DESCRIBE_252: 'Sputter all enemies',
+  DESCRIBE_306: 'Attack direct standing enemy',
   DESCRIBE_2006: 'Enemy enter area',
 
   fairy_0: 'No fairy',

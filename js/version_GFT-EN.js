@@ -1,12 +1,12 @@
 var _version = {
     DB: 'v3.3',
     CC: 'v5.3 (2019.11.26)',
-    ES: 'v4.7.0 (2020.04.18)',
+    ES: 'v4.7.0 (2020.05.2)',
     ST: 'v3.1 (2020.01.05)',
     CL: 'v1.0 (2020.04.10)'
 }
 var _updateinfo = {
-    ES: '1. finish NTW-20 MOD'
+    ES: '1. finish all new t-dolls in 2020.05.01'
 }
 var _navitem = [
     '<li><a href="index-EN.html"><i class="fa fa-home fa-fw"></i> Index</a></li>',

@@ -905,6 +905,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 0, 'checked') // M1895CB
     else if (ID === 287) addSpecialSetting(287, reverse_position, num_pickblock, 0, 'checked') // SIG-556
     else if (ID === 290) addSpecialSetting(290, reverse_position, num_pickblock, 0, '') // 89 type
+    else if (ID === 306) addSpecialSetting(306, reverse_position, num_pickblock, 0, 'checked') // AK-ALPHA
     else if (ID === 1007) addSpecialSetting(1007, reverse_position, num_pickblock, 0, '') // Stechkin MOD
     else if (ID === 1065) addSpecialSetting(1065, reverse_position, num_pickblock, 0, 'checked') // HK416 MOD
     else if (ID === 1097) addSpecialSetting(1097, reverse_position, num_pickblock, 0, 'checked') // M950A MOD

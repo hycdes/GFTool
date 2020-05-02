@@ -409,6 +409,9 @@ function init_loadPrepareStatus() { // 初始化战前属性
     Set_Data_S.set(9, [[0, 1600]])
     Set_Data_S_Percentage.set(9, [[0, 1]])
   }
+  // 全局易伤，独立于伤害加深，目前包括：HP-35
+  _spS('global_dmgdeepen', []) // ['id','is_active','value']
+
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       Set_Base.set(i, getBaseProperty(i)) // 计算出战属性
@@ -468,6 +471,8 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('89_fsbuff_' + i, 0)
         _spS('89_manual_' + i, false) // 首轮技能复习一次后无效
         _spS('89_auto_' + i, 0)
+      } else if (is_this(i, 307)) { // ZB-26
+        _spS('zb26_reload_' + i, 0)
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         Set_Special.set('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动

@@ -422,6 +422,21 @@ function describe_m950amod() { // m950a-mod
   Describe.name = 'm950amod'
   return Describe
 }
+function describe_zb26() { // zb-26
+  var Describe = {}
+  Describe.name = 'zb26'
+  return Describe
+}
+function describe_hp35() { // hp-35 active
+  var Describe = {}
+  Describe.name = 'hp35'
+  return Describe
+}
+function describe_hp35_passive() { // hp-35 passive
+  var Describe = {}
+  Describe.name = 'hp35_passive'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -501,6 +516,7 @@ lib_describe.set('dmgeva_15040', describe_property(['self'], ['dmg/eva'], ['1.5/
 lib_describe.set('dmg_120', describe_property(['self'], ['dmg'], ['1.2'])) // 火力专注 120%
 lib_describe.set('type100', describe_property(['self'], ['dmg'], ['0.85'])) // 火力专注 85%
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
+lib_describe.set('dmg_705', describe_property(['self'], ['dmg'], ['0.705'])) // 对称性调节 70.5%
 lib_describe.set('dmg_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注 70%
 lib_describe.set('dmg_65', describe_property(['self'], ['dmg'], ['0.65'])) // 火力专注 65%
 lib_describe.set('dmg_60', describe_property(['self'], ['dmg'], ['0.6'])) // 火力专注 60%
@@ -632,6 +648,7 @@ lib_describe.set('bronya', describe_bomb(0.2, 0.2, 1, 5)) // 黑洞触媒
 lib_describe.set('hand_grenade_6.5', describe_bomb(6.5, 0, 0, 0)) // 手榴弹-4星
 lib_describe.set('hand_grenade_6', describe_bomb(6, 0, 0, 0)) // 手榴弹-3星
 lib_describe.set('hand_grenade_5.5', describe_bomb(5.5, 0, 0, 0)) // 手榴弹-2星
+lib_describe.set('hand_grenade_3', describe_bomb(3, 0, 0, 0)) // 震荡烈轰
 lib_describe.set('fp6_dmg', describe_bomb(0.8, 0, 0, 0)) // 失乐园
 lib_describe.set('uzi_burn', describe_bomb(6.5, 1, 3, 5)) // 灼烧链接
 // grenade
@@ -736,6 +753,9 @@ lib_describe.set('ak15', describe_ak15()) // 白獒之瞳
 lib_describe.set('webley', describe_webley()) // webley
 lib_describe.set('ntwmod', describe_ntwmod()) // 狂猎燃魂+连锁反应
 lib_describe.set('m950amod', describe_m950amod()) // 灵魂LIVE
+lib_describe.set('zb26', describe_zb26()) // 完美连锁
+lib_describe.set('hp35', describe_hp35()) // 暴走伴奏
+lib_describe.set('hp35_passive', describe_hp35_passive()) // 暴走伴奏-被动
 
 // lib_skill
 
@@ -772,6 +792,10 @@ lib_skill.set(285, [
   createSkill(5, 12, 0, lib_describe.get('c93'))
 ]) // C-93技能暂定特殊设定控制射速层
 lib_skill.set(294, [createSkill(6, 12, 0, lib_describe.get('webley'))]) // webley
+lib_skill.set(303, [
+  createSkill(6, 12, 6, lib_describe.get('hp35')), // HP-35 主动
+  createSkill(0, 0, 0, lib_describe.get('hp35_passive')), // HP-35 被动
+]) // hp-35
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))
@@ -905,6 +929,7 @@ lib_skill.set(287, [createSkill(5, 4, 0, lib_describe.get('SIG-556'))]) // SIG-5
 lib_skill.set(289, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // R5
 lib_skill.set(290, [createSkill(3, 4, 0, lib_describe.get('89type'))]) // 89type
 lib_skill.set(293, [createSkill(6, 8, 0, lib_describe.get('ak15'))]) // ak15
+lib_skill.set(306, [createSkill(5, 8, 5, lib_describe.get('dmg_65'))]) // AK-ALPHA
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
@@ -1045,6 +1070,7 @@ lib_skill.set(286, [
   createSkill(6, 8, 1, lib_describe.get('ffs')),
   createSkill(7, 8, 5, lib_describe.get('eva_60'))
 ]) // KAC-PDW
+lib_skill.set(304, [createSkill(4, 8, 0, lib_describe.get('hand_grenade_3'))]) // SAF
 lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
 lib_skill.set(1031, [  // beretta mod
   createSkill(7, 16, 0, lib_describe.get('flash_4')),
@@ -1153,6 +1179,7 @@ lib_skill.set(252, [createSkill(10, 16, 0, lib_describe.get('snipe_4'))])
 lib_skill.set(261, [createSkill(8, 16, 0, lib_describe.get('qbu88'))])
 lib_skill.set(270, [createSkill(6, 8, 5, lib_describe.get('rof_55'))]) // 四式
 lib_skill.set(273, [createSkill(6, 16, 0, lib_describe.get('ssg3000'))]) // SSG3000
+lib_skill.set(305, [createSkill(5, 8, 5, lib_describe.get('dmg_705'))]) // tabuk
 lib_skill.set(1037, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 6, lib_describe.get('critdmg_10'))
@@ -1228,6 +1255,7 @@ lib_skill.set(263, [
 ])
 lib_skill.set(276, []) // Kord
 lib_skill.set(292, [createSkill(8, 18, 0, lib_describe.get('rpk16'))]) // RPK-16
+lib_skill.set(307, [createSkill(8, 18, 0, lib_describe.get('zb26'))]) // ZB-26
 lib_skill.set(1075, [createSkill(8, 18, 6, lib_describe.get('dmg_75'))]) // m1918 mod
 // ———————————————————————————————————————— MG - 4 ————————————————————————————————————————
 lib_skill.set(75, [createSkill(8, 18, 6, lib_describe.get('dmg_70'))]) // m1918

@@ -526,6 +526,10 @@ function reactAllSkill(command, current_time) {
       fragile_main /= 1.4
       Set_Special.delete('fragile_40')
     }
+    if (Set_Special.get('fragile_hp35_a') != undefined && Set_Special.get('fragile_hp35_a') < global_frame) { // 暴走伴奏
+      fragile_main /= 1.18
+      Set_Special.delete('fragile_hp35_a')
+    }
     if (Set_Special.get('fragile_15') != undefined && Set_Special.get('fragile_15') < global_frame) { // 夜枭轰鸣
       fragile_main /= 1.15
       fragile_all /= 1.15
@@ -536,9 +540,9 @@ function reactAllSkill(command, current_time) {
       fragile_all /= 2
       Set_Special.delete('fragile_100')
     }
-    if (Set_Special.get('fragile_hkk416') != undefined && Set_Special.get('fragile_hkk416') < global_frame) { // 寄生榴弹重伤
+    if (Set_Special.get('fragile_hk416') != undefined && Set_Special.get('fragile_hk416') < global_frame) { // 寄生榴弹重伤
       fragile_main /= 1.2
-      Set_Special.delete('fragile_hkk416')
+      Set_Special.delete('fragile_hk416')
     }
 
     // 减伤类状态
@@ -777,10 +781,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           Set_Special.set('carcano9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
         }
-        // ——————————————————————————————————————常规人形按射速折算射击间隔——————————————————————————————————————
+        // —————————————————————————————————————— 常规人形按射速折算射击间隔 ——————————————————————————————————————
         else {
           var final_rof = current_Info.get('rof')
-          // 这里将处理一些特殊的射速计算，例如可刷新的射速类状态，将不会在状态类属性中结算——————————————————————————————————————
+          // 这里将处理一些特殊的射速计算，例如可刷新的射速类状态，将不会在状态类属性中结算 ——————————————————————————————————————
           // 89式
           if (is_this(stand_num, 290)) {
             if (_spG('89_fsbuff_' + stand_num) != undefined && _spG('89_fsbuff_' + stand_num) >= global_frame) { // 满分模式buff射速
@@ -789,7 +793,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           }
           s_t[1] = rof_to_frame(current_Info.get('type'), final_rof, list_tdoll[stand_num][1].ID) - 1
         }
-        // ——————————————————————————————————————MG和SG扣除子弹——————————————————————————————————————
+        // —————————————————————————————————————— MG和SG扣除子弹 ——————————————————————————————————————
       } else {
         if (is_this(stand_num, 292)) { // RPK-16
           var cs = Set_Special.get('clipsize_' + stand_num)
@@ -835,7 +839,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               cs++
             }
           }
+          // 常规MG扣除子弹
           cs--
+          // 
+          if (is_this(stand_num, 307)) { // ZB-26特殊记录
+            if (_spG('zb26_currentbullet_' + stand_num) > 0) {
+              _spDecl('zb26_currentbullet_' + stand_num)
+            }
+          }
           if (is_this(stand_num, 173)) { // PKP暴动宣告相关处理
             if (Set_Special.get('pkp_nextcrit_' + stand_num) === 'ready' && Math.random() <= 0.2) {
               cs++
@@ -869,6 +880,9 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                 } else if (is_this(stand_num, 264)) { // 百合纹章：加速换弹
                   reload_frame = Math.floor(reload_frame * (1 - 0.2 * Set_Special.get('chauchat_nextreload_' + stand_num)))
                   Set_Special.set('chauchat_nextreload_' + stand_num, 0)
+                } else if (is_this(stand_num, 307)) { // ZB-26：完美连锁
+                  reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.2 * Set_Special.get('zb26_reload_' + stand_num))), reload_frame * 0.4)
+                  _spS('zb26_currentbullet_' + stand_num, -1) // 负数即清空技能弹计数 
                 }
               }
             } else if (current_Info.get('type') === 6) { // SG的换弹
@@ -904,12 +918,25 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             Set_Special.set('reloading_' + stand_num, true)
             changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
             if (_spG('MG_terminate_' + stand_num) != undefined) _spS('MG_terminate_' + stand_num, 0) // 连珠类重置计数器
-            Set_Special.set('clipsize_' + stand_num, current_Info.get('cs')) // 弹量还原
+            // ———————————————————— 弹量还原 ————————————————————
+            _spS('clipsize_' + stand_num, _spG('clipsize_' + stand_num) + current_Info.get('cs'))
+
             if (is_this(stand_num, 253)) { // 刘易斯增加弹量
               var angel_num = Set_Special.get('angel_strength' + stand_num)
               if (angel_num < 3) angel_num++
               Set_Special.set('angel_strength' + stand_num, angel_num)
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num - 1)
+            } else if (is_this(stand_num, 307)) { // ZB-26层数积累
+              if (_spG('zb26_reload+' + stand_num) < 3) {
+                _spPlus('zb26_reload_' + stand_num)
+                for (var stn = 0; stn < 9; stn++) {
+                  if (gs_tdoll[stn] && stn != stand_num) {
+                    if (is_this_type(stn, 5)) {
+                      _spPlus('clipsize_' + stand_num) // +1 cs
+                    }
+                  }
+                }
+              }
             } else if (is_this(stand_num, 238)) { // 88式
               if (!document.getElementById('special_238_' + stand_num).checked) { // 重机枪模式
                 Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
@@ -1587,7 +1614,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'hk416_fragile') {
-    Set_Special.set('fragile_hkk416', global_frame + 90)
+    Set_Special.set('fragile_hk416', global_frame + 90)
     fragile_main *= 1.2
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
@@ -1787,6 +1814,52 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       do_debuff('enemy_speed', 9999 * 30)
       endStatus(-1, [['enemy_speed', -0.3], 9999 * 30], 'enemy_get')
     }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  } else if (skillname === 'zb26') {
+    _spS('zb26_currentbullet_' + stand_num, _spG('clipsize_' + stand_num)) // 当前剩余子弹数
+    _spS('clipsize_' + stand_num, _spG('clipsize_' + stand_num) + 8) // 增加技能弹量8发
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld
+  } else if (skillname === 'hp35_passive') { // 暴走伴奏
+    var is_debuff = false
+    var list_debuff = ['enemy_dmg', 'enemy_rof', 'enemy_acu', 'enemy_eva', 'enemy_arm',
+      'enemy_speed', 'enemy_dot', 'enemy_dizz']
+    if (_spG('sunrise') === 'night') {
+      is_debuff = true
+    } else {
+      for (var debuff of list_debuff) {
+        if (Set_Special.get(debuff) >= global_frame) {
+          is_debuff = true
+          break
+        }
+      }
+    }
+    if (is_debuff) { // 有debuff
+      var list_dmgdeepen = _spG('global_dmgdeepen'),
+        is_record = false
+      for (var entry of list_dmgdeepen) { // ['id','is_active','value']
+        if (entry[0] === 'hp35_passive') {
+          is_record = true
+          entry[1] = true
+          break
+        }
+      }
+      if (!is_record) {
+        list_dmgdeepen.push(['hp35_passive', true, 1.08])
+        _spS('global_dmgdeepen', list_dmgdeepen)
+      }
+    } else { // 没有debuff
+      var list_dmgdeepen = _spG('global_dmgdeepen')
+      for (var entry of list_dmgdeepen) { // ['id','is_active','value']
+        if (entry[0] === 'hp35_passive') {
+          entry[1] = false
+          break
+        }
+      }
+    }
+  } else if (skillname === 'hp35') {
+    _spS('fragile_hp35_a', global_frame + 180)
+    fragile_main *= 1.18
+
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
   }
 
@@ -2553,12 +2626,19 @@ function get_ump9_samecolumn_list(stand_num) {
 }
 
 // 基本语义性函数
-function explain_fgl_ff(damage_type) {
+function explain_fgl_ff() {
   // 解释伤害加成，力场减免+AOE计算+伤害加深
+  // 解释受到伤害加深，目前只有HP-35，与伤害加深判定不同
   // single单体, around_single周遭单体
   // around_multiple周遭群体（乘数量，贯通射击）,
   // aoe范围（乘数量和编制，榴弹等）, around_aoe周遭溅射（乘数量和编制，炮击溅射等）
-  // forcefield damage reduction 
+  // forcefield damage reduction
+
+  var damage_type = arguments['0']
+  var special_command = arguments['1']
+  var _para_fgl_ff = 1  // 伤害参数返回值
+
+  // 判断是否满力场
   if (damage_type === 'is_maxff') {
     if (display_type === 'damage' && enemy_forcefield > 0) {
       if (1 - enemy_forcefield / enemy_forcefield_max === 0) return true
@@ -2569,24 +2649,43 @@ function explain_fgl_ff(damage_type) {
       else return false
     }
   }
-  var ff_ratio = 1
-  if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
-  else if (display_type === 'suffer' && enemy_forcefield_2 > 0) ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
-  if (damage_type === 'single') return fragile_main * ff_ratio
-  else if (damage_type === 'attack_all') {
-    if (aoe_num <= enemy_num_left) return fragile_all * ff_ratio * aoe_num
-    else fragile_all * ff_ratio * enemy_num_left
+
+  var ff_ratio = 1 // 力场减免倍率
+
+  if (special_command === 'HOC') {
+    ff_ratio = 1
+  } else {
+    if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
+    else if (display_type === 'suffer' && enemy_forcefield_2 > 0) ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
   }
-  else if (damage_type === 'around_single') return fragile_all * ff_ratio
-  else if (damage_type === 'around_multiple') return fragile_all * ff_ratio * (aoe_num - 1)
+
+  // 返回伤害参数
+  if (damage_type === 'single') _para_fgl_ff *= (fragile_main * ff_ratio)
+  else if (damage_type === 'attack_all') {
+    if (aoe_num <= enemy_num_left) _para_fgl_ff *= (fragile_all * ff_ratio * aoe_num)
+    else _para_fgl_ff *= (fragile_all * ff_ratio * enemy_num_left)
+  }
+  else if (damage_type === 'around_single') _para_fgl_ff *= (fragile_all * ff_ratio)
+  else if (damage_type === 'around_multiple') _para_fgl_ff *= (fragile_all * ff_ratio * (aoe_num - 1))
   else if (damage_type === 'aoe') {
-    if (aoe_num <= enemy_num_left) return (fragile_main + (aoe_num - 1) * fragile_all) * enemy_form * ff_ratio
-    else return (fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio
+    if (aoe_num <= enemy_num_left) _para_fgl_ff *= ((fragile_main + (aoe_num - 1) * fragile_all) * enemy_form * ff_ratio)
+    else _para_fgl_ff *= ((fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio)
   }
   else if (damage_type === 'around_aoe') {
-    if (aoe_num <= enemy_num_left) return ((aoe_num - 1) * fragile_all) * enemy_form * ff_ratio
-    else return ((enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio
+    if (aoe_num <= enemy_num_left) _para_fgl_ff *= (((aoe_num - 1) * fragile_all) * enemy_form * ff_ratio)
+    else _para_fgl_ff *= (((enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio)
+  } else if (damage_type == 'HOC') {
+    _para_fgl_ff *= ((fragile_main / enemy_num_left) + (fragile_all * (enemy_num_left - 1) / enemy_num_left))
   }
+
+  // 受伤害加深统一结算
+  for (var entry of _spG('global_dmgdeepen')) { // [id,is_active,value]
+    if (entry[1]) {
+      _para_fgl_ff *= entry[2]
+    }
+  }
+
+  return _para_fgl_ff
 }
 function explain_heavyfire(hfn) { // 解释重装伤害，包括：力场削减、是否命中、额外破防伤害、基础无视力场伤害
   var damage = this_dmg(hfn)
@@ -2799,7 +2898,7 @@ function explain_heavyfire(hfn) { // 解释重装伤害，包括：力场削减�
   damage_aoe *= aoe_multi
   damage_main_overdbk *= main_multi
   damage_aoe_overdbk *= aoe_multi
-  return damage_main + damage_aoe + damage_main_overdbk + damage_aoe_overdbk
+  return explain_fgl_ff('HOC', 'HOC') * (damage_main + damage_aoe + damage_main_overdbk + damage_aoe_overdbk)
 }
 
 // lable_create

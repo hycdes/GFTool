@@ -177,6 +177,17 @@ function settle_buff(stand_num, info_self) {
             _spS('ak15_angry_frame_' + stand_num, global_frame + 90)
         }
     }
+    else if (is_this(stand_num, 306)) {
+        if (document.getElementById('special_306_' + stand_num).checked) {
+            _mul_dmg *= 1.2
+        }
+    }
+    else if (is_this(stand_num, 307)) { // ZB-26 技能弹
+        if (_spG('zb26_currentbullet_' + stand_num) === 0) { // skill-on
+            _mul_dmg *= 1.5
+            _mul_acu *= 1.5
+        }
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
