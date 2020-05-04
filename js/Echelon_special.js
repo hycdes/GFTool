@@ -178,7 +178,7 @@ function settle_buff(stand_num, info_self) {
         }
     }
     else if (is_this(stand_num, 306)) {
-        if (document.getElementById('special_306_' + stand_num).checked) {
+        if (document.getElementById('special_306_' + stand_num).checked || _spG('akalfa_skillon_' + stand_num) >= global_frame) {
             _mul_dmg *= 1.2
         }
     }

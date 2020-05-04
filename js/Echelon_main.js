@@ -1871,7 +1871,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   } else if (skillname === 'hp35') {
     _spS('fragile_hp35_a', global_frame + 180)
     fragile_main *= 1.18
-
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  } else if (skillname === 'akalfa') { // AK-Alfa耀变体
+    _spS('akalfa_skillon_' + stand_num, global_frame + 150)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  } else if (skillname === 'cf05') {
+    _spS('cf05_' + stand_num, global_frame + 180)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
   }
 
@@ -2385,6 +2390,14 @@ function injury(shoot_target) {
       damage *= 0.75
     }
   }
+  // 特殊减伤
+  if (is_this(shoot_target, 295)) { // 牛油晶冻降低固定伤害
+    if (_spG('cf05_' + shoot_target) >= global_frame) {
+      damage -= 15
+    }
+  }
+
+  // 命中和血量扣除
   var accuracy_rate = accuracy / (accuracy + current_Info.get('eva'))
   var single_hp = current_Info.get('hp') / 5
   var suffer_hp = get_left_hp(shoot_target, single_hp)
@@ -2652,21 +2665,24 @@ function explain_fgl_ff() {
 
   // 判断是否满力场
   if (damage_type === 'is_maxff') {
-    if (display_type === 'damage' && enemy_forcefield > 0) {
-      if (1 - enemy_forcefield / enemy_forcefield_max === 0) return true
-      else return false
+    if (display_type === 'damage') {
+      if (enemy_forcefield > 0) { // 有力场
+        if (1 - enemy_forcefield / enemy_forcefield_max === 0) return true
+        else return false
+      } else return false // 没力场
     }
-    else if (display_type === 'suffer' && enemy_forcefield_2 > 0) {
-      if (1 - enemy_forcefield_2 / enemy_forcefield_2_max === 0) return true
-      else return false
+    else if (display_type === 'suffer') {
+      if (enemy_forcefield_2 > 0) {
+        if (1 - enemy_forcefield_2 / enemy_forcefield_2_max === 0) return true
+        else return false
+      } else return false
     }
   }
 
   var ff_ratio = 1 // 力场减免倍率
-
   if (special_command === 'HOC') {
     ff_ratio = 1
-  } else {
+  } else if (special_command === undefined) {
     if (display_type === 'damage' && enemy_forcefield > 0) ff_ratio = 1 - enemy_forcefield / enemy_forcefield_max
     else if (display_type === 'suffer' && enemy_forcefield_2 > 0) ff_ratio = 1 - enemy_forcefield_2 / enemy_forcefield_2_max
   }
@@ -2696,7 +2712,6 @@ function explain_fgl_ff() {
       _para_fgl_ff *= entry[2]
     }
   }
-
   return _para_fgl_ff
 }
 function explain_heavyfire(hfn) { // 解释重装伤害，包括：力场削减、是否命中、额外破防伤害、基础无视力场伤害

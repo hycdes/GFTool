@@ -437,6 +437,16 @@ function describe_hp35_passive() { // hp-35 passive
   Describe.name = 'hp35_passive'
   return Describe
 }
+function describe_akalfa() { // ak-alfa skill-on straight
+  var Describe = {}
+  Describe.name = 'akalfa'
+  return Describe
+}
+function describe_cf05() { // cf05
+  var Describe = {}
+  Describe.name = 'cf05'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -750,12 +760,14 @@ lib_describe.set('89type', describe_89type()) // 89式技能
 lib_describe.set('rpk16', describe_rpk16()) // 银狐的狡黠
 lib_describe.set('sl8', describe_sl8()) // 遥光海波
 lib_describe.set('ak15', describe_ak15()) // 白獒之瞳
+lib_describe.set('cf05', describe_cf05()) // 牛油晶冻
 lib_describe.set('webley', describe_webley()) // webley
 lib_describe.set('ntwmod', describe_ntwmod()) // 狂猎燃魂+连锁反应
 lib_describe.set('m950amod', describe_m950amod()) // 灵魂LIVE
 lib_describe.set('zb26', describe_zb26()) // 完美连锁
 lib_describe.set('hp35', describe_hp35()) // 暴走伴奏
 lib_describe.set('hp35_passive', describe_hp35_passive()) // 暴走伴奏-被动
+lib_describe.set('akalfa', describe_akalfa()) // 耀变体
 
 // lib_skill
 
@@ -929,7 +941,10 @@ lib_skill.set(287, [createSkill(5, 4, 0, lib_describe.get('SIG-556'))]) // SIG-5
 lib_skill.set(289, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))]) // R5
 lib_skill.set(290, [createSkill(3, 4, 0, lib_describe.get('89type'))]) // 89type
 lib_skill.set(293, [createSkill(6, 8, 0, lib_describe.get('ak15'))]) // ak15
-lib_skill.set(306, [createSkill(5, 8, 5, lib_describe.get('dmg_65'))]) // AK-ALPHA
+lib_skill.set(306, [
+  createSkill(5, 8, 5, lib_describe.get('dmg_65')),
+  createSkill(5, 8, 5, lib_describe.get('akalfa'))
+]) // AK-ALPHA
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
@@ -1070,6 +1085,7 @@ lib_skill.set(286, [
   createSkill(6, 8, 1, lib_describe.get('ffs')),
   createSkill(7, 8, 5, lib_describe.get('eva_60'))
 ]) // KAC-PDW
+lib_skill.set(295, [createSkill(5, 16, 6, lib_describe.get('cf05'))]) // cf05
 lib_skill.set(304, [createSkill(4, 8, 0, lib_describe.get('hand_grenade_3'))]) // SAF
 lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
 lib_skill.set(1031, [  // beretta mod
