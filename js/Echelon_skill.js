@@ -447,6 +447,23 @@ function describe_cf05() { // cf05
   Describe.name = 'cf05'
   return Describe
 }
+function describe_angelica() { // angelica
+  var Describe = {}
+  Describe.name = 'angelica'
+  return Describe
+}
+function describe_henrietta_init() { // henrietta_init
+  var Describe = {}
+  Describe.name = 'henrietta_init'
+  return Describe
+}
+function describe_henrietta_active() { // henrietta_active
+  var Describe = {}
+  Describe.name = 'henrietta_active'
+  return Describe
+}
+
+
 
 // lib_decribe
 // universal
@@ -691,6 +708,7 @@ lib_describe.set('snipe_5.5', describe_snipe(5.5, 1.5, 0, 1, 'armless/critless/e
 lib_describe.set('snipe_5', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 5倍炮狙
 lib_describe.set('snipe_4', describe_snipe(4, 1.5, 0, 1, 'armless/critless/evaless')) // 4倍炮狙：震荡冲击弹
 lib_describe.set('snipe_3', describe_snipe(3, 1, 0, 1, 'armless/critless/evaless')) // 3倍炮狙
+lib_describe.set('rico_snipe', describe_snipe(3, 0, 0, 1, 'armless/crit/evaless')) // 提希丰之塔
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
 lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击2倍，目标数特殊变量设定
 lib_describe.set('pzb39', describe_snipe(1.8, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击1.8倍
@@ -768,6 +786,10 @@ lib_describe.set('zb26', describe_zb26()) // 完美连锁
 lib_describe.set('hp35', describe_hp35()) // 暴走伴奏
 lib_describe.set('hp35_passive', describe_hp35_passive()) // 暴走伴奏-被动
 lib_describe.set('akalfa', describe_akalfa()) // 耀变体
+lib_describe.set('henrietta_init', describe_henrietta_init()) // 月轮守护人-初始护盾
+lib_describe.set('henrietta_active', describe_henrietta_active()) // 月轮守护人-主动
+lib_describe.set('angelica', describe_angelica()) // 极限射击
+
 
 // lib_skill
 
@@ -1430,3 +1452,12 @@ lib_skill.set(2014, [ // Stella
 ])
 lib_skill.set(2015, [createSkill(8, 18, 4, lib_describe.get('alma'))]) // 爱&梦想
 lib_skill.set(2016, [createSkill(8, 18, 0, lib_describe.get('dana'))]) // 红色间歇泉
+lib_skill.set(2023, [
+  createSkill(0, -1, 0, lib_describe.get('henrietta_init')), // 月轮守护人-初始护盾
+  createSkill(4, 16, 5, lib_describe.get('henrietta_active'))]) // 月轮守护人-主动
+lib_skill.set(2024, [createSkill(4, 10, 0, lib_describe.get('rico_snipe'))]) // 提希丰之塔
+lib_skill.set(2025, []) // 木偶把戏
+lib_skill.set(2027, [
+  createSkill(0, 10, 0, lib_describe.get('angelica')),
+  createSkill(4, 12, 5, lib_describe.get('aug'))
+]) // 安洁莉卡

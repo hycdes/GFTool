@@ -479,6 +479,7 @@ function resetEquipment() {
       else if (ID === 1063) set_equip = [11063, 22, 31] // g3 mod
       else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
       else if (ID === 1065) set_equip = [165, 22, 31065] // HK416 mod
+      else if (ID === 2027) set_equip = [12, 22, 32027] // Angelica
       else if (ID === 3054) set_equip = [32, 23054, 354] // sf m16
       else set_equip = [12, 22, 31]
     }
@@ -496,6 +497,7 @@ function resetEquipment() {
       else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
       else if (ID === 1094) set_equip = [32, 21, 11094] // 64type mod
       else if (ID === 2013) set_equip = [31, 22013, 11] // Dorothy
+      else if (ID === 2023) set_equip = [32, 21, 12023] // Henrietta
       else set_equip = [32, 21, 11]
     }
     else if (set_guntype === 4) {
@@ -513,6 +515,7 @@ function resetEquipment() {
       else if (ID === 1095) set_equip = [11095, 23, 34] // hanyang88 mod
       else if (ID === 1252) set_equip = [12, 21252, 34] // ksvk mod
       else if (ID === 2014) set_equip = [12, 23, 32014] // Stella
+      else if (ID === 2024) set_equip = [12, 23, 32024] // Rico
       else set_equip = [12, 23, 34]
     }
     else if (set_guntype === 5) {
@@ -528,6 +531,7 @@ function resetEquipment() {
     else if (set_guntype === 6) {
       if (ID === 158) set_equip = [33, 2158, 13] // ks23
       else if (ID === 2016) set_equip = [32016, 24, 13] // Dana
+      else if (ID === 2025) set_equip = [33, 22025, 13] // Triela
       else set_equip = [33, 24, 13]
     }
     document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
@@ -931,6 +935,12 @@ function addTdoll() { // 添加战术人形
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_294 + '</h4>'
       str_html += '韦伯利的技能会根据<b>自己是否为队长</b>而有所不同，请在<b>人形九宫格下方队长位</b>进行选择。如果选择"default"，那么队长将会指定为站位号数最小的一位。'
       str_html += '此外，模拟器同一帧技能从1到9号位依次执行，如果韦伯利和她的队长同一帧发动技能，她们所占格子的号数先后可能影响到队长技能的冷却缩短。你可以设定<b>技能强制延时0.03</b>，即1帧。'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
+    else if (ID === 2025) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_2025 + '</h4>'
+      str_html += '目前模拟器中，崔耶拉无限捅刀！'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 2013) {

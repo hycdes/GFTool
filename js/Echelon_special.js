@@ -211,6 +211,23 @@ function settle_buff(stand_num, info_self) {
             Set_Special.set('stella_buff', false)
         }
     }
+    else if (is_this(stand_num, 2023)) { // henrietta dmg buff
+        var buffnum = multilayer_process('henri_dmg_' + stand_num, 'get')
+        if (buffnum > 3) buffnum = 3
+        _mul_dmg *= Math.pow(1.3, buffnum)
+    }
+    else if (is_this(stand_num, 2024)) { // rico dmg buff
+        var buffnum = multilayer_process('rico_dmg_' + stand_num, 'get')
+        if (buffnum > 3) buffnum = 3
+        _mul_dmg *= Math.pow(1.15, buffnum)
+    }
+    else if (is_this(stand_num, 2027)) { // angelica dmg buff
+        if (_spG('angelica_' + stand_num) >= global_frame) {
+            if (_spG('angelica_' + stand_num) - global_frame > 120) _mul_dmg *= 1.12
+            else if (_spG('angelica_' + stand_num) - global_frame > 60) _mul_dmg *= 1.08
+            else _mul_dmg *= 1.04
+        }
+    }
     return [
         ['dmg', _mul_dmg], ['acu', _mul_acu], ['critdmg', _mul_critdmg],
         ['must_acu', must_acu],

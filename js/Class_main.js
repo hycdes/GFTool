@@ -21,7 +21,7 @@ var lib_name = {
   t2001: '诺艾尔', t2003: '琪亚娜', t2006: '德丽莎', t2009: '克莉尔', t2010: '菲尔', t2017: '吉尔·斯汀雷', t2018: '塞伊·朝雾',
   t1097: 'M950A MOD',
   t1001: '柯尔特左轮 MOD', t1007: '斯捷奇金 MOD',
-  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93',
+  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93', t303: 'HP-35',
   t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD', t1221: 'GSh-18 MOD',
   t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科', t269: 'P30',
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
@@ -47,7 +47,7 @@ var lib_name = {
   t1039: '莫辛-纳甘 MOD', t1252: 'KSVK MOD',
   t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93',
   t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: '汉阳造88式 MOD',
-  t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000',
+  t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000', t305: '塔布克',
   t37: 'M14', t256: '隼',
   // —————————————— MG ——————————————
   t2021: '阿尔玛·阿玛斯',
@@ -88,6 +88,7 @@ var lib_tdoll = [
   create_entry([1, 5, 260], ['dps', 'supportdps', 'supportdfs', 'af_rof', 'af_acu'], ['random'], ['snipe', 'dizz'], []),
   create_entry([1, 5, 272], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['random'], ['forcus_rof', 'deepdmg', 'shield_break'], []),
   create_entry([1, 5, 285], ['supportdps', 'af_dmg', 'af_acu'], ['random', 'suggest_7'], ['command_dmg', 'command_rof'], []),
+  create_entry([1, 5, 303], ['supportdps', 'af_dmg', 'af_eva'], ['random', 'suggest_7'], ['passive', 'deepdmg', 'reducehurt'], []),
   create_entry([1, 4, 1002], ['dps', 'supportdfs', 'af_rof', 'af_acu'], ['back', 'random'], ['fastcd', 'sweep', 'rofstatic', 'smoke'], []),
   create_entry([1, 4, 1005], ['supportdps', 'supportdfs', 'startdps', 'af_dmg', 'af_crit'], ['random'], ['command_dmg', 'command_acu', 'weak_dmg'], ['night']),
   create_entry([1, 4, 1012], ['supportdps', 'af_acu', 'af_eva'], ['random'], ['command_acu', 'command_critdmg', 'command_addcs'], ['night']),
@@ -243,6 +244,7 @@ var lib_tdoll = [
   create_entry([4, 4, 252], ['dps'], ['back'], ['ap', 'grenade'], []),
   create_entry([4, 4, 270], ['dps'], ['back'], ['forcus_rof', 'max_acu', 'ap', 'penetrate', 'snipe'], []),
   create_entry([4, 4, 273], ['dps'], ['back'], ['forcus_dmg', 'max_acu', 'weak_dmg', 'ap', 'rofstatic'], []),
+  create_entry([4, 4, 305], ['dps'], ['middle', 'back'], ['forcus_dmg', 'ap'], []),
   create_entry([4, 3, 37], ['dps'], ['back'], ['forcus_dmg', 'ap'], ['mengxin']),
   create_entry([4, 3, 256], ['dps'], ['back'], ['forcus_dmg', 'forcus_acu', 'ap', 'fastcd', 'passive', 'snipe'], ['skillcrit']),
   // —————————————— MG ——————————————
@@ -355,7 +357,7 @@ var lib_tag = [
   ['af_dmg', 'af_rof', 'af_acu', 'af_eva', 'af_arm', 'af_crit']
   ],
   // 2
-  [['front', 'back', 'random', 'lowhp'],
+  [['front', 'middle', 'back', 'random', 'lowhp'],
   ['suggest_2', 'suggest_3', 'suggest_7', 'suggest_8']
   ],
   // 3
@@ -410,6 +412,7 @@ var tag0_supportdps = new Map,
 // tag1————————————————————————————————————————
 var lib_tag_1 = {
   front: '<img src="../img/class-icon/icon-front.png" style="width:19px;height:19px">优先前排',
+  middle: '<img src="../img/class-icon/icon-middle.png" style="width:19px;height:19px">优先中排',
   back: '<img src="../img/class-icon/icon-back.png" style="width:19px;height:19px">优先后排',
   random: '<img src="../img/class-icon/icon-random.png" style="width:19px;height:19px">随机锁敌',
   lowhp: '<img src="../img/class-icon/icon-lowhp.png" style="width:19px;height:19px">优先残血',
@@ -420,6 +423,7 @@ var lib_tag_1 = {
   suggest_8: '<img src="../img/class-icon/icon-suggest8.png" style="width:19px;height:19px">推荐8号位'
 }
 var tag1_front = new Map,
+  tag1_middle = new Map,
   tag1_back = new Map,
   tag1_random = new Map,
   tag1_lowhp = new Map,

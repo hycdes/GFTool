@@ -527,6 +527,15 @@ function reactAllSkill(command, current_time) {
           changeStatus(k, 'all', 'acu', -0.15, 3, 'unrepeat')
           Set_Special.delete('jill_drunk')
         }
+      } else if (is_this(k, 2023)) {
+        if (_spG('henri_counter_' + k) === global_frame) {
+          _spS('henri_counter_' + k, _spG('henri_counter_' + k) + 60)
+          if (Set_Base.get(k).Info.get('shield') > 0) {
+            multilayer_process('henri_dmg_' + k, 'add', ['dmg', 0.3, 150])
+          } else {
+            multilayer_process('henri_eva_' + k, 'add', ['eva', 0.2, 150])
+          }
+        }
       }
     }
   }
@@ -730,11 +739,17 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           Set_Special.delete('r93_valid_' + stand_num)
           Set_Special.delete('r93_timestack_' + stand_num)
         }
+      } else if (is_this(stand_num, 2024)) { // 莉可-被动3次攻击叠层数
+        if (_spG('rico_' + stand_num) === undefined) _spS('rico_' + stand_num, 1)
+        else _spPlus('rico_' + stand_num)
+        if (_spG('rico_' + stand_num) - Math.floor(_spG('rico_' + stand_num) / 3) * 3 === 0) {
+          multilayer_process('rico_dmg_' + stand_num, 'add', ['dmg', 0.15, 150])
+        }
       }
       // 常规人形攻击间隔判断：HG/AR/SMG/RF 并排除 隼
       if (current_Info.get('type') != 5 && current_Info.get('type') != 6 && !is_this(stand_num, 256)) {
         // 葬仪之雨固定150射速
-        if ((is_this(stand_num, 73) || is_this(stand_num, 237)) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9
+        if ((is_this(stand_num, 73) || is_this(stand_num, 237) || is_this(stand_num, 2027)) && current_time <= Set_Special.get('aug_' + stand_num)) s_t[1] = 9
         // SIG-556极限射速
         else if (is_this(stand_num, 287)) {
           if (_spG('sig556_skill_' + stand_num) === undefined || _spG('sig556_debuff_' + stand_num) === undefined) { // 初始化
@@ -1878,6 +1893,23 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   } else if (skillname === 'cf05') {
     _spS('cf05_' + stand_num, global_frame + 180)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  } else if (skillname === 'angelica') {
+    _spS('angelica_' + stand_num, global_frame + 180)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
+  }
+  else if (skillname === 'henrietta_init') { // 月轮守护人-初始护盾
+    changeStatus(stand_num, 'self', 'shield', 10, 8)
+    _spS('henri_counter_' + stand_num, global_frame + 60)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'henrietta_active') { // 月轮守护人-主动
+    var buffnum_dmg = multilayer_process('henri_dmg_' + stand_num, 'get'),
+      buffnum_eva = multilayer_process('henri_eva_' + stand_num, 'get')
+    if (buffnum_dmg > 3) buffnum_dmg = 3
+    if (buffnum_eva > 3) buffnum_eva = 3
+    changeStatus(stand_num, 'self', 'rof', Math.pow(1.2, buffnum_dmg)) // 加射速
+    changeStatus(stand_num, 'self', 'shield', 10 + 15 * buffnum_eva) // 加护盾
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -2200,6 +2232,12 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       if (document.getElementById('special_1252_' + stand_num).checked) {
         damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
+    } else if (this_ID === 2024) { // 提希丰之塔
+      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
+      var buffnum = multilayer_process('rico_dmg_' + stand_num, 'get')
+      if (buffnum > 3) buffnum = 3
+      damage_snipe_single += Math.ceil(0.5 * buffnum * current_Info.get('dmg') * explain_fgl_ff('aoe'))
+      _empty_layer('rico_dmg_' + stand_num)
     } else if (this_ID === 260) { // 劲爆乐园
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single')) + Math.ceil(2 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
     } else if (this_ID === 261) { // 乱石崩云
@@ -2379,6 +2417,7 @@ function reactInjury() {
 function injury(shoot_target) {
   var current_Info = Set_Base.get(shoot_target).Info
   var accuracy = enemy_acu
+  var evasion = current_Info.get('eva')
   var damage = enemy_dmg
   // is_this(shoot_target, 59) && 
   if (Set_EnemyStatus.get('aks_debuff' + shoot_target) >= global_frame) { // 如果攻击AK-74U且排斥反应生效
@@ -2396,9 +2435,15 @@ function injury(shoot_target) {
       damage -= 15
     }
   }
+  // 回避的可叠加层数结算
+  if (is_this(shoot_target, 2023)) {
+    var buffnum = multilayer_process('henri_eva_' + shoot_target, 'get')
+    if (buffnum > 3) buffnum = 3
+    evasion *= Math.pow(1.2, buffnum)
+  }
 
   // 命中和血量扣除
-  var accuracy_rate = accuracy / (accuracy + current_Info.get('eva'))
+  var accuracy_rate = accuracy / (accuracy + evasion)
   var single_hp = current_Info.get('hp') / 5
   var suffer_hp = get_left_hp(shoot_target, single_hp)
   recordData_suffer(shoot_target, global_frame, 0)

@@ -128,6 +128,11 @@ lib_language = {
   NAME_2014: '스텔라 호시이',
   NAME_2015: '알마 알머스',
   NAME_2016: '다나 제인',
+  NAME_2023: 'Henrietta',
+  NAME_2024: 'Rico',
+  NAME_2025: 'Triela',
+  NAME_2026: 'Claes',
+  NAME_2027: 'Angerica',
 
   equipNAME_0: '장비 없음',
   equipNAME_12: '옵티컬',
@@ -202,6 +207,13 @@ lib_language = {
   equipNAME_1228: '折叠枪托',
   equipNAME_11012: 'C96橡木枪托',
   equipNAME_11031: 'DO反射瞄具',
+  equipNAME_12023: '古董万花筒',
+  equipNAME_32024: '决斗扑克',
+  equipNAME_22025: '格斗刀',
+  equipNAME_320261: '平光镜',
+  equipNAME_320262: '天外陨石',
+  equipNAME_320263: '计时腕表',
+  equipNAME_32027: '童话绘本',
 
 
   skillNAME_39: '저격개시',

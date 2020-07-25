@@ -402,6 +402,11 @@ lib_affect.set(2013, createAffect('lu/ld/', 'ar/rf', ['dmg', 'acu'], [0.15, 0.25
 lib_affect.set(2014, createAffect('ru/rd/', 'hg', ['cld'], [0.18])) // Stella
 lib_affect.set(2015, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Alma
 lib_affect.set(2016, createAffect('ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // Dana
+lib_affect.set(2023, createAffect('u/uu/l/lu/', 'ar/smg', ['dmg', 'acu'], [0.12, 0.2])) // Herietta
+lib_affect.set(2024, createAffect('d/dd/ddr/', 'hg', ['cld'], [0.18])) // Rico
+lib_affect.set(2025, createAffect('l/ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.10, 0.15])) // Triela
+lib_affect.set(2026, createAffect('ll/llu/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Claes
+lib_affect.set(2027, createAffect('u/ur/r/rd/d/', 'ar/smg', ['dmg', 'acu'], [0.1, 0.2])) // Angelica
 // BUG
 lib_affect.set(3054, createAffect('l/ll/llu/lu/u/lld/ld/d/', 'all', ['dmg', 'rof'], [1, 1])) // M16A1 BOSS
 
@@ -753,6 +758,11 @@ lib_property.set(2013, createProperty(28, 15, 87, 79, 0, 880, 0.05, -1)) // Doro
 lib_property.set(2014, createProperty(117, 84, 36, 35, 0, 450, 0.4, -1)) // Stella
 lib_property.set(2015, createProperty(89, 31, 23, 129, 0, 975, 0.2, 9)) // Elma
 lib_property.set(2016, createProperty(38, 15, 13, 26, 22, 1345, 0.4, 1)) // Dana
+lib_property.set(2023, createProperty(30, 15, 83, 93, 0, 950, 0.05, -1)) // Henrietta
+lib_property.set(2024, createProperty(130, 80, 33, 37, 0, 400, 0.4, -1)) // Rico
+lib_property.set(2025, createProperty(37, 12, 12, 26, 21, 1265, 0.4, -1)) // Triela
+lib_property.set(2026, createProperty(79, 35, 36, 139, 0, 785, 0.05, 8)) // Claes
+lib_property.set(2027, createProperty(55, 57, 46, 75, 0, 605, 0.3, -1)) // Angelica
 // BUG
 lib_property.set(3054, createProperty(90, 60, 80, 40, 300, 320000, 1, -1)) // BOSS M16A1
 
@@ -858,6 +868,10 @@ lib_property_equip.set(22013, createProperty_equip(22, 0, 0, 0, 0, 0, 0, 0, -7, 
 lib_property_equip.set(32014, createProperty_equip(0, 0, 0, 3, 0, 0, 0.3, 0, 0, 0)) // Stella
 lib_property_equip.set(32015, createProperty_equip(6, 0, -2, 0, 0, 0, 0, 6, 0, 0)) // Elma
 lib_property_equip.set(32016, createProperty_equip(6, 0, -2, 0, 11, 0, 0, 0, 0, 0)) // Dana
+lib_property_equip.set(12023, createProperty_equip(0, 5, 10, 0, 0, 0, 0.25, 0, 0, 0)) // Henrietta
+lib_property_equip.set(32024, createProperty_equip(0, 0, 0, 0, 0, 0, 0.45, 0, 0, 0)) // Rico
+lib_property_equip.set(22025, createProperty_equip(15, 0, 0, 0, 0, 0.25, 0.22, 0, 0, 0)) // Triela
+lib_property_equip.set(32027, createProperty_equip(5, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // Angelica
 
 lib_property_equip.set(23054, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 300, 100)) // BUG:M16A1
 
@@ -929,3 +943,4 @@ lib_special_info.set(1101, lib_language.special_info_common) // ump9
 lib_special_info.set(2006, lib_language.special_info_common) // theresa
 lib_special_info.set(2011, lib_language.special_info_common) // jill
 lib_special_info.set(2013, lib_language.special_info_common) // dorothy
+lib_special_info.set(2025, lib_language.special_info_common) // triela

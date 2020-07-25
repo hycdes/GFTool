@@ -485,6 +485,14 @@ function init_loadPrepareStatus() { // 初始化战前属性
         changeStatus(i, 'self', 'rof', '0.1', 2)
         changeStatus(i, 'self', 'rof', '0.1', 4)
         changeStatus(i, 'self', 'rof', '0.1', 6)
+      } else if (is_this(i, 2023)) { // 海莉艾塔各类被动层数
+        _spS('henri_dmg_' + i, [])
+        _spS('henri_eva_' + i, [])
+      } else if (is_this(i, 2024)) { // 莉可火力被动层数
+        _spS('rico_dmg_' + i, [])
+      } else if (is_this(i, 2025)) { // 测试版：崔耶拉
+        changeStatus(i, 'self', 'dmg', 1, -1)
+        changeStatus(i, 'self', 'rof', 0.5, -1)
       }
     }
   }
@@ -895,7 +903,7 @@ function multilayer_process(special_id, command) { // 多层buff生效数层处�
     return _spG(special_id).length
   }
 }
-function _clean_layer(special_id) {
+function _clean_layer(special_id) { // 清空过时的buff层数
   var layers = _spG(special_id),
     is_dirty = true
   while (is_dirty) {
@@ -908,5 +916,6 @@ function _clean_layer(special_id) {
     }
   }
 }
+function _empty_layer(special_id) { _spS(special_id, []) } // 清空所有叠加buff
 
 function debug_clear() { document.getElementById('debug_content').innerHTML = ''; debug_line = 0; }
