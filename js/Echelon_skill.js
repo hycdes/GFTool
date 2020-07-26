@@ -1262,6 +1262,7 @@ lib_skill.set(241, [createSkill(15, 16, 0, lib_describe.get('snipe_6.5_2'))])
 lib_skill.set(255, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(268, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(284, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))]) // zas m76
+lib_skill.set(308, [createSkill(5, 8, 5, lib_describe.get('rof_60'))]) // c14
 // ———————————————————————————————————————— RF - 2 ————————————————————————————————————————
 lib_skill.set(40, [createSkill(10, 16, 0, lib_describe.get('snipe_5'))])
 lib_skill.set(41, [createSkill(5, 8, 5, lib_describe.get('rof_55'))])
