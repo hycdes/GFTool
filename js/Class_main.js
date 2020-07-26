@@ -27,7 +27,7 @@ var lib_name = {
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
   t5: '纳甘左轮', t10: 'PPK',
   // —————————————— AR ——————————————
-  t2007: '无量塔姬子',
+  t2007: '无量塔姬子', t2027: '安洁莉卡',
   t1065: 'HK416 MOD',
   t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
   t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t306: 'AK-Alfa',
@@ -111,6 +111,7 @@ var lib_tdoll = [
   create_entry([1, 2, 10], ['supportdps', 'af_rof'], ['random'], ['command_dmg', 'command_crit'], []),
   // —————————————— AR ——————————————
   create_entry([2, 1, 2007], ['dps', 'af_dmg'], ['front'], ['weak_dmg'], []),
+  create_entry([2, 1, 2027], ['dps'], ['front'], ['forcus_dmg', 'fastcd', 'rofstatic'], []),
   create_entry([2, 6, 1065], ['dps', 'af_dmg'], ['front'], ['grenade', 'deepdmg'], []),
   create_entry([2, 5, 1055], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['front'], ['forcus_dmg', 'fastcd'], ['laomo']),
   create_entry([2, 5, 1056], ['dps'], ['front'], ['grenade', 'multitarget'], []),
@@ -313,9 +314,11 @@ var list_decline = [ // 调整规则
   [1039, ['forcus_dmg', 'forcus_rof'], [0.7, 20 / 75]], // mosin
   [1044, ['forcus_rof', 'forcus_acu'], [0.2, 0.2]], // sv98
   [1051, ['forcus_rof'], [0.3]], // fn49
+  [1064, ['forcus_rof'], [0.1]], // g36 mod
   [1093, ['forcus_dmg', 'forcus_rof'], [0.2, 0.2]], // idw
   [1101, ['command_dmg', 'command_eva'], [2, 25 / 60]], // ump9
-  [2020, ['forcus_dmg'], [0.8]] // stella
+  [2020, ['forcus_dmg'], [0.8]], // stella
+  [2027, ['forcus_dmg'], [0.2]], // angelica
 ]
 // ———————————————————————————— 特殊处理：类似tag关联度 ——————————————————————————————
 var list_relation = [

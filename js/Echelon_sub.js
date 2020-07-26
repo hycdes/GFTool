@@ -493,6 +493,11 @@ function init_loadPrepareStatus() { // 初始化战前属性
       } else if (is_this(i, 2025)) { // 测试版：崔耶拉
         changeStatus(i, 'self', 'dmg', 1, -1)
         changeStatus(i, 'self', 'rof', 0.5, -1)
+      } else if (is_this(i, 2026)) { // 库拉耶丝-是否开枪状态
+        _spS('claes_firestatus_' + i, false) // 默认蓄力
+        _spS('claes_buff_' + i, 0) // 初始0层buff
+        _spS('claes_nextbuff_' + i, init_time * 30 + 60) // 下一次buff积累时间
+        _spS('claes_globalbuff', [])
       }
     }
   }

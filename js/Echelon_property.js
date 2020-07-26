@@ -327,6 +327,7 @@ lib_affect.set(274, createAffect('r/ru/ruu/', 'smg', ['rof', 'acu'], [0.25, 0.65
 lib_affect.set(275, createAffect('rr/rrd/', 'sg', ['acu', 'arm'], [0.1, 0.12])) // M1895 CB
 lib_affect.set(276, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Kord
 lib_affect.set(277, createAffect('u/ul/d/dl/', 'sg', ['rof', 'acu'], [0.2, 0.5])) // vp70
+lib_affect.set(278, createAffect('ll/lld/', 'mg', ['dmg', 'acu'], [0.1, 0.2])) // six12
 lib_affect.set(279, createAffect('r/ru/', 'smg', ['dmg', 'eva'], [0.1, 0.1])) // insas
 lib_affect.set(280, createAffect('l/luu/', 'ar', ['dmg', 'crit'], [0.2, 0.2])) // MAT-49
 lib_affect.set(281, createAffect('ll/lld/', 'mg', ['dmg', 'acu'], [0.18, 0.12])) // CAWS
@@ -406,7 +407,7 @@ lib_affect.set(2016, createAffect('ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.15, 0.
 lib_affect.set(2023, createAffect('u/uu/l/lu/', 'ar/smg', ['dmg', 'acu'], [0.12, 0.2])) // Herietta
 lib_affect.set(2024, createAffect('d/dd/ddr/', 'hg', ['cld'], [0.18])) // Rico
 lib_affect.set(2025, createAffect('l/ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.10, 0.15])) // Triela
-lib_affect.set(2026, createAffect('ll/llu/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Claes
+lib_affect.set(2026, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Claes
 lib_affect.set(2027, createAffect('u/ur/r/rd/d/', 'ar/smg', ['dmg', 'acu'], [0.1, 0.2])) // Angelica
 // BUG
 lib_affect.set(3054, createAffect('l/ll/llu/lu/u/lld/ld/d/', 'all', ['dmg', 'rof'], [1, 1])) // M16A1 BOSS
@@ -683,6 +684,7 @@ lib_property.set(274, createProperty(54, 54, 48, 77, 0, 580, 0.3, -1)) // ACR
 lib_property.set(275, createProperty(90, 26, 23, 131, 0, 950, 0.05, 10)) // M1895 CB
 lib_property.set(276, createProperty(109, 22, 21, 110, 0, 990, 0.05, 9)) // kord
 lib_property.set(277, createProperty(31, 54, 75, 60, 0, 330, 0.2, -1)) // vp70
+lib_property.set(278, createProperty(34, 13, 13, 30, 20, 1210, 0.4, 4)) // six12
 lib_property.set(279, createProperty(49, 52, 45, 71, 0, 550, 0.2, -1)) // insas
 lib_property.set(280, createProperty(29, 14, 73, 81, 0, 925, 0.05, -1)) // MAT-49
 lib_property.set(281, createProperty(30, 12, 13, 35, 23, 1235, 0.4, 5)) // CAWS
@@ -873,6 +875,9 @@ lib_property_equip.set(32016, createProperty_equip(6, 0, -2, 0, 11, 0, 0, 0, 0, 
 lib_property_equip.set(12023, createProperty_equip(0, 5, 10, 0, 0, 0, 0.25, 0, 0, 0)) // Henrietta
 lib_property_equip.set(32024, createProperty_equip(0, 0, 0, 0, 0, 0, 0.45, 0, 0, 0)) // Rico
 lib_property_equip.set(22025, createProperty_equip(15, 0, 0, 0, 0, 0.25, 0.22, 0, 0, 0)) // Triela
+lib_property_equip.set(120261, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0, -1)) // Claes-glass
+lib_property_equip.set(120262, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0, -2)) // Claes-meteorite
+lib_property_equip.set(120263, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0, -3)) // Claes-watch
 lib_property_equip.set(32027, createProperty_equip(5, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // Angelica
 
 lib_property_equip.set(23054, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 300, 100)) // BUG:M16A1
@@ -946,3 +951,4 @@ lib_special_info.set(2006, lib_language.special_info_common) // theresa
 lib_special_info.set(2011, lib_language.special_info_common) // jill
 lib_special_info.set(2013, lib_language.special_info_common) // dorothy
 lib_special_info.set(2025, lib_language.special_info_common) // triela
+lib_special_info.set(2026, lib_language.special_info_common) // claes

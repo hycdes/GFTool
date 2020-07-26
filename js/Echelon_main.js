@@ -527,7 +527,7 @@ function reactAllSkill(command, current_time) {
           changeStatus(k, 'all', 'acu', -0.15, 3, 'unrepeat')
           Set_Special.delete('jill_drunk')
         }
-      } else if (is_this(k, 2023)) {
+      } else if (is_this(k, 2023)) {  // 海莉艾塔检查护盾
         if (_spG('henri_counter_' + k) === global_frame) {
           _spS('henri_counter_' + k, _spG('henri_counter_' + k) + 60)
           if (Set_Base.get(k).Info.get('shield') > 0) {
@@ -535,6 +535,24 @@ function reactAllSkill(command, current_time) {
           } else {
             multilayer_process('henri_eva_' + k, 'add', ['eva', 0.2, 150])
           }
+        }
+      } else if (is_this(k, 2026)) {  // 库拉耶丝检查蓄力
+        if (_spG('claes_firestatus_' + k) || _spG('reloading_' + k) != undefined) { // 开火和换弹不蓄力
+          _spS('claes_nextbuff_' + k, global_frame + 60)
+        } else { // 否则
+          if (_spG('claes_nextbuff_' + k) === global_frame) {
+            _spPlus('claes_buff_' + k)
+            _spS('claes_nextbuff_' + k, global_frame + 60)
+            if (_spG('claes_equip_' + k) === 1) {
+              true // shield
+            } else if (_spG('claes_equip_' + k) === 2) {
+              multilayer_process('claes_globalbuff', 'add', ['dmg', 0.05, 150])
+              changeStatus(k, 'all', 'dmg', 0, 5)
+            } else if (_spG('claes_equip_' + k) === 3) {
+              _spPlus('clipsize_' + k)
+            }
+          }
+
         }
       }
     }
@@ -648,7 +666,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   if (skillname === 'attack') { // 普通攻击
     var fire_status = Set_Special.get('attack_permission_' + stand_num)
     if (fire_status.substr(0, 4) === 'fire') { // 射击准许
-      // M4A1 MOD 炮击
+      // 特殊攻击——M4A1 MOD 炮击
       if (is_this(stand_num, 1055) && Set_Special.get(stand_num) === 'shelling') {
         recordData(stand_num, current_time, 0)
         var dmg_direct = 0, dmg_aoe = 0, final_dmg = 0
@@ -667,7 +685,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         final_dmg = dmg_direct + dmg_aoe
         recordData(stand_num, current_time, final_dmg)
       }
-      // 四式：死线一击
+      // 特殊攻击——四式：死线一击
       else if (is_this(stand_num, 270) && Set_Special.get('type4_' + stand_num) >= 2) {
         recordData(stand_num, current_time, 0)
         var dmg = this_formation(stand_num) * current_Info.get('dmg') * (Math.random() * 0.3 + 0.85)
@@ -678,37 +696,41 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       }
       // 正常的攻击
       else {
-        recordData(stand_num, current_time, 0)
-        // 计算BUFF———————————————————————————————————————————————————————————————————————————————————————————————————
-        var list_buff = settle_buff(stand_num, current_Info)
-        // 非常规普攻伤害——————————————————————————————————————————————————————————————————————————————————————————————
-        var extra_damage = 0
-        extra_damage = settle_extra(stand_num, current_Info, enemy_arm, enemy_eva, list_buff)
-        // 普通射击———————————————————————————————————————————————————————————————————————————————————————————————————
-        var shoot_damage = 0
-        if (settle_accuracy(stand_num, current_Info, enemy_eva, list_buff)) { // 命中敌人
-          if (is_this(stand_num, 59)) { // AK-74U 排斥反应
-            if (Set_Special.get('aks' + stand_num) >= current_time) {
-              Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
+        if (is_this(stand_num, 2026) && !_spG('claes_firestatus_' + stand_num)) { // 库拉耶丝且不能开火
+          true
+        } else {
+          recordData(stand_num, current_time, 0)
+          // 计算BUFF———————————————————————————————————————————————————————————————————————————————————————————————————
+          var list_buff = settle_buff(stand_num, current_Info)
+          // 非常规普攻伤害——————————————————————————————————————————————————————————————————————————————————————————————
+          var extra_damage = 0
+          extra_damage = settle_extra(stand_num, current_Info, enemy_arm, enemy_eva, list_buff)
+          // 普通射击———————————————————————————————————————————————————————————————————————————————————————————————————
+          var shoot_damage = 0
+          if (settle_accuracy(stand_num, current_Info, enemy_eva, list_buff)) { // 命中敌人
+            if (is_this(stand_num, 59)) { // AK-74U 排斥反应
+              if (Set_Special.get('aks' + stand_num) >= current_time) {
+                Set_EnemyStatus.set('aks_debuff' + stand_num, current_time + 150)
+              }
             }
+            // 普攻结算————————————————————————————————————————————————————————————————————————————————————————————————
+            var shoot_damage = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
+            // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
+            shoot_damage *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
+            // 特殊结算————————————————————————————————————————————————————————————————————————————————————————————————
+            shoot_damage = settle_specialskill(stand_num, current_Info, enemy_arm, shoot_damage)
+            // 暴击结算————————————————————————————————————————————————————————————————————————————————————————————————
+            shoot_damage *= settle_crit(stand_num, current_Info, list_buff)
+            // 伤害加深和力场结算———————————————————————————————————————————————————————————————————————————————————————
+            shoot_damage = Math.ceil(shoot_damage * explain_fgl_ff('single'))
+            // 编制结算————————————————————————————————————————————————————————————————————————————————————————————————
+            shoot_damage *= settle_formation(stand_num, fire_status)
+            // 附加伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
+            shoot_damage += settle_addition(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
           }
-          // 普攻结算————————————————————————————————————————————————————————————————————————————————————————————————
-          var shoot_damage = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
-          // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
-          shoot_damage *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
-          // 特殊结算————————————————————————————————————————————————————————————————————————————————————————————————
-          shoot_damage = settle_specialskill(stand_num, current_Info, enemy_arm, shoot_damage)
-          // 暴击结算————————————————————————————————————————————————————————————————————————————————————————————————
-          shoot_damage *= settle_crit(stand_num, current_Info, list_buff)
-          // 伤害加深和力场结算———————————————————————————————————————————————————————————————————————————————————————
-          shoot_damage = Math.ceil(shoot_damage * explain_fgl_ff('single'))
-          // 编制结算————————————————————————————————————————————————————————————————————————————————————————————————
-          shoot_damage *= settle_formation(stand_num, fire_status)
-          // 附加伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
-          shoot_damage += settle_addition(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
+          // 记录伤害数据———————————————————————————————————————————————————————————————————————————————————————————————
+          recordData(stand_num, current_time, shoot_damage + extra_damage)
         }
-        // 记录伤害数据———————————————————————————————————————————————————————————————————————————————————————————————
-        recordData(stand_num, current_time, shoot_damage + extra_damage)
       }
 
       // 攻击间隔或者换弹判断————————————————————————————————————————————————————
@@ -797,7 +819,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
           }
         }
-        else if (is_this(stand_num, 198) && Set_Special.get('carcano9138_' + stand_num) === 18) {
+        else if (is_this(stand_num, 198) && Set_Special.get('carcano9138_' + stand_num) === 18) { // 卡尔卡诺M91/39累计18层被动
           recordData(stand_num, current_time, 0)
           var mors_ratio
           if (enemy_type === 'normal') mors_ratio = 45
@@ -806,6 +828,11 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           recordData(stand_num, current_time, mors_dmg)
           Set_Special.set('carcano9138_' + stand_num, 0)
           s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+        }
+        else if (is_this(stand_num, 2026)) { // 库拉耶丝蓄力状态不需要结算攻击间隔
+          if (!_spG('claes_firestatus_' + stand_num)) {
+            s_t[1] = 0
+          }
         }
         // —————————————————————————————————————— 常规人形按射速折算射击间隔 ——————————————————————————————————————
         else {
@@ -822,7 +849,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         // —————————————————————————————————————— MG和SG扣除子弹 ——————————————————————————————————————
       } else {
         if (is_this(stand_num, 292)) { // RPK-16
-          var cs = Set_Special.get('clipsize_' + stand_num)
+          var cs = _spG('clipsize_' + stand_num)
           if (_spE('rpk16_' + stand_num, 'ar')) { // AR模式
             if (_spE('rpk16_skill_' + stand_num, 'close')) { // AR模式未开启技能，不能换弹
               var final_rof = current_Info.get('rof')
@@ -857,7 +884,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             }
           }
         } else {
-          var cs = Set_Special.get('clipsize_' + stand_num)
+          var cs = _spG('clipsize_' + stand_num)
           var extra_shoot_pkp = false
           if (is_this(stand_num, 275)) {
             if (_spE('m1895cb_skillon_' + stand_num, true) && _spG('m1895cb_' + stand_num) > 0) {
@@ -866,7 +893,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             }
           }
           // 常规MG扣除子弹
-          cs--
+          if (is_this(stand_num, 2026) && !_spG('claes_firestatus_' + stand_num)) { // 库拉耶丝蓄力状态不算做攻击
+            true
+          }
+          else {
+            cs--
+          }
           // 
           if (is_this(stand_num, 307)) { // ZB-26特殊记录
             if (_spG('zb26_currentbullet_' + stand_num) > 0) {
@@ -941,23 +973,30 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               }
             }
             _spS('attack_permission_' + stand_num, 'stop') // 开火许可更改为stop
-            _spS('reloading_' + stand_num, true)
+            _spS('reloading_' + stand_num, true) // 进入换弹状态
             changeStatus(stand_num, 'reload', null, reload_frame, null) // 因为单独计算帧数，将帧数传至value
             if (_spG('MG_terminate_' + stand_num) != undefined) _spS('MG_terminate_' + stand_num, 0) // 连珠类重置计数器
+
             // ———————————————————— 弹量还原 ————————————————————
             _spS('clipsize_' + stand_num, _spG('clipsize_' + stand_num) + current_Info.get('cs'))
 
-            if (is_this(stand_num, 253)) { // 刘易斯增加弹量
+            // ———————————————————— 弹量还原后的处理 ————————————————————
+            if (is_this(stand_num, 112)) { // 狂躁血脉
+              changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
+            }
+            else if (is_this(stand_num, 253)) { // 刘易斯增加弹量
               var angel_num = Set_Special.get('angel_strength' + stand_num)
               if (angel_num < 3) angel_num++
               Set_Special.set('angel_strength' + stand_num, angel_num)
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + angel_num - 1)
-            } else if (is_this(stand_num, 307)) { // ZB-26层数积累
+            }
+            else if (is_this(stand_num, 307)) { // ZB-26层数积累
               if (_spG('zb26_reload_' + stand_num) < 3) {
                 _spPlus('zb26_reload_' + stand_num)
                 _spS('zb26_reload_addcsall_' + stand_num, global_frame + reload_frame) // 换弹完毕生效
               }
-            } else if (is_this(stand_num, 238)) { // 88式
+            }
+            else if (is_this(stand_num, 238)) { // 88式
               if (!document.getElementById('special_238_' + stand_num).checked) { // 重机枪模式
                 Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + 2)
                 if (Set_Special.get('88type_buffon' + stand_num) === undefined) {
@@ -965,16 +1004,19 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                   Set_Special.set('88type_buffon' + stand_num, true)
                 }
               } else true // do nothing
-            } else if (is_this(stand_num, 1089)) { // 布伦MOD
+            }
+            else if (is_this(stand_num, 1089)) { // 布伦MOD
               if (Set_Special.get('bren_buff_' + stand_num) < 3) {
                 Set_Special.set('bren_buff_' + stand_num, Set_Special.get('bren_buff_' + stand_num) + 1)
                 changeStatus(stand_num, 'self', 'acu', 0.15, -1)
               }
               Set_Special.set('clipsize_' + stand_num, Set_Base.get(stand_num).Info.get('cs') + Set_Special.get('bren_buff_' + stand_num))
             }
-            if (is_this(stand_num, 112)) { // 狂躁血脉
-              changeStatus(stand_num, 'self', 'dmg', '0.5', 29)
+            else if (is_this(stand_num, 2026)) { // 库拉耶丝清空buff
+              _spS('claes_buff_' + stand_num, 0)
+              _spS('claes_firestatus_' + stand_num, false)
             }
+
           } else {
             if (extra_shoot_pkp) {
               s_t[1] = 0
@@ -1907,9 +1949,36 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       buffnum_eva = multilayer_process('henri_eva_' + stand_num, 'get')
     if (buffnum_dmg > 3) buffnum_dmg = 3
     if (buffnum_eva > 3) buffnum_eva = 3
-    changeStatus(stand_num, 'self', 'rof', Math.pow(1.2, buffnum_dmg)) // 加射速
-    changeStatus(stand_num, 'self', 'shield', 10 + 15 * buffnum_eva) // 加护盾
+    changeStatus(stand_num, 'self', 'rof', Math.pow(1.2, buffnum_dmg), 5) // 加射速
+    changeStatus(stand_num, 'self', 'shield', 10 + 15 * buffnum_eva, 5) // 加护盾
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'claes') { // 沉思者之钥
+    var skill_standby = false
+    if (document.getElementById('special_2026_0_' + stand_num).checked) {
+      _spS('claes_firestatus_' + stand_num, true)
+    } else if (document.getElementById('special_2026_1_' + stand_num).checked) {
+      if (_spG('claes_buff_' + stand_num) >= 1) _spS('claes_firestatus_' + stand_num, true)
+      else skill_standby = true
+    } else if (document.getElementById('special_2026_2_' + stand_num).checked) {
+      if (_spG('claes_buff_' + stand_num) >= 2) _spS('claes_firestatus_' + stand_num, true)
+      else skill_standby = true
+    } else if (document.getElementById('special_2026_3_' + stand_num).checked) {
+      if (_spG('claes_buff_' + stand_num) >= 3) _spS('claes_firestatus_' + stand_num, true)
+      else skill_standby = true
+    } else if (document.getElementById('special_2026_4_' + stand_num).checked) {
+      if (_spG('claes_buff_' + stand_num) >= 4) _spS('claes_firestatus_' + stand_num, true)
+      else skill_standby = true
+    } else if (document.getElementById('special_2026_5_' + stand_num).checked) {
+      if (_spG('claes_buff_' + stand_num) >= 5) {
+        _spS('claes_firestatus_' + stand_num, true)
+      }
+      else skill_standby = true
+
+    }
+    if (!skill_standby) {
+      s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+    } else s_t[1] = 0
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
@@ -2610,15 +2679,17 @@ function getBaseProperty(num) {
   if (full_property[13] > 0.3) full_property[13] = 0.3
   Info.set('cld', full_property[13])
   for (var i = 0; i < 3; i++) {
-    if ((list_tdoll[num][1].Equip)[i].na === -100) { // 夜视能力为负即特殊功能标志
-      if (list_tdoll[num][1].ID === 2009) {
-        Set_Special.set('clearexclusive_' + num, true)
+    if ((list_tdoll[num][1].Equip)[i].na < 0) { // 夜视能力为负即特殊功能标志
+      if (list_tdoll[num][1].ID === 7) {
+        _spS('stechkinexclusive_' + num, true)
+      } else if (list_tdoll[num][1].ID === 2009) { // Clear
+        _spS('clearexclusive_' + num, true)
         full_property[14] += 100
-      } else if (list_tdoll[num][1].ID === 2009) {
-        Set_Special.set('failexclusive_' + num, true)
+      } else if (list_tdoll[num][1].ID === 2010) { // Fail
+        _spS('failexclusive_' + num, true)
         full_property[14] += 100
-      } else if (list_tdoll[num][1].ID === 7) {
-        Set_Special.set('stechkinexclusive_' + num, true)
+      } else if (list_tdoll[num][1].ID === 2026) { // Claes 特殊装备夜视提示其装备类型1~3
+        _spS('claes_equip_' + num, -1 * (list_tdoll[num][1].Equip)[i].na)
       }
     } else full_property[14] += (list_tdoll[num][1].Equip)[i].na
   }

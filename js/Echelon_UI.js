@@ -526,6 +526,7 @@ function resetEquipment() {
       else if (ID === 185) set_equip = [12, 23, 3185] // ameli
       else if (ID === 1081) set_equip = [11081, 23, 35] // lwmmg mod
       else if (ID === 2015) set_equip = [12, 23, 32015] // Alma
+      else if (ID === 2026) set_equip = [120263, 23, 35] // Claes
       else set_equip = [12, 23, 35]
     }
     else if (set_guntype === 6) {
@@ -901,6 +902,8 @@ function addTdoll() { // 添加战术人形
       str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+
+    // 类型0：单勾选框
     else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 0, 'checked') // PzB39
     else if (ID === 192) addSpecialSetting(192, reverse_position, num_pickblock, 0, 'checked') // JS05
     else if (ID === 252) addSpecialSetting(252, reverse_position, num_pickblock, 0, 'checked') // KSVK
@@ -916,11 +919,14 @@ function addTdoll() { // 添加战术人形
     else if (ID === 1252) addSpecialSetting(1252, reverse_position, num_pickblock, 0, 'checked') // KSVK MOD
     else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 0, 'checked') // Theresa
 
+    // 类型1：多勾选框
     else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 1, 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD
     else if (ID === 1053) addSpecialSetting(1053, reverse_position, num_pickblock, 1, 3, ['checked', 'checked', 'checked']) // NTW-20 MOD
 
+    // 类型2：N选1
     else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 2, 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
     else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 2, 3, 0, ['', '', '']) // C-93
+    else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 2, 6, 5, ['', '', '', '', '', 'red']) // Claes
 
     else if (ID === 276) {
       var str_html = ''
@@ -980,7 +986,7 @@ function addSpecialSetting() { // ID,_position,_type
     [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
     [213, 'C-MS'],
     [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20'],
-    [238, lib_language.NAME_238], [275, 'M1895CB']
+    [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026]
   ]
   var ID = arguments['0'], // T-doll ID
     _position = arguments['1'], // position number for display (reverse_position)

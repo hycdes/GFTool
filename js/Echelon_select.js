@@ -388,8 +388,9 @@ function changeSelectItems() {
       str_items += '<option value=152 selected>No.152 M897</option>'
       str_items += '<option value=154>No.154 M500</option>'
       str_items += '<option value=158>No.158 KS-23</option>'
-      str_items += '<option value=159>No.159 RMb-93</option>'
+      str_items += '<option value=159>No.159 RMB-93</option>'
       str_items += '<option value=190>No.190 NS2000</option>'
+      str_items += '<option value=278>No.278 Six12</option>'
     }
   }
   if (switch_operate) {
@@ -487,6 +488,11 @@ function changeEquip() {
       if (ID === 1075) str_items += '<option value=11075>CT 4X20</option>'
       if (ID === 1081) str_items += '<option value=11081>MGO 6x48</option>'
       if (ID === 1089) str_items += '<option value=11089>' + lib_language.equipNAME_11089 + '</option>'
+      if (ID === 2026) {
+        str_items += '<option value=120261>' + lib_language.equipNAME_120261 + '</option>'
+        str_items += '<option value=120262>' + lib_language.equipNAME_120262 + '</option>'
+        str_items += '<option value=120263>' + lib_language.equipNAME_120263 + '</option>'
+      }
     } else if (set_guntype === 6) { // SG
       str_items += '<option value=33>Type3' + lib_language.equipNAME_33 + '</option>'
       if (ID === 2016) str_items += '<option value=32016>' + lib_language.equipNAME_32016 + '</option>'

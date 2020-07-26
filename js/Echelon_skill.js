@@ -462,7 +462,11 @@ function describe_henrietta_active() { // henrietta_active
   Describe.name = 'henrietta_active'
   return Describe
 }
-
+function describe_claes() { // claes
+  var Describe = {}
+  Describe.name = 'claes'
+  return Describe
+}
 
 
 // lib_decribe
@@ -788,6 +792,7 @@ lib_describe.set('hp35_passive', describe_hp35_passive()) // 暴走伴奏-被动
 lib_describe.set('akalfa', describe_akalfa()) // 耀变体
 lib_describe.set('henrietta_init', describe_henrietta_init()) // 月轮守护人-初始护盾
 lib_describe.set('henrietta_active', describe_henrietta_active()) // 月轮守护人-主动
+lib_describe.set('claes', describe_claes()) // 沉思者之钥
 lib_describe.set('angelica', describe_angelica()) // 极限射击
 
 
@@ -1428,8 +1433,9 @@ lib_skill.set(158, [ // 火力专注SG
 ])
 lib_skill.set(159, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(190, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
+lib_skill.set(278, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 
-// EXTRA
+// ———————————————————————————————————————— 联动人形 ————————————————————————————————————————
 lib_skill.set(2001, [createSkill(6, 12, 0, lib_describe.get('noel'))]) // 零枪-魔狼牙/思兼
 lib_skill.set(2002, [
   createSkill(10, 16, 0, lib_describe.get('grenade_8')),
@@ -1458,6 +1464,7 @@ lib_skill.set(2023, [
   createSkill(4, 16, 5, lib_describe.get('henrietta_active'))]) // 月轮守护人-主动
 lib_skill.set(2024, [createSkill(4, 10, 0, lib_describe.get('rico_snipe'))]) // 提希丰之塔
 lib_skill.set(2025, []) // 木偶把戏
+lib_skill.set(2026, [createSkill(0, 3, 0, lib_describe.get('claes'))]) // 沉思者之钥
 lib_skill.set(2027, [
   createSkill(0, 10, 0, lib_describe.get('angelica')),
   createSkill(4, 12, 5, lib_describe.get('aug'))

@@ -21,6 +21,13 @@ function settle_buff(stand_num, info_self) {
         must_crit = false,
         no_crit = false,
         ignore_arm = false
+    // 全局buff计算，主要用于处理可叠但先知层数的全体buff
+    if (is_exist_someone(2026)) {
+        var buffnum = multilayer_process('claes_globalbuff', 'get')
+        if (buffnum > 3) buffnum = 3
+        _mul_dmg *= Math.pow(1.05, buffnum)
+    }
+    // 不同人形单独的buff计算
     if (is_this(stand_num, 4)) { // python active
         if (Set_Special.get('python_opening') != undefined && Set_Special.get('python_active') > 0) {
             var num_left = Set_Special.get('python_active') - 1
@@ -220,6 +227,9 @@ function settle_buff(stand_num, info_self) {
         var buffnum = multilayer_process('rico_dmg_' + stand_num, 'get')
         if (buffnum > 3) buffnum = 3
         _mul_dmg *= Math.pow(1.15, buffnum)
+    }
+    else if (is_this(stand_num, 2026)) { // claes dmg buff
+        _mul_dmg *= (1 + 0.25 * _spG('claes_buff_' + stand_num))
     }
     else if (is_this(stand_num, 2027)) { // angelica dmg buff
         if (_spG('angelica_' + stand_num) >= global_frame) {
