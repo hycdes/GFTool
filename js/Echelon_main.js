@@ -699,6 +699,15 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         if (is_this(stand_num, 2026) && !_spG('claes_firestatus_' + stand_num)) { // 库拉耶丝且不能开火
           true
         } else {
+          // 抬手瞬间的判定，子弹抵达前能够获得增益
+          if (is_this(stand_num, 2024)) { // 莉可-被动3次攻击叠层数
+            if (_spG('rico_' + stand_num) === undefined) _spS('rico_' + stand_num, 1)
+            else _spPlus('rico_' + stand_num)
+            if (_spG('rico_' + stand_num) - Math.floor(_spG('rico_' + stand_num) / 3) * 3 === 0) {
+              multilayer_process('rico_dmg_' + stand_num, 'add', ['dmg', 0.15, 150])
+            }
+          }
+          // 子弹抵达———————————————————————————————————————————————————————————————————————————————————————————————————
           recordData(stand_num, current_time, 0)
           // 计算BUFF———————————————————————————————————————————————————————————————————————————————————————————————————
           var list_buff = settle_buff(stand_num, current_Info)
@@ -760,12 +769,6 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           Set_Special.delete('r93_' + stand_num)
           Set_Special.delete('r93_valid_' + stand_num)
           Set_Special.delete('r93_timestack_' + stand_num)
-        }
-      } else if (is_this(stand_num, 2024)) { // 莉可-被动3次攻击叠层数
-        if (_spG('rico_' + stand_num) === undefined) _spS('rico_' + stand_num, 1)
-        else _spPlus('rico_' + stand_num)
-        if (_spG('rico_' + stand_num) - Math.floor(_spG('rico_' + stand_num) / 3) * 3 === 0) {
-          multilayer_process('rico_dmg_' + stand_num, 'add', ['dmg', 0.15, 150])
         }
       }
       // 常规人形攻击间隔判断：HG/AR/SMG/RF 并排除 隼
@@ -2301,12 +2304,6 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       if (document.getElementById('special_1252_' + stand_num).checked) {
         damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
-    } else if (this_ID === 2024) { // 提希丰之塔
-      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
-      var buffnum = multilayer_process('rico_dmg_' + stand_num, 'get')
-      if (buffnum > 3) buffnum = 3
-      damage_snipe_single += Math.ceil(0.5 * buffnum * current_Info.get('dmg') * explain_fgl_ff('aoe'))
-      _empty_layer('rico_dmg_' + stand_num)
     } else if (this_ID === 260) { // 劲爆乐园
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single')) + Math.ceil(2 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
     } else if (this_ID === 261) { // 乱石崩云
@@ -2337,7 +2334,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     } else { // 普通狙击
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
     }
-    // 狙击标识符识别
+    // 狙击标识符识别——————————————————————————————————————————————————————————————————————————
     if (list_labels[1] != 'armless') { // 有视护甲
       if (explain_fgl_ff('is_maxff')) damage_snipe_single = 0
       else damage_snipe_single = Math.max(1, Math.ceil(damage_snipe_single * (Math.random() * 0.3 + 0.85) + Math.min(2, current_Info.get('ap') - enemy_arm)))
@@ -2353,7 +2350,19 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
         }
       }
     }
+
+    // 主目标狙击乘以编制——————————————————————————————————————————————————————————————————————————
     damage_snipe_single = Math.ceil(damage_snipe_single * this_formation(stand_num))
+
+    // 与主目标狙击不同性质的额外运算——————————————————————————————————————————————————————————————————————————
+    if (this_ID === 2024) { // 提希丰之塔
+      var buffnum = multilayer_process('rico_dmg_' + stand_num, 'get')
+      if (buffnum > 3) buffnum = 3
+      damage_snipe_single += Math.ceil(0.5 * buffnum * current_Info.get('dmg') * explain_fgl_ff('aoe'))
+      _empty_layer('rico_dmg_' + stand_num)
+    }
+
+    // 狙击伤害记录——————————————————————————————————————————————————————————————————————————
     var current_time = Set_Special.get('snipe_arriveframe_' + stand_num)
     recordData(stand_num, current_time, 0)
     recordData(stand_num, current_time, damage_snipe_single)
@@ -2804,21 +2813,28 @@ function explain_fgl_ff() {
   }
 
   // 返回伤害参数
-  if (damage_type === 'single') _para_fgl_ff *= (fragile_main * ff_ratio)
-  else if (damage_type === 'attack_all') {
+  if (damage_type === 'single') { // 单体子弹伤害
+    _para_fgl_ff *= (fragile_main * ff_ratio)
+  }
+  else if (damage_type === 'attack_all') { // 群体子弹伤害
     if (aoe_num <= enemy_num_left) _para_fgl_ff *= (fragile_all * ff_ratio * aoe_num)
     else _para_fgl_ff *= (fragile_all * ff_ratio * enemy_num_left)
   }
-  else if (damage_type === 'around_single') _para_fgl_ff *= (fragile_all * ff_ratio)
-  else if (damage_type === 'around_multiple') _para_fgl_ff *= (fragile_all * ff_ratio * (aoe_num - 1))
+  else if (damage_type === 'around_single') { // 周围子弹伤害
+    _para_fgl_ff *= (fragile_all * ff_ratio)
+  }
+  else if (damage_type === 'around_multiple') { // 单体伤害？
+    _para_fgl_ff *= (fragile_all * ff_ratio * (aoe_num - 1))
+  }
   else if (damage_type === 'aoe') {
     if (aoe_num <= enemy_num_left) _para_fgl_ff *= ((fragile_main + (aoe_num - 1) * fragile_all) * enemy_form * ff_ratio)
     else _para_fgl_ff *= ((fragile_main + (enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio)
   }
-  else if (damage_type === 'around_aoe') {
+  else if (damage_type === 'around_aoe') { // 不包括本体的范围伤害
     if (aoe_num <= enemy_num_left) _para_fgl_ff *= (((aoe_num - 1) * fragile_all) * enemy_form * ff_ratio)
     else _para_fgl_ff *= (((enemy_num_left - 1) * fragile_all) * enemy_form * ff_ratio)
-  } else if (damage_type == 'HOC') {
+  }
+  else if (damage_type == 'HOC') { // 重装伤害
     _para_fgl_ff *= ((fragile_main / enemy_num_left) + (fragile_all * (enemy_num_left - 1) / enemy_num_left))
   }
 

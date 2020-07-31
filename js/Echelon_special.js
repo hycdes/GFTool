@@ -226,7 +226,7 @@ function settle_buff(stand_num, info_self) {
     else if (is_this(stand_num, 2024)) { // rico dmg buff
         var buffnum = multilayer_process('rico_dmg_' + stand_num, 'get')
         if (buffnum > 3) buffnum = 3
-        _mul_dmg *= Math.pow(1.15, buffnum)
+        _mul_dmg *= 1 + (0.15 * buffnum)
     }
     else if (is_this(stand_num, 2026)) { // claes dmg buff
         _mul_dmg *= (1 + 0.25 * _spG('claes_buff_' + stand_num))
