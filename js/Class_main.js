@@ -42,7 +42,7 @@ var lib_name = {
   t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW',
   t27: '蝎式', t29: '司登MkⅡ',
   // —————————————— RF ——————————————
-  t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井',
+  t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井', t2024: '莉可',
   t1053: 'NTW-20 MOD',
   t1039: '莫辛-纳甘 MOD', t1252: 'KSVK MOD',
   t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93',
@@ -206,6 +206,7 @@ var lib_tdoll = [
   create_entry([4, 1, 2004], ['dps'], ['back'], ['ap', 'dizz'], []),
   create_entry([4, 1, 2005], ['dps'], ['back'], ['ap'], ['cluster']),
   create_entry([4, 1, 2020], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap', 'passive', 'multihit', 'multitarget'], []),
+  create_entry([4, 1, 2024], ['dps'], ['back', 'suggest_1'], ['forcus_dmg', 'ap', 'passive', 'grenade', 'snipe'], []),
   create_entry([4, 6, 1053], ['dps'], ['back'], ['ap', 'snipe', 'shield_break'], []),
   create_entry([4, 5, 1039], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
   create_entry([4, 5, 1252], ['dps'], ['back'], ['ap', 'passive', 'grenade'], []),
@@ -318,6 +319,7 @@ var list_decline = [ // 调整规则
   [1093, ['forcus_dmg', 'forcus_rof'], [0.2, 0.2]], // idw
   [1101, ['command_dmg', 'command_eva'], [2, 25 / 60]], // ump9
   [2020, ['forcus_dmg'], [0.8]], // stella
+  [2024, ['forcus_dmg'], [60 / 75]], // angelica
   [2027, ['forcus_dmg'], [0.2]], // angelica
 ]
 // ———————————————————————————— 特殊处理：类似tag关联度 ——————————————————————————————
@@ -352,7 +354,7 @@ special_weight.set('burstsupport', 2)
 special_weight.set('startdps', 2)
 
 
-// ====================标签添加：（1）修改lib_tag（2）修改lib_tag_NUMBER（2）添加一个新的MAP类tagNUMBER_TAGNAME====================
+// ====================标签添加：（1）修改lib_tag（2）修改lib_tag_NUMBER（3）添加一个新的MAP类tagNUMBER_TAGNAME====================
 var lib_tag = [
   // 1
   [['dps', 'supportdps', 'supportdfs', 'tank_eva', 'tank_arm'],
@@ -361,7 +363,7 @@ var lib_tag = [
   ],
   // 2
   [['front', 'middle', 'back', 'random', 'lowhp'],
-  ['suggest_2', 'suggest_3', 'suggest_7', 'suggest_8']
+  ['suggest_1', 'suggest_2', 'suggest_3', 'suggest_7', 'suggest_8']
   ],
   // 3
   [['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_eva', 'forcus_arm', 'forcus_crit', 'forcus_critdmg', 'forcus_movespeed', 'forcus_addcs', 'forcus_fastcs', 'max_acu', 'max_crit'],
@@ -420,6 +422,7 @@ var lib_tag_1 = {
   random: '<img src="../img/class-icon/icon-random.png" style="width:19px;height:19px">随机锁敌',
   lowhp: '<img src="../img/class-icon/icon-lowhp.png" style="width:19px;height:19px">优先残血',
 
+  suggest_1: '<img src="../img/class-icon/icon-suggest1.png" style="width:19px;height:19px">推荐1号位',
   suggest_2: '<img src="../img/class-icon/icon-suggest2.png" style="width:19px;height:19px">推荐2号位',
   suggest_3: '<img src="../img/class-icon/icon-suggest3.png" style="width:19px;height:19px">推荐3号位',
   suggest_7: '<img src="../img/class-icon/icon-suggest7.png" style="width:19px;height:19px">推荐7号位',
@@ -431,6 +434,7 @@ var tag1_front = new Map,
   tag1_random = new Map,
   tag1_lowhp = new Map,
 
+  tag1_suggest_1 = new Map,
   tag1_suggest_2 = new Map,
   tag1_suggest_3 = new Map,
   tag1_suggest_7 = new Map,
