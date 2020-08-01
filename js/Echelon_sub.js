@@ -39,8 +39,14 @@ function is_python_unrepeat(command) {
 function _spE(code, is_value) { return Set_Special.get(code) === is_value }
 function _spS(code, new_value) { Set_Special.set(code, new_value) }
 function _spG(code) { return Set_Special.get(code) }
-function _spPlus(code) { _spS(code, _spG(code) + 1) }
-function _spDecl(code) { _spS(code, _spG(code) - 1) }
+function _spPlus(code) {
+  if (arguments['1'] === undefined) _spS(code, _spG(code) + 1)
+  else _spS(code, _spG(code) + arguments['1'])
+}
+function _spDecl(code) {
+  if (arguments['1'] === undefined) _spS(code, _spG(code) - 1)
+  else _spS(code, _spG(code) - arguments['1'])
+}
 function _spDelete(code) { Set_Special.delete(code) }
 function num_to_name(num_type) {
   if (num_type === 1) return 'hg'

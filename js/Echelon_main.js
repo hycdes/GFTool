@@ -590,9 +590,9 @@ function reactAllSkill(command, current_time) {
         if (gs_tdoll[i]) Set_Special.set('reduce_dmg' + i, Set_Special.get('reduce_dmg' + i) / 0.7)
       }
     }
-
-    if (Set_Special.get('multi_' + k) != undefined && Set_Special.get('multi_' + k)[1] < global_frame) {
-      Set_Special.delete('multi_' + k)
+    // 多段攻击持续时间
+    if (_spG('multi_' + k) != undefined && _spG('multi_' + k)[1] < global_frame) {
+      _spDelete('multi_' + k)
     }
     if (k > 0 && gs_tdoll[k]) { // 需要时延相应被蟒蛇复读的all类技能
       if (is_this(k, 250) && global_frame >= Set_Special.get('hs2000_shield') && Set_Special.get('hs2000_can_active')) {
@@ -724,10 +724,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             }
             // 普攻结算————————————————————————————————————————————————————————————————————————————————————————————————
             var shoot_damage = settle_normal_attack(stand_num, current_Info, enemy_arm, list_buff)
-            // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
-            shoot_damage *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
             // 特殊结算————————————————————————————————————————————————————————————————————————————————————————————————
             shoot_damage = settle_specialskill(stand_num, current_Info, enemy_arm, shoot_damage)
+            // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
+            shoot_damage *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
             // 暴击结算————————————————————————————————————————————————————————————————————————————————————————————————
             shoot_damage *= settle_crit(stand_num, current_Info, list_buff)
             // 伤害加深和力场结算———————————————————————————————————————————————————————————————————————————————————————
@@ -1237,8 +1237,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     Set_Special.set('g11_shootleft_' + stand_num, 2)
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却  
   }
-  else if (skillname === 'multihit') {
-    Set_Special.set('multi_' + stand_num, [(s_t[0].Describe).value, current_time + (30 * s_t[0].duration)])
+  else if (skillname === 'multihit') { // 多段攻击伤害
+    if (is_this(stand_num, 312)) { // VSK-94按个数计算
+      _spS('vsk94_multi_' + stand_num, 3)
+    } else { // 其它按持续时间计算
+      _spS('multi_' + stand_num, [(s_t[0].Describe).value, current_time + (30 * s_t[0].duration)])
+    }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
   else if (skillname === 'snipe') { // 狙击
@@ -1982,6 +1986,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     if (!skill_standby) {
       s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
     } else s_t[1] = 0
+  }
+  else if (skillname === 'vsk94buff') {
+    var ex_dmg = current_Info.get('acu') * 0.2
+    _spS('vsk94_buff_' + stand_num, global_frame + 150) // 转换时间
+    _spS('vsk94_exdmg_' + stand_num, ex_dmg)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————

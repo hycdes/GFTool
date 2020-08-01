@@ -352,6 +352,7 @@ lib_affect.set(305, createAffect('u/d/', 'hg', ['cld'], [0.15])) // tabuk
 lib_affect.set(306, createAffect('r/ru/rr/', 'smg/ar', ['dmg', 'eva'], [0.2, 0.15])) // AK-alpha
 lib_affect.set(307, createAffect('r/rr/rru/', 'sg', ['rof', 'arm'], [0.15, 0.15])) // ZB-26
 lib_affect.set(308, createAffect('r/rd/', 'hg', ['cld'], [0.12])) // C14
+lib_affect.set(312, createAffect('d/dr/', 'hg', ['cld'], [0.18])) // VSK-94
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -709,6 +710,7 @@ lib_property.set(305, createProperty(115, 81, 36, 39, 0, 420, 0.4, -1)) // tabuk
 lib_property.set(306, createProperty(56, 53, 52, 75, 0, 580, 0.2, -1)) // AK-alpha
 lib_property.set(307, createProperty(100, 31, 30, 116, 0, 910, 0.05, 9)) // ZB-26
 lib_property.set(308, createProperty(128, 77, 29, 32, 0, 470, 0.4, -1)) // C14
+lib_property.set(312, createProperty(133, 79, 32, 38, 0, 440, 0.4, -1)) // VSK-94
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))

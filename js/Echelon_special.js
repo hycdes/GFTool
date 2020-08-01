@@ -308,13 +308,21 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
 function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_buff) {
     var num = 1
     if (is_this(stand_num, 194)) { // K2判断模式射击次数
-        if (Set_Special.get('k2_' + stand_num) === 'fever') num *= 3
+        if (_spG('k2_' + stand_num) === 'fever') num *= 3
     }
     else if (is_this(stand_num, 276)) { // Kord
-        if (Set_Special.get('kord_' + stand_num) === 'type_p') num *= enemy_num_left
+        if (_spG('kord_' + stand_num) === 'type_p') num *= enemy_num_left
+    }
+    else if (is_this(stand_num, 312)) { // VSK-94
+        if (_spG('vsk94_multi_' + stand_num) != undefined) {
+            if (_spG('vsk94_multi_' + stand_num) > 0) {
+                num *= 2
+                _spDecl('vsk94_multi_' + stand_num)
+            } else true
+        } else true
     }
     else if (is_this(stand_num, 1095)) { // 汉阳造88 MOD
-        if (Set_Special.get('hanyang88_buff_' + stand_num) >= global_frame) {
+        if (_spG('hanyang88_buff_' + stand_num) >= global_frame) {
             num *= enemy_num_left
         }
     }
@@ -322,12 +330,12 @@ function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_bu
         if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
             num = 1
         } else {
-            if (Set_Special.get('aim_time_' + stand_num) >= global_frame) { // 强制攻击几个目标，顶替独头弹效果
-                var aim_num = Set_Special.get('aim_forceon_' + stand_num)
+            if (_spG('aim_time_' + stand_num) >= global_frame) { // 强制攻击几个目标，顶替独头弹效果
+                var aim_num = _spG('aim_forceon_' + stand_num)
                 if (enemy_num_left >= aim_num) num = aim_num
                 else num = enemy_num_left
             } else { // 没有强制目标数
-                if (Set_Special.get('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹，默认3目标
+                if (_spG('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹，默认3目标
                     if (enemy_num_left >= 3) num = 3
                     else num = enemy_num_left
                 } else { // 如果携带，可能因为技能攻击多个目标
@@ -365,10 +373,10 @@ function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_bu
 function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // 特殊判定结算，包括额外段数伤害、对自身伤害加深等
     var _para_arm = Math.min(2, _pro('ap', info_self) - _pro('e_arm', info_enemy))
     if (is_this(stand_num, 4)) { // 蟒蛇
-        if (Set_Special.get('python_active') === 0 && Set_Special.get('python_opening') === true) {
+        if (_spG('python_active') === 0 && _spG('python_opening') === true) {
             final_dmg *= 2 // 无畏者之拥结束双发
-            Set_Special.set('python_active', -1)
-            Set_Special.set('python_opening', false)
+            _spS('python_active', -1)
+            _spS('python_opening', false)
         }
     }
     else if (is_this(stand_num, 272)) { // 沙漠之鹰额外伤害
@@ -387,6 +395,11 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // �
         if (_spG('ak15_angry_frame_' + stand_num) >= global_frame) { // 怒火期间
             extra_dmg = Math.max(1, Math.ceil(0.4 * info_self.get('dmg') * _pro('random') + _para_arm)) // 20%火力
             final_dmg += extra_dmg
+        }
+    }
+    else if (is_this(stand_num, 312)) { // VSK-94 二重警备伤害转化
+        if (_spG('vsk94_buff_' + stand_num) >= global_frame) {
+            final_dmg += _spG('vsk94_exdmg_' + stand_num)
         }
     }
     else if (is_this(stand_num, 1053)) { // NTW-20 MOD 普攻伤害加深

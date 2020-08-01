@@ -170,7 +170,7 @@ function describe_k2() { // k2
   Describe.name = 'k2'
   return Describe
 }
-function describe_multihit(multiple) { // an94、芭莉斯塔
+function describe_multihit(multiple) { // an94、芭莉斯塔、GSh、VSK-94
   var Describe = {}
   Describe.name = 'multihit'
   Describe.value = multiple
@@ -467,7 +467,11 @@ function describe_claes() { // claes
   Describe.name = 'claes'
   return Describe
 }
-
+function describe_vsk94buff() { // vsk-94
+  var Describe = {}
+  Describe.name = 'vsk94buff'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -751,6 +755,7 @@ lib_describe.set('stechkin_reduce_eva', describe_stechkin_eva()) // 短板敲击
 lib_describe.set('an94', describe_multihit(2)) // 人偶扳机
 lib_describe.set('blst', describe_multihit(2)) // 猎鹰刑场
 lib_describe.set('gsh18', describe_multihit(2)) // 锁链冲击
+lib_describe.set('vsk94', describe_multihit(2)) // 二重警备
 lib_describe.set('pm9', describe_multihit(2)) // 幻重暗劲
 lib_describe.set('aug', describe_aug()) // 葬仪之雨
 lib_describe.set('fal', describe_fal()) // 榴弹践踏
@@ -794,6 +799,7 @@ lib_describe.set('henrietta_init', describe_henrietta_init()) // 月轮守护人
 lib_describe.set('henrietta_active', describe_henrietta_active()) // 月轮守护人-主动
 lib_describe.set('claes', describe_claes()) // 沉思者之钥
 lib_describe.set('angelica', describe_angelica()) // 极限射击
+lib_describe.set('vsk94buff', describe_vsk94buff()) // 二重警备-属性转换
 
 
 // lib_skill
@@ -1197,6 +1203,10 @@ lib_skill.set(266, [
   createSkill(6, 8, 5, lib_describe.get('dmg_40'))
 ]) // 叠加射速特殊判断
 lib_skill.set(296, [createSkill(5, 8, 0, lib_describe.get('sl8'))]) // SL8
+lib_skill.set(312, [
+  createSkill(5, 8, 0, lib_describe.get('vsk94')),
+  createSkill(5, 8, 0, lib_describe.get('vsk94buff'))
+]) // VSK-94
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
 lib_skill.set(1252, [createSkill(9, 16, 0, lib_describe.get('snipe_5'))])
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————
