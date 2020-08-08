@@ -240,6 +240,8 @@ lib_language = {
   skillNAME_1007: '短板敲击乐',
   skillNAME_2013: '비밀 개조',
   skillNAME_1101: '白鸮轰鸣',
+  skillNAME_2025: 'Puppet trick',
+  DESCRIBE_2025: 'Knife hit!',
   skillNAME_2026: '沉思者之钥',
   DESCRIBE_2026: ['自动技能', '1层蓄力开火', '2层蓄力开火', '3层蓄力开火', '4层蓄力开火', '5层蓄力开火'],
   DESCRIBE_213: ['아음속탄(회피 65% 상승)', 'ST탄(화력 85% 상승)', '일반탄(명중 200% 상승)'],

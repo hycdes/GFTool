@@ -918,6 +918,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 1097) addSpecialSetting(1097, reverse_position, num_pickblock, 0, 'checked') // M950A MOD
     else if (ID === 1252) addSpecialSetting(1252, reverse_position, num_pickblock, 0, 'checked') // KSVK MOD
     else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 0, 'checked') // Theresa
+    else if (ID === 2025) addSpecialSetting(2025, reverse_position, num_pickblock, 0, 'checked') // Triela
 
     // 类型1：多勾选框
     else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 1, 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD
@@ -981,12 +982,12 @@ function addTdoll() { // 添加战术人形
 // —————————————— NEW TEMPLATE ————————————————
 function addSpecialSetting() { // ID,_position,_type
   var list_specialName = [
-    [2006, lib_language.NAME_2006],
-    [285, 'C-93'], [1007, lib_language.NAME_7],
+    [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7],
     [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
     [213, 'C-MS'],
     [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20'],
-    [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026]
+    [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
+    [2025, lib_language.NAME_2025]
   ]
   var ID = arguments['0'], // T-doll ID
     _position = arguments['1'], // position number for display (reverse_position)

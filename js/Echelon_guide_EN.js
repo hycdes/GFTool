@@ -197,6 +197,8 @@ lib_language = {
   skillNAME_243: 'Future Warning',
   skillNAME_252: 'Concussive Strike',
   skillNAME_306: 'Blazar',
+  skillNAME_2025: 'Puppet trick',
+  DESCRIBE_2025: 'Knife hit!',
   skillNAME_2006: 'Sanctions of Light',
   skillNAME_2026: '沉思者之钥',
   DESCRIBE_2026: ['自动技能', '1层蓄力开火', '2层蓄力开火', '3层蓄力开火', '4层蓄力开火', '5层蓄力开火'],

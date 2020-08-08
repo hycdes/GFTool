@@ -280,6 +280,10 @@
             logiList.push(creatLogiData("12-2", 240, 0, 0, 80, "—", "—", 1.5));
             logiList.push(creatLogiData("12-3", 88.9, 133.3, 133.3, 0, "快速建造", "—", 9));
             logiList.push(creatLogiData("12-4", 150, 0, 150, 0, "人形契约", "—", 12));
+            logiList.push(creatLogiData("13-1", 0, 0, 400, 0, "快速建造", "—", 3));
+            logiList.push(creatLogiData("13-2", 133.3, 133.3, 133.3, 50, "—", "—", 6));
+            logiList.push(creatLogiData("13-3", 0, 166.7, 0, 50, "装备契约", "—", 24));
+            logiList.push(creatLogiData("13-4", 0, 0, 0, 166.7, "人形契约", "—", 6));
             logiList.sort(function (a, b) {
                 var weight1 = a.mpw * parseInt(Mw.value) + a.amm * parseInt(Aw.value) + a.rat * parseInt(Rw.value) + a.prt * parseInt(Pw.value);
                 var weight2 = b.mpw * parseInt(Mw.value) + b.amm * parseInt(Aw.value) + b.rat * parseInt(Rw.value) + b.prt * parseInt(Pw.value);
@@ -467,7 +471,8 @@
                                                     <option value=9>第九战役</option>
                                                     <option value=10>第十战役</option>
                                                     <option value=11>第十一战役</option>
-                                                    <option value=12 selected>第十二战役</option>
+                                                    <option value=12>第十二战役</option>
+                                                    <option value=13 selected>第十三战役</option>
                                                 </select>
                                             </p>
                                         </div>

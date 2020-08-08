@@ -550,6 +550,7 @@ lib_describe.set('dmgeva_16040', describe_property(['self'], ['dmg/eva'], ['1.6/
 lib_describe.set('dmgeva_15040', describe_property(['self'], ['dmg/eva'], ['1.5/0.4'])) // 机动专注 150%/40%
 lib_describe.set('dmg_120', describe_property(['self'], ['dmg'], ['1.2'])) // 火力专注 120%
 lib_describe.set('type100', describe_property(['self'], ['dmg'], ['0.85'])) // 火力专注 85%
+lib_describe.set('dmg_80', describe_property(['self'], ['dmg'], ['0.8'])) // 木偶把戏 80%
 lib_describe.set('dmg_75', describe_property(['self'], ['dmg'], ['0.75'])) // 火力专注 75%
 lib_describe.set('dmg_705', describe_property(['self'], ['dmg'], ['0.705'])) // 对称性调节 70.5%
 lib_describe.set('dmg_70', describe_property(['self'], ['dmg'], ['0.7'])) // 火力专注 70%
@@ -651,6 +652,7 @@ lib_describe.set('armeva_5', describe_property(['self'], ['arm/eva'], ['0.6/0.6'
 lib_describe.set('armeva_4', describe_property(['self'], ['arm/eva'], ['0.5/0.55'])) // 生存本能-4星
 lib_describe.set('m1014', describe_property(['self'], ['dmg/arm'], ['0.5/0.3'])) // 应激性暗示
 lib_describe.set('pm9_buff', describe_property(['self'], ['eva/dmg/acu'], ['1/-0.3/-0.3'])) // 幻重暗劲-闪避+100%，火力命中-30%
+lib_describe.set('sacr', describe_property(['self'], ['rof/speed/eva/dmg/acu/critdmg'], ['-0.2/-0.3/-0.3/0.35/0.6/0.5'])) // 曙光狂欢颂
 // forcefield
 lib_describe.set('ffs', describe_ffshield(9999, 9999, 0, 0)) // 力场盾
 lib_describe.set('m870', describe_ffshield(1000, 1000, 100, 1)) // 地狱公路
@@ -978,6 +980,7 @@ lib_skill.set(306, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 5, lib_describe.get('akalfa'))
 ]) // AK-ALPHA
+lib_skill.set(313, [createSkill(6, 8, 5, lib_describe.get('sacr'))]) // S-ACR
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
@@ -1473,7 +1476,7 @@ lib_skill.set(2023, [
   createSkill(0, -1, 0, lib_describe.get('henrietta_init')), // 月轮守护人-初始护盾
   createSkill(4, 16, 5, lib_describe.get('henrietta_active'))]) // 月轮守护人-主动
 lib_skill.set(2024, [createSkill(4, 10, 0, lib_describe.get('rico_snipe'))]) // 提希丰之塔
-lib_skill.set(2025, []) // 木偶把戏
+lib_skill.set(2025, [createSkill(8, 16, 8, lib_describe.get('dmg_80'))]) // 木偶把戏
 lib_skill.set(2026, [createSkill(0, 3, 0, lib_describe.get('claes'))]) // 沉思者之钥
 lib_skill.set(2027, [
   createSkill(0, 10, 0, lib_describe.get('angelica')),

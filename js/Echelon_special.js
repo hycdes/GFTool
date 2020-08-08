@@ -195,6 +195,16 @@ function settle_buff(stand_num, info_self) {
             _mul_acu *= 1.5
         }
     }
+    else if (is_this(stand_num, 313)) { // S-ACR计算debuff个数
+        var bufflist = Set_Status.get(stand_num),
+            list_pro = []
+        for (var pro_pair of bufflist) { // buff属性结构为 [ [ type , value ] , leftframe ]
+            if (pro_pair[0][1] < 1 && !is_exist_element(pro_pair[0][0], list_pro)) { // 是debuff
+                list_pro.push(pro_pair[0][0])
+            }
+        }
+        _mul_dmg *= 1 + (0.05 * list_pro.length)
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
@@ -228,6 +238,12 @@ function settle_buff(stand_num, info_self) {
         if (buffnum > 3) buffnum = 3
         _mul_dmg *= 1 + (0.15 * buffnum)
     }
+    else if (is_this(stand_num, 2025)) { // triela
+        if (document.getElementById('special_2025_' + stand_num).checked) {  // 拔刀
+            if (_spG('sg_ammo_type_' + stand_num) === 'single') true // do nothing
+            else _mul_dmg *= 2
+        }
+    }
     else if (is_this(stand_num, 2026)) { // claes dmg buff
         _mul_dmg *= (1 + 0.25 * _spG('claes_buff_' + stand_num))
     }
@@ -238,6 +254,7 @@ function settle_buff(stand_num, info_self) {
             else _mul_dmg *= 1.04
         }
     }
+
     return [
         ['dmg', _mul_dmg], ['acu', _mul_acu], ['critdmg', _mul_critdmg],
         ['must_acu', must_acu],
@@ -251,25 +268,31 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         _para_dmg = _pro('dmg', info_self) * _mul('dmg', list_buff)
     // 无视护甲条目生效
     if (ignore_arm) _para_arm = 0
-    // 特殊人形技能的上海增益
-    if (info_self.get('type') === 6) { // SG normal attack
-        if (is_this(stand_num, 2016)) true // Dana do nothing
+    // 特殊人形技能的伤害增益
+    if (info_self.get('type') === 6) { // SG普攻计算独头弹
+        if (is_this(stand_num, 2016)) true // 达娜不考虑独头弹
         else {
-            if (Set_Special.get('sg_ammo_type_' + stand_num) != undefined) { // SG with single-bullet
+            if (_spG('sg_ammo_type_' + stand_num) != undefined) { // SG携带独头弹
                 if (is_this(stand_num, 163)) { // AA-12
-                    if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > global_frame) {
-                        if (Set_Special.get('aa12_skillmode_' + stand_num) === true) { // skill mode: 3 targets
-                            Set_Special.set('aa12_skillmode_' + stand_num, false)
-                        } else { // single-bullet mode
-                            Set_Special.set('aa12_skillmode_' + stand_num, true)
+                    if (_spG('aa12_' + stand_num) != undefined && _spG('aa12_' + stand_num) > global_frame) {
+                        if (_spG('aa12_skillmode_' + stand_num) === true) { // 技能交替为3目标
+                            _spS('aa12_skillmode_' + stand_num, false)
+                        } else { // 否则为独头弹模式
+                            _spS('aa12_skillmode_' + stand_num, true)
                             _para_dmg *= 3 // x3 dmg
                         }
                     }
                 } else {
-                    if (Set_Special.get('aim_time_' + stand_num) === undefined || Set_Special.get('aim_time_' + stand_num) < global_frame) {
+                    if (_spG('aim_time_' + stand_num) === undefined || _spG('aim_time_' + stand_num) < global_frame) {
                         _para_dmg *= 3 // no forcus-multiple-targer, x3 dmg
                     }
                 }
+            }
+        }
+        if (is_this(stand_num, 2025)) { // 崔耶拉拔刀无限子弹
+            if (document.getElementById('special_2025_' + stand_num).checked) {  // 携带独头弹，或拔刀
+                if (_spG('sg_ammo_type_' + stand_num) === 'single') true // do nothing
+                else _spPlus('clipsize_' + stand_num) // 拔刀不消耗子弹
             }
         }
     }
@@ -329,20 +352,22 @@ function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_bu
     if (info_self.get('type') === 6) { // SG攻击，目标数特殊处理
         if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
             num = 1
-        } else {
+        }
+        else if (is_this(stand_num, 2025)) { // 崔耶拉判断
+            if (_spG('sg_ammo_type_' + stand_num) === 'single' || document.getElementById('special_2025_' + stand_num).checked) {  // 携带独头弹，或拔刀
+                num = 1
+            } else num = Math.min(4, enemy_num_left)
+        }
+        else {
             if (_spG('aim_time_' + stand_num) >= global_frame) { // 强制攻击几个目标，顶替独头弹效果
-                var aim_num = _spG('aim_forceon_' + stand_num)
-                if (enemy_num_left >= aim_num) num = aim_num
-                else num = enemy_num_left
+                num = Math.min(_spG('aim_forceon_' + stand_num), enemy_num_left)
             } else { // 没有强制目标数
                 if (_spG('sg_ammo_type_' + stand_num) === undefined) { // SG未携带独头弹，默认3目标
-                    if (enemy_num_left >= 3) num = 3
-                    else num = enemy_num_left
+                    num = Math.min(3, enemy_num_left)
                 } else { // 如果携带，可能因为技能攻击多个目标
                     if (is_this(stand_num, 163)) { // AA-12酮血症BUG
                         if (Set_Special.get('aa12_' + stand_num) != undefined && Set_Special.get('aa12_' + stand_num) > global_frame && Set_Special.get('aa12_skillmode_' + stand_num) === false) {
-                            if (enemy_num_left >= 3) num = 3
-                            else num = enemy_num_left
+                            num = Math.min(3, enemy_num_left)
                         }
                     }
                 }

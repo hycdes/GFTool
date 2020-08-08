@@ -32,10 +32,10 @@ var lib_name = {
   t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
   t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t306: 'AK-Alfa',
   t1061: 'StG44 MOD', t1063: 'G3 MOD',
-  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21',
+  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR',
   t70: 'FNC',
   // —————————————— SMG ——————————————
-  t2019: '多萝西·海兹',
+  t2019: '多萝西·海兹', t2023: '海莉艾塔',
   t1026: 'MP5 MOD', t1101: 'UMP9 MOD', t1103: 'UMP45 MOD',
   t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9',
   t1029: '司登MkⅡ MOD', t1031: '伯莱塔38型 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
@@ -57,7 +57,7 @@ var lib_name = {
   t75: 'M1918', t78: 'M60', t85: 'PK', t88: 'MG3', t121: 'Mk48', t149: 'AEK-999', t185: '阿梅利', t199: '80式', t240: 'Mk46', t254: 'UKM2000', t264: '绍沙', t275: 'M1895CB',
   t77: 'M2HB',
   // —————————————— SG ——————————————
-  t2002: '艾尔菲尔特', t2008: '希儿', t2022: '达娜·赞恩',
+  t2002: '艾尔菲尔特', t2008: '希儿', t2022: '达娜·赞恩', t2025: '崔耶拉',
   t151: 'M1887', t157: 'KSG', t160: 'Saiga-12', t163: 'AA-12', t164: 'FP-6', t188: 'S.A.T.8', t229: 'M870', t281: 'CAWS', t282: 'DP-12',
   t153: 'M37', t155: 'M590', t156: 'Super-Shorty', t161: '97式霰', t162: 'SPAS-12', t165: 'M1014', t189: 'USAS-12', t283: '解放者',
   t159: 'RMB-93'
@@ -141,6 +141,7 @@ var lib_tdoll = [
   create_entry([2, 5, 287], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], ['mengxin']),
   create_entry([2, 5, 289], ['dps'], ['front'], ['forcus_dmg'], []),
   create_entry([2, 5, 306], ['dps', 'af_dmg'], ['front'], ['forcus_dmg'], []),
+  create_entry([2, 5, 313], ['dps', 'af_dmg'], ['front', 'suggest_7'], ['forcus_dmg', 'forcus_acu', 'forcus_critdmg'], []),
   create_entry([2, 4, 1061], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 1063], ['dps'], ['front'], ['grenade', 'dizz'], []),
   create_entry([2, 4, 54], ['tank_eva', 'tank_arm'], ['front'], ['dizz'], ['laomo']),
@@ -164,6 +165,7 @@ var lib_tdoll = [
   create_entry([2, 3, 70], ['dps'], ['front'], ['forcus_dmg'], ['mengxin']),
   // —————————————— SMG ——————————————
   create_entry([3, 1, 2019], ['supportdfs', 'tank_eva'], ['random'], ['forcus_dmg', 'forcus_eva', 'command_acu', 'command_eva', 'status', 'fastcd'], []),
+  create_entry([3, 1, 2023], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_rof', 'forcus_eva', 'shield'], []),
   create_entry([3, 5, 1026], ['tank_eva'], ['random'], ['forcus_eva', 'ffshield'], []),
   create_entry([3, 5, 1101], ['tank_eva'], ['random'], ['command_dmg', 'command_eva', 'dizz', 'shield'], []),
   create_entry([3, 5, 1103], ['tank_eva', 'af_dmg'], ['random'], ['fastcd', 'smoke'], []),
@@ -282,6 +284,7 @@ var lib_tdoll = [
   create_entry([6, 1, 2002], ['dps', 'tank_arm'], ['random'], ['grenade'], ['skillcrit']),
   create_entry([6, 1, 2008], ['dps', 'tank_arm'], ['random'], ['forcus_fastcs', 'passive'], []),
   create_entry([6, 1, 2022], ['tank_arm'], ['random'], ['grenade', 'passive'], []),
+  create_entry([6, 1, 2025], ['dps', 'tank_arm'], ['random'], ['forcus_dmg', 'forcus_rof', 'passive', 'status'], []),
   create_entry([6, 5, 151], ['tank_arm'], ['random'], ['snipe'], []),
   create_entry([6, 5, 157], ['tank_arm'], ['random'], ['forcus_arm', 'forcus_eva'], []),
   create_entry([6, 5, 160], ['dps', 'tank_arm'], ['random'], ['multitarget', 'snipe'], []),

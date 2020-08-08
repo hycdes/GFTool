@@ -2641,7 +2641,7 @@ function getBaseProperty(num) {
   for (var en = 0; en < 4; en++) {
     if ((list_tdoll[num][1].Equip)[en].dmg === 2.01) { // 独头弹
       dmg_e[en] = 0
-      Set_Special.set('sg_ammo_type_' + num, 'single')
+      _spS('sg_ammo_type_' + num, 'single')
     } else {
       dmg_e[en] = (list_tdoll[num][1].Equip)[en].dmg
     }

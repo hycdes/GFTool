@@ -1,15 +1,15 @@
 // lable_judge
-function compare_dps(pair_a, pair_b) { return pair_b[1] - pair_a[1]; }
-function is_property(str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield'); }
-function is_in_affect_of(stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; }
-function is_this(stand_num, ID) { return list_tdoll[stand_num][1].ID === ID }
-function is_stand(stand_num) { return list_tdoll[stand_num][1] != null }
-function is_int(num) { return (parseFloat(num) - parseInt(num)) === 0 }
-function is_this_type(stand_num, type) { // 1~6
+function compare_dps(pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // dps比较函数
+function is_property(str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield'); } // 是否是一种属性增益
+function is_in_affect_of(stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; } // stand_b是否在stand_a的人形的影响格上
+function is_this(stand_num, ID) { return list_tdoll[stand_num][1].ID === ID } // stand_num处是否是编号为ID的人形
+function is_stand(stand_num) { return list_tdoll[stand_num][1] != null } // 某位置上是否有人形
+function is_int(num) { return (parseFloat(num) - parseInt(num)) === 0 } // 是否是整数
+function is_this_type(stand_num, type) { // 是否为某类型人形，HG~SG序号1~6
   if (list_tdoll[stand_num][1].Type === type) return true
   return false
 }
-function is_exist_someone(ID) {
+function is_exist_someone(ID) { // 队内是否有编号为ID的人形
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       if (list_tdoll[i][1].ID === ID) return true
@@ -17,7 +17,7 @@ function is_exist_someone(ID) {
   }
   return false
 }
-function is_protected(stand_num) {
+function is_protected(stand_num) { // 是否为大破保护
   if (Set_Special.get('damage_protect')[stand_num]) return false // 尚未触发保护
   else {
     if (Set_Special.get('damage_protect_time' + stand_num) >= global_frame) return true // 正在保护期
@@ -33,6 +33,26 @@ function is_activate_protect(suffer_hp, single_hp, stand_num) {
 function is_python_unrepeat(command) {
   if (command != undefined && command === 'unrepeat') return true
   else return false
+}
+function is_exist_element(name, list) {// 列表里是否存name
+  var is_exist = false
+  for (var ele of list) {
+    if (ele === name) {
+      is_exist = true
+      break
+    }
+  }
+  return is_exist
+}
+function is_exist_pair(pair_name, list) { // 二元组列表里是否存 pair_name 的 [pair_name,value]
+  var is_exist = false
+  for (var pair of list) {
+    if (pair[0] === pair_name) {
+      is_exist = true
+      break
+    }
+  }
+  return is_exist
 }
 
 // lable_transfer
@@ -496,9 +516,10 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('henri_eva_' + i, [])
       } else if (is_this(i, 2024)) { // 莉可火力被动层数
         _spS('rico_dmg_' + i, [])
-      } else if (is_this(i, 2025)) { // 测试版：崔耶拉
-        changeStatus(i, 'self', 'dmg', 1, -1)
-        changeStatus(i, 'self', 'rof', 0.5, -1)
+      } else if (is_this(i, 2025)) { // 崔耶拉拔刀
+        if (document.getElementById('special_2025_' + i).checked && _spG('sg_ammo_type_' + i) === undefined) {  // 能够拔刀
+          changeStatus(i, 'self', 'rof', 0.5, -1)
+        }
       } else if (is_this(i, 2026)) { // 库拉耶丝-是否开枪状态
         _spS('claes_firestatus_' + i, false) // 默认蓄力
         _spS('claes_buff_' + i, 0) // 初始0层buff

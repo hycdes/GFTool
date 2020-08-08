@@ -353,6 +353,7 @@ lib_affect.set(306, createAffect('r/ru/rr/', 'smg/ar', ['dmg', 'eva'], [0.2, 0.1
 lib_affect.set(307, createAffect('r/rr/rru/', 'sg', ['rof', 'arm'], [0.15, 0.15])) // ZB-26
 lib_affect.set(308, createAffect('r/rd/', 'hg', ['cld'], [0.12])) // C14
 lib_affect.set(312, createAffect('d/dr/', 'hg', ['cld'], [0.18])) // VSK-94
+lib_affect.set(313, createAffect('r/ru/ruu/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // S-ACR
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -711,6 +712,7 @@ lib_property.set(306, createProperty(56, 53, 52, 75, 0, 580, 0.2, -1)) // AK-alp
 lib_property.set(307, createProperty(100, 31, 30, 116, 0, 910, 0.05, 9)) // ZB-26
 lib_property.set(308, createProperty(128, 77, 29, 32, 0, 470, 0.4, -1)) // C14
 lib_property.set(312, createProperty(133, 79, 32, 38, 0, 440, 0.4, -1)) // VSK-94
+lib_property.set(313, createProperty(46, 45, 42, 91, 0, 620, 0.2, -1)) // S-ACR
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
@@ -766,7 +768,7 @@ lib_property.set(2015, createProperty(89, 31, 23, 129, 0, 975, 0.2, 9)) // Elma
 lib_property.set(2016, createProperty(38, 15, 13, 26, 22, 1345, 0.4, 1)) // Dana
 lib_property.set(2023, createProperty(30, 15, 83, 93, 0, 950, 0.05, -1)) // Henrietta
 lib_property.set(2024, createProperty(130, 80, 33, 37, 0, 400, 0.4, -1)) // Rico
-lib_property.set(2025, createProperty(37, 12, 12, 26, 21, 1265, 0.4, -1)) // Triela
+lib_property.set(2025, createProperty(37, 12, 12, 26, 21, 1265, 0.4, 4)) // Triela
 lib_property.set(2026, createProperty(79, 35, 36, 139, 0, 785, 0.05, 8)) // Claes
 lib_property.set(2027, createProperty(55, 57, 46, 75, 0, 605, 0.3, -1)) // Angelica
 // BUG
