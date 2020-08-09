@@ -50,7 +50,7 @@ var lib_name = {
   t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000', t305: '塔布克',
   t37: 'M14', t256: '隼',
   // —————————————— MG ——————————————
-  t2021: '阿尔玛·阿玛斯',
+  t2021: '阿尔玛·阿玛斯', t2026: '库拉耶丝',
   t1075: 'M1918 MOD', t1089: '布伦 MOD',
   t109: 'MG5', t112: '内格夫', t125: 'MG4', t173: 'PKP', t208: 'HK21', t238: '88式', t253: '刘易斯', t263: 'MG36', t276: 'Kord', t307: 'ZB-26',
   t1081: 'LWMMG MOD',
@@ -254,6 +254,7 @@ var lib_tdoll = [
   create_entry([4, 3, 256], ['dps'], ['back'], ['forcus_dmg', 'forcus_acu', 'ap', 'fastcd', 'passive', 'snipe'], ['skillcrit']),
   // —————————————— MG ——————————————
   create_entry([5, 1, 2021], ['dps', 'supportdfs', 'af_arm'], ['random'], ['forcus_dmg', 'ap', 'multihit', 'multitarget'], []),
+  create_entry([5, 1, 2026], ['dps', 'supportdfs', 'af_arm'], ['random'], ['forcus_dmg', 'forcus_addcs', 'command_dmg', 'ap', 'shield'], []),
   create_entry([5, 5, 1075], ['dps'], ['random'], ['forcus_dmg', 'forcus_fastcs', 'ap', 'passive'], []),
   create_entry([5, 5, 109], ['dps'], ['random'], ['ap', 'passive'], []),
   create_entry([5, 5, 112], ['dps', 'supportdfs', 'longdps', 'af_arm'], ['random'], ['forcus_dmg', 'ap', 'passive'], []),

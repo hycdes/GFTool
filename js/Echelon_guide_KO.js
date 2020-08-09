@@ -312,6 +312,9 @@ lib_language = {
   na: 'Night-ability',
   skillstren: '스킬+',
   skilljill: '술을 섞고 인생을 바꿔 줄 시간이군',
+  skillclaes1: '+shield',
+  skillclaes2: '+teamdmg',
+  skillclaes3: '+clipsize',
 
   skillNAME_256: '석양의 송골매',
   DESCRIBE_256: '특수탄 사용 안함',

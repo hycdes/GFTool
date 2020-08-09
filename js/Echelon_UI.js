@@ -224,6 +224,9 @@ function showEquip(value) {
         else if (value === 120111 || value === 120112 || value === 120113 || value === 220111 || value === 220112 || value === 220113 || value === 320111 || value === 320112) {
           equip_str += '<br><span style="color:#cc66ff">' + lib_language.skilljill + '</span>'
         }
+        else if (value === 120261) equip_str += '<br><span style="color:#6699ff">' + lib_language.skillclaes1 + '</span>'
+        else if (value === 120262) equip_str += '<br><span style="color:#ff6666">' + lib_language.skillclaes2 + '</span>'
+        else if (value === 120263) equip_str += '<br><span style="color:#33ff99">' + lib_language.skillclaes3 + '</span>'
       }
     }
   }

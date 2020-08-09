@@ -23,9 +23,7 @@ function settle_buff(stand_num, info_self) {
         ignore_arm = false
     // 全局buff计算，主要用于处理可叠但先知层数的全体buff
     if (is_exist_someone(2026)) {
-        var buffnum = multilayer_process('claes_globalbuff', 'get')
-        if (buffnum > 3) buffnum = 3
-        _mul_dmg *= Math.pow(1.05, buffnum)
+        _mul_dmg *= Math.pow(1.05, Math.min(3, multilayer_process('claes_globalbuff', 'get')))
     }
     // 不同人形单独的buff计算
     if (is_this(stand_num, 4)) { // python active

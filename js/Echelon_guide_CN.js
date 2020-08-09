@@ -319,6 +319,9 @@ lib_language = {
   na: '夜视能力',
   skillstren: '技能增强',
   skilljill: '调制饮料改变人生',
+  skillclaes1: '蓄力增加护盾',
+  skillclaes2: '蓄力增加全队伤害',
+  skillclaes3: '蓄力增加弹量',
 
   fairyNAME_1: '勇士妖精',
   fairyNAME_2: '暴怒妖精',

@@ -128,6 +128,10 @@ lib_language = {
   NAME_2026: 'Claes',
   NAME_2027: 'Angerica',
 
+  skillclaes1: '+shield',
+  skillclaes2: '+teamdmg',
+  skillclaes3: '+clipsize',
+
   equipNAME_0: 'No equipment',
   equipNAME_12: 'Telescope Sight',
   equipNAME_14: 'Holographic Sight',
