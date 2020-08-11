@@ -352,6 +352,7 @@ lib_affect.set(305, createAffect('u/d/', 'hg', ['cld'], [0.15])) // tabuk
 lib_affect.set(306, createAffect('r/ru/rr/', 'smg/ar', ['dmg', 'eva'], [0.2, 0.15])) // AK-alpha
 lib_affect.set(307, createAffect('r/rr/rru/', 'sg', ['rof', 'arm'], [0.15, 0.15])) // ZB-26
 lib_affect.set(308, createAffect('r/rd/', 'hg', ['cld'], [0.12])) // C14
+lib_affect.set(310, createAffect('r/rd/l/ld/d/', 'all', ['dmg', 'acu'], [0.22, 0.5])) // Rex Zero 1
 lib_affect.set(312, createAffect('d/dr/', 'hg', ['cld'], [0.18])) // VSK-94
 lib_affect.set(313, createAffect('r/ru/ruu/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // S-ACR
 // Digimind update
@@ -711,6 +712,7 @@ lib_property.set(305, createProperty(115, 81, 36, 39, 0, 420, 0.4, -1)) // tabuk
 lib_property.set(306, createProperty(56, 53, 52, 75, 0, 580, 0.2, -1)) // AK-alpha
 lib_property.set(307, createProperty(100, 31, 30, 116, 0, 910, 0.05, 9)) // ZB-26
 lib_property.set(308, createProperty(128, 77, 29, 32, 0, 470, 0.4, -1)) // C14
+lib_property.set(310, createProperty(31, 56, 74, 61, 0, 350, 0.2, -1)) // Rex Zero 1
 lib_property.set(312, createProperty(133, 79, 32, 38, 0, 440, 0.4, -1)) // VSK-94
 lib_property.set(313, createProperty(46, 45, 42, 91, 0, 620, 0.2, -1)) // S-ACR
 

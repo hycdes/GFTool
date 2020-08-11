@@ -871,6 +871,7 @@ lib_skill.set(202, [createSkill(4, 12, 0, lib_describe.get('thunder'))]) // 临�
 lib_skill.set(212, [createSkill(6, 12, 8, lib_describe.get('k5'))])
 lib_skill.set(248, [createSkill(6, 12, 8, lib_describe.get('jericho'))]) // 被动单独判断
 lib_skill.set(269, []) // 报复进行时单独判断
+lib_skill.set(310, [createSkill(6, 12, 8, lib_describe.get('com_dmg_22'))]) // 护盾暂时没写
 lib_skill.set(1002, [
   createSkill(1, 12, 0, lib_describe.get('m1911')), // 绝境神枪手
   createSkill(1, 12, 4, lib_describe.get('rof_40_enemy')), // 烟雾弹 40%

@@ -23,7 +23,7 @@ var lib_name = {
   t1001: '柯尔特左轮 MOD', t1007: '斯捷奇金 MOD',
   t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93', t303: 'HP-35',
   t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD', t1221: 'GSh-18 MOD',
-  t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科', t269: 'P30',
+  t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科', t269: 'P30', t310: 'Rex Zero 1',
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
   t5: '纳甘左轮', t10: 'PPK',
   // —————————————— AR ——————————————
@@ -104,6 +104,7 @@ var lib_tdoll = [
   create_entry([1, 4, 212], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_acu', 'command_eva'], []),
   create_entry([1, 4, 248], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_acu'], []),
   create_entry([1, 4, 269], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_rof', 'command_movespeed'], []),
+  create_entry([1, 4, 310], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'shield'], []),
   create_entry([1, 3, 3], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['dizz'], []),
   create_entry([1, 3, 14], ['supportdps', 'af_rof', 'af_eva'], ['random'], ['command_rof'], []),
   create_entry([1, 3, 132], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['weak_eva'], ['night']),
