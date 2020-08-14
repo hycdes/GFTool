@@ -472,6 +472,11 @@ function describe_vsk94buff() { // vsk-94
   Describe.name = 'vsk94buff'
   return Describe
 }
+function describe_supersass() { // superass mod
+  var Describe = {}
+  Describe.name = 'supersass'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -713,11 +718,19 @@ lib_describe.set('snipe_7', describe_snipe(7, 2, 0, 1, 'armless/critless/evaless
 lib_describe.set('snipe_6.5', describe_snipe(6.5, 1, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
 lib_describe.set('snipe_6.5_2', describe_snipe(6.5, 2, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙，2秒瞄准
 lib_describe.set('snipe_7.08', describe_snipe(7.08, 1.5, 0, 1, 'armless/critless/evaless')) // 7.08倍炮狙，sv-98 mod狙击近似化处理
-lib_describe.set('snipe_6', describe_snipe(6, 1.5, 0, 1, 'armless/critless/evaless')) // 6倍炮狙
+lib_describe.set('snipe_6', describe_snipe(6, 1.5, 0, 1, 'armless/critless/evaless')) // 6倍炮狙+1.5s瞄准
+
 lib_describe.set('snipe_5.5', describe_snipe(5.5, 1.5, 0, 1, 'armless/critless/evaless')) // 5.5倍炮狙
 lib_describe.set('snipe_5', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 5倍炮狙
 lib_describe.set('snipe_4', describe_snipe(4, 1.5, 0, 1, 'armless/critless/evaless')) // 4倍炮狙：震荡冲击弹
 lib_describe.set('snipe_3', describe_snipe(3, 1, 0, 1, 'armless/critless/evaless')) // 3倍炮狙
+
+lib_describe.set('snipe_6_1', describe_snipe(6, 1, 0, 1, 'armless/critless/evaless')) // 6倍炮狙+1s瞄准
+lib_describe.set('snipe_5.2_1', describe_snipe(5.2, 1, 0, 1, 'armless/critless/evaless')) // 5.2倍炮狙+1s瞄准
+lib_describe.set('snipe_4.4_1', describe_snipe(4.4, 1, 0, 1, 'armless/critless/evaless')) // 4.4倍炮狙+1s瞄准
+lib_describe.set('snipe_3.6_1', describe_snipe(3.6, 1, 0, 1, 'armless/critless/evaless')) // 3.6倍炮狙+1s瞄准
+lib_describe.set('snipe_2.8_1', describe_snipe(2.8, 1, 0, 1, 'armless/critless/evaless')) // 2.8倍炮狙+1s瞄准
+
 lib_describe.set('rico_snipe', describe_snipe(3, 0, 0, 1, 'armless/crit/evaless')) // 提希丰之塔
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
 lib_describe.set('js05', describe_snipe(2, 2, 0, 1, 'armless/critless/evaless')) // 贯通射击2倍，目标数特殊变量设定
@@ -802,7 +815,7 @@ lib_describe.set('henrietta_active', describe_henrietta_active()) // 月轮守�
 lib_describe.set('claes', describe_claes()) // 沉思者之钥
 lib_describe.set('angelica', describe_angelica()) // 极限射击
 lib_describe.set('vsk94buff', describe_vsk94buff()) // 二重警备-属性转换
-
+lib_describe.set('supersass', describe_supersass()) // 后发狙击
 
 // lib_skill
 
@@ -1255,6 +1268,7 @@ lib_skill.set(1095, [
   createSkill(6, 8, 6, lib_describe.get('dmgND_35')),
   createSkill(6, 8, 6, lib_describe.get('hanyang88')) // 全能战术判断在攻击判定中解决
 ])
+lib_skill.set(1124, []) // 炮狙根据特设添加
 // ———————————————————————————————————————— RF - 3 ————————————————————————————————————————
 lib_skill.set(34, [createSkill(10, 16, 0, lib_describe.get('snipe_5.5'))])
 lib_skill.set(35, [createSkill(5, 16, 15, lib_describe.get('rof_40'))])

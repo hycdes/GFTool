@@ -286,6 +286,7 @@ function changeSelectItems() {
       str_items += '<option value=1044>No.44 [MOD] SV-98</option>'
       str_items += '<option value=1051>No.51 [MOD] FN-49</option>'
       str_items += '<option value=1095>No.95 [MOD] ' + lib_language.NAME_95 + '</option>'
+      str_items += '<option value=1124>No.124 [MOD] Super SASS</option>'
     } else if (num_star === 3) {
       str_items += '<option value=34 selected>No.34 ' + lib_language.NAME_34 + '</option>'
       str_items += '<option value=35>No.35 M1A1</option>'
@@ -482,6 +483,7 @@ function changeEquip() {
       if (ID === 1037) str_items += '<option value=11037>' + lib_language.equipNAME_11037 + '</option>' // M14 MOD
       if (ID === 1051) str_items += '<option value=11051>' + lib_language.equipNAME_11051 + '</option>' // FN49 MOD
       if (ID === 1095) str_items += '<option value=11095>' + lib_language.equipNAME_11095 + '</option>' // hanyang88 MOD
+      if (ID === 1124) str_items += '<option value=11124> ACS-L</option>' // Super SASS MOD
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'
       str_items += '<option value=14>[' + lib_language.equipNAME_14 + '] EOT 518</option>'

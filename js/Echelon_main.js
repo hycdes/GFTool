@@ -1993,6 +1993,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     _spS('vsk94_exdmg_' + stand_num, ex_dmg)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'supersass') {
+    _spS('supersass_' + stand_num, parseInt(document.getElementById('special_1124_energy_' + stand_num).innerHTML))
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
 
   // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
   if (debug_mode && (debug_function[0] || debug_function[1])) {
@@ -2363,6 +2367,11 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
 
     // 主目标狙击乘以编制——————————————————————————————————————————————————————————————————————————
     damage_snipe_single = Math.ceil(damage_snipe_single * this_formation(stand_num))
+
+    // 特殊的整体狙击伤害加成
+    if (this_ID === 1124) {
+      if (document.getElementById('special_1124_' + stand_num).checked) damage_snipe_single *= 1.1
+    }
 
     // 与主目标狙击不同性质的额外运算——————————————————————————————————————————————————————————————————————————
     if (this_ID === 2024) { // 提希丰之塔

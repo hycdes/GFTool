@@ -44,6 +44,7 @@ lib_language = {
   UI_not_2_stella: ' *Stella을 2기 이상 추가할 수 없습니다',
   UI_fairydmg: '요정공격',
   UI_fairyinj: '요정방어',
+  UI_layer: '蓄力层数',
 
   NAME_1: '콜트 리볼버',
   NAME_4: '콜트 파이슨',
@@ -240,6 +241,8 @@ lib_language = {
   skillNAME_1007: '短板敲击乐',
   skillNAME_2013: '비밀 개조',
   skillNAME_1101: '白鸮轰鸣',
+  skillNAME_1124: '后发狙击',
+  DESCRIBE_1124: '敌人血量低于50%',
   skillNAME_2025: 'Puppet trick',
   DESCRIBE_2025: 'Knife hit!',
   skillNAME_2026: '沉思者之钥',

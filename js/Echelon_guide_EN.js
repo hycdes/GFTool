@@ -37,6 +37,7 @@ lib_language = {
   UI_not_2_stella: ' *Unable to place two Stella',
   UI_fairydmg: '妖精伤害',
   UI_fairyinj: '妖精承伤',
+  UI_layer: '蓄力层数',
 
   NAME_1: 'Colt Revolver',
   NAME_4: 'Python',
@@ -201,6 +202,8 @@ lib_language = {
   skillNAME_243: 'Future Warning',
   skillNAME_252: 'Concussive Strike',
   skillNAME_306: 'Blazar',
+  skillNAME_1124: '后发狙击',
+  DESCRIBE_1124: '敌人血量低于50%',
   skillNAME_2025: 'Puppet trick',
   DESCRIBE_2025: 'Knife hit!',
   skillNAME_2006: 'Sanctions of Light',

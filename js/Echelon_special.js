@@ -212,7 +212,14 @@ function settle_buff(stand_num, info_self) {
         if (Set_Special.get('m1895_' + stand_num) === 7) Set_Special.set('m1895_' + stand_num, 0)
     }
     else if (is_this(stand_num, 1060)) { // asval mod
-        if (Set_Special.get('asval_' + stand_num) > global_frame) must_acu = true
+        if (_spG('asval_' + stand_num) > global_frame) must_acu = true
+    }
+    else if (is_this(stand_num, 1124)) { // supersass mod
+        if (_spG('supersass_' + stand_num) != undefined && _spG('supersass_' + stand_num) > 0) {
+            must_acu = true
+            _spDecl('supersass_' + stand_num)
+        }
+        if (document.getElementById('special_1124_' + stand_num).checked) _mul_dmg *= 1.1
     }
     else if (is_this(stand_num, 2012)) { // sei: help stella add buff
         if (is_exist_someone(2014)) {

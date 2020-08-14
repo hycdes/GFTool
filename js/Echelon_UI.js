@@ -516,6 +516,7 @@ function resetEquipment() {
       else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
       else if (ID === 1053) set_equip = [12, 21053, 34] // ntw20 mod
       else if (ID === 1095) set_equip = [11095, 23, 34] // hanyang88 mod
+      else if (ID === 1124) set_equip = [11124, 23, 34] // supersass mod
       else if (ID === 1252) set_equip = [12, 21252, 34] // ksvk mod
       else if (ID === 2014) set_equip = [12, 23, 32014] // Stella
       else if (ID === 2024) set_equip = [12, 23, 32024] // Rico
@@ -907,30 +908,39 @@ function addTdoll() { // 添加战术人形
     }
 
     // 类型0：单勾选框
-    else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 0, 'checked') // PzB39
-    else if (ID === 192) addSpecialSetting(192, reverse_position, num_pickblock, 0, 'checked') // JS05
-    else if (ID === 252) addSpecialSetting(252, reverse_position, num_pickblock, 0, 'checked') // KSVK
-    else if (ID === 238) addSpecialSetting(238, reverse_position, num_pickblock, 0, '') // 88-type
-    else if (ID === 256) addSpecialSetting(256, reverse_position, num_pickblock, 0, '') // falcon
-    else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 0, 'checked') // M1895CB
-    else if (ID === 287) addSpecialSetting(287, reverse_position, num_pickblock, 0, 'checked') // SIG-556
-    else if (ID === 290) addSpecialSetting(290, reverse_position, num_pickblock, 0, '') // 89 type
-    else if (ID === 306) addSpecialSetting(306, reverse_position, num_pickblock, 0, 'checked') // AK-ALPHA
-    else if (ID === 1007) addSpecialSetting(1007, reverse_position, num_pickblock, 0, '') // Stechkin MOD
-    else if (ID === 1065) addSpecialSetting(1065, reverse_position, num_pickblock, 0, 'checked') // HK416 MOD
-    else if (ID === 1097) addSpecialSetting(1097, reverse_position, num_pickblock, 0, 'checked') // M950A MOD
-    else if (ID === 1252) addSpecialSetting(1252, reverse_position, num_pickblock, 0, 'checked') // KSVK MOD
-    else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 0, 'checked') // Theresa
-    else if (ID === 2025) addSpecialSetting(2025, reverse_position, num_pickblock, 0, 'checked') // Triela
+    else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 'singlecheck', 'checked') // PzB39
+    else if (ID === 192) addSpecialSetting(192, reverse_position, num_pickblock, 'singlecheck', 'checked') // JS05
+    else if (ID === 252) addSpecialSetting(252, reverse_position, num_pickblock, 'singlecheck', 'checked') // KSVK
+    else if (ID === 238) addSpecialSetting(238, reverse_position, num_pickblock, 'singlecheck', '') // 88-type
+    else if (ID === 256) addSpecialSetting(256, reverse_position, num_pickblock, 'singlecheck', '') // falcon
+    else if (ID === 275) addSpecialSetting(275, reverse_position, num_pickblock, 'singlecheck', 'checked') // M1895CB
+    else if (ID === 287) addSpecialSetting(287, reverse_position, num_pickblock, 'singlecheck', 'checked') // SIG-556
+    else if (ID === 290) addSpecialSetting(290, reverse_position, num_pickblock, 'singlecheck', '') // 89 type
+    else if (ID === 306) addSpecialSetting(306, reverse_position, num_pickblock, 'singlecheck', 'checked') // AK-ALPHA
+    else if (ID === 1007) addSpecialSetting(1007, reverse_position, num_pickblock, 'singlecheck', '') // Stechkin MOD
+    else if (ID === 1065) addSpecialSetting(1065, reverse_position, num_pickblock, 'singlecheck', 'checked') // HK416 MOD
+    else if (ID === 1097) addSpecialSetting(1097, reverse_position, num_pickblock, 'singlecheck', 'checked') // M950A MOD
+    else if (ID === 1252) addSpecialSetting(1252, reverse_position, num_pickblock, 'singlecheck', 'checked') // KSVK MOD
+    else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 'singlecheck', 'checked') // Theresa
+    else if (ID === 2025) addSpecialSetting(2025, reverse_position, num_pickblock, 'singlecheck', 'checked') // Triela
 
     // 类型1：多勾选框
-    else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 1, 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD
-    else if (ID === 1053) addSpecialSetting(1053, reverse_position, num_pickblock, 1, 3, ['checked', 'checked', 'checked']) // NTW-20 MOD
+    else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 'multiplecheck', 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD
+    else if (ID === 1053) addSpecialSetting(1053, reverse_position, num_pickblock, 'multiplecheck', 3, ['checked', 'checked', 'checked']) // NTW-20 MOD
 
     // 类型2：N选1
-    else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 2, 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
-    else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 2, 3, 0, ['', '', '']) // C-93
-    else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 2, 6, 5, ['', '', '', '', '', 'red']) // Claes
+    else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 'pickone', 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
+    else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 'pickone', 3, 0, ['', '', '']) // C-93
+    else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 'pickone', 6, 5, ['', '', '', '', '', 'red']) // Claes
+
+    // 类型4：能量条
+    else if (ID === 1124) {
+      addSpecialSetting(1124, reverse_position, num_pickblock, 'energy', 4, 1) // Super SASS
+      var str_extra = ''
+      str_extra += '<h5><input type="checkbox" id="special_' + ID + '_' + (num_pickblock - 1) + '" checked> ['
+        + lib_language.skillNAME_1124 + '] ' + lib_language.DESCRIBE_1124 + '</h5>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML += str_extra
+    }
 
     else if (ID === 276) {
       var str_html = ''
@@ -988,7 +998,7 @@ function addSpecialSetting() { // ID,_position,_type
     [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7],
     [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
     [213, 'C-MS'],
-    [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20'],
+    [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20'], [1124, 'Super SASS [MOD]'],
     [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
     [2025, lib_language.NAME_2025]
   ]
@@ -998,7 +1008,7 @@ function addSpecialSetting() { // ID,_position,_type
     _type = arguments['3'], // template type
     str_html = '',
     _name = _search(list_specialName, ID)
-  if (_type === 0) { // type_0 单一勾选框
+  if (_type === 'singlecheck') { // type_0 单一勾选框
     var _skill = _skillName(ID),
       _describe = _describeInfo(ID),
       _check = arguments['4'] // check parameters, different template has different structure
@@ -1007,7 +1017,7 @@ function addSpecialSetting() { // ID,_position,_type
       + _check + '> ['
       + _skill + '] ' + _describe
     document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
-  } else if (_type === 1) { // type_1 多勾选框
+  } else if (_type === 'multiplecheck') { // type_1 多勾选框
     var _checknum = arguments['4'],
       _checklist = arguments['5'],
       _describelist = _describeInfo(ID)
@@ -1017,7 +1027,7 @@ function addSpecialSetting() { // ID,_position,_type
         + _describelist[i] + '</p>'
     }
     document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
-  } else if (_type === 2) { // type_2 N选1
+  } else if (_type === 'pickone') { // type_2 N选1
     var _checknum = arguments['4'],
       _initcheck = arguments['5'],
       _colorlist = arguments['6'],
@@ -1033,6 +1043,31 @@ function addSpecialSetting() { // ID,_position,_type
       str_html += _describelist[i] + '</span></label></p>'
     }
     document.getElementById('special_num' + (_block - 1)).innerHTML = str_html // 写入html
+  } else if (_type === 'energy') {
+    var energy_max = arguments['4'],
+      energy_init = arguments['5']
+    str_html += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
+    str_html += '<h5>' + lib_language.UI_layer + ': '
+    str_html += '<a style="color:#6666FF" id="special_' + ID + '_energy_' + (_block - 1) + '">' + energy_init + '</a>' + '</h5>' // 记录能量层数
+    // 绘制能量条
+    str_html += '<table class="table_other table-bordered table-hover" style="width:' + (30 * energy_max) + 'px"><tbody><tr>'
+    for (var i = 0; i < energy_max; i++) {
+      str_html += '<td class="td_energy">'
+      str_html += '<img id="special_' + ID + '_' + i + '_' + (_block - 1) + '" src="../img/echelon/UI/special_energy_'
+      if (i < energy_init) str_html += '1'
+      else str_html += '0'
+      str_html += '.png" style="cursor:pointer" onclick="speical_energylayer(' + ID + ',' + i + ',' + energy_max + ',' + (_block - 1) + ')">'
+      str_html += '</td>'
+    }
+    str_html += '</tr></tbody></table>'
+    document.getElementById('special_num' + (_block - 1)).innerHTML = str_html // 写入html
+  }
+}
+function speical_energylayer(ID, layer, max_layer, stand_num) {
+  document.getElementById('special_' + ID + '_energy_' + stand_num).innerHTML = layer + 1
+  for (var i = 0; i < max_layer; i++) {
+    if (i <= layer) document.getElementById('special_' + ID + '_' + i + '_' + stand_num).src = '../img/echelon/UI/special_energy_1.png'
+    else document.getElementById('special_' + ID + '_' + i + '_' + stand_num).src = '../img/echelon/UI/special_energy_0.png'
   }
 }
 function _search(list, index) {

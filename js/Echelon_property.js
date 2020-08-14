@@ -388,6 +388,7 @@ lib_affect.set(1095, createAffect('r/rd/', 'hg', ['cld'], [0.15])) // 汉阳造8
 lib_affect.set(1097, createAffect('lu/ld/l/ru/rd/', 'all', ['rof', 'acu'], [0.32, 0.6])) // M950A改
 lib_affect.set(1101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])) // UMP9改
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改
+lib_affect.set(1124, createAffect('r/ru/', 'hg', ['cld'], [0.15])) // Super SASS改
 lib_affect.set(1221, createAffect('u/lu/l/ld/d/r/', 'all', ['dmg', 'acu'], [0.3, 0.4])) // GSh-18改
 lib_affect.set(1252, createAffect('r/rd/rr/', 'hg/sg', ['cld'], [0.15])) // KSVK改
 // EXTRA
@@ -749,6 +750,7 @@ lib_property.set(1095, createProperty(118, 69, 39, 37, 0, 520, 0.4, -1)) // hany
 lib_property.set(1097, createProperty(33, 57, 77, 72, 0, 400, 0.2, -1)) // m950a
 lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9 MOD
 lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45 MOD
+lib_property.set(1124, createProperty(125, 73, 31, 40, 0, 455, 0.4, -1)) // supersass MOD
 lib_property.set(1221, createProperty(34, 53, 90, 58, 0, 370, 0.2, -1)) // GSh-18
 lib_property.set(1252, createProperty(163, 85, 30, 32, 0, 450, 0.4, -1)) // KSVK MOD
 // EXTRA
@@ -836,6 +838,7 @@ lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0,
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0, 0))
 lib_property_equip.set(11094, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // 64type mod
 lib_property_equip.set(11095, createProperty_equip(5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0)) // hanyang88
+lib_property_equip.set(11124, createProperty_equip(10, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // supersass
 lib_property_equip.set(11097, createProperty_equip(0, 0, 20, 0, 0, 0.2, 0, 0, 0, 0)) // m950a
 lib_property_equip.set(11101, createProperty_equip(10, 14, 0, -3, 0, 0, 0, 0, 0, 0)) // ump9
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0)) // ump45
@@ -953,6 +956,7 @@ lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4
 lib_special_info.set(1065, lib_language.special_info_common) // hk416
 lib_special_info.set(1101, lib_language.special_info_common) // ump9
+lib_special_info.set(1124, lib_language.special_info_common) // supersass
 lib_special_info.set(2006, lib_language.special_info_common) // theresa
 lib_special_info.set(2011, lib_language.special_info_common) // jill
 lib_special_info.set(2013, lib_language.special_info_common) // dorothy

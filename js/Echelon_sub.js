@@ -573,6 +573,8 @@ function init_loadPrepareStatus() { // 初始化战前属性
       for (var v_skill of list_tdoll[i][1].Skill) {
         list_Skill.push([v_skill, Math.ceil(30 * ((v_skill.init_cld) * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))]) // 载入技能表
       }
+
+      // 动态载入技能：根据特设选项决定载入技能的类型
       if (is_this(i, 1065)) { // HK416 MOD
         var s1 = createSkill(6, 16, 0, lib_describe.get('grenade_19.5')),
           s2 = createSkill(6, 16, 0, lib_describe.get('hk416_dot')),
@@ -601,10 +603,18 @@ function init_loadPrepareStatus() { // 初始化战前属性
           list_Skill.push([s2, Math.ceil(30 * (7 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
         }
       }
+      if (is_this(i, 1124)) { // SuperSASS MOD skill
+        var energy_layer = parseInt(document.getElementById('special_1124_energy_' + i).innerHTML)
+        var dynamic_skill_1 = createSkill(4 + energy_layer, 10 + energy_layer, 0, lib_describe.get('snipe_' + (2 + energy_layer * 0.8) + '_1')),
+          dynamic_skill_2 = createSkill(4 + energy_layer, 10 + energy_layer, 0, lib_describe.get('supersass'))
+        list_Skill.push([dynamic_skill_1, Math.ceil(30 * ((4 + energy_layer) * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        list_Skill.push([dynamic_skill_2, Math.ceil(30 * ((4 + energy_layer) * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+      }
       if (is_this(i, 2014)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Stella普攻在技能后
       if (is_this(i, 2016)) list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // Dana普攻在技能后
       Set_Skill.set(i, list_Skill)
     }
+
   }
   if (Set_Special.get('sunrise') === 'night') { // 夜战BUFF
     for (var i = 0; i < 9; i++) {

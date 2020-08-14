@@ -44,6 +44,7 @@ lib_language = {
   UI_not_2_stella: ' *不能添加两个Stella',
   UI_fairydmg: '妖精伤害',
   UI_fairyinj: '妖精承伤',
+  UI_layer: '蓄力层数',
 
   NAME_1: '柯尔特左轮',
   NAME_4: '蟒蛇',
@@ -242,6 +243,8 @@ lib_language = {
   skillNAME_2006: '圣光制裁',
   skillNAME_2013: '私密改造',
   skillNAME_1101: '白鸮轰鸣',
+  skillNAME_1124: '后发狙击',
+  DESCRIBE_1124: '敌人血量低于50%',
   skillNAME_2025: '木偶把戏',
   DESCRIBE_2025: '拔刀攻击！（携带独头弹该选项无效）',
   skillNAME_2026: '沉思者之钥',
