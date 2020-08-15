@@ -456,10 +456,7 @@ function init_loadPrepareStatus() { // 初始化战前属性
         else if (document.getElementById('special_213_1_' + i).checked) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
         else if (document.getElementById('special_213_2_' + i).checked) changeStatus(i, 'self', 'acu', 2, -1) // 标准弹
       } else if (is_this(i, 231)) { // M82A1
-        if (document.getElementById('special_m82a1_' + (i + 1) + '_0').checked) Set_Special.set('m82a1_win_' + i, 0) // 0胜场
-        else if (document.getElementById('special_m82a1_' + (i + 1) + '_1').checked) Set_Special.set('m82a1_win_' + i, 1) // 1胜场
-        else if (document.getElementById('special_m82a1_' + (i + 1) + '_2').checked) Set_Special.set('m82a1_win_' + i, 2) // 2胜场
-        else if (document.getElementById('special_m82a1_' + (i + 1) + '_3').checked) Set_Special.set('m82a1_win_' + i, 3) // 3胜场
+        _spS('m82a1_win_' + i, parseInt(document.getElementById('special_231_energy_' + i).innerHTML))
       } else if (is_this(i, 238)) { // 88式：初始默认轻机枪
         changeStatus(i, 'self', 'acu', -0.2, -1)
       } else if (is_this(i, 248)) { // 杰里科：深红月蚀被动
@@ -595,13 +592,13 @@ function init_loadPrepareStatus() { // 初始化战前属性
         }
       }
       if (is_this(i, 1053)) { // NTW-20 MOD skill
-        var s1 = createSkill(14, 16, 0, lib_describe.get('ntwmod')), // full-energy, 7-level
-          s2 = createSkill(7, 9, 0, lib_describe.get('ntwmod')) // zero-enenrgy
-        if (document.getElementById('special_1053_0_' + i).checked) {
-          list_Skill.push([s1, Math.ceil(30 * (14 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
-        } else {
-          list_Skill.push([s2, Math.ceil(30 * (7 * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
-        }
+        var energy_layer = parseInt(document.getElementById('special_1053_energy_' + i).innerHTML)
+        var dynamic_skill = createSkill(6 + energy_layer, 8 + energy_layer, 0, lib_describe.get('snipe_' + (5 + (energy_layer - 1) * (5 / 6)).toFixed(1) + '_1.5'))
+        list_Skill.push([dynamic_skill, Math.ceil(30 * ((6 + energy_layer) * (1 - Set_Base.get(i).Info.get('cld')) + extra_cd))])
+        if (document.getElementById('special_1053_1_' + i).checked) _spS('ntw_exratio_' + i, 4.4) // 高血量额外10%伤害
+        else _spS('ntw_exratio_' + i, 4)
+        _spS('ntw_numleft_' + i, 3) // 最大追加次数
+        _spS('ntw_exenable_' + i, true) // 第一次必可以追加
       }
       if (is_this(i, 1124)) { // SuperSASS MOD skill
         var energy_layer = parseInt(document.getElementById('special_1124_energy_' + i).innerHTML)

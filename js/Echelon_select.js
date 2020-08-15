@@ -182,6 +182,7 @@ function changeSelectItems() {
       str_items += '<option value=245>No.245 P90</option>'
       str_items += '<option value=251>No.251 X95</option>'
       str_items += '<option value=259>No.259 PM-9</option>'
+      str_items += '<option value=311>No.311 Lusa</option>'
       str_items += '<option value=1026>No.26 [MOD] MP5</option>'
       str_items += '<option value=1101>No.101 [MOD] UMP9</option>'
       str_items += '<option value=1103>No.103 [MOD] UMP45</option>'
@@ -388,6 +389,7 @@ function changeSelectItems() {
       str_items += '<option value=165>No.165 M1014</option>'
       str_items += '<option value=189>No.189 USAS-12</option>'
       str_items += '<option value=283>No.283 ' + lib_language.NAME_283 + '</option>'
+      str_items += '<option value=302>No.302 ' + lib_language.NAME_302 + '</option>'
     } else if (num_star === 3) {
       str_items += '<option value=152 selected>No.152 M897</option>'
       str_items += '<option value=154>No.154 M500</option>'

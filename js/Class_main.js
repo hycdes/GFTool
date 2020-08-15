@@ -37,7 +37,7 @@ var lib_name = {
   // —————————————— SMG ——————————————
   t2019: '多萝西·海兹', t2023: '海莉艾塔',
   t1026: 'MP5 MOD', t1101: 'UMP9 MOD', t1103: 'UMP45 MOD',
-  t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9',
+  t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9', t311: 'Lusa',
   t1029: '司登MkⅡ MOD', t1031: '伯莱塔38型 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
   t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW',
   t27: '蝎式', t29: '司登MkⅡ',
@@ -183,9 +183,10 @@ var lib_tdoll = [
   create_entry([3, 5, 224], ['tank_eva', 'longfill'], ['random'], ['forcus_acu', 'forcus_eva'], ['night']),
   create_entry([3, 5, 228], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_eva', 'shield'], []),
   create_entry([3, 5, 234], ['tank_eva'], ['random', 'suggest_2'], ['forcus_dmg', 'forcus_eva'], []),
-  create_entry([3, 5, 245], ['tank_eva'], ['random'], ['forcus_eva', 'max_acu', 'max_crit'], ['illusion']),
+  create_entry([3, 5, 245], ['tank_eva'], ['random'], ['forcus_eva', 'max_acu', 'max_crit'], ['taunt', 'illusion']),
   create_entry([3, 5, 251], ['tank_eva'], ['random', 'lowhp', 'suggest_2'], ['forcus_dmg'], []),
   create_entry([3, 5, 259], ['tank_eva'], ['random', 'suggest_2'], ['forcus_eva', 'multihit'], []),
+  create_entry([3, 5, 311], ['tank_eva'], ['random', 'suggest_2'], ['shield', 'reducehurt'], ['taunt']),
   create_entry([3, 4, 1029], ['tank_eva'], ['random'], ['handgrenade', 'reducehurt'], []),
   create_entry([3, 4, 1031], ['tank_eva'], ['random'], ['incendinary', 'dizz'], []),
   create_entry([3, 4, 1093], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_rof', 'forcus_eva'], []),
@@ -380,7 +381,7 @@ var lib_tag = [
   ],
   // 4
   [['night', 'mengxin', 'laomo', 'burstsupport',],
-  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'illusion', 'stronger', 'cluster', 'purify']
+  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'taunt', 'illusion', 'stronger', 'cluster', 'purify']
   ]
 ]
 // tag0————————————————————————————————————————
@@ -566,6 +567,7 @@ var lib_tag_3 = {
   feedback: '<img src="../img/class-icon/icon-python.png" style="width:19px;height:19px">反馈增益',
   shootguide: '<img src="../img/class-icon/icon-snipe.png" style="width:19px;height:19px">集火目标',
   burstsupport: '<img src="../img/class-icon/icon-burstsupport.png" style="width:19px;height:19px">爆发辅助',
+  taunt: '<img src="../img/class-icon/icon-taunt.png" style="width: 19px; height: 19px">嘲讽',
   illusion: '<img src="../img/class-icon/icon-illusion.png" style="width: 19px; height: 19px">幻象',
   stronger: '<img src="../img/class-icon/icon-m82a1.png" style="width:19px;height:19px">越战越勇',
   cluster: '<img src="../img/class-icon/icon-cluster.png" style="width:19px;height:19px">聚怪',
@@ -581,6 +583,7 @@ var tag3_night = new Map,
   tag3_feedback = new Map,
   tag3_shootguide = new Map,
   tag3_burstsupport = new Map,
+  tag3_taunt = new Map,
   tag3_illusion = new Map,
   tag3_stronger = new Map,
   tag3_cluster = new Map,

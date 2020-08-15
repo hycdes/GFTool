@@ -535,6 +535,7 @@ function resetEquipment() {
     }
     else if (set_guntype === 6) {
       if (ID === 158) set_equip = [33, 2158, 13] // ks23
+      else if (ID === 302) set_equip = [33, 24, 12] // ks23
       else if (ID === 2016) set_equip = [32016, 24, 13] // Dana
       else if (ID === 2025) set_equip = [33, 22025, 13] // Triela
       else set_equip = [33, 24, 13]
@@ -628,9 +629,14 @@ function changePreview() { // 改变预览显示，也会改变装备对应全�
     document.getElementById('info_num').innerHTML = '# ' + ID
     document.getElementById('info_type').innerHTML = str_type
     document.getElementById('info_hp').innerHTML = lib_language.hp + ' <span style="color:green">' + property_display.hp + '</span>'
-    if (ID === 2011) {
+    // 弹量 clipsize
+    if (ID === 2011) { // 吉尔：显示无法攻击
       document.getElementById('info_cs').innerHTML = lib_language.cs_0
-    } else {
+    }
+    else if (ID === 302) { // 防卫者：提示一次攻击耗尽
+      document.getElementById('info_cs').innerHTML = lib_language.cs_302
+    }
+    else {
       if (property_display.cs < 0) document.getElementById('info_cs').innerHTML = lib_language.cs + ' ∞'
       else {
         if (set_guntype === 5 && set_equip[2] != 0) document.getElementById('info_cs').innerHTML = lib_language.cs + ' <span style="color:green">' + property_display.cs + '+' + lib_property_equip.get(set_equip[2]).cs + '</span>'
@@ -655,7 +661,7 @@ function changePreview() { // 改变预览显示，也会改变装备对应全�
       else if (affection === 'marry') e_affection = createProperty_equip(Math.ceil(0.1 * property_display.dmg), Math.ceil(0.1 * property_display.acu), Math.ceil(0.1 * property_display.eva), 0, 0, 0, 0, 0, 0)
     }
     var str_dmg = lib_language.dmg + ' ', str_acu = lib_language.acu + ' ', str_eva = lib_language.eva + ' '
-    // dmg
+    // 火力 damage
     if (e_dmg > 0 && e_dmg - Math.floor(e_dmg) === 0) str_dmg += '<span style="color:green">' + property_display.dmg + '+' + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     else if (e_dmg < 0) str_dmg += '<span style="color:orangered">' + property_display.dmg + e_dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     else if (e_dmg - Math.floor(e_dmg) != 0) {
@@ -668,28 +674,30 @@ function changePreview() { // 改变预览显示，也会改变装备对应全�
     }
     else str_dmg += '<span style="color:green">' + property_display.dmg + '</span><span style="color:hotpink">+' + e_affection.dmg + '</span>'
     document.getElementById('info_dmg').innerHTML = str_dmg
-    // rof
+    // 射速 rate of fire
     if (e_rof > 0) document.getElementById('info_rof').innerHTML = lib_language.rof + ' <span style="color:green">' + property_display.rof + '+' + e_rof + '</span>'
     else if (e_rof < 0) document.getElementById('info_rof').innerHTML = lib_language.rof + ' <span style="color:orangered">' + property_display.rof + e_rof + '</span>'
     else document.getElementById('info_rof').innerHTML = lib_language.rof + ' <span style="color:green">' + property_display.rof + '</span>'
-    // acu
+    // 命中 accuracy
     if (e_acu > 0) str_acu += '<span style="color:green">' + property_display.acu + '+' + e_acu + '</span><span style="color:hotpink">+' + e_affection.acu + '</span>'
     else if (e_acu < 0) str_acu += '<span style="color:orangered">' + property_display.acu + e_acu + '</span><span style="color:hotpink">+' + e_affection.acu + '</span>'
     else str_acu += '<span style="color:green">' + property_display.acu + '</span><span style="color:hotpink">+' + e_affection.acu + '</span>'
     document.getElementById('info_acu').innerHTML = str_acu
-    // eva
+    // 回避 evasion
     if (e_eva > 0) str_eva += '<span style="color:green">' + property_display.eva + '+' + e_eva + '</span><span style="color:hotpink">+' + e_affection.eva + '</span>'
     else if (e_eva < 0) str_eva += '<span style="color:orangered">' + property_display.eva + e_eva + '</span><span style="color:hotpink">+' + e_affection.eva + '</span>'
     else str_eva += '<span style="color:green">' + property_display.eva + '</span><span style="color:hotpink">+' + e_affection.eva + '</span>'
     document.getElementById('info_eva').innerHTML = str_eva
-    // crit
+    // 暴击率 critical rate
     if (e_crit > 0) document.getElementById('info_crit').innerHTML = lib_language.crit + ' <span style="color:green">' + parseInt(property_display.crit * 100) + '+' + parseInt(e_crit * 100) + '</span>' + '%'
     else document.getElementById('info_crit').innerHTML = lib_language.crit + ' <span style="color:green">' + parseInt(property_display.crit * 100) + '</span>' + '%'
-    // critdmg
+    // 暴击伤害 critical damage
     if (e_critdmg > 0) document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' <span style="color:green">150' + '+' + parseInt(e_critdmg * 100) + '</span>' + '%'
     else document.getElementById('info_critdmg').innerHTML = lib_language.critdmg + ' <span style="color:green">150' + '</span>' + '%'
+    // 护甲 armor
     if (e_arm > 0) document.getElementById('info_arm').innerHTML = lib_language.arm + ' <span style="color:green">' + property_display.arm + '+' + e_arm + '</span>'
     else document.getElementById('info_arm').innerHTML = lib_language.arm + ' <span style="color:green">' + property_display.arm + '</span>'
+    // 护甲穿透 armor penetrate
     if (e_ap > 0) document.getElementById('info_ap').innerHTML = lib_language.ap + ' <span style="color:green">' + '15' + '+' + e_ap + '</span>'
     else if (e_ap < 0) document.getElementById('info_ap').innerHTML = lib_language.ap + ' <span style="color:orangered">' + '15' + e_ap + '</span>'
     else document.getElementById('info_ap').innerHTML = lib_language.ap + ' <span style="color:green">' + '15' + '</span>'
@@ -831,16 +839,6 @@ function addTdoll() { // 添加战术人形
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_k2_' + num_pickblock + '_3"><span style="color:orange"> ' + lib_language.DESCRIBE_194_3 + '</span></label></p>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
-    else if (ID === 231) {
-      var str_html = ''
-      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' M82A1</h4><p>'
-      str_html += '[' + lib_language.skillNAME_231 + '] ' + lib_language.DESCRIBE_231 + ' <label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_0" checked> 0</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_1"> 1</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_2"> 2</label>'
-      str_html += '<label class="radio-inline"><input type="radio" name="switch_' + num_pickblock + '" id="special_m82a1_' + num_pickblock + '_3"> 3</label>'
-      str_html += '</p>'
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
-    }
     else if (ID === 236) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' K11</h4><p>'
@@ -926,7 +924,6 @@ function addTdoll() { // 添加战术人形
 
     // 类型1：多勾选框
     else if (ID === 1039) addSpecialSetting(1039, reverse_position, num_pickblock, 'multiplecheck', 4, ['checked', '', 'checked', 'checked']) // Mosin-nagant MOD
-    else if (ID === 1053) addSpecialSetting(1053, reverse_position, num_pickblock, 'multiplecheck', 3, ['checked', 'checked', 'checked']) // NTW-20 MOD
 
     // 类型2：N选1
     else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 'pickone', 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
@@ -934,12 +931,15 @@ function addTdoll() { // 添加战术人形
     else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 'pickone', 6, 5, ['', '', '', '', '', 'red']) // Claes
 
     // 类型4：能量条
-    else if (ID === 1124) {
-      addSpecialSetting(1124, reverse_position, num_pickblock, 'energy', 4, 1) // Super SASS
-      var str_extra = ''
-      str_extra += '<h5><input type="checkbox" id="special_' + ID + '_' + (num_pickblock - 1) + '" checked> ['
-        + lib_language.skillNAME_1124 + '] ' + lib_language.DESCRIBE_1124 + '</h5>'
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML += str_extra
+    else if (ID === 231) addSpecialSetting(231, reverse_position, num_pickblock, 'energy', 4, 4, -1, 'FF6666') // M82A1
+    else if (ID === 302) addSpecialSetting(302, reverse_position, num_pickblock, 'energy', 4, 4, 0, '33FF99') // 防卫者
+    else if (ID === 1053) { // NTW-20 MOD
+      addSpecialSetting(1053, reverse_position, num_pickblock, 'energy', 7, 1, 0, '6666FF')
+      addSpecialSetting('append_1053', reverse_position, num_pickblock, 'multiplecheck', 2, ['checked', 'checked'])
+    }
+    else if (ID === 1124) { // Super SASS
+      addSpecialSetting(1124, reverse_position, num_pickblock, 'energy', 4, 1, 0, '6666FF')
+      addSpecialSetting('append_1124', reverse_position, num_pickblock, 'singlecheck', 'checked')
     }
 
     else if (ID === 276) {
@@ -955,12 +955,6 @@ function addTdoll() { // 添加战术人形
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_294 + '</h4>'
       str_html += '韦伯利的技能会根据<b>自己是否为队长</b>而有所不同，请在<b>人形九宫格下方队长位</b>进行选择。如果选择"default"，那么队长将会指定为站位号数最小的一位。'
       str_html += '此外，模拟器同一帧技能从1到9号位依次执行，如果韦伯利和她的队长同一帧发动技能，她们所占格子的号数先后可能影响到队长技能的冷却缩短。你可以设定<b>技能强制延时0.03</b>，即1帧。'
-      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
-    }
-    else if (ID === 2025) {
-      var str_html = ''
-      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' ' + lib_language.NAME_2025 + '</h4>'
-      str_html += '目前模拟器中，崔耶拉无限捅刀！'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     else if (ID === 2013) {
@@ -998,41 +992,47 @@ function addSpecialSetting() { // ID,_position,_type
     [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7],
     [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
     [213, 'C-MS'],
-    [180, 'PzB39'], [196, 'JS05'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20'], [1124, 'Super SASS [MOD]'],
+    [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
     [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
-    [2025, lib_language.NAME_2025]
+    [302, lib_language.NAME_302], [2025, lib_language.NAME_2025]
   ]
-  var ID = arguments['0'], // T-doll ID
+  var is_appending = false
+  var ID = -1,
+    _getID = arguments['0'], // T-doll ID
     _position = arguments['1'], // position number for display (reverse_position)
     _block = arguments['2'], // stand block
     _type = arguments['3'], // template type
-    str_html = '',
-    _name = _search(list_specialName, ID)
+    str_head = '',
+    str_html = ''
+  // is appending?
+  if (isNaN(_getID)) {
+    is_appending = true
+    ID = parseInt((_getID.split('_'))[1])
+  } else ID = _getID
+  // make head
+  var _name = _search(list_specialName, ID)
+  str_head += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
+  // make contents
   if (_type === 'singlecheck') { // type_0 单一勾选框
     var _skill = _skillName(ID),
       _describe = _describeInfo(ID),
       _check = arguments['4'] // check parameters, different template has different structure
-    str_html += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
-      + '<input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" '
+    str_html += '<input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" '
       + _check + '> ['
       + _skill + '] ' + _describe
-    document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
   } else if (_type === 'multiplecheck') { // type_1 多勾选框
     var _checknum = arguments['4'],
       _checklist = arguments['5'],
       _describelist = _describeInfo(ID)
-    str_html += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
     for (var i = 0; i < _checknum; i++) {
       str_html += '<p><input type="checkbox" id="special_' + ID + '_' + i + '_' + (_block - 1) + '" ' + _checklist[i] + '>'
         + _describelist[i] + '</p>'
     }
-    document.getElementById('special_num' + (_block - 1)).innerHTML = str_html
   } else if (_type === 'pickone') { // type_2 N选1
     var _checknum = arguments['4'],
       _initcheck = arguments['5'],
       _colorlist = arguments['6'],
       _describelist = _describeInfo(ID)
-    str_html += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
     for (var i = 0; i < _checknum; i++) {
       str_html += '<p><label class="radio-inline"><input type="radio" name="switch_'
         + _position + '" id="special_' + ID + '_' + i + '_' + (_block - 1)
@@ -1042,32 +1042,45 @@ function addSpecialSetting() { // ID,_position,_type
       else str_html += '<span>'
       str_html += _describelist[i] + '</span></label></p>'
     }
-    document.getElementById('special_num' + (_block - 1)).innerHTML = str_html // 写入html
   } else if (_type === 'energy') {
     var energy_max = arguments['4'],
-      energy_init = arguments['5']
-    str_html += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
-    str_html += '<h5>' + lib_language.UI_layer + ': '
-    str_html += '<a style="color:#6666FF" id="special_' + ID + '_energy_' + (_block - 1) + '">' + energy_init + '</a>' + '</h5>' // 记录能量层数
+      energy_init = arguments['5'],
+      energy_bias = arguments['6'],
+      energy_color = arguments['7']
+    str_html += '<h5>'
+    eval('str_html += lib_language.LAYER_' + ID)
+    str_html += ': ' + '<a style="color:#' + energy_color + '" id="special_' + ID + '_energy_' + (_block - 1) + '">'
+      + _layerexplain(ID, energy_init, energy_bias) + '</a>' + '</h5>' // 记录能量层数
     // 绘制能量条
     str_html += '<table class="table_other table-bordered table-hover" style="width:' + (30 * energy_max) + 'px"><tbody><tr>'
     for (var i = 0; i < energy_max; i++) {
       str_html += '<td class="td_energy">'
-      str_html += '<img id="special_' + ID + '_' + i + '_' + (_block - 1) + '" src="../img/echelon/UI/special_energy_'
-      if (i < energy_init) str_html += '1'
-      else str_html += '0'
-      str_html += '.png" style="cursor:pointer" onclick="speical_energylayer(' + ID + ',' + i + ',' + energy_max + ',' + (_block - 1) + ')">'
+      str_html += '<img id="special_' + ID + '_' + i + '_' + (_block - 1) + '_blockimg" src="../img/echelon/UI/special_energy_'
+      if (i < energy_init) {
+        if (i + energy_bias < 0) str_html += '000000'
+        else str_html += energy_color
+      }
+      else str_html += 'void'
+      str_html += '.png" style="cursor:pointer" onclick="speical_energylayer(' + ID + ',' + (i + 1) + ',' + energy_max + ',' + energy_bias + ',' + (_block - 1) + ',' + "'" + energy_color + "'" + ')">'
       str_html += '</td>'
     }
     str_html += '</tr></tbody></table>'
-    document.getElementById('special_num' + (_block - 1)).innerHTML = str_html // 写入html
   }
+  if (!is_appending) document.getElementById('special_num' + (_block - 1)).innerHTML = str_head + str_html // 写入html
+  else document.getElementById('special_num' + (_block - 1)).innerHTML += str_html // 接入html
 }
-function speical_energylayer(ID, layer, max_layer, stand_num) {
-  document.getElementById('special_' + ID + '_energy_' + stand_num).innerHTML = layer + 1
+function _layerexplain(ID, layer, bias) {
+  if (ID === 302) return 0.5 + 0.5 * (layer + bias)
+  else return layer + bias
+}
+function speical_energylayer(ID, layer, max_layer, bias_layer, stand_num, color) {
+  document.getElementById('special_' + ID + '_energy_' + stand_num).innerHTML = _layerexplain(ID, layer, bias_layer)
   for (var i = 0; i < max_layer; i++) {
-    if (i <= layer) document.getElementById('special_' + ID + '_' + i + '_' + stand_num).src = '../img/echelon/UI/special_energy_1.png'
-    else document.getElementById('special_' + ID + '_' + i + '_' + stand_num).src = '../img/echelon/UI/special_energy_0.png'
+    if (i < layer) {
+      if (i + bias_layer < 0) document.getElementById('special_' + ID + '_' + i + '_' + stand_num + '_blockimg').src = '../img/echelon/UI/special_energy_000000.png'
+      else document.getElementById('special_' + ID + '_' + i + '_' + stand_num + '_blockimg').src = '../img/echelon/UI/special_energy_' + color + '.png'
+    }
+    else document.getElementById('special_' + ID + '_' + i + '_' + stand_num + '_blockimg').src = '../img/echelon/UI/special_energy_void.png'
   }
 }
 function _search(list, index) {

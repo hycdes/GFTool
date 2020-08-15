@@ -949,9 +949,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             } else if (current_Info.get('type') === 6) { // SG的换弹
               if (Set_Special.get('usas12_' + stand_num) === true) { // 狂热突袭增加1s换弹
                 reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs)) + 30
-              } else if (is_this(stand_num, 2008)) { // 量子回溯瞬间完成换弹
+              }
+              else if (is_this(stand_num, 302)) { // 防卫者固定2s换弹
+                reload_frame = 59
+              }
+              else if (is_this(stand_num, 2008)) { // 量子回溯瞬间完成换弹
                 reload_frame = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
-              } else {
+              }
+              else { // —————————————————————————————————————— MG换弹计算公式 ——————————————————————————————————————
                 reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
               }
             } else if (current_Info.get('type') === 4 && is_this(stand_num, 256)) { // 隼的换弹
@@ -1855,25 +1860,6 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       }
     }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
-  }
-  else if (skillname === 'ntwmod') {
-    var ratio = 5
-    if (document.getElementById('special_1053_0_' + stand_num).checked) ratio = 10
-    if (document.getElementById('special_1053_2_' + stand_num).checked) { // 高血量额外10%伤害
-      ratio *= 1.1
-      _spS('ntw_exratio_' + stand_num, 4.4)
-    } else {
-      _spS('ntw_exratio_' + stand_num, 4)
-    }
-    var snipe_num = 1, time_init = (1 - current_Info.get('cld')) * 1.5, time_interval = 0, labels = 'armless/critless/evaless'
-    _spS('attack_permission_' + stand_num, 'stop') // 全体瞄准
-    _spS('snipe_num_' + stand_num, snipe_num)
-    _spS('snipe_interval_' + stand_num, time_interval)
-    _spS('snipe_arriveframe_' + stand_num, current_time + Math.ceil(30 * time_init))
-    _spS('ntw_numleft_' + stand_num, 3) // 最大追加次数
-    _spS('ntw_exenable_' + stand_num, true) // 第一次必可以追加
-    changeStatus(stand_num, 'snipe', labels, ratio, time_init)
-    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // cld 
   } else if (skillname === 'm950amod') {
     if (document.getElementById('special_1097_' + stand_num).checked) {
       changeStatus(stand_num, 'all', 'rof', 0.05, 5)
@@ -2418,7 +2404,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
     }
     if (num_leftsnipe <= 0) { // 狙击次数完毕
       if (is_this(stand_num, 1053)) { // NTW追加次数
-        if (document.getElementById('special_1053_1_' + stand_num).checked
+        if (document.getElementById('special_1053_0_' + stand_num).checked
           && _spG('ntw_numleft_' + stand_num) > 0
           && _spG('ntw_exenable_' + stand_num)) { // 需要追加，能够追加且有剩余次数
           _spDecl('ntw_numleft_' + stand_num)

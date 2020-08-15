@@ -170,7 +170,6 @@ function settle_buff(stand_num, info_self) {
             _mul_dmg *= 1.3
             _mul_acu *= 1.6
         }
-        //console.log('[', global_frame, '] ', 'mode=', _spG('89_mode_' + stand_num), '; level=', _spG('89_buff_' + stand_num), '; forcus=', _spG('89_forcus_' + stand_num))
     }
     else if (is_this(stand_num, 292)) { // rpk-16 AR模式 buff
         if (_spE('rpk16_' + stand_num, 'ar')) { // rof-buff counting in attack-duration calculation
@@ -181,6 +180,9 @@ function settle_buff(stand_num, info_self) {
         if (Math.random() <= 0.15) {
             _spS('ak15_angry_frame_' + stand_num, global_frame + 90)
         }
+    }
+    else if (is_this(stand_num, 302)) { // 防卫者伤害倍率
+        _mul_dmg *= parseInt(document.getElementById('special_302_energy_' + stand_num).innerHTML)
     }
     else if (is_this(stand_num, 306)) {
         if (document.getElementById('special_306_' + stand_num).checked || _spG('akalfa_skillon_' + stand_num) >= global_frame) {
@@ -287,7 +289,11 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
                             _para_dmg *= 3 // x3 dmg
                         }
                     }
-                } else {
+                }
+                else if (is_this(stand_num, 302)) { // 防卫者不受独头弹加成
+                    true
+                }
+                else {
                     if (_spG('aim_time_' + stand_num) === undefined || _spG('aim_time_' + stand_num) < global_frame) {
                         _para_dmg *= 3 // no forcus-multiple-targer, x3 dmg
                     }
@@ -355,7 +361,10 @@ function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_bu
         }
     }
     if (info_self.get('type') === 6) { // SG攻击，目标数特殊处理
-        if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
+        if (is_this(stand_num, 302)) { // 防卫者恒定1目标、8段伤害
+            num = 8
+        }
+        else if (is_this(stand_num, 2016)) { // 达娜攻击不受任何子弹影响，恒定1目标
             num = 1
         }
         else if (is_this(stand_num, 2025)) { // 崔耶拉判断
@@ -433,7 +442,7 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // �
         }
     }
     else if (is_this(stand_num, 1053)) { // NTW-20 MOD 普攻伤害加深
-        if (document.getElementById('special_1053_2_' + stand_num).checked) { // 半血以上额外10%伤害
+        if (document.getElementById('special_1053_1_' + stand_num).checked) { // 半血以上额外10%伤害
             final_dmg *= 1.1
         }
     }

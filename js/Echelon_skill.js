@@ -412,11 +412,11 @@ function describe_webley() { // webley
   Describe.name = 'webley'
   return Describe
 }
-function describe_ntwmod() { // ntw20-mod
-  var Describe = {}
-  Describe.name = 'ntwmod'
-  return Describe
-}
+// function describe_ntwmod() { // ntw20-mod
+//   var Describe = {}
+//   Describe.name = 'ntwmod'
+//   return Describe
+// }
 function describe_m950amod() { // m950a-mod
   var Describe = {}
   Describe.name = 'm950amod'
@@ -712,7 +712,6 @@ lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
 // snipe
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_10', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 10倍炮狙
-lib_describe.set('snipe_10_1.5', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 10倍炮狙，1.5瞄准
 lib_describe.set('snipe_8', describe_snipe(8, 2, 0, 1, 'armless/critless/evaless')) // 8倍炮狙
 lib_describe.set('snipe_7', describe_snipe(7, 2, 0, 1, 'armless/critless/evaless')) // 7倍炮狙
 lib_describe.set('snipe_6.5', describe_snipe(6.5, 1, 0, 1, 'armless/critless/evaless')) // 6.5倍炮狙
@@ -725,11 +724,19 @@ lib_describe.set('snipe_5', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evale
 lib_describe.set('snipe_4', describe_snipe(4, 1.5, 0, 1, 'armless/critless/evaless')) // 4倍炮狙：震荡冲击弹
 lib_describe.set('snipe_3', describe_snipe(3, 1, 0, 1, 'armless/critless/evaless')) // 3倍炮狙
 
-lib_describe.set('snipe_6_1', describe_snipe(6, 1, 0, 1, 'armless/critless/evaless')) // 6倍炮狙+1s瞄准
-lib_describe.set('snipe_5.2_1', describe_snipe(5.2, 1, 0, 1, 'armless/critless/evaless')) // 5.2倍炮狙+1s瞄准
-lib_describe.set('snipe_4.4_1', describe_snipe(4.4, 1, 0, 1, 'armless/critless/evaless')) // 4.4倍炮狙+1s瞄准
-lib_describe.set('snipe_3.6_1', describe_snipe(3.6, 1, 0, 1, 'armless/critless/evaless')) // 3.6倍炮狙+1s瞄准
-lib_describe.set('snipe_2.8_1', describe_snipe(2.8, 1, 0, 1, 'armless/critless/evaless')) // 2.8倍炮狙+1s瞄准
+lib_describe.set('snipe_10.0_1.5', describe_snipe(10, 1.5, 0, 1, 'armless/critless/evaless')) // 10~5倍炮狙，1.5瞄准
+lib_describe.set('snipe_9.2_1.5', describe_snipe(9.2, 1.5, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_8.3_1.5', describe_snipe(8.3, 1.5, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_7.5_1.5', describe_snipe(7.5, 1.5, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_6.7_1.5', describe_snipe(6.7, 1.5, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_5.8_1.5', describe_snipe(5.8, 1.5, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_5.0_1.5', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless'))
+
+lib_describe.set('snipe_6_1', describe_snipe(6, 1, 0, 1, 'armless/critless/evaless')) // 6~2.8倍炮狙，1s瞄准
+lib_describe.set('snipe_5.2_1', describe_snipe(5.2, 1, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_4.4_1', describe_snipe(4.4, 1, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_3.6_1', describe_snipe(3.6, 1, 0, 1, 'armless/critless/evaless'))
+lib_describe.set('snipe_2.8_1', describe_snipe(2.8, 1, 0, 1, 'armless/critless/evaless'))
 
 lib_describe.set('rico_snipe', describe_snipe(3, 0, 0, 1, 'armless/crit/evaless')) // 提希丰之塔
 lib_describe.set('dsr50', describe_dsr50(6, 10, 2, 'armless/critless/evaless')) // 崩甲射击
@@ -804,7 +811,7 @@ lib_describe.set('sl8', describe_sl8()) // 遥光海波
 lib_describe.set('ak15', describe_ak15()) // 白獒之瞳
 lib_describe.set('cf05', describe_cf05()) // 牛油晶冻
 lib_describe.set('webley', describe_webley()) // webley
-lib_describe.set('ntwmod', describe_ntwmod()) // 狂猎燃魂+连锁反应
+// lib_describe.set('ntwmod', describe_ntwmod()) // 狂猎燃魂+连锁反应
 lib_describe.set('m950amod', describe_m950amod()) // 灵魂LIVE
 lib_describe.set('zb26', describe_zb26()) // 完美连锁
 lib_describe.set('hp35', describe_hp35()) // 暴走伴奏
@@ -1452,6 +1459,7 @@ lib_skill.set(189, [
   createSkill(1, 16, 0, lib_describe.get('addclip_4'))
 ])
 lib_skill.set(283, []) // 
+lib_skill.set(302, []) // 防卫者走特殊判定
 // ———————————————————————————————————————— SG - 3 ————————————————————————————————————————
 lib_skill.set(152, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(154, [createSkill(10, 16, 6, lib_describe.get('arm_60'))]) // 防护专注-3星

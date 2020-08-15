@@ -346,6 +346,7 @@ lib_affect.set(294, createAffect('l/lu/luu/u/r/', 'all', ['dmg', 'rof'], [0.16, 
 lib_affect.set(295, createAffect('l/ld/ldd/', 'ar', ['dmg', 'acu'], [0.2, 0.25])) // CF05
 lib_affect.set(296, createAffect('u/uu/ur/urr/', 'all', ['dmg', 'eva'], [0.1, 0.18])) // SL8
 lib_affect.set(297, createAffect('r/ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // M82
+lib_affect.set(302, createAffect('u/l/ll/llu/', 'mg/sg', ['dmg', 'arm'], [0.1, 0.1])) // 防卫者
 lib_affect.set(303, createAffect('l/lu/r/ru/u/uu/', 'all', ['dmg', 'eva'], [0.3, 0.2])) // HP-35
 lib_affect.set(304, createAffect('l/ld/', 'ar', ['dmg'], [0.22])) // SAF
 lib_affect.set(305, createAffect('u/d/', 'hg', ['cld'], [0.15])) // tabuk
@@ -353,6 +354,7 @@ lib_affect.set(306, createAffect('r/ru/rr/', 'smg/ar', ['dmg', 'eva'], [0.2, 0.1
 lib_affect.set(307, createAffect('r/rr/rru/', 'sg', ['rof', 'arm'], [0.15, 0.15])) // ZB-26
 lib_affect.set(308, createAffect('r/rd/', 'hg', ['cld'], [0.12])) // C14
 lib_affect.set(310, createAffect('r/rd/l/ld/d/', 'all', ['dmg', 'acu'], [0.22, 0.5])) // Rex Zero 1
+lib_affect.set(311, createAffect('l/ld/ldd/', 'ar/rf', ['dmg', 'crit'], [0.19, 0.25])) // Lusa
 lib_affect.set(312, createAffect('d/dr/', 'hg', ['cld'], [0.18])) // VSK-94
 lib_affect.set(313, createAffect('r/ru/ruu/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // S-ACR
 // Digimind update
@@ -707,6 +709,7 @@ lib_property.set(294, createProperty(29, 66, 81, 57, 0, 430, 0.2, -1)) // 韦伯
 lib_property.set(295, createProperty(26, 13, 73, 87, 0, 950, 0.05, -1)) // CF05
 lib_property.set(296, createProperty(120, 78, 39, 41, 0, 425, 0.4, -1)) // SL8
 lib_property.set(297, createProperty(51, 45, 46, 75, 0, 565, 0.2, -1)) // M82
+lib_property.set(302, createProperty(38, 13, 17, 27, 18, 1235, 0.4, 1)) // Defender
 lib_property.set(303, createProperty(31, 64, 89, 58, 0, 380, 0.2, -1)) // HP-35
 lib_property.set(304, createProperty(25, 14, 69, 99, 0, 900, 0.05, -1)) // SAF
 lib_property.set(305, createProperty(115, 81, 36, 39, 0, 420, 0.4, -1)) // tabuk
@@ -714,6 +717,7 @@ lib_property.set(306, createProperty(56, 53, 52, 75, 0, 580, 0.2, -1)) // AK-alp
 lib_property.set(307, createProperty(100, 31, 30, 116, 0, 910, 0.05, 9)) // ZB-26
 lib_property.set(308, createProperty(128, 77, 29, 32, 0, 470, 0.4, -1)) // C14
 lib_property.set(310, createProperty(31, 56, 74, 61, 0, 350, 0.2, -1)) // Rex Zero 1
+lib_property.set(311, createProperty(29, 13, 69, 94, 0, 1025, 0.05, -1)) // Lusa
 lib_property.set(312, createProperty(133, 79, 32, 38, 0, 440, 0.4, -1)) // VSK-94
 lib_property.set(313, createProperty(46, 45, 42, 91, 0, 620, 0.2, -1)) // S-ACR
 
@@ -950,6 +954,7 @@ lib_special_info.set(285, lib_language.special_info_common) // C-93
 lib_special_info.set(287, lib_language.special_info_common) // SIG-556
 lib_special_info.set(290, lib_language.special_info_common) // howa type 89
 lib_special_info.set(294, lib_language.special_info_common) // webley
+lib_special_info.set(302, lib_language.special_info_common) // Defender
 lib_special_info.set(306, lib_language.special_info_common) // AK-Alfa
 lib_special_info.set(1007, lib_language.special_info_common) // Stechkin
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
