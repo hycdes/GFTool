@@ -756,6 +756,7 @@ lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9
 lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45 MOD
 lib_property.set(1124, createProperty(125, 73, 31, 40, 0, 455, 0.4, -1)) // supersass MOD
 lib_property.set(1221, createProperty(34, 53, 90, 58, 0, 370, 0.2, -1)) // GSh-18
+lib_property.set(1143, createProperty(29, 15, 77, 97, 0, 1040, 0.05, -1)) // RO635
 lib_property.set(1252, createProperty(163, 85, 30, 32, 0, 450, 0.4, -1)) // KSVK MOD
 // EXTRA
 lib_property.set(2001, createProperty(39, 60, 82, 65, 0, 300, 0.2, -1))
@@ -869,6 +870,7 @@ lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0
 lib_property_equip.set(31065, createProperty_equip(0, 0, 20, 0, 0, 0, 0.1, 0, 0, 0)) // HK416 MOD
 lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0)) // m1918
 lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 0)) // IDW mod
+lib_property_equip.set(31143, createProperty_equip(-6, 0, 45, 0, 0, 0, 0, 0, 0, 0)) // RO635 mod
 lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 9a91
 lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // clear
 lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // fail

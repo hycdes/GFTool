@@ -349,7 +349,7 @@ function manageUI() { // 管理图标变化，不涉及后台数值
       document.getElementById('icon-addstar').onclick = ''
     }
     if (num_star === 5) {
-      if (set_guntype != 1 && set_guntype != 2 && set_guntype != 4) { // 目前只有HG、AR、RF有六星
+      if (set_guntype != 1 && set_guntype != 2 && set_guntype != 3 && set_guntype != 4) { // 目前只有HG、AR、SMG、RF有六星
         document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
         document.getElementById('icon-addstar').style = 'cursor: default'
         document.getElementById('icon-addstar').onclick = ''
@@ -499,6 +499,7 @@ function resetEquipment() {
       else if (ID === 1031) set_equip = [31, 21, 11031] // beleta mod
       else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
       else if (ID === 1094) set_equip = [32, 21, 11094] // 64type mod
+      else if (ID === 1143) set_equip = [31143, 21, 11] // RO635 mod
       else if (ID === 2013) set_equip = [31, 22013, 11] // Dorothy
       else if (ID === 2023) set_equip = [32, 21, 12023] // Henrietta
       else set_equip = [32, 21, 11]

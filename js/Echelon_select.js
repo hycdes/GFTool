@@ -165,7 +165,9 @@ function changeSelectItems() {
       str_items += '<option value=133>No.133 ' + lib_language.NAME_133 + '</option>'
     }
   } else if (set_guntype === 3) { // SMG
-    if (num_star === 5) {
+    if (num_star === 6) {
+      str_items += '<option value=1143>No.143 [MOD] RO635</option>'
+    } else if (num_star === 5) {
       str_items += '<option value=16 selected>No.16 ' + lib_language.NAME_16 + '</option>'
       str_items += '<option value=20>No.20 Vector</option>'
       str_items += '<option value=28>No.28 MP7</option>'
@@ -473,6 +475,7 @@ function changeEquip() {
       if (ID === 26 || ID === 1026) str_items += '<option value=326>GSG UX' + lib_language.equipNAME_31 + '</option>' // MP5
       if (ID === 101 || ID === 102 || ID === 103 || ID === 1101 || ID === 1103) str_items += '<option value=3103>UMP UX' + lib_language.equipNAME_31 + '</option>' // UMP系列
       if (ID === 1093) str_items += '<option value=31093>' + lib_language.equipNAME_31093 + '</option>'
+      if (ID === 1143) str_items += '<option value=31143>' + lib_language.equipNAME_31143 + '</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'
       str_items += '<option value=14>[' + lib_language.equipNAME_14 + '] EOT 518</option>'

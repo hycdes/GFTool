@@ -164,6 +164,7 @@ lib_language = {
   equipNAME_326: 'GSG UX Exoskeleton',
   equipNAME_3103: 'UMP UX Exoskeleton',
   equipNAME_31093: 'Ability Upgrade Cartridge',
+  equipNAME_31143: '爱宠挂饰',
   equipNAME_11037: 'M2 Bipod',
   equipNAME_11051: 'Fire Selector',
   equipNAME_1125: 'MG4 Exclusive MGO',

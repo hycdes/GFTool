@@ -186,6 +186,7 @@ lib_language = {
   equipNAME_388: '무한 탄약통',
   equipNAME_3185: '전술용 메모리 칩',
   equipNAME_31075: 'Titan 사격제어칩',
+  equipNAME_31143: '爱宠挂饰',
   equipNAME_32012: '화이트 나이트 제식 갑옷',
   equipNAME_22013: 'MIRD 5등급 탄약',
   equipNAME_32014: '스텔라의 의안',
