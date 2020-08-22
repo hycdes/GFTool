@@ -663,7 +663,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     skillname = (skill.Describe).name, // Describe -> name, special_paremeters
     skillduration = skill.duration
   var current_Info = (Set_Base.get(stand_num)).Info
-  if (skillname === 'attack') { // 普通攻击
+  if (skillname === 'attack' || skillname === 'attack1' || skillname === 'attack2' || skillname === 'attack3') { // 普通攻击
     var fire_status = Set_Special.get('attack_permission_' + stand_num)
     if (fire_status.substr(0, 4) === 'fire') { // 射击准许
       // 特殊攻击——M4A1 MOD 炮击
@@ -710,7 +710,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           // 子弹抵达———————————————————————————————————————————————————————————————————————————————————————————————————
           recordData(stand_num, current_time, 0)
           // 计算BUFF———————————————————————————————————————————————————————————————————————————————————————————————————
-          var list_buff = settle_buff(stand_num, current_Info)
+          var list_buff = settle_buff(stand_num, current_Info, skillname)
           // 非常规普攻伤害——————————————————————————————————————————————————————————————————————————————————————————————
           var extra_damage = 0
           extra_damage = settle_extra(stand_num, current_Info, enemy_arm, enemy_eva, list_buff)
@@ -733,10 +733,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             // 伤害加深和力场结算———————————————————————————————————————————————————————————————————————————————————————
             shoot_damage = Math.ceil(shoot_damage * explain_fgl_ff('single'))
             // 编制结算————————————————————————————————————————————————————————————————————————————————————————————————
-            shoot_damage *= settle_formation(stand_num, fire_status)
+            shoot_damage *= settle_formation(stand_num, fire_status, skillname)
             // 附加伤害结算————————————————————————————————————————————————————————————————————————————————————————————————
             shoot_damage += settle_addition(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
           }
+          // 跳过命中步骤和编制的特殊伤害————————————————————————————————————————————————————————————————————————————————————————————————
+          shoot_damage = settle_ignoreaccuracy(stand_num, current_Info, enemy_arm, shoot_damage)
           // 记录伤害数据———————————————————————————————————————————————————————————————————————————————————————————————
           recordData(stand_num, current_time, shoot_damage + extra_damage)
         }
@@ -799,7 +801,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           s_t[1] = 14
           Set_Special.set('m1911_' + stand_num, Set_Special.get('m1911_' + stand_num) - 1)
         }
-        else if (is_this(stand_num, 122)) { // 突击者之眼三连发：2帧间隔射击
+        else if (is_this(stand_num, 122) || is_this(stand_num, 1122)) { // 突击者之眼三连发：2帧间隔射击
           if (Set_Special.get('g11_' + stand_num) >= current_time) { // 技能期间
             if (Set_Special.get('g11_firstshoot_' + stand_num) === undefined || Set_Special.get('g11_firstshoot_' + stand_num) === 'done') { // 第一次装填
               Set_Special.set('g11_firstshoot_' + stand_num, 'ready')
@@ -847,7 +849,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               final_rof *= 1.6
             }
           }
-          s_t[1] = rof_to_frame(current_Info.get('type'), final_rof, list_tdoll[stand_num][1].ID) - 1
+          if (skillname === 'attack') s_t[1] = rof_to_frame(current_Info.get('type'), final_rof, list_tdoll[stand_num][1].ID) - 1
+          else {
+            s_t[1] = rof_to_frame(current_Info.get('type'), final_rof * 0.6, list_tdoll[stand_num][1].ID) - 1
+          }
         }
         // —————————————————————————————————————— MG和SG扣除子弹 ——————————————————————————————————————
       } else {
@@ -1983,8 +1988,23 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     _spS('supersass_' + stand_num, parseInt(document.getElementById('special_1124_energy_' + stand_num).innerHTML))
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'ro635mod') {
+    _spS('ro635_skillon_' + stand_num, true)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'generalliu') {
+    if (document.getElementById('special_316_0_' + stand_num).checked) {
+      changeStatus(stand_num, 'self', 'rof', -0.1, -1)
+      changeStatus(stand_num, 'self', 'dmg', 0.2, -1)
+    } else {
+      changeStatus(stand_num, 'self', 'dmg', -0.1, -1)
+      changeStatus(stand_num, 'self', 'rof', 0.2, -1)
+    }
+    s_t[1] = -1 // 进入冷却
+  }
 
-  // debug mode ————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
   if (debug_mode && (debug_function[0] || debug_function[1])) {
     if (fire_status === 'stop' && skillname === 'attack') {
       true // log nothing
@@ -2412,6 +2432,7 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
           changeStatus(stand_num, 'snipe', 'armless/critless/eva', _spG('ntw_exratio_' + stand_num), 0.6)
         } else { // 否则不需要追加
           Set_Special.set('attack_permission_' + stand_num, 'fire_all') // 恢复射击
+          if (_spG('ntw_numleft_' + stand_num) === 0) _spS('ntw_numleft_' + stand_num, 3)
         }
       }
       else if (is_this(stand_num, 252) || is_this(stand_num, 1252)) { // KSVK附加debuff
@@ -2531,7 +2552,26 @@ function injury(shoot_target) {
   var suffer_hp = get_left_hp(shoot_target, single_hp)
   recordData_suffer(shoot_target, global_frame, 0)
   for (var i = 0; i < enemy_num_left * enemy_form; i++) {
-    if (!is_protected(shoot_target) && (Math.random() <= accuracy_rate || Set_Special.get('enemy_maxacu') === true)) { // 该次攻击命中
+    var is_force_to_evade = false
+    if (is_this(shoot_target, 1143)) { // RO635 正义审判
+      var list_debuff = ['enemy_dmg', 'enemy_rof', 'enemy_acu', 'enemy_eva', 'enemy_arm',
+        'enemy_speed', 'enemy_dot', 'enemy_dizz']
+      var num_debuff = 0
+      for (var debuff of list_debuff) {
+        if (_spG(debuff) >= global_frame) {
+          num_debuff++
+        }
+      }
+      if (Set_EnemyStatus.get('avenger_mark')) num_debuff++
+      var p_justice = 0.2 + 0.1 * num_debuff
+      if (Math.random() <= p_justice) { // 进入正义审判流程
+        if (Math.random() >= accuracy_rate) {
+          is_force_to_evade = true
+        }
+      }
+    }
+    if (!is_protected(shoot_target)                               // 既不是大破保护
+      && (Math.random() <= accuracy_rate || (_spG('enemy_maxacu') && !is_force_to_evade) === true)) { // 又满足命中，且没有强制回避
       var record_dmg = Math.max(1, Math.ceil(damage * (Math.random() * 0.3 + 0.85) + Math.min(2, enemy_ap - current_Info.get('arm'))))
       if (Set_Special.get('ffmax' + shoot_target) != undefined) { // 存在力场
         var overdbk = 0

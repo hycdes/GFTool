@@ -20,6 +20,22 @@ function describe_attack() { // 普通攻击
   Describe.name = 'attack'
   return Describe
 }
+function describe_attack1() { // 普通攻击1
+  var Describe = {}
+  Describe.name = 'attack1'
+  return Describe
+}
+function describe_attack2() { // 普通攻击2
+  var Describe = {}
+  Describe.name = 'attack2'
+  return Describe
+}
+function describe_attack3() { // 普通攻击3
+  var Describe = {}
+  Describe.name = 'attack3'
+  return Describe
+}
+
 
 function describe_property(list_target, list_pro, list_value) { // 属性增益
   var Describe = {}
@@ -477,10 +493,23 @@ function describe_supersass() { // superass mod
   Describe.name = 'supersass'
   return Describe
 }
+function describe_ro635mod() { // ro635 mod
+  var Describe = {}
+  Describe.name = 'ro635mod'
+  return Describe
+}
+function describe_generalliu() { // general liu
+  var Describe = {}
+  Describe.name = 'generalliu'
+  return Describe
+}
 
 // lib_decribe
 // universal
 lib_describe.set('attack', describe_attack()) // 普通攻击，特殊，没有归属编号
+lib_describe.set('attack1', describe_attack1()) // 刘氏步枪1号傀儡的普通攻击
+lib_describe.set('attack2', describe_attack2()) // 刘氏步枪2号傀儡的普通攻击
+lib_describe.set('attack3', describe_attack3()) // 刘氏步枪3号傀儡的普通攻击
 lib_describe.set('mustcrit', describe_mustcrit()) // 必定暴击
 // command
 lib_describe.set('com_dmg_25', describe_property(['all'], ['dmg'], ['0.25'])) // 火力号令 25%
@@ -548,6 +577,7 @@ lib_describe.set('evaN_75_enemy', describe_propertyN(['enemy'], ['eva'], ['-0.75
 lib_describe.set('evaND_40_enemy', describe_propertyND(['enemy'], ['eva'], ['-0.4'])) // 掩护压制ND 40%
 lib_describe.set('acu_45_enemy', describe_property(['enemy'], ['acu'], ['-0.45'])) // 精确压制 45%
 lib_describe.set('acu_36_enemy', describe_property(['enemy'], ['acu'], ['-0.36'])) // 精确压制 36%
+lib_describe.set('acu_10_enemy', describe_property(['enemy'], ['acu'], ['-0.1'])) // 精确压制 10%
 lib_describe.set('speed_down', describe_property(['enemy'], ['speed'], ['-0'])) // 降低移动速度
 // forcus
 lib_describe.set('dmg_260', describe_property(['self'], ['dmg'], ['2.6'])) // 火力专注 260%
@@ -823,11 +853,13 @@ lib_describe.set('claes', describe_claes()) // 沉思者之钥
 lib_describe.set('angelica', describe_angelica()) // 极限射击
 lib_describe.set('vsk94buff', describe_vsk94buff()) // 二重警备-属性转换
 lib_describe.set('supersass', describe_supersass()) // 后发狙击
+lib_describe.set('ro635mod', describe_ro635mod()) // 正义审判：判断技能是否开启
+lib_describe.set('generalliu', describe_generalliu()) // 同仇敌忾
 
 // lib_skill
 
 // ———————————————————————————————————————— HG ————————————————————————————————————————
-// ———————————————————————————————————————— HG - 5 ————————————————————————————————————————
+// ———————————————————————————————————————— HG - 6 ————————————————————————————————————————
 lib_skill.set(1097, [
   createSkill(6, 12, 8, lib_describe.get('com_rof_28')),
   createSkill(0, -1, 0, lib_describe.get('m950amod'))
@@ -963,6 +995,7 @@ lib_skill.set(141, [createSkill(6, 12, 8, lib_describe.get('com_acu_100'))])
 // ———————————————————————————————————————— AR ————————————————————————————————————————
 // ———————————————————————————————————————— AR - 6 ————————————————————————————————————————
 lib_skill.set(1065, []) // HK416 MOD 技能根据设定决定
+lib_skill.set(1122, [createSkill(6, 16, 5, lib_describe.get('g11'))]) // 百分比伤害特殊判断
 // ———————————————————————————————————————— AR - 5 ————————————————————————————————————————
 lib_skill.set(62, [createSkill(4, 16, 10, lib_describe.get('dmg_75'))])
 lib_skill.set(65, [createSkill(8, 16, 0, lib_describe.get('grenade_15'))])
@@ -1078,6 +1111,13 @@ lib_skill.set(107, [createSkill(5, 8, 5, lib_describe.get('dmg_55'))])
 lib_skill.set(133, [createSkill(5, 16, 15, lib_describe.get('acu_500'))])
 
 // ———————————————————————————————————————— SMG ————————————————————————————————————————
+// ———————————————————————————————————————— SMG - 6 ————————————————————————————————————————
+lib_skill.set(1143, [
+  createSkill(3, 12, 5, lib_describe.get('eva_70')), // 心智威慑
+  createSkill(3, 12, 5, lib_describe.get('dmg_25_enemy')),
+  createSkill(3, 12, 5, lib_describe.get('acu_10_enemy')),
+  createSkill(3, 12, 5, lib_describe.get('ro635mod')),
+]) // 正义审判实现于Echelon_special.js
 // ———————————————————————————————————————— SMG - 5 ————————————————————————————————————————
 lib_skill.set(16, [createSkill(8, 16, 4, lib_describe.get('ffs'))]) // 力场盾
 lib_skill.set(20, [createSkill(3, 16, 0, lib_describe.get('incendiary_7'))]) // 燃烧弹
@@ -1231,6 +1271,7 @@ lib_skill.set(312, [
   createSkill(5, 8, 0, lib_describe.get('vsk94')),
   createSkill(5, 8, 0, lib_describe.get('vsk94buff'))
 ]) // VSK-94
+lib_skill.set(316, [createSkill(1, -1, 0, lib_describe.get('generalliu'))]) // 刘氏步枪，所有特性走攻击判定
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
 lib_skill.set(1252, [createSkill(9, 16, 0, lib_describe.get('snipe_5'))])
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————

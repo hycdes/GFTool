@@ -13,7 +13,7 @@ function _pro(name_property) {
     }
 }
 
-function settle_buff(stand_num, info_self) {
+function settle_buff(stand_num, info_self, skillname) {
     var _mul_dmg = 1,
         _mul_acu = 1,
         _mul_critdmg = 1,
@@ -21,6 +21,12 @@ function settle_buff(stand_num, info_self) {
         must_crit = false,
         no_crit = false,
         ignore_arm = false
+    // 刘氏步枪傀儡的结算
+    if (skillname != 'attack') {
+        true // block-affect
+        _mul_dmg *= 0.4
+        _mul_acu *= 0.35
+    }
     // 全局buff计算，主要用于处理可叠但先知层数的全体buff
     if (is_exist_someone(2026)) {
         _mul_dmg *= Math.pow(1.05, Math.min(3, multilayer_process('claes_globalbuff', 'get')))
@@ -127,11 +133,11 @@ function settle_buff(stand_num, info_self) {
             'enemy_speed', 'enemy_dot', 'enemy_dizz']
         var num_debuff = 0
         for (var debuff of list_debuff) {
-            if (Set_Special.get(debuff) >= global_frame) {
+            if (_spG(debuff) >= global_frame) {
                 num_debuff++
             }
         }
-        if (num_debuff > 0) _mul_dmg = 1.05 + 0.05 * num_debuff
+        var p_justice = 0.2 + 0.1 * num_debuff
     }
     else if (is_this(stand_num, 275)) {
         var buffnum = multilayer_process('m1895cb_buff_acu_' + stand_num, 'get')
@@ -222,6 +228,10 @@ function settle_buff(stand_num, info_self) {
             _spDecl('supersass_' + stand_num)
         }
         if (document.getElementById('special_1124_' + stand_num).checked) _mul_dmg *= 1.1
+    }
+    else if (is_this(stand_num, 1122)) { // g11 mod
+        _spPlus('g11_layer_' + stand_num)
+
     }
     else if (is_this(stand_num, 2012)) { // sei: help stella add buff
         if (is_exist_someone(2014)) {
@@ -329,6 +339,11 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
     }
     else if (is_this(stand_num, 1075)) { // M1918 MOD
         if (_pro('cs', info_self) - Set_Special.get('clipsize_' + stand_num) < 3) _para_dmg *= 1.4
+    }
+    else if (is_this(stand_num, 1143)) { // RO635 MOD 技能期间攻击命中，为敌人附加伸冤者印记
+        if (_spG('ro635_skillon_' + stand_num)) {
+            Set_EnemyStatus.set('avenger_mark', true)
+        }
     }
     else if (is_this(stand_num, 2008)) { // seele
         if (Set_Special.get('clipsize_' + stand_num) === 1) _para_dmg *= 3
@@ -447,6 +462,7 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // �
         }
     }
     else if (is_this(stand_num, 1057)) { // AR-15 MOD 罪与罚
+        var extra_dmg = 0
         var ar15_list_status = Set_Status.get(stand_num)
         var len_list = ar15_list_status.length
         for (var i = 0; i < len_list; i++) {
@@ -530,9 +546,13 @@ function settle_extra(stand_num, info_self, enemy_arm, enemy_eva, list_buff) {
     return extra_value
 }
 
-function settle_formation(stand_num, fire_status) {
-    if (fire_status.substr(5) === 'all') return this_formation(stand_num) // 全员攻击
-    else if (fire_status.substr(5) === 'four') return this_formation(stand_num) - 1 // 一人释放技能
+function settle_formation(stand_num, fire_status, skillname) {
+    if (skillname === 'attack') {
+        if (fire_status.substr(5) === 'all') return this_formation(stand_num) // 全员攻击
+        else if (fire_status.substr(5) === 'four') return this_formation(stand_num) - 1 // 一人释放技能
+    } else {
+        return 3
+    }
 }
 
 function settle_addition(stand_num, info_self, info_enemy, enemy_num_left, list_buff) {
@@ -555,6 +575,22 @@ function settle_addition(stand_num, info_self, info_enemy, enemy_num_left, list_
         }
     }
     return addition_dmg
+}
+
+function settle_ignoreaccuracy(stand_num, info_self, info_enemy, final_dmg) {
+    var _para_arm = Math.min(2, _pro('ap', info_self) - _pro('e_arm', info_enemy))
+    if (is_this(stand_num, 1122)) {// G11 MOD
+        var extra_dmg = 0
+        if (_spG('g11_layer_' + stand_num) >= 3) {
+            _spS('g11_layer_' + stand_num, 0)
+            Math.min(0.02 * parseInt(document.getElementById('special_1122_' + stand_num).value), 3 * info_self.get('dmg'))
+            extra_dmg = Math.max(1,
+                Math.min(0.02 * parseInt(document.getElementById('special_1122_' + stand_num).value), 3 * info_self.get('dmg')) // 至多3倍战时火力或敌人生命上限2%
+                + _para_arm) // 20%火力
+            final_dmg += extra_dmg
+        }
+    }
+    return final_dmg
 }
 
 // sample

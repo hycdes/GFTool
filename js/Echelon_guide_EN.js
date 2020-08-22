@@ -106,6 +106,7 @@ lib_language = {
   NAME_294: 'Webley',
   NAME_302: 'Defender',
   NAME_305: 'Tabuk',
+  NAME_316: 'General Liu',
 
   NAME_2001: 'Noel',
   NAME_2002: 'Elphelt',
@@ -213,6 +214,7 @@ lib_language = {
   skillNAME_2006: 'Sanctions of Light',
   skillNAME_2026: '沉思者之钥',
   DESCRIBE_2026: ['自动技能', '1层蓄力开火', '2层蓄力开火', '3层蓄力开火', '4层蓄力开火', '5层蓄力开火'],
+  DESCRIBE_316: ['普通模式(-10%射速,+20%火力)', '自动模式(-10%火力,+20%射速)'],
   DESCRIBE_39_1: 'Each',
   DESCRIBE_39_2: 'attacks kill',
   DESCRIBE_39_3: 'Disabled',

@@ -357,6 +357,9 @@ lib_affect.set(310, createAffect('r/rd/l/ld/d/', 'all', ['dmg', 'acu'], [0.22, 0
 lib_affect.set(311, createAffect('l/ld/ldd/', 'ar/rf', ['dmg', 'crit'], [0.19, 0.25])) // Lusa
 lib_affect.set(312, createAffect('d/dr/', 'hg', ['cld'], [0.18])) // VSK-94
 lib_affect.set(313, createAffect('r/ru/ruu/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // S-ACR
+
+lib_affect.set(315, createAffect('l/lu/ld/', 'ar', ['dmg', 'acu'], [0.15, 0.25])) // AUG Para
+lib_affect.set(316, createAffect('u/d/r/', 'hg', ['cld'], [0.18])) // 刘氏步枪
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -390,7 +393,9 @@ lib_affect.set(1095, createAffect('r/rd/', 'hg', ['cld'], [0.15])) // 汉阳造8
 lib_affect.set(1097, createAffect('lu/ld/l/ru/rd/', 'all', ['rof', 'acu'], [0.32, 0.6])) // M950A改
 lib_affect.set(1101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])) // UMP9改
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改
-lib_affect.set(1124, createAffect('r/ru/', 'hg', ['cld'], [0.15])) // Super SASS改
+lib_affect.set(1122, createAffect('r/rd/', 'smg', ['dmg', 'eva'], [0.35, 0.12])) // G11 改
+lib_affect.set(1124, createAffect('u/ru/', 'hg', ['cld'], [0.15])) // Super SASS改
+lib_affect.set(1143, createAffect('u/lu/l/ld/d/', 'ar', ['rof', 'acu'], [0.15, 0.4])) // RO635 SASS改
 lib_affect.set(1221, createAffect('u/lu/l/ld/d/r/', 'all', ['dmg', 'acu'], [0.3, 0.4])) // GSh-18改
 lib_affect.set(1252, createAffect('r/rd/rr/', 'hg/sg', ['cld'], [0.15])) // KSVK改
 // EXTRA
@@ -721,6 +726,9 @@ lib_property.set(311, createProperty(29, 13, 69, 94, 0, 1025, 0.05, -1)) // Lusa
 lib_property.set(312, createProperty(133, 79, 32, 38, 0, 440, 0.4, -1)) // VSK-94
 lib_property.set(313, createProperty(46, 45, 42, 91, 0, 620, 0.2, -1)) // S-ACR
 
+lib_property.set(315, createProperty(29, 15, 83, 88, 0, 925, 0.05, -1)) // AUG Para
+lib_property.set(316, createProperty(139, 88, 30, 40, 0, 400, 0.4, -1)) // General Liu
+
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
 lib_property.set(1002, createProperty(29, 52, 78, 58, 0, 375, 0.2, -1))
@@ -754,7 +762,9 @@ lib_property.set(1095, createProperty(118, 69, 39, 37, 0, 520, 0.4, -1)) // hany
 lib_property.set(1097, createProperty(33, 57, 77, 72, 0, 400, 0.2, -1)) // m950a
 lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9 MOD
 lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45 MOD
+lib_property.set(1122, createProperty(48, 48, 44, 97, 0, 620, 0.2, -1)) // G11 MOD
 lib_property.set(1124, createProperty(125, 73, 31, 40, 0, 455, 0.4, -1)) // supersass MOD
+lib_property.set(1161, createProperty(37, 13, 14, 28, 22, 1355, 0.4, -1)) // 97shorgun MOD
 lib_property.set(1221, createProperty(34, 53, 90, 58, 0, 370, 0.2, -1)) // GSh-18
 lib_property.set(1143, createProperty(29, 15, 77, 97, 0, 1040, 0.05, -1)) // RO635
 lib_property.set(1252, createProperty(163, 85, 30, 32, 0, 450, 0.4, -1)) // KSVK MOD
@@ -870,6 +880,7 @@ lib_property_equip.set(31055, createProperty_equip(5, 0, 0, 0, 15, 0, 0, 0, 0, 0
 lib_property_equip.set(31065, createProperty_equip(0, 0, 20, 0, 0, 0, 0.1, 0, 0, 0)) // HK416 MOD
 lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 0)) // m1918
 lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 0)) // IDW mod
+lib_property_equip.set(31122, createProperty_equip(0, 10, -5, 0, 0, 0, 0, 0, 0, 0)) // G11 mod
 lib_property_equip.set(31143, createProperty_equip(-6, 0, 45, 0, 0, 0, 0, 0, 0, 0)) // RO635 mod
 lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 9a91
 lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // clear
@@ -958,11 +969,13 @@ lib_special_info.set(290, lib_language.special_info_common) // howa type 89
 lib_special_info.set(294, lib_language.special_info_common) // webley
 lib_special_info.set(302, lib_language.special_info_common) // Defender
 lib_special_info.set(306, lib_language.special_info_common) // AK-Alfa
+lib_special_info.set(316, lib_language.special_info_common) // General Liu
 lib_special_info.set(1007, lib_language.special_info_common) // Stechkin
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4
-lib_special_info.set(1065, lib_language.special_info_common) // hk416
-lib_special_info.set(1101, lib_language.special_info_common) // ump9
+lib_special_info.set(1065, lib_language.special_info_common) // hk416 mod
+lib_special_info.set(1101, lib_language.special_info_common) // ump9 mod
+lib_special_info.set(1122, lib_language.special_info_common) // g11 mod
 lib_special_info.set(1124, lib_language.special_info_common) // supersass
 lib_special_info.set(2006, lib_language.special_info_common) // theresa
 lib_special_info.set(2011, lib_language.special_info_common) // jill

@@ -170,7 +170,7 @@ function get_left_hp(stand_num, single_hp) {
 function get_skill_icon(ID) { return '&nbsp<img src="../img/echelon/skill/' + ID + '.png" style="width:25px;height:25px">' }
 
 // lable_do
-function do_debuff(name, duration) {
+function do_debuff(name, duration) { // 仅记录敌人debuff类型数，不用于实际属性变化
   if (Set_Special.get(name) === undefined || Set_Special.get(name) < global_frame + duration) Set_Special.set(name, global_frame + duration) // mark debuff
 }
 function do_unique(ID, command) {
@@ -552,6 +552,9 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('ak15_nexttime_' + i, 0) // 下次debuff数结算时间
         _spS('ak15_debufflevel_' + i, 0) // 每次debuff层数增量
       }
+      else if (is_this(i, 1122)) { // g11 mod
+        _spS('g11_layer_' + i, 0) // G11攻击次数
+      }
       else if (is_this(i, 2014)) { // stella
         changeStatus(i, 'self', 'dmg', -0.5, -1)
       }
@@ -563,7 +566,13 @@ function init_loadPrepareStatus() { // 初始化战前属性
       var list_Skill = []
       var extra_cd = 0
       if (document.getElementById('check_cd_' + i).checked) extra_cd = parseFloat(document.getElementById('addcd_' + i).value)
-      if (is_this(i, 2011)) true // Jill不能普攻
+      if (is_this(i, 316)) { // 刘氏步枪本体和傀儡拥有独立的普攻
+        list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入本体普攻
+        list_Skill.push([createSkill(3, 0, 0, lib_describe.get('attack1')), 0]) // 载入傀儡普攻
+        list_Skill.push([createSkill(3, 0, 0, lib_describe.get('attack2')), 0]) // 载入傀儡普攻
+        list_Skill.push([createSkill(3, 0, 0, lib_describe.get('attack3')), 0]) // 载入傀儡普攻
+      }
+      else if (is_this(i, 2011)) true // Jill不能普攻
       else if (is_this(i, 2016)) true // Dana单发子弹必须先执行技能
       else if (is_this(i, 2014)) true // Stella单发子弹必须先执行技能
       else list_Skill.push([createSkill(0, 0, 0, lib_describe.get('attack')), 0]) // 载入普攻

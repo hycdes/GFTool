@@ -482,6 +482,7 @@ function resetEquipment() {
       else if (ID === 1063) set_equip = [11063, 22, 31] // g3 mod
       else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
       else if (ID === 1065) set_equip = [165, 22, 31065] // HK416 mod
+      else if (ID === 1122) set_equip = [12, 22, 31122] // G11 mod
       else if (ID === 2027) set_equip = [12, 22, 32027] // Angelica
       else if (ID === 3054) set_equip = [32, 23054, 354] // sf m16
       else set_equip = [12, 22, 31]
@@ -905,6 +906,13 @@ function addTdoll() { // 添加战术人形
       str_html += ') value="100"></td><td>%</td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 1122) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' G11 [MOD]</h4><p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 40%">敌人血量</td><td style="width: 50%">'
+      str_html += '<input class="form-control input-sm" placeholder="integer" id="special_1122_' + (num_pickblock - 1) + '" value="260000"></td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
 
     // 类型0：单勾选框
     else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 'singlecheck', 'checked') // PzB39
@@ -929,6 +937,7 @@ function addTdoll() { // 添加战术人形
     // 类型2：N选1
     else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 'pickone', 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
     else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 'pickone', 3, 0, ['', '', '']) // C-93
+    else if (ID === 316) addSpecialSetting(316, reverse_position, num_pickblock, 'pickone', 2, 0, ['dodgerblue', 'orange']) // General Liu
     else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 'pickone', 6, 5, ['', '', '', '', '', 'red']) // Claes
 
     // 类型4：能量条
@@ -993,7 +1002,7 @@ function addSpecialSetting() { // ID,_position,_type
     [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7],
     [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
     [213, 'C-MS'],
-    [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
+    [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256], [316, lib_language.NAME_316], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
     [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
     [302, lib_language.NAME_302], [2025, lib_language.NAME_2025]
   ]
