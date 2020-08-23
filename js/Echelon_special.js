@@ -231,7 +231,6 @@ function settle_buff(stand_num, info_self, skillname) {
     }
     else if (is_this(stand_num, 1122)) { // g11 mod
         _spPlus('g11_layer_' + stand_num)
-
     }
     else if (is_this(stand_num, 2012)) { // sei: help stella add buff
         if (is_exist_someone(2014)) {
@@ -467,13 +466,11 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // �
         var len_list = ar15_list_status.length
         for (var i = 0; i < len_list; i++) {
             if (ar15_list_status[i][0][0] === 'rof' && ar15_list_status[i][0][1] === 1.5) { // 突击专注期间
-                var extra_dmg = 0
                 if (Set_EnemyStatus.get('avenger_mark') === true) {
                     extra_dmg = Math.max(1, Math.ceil(0.2 * info_self.get('dmg') * _pro('random') + _para_arm)) // 20%火力
                 } else {
                     extra_dmg = Math.max(1, Math.ceil(0.1 * info_self.get('dmg') * _pro('random') + _para_arm)) // 10%火力
                 }
-                if (Math.random() + info_self.get('crit') >= 1) extra_dmg = Math.ceil(extra_dmg * info_self.get('critdmg'))
                 final_dmg += extra_dmg
                 break
             }
@@ -505,8 +502,8 @@ function settle_crit(stand_num, info_self, list_buff) {
         no_crit = false,
         critdmg_para = 1
     must_crit = _mul('must_crit', list_buff) ||
-        (Set_Special.get('must_crit_' + stand_num) != undefined) ||
-        (Set_Special.get('skill_mustcrit_' + stand_num) != undefined && Set_Special.get('skill_mustcrit_' + stand_num) >= global_frame)
+        (_spG('must_crit_' + stand_num) != undefined) ||
+        (_spG('skill_mustcrit_' + stand_num) != undefined && _spG('skill_mustcrit_' + stand_num) >= global_frame)
     no_crit = _mul('no_crit', list_buff)
     if (no_crit) is_crit = false
     else if (must_crit || Math.random() + info_self.get('crit') >= 1) is_crit = true
@@ -583,7 +580,6 @@ function settle_ignoreaccuracy(stand_num, info_self, info_enemy, final_dmg) {
         var extra_dmg = 0
         if (_spG('g11_layer_' + stand_num) >= 3) {
             _spS('g11_layer_' + stand_num, 0)
-            Math.min(0.02 * parseInt(document.getElementById('special_1122_' + stand_num).value), 3 * info_self.get('dmg'))
             extra_dmg = Math.max(1,
                 Math.min(0.02 * parseInt(document.getElementById('special_1122_' + stand_num).value), 3 * info_self.get('dmg')) // 至多3倍战时火力或敌人生命上限2%
                 + _para_arm) // 20%火力
