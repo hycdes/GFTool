@@ -28,7 +28,7 @@ var lib_name = {
   t5: '纳甘左轮', t10: 'PPK',
   // —————————————— AR ——————————————
   t2007: '无量塔姬子', t2027: '安洁莉卡',
-  t1065: 'HK416 MOD',
+  t1065: 'HK416 MOD', t1122: 'G11 MOD',
   t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
   t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t306: 'AK-Alfa',
   t1061: 'StG44 MOD', t1063: 'G3 MOD',
@@ -46,7 +46,7 @@ var lib_name = {
   t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井', t2024: '莉可',
   t1053: 'NTW-20 MOD',
   t1039: '莫辛-纳甘 MOD', t1252: 'KSVK MOD',
-  t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93', t312: 'VSK-94',
+  t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93', t312: 'VSK-94', t316: '刘氏步枪',
   t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: '汉阳造88式 MOD',
   t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000', t305: '塔布克',
   t37: 'M14', t256: '隼',
@@ -115,6 +115,7 @@ var lib_tdoll = [
   create_entry([2, 1, 2007], ['dps', 'af_dmg'], ['front'], ['weak_dmg'], []),
   create_entry([2, 1, 2027], ['dps'], ['front'], ['forcus_dmg', 'fastcd', 'rofstatic'], []),
   create_entry([2, 6, 1065], ['dps', 'af_dmg'], ['front'], ['grenade', 'deepdmg'], []),
+  create_entry([2, 6, 1122], ['dps', 'skilldps', 'af_dmg'], ['front'], ['multihit'], []),
   create_entry([2, 5, 1055], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['front'], ['forcus_dmg', 'fastcd'], ['laomo']),
   create_entry([2, 5, 1056], ['dps'], ['front'], ['grenade', 'multitarget'], []),
   create_entry([2, 5, 1057], ['dps', 'longfill'], ['front'], ['forcus_rof', 'fastcd', 'multihit'], []),
@@ -215,7 +216,7 @@ var lib_tdoll = [
   create_entry([4, 1, 2024], ['dps'], ['back', 'suggest_1'], ['forcus_dmg', 'ap', 'passive', 'grenade', 'snipe'], []),
   create_entry([4, 6, 1053], ['dps'], ['back'], ['ap', 'snipe', 'shield_break'], []),
   create_entry([4, 5, 1039], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
-  create_entry([4, 5, 1252], ['dps'], ['back'], ['ap', 'passive', 'grenade'], []),
+  create_entry([4, 5, 1252], ['dps'], ['front', 'back'], ['ap', 'passive', 'grenade'], []),
   create_entry([4, 5, 46], ['dps'], ['back'], ['ap', 'snipe'], []),
   create_entry([4, 5, 48], ['dps'], ['back'], ['forcus_rof', 'ap'], []),
   create_entry([4, 5, 50], ['dps'], ['back'], ['forcus_dmg', 'ap'], []),
@@ -234,6 +235,7 @@ var lib_tdoll = [
   create_entry([4, 5, 261], ['dps'], ['back'], ['ap', 'passive', 'grenade'], []),
   create_entry([4, 5, 266], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'passive'], []),
   create_entry([4, 5, 312], ['dps'], ['back'], ['forcus_dmg', 'ap', 'multihit'], []),
+  create_entry([4, 5, 316], ['dps'], ['front', 'back'], ['forcus_dmg', 'forcus_rof', 'ap', 'passive', 'multihit', 'status'], []),
   create_entry([4, 4, 1037], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap'], []),
   create_entry([4, 4, 1044], ['dps'], ['back'], ['forcus_rof', 'forcus_acu', 'ap', 'snipe'], []),
   create_entry([4, 4, 1051], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap'], []),
@@ -319,6 +321,7 @@ var list_decline = [ // 调整规则
   [272, ['deepdmg'], [0.25]], // DE (10/40)
   [285, ['command_dmg', 'command_rof'], [18 / 25, 16 / 25]], // C-93
   [287, ['forcus_dmg', 'forcus_rof'], [50 / 75, 50 / 75]], // SIG-556
+  [316, ['forcus_dmg', 'forcus_rof'], [0.2 / 0.75, 0.2 / 0.75]], // general liu
   [1001, ['command_rof'], [0.48]], // colt (12/25)
   [1026, ['forcus_eva'], [0.5]], // mp5
   [1039, ['forcus_dmg', 'forcus_rof'], [0.7, 20 / 75]], // mosin
