@@ -1147,6 +1147,7 @@ lib_skill.set(259, [
   createSkill(6, 8, 5, lib_describe.get('pm9')),
   createSkill(6, 8, 5, lib_describe.get('pm9_buff'))
 ])
+lib_skill.set(315, []) // AUG Para
 lib_skill.set(1026, [
   createSkill(8, 16, 4, lib_describe.get('ffs')), // 力场盾
   createSkill(8, 16, 4, lib_describe.get('mp5mod')) // 回避提升

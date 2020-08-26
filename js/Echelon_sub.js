@@ -123,12 +123,17 @@ function fil_to_frame(filling) {
   // return Math.ceil(45000 / (300 + filling))
 }
 
-// lable_getinfo
+// this
 function this_formation(stand_num) { return list_tdoll[stand_num][0]; }
 function this_dmg(hfn) { return list_HF[hfn][1].v1 + list_HF[hfn][2].v1 + list_HF[hfn][3].v1; }
 function this_dbk(hfn) { return list_HF[hfn][1].v2 + list_HF[hfn][2].v2 + list_HF[hfn][3].v2; }
 function this_acu(hfn) { return list_HF[hfn][1].v3 + list_HF[hfn][2].v3 + list_HF[hfn][3].v3; }
 function this_fil(hfn) { return list_HF[hfn][1].v4 + list_HF[hfn][2].v4 + list_HF[hfn][3].v4; }
+
+// get
+function get_property(stand_num, pro_name) { // 返回实时属性
+  return ((Set_Base.get(stand_num)).Info).get(pro_name)
+}
 function get_common_position() {
   var common_position
   for (var cn = 0; cn < 9; cn++) {
@@ -373,7 +378,7 @@ function init_resetAllConfig() { // 重置所有数据
   else if (daytime === 2) Set_Special.set('sunrise', 'night')
   for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
-  init_time = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
+  init_frame = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
 }
 function init_loadPrepareStatus() { // 初始化战前属性
   // 存在性和图形显示管理
@@ -520,7 +525,7 @@ function init_loadPrepareStatus() { // 初始化战前属性
       } else if (is_this(i, 2026)) { // 库拉耶丝-是否开枪状态
         _spS('claes_firestatus_' + i, false) // 默认蓄力
         _spS('claes_buff_' + i, 0) // 初始0层buff
-        _spS('claes_nextbuff_' + i, init_time + 60) // 下一次buff积累时间
+        _spS('claes_nextbuff_' + i, init_frame + 60) // 下一次buff积累时间
         _spS('claes_globalbuff', [])
       }
     }
@@ -551,6 +556,12 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('ak15_skill_frame_' + i, 0) // 技能持续
         _spS('ak15_nexttime_' + i, 0) // 下次debuff数结算时间
         _spS('ak15_debufflevel_' + i, 0) // 每次debuff层数增量
+      }
+      else if (is_this(i, 315)) {
+        if (document.getElementById('special_315_0_' + i).checked) _spS('aug_type_' + i, 'dps')
+        else _spS('aug_type_' + i, 'dfs')
+        _spS('aug_layer_' + i, 0)
+        _spS('aug_nextarrive_' + i, Math.max(30, init_frame))
       }
       else if (is_this(i, 1122)) { // g11 mod
         _spS('g11_layer_' + i, 0) // G11攻击次数

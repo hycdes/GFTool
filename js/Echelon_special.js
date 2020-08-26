@@ -327,6 +327,10 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         }
         _para_dmg *= 1.5
     }
+    else if (is_this(stand_num, 315)) { // AUG Para
+        if (_spG('aug_type_' + stand_num) === 'dps') _para_dmg += 2 * _spG('aug_layer_' + stand_num)
+        else _para_dmg -= _spG('aug_layer_' + stand_num)
+    }
     else if (is_this(stand_num, 1002)) { // M1911 MOD
         if (Set_Special.get('m1911_' + stand_num) > 0) _para_dmg *= 2
     }
@@ -492,6 +496,12 @@ function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {
         is_hit = false,
         must_acu = _mul('must_acu', list_buff)
     acu *= _mul('acu', list_buff)
+    // 特殊的最终加算命中
+    if (is_this(stand_num, 315)) {
+        if (_spG('aug_type_' + stand_num) === 'dps') acu += _spG('aug_layer_' + stand_num)
+        else acu -= _spG('aug_layer_' + stand_num)
+    }
+
     if (must_acu || (Math.random() <= acu / (acu + e_eva))) is_hit = true
     return is_hit
 }

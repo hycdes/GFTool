@@ -493,6 +493,7 @@ function resetEquipment() {
       else if (ID === 26 || ID === 1026) set_equip = [326, 21, 11] // mp5
       else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
       else if (ID === 228) set_equip = [32, 21, 1228] // sakura
+      else if (ID === 315) set_equip = [32, 21, 12] // AUG Para
       else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 32 || ID === 135 || ID === 251 || ID === 136 || ID === 177 || ID === 1032) set_equip = [31, 21, 11] // 输出型
       else if (ID === 1101) set_equip = [3103, 21, 11] // ump9 mod
       else if (ID === 1103) set_equip = [3103, 21, 11103] // ump45 mod
@@ -937,6 +938,7 @@ function addTdoll() { // 添加战术人形
     // 类型2：N选1
     else if (ID === 213) addSpecialSetting(213, reverse_position, num_pickblock, 'pickone', 3, 0, ['dodgerblue', 'red', 'orange']) // C-MS
     else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 'pickone', 3, 0, ['', '', '']) // C-93
+    else if (ID === 315) addSpecialSetting(315, reverse_position, num_pickblock, 'pickone', 2, 0, ['orange', 'dodgerblue']) // AUG Para
     else if (ID === 316) addSpecialSetting(316, reverse_position, num_pickblock, 'pickone', 2, 0, ['dodgerblue', 'orange']) // General Liu
     else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 'pickone', 6, 5, ['', '', '', '', '', 'red']) // Claes
 
@@ -999,9 +1001,9 @@ function addTdoll() { // 添加战术人形
 // —————————————— NEW TEMPLATE ————————————————
 function addSpecialSetting() { // ID,_position,_type
   var list_specialName = [
-    [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7],
+    [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7], [1097, 'M950A [MOD]'],
     [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
-    [213, 'C-MS'],
+    [213, 'C-MS'], [315, 'AUG Para'],
     [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256], [316, lib_language.NAME_316], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
     [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
     [302, lib_language.NAME_302], [2025, lib_language.NAME_2025]
