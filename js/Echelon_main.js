@@ -525,17 +525,13 @@ function reactAllSkill(command, current_time) {
       else if (is_this(k, 315)) { // AUG Para
         if (global_frame >= _spG('aug_nextarrive_' + k)) {
           if (_spG('aug_type_' + k) === 'dps') { // ——————————输出向转化——————————
-            if (_spG('aug_layer_' + k) < 99) {
-              if (get_property(k, 'eva') - _spG('aug_layer_' + k) > 75) // 回避至少75+1
-                _spPlus('aug_layer_' + k)
-              else true
-            } else true // do nothing
+            if (get_property(k, 'eva') - _spG('aug_layer_' + k) > 75) // 回避至少75+1
+              _spPlus('aug_layer_' + k)
+            else true
           } else { // ——————————防御向转化——————————
-            if (_spG('aug_layer_' + k) < 99) {
-              if (get_property(k, 'dmg') - _spG('aug_layer_' + k) > 35 && get_property(k, 'acu') - _spG('aug_layer_' + k) > 23) // 火力至少35+1，且命中至少23+1
-                _spPlus('aug_layer_' + k)
-              else true
-            } else true // do nothing
+            if (get_property(k, 'dmg') - _spG('aug_layer_' + k) > 35 && get_property(k, 'acu') - _spG('aug_layer_' + k) > 23) // 火力至少35+1，且命中至少23+1
+              _spPlus('aug_layer_' + k)
+            else true
           }
           if (_spG('aug_type_' + k) === 'dps') _spPlus('aug_nextarrive_' + k, 3) // next0.1s
           else _spPlus('aug_nextarrive_' + k, 6) // next0.2s
