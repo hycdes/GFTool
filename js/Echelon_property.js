@@ -361,6 +361,9 @@ lib_affect.set(313, createAffect('r/ru/ruu/', 'smg', ['dmg', 'eva'], [0.2, 0.15]
 lib_affect.set(315, createAffect('l/lu/ld/', 'ar', ['dmg', 'acu'], [0.15, 0.25])) // AUG Para
 lib_affect.set(316, createAffect('u/d/r/', 'hg', ['cld'], [0.18])) // 刘氏步枪
 lib_affect.set(317, createAffect('u/d/', 'rf', ['dmg'], [0.18])) // 蒙德拉贡
+lib_affect.set(318, createAffect('r/rd/ru/', 'smg', ['acu', 'eva'], [0.3, 0.18])) // VHS
+lib_affect.set(319, createAffect('r/rd/rrd/', 'sg', ['dmg', 'arm'], [0.1, 0.15])) // PM1910
+
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -730,6 +733,8 @@ lib_property.set(313, createProperty(46, 45, 42, 91, 0, 620, 0.2, -1)) // S-ACR
 lib_property.set(315, createProperty(29, 15, 83, 88, 0, 925, 0.05, -1)) // AUG Para
 lib_property.set(316, createProperty(139, 88, 30, 40, 0, 400, 0.4, -1)) // General Liu
 lib_property.set(317, createProperty(112, 74, 34, 41, 0, 420, 0.4, -1)) // Mondragon
+lib_property.set(318, createProperty(57, 54, 47, 78, 0, 580, 0.2, -1)) // VHS
+lib_property.set(319, createProperty(90, 27, 25, 104, 0, 950, 0.05, 10)) // PM1910
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))

@@ -503,6 +503,11 @@ function describe_generalliu() { // general liu
   Describe.name = 'generalliu'
   return Describe
 }
+function describe_pm1910() { // PM1910
+  var Describe = {}
+  Describe.name = 'pm1910'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -856,6 +861,7 @@ lib_describe.set('vsk94buff', describe_vsk94buff()) // 二重警备-属性转换
 lib_describe.set('supersass', describe_supersass()) // 后发狙击
 lib_describe.set('ro635mod', describe_ro635mod()) // 正义审判：判断技能是否开启
 lib_describe.set('generalliu', describe_generalliu()) // 同仇敌忾
+lib_describe.set('pm1910', describe_pm1910()) // 杀意弥散
 
 // lib_skill
 
@@ -1415,6 +1421,7 @@ lib_skill.set(254, [
 ]) // 白夜独奏曲换弹单独判断
 lib_skill.set(264, [createSkill(6, 2, 0, lib_describe.get('chauchat'))]) // 百合纹章
 lib_skill.set(275, [createSkill(3, 5, 0, lib_describe.get('m1895cb'))]) // 有备无患
+lib_skill.set(319, [createSkill(3, 18, 0, lib_describe.get('pm1910'))]) // 杀意弥散
 lib_skill.set(1081, [ // 猎杀冲动
   createSkill(3, 18, 6, lib_describe.get('acu_70')),
   createSkill(3, 18, 6, lib_describe.get('mustcrit'))

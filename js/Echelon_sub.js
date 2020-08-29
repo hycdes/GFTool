@@ -54,6 +54,34 @@ function is_exist_pair(pair_name, list) { // 二元组列表里是否存 pair_na
   }
   return is_exist
 }
+// function is_in_affect_of(stand_num_this, stand_num_who) { // stand_num_this 是否在 stand_num_who 的影响格上
+//   var is_in = false
+//   var str_affect = (lib_affect.get(
+//     list_tdoll[stand_num][1].ID)).area // 影响格描述串
+//   var list_affectstr = str_affect.split('/')
+//   list_affectstr.pop()
+//   var list_affect = []
+//   var center = [Math.floor(stand_num_who / 3), stand_num_who - 3 * Math.floor(stand_num_who / 3)], // 影响格中心坐标
+//     current_posi = [Math.floor(stand_num_this / 3), stand_num_this - 3 * Math.floor(stand_num_this / 3)] // 检测者坐标
+//   for (var ele_af of list_affectstr) {
+//     var temp_posi = center
+//     for (var char of ele_af) {
+//       if (char === 'u') temp_posi[1]++
+//       else if (char === 'd') temp_posi[1]--
+//       else if (char === 'r') temp_posi[0]++
+//       else if (char === 'l') temp_posi[0]--
+//     }
+//     list_affect.push(temp_posi)
+//   }
+//   for (var element of list_affect) {
+//     if (element === current_posi) {
+//       is_in = true
+//       break
+//     }
+//   }
+//   console.log(list_affect)
+//   return is_in
+// }
 
 // lable_transfer
 function _spE(code, is_value) { return Set_Special.get(code) === is_value }
@@ -575,12 +603,16 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('aug_layer_' + i, 0)
         _spS('aug_nextarrive_' + i, Math.max(30, init_frame))
       }
-      else if (is_this(i, 317)) {
+      else if (is_this(i, 317)) { // mondragon
         if (get_leader() === i) {
           changeStatus(i, 'self', 'rof', -0.35, -1)
           changeStatus(i, 'allrf', 'crit', 0.2, -1, 'no_self')
           changeStatus(i, 'allrf', 'critdmg', 0.1, -1, 'no_self')
         }
+      }
+      else if (is_this(i, 319)) { // pm1910
+        _spS('pm1910_skillon_' + i, false) // 是否有技能子弹
+        _spS('pm1910_left_' + i, 0) // 剩余子弹，技能开启计算
       }
       else if (is_this(i, 1122)) { // g11 mod
         _spS('g11_layer_' + i, 0) // G11攻击次数

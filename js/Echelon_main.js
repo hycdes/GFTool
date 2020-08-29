@@ -921,6 +921,9 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           }
           else {
             cs--
+            if (is_this(stand_num, 319)) {
+              if (_spG('pm1910_skillon_' + stand_num)) _spDecl('pm1910_left_' + stand_num)
+            }
           }
           // 
           if (is_this(stand_num, 307)) { // ZB-26特殊记录
@@ -951,19 +954,35 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                 reload_frame = Math.floor((4 + 200 / rof) * 30)
                 if (is_this(stand_num, 253)) { // 刘易斯 力天使
                   reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.15 * Set_Special.get('angel_strength' + stand_num))), reload_frame * 0.55)
-                } else if (is_this(stand_num, 254)) { // 白夜独奏曲：夜战减换弹
+                }
+                else if (is_this(stand_num, 254)) { // 白夜独奏曲：夜战减换弹
                   if (Set_Special.get('sunrise') === 'night') reload_frame = Math.ceil(0.7 * reload_frame)
-                } else if (is_this(stand_num, 263)) {
+                }
+                else if (is_this(stand_num, 263)) {
                   if (Set_Special.get('mg36_reload_' + stand_num) != undefined) {
                     reload_frame = Math.ceil((1 - 0.25 * Set_Special.get('mg36_reload_' + stand_num)) * reload_frame)
                     Set_Special.set('mg36_reload_' + stand_num, 0)
                   }
-                } else if (is_this(stand_num, 264)) { // 百合纹章：加速换弹
+                }
+                else if (is_this(stand_num, 264)) { // 百合纹章：加速换弹
                   reload_frame = Math.floor(reload_frame * (1 - 0.2 * Set_Special.get('chauchat_nextreload_' + stand_num)))
                   Set_Special.set('chauchat_nextreload_' + stand_num, 0)
-                } else if (is_this(stand_num, 307)) { // ZB-26：完美连锁
+                }
+                else if (is_this(stand_num, 307)) { // ZB-26：完美连锁
                   reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.2 * Set_Special.get('zb26_reload_' + stand_num))), reload_frame * 0.4)
                   _spS('zb26_currentbullet_' + stand_num, -1) // 负数即清空技能弹计数 
+                }
+                else if (is_this(stand_num, 319)) { // PM1910技能使换弹+4s
+                  if (_spG('pm1910_skillon_' + stand_num)) {
+                    reload_frame += 120
+                    _spS('pm1910_skillon_' + stand_num, false)
+                    for (var i = 0; i < 9; i++) {
+                      if (is_stand(i) && i != stand_num) {
+                        if (is_in_affect_of(stand_num, i)) changeStatus(i, 'self', 'eva', 0.2, reload_frame / 30)
+                        else changeStatus(i, 'self', 'dmg', 0.1, reload_frame / 30)
+                      }
+                    }
+                  }
                 }
               }
             } else if (current_Info.get('type') === 6) { // SG的换弹
@@ -2016,6 +2035,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       changeStatus(stand_num, 'self', 'rof', 0.2, -1)
     }
     s_t[1] = -1 // 进入冷却
+  }
+  else if (skillname === 'pm1910') {
+    _spS('pm1910_skillon_' + stand_num, true)
+    _spS('pm1910_left_' + stand_num, _spG('clipsize_' + stand_num) + 12)
+    _spPlus('clipsize_' + stand_num, 12)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 
   // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦

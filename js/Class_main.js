@@ -48,7 +48,7 @@ var lib_name = {
   t1039: '莫辛-纳甘 MOD', t1252: 'KSVK MOD',
   t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93', t312: 'VSK-94', t316: '刘氏步枪',
   t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: '汉阳造88式 MOD',
-  t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000', t305: '塔布克',
+  t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000', t305: '塔布克', t317: '蒙德拉贡',
   t37: 'M14', t256: '隼',
   // —————————————— MG ——————————————
   t2021: '阿尔玛·阿玛斯', t2026: '库拉耶丝',
@@ -257,6 +257,7 @@ var lib_tdoll = [
   create_entry([4, 4, 270], ['dps'], ['back'], ['forcus_rof', 'max_acu', 'ap', 'penetrate', 'snipe'], []),
   create_entry([4, 4, 273], ['dps'], ['back'], ['forcus_dmg', 'max_acu', 'weak_dmg', 'ap', 'rofstatic'], []),
   create_entry([4, 4, 305], ['dps'], ['middle', 'back'], ['forcus_dmg', 'ap'], []),
+  create_entry([4, 4, 317], ['supportdps'], ['back'], ['command_dmg', 'command_rof', 'command_crit', 'command_critdmg', 'ap'], []),
   create_entry([4, 3, 37], ['dps'], ['back'], ['forcus_dmg', 'ap'], ['mengxin']),
   create_entry([4, 3, 256], ['dps'], ['back'], ['forcus_dmg', 'forcus_acu', 'ap', 'fastcd', 'passive', 'snipe'], ['skillcrit']),
   // —————————————— MG ——————————————

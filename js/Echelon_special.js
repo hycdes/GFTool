@@ -211,6 +211,11 @@ function settle_buff(stand_num, info_self, skillname) {
         }
         _mul_dmg *= 1 + (0.05 * list_pro.length)
     }
+    else if (is_this(stand_num, 319)) { // PM1910特殊子弹
+        if (_spG('pm1910_skillon_' + stand_num)) {
+            if (_spG('pm1910_left_' + stand_num) <= 12) _mul_acu *= 1.8
+        }
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)

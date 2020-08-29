@@ -111,6 +111,7 @@ function changeSelectItems() {
       str_items += '<option value=293>No.293 AK-15</option>'
       str_items += '<option value=306>No.306 AK-Alfa</option>'
       str_items += '<option value=313>No.313 S-ACR</option>'
+      str_items += '<option value=318>No.318 VHS</option>'
       str_items += '<option value=1055>No.55 [MOD] M4A1</option>'
       str_items += '<option value=1056>No.56 [MOD] M4 SOPMODⅡ</option>'
       str_items += '<option value=1057>No.57 [MOD] ST AR-15</option>'
@@ -352,6 +353,7 @@ function changeSelectItems() {
       str_items += '<option value=254>No.254 UKM-2000</option>'
       str_items += '<option value=264>No.264 ' + lib_language.NAME_264 + '</option>'
       str_items += '<option value=275>No.275 M1895 CB</option>'
+      str_items += '<option value=319>No.319 PM1910</option>'
       str_items += '<option value=1081>No.81 [MOD] LWMMG</option>'
       str_items += '<option value=1089>No.89 [MOD] ' + lib_language.NAME_89 + '</option>'
     } else if (num_star === 3) {
