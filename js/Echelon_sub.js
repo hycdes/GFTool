@@ -134,6 +134,18 @@ function this_fil(hfn) { return list_HF[hfn][1].v4 + list_HF[hfn][2].v4 + list_H
 function get_property(stand_num, pro_name) { // 返回实时属性
   return ((Set_Base.get(stand_num)).Info).get(pro_name)
 }
+function get_leader() {
+  var num_leader = parseInt(document.getElementById('select_leader').value)
+  if (num_leader === -1) {
+    for (var i = 0; i < 9; i++) {
+      if (list_tdoll[i][1] != null) {
+        num_leader = i
+        break
+      }
+    }
+  }
+  return num_leader
+}
 function get_common_position() {
   var common_position
   for (var cn = 0; cn < 9; cn++) {
@@ -562,6 +574,13 @@ function init_loadPrepareStatus() { // 初始化战前属性
         else _spS('aug_type_' + i, 'dfs')
         _spS('aug_layer_' + i, 0)
         _spS('aug_nextarrive_' + i, Math.max(30, init_frame))
+      }
+      else if (is_this(i, 317)) {
+        if (get_leader() === i) {
+          changeStatus(i, 'self', 'rof', -0.35, -1)
+          changeStatus(i, 'allrf', 'crit', 0.2, -1, 'no_self')
+          changeStatus(i, 'allrf', 'critdmg', 0.1, -1, 'no_self')
+        }
       }
       else if (is_this(i, 1122)) { // g11 mod
         _spS('g11_layer_' + i, 0) // G11攻击次数

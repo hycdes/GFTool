@@ -114,7 +114,7 @@ lib_language = {
   NAME_302: 'Defender',
   NAME_305: 'Tabuk',
   NAME_316: 'General Liu',
-
+  NAME_317: 'Mondragon',
   NAME_2001: '노엘',
   NAME_2002: '엘펠트',
   NAME_2003: '키아나',

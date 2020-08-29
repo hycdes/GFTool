@@ -533,8 +533,7 @@ function reactAllSkill(command, current_time) {
               _spPlus('aug_layer_' + k)
             else true
           }
-          if (_spG('aug_type_' + k) === 'dps') _spPlus('aug_nextarrive_' + k, 3) // next0.1s
-          else _spPlus('aug_nextarrive_' + k, 6) // next0.2s
+          _spPlus('aug_nextarrive_' + k, 3) // 下0.1s继续判定
         }
       }
       else if (is_this(k, 2011)) { // jill醉酒状态施加
@@ -2019,7 +2018,6 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     s_t[1] = -1 // 进入冷却
   }
 
-
   // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
   if (debug_mode && (debug_function[0] || debug_function[1])) {
     if (fire_status === 'stop' && skillname === 'attack') {
@@ -2059,7 +2057,25 @@ function changeStatus(stand_num, target, type, value, duration) { // 改变状�
     list_status.push(new_status)
     Set_Status.set(-1, list_status)
     endStatus(-1, new_status, 'get')
-  } else if (target === 'self') { // 专注类
+  }
+  else if (target.substr(0, 3) === 'all' && target != 'all') { // 对某类枪种有效的号令
+    for (var i = 0; i < 9; i++) {
+      if (is_stand(i)) {
+        if (special_command === 'no_self' && i === stand_num) {
+          true // 不给自己增益则无事发生
+        } else {
+          if (is_this_type(i, name_to_num(target.substr(3)))) {
+            var new_status = [[type, 1 + parseFloat(value)], frame]
+            var list_status = Set_Status.get(i)
+            list_status.push(new_status)
+            Set_Status.set(i, list_status)
+            endStatus(i, new_status, 'get')
+          }
+        }
+      }
+    }
+  }
+  else if (target === 'self') { // 专注类
     if (!Set_Special.get('can_add_python') && is_this(stand_num, 4) && not_init) { // 此人是蟒蛇
       if (Set_Special.get('python_' + type) != undefined && Set_Special.get('python_' + type) < 3) {
         var new_level = Set_Special.get('python_' + type) + 1
@@ -2797,19 +2813,6 @@ function recordData_suffer(stand_num, current_time, decrement) {
 
 function formater_DPS(e) { return lib_language.main_formatDPS_1 + e.x + lib_language.main_formatDPS_2 + e.y }
 function formater_ALL(e) { return 'x=' + e.x + ', y=' + e.y }
-
-function get_leader() {
-  var num_leader = parseInt(document.getElementById('select_leader').value)
-  if (num_leader === -1) {
-    for (var i = 0; i < 9; i++) {
-      if (list_tdoll[i][1] != null) {
-        num_leader = i
-        break
-      }
-    }
-  }
-  return num_leader
-}
 function get_g36_standblo(stand_num) {
   var num_all = 0
   if (stand_num === 2 || stand_num === 5 || stand_num === 8) true

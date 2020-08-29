@@ -554,6 +554,7 @@ lib_describe.set('p22', describe_property(
   ['dmg', 'acu/eva'],
   ['0.25', '0.6/0.6'])) // p22_决战序列_1/2列
 lib_describe.set('lbll', describe_property(['bloall'], ['dmg/rof/acu'], ['0.25/0.25/0.25'])) // 猩红回响
+lib_describe.set('mondragon', describe_property(['bloall'], ['dmg/rof'], ['0.15/0.12'])) // 必胜信念
 lib_describe.set('g36_eva', describe_property(['bloall'], ['eva'], ['0.25'])) // 弧光契约闪避
 // debuff command
 lib_describe.set('dmg_25_enemy', describe_property(['enemy'], ['dmg'], ['-0.25'])) // 火力压制 25%
@@ -1066,7 +1067,7 @@ lib_skill.set(118, [
   createSkill(5, 16, 6, lib_describe.get('dmgN_180')),
   createSkill(5, 16, 6, lib_describe.get('dmgND_60'))
 ])
-lib_skill.set(171, [createSkill(6, 16, 5, lib_describe.get('lbll'))])
+lib_skill.set(171, [createSkill(6, 16, 5, lib_describe.get('lbll'))]) // 猩红回响
 lib_skill.set(187, [createSkill(5, 8, 5, lib_describe.get('dmg_65'))])
 lib_skill.set(207, [
   createSkill(4, 16, 10, lib_describe.get('cz2000_N')),
@@ -1299,6 +1300,7 @@ lib_skill.set(261, [createSkill(8, 16, 0, lib_describe.get('qbu88'))])
 lib_skill.set(270, [createSkill(6, 8, 5, lib_describe.get('rof_55'))]) // 四式
 lib_skill.set(273, [createSkill(6, 16, 0, lib_describe.get('ssg3000'))]) // SSG3000
 lib_skill.set(305, [createSkill(5, 8, 5, lib_describe.get('dmg_705'))]) // tabuk
+lib_skill.set(317, [createSkill(5, 16, 5, lib_describe.get('mondragon'))]) // 蒙德拉贡
 lib_skill.set(1037, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),
   createSkill(5, 8, 6, lib_describe.get('critdmg_10'))
