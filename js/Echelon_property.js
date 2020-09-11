@@ -978,6 +978,7 @@ lib_special_info.set(302, lib_language.special_info_common) // Defender
 lib_special_info.set(306, lib_language.special_info_common) // AK-Alfa
 lib_special_info.set(315, lib_language.special_info_common) // AUG Para
 lib_special_info.set(316, lib_language.special_info_common) // General Liu
+lib_special_info.set(318, lib_language.special_info_common) // VHS
 lib_special_info.set(1007, lib_language.special_info_common) // Stechkin
 lib_special_info.set(1039, lib_language.special_info_common) // mosin
 lib_special_info.set(1055, lib_language.special_info_common) // m4

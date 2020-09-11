@@ -508,6 +508,11 @@ function describe_pm1910() { // PM1910
   Describe.name = 'pm1910'
   return Describe
 }
+function describe_vhs() { // VHS
+  var Describe = {}
+  Describe.name = 'vhs'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -862,6 +867,7 @@ lib_describe.set('supersass', describe_supersass()) // 后发狙击
 lib_describe.set('ro635mod', describe_ro635mod()) // 正义审判：判断技能是否开启
 lib_describe.set('generalliu', describe_generalliu()) // 同仇敌忾
 lib_describe.set('pm1910', describe_pm1910()) // 杀意弥散
+lib_describe.set('vhs', describe_vhs()) // 析构入侵
 
 // lib_skill
 
@@ -1042,6 +1048,7 @@ lib_skill.set(306, [
   createSkill(5, 8, 5, lib_describe.get('akalfa'))
 ]) // AK-ALPHA
 lib_skill.set(313, [createSkill(6, 8, 5, lib_describe.get('sacr'))]) // S-ACR
+lib_skill.set(318, [createSkill(5, 8, 0, lib_describe.get('vhs'))]) // VHS
 lib_skill.set(1055, [
   createSkill(4, 16, 10, lib_describe.get('dmg_75')),
   createSkill(4, 16, 10, lib_describe.get('m4'))
@@ -1492,6 +1499,10 @@ lib_skill.set(188, [createSkill(2, 8, 5, lib_describe.get('sat8'))]) // 坚壁�
 lib_skill.set(229, [createSkill(8, 16, 4, lib_describe.get('m870'))]) // 地狱公路
 lib_skill.set(281, []) // 
 lib_skill.set(282, []) // 
+lib_skill.set(1161, [
+  createSkill(8, 16, 8, lib_describe.get('dmg_120')),
+  createSkill(8, 16, 8, lib_describe.get('aimupto_5'))
+])
 // ———————————————————————————————————————— SG - 4 ————————————————————————————————————————
 lib_skill.set(153, [createSkill(8, 16, 0, lib_describe.get('sg_shock'))])
 lib_skill.set(155, [createSkill(10, 16, 6, lib_describe.get('arm_70'))]) // 防护专注-4星

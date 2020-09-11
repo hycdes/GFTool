@@ -954,6 +954,12 @@ function addTdoll() { // 添加战术人形
       addSpecialSetting('append_1124', reverse_position, num_pickblock, 'singlecheck', 'checked')
     }
 
+    // 类型5：多输入框
+    else if (ID === 318) {// VHS
+      addSpecialSetting(318, reverse_position, num_pickblock, 'description', 'VHS析构属性可以填写数值，也可以填写百分比（需要在末尾带上%）。如果填写了异常值，则默认为0。')
+      addSpecialSetting('append_318', reverse_position, num_pickblock, 'multipleinput', 3, ['45%', '40%', '80%'])
+    }
+
     else if (ID === 276) {
       var str_html = ''
       str_html += '<h4>' + reverse_position + lib_language.UI_num + ' Kord</h4>'
@@ -1001,11 +1007,17 @@ function addTdoll() { // 添加战术人形
 // —————————————— NEW TEMPLATE ————————————————
 function addSpecialSetting() { // ID,_position,_type
   var list_specialName = [
+    // HG
     [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7], [1097, 'M950A [MOD]'],
-    [287, 'SIG-556'], [290, lib_language.NAME_290], [1065, 'HK416'],
+    // AR
+    [287, 'SIG-556'], [290, lib_language.NAME_290], [318, 'VHS'], [1065, 'HK416'],
+    // SMG
     [213, 'C-MS'], [315, 'AUG Para'],
+    // RF
     [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256], [316, lib_language.NAME_316], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
+    // MG
     [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
+    // SG
     [302, lib_language.NAME_302], [2025, lib_language.NAME_2025]
   ]
   var is_appending = false
@@ -1025,14 +1037,19 @@ function addSpecialSetting() { // ID,_position,_type
   var _name = _search(list_specialName, ID)
   str_head += '<h4>' + _position + lib_language.UI_num + ' ' + _name + '</h4>'
   // make contents
-  if (_type === 'singlecheck') { // type_0 单一勾选框
+  if (_type === 'description') { //【特殊设定类型】文字描述
+    _contents = arguments['4']
+    str_html += '<h5>' + _contents + '</h5>'
+  }
+  else if (_type === 'singlecheck') { // 【特殊设定类型】单一勾选框
     var _skill = _skillName(ID),
       _describe = _describeInfo(ID),
       _check = arguments['4'] // check parameters, different template has different structure
     str_html += '<input type="checkbox" id="special_' + ID + '_' + (_block - 1) + '" '
       + _check + '> ['
       + _skill + '] ' + _describe
-  } else if (_type === 'multiplecheck') { // type_1 多勾选框
+  }
+  else if (_type === 'multiplecheck') { // 【特殊设定类型】多勾选框
     var _checknum = arguments['4'],
       _checklist = arguments['5'],
       _describelist = _describeInfo(ID)
@@ -1040,7 +1057,8 @@ function addSpecialSetting() { // ID,_position,_type
       str_html += '<p><input type="checkbox" id="special_' + ID + '_' + i + '_' + (_block - 1) + '" ' + _checklist[i] + '>'
         + _describelist[i] + '</p>'
     }
-  } else if (_type === 'pickone') { // type_2 N选1
+  }
+  else if (_type === 'pickone') { // 【特殊设定类型】N选1
     var _checknum = arguments['4'],
       _initcheck = arguments['5'],
       _colorlist = arguments['6'],
@@ -1054,7 +1072,8 @@ function addSpecialSetting() { // ID,_position,_type
       else str_html += '<span>'
       str_html += _describelist[i] + '</span></label></p>'
     }
-  } else if (_type === 'energy') {
+  }
+  else if (_type === 'energy') { // 【特殊设定类型】能量条
     var energy_max = arguments['4'],
       energy_init = arguments['5'],
       energy_bias = arguments['6'],
@@ -1077,6 +1096,19 @@ function addSpecialSetting() { // ID,_position,_type
       str_html += '</td>'
     }
     str_html += '</tr></tbody></table>'
+  }
+  else if (_type === 'multipleinput') { // 【特殊设定类型】多填写框
+    var table_num = arguments['4'],
+      list_default = arguments['5'],
+      _describelist = _describeInfo(ID)
+    str_html += '<table class="table_other table_bordered"><tbody>'
+    for (var i = 0; i < table_num; i++) {
+      str_html += '<tr>'
+      str_html += '<td>' + _describelist[i] + '&nbsp' + '</td>'
+      str_html += '<td>' + '<input class="form-control input-sm" id="special_' + ID + '_' + i + '_' + (_block - 1) + '" value=' + list_default[i] + '>' + '</td>'
+      str_html += '</tr>'
+    }
+    str_html += '</tbody></table>'
   }
   if (!is_appending) document.getElementById('special_num' + (_block - 1)).innerHTML = str_head + str_html // 写入html
   else document.getElementById('special_num' + (_block - 1)).innerHTML += str_html // 接入html

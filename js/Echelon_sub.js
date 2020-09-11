@@ -18,15 +18,15 @@ function is_exist_someone(ID) { // 队内是否有编号为ID的人形
   return false
 }
 function is_protected(stand_num) { // 是否为大破保护
-  if (Set_Special.get('damage_protect')[stand_num]) return false // 尚未触发保护
+  if (_spG('damage_protect')[stand_num]) return false // 尚未触发保护
   else {
-    if (Set_Special.get('damage_protect_time' + stand_num) >= global_frame) return true // 正在保护期
+    if (_spG('damage_protect_time' + stand_num) >= global_frame) return true // 正在保护期
     else return false
   }
 }
 function is_activate_protect(suffer_hp, single_hp, stand_num) {
   if (this_formation(stand_num) === 2) {
-    if (Set_Special.get('damage_protect')[stand_num] && suffer_hp <= Math.ceil(single_hp / 2)) return true
+    if (_spG('damage_protect')[stand_num] && suffer_hp <= Math.ceil(single_hp / 2)) return true
   }
   return false
 }
@@ -96,6 +96,7 @@ function _spDecl(code) {
   else _spS(code, _spG(code) - arguments['1'])
 }
 function _spDelete(code) { Set_Special.delete(code) }
+
 function num_to_name(num_type) {
   if (num_type === 1) return 'hg'
   else if (num_type === 2) return 'ar'
@@ -187,7 +188,7 @@ function get_common_position() {
 function get_attack_target() {
   var order = [5, 2, 8, 4, 1, 7, 3, 0, 6] // default
   if (inj_order != 'all') {
-    // if (Set_Special.get('provoke') === undefined || (Set_Special.get('provoke') <= 0)) {
+    // if (_spG('provoke') === undefined || (_spG('provoke') <= 0)) {
     if (lang_type === 'ko') {
       for (var i = 0; i < 9; i++) {
         var temp_v = parseInt(inj_order[i])
@@ -216,7 +217,7 @@ function get_skill_icon(ID) { return '&nbsp<img src="../img/echelon/skill/' + ID
 
 // lable_do
 function do_debuff(name, duration) { // 仅记录敌人debuff类型数，不用于实际属性变化
-  if (Set_Special.get(name) === undefined || Set_Special.get(name) < global_frame + duration) Set_Special.set(name, global_frame + duration) // mark debuff
+  if (_spG(name) === undefined || _spG(name) < global_frame + duration) _spS(name, global_frame + duration) // mark debuff
 }
 function do_unique(ID, command) {
   // 新的条目：property中lib_unique添加条目，sub中init_resetAllConfig添加条目，main中reset_unique添加条目
@@ -231,7 +232,7 @@ function do_unique(ID, command) {
       if (list_tdoll[num_pickblock - 1][1] != null) {
         if (list_tdoll[num_pickblock - 1][1].ID === ID) now_pick_this = true // the selected one is itself
       }
-      if (Set_Special.get(str_special) || now_pick_this) return true // can add
+      if (_spG(str_special) || now_pick_this) return true // can add
       else return false
     } else return true // if not unique-tdoll, can add
   }
@@ -245,11 +246,11 @@ function do_unique(ID, command) {
   }
   else if (command === 'lock') {
     var str_special = lib_unique.get(ID)
-    Set_Special.set(str_special, false)
+    _spS(str_special, false)
   }
   else if (command === 'release') {
     var str_special = lib_unique.get(ID)
-    Set_Special.set(str_special, true)
+    _spS(str_special, true)
   }
 }
 function do_defencebreaking(defencebreaking) {
@@ -301,7 +302,7 @@ function do_datasum(this_data, new_data) {
 }
 function do_jill_buff(stand_num) {
   var wine_type = Set_Static.get('jill_winetype') // 1~6
-  var duration = Set_Special.get('jill_space')
+  var duration = _spG('jill_space')
   if (wine_type === 1) { // big beer
     for (var i = 0; i < 9; i++) {
       if (gs_tdoll[i] && is_this_type(i, 6)) { // for SG
@@ -349,7 +350,7 @@ function do_jill_buff(stand_num) {
     }
   } else if (wine_type === 6) {
     changeStatus(stand_num, 'all', 'dmg', 0.35, 5)
-    Set_Special.set('jill_drunk', global_frame + 150)
+    _spS('jill_drunk', global_frame + 150)
     // for debug:
     // recordData(stand_num, global_frame, 0)
     // recordData(stand_num, global_frame, 300000)
@@ -363,7 +364,7 @@ function do_jill_buff(stand_num) {
   } else { // basic drink
     changeStatus(stand_num, 'all', 'dmg', 0.18, duration)
   }
-  Set_Special.set('jill_wine_status', [wine_type, global_frame + duration * 30])
+  _spS('jill_wine_status', [wine_type, global_frame + duration * 30])
 }
 function do_dorothy_drink(stand_num, duration) { // 抵消一半debuff
   var list_num = [stand_num - 6, stand_num - 3, stand_num + 3, stand_num + 6]
@@ -407,15 +408,15 @@ function init_resetAllConfig() { // 重置所有数据
   for (var i = 0; i < 5; i++) list_show_HF[i] = true // 初始化重装部队显示
   fragile_main = 1; fragile_all = 1
   reset_unique()
-  Set_Special.set('damage_protect', [true, true, true, true, true, true, true, true, true]) // 大破保护初始化
-  if (is_exist_someone(4)) Set_Special.set('can_add_python', false) // 能否添加蟒蛇
-  if (is_exist_someone(197)) Set_Special.set('can_add_carcanom1891', false) // 能否添加CarcanoM1891
-  if (is_exist_someone(214)) Set_Special.set('can_add_ads', false) // 能否添加ADS
-  if (is_exist_someone(2011)) Set_Special.set('can_add_jill', false) // 能否添加Jill
-  if (is_exist_someone(2012)) Set_Special.set('can_add_sei', false) // 能否添加Sei
-  if (is_exist_someone(2014)) Set_Special.set('can_add_stella', false) // 能否添加Stella
-  if (daytime === 1) Set_Special.set('sunrise', 'day')
-  else if (daytime === 2) Set_Special.set('sunrise', 'night')
+  _spS('damage_protect', [true, true, true, true, true, true, true, true, true]) // 大破保护初始化
+  if (is_exist_someone(4)) _spS('can_add_python', false) // 能否添加蟒蛇
+  if (is_exist_someone(197)) _spS('can_add_carcanom1891', false) // 能否添加CarcanoM1891
+  if (is_exist_someone(214)) _spS('can_add_ads', false) // 能否添加ADS
+  if (is_exist_someone(2011)) _spS('can_add_jill', false) // 能否添加Jill
+  if (is_exist_someone(2012)) _spS('can_add_sei', false) // 能否添加Sei
+  if (is_exist_someone(2014)) _spS('can_add_stella', false) // 能否添加Stella
+  if (daytime === 1) _spS('sunrise', 'day')
+  else if (daytime === 2) _spS('sunrise', 'night')
   for (var i = -2; i < 9; i++) Set_Status.set(i, []) // 初始化空状态表，-2敌人，-1全体，0~8站位，9妖精
   time = Math.floor(30 * parseFloat(document.getElementById('time_battle').value)) // 总帧数，fps=30
   init_frame = Math.floor(30 * parseFloat(document.getElementById('time_init').value)) // 接敌帧数
@@ -451,29 +452,29 @@ function init_loadPrepareStatus() { // 初始化战前属性
   for (var i = 0; i < 5; i++) { // 重装部队数据初始化
     Set_Data_HF.set(i, [[0, 0]])
     if (list_HF[i][0]) { // 支援中的重装设定初始到达时间1s
-      Set_Special.set('HF_causedamage' + i, false)
-      Set_Special.set('HF_incoming' + i, 30)
-      Set_Special.set('HF_reloading' + i, fil_to_frame(list_HF[i][1].v4 + list_HF[i][2].v4 + list_HF[i][3].v4))
+      _spS('HF_causedamage' + i, false)
+      _spS('HF_incoming' + i, 30)
+      _spS('HF_reloading' + i, fil_to_frame(list_HF[i][1].v4 + list_HF[i][2].v4 + list_HF[i][3].v4))
       if (i === 0) { // BGM-71 技能
-        Set_Special.set('BGM_supermissile', true) // 充能导弹
-        Set_Special.set('BGM_supermissile_reload', 0)
-        Set_Special.set('BGM_buff_filling', 1) // 装填流程
-        Set_Special.set('BGM_buff_deependmg', 1) // 猎杀趣味
+        _spS('BGM_supermissile', true) // 充能导弹
+        _spS('BGM_supermissile_reload', 0)
+        _spS('BGM_buff_filling', 1) // 装填流程
+        _spS('BGM_buff_deependmg', 1) // 猎杀趣味
       } else if (i === 1) { // AGS-30技能
-        Set_Special.set('AGS_supergrenade', false) // 超级榴弹
-        Set_Special.set('AGS_supergrenade_reload', 90)
+        _spS('AGS_supergrenade', false) // 超级榴弹
+        _spS('AGS_supergrenade_reload', 90)
       } else if (i === 2) { // 2B-14技能
-        Set_Special.set('2B14_airstrike', true) // 阵地轰炸
-        Set_Special.set('2B14_airstrike_reload', 0)
-        Set_Special.set('2B14buff', true) // 可以施加干扰帷幕buff
+        _spS('2B14_airstrike', true) // 阵地轰炸
+        _spS('2B14_airstrike_reload', 0)
+        _spS('2B14buff', true) // 可以施加干扰帷幕buff
       } else if (i === 3) {
-        Set_Special.set('M2_curveattack', true) // 曲线雷击
-        Set_Special.set('M2_curveattack_reload', 0)
-        Set_Special.set('M2_buff_accuracy', 0) // 装填惯性
+        _spS('M2_curveattack', true) // 曲线雷击
+        _spS('M2_curveattack_reload', 0)
+        _spS('M2_buff_accuracy', 0) // 装填惯性
       } else if (i === 4) {
-        Set_Special.set('AT4_buff', true) // 可以施加致盲闪光buff
-        Set_Special.set('AT4_burn_next', -1) // 烈性灼烧buff生效时间
-        Set_Special.set('AT4_burn_leftnum', 0) // 烈性灼烧buff剩余次数
+        _spS('AT4_buff', true) // 可以施加致盲闪光buff
+        _spS('AT4_burn_next', -1) // 烈性灼烧buff生效时间
+        _spS('AT4_burn_leftnum', 0) // 烈性灼烧buff剩余次数
       }
     }
   }
@@ -491,11 +492,11 @@ function init_loadPrepareStatus() { // 初始化战前属性
         Set_Data_S.set(i, [[0, Set_Base.get(i).Info.get('hp')]])
         Set_Data_S_Percentage.set(i, [[0, 1]])
       }
-      Set_Special.set('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
+      _spS('attack_permission_' + i, 'fire_all') // 初始化开火许可，有状态：fire_all, fire_four, stop
       if (is_this(i, 194)) { // K2热力过载
-        Set_Special.set('k2_' + i, 'fever')
-        Set_Special.set('k2_temp_' + i, 0)
-        Set_Special.set('k2_dmgup_' + i, 0)
+        _spS('k2_' + i, 'fever')
+        _spS('k2_temp_' + i, 0)
+        _spS('k2_dmgup_' + i, 0)
       } else if (is_this(i, 213)) { // CMS
         if (document.getElementById('special_213_0_' + i).checked) changeStatus(i, 'self', 'eva', 0.65, -1) // 亚音速弹
         else if (document.getElementById('special_213_1_' + i).checked) changeStatus(i, 'self', 'dmg', 0.85, -1) // 勺尖弹
@@ -505,31 +506,31 @@ function init_loadPrepareStatus() { // 初始化战前属性
       } else if (is_this(i, 238)) { // 88式：初始默认轻机枪
         changeStatus(i, 'self', 'acu', -0.2, -1)
       } else if (is_this(i, 248)) { // 杰里科：深红月蚀被动
-        Set_Special.set('jericho_exist', true)
-        if (Set_Special.get('jericho_standset') === undefined) {
-          Set_Special.set('jericho_standset', [i])
+        _spS('jericho_exist', true)
+        if (_spG('jericho_standset') === undefined) {
+          _spS('jericho_standset', [i])
         } else {
-          Set_Special.set('jericho_standset', (Set_Special.get('jericho_standset')).concat(i))
+          _spS('jericho_standset', (_spG('jericho_standset')).concat(i))
         }
       } else if (is_this(i, 256)) { // 隼初始1发特殊子弹
-        Set_Special.set('falcon_' + i, 0)
+        _spS('falcon_' + i, 0)
       } else if (is_this(i, 261)) { // QBU-88射击层数
-        Set_Special.set('qbu88_' + i, 0)
+        _spS('qbu88_' + i, 0)
       } else if (is_this(i, 264)) { // 绍沙百合纹章
-        Set_Special.set('chauchat_' + i, 1)
-        Set_Special.set('chauchat_nextget_' + i, 120)
-        Set_Special.set('chauchat_nextreload_' + i, 0)
+        _spS('chauchat_' + i, 1)
+        _spS('chauchat_nextget_' + i, 120)
+        _spS('chauchat_nextreload_' + i, 0)
       } else if (is_this(i, 270)) { // 四式死线一击层数
-        Set_Special.set('type4_' + i, 0)
+        _spS('type4_' + i, 0)
       } else if (is_this(i, 275)) { // M1895CB备用弹链状态层数
         _spS('m1895cb_buff_acu_' + i, [])
       } else if (is_this(i, 276)) {
         if (document.getElementById('special_kord_' + i + '_0').checked) {
-          Set_Special.set('kord_' + i, 'type_p')
+          _spS('kord_' + i, 'type_p')
           changeStatus(i, 'self', 'dmg', -0.3, -1)
           changeStatus(i, 'self', 'ap', -0.5, -1)
         } else {
-          Set_Special.set('kord_' + i, 'type_a')
+          _spS('kord_' + i, 'type_a')
           changeStatus(i, 'self', 'dmg', 0.2, -1)
           changeStatus(i, 'self', 'acu', 0.2, -1)
         }
@@ -543,9 +544,9 @@ function init_loadPrepareStatus() { // 初始化战前属性
       } else if (is_this(i, 307)) { // ZB-26
         _spS('zb26_reload_' + i, 0)
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
-        Set_Special.set('m1895_' + i, 0)
+        _spS('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动
-        Set_Special.set('mosin_bufftime_' + i, 0)
+        _spS('mosin_bufftime_' + i, 0)
       } else if (is_this(i, 1093)) { // IDW电光大狂欢初始3层
         changeStatus(i, 'self', 'dmg', '0.2', 2)
         changeStatus(i, 'self', 'dmg', '0.2', 4)
@@ -570,13 +571,13 @@ function init_loadPrepareStatus() { // 初始化战前属性
       }
     }
   }
-  if (!Set_Special.get('can_add_python')) { // 蟒蛇的复读及主动层数初始化
-    Set_Special.set('python_dmg', 0)
-    Set_Special.set('python_rof', 0)
-    Set_Special.set('python_acu', 0)
-    Set_Special.set('python_eva', 0)
-    Set_Special.set('python_crit', 0)
-    Set_Special.set('python_active', 6)
+  if (!_spG('can_add_python')) { // 蟒蛇的复读及主动层数初始化
+    _spS('python_dmg', 0)
+    _spS('python_rof', 0)
+    _spS('python_acu', 0)
+    _spS('python_eva', 0)
+    _spS('python_crit', 0)
+    _spS('python_active', 6)
   }
   // 载入特殊设定——————————————————————
   for (var i = 0; i < 9; i++) {
@@ -609,6 +610,14 @@ function init_loadPrepareStatus() { // 初始化战前属性
           changeStatus(i, 'allrf', 'crit', 0.2, -1, 'no_self')
           changeStatus(i, 'allrf', 'critdmg', 0.1, -1, 'no_self')
         }
+      }
+      else if (is_this(i, 318)) { // VHS
+        _spS('vhs_layernum_' + i, 0)
+        _spS('vhs_nextlayer_' + i, init_frame + 30)
+        _spS('vhs_buff_' + i, 0)
+        _spS('vhs_dmg_' + i, 0)
+        _spS('vhs_rof_' + i, 0)
+        _spS('vhs_acu_' + i, 0)
       }
       else if (is_this(i, 319)) { // pm1910
         _spS('pm1910_skillon_' + i, false) // 是否有技能子弹
@@ -684,7 +693,7 @@ function init_loadPrepareStatus() { // 初始化战前属性
     }
 
   }
-  if (Set_Special.get('sunrise') === 'night') { // 夜战BUFF
+  if (_spG('sunrise') === 'night') { // 夜战BUFF
     for (var i = 0; i < 9; i++) {
       if (Set_Base.get(i) != undefined) {
         var night_decline = (100 - (Set_Base.get(i).Info).get('night')) * (-0.9)
@@ -696,17 +705,17 @@ function init_loadPrepareStatus() { // 初始化战前属性
   }
   // 特殊设定
   if (document.getElementById('check_init_critmax').checked) { // 全体必暴
-    for (var i = 0; i < 9; i++) Set_Special.set('must_crit_' + i, true)
+    for (var i = 0; i < 9; i++) _spS('must_crit_' + i, true)
   }
   // MG SG 隼 的初始装弹，已经初始层buff
   for (var i = 0; i < 9; i++) {
     if (list_tdoll[i][1] != null) {
       if (Set_Base.get(i).Info.get('type') === 5 || Set_Base.get(i).Info.get('type') === 6 || is_this(i, 256)) {
-        Set_Special.set('clipsize_' + i, Set_Base.get(i).Info.get('cs'))
+        _spS('clipsize_' + i, Set_Base.get(i).Info.get('cs'))
         if (is_this(i, 253)) { // 刘易斯开场第一层buff
-          Set_Special.set('angel_strength' + i, 1)
+          _spS('angel_strength' + i, 1)
         }
-        if (is_this(i, 1089)) Set_Special.set('bren_buff_' + i, 0) // 布伦mod
+        if (is_this(i, 1089)) _spS('bren_buff_' + i, 0) // 布伦mod
       }
     }
   }
@@ -747,7 +756,7 @@ function init_loadEnemyInfo() {
   } else if (display_type === 'suffer') {
     enemy_dmg = parseInt(document.getElementById('enemy_dmg').value)
     enemy_rof = parseInt(document.getElementById('enemy_rof').value)
-    if (document.getElementById('enemy_acumax').checked) Set_Special.set('enemy_maxacu', true)
+    if (document.getElementById('enemy_acumax').checked) _spS('enemy_maxacu', true)
     else enemy_acu = parseInt(document.getElementById('enemy_acu').value)
     enemy_ap = parseInt(document.getElementById('enemy_ap').value)
     enemy_dbk = parseInt(document.getElementById('enemy_dbk').value)
@@ -789,22 +798,22 @@ function init_loadFairy(common_position) {
         }
       }
     } else if (fairy_no === 5) { // 临时装甲
-      Set_Special.set('temp_defence', 600)
+      _spS('temp_defence', 600)
       for (var i = 0; i < 9; i++) {
-        if (gs_tdoll[i]) Set_Special.set('reduce_dmg' + i, 0.7)
+        if (gs_tdoll[i]) _spS('reduce_dmg' + i, 0.7)
       }
     } else if (fairy_no === 6) { // 嘲讽靶机
-      Set_Special.set('provoke', 1600)
+      _spS('provoke', 1600)
       if (display_type === 'suffer') recordData(9, 0, 1600)
     } else if (fairy_no === 7) { // 狙击指令
-      Set_Special.set('fairy_skillon', true)
-      Set_Special.set('fairy_skilltime', 300)
+      _spS('fairy_skillon', true)
+      _spS('fairy_skilltime', 300)
     } else if (fairy_no === 8) { // 炮击指令
-      Set_Special.set('fairy_skillon', true)
-      Set_Special.set('fairy_skilltime', 150)
+      _spS('fairy_skillon', true)
+      _spS('fairy_skilltime', 150)
     } else if (fairy_no === 9) { // 致命空袭
-      Set_Special.set('fairy_skillon', true)
-      Set_Special.set('fairy_skilltime', 30)
+      _spS('fairy_skillon', true)
+      _spS('fairy_skilltime', 30)
     } else if (fairy_no === 10) { // 增援人形
       changeStatus(common_position, 'all', 'eva', '0.1', 20)
     } else if (fairy_no === 13) { // 阵地死神（暂时没做）
@@ -818,7 +827,7 @@ function init_loadFairy(common_position) {
         changeStatus(common_position, 'all', 'crit', '0.3', -1)
       }
     } else if (fairy_no === 17) { // 夜间照明
-      if (Set_Special.get('sunrise') === 'night') changeStatus(common_position, 'all', 'acu', '0.3', 20)
+      if (_spG('sunrise') === 'night') changeStatus(common_position, 'all', 'acu', '0.3', 20)
     } else if (fairy_no === 19) { // 紧急开饭
       if (document.getElementById('special_fairyskill_0').checked) { // 随机
         var meal_type = Math.random()
@@ -869,8 +878,8 @@ function init_loadFairy(common_position) {
   // 妖精天赋
   if (fairy_no > 0) {
     if (talent_no === 1) {
-      Set_Special.set('talent_num', 1)
-      Set_Special.set('talent_active_at', 239)
+      _spS('talent_num', 1)
+      _spS('talent_active_at', 239)
       changeStatus(common_position, 'all', 'dmg', '0.1', -1)
     }
     else if (talent_no === 2) changeStatus(common_position, 'all', 'dmg', '0.12', -1) // 杀1

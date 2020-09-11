@@ -240,6 +240,7 @@ lib_language = {
   DESCRIBE_251: 'Lock of Flowers',
   DESCRIBE_252: 'Sputter all enemies',
   DESCRIBE_306: 'Attack direct standing enemy',
+  DESCRIBE_318: ['吸取火力(max=45%)', '吸取射速(max=40%)', '吸取命中(max=80%)'],
   LAYER_1053: '蓄力层数',
   DESCRIBE_1053: ['狙击击杀敌人', '敌人血量高于50%'],
   DESCRIBE_2006: 'Enemy enter area',

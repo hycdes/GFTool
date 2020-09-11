@@ -293,6 +293,7 @@ lib_language = {
   DESCRIBE_276_1: 'Assault',
   DESCRIBE_287: 'Let overheat stop skill',
   DESCRIBE_306: 'Attack direct standing enemy',
+  DESCRIBE_318: ['吸取火力(max=45%)', '吸取射速(max=40%)', '吸取命中(max=80%)'],
   DESCRIBE_1065: '저격으로 적을 죽임',
   DESCRIBE_2006: '대상이 스킬 범위 내에 존재',
   DESCRIBE_2013_0: '개조 상태 전환',

@@ -47,7 +47,7 @@ var lib_name = {
   t1053: 'NTW-20 MOD',
   t1039: '莫辛-纳甘 MOD', t1252: 'KSVK MOD',
   t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93', t312: 'VSK-94', t316: '刘氏步枪',
-  t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: '汉阳造88式 MOD',
+  t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: '汉阳造88式 MOD', t1124: 'Super SASS MOD',
   t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000', t305: '塔布克', t317: '蒙德拉贡',
   t37: 'M14', t256: '隼',
   // —————————————— MG ——————————————
@@ -55,7 +55,7 @@ var lib_name = {
   t1075: 'M1918 MOD', t1089: '布伦 MOD',
   t109: 'MG5', t112: '内格夫', t125: 'MG4', t173: 'PKP', t208: 'HK21', t238: '88式', t253: '刘易斯', t263: 'MG36', t276: 'Kord', t307: 'ZB-26',
   t1081: 'LWMMG MOD',
-  t75: 'M1918', t78: 'M60', t85: 'PK', t88: 'MG3', t121: 'Mk48', t149: 'AEK-999', t185: '阿梅利', t199: '80式', t240: 'Mk46', t254: 'UKM2000', t264: '绍沙', t275: 'M1895CB',
+  t75: 'M1918', t78: 'M60', t85: 'PK', t88: 'MG3', t121: 'Mk48', t149: 'AEK-999', t185: '阿梅利', t199: '80式', t240: 'Mk46', t254: 'UKM2000', t264: '绍沙', t275: 'M1895CB', t319: 'PM1910',
   t77: 'M2HB',
   // —————————————— SG ——————————————
   t2002: '艾尔菲尔特', t2008: '希儿', t2022: '达娜·赞恩', t2025: '崔耶拉',
@@ -241,6 +241,7 @@ var lib_tdoll = [
   create_entry([4, 4, 1044], ['dps'], ['back'], ['forcus_rof', 'forcus_acu', 'ap', 'snipe'], []),
   create_entry([4, 4, 1051], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap'], []),
   create_entry([4, 4, 1095], ['dps'], ['back'], ['forcus_dmg', 'forcus_movespeed', 'ap', 'penetrate', 'handgrenade'], ['night']),
+  create_entry([4, 4, 1124], ['dps'], ['back'], ['max_acu', 'ap', 'snipe'], []),
   create_entry([4, 4, 36], ['dps'], ['back'], ['ap', 'snipe'], []),
   create_entry([4, 4, 39], ['dps'], ['back'], ['ap', 'snipe'], []),
   create_entry([4, 4, 42], ['dps'], ['back'], ['ap', 'snipe'], []),
@@ -288,6 +289,7 @@ var lib_tdoll = [
   create_entry([5, 4, 254], ['dps'], ['random'], ['forcus_acu', 'forcus_addcs', 'ap'], ['night']),
   create_entry([5, 4, 264], ['dps'], ['random'], ['forcus_fastcs', 'ap', 'passive'], []),
   create_entry([5, 4, 275], ['dps', 'startdps'], ['random'], ['forcus_dmg', 'forcus_addcs', 'ap', 'passive'], []),
+  create_entry([5, 4, 319], ['dps', 'supportdfs', 'af_arm'], ['random'], ['command_dmg', 'command_eva', 'forcus_acu', 'forcus_addcs', 'ap'], []),
   create_entry([5, 3, 77], ['dps'], ['random'], ['ap', 'passive'], []),
   // —————————————— SG ——————————————
   create_entry([6, 1, 2002], ['dps', 'tank_arm'], ['random'], ['grenade'], ['skillcrit']),

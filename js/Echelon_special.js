@@ -336,6 +336,19 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         if (_spG('aug_type_' + stand_num) === 'dps') _para_dmg += 2 * _spG('aug_layer_' + stand_num)
         else _para_dmg -= _spG('aug_layer_' + stand_num)
     }
+    else if (is_this(stand_num, 318)) { // VHS
+        var vhs_dmg = 0
+        if (_spG('vhs_buff_' + stand_num) >= global_frame) { // 技能期
+            if (isNaN(_spG('vhs_dmg_' + stand_num))) {
+                if (parseFloat(_spG('vhs_dmg_' + stand_num).slice(1)) > 0.45) vhs_dmg = _para_dmg * 0.45
+                else vhs_dmg = _para_dmg * parseFloat(_spG('vhs_dmg_' + stand_num).slice(1))
+            } else {
+                if (_spG('vhs_dmg_' + stand_num) > _para_dmg * 0.45) vhs_dmg = _para_dmg * 0.45
+                else vhs_dmg = _spG('vhs_dmg_' + stand_num)
+            }
+            _para_dmg += vhs_dmg
+        }
+    }
     else if (is_this(stand_num, 1002)) { // M1911 MOD
         if (Set_Special.get('m1911_' + stand_num) > 0) _para_dmg *= 2
     }
@@ -357,8 +370,15 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         if (Set_Special.get('clipsize_' + stand_num) === 1) _para_dmg *= 3
     }
     else if (is_this(stand_num, 2016)) _para_dmg *= 1.8 // Dana
-    // Universal formulation of damage settlement
-    return Math.max(1, Math.ceil(_para_dmg * _pro('random') + _para_arm))
+
+    // 火力护甲结算——————————————————————————————————————————————————
+    // 独享型伤害加深
+    if (is_this(stand_num, 318)) { // VHS被动层数
+        return Math.max(1, Math.ceil(_para_dmg * _pro('random') + _para_arm)) // 护甲结算
+            * (1 + 0.025 * _spG('vhs_layernum_' + stand_num)) // 伤害加深倍率
+    }
+    // 无独享型伤害加深
+    else return Math.max(1, Math.ceil(_para_dmg * _pro('random') + _para_arm))
 }
 
 // 多重攻击
@@ -496,15 +516,27 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // �
 }
 
 function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {
-    var acu = info_self.get('acu'),
+    var acu = info_self.get('acu') * _mul('acu', list_buff),
         e_eva = info_enemy,
         is_hit = false,
         must_acu = _mul('must_acu', list_buff)
-    acu *= _mul('acu', list_buff)
     // 特殊的最终加算命中
-    if (is_this(stand_num, 315)) {
+    if (is_this(stand_num, 315)) { // AUG Para 最终加算命中
         if (_spG('aug_type_' + stand_num) === 'dps') acu += _spG('aug_layer_' + stand_num)
         else acu -= _spG('aug_layer_' + stand_num)
+    }
+    else if (is_this(stand_num, 318)) { // VHS 最终加算命中
+        var vhs_acu = 0
+        if (_spG('vhs_buff_' + stand_num) >= global_frame) { // 技能期
+            if (isNaN(_spG('vhs_acu_' + stand_num))) {
+                if (parseFloat(_spG('vhs_acu_' + stand_num).slice(1)) > 0.8) vhs_acu = acu * 0.8
+                else vhs_acu = acu * parseFloat(_spG('vhs_acu_' + stand_num).slice(1))
+            } else {
+                if (_spG('vhs_acu_' + stand_num) > acu * 0.8) vhs_acu = acu * 0.8
+                else vhs_acu = _spG('vhs_acu_' + stand_num)
+            }
+            acu += vhs_acu
+        }
     }
 
     if (must_acu || (Math.random() <= acu / (acu + e_eva))) is_hit = true
