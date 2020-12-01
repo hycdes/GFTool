@@ -213,6 +213,7 @@ lib_language = {
   equipNAME_11031: 'DO反射瞄具',
   equipNAME_12023: '古董万花筒',
   equipNAME_32024: '决斗扑克',
+  equipNAME_31161: 'Tactical Mobile Shield',
   equipNAME_22025: '格斗刀',
   equipNAME_120261: '平光镜',
   equipNAME_120262: '天外陨石',

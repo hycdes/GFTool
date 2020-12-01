@@ -346,6 +346,7 @@ lib_affect.set(294, createAffect('l/lu/luu/u/r/', 'all', ['dmg', 'rof'], [0.16, 
 lib_affect.set(295, createAffect('l/ld/ldd/', 'ar', ['dmg', 'acu'], [0.2, 0.25])) // CF05
 lib_affect.set(296, createAffect('u/uu/ur/urr/', 'all', ['dmg', 'eva'], [0.1, 0.18])) // SL8
 lib_affect.set(297, createAffect('r/ru/', 'smg', ['acu', 'eva'], [0.5, 0.12])) // M82
+lib_affect.set(298, createAffect('u/d/', 'ar', ['dmg'], [0.16])) // Vepr
 lib_affect.set(302, createAffect('u/l/ll/llu/', 'mg/sg', ['dmg', 'arm'], [0.1, 0.1])) // 防卫者
 lib_affect.set(303, createAffect('l/lu/r/ru/u/uu/', 'all', ['dmg', 'eva'], [0.3, 0.2])) // HP-35
 lib_affect.set(304, createAffect('l/ld/', 'ar', ['dmg'], [0.22])) // SAF
@@ -363,6 +364,8 @@ lib_affect.set(316, createAffect('u/d/r/', 'hg', ['cld'], [0.18])) // 刘氏步�
 lib_affect.set(317, createAffect('u/d/', 'rf', ['dmg'], [0.18])) // 蒙德拉贡
 lib_affect.set(318, createAffect('r/rd/ru/', 'smg', ['acu', 'eva'], [0.3, 0.18])) // VHS
 lib_affect.set(319, createAffect('r/rd/rrd/', 'sg', ['dmg', 'arm'], [0.1, 0.15])) // PM1910
+
+lib_affect.set(323, createAffect('l/ll/lu/llu/ld/lld/', 'mg', ['dmg', 'acu'], [0.1, 0.15])) // LTLX7000
 
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
@@ -399,7 +402,8 @@ lib_affect.set(1101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改
 lib_affect.set(1122, createAffect('r/rd/', 'smg', ['dmg', 'eva'], [0.35, 0.12])) // G11 改
 lib_affect.set(1124, createAffect('u/ru/', 'hg', ['cld'], [0.15])) // Super SASS改
-lib_affect.set(1143, createAffect('u/lu/l/ld/d/', 'ar', ['rof', 'acu'], [0.15, 0.4])) // RO635 SASS改
+lib_affect.set(1143, createAffect('u/lu/l/ld/d/', 'ar', ['rof', 'acu'], [0.15, 0.4])) // RO635改
+lib_affect.set(1161, createAffect('l/ll/llu/lld/', 'mg', ['dmg'], [0.15])) // 97式霰改
 lib_affect.set(1221, createAffect('u/lu/l/ld/d/r/', 'all', ['dmg', 'acu'], [0.3, 0.4])) // GSh-18改
 lib_affect.set(1252, createAffect('r/rd/rr/', 'hg/sg', ['cld'], [0.15])) // KSVK改
 // EXTRA
@@ -718,6 +722,7 @@ lib_property.set(294, createProperty(29, 66, 81, 57, 0, 430, 0.2, -1)) // 韦伯
 lib_property.set(295, createProperty(26, 13, 73, 87, 0, 950, 0.05, -1)) // CF05
 lib_property.set(296, createProperty(120, 78, 39, 41, 0, 425, 0.4, -1)) // SL8
 lib_property.set(297, createProperty(51, 45, 46, 75, 0, 565, 0.2, -1)) // M82
+lib_property.set(298, createProperty(48, 49, 47, 71, 0, 550, 0.2, -1)) // Vepr
 lib_property.set(302, createProperty(38, 13, 17, 27, 18, 1235, 0.4, 1)) // Defender
 lib_property.set(303, createProperty(31, 64, 89, 58, 0, 380, 0.2, -1)) // HP-35
 lib_property.set(304, createProperty(25, 14, 69, 99, 0, 900, 0.05, -1)) // SAF
@@ -735,6 +740,8 @@ lib_property.set(316, createProperty(139, 88, 30, 40, 0, 400, 0.4, -1)) // Gener
 lib_property.set(317, createProperty(112, 74, 34, 41, 0, 420, 0.4, -1)) // Mondragon
 lib_property.set(318, createProperty(57, 54, 47, 78, 0, 580, 0.2, -1)) // VHS
 lib_property.set(319, createProperty(90, 27, 25, 104, 0, 950, 0.05, 10)) // PM1910
+
+lib_property.set(323, createProperty(23, 14, 11, 28, 25, 1375, 0.4, 5)) // LTLX7000
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
@@ -771,7 +778,7 @@ lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9
 lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45 MOD
 lib_property.set(1122, createProperty(48, 48, 44, 97, 0, 620, 0.2, -1)) // G11 MOD
 lib_property.set(1124, createProperty(125, 73, 31, 40, 0, 455, 0.4, -1)) // supersass MOD
-lib_property.set(1161, createProperty(37, 13, 14, 28, 22, 1355, 0.4, -1)) // 97shorgun MOD
+lib_property.set(1161, createProperty(37, 13, 14, 28, 22, 1355, 0.4, 3)) // 97shorgun MOD
 lib_property.set(1221, createProperty(34, 53, 90, 58, 0, 370, 0.2, -1)) // GSh-18
 lib_property.set(1143, createProperty(29, 15, 77, 97, 0, 1040, 0.05, -1)) // RO635
 lib_property.set(1252, createProperty(163, 85, 30, 32, 0, 450, 0.4, -1)) // KSVK MOD
@@ -889,6 +896,7 @@ lib_property_equip.set(31075, createProperty_equip(-2, 0, 0, -1, 0, 0, 0, 6, 0, 
 lib_property_equip.set(31093, createProperty_equip(-6, 0, 37, 3, 0, 0, 0, 0, 0, 0)) // IDW mod
 lib_property_equip.set(31122, createProperty_equip(0, 10, -5, 0, 0, 0, 0, 0, 0, 0)) // G11 mod
 lib_property_equip.set(31143, createProperty_equip(-6, 0, 45, 0, 0, 0, 0, 0, 0, 0)) // RO635 mod
+lib_property_equip.set(31161, createProperty_equip(0, 0, 2, 0, 11, 0, 0, 0, 0, 0)) // 97sg mod
 lib_property_equip.set(4118, createProperty_equip(8, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 9a91
 lib_property_equip.set(42009, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // clear
 lib_property_equip.set(42010, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, -100)) // fail
@@ -900,6 +908,7 @@ lib_property_equip.set(220112, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, 
 lib_property_equip.set(220113, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-hp3-Karmotrine
 lib_property_equip.set(320111, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-d1-Pwd delta
 lib_property_equip.set(320112, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-d2-Karmotrine
+lib_property_equip.set(3115, createProperty_equip(-6, 0, 47, 0, 0, 0, 0, 0, 0, 0)) // suomi
 lib_property_equip.set(32012, createProperty_equip(0, 0, 34, 0, 0, 0, 0, 0, 0, 0)) // SEI
 lib_property_equip.set(22013, createProperty_equip(22, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // Dorothy
 lib_property_equip.set(32014, createProperty_equip(0, 0, 0, 3, 0, 0, 0.3, 0, 0, 0)) // Stella

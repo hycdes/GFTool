@@ -184,6 +184,7 @@ lib_language = {
   equipNAME_388: 'Infinite Ammo Box',
   equipNAME_3185: 'Dedicated Tactical Memory',
   equipNAME_31075: 'Titan Fire Control Chip',
+  equipNAME_31161: 'Tactical Mobile Shield',
   equipNAME_12023: '古董万花筒',
   equipNAME_32024: '决斗扑克',
   equipNAME_22025: '格斗刀',

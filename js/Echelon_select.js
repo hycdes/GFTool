@@ -158,6 +158,7 @@ function changeSelectItems() {
       str_items += '<option value=258>No.258 ' + lib_language.NAME_258 + '</option>'
       str_items += '<option value=265>No.265 HK33</option>'
       str_items += '<option value=279>No.279 INSAS</option>'
+      str_items += '<option value=298>No.298 Vepr</option>'
     } else if (num_star === 2) {
       str_items += '<option value=63 selected>No.63 G3</option>'
       str_items += '<option value=68>No.68 L85A1</option>'
@@ -384,6 +385,7 @@ function changeSelectItems() {
       str_items += '<option value=229>No.229 M870</option>'
       str_items += '<option value=281>No.281 CAWS</option>'
       str_items += '<option value=282>No.282 DP-12</option>'
+      str_items += '<option value=323>No.323 LTLX7000</option>'
       str_items += '<option value=1161>No.161 [MOD] ' + lib_language.NAME_161 + '</option>'
       str_items += '<option value=2002>No.EX2 ' + lib_language.NAME_2002 + '</option>'
       str_items += '<option value=2008>No.EX8 ' + lib_language.NAME_2008 + '</option>'
@@ -481,6 +483,7 @@ function changeEquip() {
       if (ID === 17) str_items += '<option value=117>' + lib_language.equipNAME_117 + '</option>' // m3
       if (ID === 26 || ID === 1026) str_items += '<option value=326>GSG UX' + lib_language.equipNAME_31 + '</option>' // MP5
       if (ID === 101 || ID === 102 || ID === 103 || ID === 1101 || ID === 1103) str_items += '<option value=3103>UMP UX' + lib_language.equipNAME_31 + '</option>' // UMP系列
+      if (ID === 115) str_items += '<option value=3115>MK31多功能骨骼</option>' // suomi
       if (ID === 1093) str_items += '<option value=31093>' + lib_language.equipNAME_31093 + '</option>'
       if (ID === 1143) str_items += '<option value=31143>' + lib_language.equipNAME_31143 + '</option>'
     } else if (set_guntype === 4) { // RF
@@ -512,6 +515,7 @@ function changeEquip() {
       }
     } else if (set_guntype === 6) { // SG
       str_items += '<option value=33>Type3' + lib_language.equipNAME_33 + '</option>'
+      if (ID === 1161) str_items += '<option value=31161>' + lib_language.equipNAME_31161 + '</option>'
       if (ID === 2016) str_items += '<option value=32016>' + lib_language.equipNAME_32016 + '</option>'
     }
     // ———————————————————— 第二格装备（AR小队双瞄具/人形放在第三） ————————————————————

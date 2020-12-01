@@ -80,7 +80,7 @@ function get_item(_info) { // [num,type,star,name,rank1,[list_rank2]]
     // 特化
     temp_str += '<td style="vertical-align:middle"><b>' + get_specialize(_rank2) + '</b></td>'
     // 链接
-    temp_str += '<td style="text-align:center;vertical-align:middle">' + get_cv(_link) + '</td>'
+    temp_str += '<td style="text-align:center;vertical-align:middle;width:100px">' + get_cv(_link) + '</td>'
     // finish
     temp_str += '</tr>'
     return temp_str
@@ -139,12 +139,13 @@ var review_data = [
     [95, 'RF', 4, '汉阳造88式 [MOD]', 'A', [['S', '']], 'https://www.bilibili.com/read/cv3615097'],
     [96, 'HG', 5, '灰熊 MkV', 'S', [], 'https://www.bilibili.com/read/cv5051038'],
     [97, 'HG', 5, 'M950A', 'S', [], 'https://www.bilibili.com/read/cv5065001'],
+    [97, 'HG', 6, 'M950A [MOD]', 'S+', [[' ', '延缓接敌'], [' ', '开场爆发辅助']], 'https://www.bilibili.com/read/cv5552836'],
     [101, 'SMG', 5, 'UMP9 [MOD]', 'A', [['S', '']], 'https://www.bilibili.com/read/cv3580229'],
     [102, 'SMG', 4, 'UMP40', 'B', [['A-', '']], 'https://www.bilibili.com/read/cv5081124'],
     [103, 'SMG', 5, 'UMP45 [MOD]', 'S+', [], 'https://www.bilibili.com/read/cv4047670'],
     [106, 'AR', 5, 'FAL', 'A+', [], 'https://www.bilibili.com/read/cv5218941'],
     [109, 'MG', 5, 'MG5', 'A+', [], 'https://www.bilibili.com/read/cv4427344'],
-    [112, 'MG', 5, '内格夫', 'B', [['S+', '']], 'https://www.bilibili.com/read/cv4456647'],
+    [119, 'AR', 5, 'OTs-14', ' ', [['S', '夜战特化']], 'https://www.bilibili.com/read/cv5489117'],
     [122, 'AR', 5, 'G11', 'S', [[' ', '集中爆发']], 'https://www.bilibili.com/read/cv4041492'],
     [125, 'MG', 5, 'MG4', 'B', [], 'https://www.bilibili.com/read/cv4539624'],
     [129, 'AR', 5, '95式', 'A', [['A', '']], 'https://www.bilibili.com/read/cv3749127'],

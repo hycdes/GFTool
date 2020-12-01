@@ -492,6 +492,7 @@ function resetEquipment() {
       else if (ID === 18) set_equip = [32, 21, 118] // MAC-10
       else if (ID === 26 || ID === 1026) set_equip = [326, 21, 11] // mp5
       else if (ID === 101 || ID === 102 || ID === 103) set_equip = [3103, 21, 11] // UMP
+      else if (ID === 115) set_equip = [3115, 21, 11] // suomi
       else if (ID === 228) set_equip = [32, 21, 1228] // sakura
       else if (ID === 315) set_equip = [32, 21, 12] // AUG Para
       else if (ID === 20 || ID === 21 || ID === 22 || ID === 27 || ID === 32 || ID === 135 || ID === 251 || ID === 136 || ID === 177 || ID === 1032) set_equip = [31, 21, 11] // 输出型
@@ -538,7 +539,8 @@ function resetEquipment() {
     }
     else if (set_guntype === 6) {
       if (ID === 158) set_equip = [33, 2158, 13] // ks23
-      else if (ID === 302) set_equip = [33, 24, 12] // ks23
+      else if (ID === 302) set_equip = [33, 24, 12] // 防卫者
+      else if (ID === 1161) set_equip = [31161, 24, 13] // 97式霰
       else if (ID === 2016) set_equip = [32016, 24, 13] // Dana
       else if (ID === 2025) set_equip = [33, 22025, 13] // Triela
       else set_equip = [33, 24, 13]

@@ -186,6 +186,7 @@ lib_language = {
   equipNAME_31044: '数码迷彩披风',
   equipNAME_31065: '战术发卡',
   equipNAME_31143: '爱宠挂饰',
+  equipNAME_31161: '战术机动盾',
   equipNAME_388: '无限弹链箱',
   equipNAME_3185: '专用战术内存',
   equipNAME_31075: 'Titan火控芯片',

@@ -30,10 +30,10 @@ var lib_name = {
   t2007: '无量塔姬子', t2027: '安洁莉卡',
   t1065: 'HK416 MOD', t1122: 'G11 MOD',
   t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
-  t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t306: 'AK-Alfa',
+  t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t290: '89式自', t306: 'AK-Alfa', t318: 'VHS',
   t1061: 'StG44 MOD', t1063: 'G3 MOD',
   t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR',
-  t70: 'FNC',
+  t70: 'FNC', t298: 'Vepr',
   // —————————————— SMG ——————————————
   t2019: '多萝西·海兹', t2023: '海莉艾塔',
   t1143: 'RO635 MOD',
@@ -59,7 +59,8 @@ var lib_name = {
   t77: 'M2HB',
   // —————————————— SG ——————————————
   t2002: '艾尔菲尔特', t2008: '希儿', t2022: '达娜·赞恩', t2025: '崔耶拉',
-  t151: 'M1887', t157: 'KSG', t160: 'Saiga-12', t163: 'AA-12', t164: 'FP-6', t188: 'S.A.T.8', t229: 'M870', t281: 'CAWS', t282: 'DP-12',
+  t1161: '97式霰 MOD',
+  t151: 'M1887', t157: 'KSG', t160: 'Saiga-12', t163: 'AA-12', t164: 'FP-6', t188: 'S.A.T.8', t229: 'M870', t281: 'CAWS', t282: 'DP-12', t323: 'LTLX7000',
   t153: 'M37', t155: 'M590', t156: 'Super-Shorty', t161: '97式霰', t162: 'SPAS-12', t165: 'M1014', t189: 'USAS-12', t283: '解放者',
   t159: 'RMB-93'
 }
@@ -143,8 +144,10 @@ var lib_tdoll = [
   create_entry([2, 5, 274], ['dps'], ['front', 'suggest_7'], ['forcus_rof', 'weak_dmg'], []),
   create_entry([2, 5, 287], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof'], ['mengxin']),
   create_entry([2, 5, 289], ['dps'], ['front'], ['forcus_dmg'], []),
+  create_entry([2, 5, 290], ['dps', 'af_dmg'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'deepdmg'], []),
   create_entry([2, 5, 306], ['dps', 'af_dmg'], ['front'], ['forcus_dmg'], []),
   create_entry([2, 5, 313], ['dps', 'af_dmg'], ['front', 'suggest_7'], ['forcus_dmg', 'forcus_acu', 'forcus_critdmg'], []),
+  create_entry([2, 5, 318], ['dps'], ['front'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'deepdmg'], []),
   create_entry([2, 4, 1061], ['dps'], ['front'], ['grenade'], []),
   create_entry([2, 4, 1063], ['dps'], ['front'], ['grenade', 'dizz'], []),
   create_entry([2, 4, 54], ['tank_eva', 'tank_arm'], ['front'], ['dizz'], ['laomo']),
@@ -166,6 +169,7 @@ var lib_tdoll = [
   create_entry([2, 4, 262], ['dps'], ['front'], ['snipe'], ['skillcrit', 'skillarm']),
   create_entry([2, 4, 288], ['dps'], ['front'], ['forcus_dmg'], []),
   create_entry([2, 3, 70], ['dps'], ['front'], ['forcus_dmg'], ['mengxin']),
+  create_entry([2, 3, 298], ['supportdps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], ['burstsupport']),
   // —————————————— SMG ——————————————
   create_entry([3, 1, 2019], ['supportdfs', 'tank_eva'], ['random'], ['forcus_dmg', 'forcus_eva', 'command_acu', 'command_eva', 'status', 'fastcd'], []),
   create_entry([3, 1, 2023], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_rof', 'forcus_eva', 'shield'], []),
@@ -296,6 +300,7 @@ var lib_tdoll = [
   create_entry([6, 1, 2008], ['dps', 'tank_arm'], ['random'], ['forcus_fastcs', 'passive'], []),
   create_entry([6, 1, 2022], ['tank_arm'], ['random'], ['grenade', 'passive'], []),
   create_entry([6, 1, 2025], ['dps', 'tank_arm'], ['random'], ['forcus_dmg', 'forcus_rof', 'passive', 'status'], []),
+  create_entry([6, 5, 1161], ['tank_arm'], ['random'], ['forcus_dmg', 'forcus_acu', 'weak_movespeed', 'multitarget'], []),
   create_entry([6, 5, 151], ['tank_arm'], ['random'], ['snipe'], []),
   create_entry([6, 5, 157], ['tank_arm'], ['random'], ['forcus_arm', 'forcus_eva'], []),
   create_entry([6, 5, 160], ['dps', 'tank_arm'], ['random'], ['multitarget', 'snipe'], []),
@@ -305,6 +310,8 @@ var lib_tdoll = [
   create_entry([6, 5, 229], ['tank_arm'], ['random'], ['ffshield'], []),
   create_entry([6, 5, 281], ['tank_arm'], ['random'], ['grenade', 'shield'], []),
   create_entry([6, 5, 282], ['tank_arm'], ['random'], ['forcus_addcs', 'multihit', 'shield', 'reducehurt'], []),
+  create_entry([6, 5, 323], ['tank_arm'], ['random'], ['forcus_arm', 'beakback', 'reducehurt'], ['clearbuff']),
+  create_entry([6, 4, 161], ['tank_arm'], ['random'], ['forcus_dmg', 'multitarget'], []),
   create_entry([6, 4, 283], ['tank_arm'], ['random'], ['multihit'], []),
 ]
 
@@ -391,7 +398,7 @@ var lib_tag = [
   ],
   // 4
   [['night', 'mengxin', 'laomo', 'burstsupport',],
-  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'taunt', 'illusion', 'stronger', 'cluster', 'purify', 'immunity']
+  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'taunt', 'illusion', 'stronger', 'cluster', 'purify', 'immunity', 'clearbuff']
   ]
 ]
 // tag0————————————————————————————————————————
@@ -583,6 +590,7 @@ var lib_tag_3 = {
   cluster: '<img src="../img/class-icon/icon-cluster.png" style="width:19px;height:19px">聚怪',
   purify: '<img src="../img/class-icon/icon-purify.png" style="width:19px;height:19px">净化',
   immunity: '<img src="../img/class-icon/icon-immunity.png" style="width:19px;height:19px">伤害免疫',
+  clearbuff: '<img src="../img/class-icon/icon-clearbuff.png" style="width:19px;height:19px">清除增益',
 }
 var tag3_night = new Map,
   tag3_mengxin = new Map,
@@ -599,7 +607,8 @@ var tag3_night = new Map,
   tag3_stronger = new Map,
   tag3_cluster = new Map,
   tag3_purify = new Map,
-  tag3_immunity = new Map
+  tag3_immunity = new Map,
+  tag3_clearbuff = new Map
 
 // 特殊说明库
 var lib_alert = new Map

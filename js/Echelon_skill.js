@@ -564,6 +564,7 @@ lib_describe.set('p22', describe_property(
   ['dmg', 'acu/eva'],
   ['0.25', '0.6/0.6'])) // p22_决战序列_1/2列
 lib_describe.set('lbll', describe_property(['bloall'], ['dmg/rof/acu'], ['0.25/0.25/0.25'])) // 猩红回响
+lib_describe.set('vepr', describe_property(['bloall'], ['dmg/rof/acu'], ['0.22/0.22/0.22'])) // 苍蓝定音
 lib_describe.set('mondragon', describe_property(['bloall'], ['dmg/rof'], ['0.15/0.12'])) // 必胜信念
 lib_describe.set('g36_eva', describe_property(['bloall'], ['eva'], ['0.25'])) // 弧光契约闪避
 // debuff command
@@ -651,6 +652,7 @@ lib_describe.set('acuN_80', describe_propertyN(['self'], ['acu'], ['0.8'])) // �
 lib_describe.set('acuND_40', describe_propertyND(['self'], ['acu'], ['0.4'])) // 白夜独奏曲ND 40%
 lib_describe.set('acuN_70', describe_propertyN(['self'], ['acu'], ['0.7'])) // 猎杀冲动N 70%
 lib_describe.set('acuND_20', describe_propertyND(['self'], ['acu'], ['0.2'])) // 猎杀冲动ND 20%
+lib_describe.set('acu_20', describe_property(['self'], ['acu'], ['0.2'])) // 火力专注SG五星命中 20%
 lib_describe.set('eva_180', describe_property(['self'], ['eva'], ['1.8'])) // 弦月舞者 180%
 lib_describe.set('eva_150', describe_property(['self'], ['eva'], ['1.5'])) // 掩护专注 150%
 lib_describe.set('eva_130', describe_property(['self'], ['eva'], ['1.3'])) // 掩护专注 130%
@@ -1116,6 +1118,7 @@ lib_skill.set(239, [createSkill(6, 8, 5, lib_describe.get('dmgcrit_3'))])
 lib_skill.set(258, [createSkill(6, 16, 10, lib_describe.get('magal'))])
 lib_skill.set(265, [createSkill(4, 16, 10, lib_describe.get('rof_60'))])
 lib_skill.set(279, [createSkill(5, 8, 5, lib_describe.get('dmgacu_3'))])
+lib_skill.set(298, [createSkill(6, 16, 5, lib_describe.get('vepr'))]) // 猩红回响
 // ———————————————————————————————————————— AR - 2 ————————————————————————————————————————
 lib_skill.set(63, [createSkill(8, 16, 0, lib_describe.get('grenade_10'))])
 lib_skill.set(68, [createSkill(6, 8, 5, lib_describe.get('l85a1'))])
@@ -1501,6 +1504,7 @@ lib_skill.set(281, []) //
 lib_skill.set(282, []) // 
 lib_skill.set(1161, [
   createSkill(8, 16, 8, lib_describe.get('dmg_120')),
+  createSkill(8, 16, 8, lib_describe.get('acu_20')),
   createSkill(8, 16, 8, lib_describe.get('aimupto_5'))
 ])
 // ———————————————————————————————————————— SG - 4 ————————————————————————————————————————
