@@ -1,12 +1,12 @@
 var _version = {
   DB: 'v3.3',
   CC: 'v5.3 (2019.11.26)',
-  ES: 'v4.8.2 (2020.09.05)',
+  ES: 'v4.9.0 (2020.12.13)',
   ST: 'v3.1 (2020.01.05)',
   CL: 'v1.0 (2020.04.10)'
 }
 var _updateinfo = {
-  ES: '1. add VHS skill code'
+  ES: '1. add galil skill code'
 }
 var _navitem = [
   '<li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>',

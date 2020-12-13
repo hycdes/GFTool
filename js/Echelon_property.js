@@ -390,6 +390,7 @@ lib_affect.set(1061, createAffect('u/r/d/', 'smg', ['eva', 'acu'], [0.2, 0.6])) 
 lib_affect.set(1063, createAffect('u/r/', 'smg', ['rof', 'acu'], [0.25, 0.55])) // G3改
 lib_affect.set(1064, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.15])) // G36改
 lib_affect.set(1065, createAffect('r/ru/', 'smg', ['dmg'], [0.45])) // HK416 MOD
+lib_affect.set(1071, createAffect('u/r/d/', 'smg/ar', ['acu', 'eva'], [0.55, 0.15])) // 加利尔 MOD
 lib_affect.set(1075, createAffect('rr/', 'sg', ['dmg', 'arm'], [0.18, 0.1])) // M1918改
 lib_affect.set(1081, createAffect('rr/', 'sg', ['dmg', 'rof'], [0.15, 0.15])) // LWMMG改
 lib_affect.set(1089, createAffect('rr/rrdd/', 'sg', ['rof', 'acu'], [0.1, 0.15])) // 布伦改
@@ -428,6 +429,8 @@ lib_affect.set(2024, createAffect('d/dd/ddr/', 'hg', ['cld'], [0.18])) // Rico
 lib_affect.set(2025, createAffect('l/ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.10, 0.15])) // Triela
 lib_affect.set(2026, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Claes
 lib_affect.set(2027, createAffect('u/ur/r/rd/d/', 'ar/smg', ['dmg', 'acu'], [0.1, 0.2])) // Angelica
+
+lib_affect.set(2029, createAffect('r/ru/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // agent 416
 // BUG
 lib_affect.set(3054, createAffect('l/ll/llu/lu/u/lld/ld/d/', 'all', ['dmg', 'rof'], [1, 1])) // M16A1 BOSS
 
@@ -766,6 +769,7 @@ lib_property.set(1061, createProperty(58, 50, 38, 66, 0, 650, 0.2, -1)) // stg44
 lib_property.set(1063, createProperty(58, 55, 40, 64, 0, 565, 0.2, -1))
 lib_property.set(1064, createProperty(51, 48, 45, 76, 0, 650, 0.2, -1))
 lib_property.set(1065, createProperty(55, 51, 47, 79, 0, 620, 0.2, -1)) // HK416
+lib_property.set(1071, createProperty(54, 49, 44, 66, 0, 635, 0.2, -1)) // 加利尔
 lib_property.set(1075, createProperty(101, 34, 34, 115, 0, 805, 0.05, 8))
 lib_property.set(1081, createProperty(103, 27, 24, 92, 0, 890, 0.05, 10))
 lib_property.set(1089, createProperty(97, 34, 29, 103, 0, 890, 0.05, 8))
@@ -804,6 +808,8 @@ lib_property.set(2024, createProperty(130, 80, 33, 37, 0, 400, 0.4, -1)) // Rico
 lib_property.set(2025, createProperty(37, 12, 12, 26, 21, 1265, 0.4, 4)) // Triela
 lib_property.set(2026, createProperty(79, 35, 36, 139, 0, 785, 0.05, 8)) // Claes
 lib_property.set(2027, createProperty(55, 57, 46, 75, 0, 605, 0.3, -1)) // Angelica
+
+lib_property.set(2029, createProperty(51, 46, 44, 76, 0, 605, 0.2, -1)) // agent 416
 // BUG
 lib_property.set(3054, createProperty(90, 60, 80, 40, 300, 320000, 1, -1)) // BOSS M16A1
 
@@ -909,6 +915,7 @@ lib_property_equip.set(220113, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, 
 lib_property_equip.set(320111, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-d1-Pwd delta
 lib_property_equip.set(320112, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-d2-Karmotrine
 lib_property_equip.set(3115, createProperty_equip(-6, 0, 47, 0, 0, 0, 0, 0, 0, 0)) // suomi
+lib_property_equip.set(31071, createProperty_equip(0, 10, -5, 0, 0, 0, 0, 0, 0, 0)) // galil
 lib_property_equip.set(32012, createProperty_equip(0, 0, 34, 0, 0, 0, 0, 0, 0, 0)) // SEI
 lib_property_equip.set(22013, createProperty_equip(22, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // Dorothy
 lib_property_equip.set(32014, createProperty_equip(0, 0, 0, 3, 0, 0, 0.3, 0, 0, 0)) // Stella

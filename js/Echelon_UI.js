@@ -482,6 +482,7 @@ function resetEquipment() {
       else if (ID === 1063) set_equip = [11063, 22, 31] // g3 mod
       else if (ID === 1064) set_equip = [11064, 22, 31] // g36 mod
       else if (ID === 1065) set_equip = [165, 22, 31065] // HK416 mod
+      else if (ID === 1071) set_equip = [12, 22, 31071] // Galil mod
       else if (ID === 1122) set_equip = [12, 22, 31122] // G11 mod
       else if (ID === 2027) set_equip = [12, 22, 32027] // Angelica
       else if (ID === 3054) set_equip = [32, 23054, 354] // sf m16

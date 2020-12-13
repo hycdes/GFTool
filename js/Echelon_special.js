@@ -227,6 +227,9 @@ function settle_buff(stand_num, info_self, skillname) {
     else if (is_this(stand_num, 1060)) { // asval mod
         if (_spG('asval_' + stand_num) > global_frame) must_acu = true
     }
+    else if (is_this(stand_num, 1071)) { // galil mod
+        _mul_acu *= 1 - 0.2 * _spG('galil_supportnum') // 加利尔命中降低
+    }
     else if (is_this(stand_num, 1124)) { // supersass mod
         if (_spG('supersass_' + stand_num) != undefined && _spG('supersass_' + stand_num) > 0) {
             must_acu = true
@@ -539,11 +542,27 @@ function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {
         }
     }
 
+    if (_spG('is_galil_exist') != undefined) {
+        if (is_in_affect_of(_spG('is_galil_exist'), stand_num)) { // 在加利尔MOD影响格内
+            if (is_this_type(stand_num, 2) || is_this_type(stand_num, 3)) { // 是AR或SMG
+                acu += 0.1 * _spG('galil_tempacu')
+            }
+        }
+    }
+
     if (must_acu || (Math.random() <= acu / (acu + e_eva))) is_hit = true
     return is_hit
 }
 
 function settle_crit(stand_num, info_self, list_buff) {
+    var crit_rate = info_self.get('crit')
+    // 特殊暴击率加成
+    if (is_this(stand_num, 1071)) {
+        if (_spG('galil_tempacu') > enemy_eva) {
+            crit_rate = Math.min(1, crit_rate + 0.002 * (_spG('galil_tempacu') - enemy_eva))
+        }
+    }
+    //
     var is_crit = false,
         must_crit = false,
         no_crit = false,
@@ -552,8 +571,8 @@ function settle_crit(stand_num, info_self, list_buff) {
         (_spG('must_crit_' + stand_num) != undefined) ||
         (_spG('skill_mustcrit_' + stand_num) != undefined && _spG('skill_mustcrit_' + stand_num) >= global_frame)
     no_crit = _mul('no_crit', list_buff)
-    if (no_crit) is_crit = false
-    else if (must_crit || Math.random() + info_self.get('crit') >= 1) is_crit = true
+    if (no_crit) is_crit = false // 不可暴击
+    else if (must_crit || Math.random() + crit_rate >= 1) is_crit = true // 正常暴击
     if (is_crit) critdmg_para *= info_self.get('critdmg') * _mul('critdmg', list_buff)
     return critdmg_para
 }

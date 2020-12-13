@@ -645,6 +645,7 @@ lib_describe.set('rofN_85', describe_propertyN(['self'], ['rof'], ['0.85'])) // 
 lib_describe.set('rofND_28', describe_propertyND(['self'], ['rof'], ['0.28'])) // 突击专注ND 28%
 lib_describe.set('rof_15', describe_property(['self'], ['rof'], ['0.15'])) // 凛冽斗志 15%
 lib_describe.set('acu_500', describe_property(['self'], ['acu'], ['5'])) // 精确专注 500%
+lib_describe.set('acu_550', describe_property(['self'], ['acu'], ['5.5'])) // 精确专注 550%
 lib_describe.set('acu_70', describe_property(['self'], ['acu'], ['0.7'])) // 猎杀冲动 70%
 lib_describe.set('acu_65', describe_property(['self'], ['acu'], ['0.65'])) // 猎杀冲动 65%
 lib_describe.set('acu_60', describe_property(['self'], ['acu'], ['0.6'])) // 猎杀冲动 60%
@@ -1099,6 +1100,7 @@ lib_skill.set(288, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(297, [createSkill(6, 16, 5, lib_describe.get('tar21'))])
 lib_skill.set(1061, [createSkill(8, 16, 0, lib_describe.get('grenade_9.6'))]) // 后续详细做
 lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
+lib_skill.set(1071, [createSkill(5, 16, 15, lib_describe.get('acu_550'))])
 // ———————————————————————————————————————— AR - 3 ————————————————————————————————————————
 lib_skill.set(58, [createSkill(5, 8, 5, lib_describe.get('dmgacu_3'))])
 lib_skill.set(61, [createSkill(8, 16, 0, lib_describe.get('grenade_4.5'))])
@@ -1571,3 +1573,4 @@ lib_skill.set(2027, [
   createSkill(0, 10, 0, lib_describe.get('angelica')),
   createSkill(4, 12, 5, lib_describe.get('aug'))
 ]) // 安洁莉卡
+lib_skill.set(2029, [createSkill(8, 8, 0, lib_describe.get('grenade_5'))]) // 特工416

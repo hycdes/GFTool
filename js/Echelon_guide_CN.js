@@ -136,6 +136,8 @@ lib_language = {
   NAME_2025: '崔耶拉',
   NAME_2026: '库拉耶丝',
   NAME_2027: '安洁莉卡',
+  NAME_2028: '特工Vector',
+  NAME_2029: '特工416',
 
   equipNAME_0: '无装备',
   equipNAME_12: '光瞄',

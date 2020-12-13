@@ -2,6 +2,16 @@
 function compare_dps(pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // dps比较函数
 function is_property(str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield'); } // 是否是一种属性增益
 function is_in_affect_of(stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; } // stand_b是否在stand_a的人形的影响格上
+function is_in_list(num, list) {
+  var is_in = false
+  for (var ele of list) {
+    if (ele === num) {
+      is_in = true
+      break
+    }
+  }
+  return is_in
+}
 function is_this(stand_num, ID) { return list_tdoll[stand_num][1].ID === ID } // stand_num处是否是编号为ID的人形
 function is_stand(stand_num) { return list_tdoll[stand_num][1] != null } // 某位置上是否有人形
 function is_int(num) { return (parseFloat(num) - parseInt(num)) === 0 } // 是否是整数
@@ -622,6 +632,27 @@ function init_loadPrepareStatus() { // 初始化战前属性
       else if (is_this(i, 319)) { // pm1910
         _spS('pm1910_skillon_' + i, false) // 是否有技能子弹
         _spS('pm1910_left_' + i, 0) // 剩余子弹，技能开启计算
+      }
+      else if (is_this(i, 1071)) { // 加利尔MOD
+        var standlist = [], supportnum = 0
+        _spS('is_galil_exist', i)
+        _spS('galil_affectblock', [])
+        _spS('galil_tempacu', get_property(i, 'acu'))
+        for (var stn = 0; stn < 9; stn++) {
+          if (gs_tdoll[stn]) {
+            if (is_this_type(stn, 2) || is_this_type(stn, 3)) {
+              supportnum++
+            }
+          }
+          if (is_in_affect_of(i, stn)) {
+            standlist = _spG('galil_affectblock')
+            if (!is_in_list(stn, standlist)) {
+              standlist.push(stn)
+              _spS('galil_affectblock', standlist)
+            }
+          }
+        }
+        _spS('galil_supportnum', supportnum)
       }
       else if (is_this(i, 1122)) { // g11 mod
         _spS('g11_layer_' + i, 0) // G11攻击次数

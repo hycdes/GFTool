@@ -728,6 +728,11 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               multilayer_process('rico_dmg_' + stand_num, 'add', ['dmg', 0.15, 150])
             }
           }
+          // ====================计算前特殊处理====================
+          if (_spG('is_galil_exist') != undefined) {
+            _spS('galil_tempacu', get_property(_spG('is_galil_exist'), 'acu')) // 更新加利尔MOD实时命中值
+          }
+          // ====================计算前特殊处理====================
           // 子弹抵达———————————————————————————————————————————————————————————————————————————————————————————————————
           recordData(stand_num, current_time, 0)
           // 计算BUFF———————————————————————————————————————————————————————————————————————————————————————————————————
