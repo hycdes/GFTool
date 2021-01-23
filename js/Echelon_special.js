@@ -216,6 +216,12 @@ function settle_buff(stand_num, info_self, skillname) {
             if (_spG('pm1910_left_' + stand_num) <= 12) _mul_acu *= 1.8
         }
     }
+    else if (is_this(stand_num, 329)) { // SVCh被动
+        _mul_dmg *= Math.pow(
+            1.1,
+            parseInt(document.getElementById('special_329_energy_' + stand_num).innerHTML)
+        )
+    }
     else if (is_this(stand_num, 1005)) { // nagant revolver mod
         if (Set_Special.get('m1895_' + stand_num) === 0) { // reload 7x
             changeStatus(stand_num, 'all', 'dmg', '0.1', 4)
@@ -542,7 +548,9 @@ function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {
         }
     }
 
-    if (_spG('is_galil_exist') != undefined) {
+    // 其它命中
+
+    if (_spG('is_galil_exist') != undefined) { // 加利尔影响格队友+10%自身命中
         if (is_in_affect_of(_spG('is_galil_exist'), stand_num)) { // 在加利尔MOD影响格内
             if (is_this_type(stand_num, 2) || is_this_type(stand_num, 3)) { // 是AR或SMG
                 acu += 0.1 * _spG('galil_tempacu')
@@ -557,7 +565,7 @@ function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {
 function settle_crit(stand_num, info_self, list_buff) {
     var crit_rate = info_self.get('crit')
     // 特殊暴击率加成
-    if (is_this(stand_num, 1071)) {
+    if (is_this(stand_num, 1071)) { // 加利尔自身暴击率加成
         if (_spG('galil_tempacu') > enemy_eva) {
             crit_rate = Math.min(1, crit_rate + 0.002 * (_spG('galil_tempacu') - enemy_eva))
         }
@@ -650,6 +658,11 @@ function settle_ignoreaccuracy(stand_num, info_self, info_enemy, final_dmg) {
                 Math.min(0.02 * parseInt(document.getElementById('special_1122_' + stand_num).value), 3 * info_self.get('dmg')) // 至多3倍战时火力或敌人生命上限2%
                 + _para_arm) // 20%火力
             final_dmg += extra_dmg
+        }
+    }
+    else if (is_this(stand_num, 329)) { // SVCh
+        if (_spG('svch_frame_' + stand_num) >= global_frame) {
+            final_dmg += 150 * enemy_form
         }
     }
     return final_dmg

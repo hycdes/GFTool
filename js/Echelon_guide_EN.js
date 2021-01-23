@@ -207,6 +207,7 @@ lib_language = {
   skillNAME_252: 'Concussive Strike',
   LAYER_302: '距离倍率',
   skillNAME_306: 'Blazar',
+  LAYER_329: '常驻切换目标增伤层数',
   skillNAME_1124: '后发狙击',
   LAYER_1124: '蓄力层数',
   DESCRIBE_1124: '敌人血量低于50%',

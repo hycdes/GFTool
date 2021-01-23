@@ -194,6 +194,7 @@ function changeSelectItems() {
       str_items += '<option value=1026>No.26 [MOD] MP5</option>'
       str_items += '<option value=1101>No.101 [MOD] UMP9</option>'
       str_items += '<option value=1103>No.103 [MOD] UMP45</option>'
+      str_items += '<option value=1136>No.136 [MOD] PP-19</option>'
       str_items += '<option value=2013>No.EX13 ' + lib_language.NAME_2013 + '</option>'
       str_items += '<option value=2023>No.EX23 ' + lib_language.NAME_2023 + '</option>'
     } else if (num_star === 4) {
@@ -269,6 +270,7 @@ function changeSelectItems() {
       str_items += '<option value=296>No.296 SL8</option>'
       str_items += '<option value=312>No.312 VSK-94</option>'
       str_items += '<option value=316>No.316 ' + lib_language.NAME_316 + '</option>'
+      str_items += '<option value=329>No.329 SVCh</option>'
       str_items += '<option value=1039>No.39 [MOD] ' + lib_language.NAME_39 + '</option>'
       str_items += '<option value=1252>No.252 [MOD] KSVK</option>'
       str_items += '<option value=2004>No.EX4 ' + lib_language.NAME_2004 + '</option>'
@@ -612,6 +614,7 @@ function changeEquip() {
       if (ID === 1094) str_items += '<option value=11094>' + lib_language.equipNAME_11094 + '</option>'
       if (ID === 1101) str_items += '<option value=11101>AMP COMPSP</option>'
       if (ID === 1103) str_items += '<option value=11103>' + lib_language.equipNAME_11103 + '</option>'
+      if (ID === 1136) str_items += '<option value=11136>pt-3后托</option>'
       if (ID === 2023) str_items += '<option value=12023>' + lib_language.equipNAME_12023 + '</option>'
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=34>' + lib_language.equipNAME_34 + '</option>'

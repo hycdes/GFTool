@@ -513,6 +513,11 @@ function describe_vhs() { // VHS
   Describe.name = 'vhs'
   return Describe
 }
+function describe_svch() { // SVCh
+  var Describe = {}
+  Describe.name = 'svch'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -871,6 +876,7 @@ lib_describe.set('ro635mod', describe_ro635mod()) // 正义审判：判断技能
 lib_describe.set('generalliu', describe_generalliu()) // 同仇敌忾
 lib_describe.set('pm1910', describe_pm1910()) // 杀意弥散
 lib_describe.set('vhs', describe_vhs()) // 析构入侵
+lib_describe.set('svch', describe_svch()) // 甘糖响应
 
 // lib_skill
 
@@ -1292,6 +1298,7 @@ lib_skill.set(312, [
   createSkill(5, 8, 0, lib_describe.get('vsk94buff'))
 ]) // VSK-94
 lib_skill.set(316, [createSkill(1, -1, 0, lib_describe.get('generalliu'))]) // 刘氏步枪，所有特性走攻击判定
+lib_skill.set(329, [createSkill(5, 8, 5, lib_describe.get('svch'))]) // SVCh逻辑独立书写
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
 lib_skill.set(1252, [createSkill(9, 16, 0, lib_describe.get('snipe_5'))])
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————

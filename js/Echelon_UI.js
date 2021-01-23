@@ -503,6 +503,7 @@ function resetEquipment() {
       else if (ID === 1031) set_equip = [31, 21, 11031] // beleta mod
       else if (ID === 1093) set_equip = [31093, 21, 11] // IDW mod
       else if (ID === 1094) set_equip = [32, 21, 11094] // 64type mod
+      else if (ID === 1136) set_equip = [32, 21, 11136] // PP-19 mod
       else if (ID === 1143) set_equip = [31143, 21, 11] // RO635 mod
       else if (ID === 2013) set_equip = [31, 22013, 11] // Dorothy
       else if (ID === 2023) set_equip = [32, 21, 12023] // Henrietta
@@ -948,6 +949,7 @@ function addTdoll() { // 添加战术人形
     // 类型4：能量条
     else if (ID === 231) addSpecialSetting(231, reverse_position, num_pickblock, 'energy', 4, 4, -1, 'FF6666') // M82A1
     else if (ID === 302) addSpecialSetting(302, reverse_position, num_pickblock, 'energy', 4, 4, 0, '33FF99') // 防卫者
+    else if (ID === 329) addSpecialSetting(329, reverse_position, num_pickblock, 'energy', 4, 4, 0, '33FF99') // SVCh
     else if (ID === 1053) { // NTW-20 MOD
       addSpecialSetting(1053, reverse_position, num_pickblock, 'energy', 7, 1, 0, '6666FF')
       addSpecialSetting('append_1053', reverse_position, num_pickblock, 'multiplecheck', 2, ['checked', 'checked'])
@@ -1017,7 +1019,8 @@ function addSpecialSetting() { // ID,_position,_type
     // SMG
     [213, 'C-MS'], [315, 'AUG Para'],
     // RF
-    [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256], [316, lib_language.NAME_316], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
+    [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256],
+    [316, lib_language.NAME_316], [329, 'SVCh'], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
     // MG
     [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
     // SG

@@ -367,6 +367,8 @@ lib_affect.set(319, createAffect('r/rd/rrd/', 'sg', ['dmg', 'arm'], [0.1, 0.15])
 
 lib_affect.set(323, createAffect('l/ll/lu/llu/ld/lld/', 'mg', ['dmg', 'acu'], [0.1, 0.15])) // LTLX7000
 
+lib_affect.set(329, createAffect('r/ru/ruu/', 'hg', ['cld'], [0.18])) // SVCh
+
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -403,6 +405,7 @@ lib_affect.set(1101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改
 lib_affect.set(1122, createAffect('r/rd/', 'smg', ['dmg', 'eva'], [0.35, 0.12])) // G11 改
 lib_affect.set(1124, createAffect('u/ru/', 'hg', ['cld'], [0.15])) // Super SASS改
+lib_affect.set(1136, createAffect('l/ld/', 'ar', ['dmg', 'acu'], [0.25, 0.15])) // PP-19改
 lib_affect.set(1143, createAffect('u/lu/l/ld/d/', 'ar', ['rof', 'acu'], [0.15, 0.4])) // RO635改
 lib_affect.set(1161, createAffect('l/ll/llu/lld/', 'mg', ['dmg'], [0.15])) // 97式霰改
 lib_affect.set(1221, createAffect('u/lu/l/ld/d/r/', 'all', ['dmg', 'acu'], [0.3, 0.4])) // GSh-18改
@@ -746,6 +749,8 @@ lib_property.set(319, createProperty(90, 27, 25, 104, 0, 950, 0.05, 10)) // PM19
 
 lib_property.set(323, createProperty(23, 14, 11, 28, 25, 1375, 0.4, 5)) // LTLX7000
 
+lib_property.set(329, createProperty(144, 97, 30, 35, 0, 435, 0.4, -1)) // SVCh
+
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
 lib_property.set(1002, createProperty(29, 52, 78, 58, 0, 375, 0.2, -1))
@@ -782,9 +787,10 @@ lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9
 lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45 MOD
 lib_property.set(1122, createProperty(48, 48, 44, 97, 0, 620, 0.2, -1)) // G11 MOD
 lib_property.set(1124, createProperty(125, 73, 31, 40, 0, 455, 0.4, -1)) // supersass MOD
+lib_property.set(1136, createProperty(28, 14, 80, 91, 0, 950, 0.05, -1)) // PP-19 MOD
+lib_property.set(1143, createProperty(29, 15, 77, 97, 0, 1040, 0.05, -1)) // RO635 MOD
 lib_property.set(1161, createProperty(37, 13, 14, 28, 22, 1355, 0.4, 3)) // 97shorgun MOD
 lib_property.set(1221, createProperty(34, 53, 90, 58, 0, 370, 0.2, -1)) // GSh-18
-lib_property.set(1143, createProperty(29, 15, 77, 97, 0, 1040, 0.05, -1)) // RO635
 lib_property.set(1252, createProperty(163, 85, 30, 32, 0, 450, 0.4, -1)) // KSVK MOD
 // EXTRA
 lib_property.set(2001, createProperty(39, 60, 82, 65, 0, 300, 0.2, -1))
@@ -873,10 +879,11 @@ lib_property_equip.set(11064, createProperty_equip(0, 8, 0, 0, 0, 0.48, 0, 0, 0,
 lib_property_equip.set(11075, createProperty_equip(0, 30, 0, -1, 0, 0.1, 0, 0, 0, 0))
 lib_property_equip.set(11094, createProperty_equip(0, 0, 15, 0, 0, 0.2, 0, 0, 0, 0)) // 64type mod
 lib_property_equip.set(11095, createProperty_equip(5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0)) // hanyang88
-lib_property_equip.set(11124, createProperty_equip(10, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // supersass
 lib_property_equip.set(11097, createProperty_equip(0, 0, 20, 0, 0, 0.2, 0, 0, 0, 0)) // m950a
 lib_property_equip.set(11101, createProperty_equip(10, 14, 0, -3, 0, 0, 0, 0, 0, 0)) // ump9
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0)) // ump45
+lib_property_equip.set(11124, createProperty_equip(10, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // supersass
+lib_property_equip.set(11136, createProperty_equip(4, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // pp19
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(2158, createProperty_equip(18, 4, 0, 0, 0, 0, 0.27, 0, 0, 0)) // ks-23
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // m1911

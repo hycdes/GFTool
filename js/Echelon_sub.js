@@ -633,6 +633,9 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('pm1910_skillon_' + i, false) // 是否有技能子弹
         _spS('pm1910_left_' + i, 0) // 剩余子弹，技能开启计算
       }
+      else if (is_this(i, 329)) { // SVCh
+        _spS('svch_frame_' + i, 0) // 技能到期帧
+      }
       else if (is_this(i, 1071)) { // 加利尔MOD
         var standlist = [], supportnum = 0
         _spS('is_galil_exist', i)
