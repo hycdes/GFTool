@@ -448,6 +448,7 @@ function reactAllSkill(command, current_time) {
     }
   }
   // ———————————————————————————————————————— 随时检查型人形特殊状态 ————————————————————————————————————————
+  // 该部分为每一帧都要检查部分状态是否结束的特殊技能
   for (var k = 0; k < 9; k++) {
     if (gs_tdoll[k]) {
       if (is_this(k, 257) || is_this(k, 273)) { // m200 ssg3000
@@ -540,6 +541,11 @@ function reactAllSkill(command, current_time) {
         if (global_frame >= _spG('vhs_nextlayer_' + k)) {
           if (_spG('vhs_layernum_' + k) < 10) _spPlus('vhs_layernum_' + k)
           _spPlus('vhs_nextlayer_' + k, 30)
+        }
+      }
+      else if (is_this(k, 330)) { // FX-05检查主动是否开启
+        if (_spG('fx05_deleterof_' + k) < global_frame) {
+          _empty_layer('fx05_rof_' + k)
         }
       }
       else if (is_this(k, 2011)) { // jill醉酒状态施加
@@ -770,6 +776,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
         }
       }
 
+      // 【SEARCH】 攻击间隔结算
       // 攻击间隔或者换弹判断————————————————————————————————————————————————————
 
       if (is_this(stand_num, 266)) { // r93强运扳机层数退去
@@ -888,11 +895,21 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               final_rof += vhs_rof
             }
           }
+          else if (is_this(stand_num, 330)) { // FX-05层数计算射速
+            if (_spG('fx05_deleterof_' + stand_num) >= global_frame) { // 技能期
+              var buffnum = multilayer_process('fx05_rof_' + stand_num, 'get')
+              if (buffnum > 8) buffnum = 8
+              final_rof *= Math.pow(1.05, buffnum)
+            }
+            //console.log(global_frame, final_rof)
+          }
+
           // 正常攻击射击间隔
           if (skillname === 'attack') s_t[1] = rof_to_frame(current_Info.get('type'), final_rof, list_tdoll[stand_num][1].ID) - 1
           else { // 刘氏步枪傀儡的射速判断
             s_t[1] = rof_to_frame(current_Info.get('type'), final_rof * 0.6, list_tdoll[stand_num][1].ID) - 1
           }
+
         }
         // —————————————————————————————————————— MG和SG扣除子弹 ——————————————————————————————————————
       } else {
@@ -2094,12 +2111,36 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     _spS('vhs_acu_' + stand_num, list_value[2])
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'ar57') {
+    if (_spG('ar57_standnumber_' + stand_num) > 2) {
+      changeStatus(stand_num, 'self', 'dmg', 0.15, 2)
+      changeStatus(stand_num, 'bloall', 'dmg', 0.15, 2)
+    }
+    else {
+      changeStatus(stand_num, 'self', 'eva', 0.4, 2)
+      changeStatus(stand_num, 'bloall', 'eva', 0.4, 2)
+    }
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
   else if (skillname === 'svch') {
     _spS('svch_frame_' + stand_num, global_frame + 150)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'fx05') {
+    multilayer_process('fx05_rof_' + stand_num, 'add', ['rof', 0.05, 450])
+    _spS('fx05_deleterof_' + stand_num, global_frame + 450)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
 
   // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+  // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+
   if (debug_mode && (debug_function[0] || debug_function[1])) {
     if (fire_status === 'stop' && skillname === 'attack') {
       true // log nothing
@@ -2254,8 +2295,15 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
               new_property += status[0][1]
             } else {
               new_property = new_property * status[0][1]
-              if (not_init && is_this(i, 1060) && status[0][0] === 'dmg') { // asval 信念
-                _spS('asval_' + i, global_frame + 90)
+              if (not_init && status[0][0] === 'dmg') { // 非初始化阶段下，受到火力增益
+                if (is_this(i, 1060)) { // asval 信念
+                  _spS('asval_' + i, global_frame + 90)
+                } else if (is_this(i, 330)) { // FX-05 群蛇狩猎
+                  // 注意，射速实际有效性在攻击间隔计算之中
+                  if (_spG('fx05_deleterof_' + i) >= global_frame) {
+                    multilayer_process('fx05_rof_' + i, 'add', ['rof', 0.05, 450]) // 累积一层被动
+                  }
+                }
               }
             }
           }
@@ -2280,8 +2328,15 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
           new_property += _value
         } else {
           new_property = new_property * _value
-          if (not_init && is_this(stand_num, 1060) && status[0][0] === 'dmg') { // asval 信念
-            _spS('asval_' + stand_num, global_frame + 90)
+          if (not_init && status[0][0] === 'dmg') { // 非初始化阶段下，受到火力增益
+            if (is_this(stand_num, 1060)) { // asval 信念
+              _spS('asval_' + stand_num, global_frame + 90)
+            } else if (is_this(stand_num, 330)) { // FX-05 群蛇狩猎
+              // 注意，射速实际有效性在攻击间隔计算之中
+              if (_spG('fx05_deleterof_' + stand_num) >= global_frame) {
+                multilayer_process('fx05_rof_' + stand_num, 'add', ['rof', 0.05, 450]) // 累积一层被动
+              }
+            }
           }
         }
       }

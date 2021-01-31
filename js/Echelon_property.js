@@ -367,7 +367,9 @@ lib_affect.set(319, createAffect('r/rd/rrd/', 'sg', ['dmg', 'arm'], [0.1, 0.15])
 
 lib_affect.set(323, createAffect('l/ll/lu/llu/ld/lld/', 'mg', ['dmg', 'acu'], [0.1, 0.15])) // LTLX7000
 
+lib_affect.set(328, createAffect('d/lu/l/ld/', 'ar/smg', ['dmg', 'eva'], [0.2, 0.15])) // AR-57
 lib_affect.set(329, createAffect('r/ru/ruu/', 'hg', ['cld'], [0.18])) // SVCh
+lib_affect.set(330, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.1])) // FX-05
 
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
@@ -749,7 +751,9 @@ lib_property.set(319, createProperty(90, 27, 25, 104, 0, 950, 0.05, 10)) // PM19
 
 lib_property.set(323, createProperty(23, 14, 11, 28, 25, 1375, 0.4, 5)) // LTLX7000
 
+lib_property.set(328, createProperty(26, 14, 74, 92, 0, 915, 0.05, -1)) // AR-57
 lib_property.set(329, createProperty(144, 97, 30, 35, 0, 435, 0.4, -1)) // SVCh
+lib_property.set(330, createProperty(54, 55, 47, 69, 0, 550, 0.2, -1)) // FX-05
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))

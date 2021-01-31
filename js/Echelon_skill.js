@@ -513,9 +513,19 @@ function describe_vhs() { // VHS
   Describe.name = 'vhs'
   return Describe
 }
+function describe_ar57() { // AR-57
+  var Describe = {}
+  Describe.name = 'ar57'
+  return Describe
+}
 function describe_svch() { // SVCh
   var Describe = {}
   Describe.name = 'svch'
+  return Describe
+}
+function describe_fx05() { // FX-05
+  var Describe = {}
+  Describe.name = 'fx05'
   return Describe
 }
 
@@ -641,6 +651,7 @@ lib_describe.set('rof_50', describe_property(['self'], ['rof'], ['0.5'])) // 突
 lib_describe.set('rof_45', describe_property(['self'], ['rof'], ['0.45'])) // 突击专注 45%
 lib_describe.set('rof_40', describe_property(['self'], ['rof'], ['0.4'])) // 突击专注 40%
 lib_describe.set('rof_25', describe_property(['self'], ['rof'], ['0.25'])) // 自我气焰 25%
+lib_describe.set('rof_5', describe_property(['self'], ['rof'], ['0.05'])) //  群蛇狩猎-技能开启时 5%
 lib_describe.set('mp7_rof', describe_property(['self'], ['rof'], ['-0.2'])) // 弦月舞者 -20%
 lib_describe.set('rofN_100', describe_propertyN(['self'], ['rof'], ['1'])) // 突击专注N 100%
 lib_describe.set('rofND_32', describe_propertyND(['self'], ['rof'], ['0.32'])) // 突击专注ND 32%
@@ -876,7 +887,9 @@ lib_describe.set('ro635mod', describe_ro635mod()) // 正义审判：判断技能
 lib_describe.set('generalliu', describe_generalliu()) // 同仇敌忾
 lib_describe.set('pm1910', describe_pm1910()) // 杀意弥散
 lib_describe.set('vhs', describe_vhs()) // 析构入侵
+lib_describe.set('ar57', describe_ar57()) // 复合改装
 lib_describe.set('svch', describe_svch()) // 甘糖响应
+lib_describe.set('fx05', describe_fx05()) // 群蛇狩猎
 
 // lib_skill
 
@@ -1104,6 +1117,10 @@ lib_skill.set(237, [createSkill(4, 16, 6, lib_describe.get('aug'))])
 lib_skill.set(262, [createSkill(6, 16, 0, lib_describe.get('em2'))])
 lib_skill.set(288, [createSkill(5, 8, 5, lib_describe.get('dmg_60'))])
 lib_skill.set(297, [createSkill(6, 16, 5, lib_describe.get('tar21'))])
+lib_skill.set(330, [
+  createSkill(2, 16, 15, lib_describe.get('dmg_40')),
+  createSkill(2, 16, 15, lib_describe.get('fx05')) // 记录初始层数和清空时刻
+])
 lib_skill.set(1061, [createSkill(8, 16, 0, lib_describe.get('grenade_9.6'))]) // 后续详细做
 lib_skill.set(1063, [createSkill(8, 16, 0, lib_describe.get('grenade_12'))])
 lib_skill.set(1071, [createSkill(5, 16, 15, lib_describe.get('acu_550'))])
@@ -1172,6 +1189,7 @@ lib_skill.set(259, [
   createSkill(6, 8, 5, lib_describe.get('pm9')),
   createSkill(6, 8, 5, lib_describe.get('pm9_buff'))
 ])
+lib_skill.set(311, []) // Lusa 技能没写
 lib_skill.set(315, []) // AUG Para
 lib_skill.set(1026, [
   createSkill(8, 16, 4, lib_describe.get('ffs')), // 力场盾
@@ -1210,6 +1228,7 @@ lib_skill.set(286, [
 ]) // KAC-PDW
 lib_skill.set(295, [createSkill(5, 16, 6, lib_describe.get('cf05'))]) // cf05
 lib_skill.set(304, [createSkill(4, 8, 0, lib_describe.get('hand_grenade_3'))]) // SAF
+lib_skill.set(328, [createSkill(3, 3, 0, lib_describe.get('ar57'))]) // AR-57
 lib_skill.set(1029, [createSkill(3, 16, 0, lib_describe.get('hand_grenade_6.5'))]) // sten mod
 lib_skill.set(1031, [  // beretta mod
   createSkill(7, 16, 0, lib_describe.get('flash_4')),

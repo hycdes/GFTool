@@ -1,7 +1,7 @@
 // lable_judge
 function compare_dps(pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // dps比较函数
 function is_property(str) { return (str === 'dmg' || str === 'acu' || str === 'eva' || str === 'rof' || str === 'arm' || str === 'crit' || str === 'critdmg' || str === 'cs' || str === 'ap' || str === 'ff' || str === 'shield'); } // 是否是一种属性增益
-function is_in_affect_of(stand_a, stand_b) { return Set_Base.get(stand_a).Area[stand_b]; } // stand_b是否在stand_a的人形的影响格上
+function is_in_affect_of(admin, guest) { return Set_Base.get(admin).Area[guest]; } // stand_b是否在stand_a的人形的影响格上
 function is_in_list(num, list) {
   var is_in = false
   for (var ele of list) {
@@ -553,6 +553,9 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('89_auto_' + i, 0)
       } else if (is_this(i, 307)) { // ZB-26
         _spS('zb26_reload_' + i, 0)
+      } else if (is_this(i, 330)) { // FX-05
+        _spS('fx05_rof_' + i, [])
+        _spS('fx05_deleterof_' + i, 0) // 清空被动时刻，此时刻之前才能累积射速buff
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         _spS('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动
@@ -632,6 +635,14 @@ function init_loadPrepareStatus() { // 初始化战前属性
       else if (is_this(i, 319)) { // pm1910
         _spS('pm1910_skillon_' + i, false) // 是否有技能子弹
         _spS('pm1910_left_' + i, 0) // 剩余子弹，技能开启计算
+      }
+      else if (is_this(i, 328)) { // AR-57
+        var counter_ar57 = 0
+        for (var stn = 0; stn < 9; stn++) {
+          if (gs_tdoll[stn] && stn != i)
+            if (is_in_affect_of(i, stn)) counter_ar57++
+        }
+        _spS('ar57_standnumber_' + i, counter_ar57)
       }
       else if (is_this(i, 329)) { // SVCh
         _spS('svch_frame_' + i, 0) // 技能到期帧
@@ -1041,9 +1052,9 @@ function debug_addinfo() {
 }
 
 function multilayer_process(special_id, command) { // 多层buff生效数层处理
-  // new_layer: [property_type,value,duration]
+  // new_layer: [property_type,value,duration_frame]
   // layer: [property_type,value,lifetime]
-  if (command === 'add') {
+  if (command === 'add') { // multilayer_process(special_id,'add',['type',value,duration_frame])
     var layers = _spG(special_id),
       new_layer = arguments['2']
     new_layer[2] += global_frame // transfer duration to lifetime

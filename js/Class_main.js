@@ -32,7 +32,7 @@ var lib_name = {
   t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
   t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t290: '89式自', t306: 'AK-Alfa', t318: 'VHS',
   t1061: 'StG44 MOD', t1063: 'G3 MOD', t1071: '加利尔 MOD',
-  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR',
+  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR', t330: 'FX-05',
   t70: 'FNC', t298: 'Vepr',
   // —————————————— SMG ——————————————
   t2019: '多萝西·海兹', t2023: '海莉艾塔', t2028: '特工Vector',
@@ -40,7 +40,7 @@ var lib_name = {
   t1026: 'MP5 MOD', t1101: 'UMP9 MOD', t1103: 'UMP45 MOD', t1136: 'PP-19 MOD',
   t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9', t311: 'Lusa', t315: 'AUG Para',
   t1029: '司登MkⅡ MOD', t1031: '伯莱塔38型 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
-  t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW',
+  t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW', t328: 'AR-57',
   t27: '蝎式', t29: '司登MkⅡ',
   // —————————————— RF ——————————————
   t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井', t2024: '莉可',
@@ -134,7 +134,7 @@ var lib_tdoll = [
   create_entry([2, 5, 172], ['dps'], ['front', 'back'], ['forcus_dmg', 'forcus_acu'], []),
   create_entry([2, 5, 175], ['dps', 'skilldps'], ['front'], ['forcus_dmg', 'forcus_rof'], []),
   create_entry([2, 5, 181], ['dps'], ['front'], ['forcus_dmg', 'forcus_crit'], ['night']),
-  create_entry([2, 5, 194], ['dps', 'startdps', 'af_dmg'], ['front'], ['status'], []),
+  create_entry([2, 5, 194], ['dps', 'startdps', 'af_dmg'], ['front'], ['forcus_dmg', 'multihit', 'status'], []),
   create_entry([2, 5, 196], ['dps', 'startdps'], ['front'], ['grenade', 'forcus_dmg'], ['laomo']),
   create_entry([2, 5, 205], ['dps'], ['front'], ['passive', 'multihit'], []),
   create_entry([2, 5, 206], ['dps', 'af_dmg'], ['front', 'suggest_7'], ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], []),
@@ -170,6 +170,7 @@ var lib_tdoll = [
   create_entry([2, 4, 237], ['dps'], ['front'], ['fastcd', 'sweep', 'rofstatic'], []),
   create_entry([2, 4, 262], ['dps'], ['front'], ['snipe'], ['skillcrit', 'skillarm']),
   create_entry([2, 4, 288], ['dps'], ['front'], ['forcus_dmg'], []),
+  create_entry([2, 4, 330], ['dps', 'longfill'], ['front'], ['forcus_dmg', 'forcus_rof', 'fastcd', 'passive'], []),
   create_entry([2, 3, 70], ['dps'], ['front'], ['forcus_dmg'], ['mengxin']),
   create_entry([2, 3, 298], ['supportdps', 'af_dmg'], ['front'], ['command_dmg', 'command_rof', 'command_acu'], ['burstsupport']),
   // —————————————— SMG ——————————————
@@ -216,6 +217,7 @@ var lib_tdoll = [
   create_entry([3, 4, 225], ['tank_eva'], ['random'], ['forcus_acu', 'forcus_eva'], []),
   create_entry([3, 4, 280], ['tank_eva', 'af_dmg'], ['random', 'suggest_8'], ['forcus_dmg', 'forcus_eva'], []),
   create_entry([3, 4, 286], ['tank_eva'], ['random'], ['ffshield'], ['purify']),
+  create_entry([3, 4, 328], ['tank_eva'], ['random'], ['command_dmg', 'command_eva', 'fastcd'], []),
   create_entry([3, 3, 27], ['dps', 'tank_eva'], ['random'], ['incendinary'], ['mengxin']),
   create_entry([3, 3, 29], ['tank_eva'], ['random'], ['handgrenade'], ['mengxin']),
   // —————————————— RF ——————————————
@@ -324,6 +326,7 @@ var lib_tdoll = [
 var list_decline = [ // 调整规则
   [102, ['forcus_eva'], [50 / 150]], // UMP40
   [184, ['forcus_rof'], [50 / 75]], // t5000
+  [194, ['forcus_dmg'], [0.25 / 0.75]], // K2
   [197, ['forcus_rof'], [17 / 75]], // carcano
   [206, ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], [0.467, 0.467, 0.467, 0.467]], // AK-12
   [207, ['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_crit'], [65 / 150, 50 / 150, 0.5, 0.5]], // CZ2000
@@ -338,6 +341,7 @@ var list_decline = [ // 调整规则
   [285, ['command_dmg', 'command_rof'], [18 / 25, 16 / 25]], // C-93
   [287, ['forcus_dmg', 'forcus_rof'], [50 / 75, 50 / 75]], // SIG-556
   [316, ['forcus_dmg', 'forcus_rof'], [0.2 / 0.75, 0.2 / 0.75]], // general liu
+  [330, ['forcus_rof'], [0.1 / 0.75]], // FX-05
   [1001, ['command_rof'], [0.48]], // colt (12/25)
   [1026, ['forcus_eva'], [0.5]], // mp5
   [1039, ['forcus_dmg', 'forcus_rof'], [0.7, 20 / 75]], // mosin
