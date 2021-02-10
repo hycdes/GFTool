@@ -528,6 +528,11 @@ function describe_fx05() { // FX-05
   Describe.name = 'fx05'
   return Describe
 }
+function describe_kolibri() { // Kolibri
+  var Describe = {}
+  Describe.name = 'kolibri'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -890,6 +895,7 @@ lib_describe.set('vhs', describe_vhs()) // 析构入侵
 lib_describe.set('ar57', describe_ar57()) // 复合改装
 lib_describe.set('svch', describe_svch()) // 甘糖响应
 lib_describe.set('fx05', describe_fx05()) // 群蛇狩猎
+lib_describe.set('kolibri', describe_kolibri()) // 蜂鸟共鸣
 
 // lib_skill
 
@@ -930,6 +936,7 @@ lib_skill.set(303, [
   createSkill(6, 12, 6, lib_describe.get('hp35')), // HP-35 主动
   createSkill(0, 0, 0, lib_describe.get('hp35_passive')), // HP-35 被动
 ]) // hp-35
+lib_skill.set(331, [createSkill(0, 12, 0, lib_describe.get('kolibri'))]) // 蜂鸟
 lib_skill.set(1001, [
   createSkill(6, 12, 8, lib_describe.get('com_dmg_25')),
   createSkill(4, 4, -1, lib_describe.get('colt'))
@@ -1353,6 +1360,10 @@ lib_skill.set(1044, [
   createSkill(10, 16, 0, lib_describe.get('snipe_7.08')),
   createSkill(3, -1, 7, lib_describe.get('sv98')),
   createSkill(13, 16, 13, lib_describe.get('sv98'))
+])
+lib_skill.set(1049, [
+  createSkill(5, 8, 5, lib_describe.get('dmg_65'))
+  // 被动在特殊设定
 ])
 lib_skill.set(1051, [
   createSkill(5, 8, 5, lib_describe.get('dmg_65')),

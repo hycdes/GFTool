@@ -453,7 +453,8 @@ function resetEquipment() {
       else if (ID === 1007) set_equip = [17, 21, 31007] // stechkin mod
       else if (ID === 1012) set_equip = [11012, 21, 32] // c96 mod
       else if (ID === 1091) set_equip = [11091, 21, 32] // mp446 mod
-      else if (ID === 1097) set_equip = [11097, 21, 32] // mp446 mod
+      else if (ID === 1097) set_equip = [11097, 21, 32] // m950a mod
+      else if (ID === 1114) set_equip = [11, 21, 31114] // welrod mod
       else if (ID === 1221) set_equip = [11, 21221, 31] // ghs-18 mod
       else if (ID === 2009) set_equip = [42009, 21, 32] // clear
       else if (ID === 2010) set_equip = [42010, 21, 32] // fail
@@ -519,6 +520,7 @@ function resetEquipment() {
       else if (ID === 1039) set_equip = [11039, 23, 31039] // mosin mod
       else if (ID === 1037) set_equip = [11037, 23, 34] // m14 mod
       else if (ID === 1044) set_equip = [12, 23, 31044] // sv98 mod
+      else if (ID === 1049) set_equip = [12, 21049, 34] // type56 mod
       else if (ID === 1051) set_equip = [11051, 23, 34] // fn49 mod
       else if (ID === 1053) set_equip = [12, 21053, 34] // ntw20 mod
       else if (ID === 1095) set_equip = [11095, 23, 34] // hanyang88 mod
@@ -581,7 +583,7 @@ function changePreview() { // 改变预览显示，也会改变装备对应全�
     set_equip[num_pickequip - 1] = ID_equip
   }
   // 刷新人物和装备显示
-  document.getElementById('img_display').style = 'background: url(../img/echelon/tdoll/' + ID + '.png)'
+  document.getElementById('img_display').style = 'background: url(../img/echelon/tdoll/' + ID + '.png);background-size:120px'
   document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
   document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
   document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
@@ -950,6 +952,15 @@ function addTdoll() { // 添加战术人形
     else if (ID === 231) addSpecialSetting(231, reverse_position, num_pickblock, 'energy', 4, 4, -1, 'FF6666') // M82A1
     else if (ID === 302) addSpecialSetting(302, reverse_position, num_pickblock, 'energy', 4, 4, 0, '33FF99') // 防卫者
     else if (ID === 329) addSpecialSetting(329, reverse_position, num_pickblock, 'energy', 4, 4, 0, '33FF99') // SVCh
+    else if (ID === 331) {
+      addSpecialSetting(331, reverse_position, num_pickblock, 'description', ['蜂鸟<b>数量</b>决定增益效果。<br>',
+        '<span style="color:orange">1</span>/<span style="color:orange">2</span>/<span style="color:orange">3</span>只:<span style="color:orange">火力</span>+<span style="color:orange">9</span>/<span style="color:orange">16</span>/<span style="color:orange">25</span>%。<br>',
+        '<span style="color:blue">4</span>/<span style="color:blue">5</span>/<span style="color:blue">6</span>只:<span style="color:orange">火力</span>+<span style="color:orange">25</span>% <span style="color:blue">射速</span>+<span style="color:blue">5</span>/<span style="color:blue">12</span>/<span style="color:blue">25</span>%。<br>',
+        '<span style="color:red">7</span>/<span style="color:red">8</span>/<span style="color:red">9</span>只:<span style="color:orange">火力</span>+<span style="color:orange">25</span>% <span style="color:blue">射速</span>+<span style="color:blue">25</span>% <span style="color:red">暴击率</span>+<span style="color:red">20</span>/<span style="color:red">50</span>/<span style="color:red">100</span>%。<br>',
+        '选择0层代表自动技能<br>',
+        '选择10层代表不释放技能'])
+      addSpecialSetting('append_331', reverse_position, num_pickblock, 'energy', 11, 1, -1, 'FF6666') // 蜂鸟
+    }
     else if (ID === 1053) { // NTW-20 MOD
       addSpecialSetting(1053, reverse_position, num_pickblock, 'energy', 7, 1, 0, '6666FF')
       addSpecialSetting('append_1053', reverse_position, num_pickblock, 'multiplecheck', 2, ['checked', 'checked'])
@@ -961,7 +972,7 @@ function addTdoll() { // 添加战术人形
 
     // 类型5：多输入框
     else if (ID === 318) {// VHS
-      addSpecialSetting(318, reverse_position, num_pickblock, 'description', 'VHS析构属性可以填写数值，也可以填写百分比（需要在末尾带上%）。如果填写了异常值，则默认为0。')
+      addSpecialSetting(318, reverse_position, num_pickblock, 'description', ['VHS析构属性可以填写数值，也可以填写百分比（需要在末尾带上%）。如果填写了异常值，则默认为0。'])
       addSpecialSetting('append_318', reverse_position, num_pickblock, 'multipleinput', 3, ['45%', '40%', '80%'])
     }
 
@@ -1002,7 +1013,7 @@ function addTdoll() { // 添加战术人形
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
     // 前台更新
-    document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/tdoll/' + ID + '.png)'
+    document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/tdoll/' + ID + '.png);background-size:120px'
     manageUI('pick-block')
     // 计算影响格
     getBlockAffect()
@@ -1013,7 +1024,7 @@ function addTdoll() { // 添加战术人形
 function addSpecialSetting() { // ID,_position,_type
   var list_specialName = [
     // HG
-    [2006, lib_language.NAME_2006], [285, 'C-93'], [1007, lib_language.NAME_7], [1097, 'M950A [MOD]'],
+    [2006, lib_language.NAME_2006], [285, 'C-93'], [331, '蜂鸟'], [1007, lib_language.NAME_7], [1097, 'M950A [MOD]'],
     // AR
     [287, 'SIG-556'], [290, lib_language.NAME_290], [318, 'VHS'], [1065, 'HK416'],
     // SMG
@@ -1045,7 +1056,11 @@ function addSpecialSetting() { // ID,_position,_type
   // make contents
   if (_type === 'description') { //【特殊设定类型】文字描述
     _contents = arguments['4']
-    str_html += '<h5>' + _contents + '</h5>'
+    str_html += '<h5>'
+    for (var _content of _contents) {
+      str_html += _content
+    }
+    str_html += '</h5>'
   }
   else if (_type === 'singlecheck') { // 【特殊设定类型】单一勾选框
     var _skill = _skillName(ID),
@@ -1181,7 +1196,7 @@ function deleteTdoll() { // 删除战术人形
   list_tdoll[num_pickblock - 1][1] = null
   // 前台更新
   document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = ''
-  document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)'
+  document.getElementById('blockimg_' + num_pickblock).style = 'width:120px;height:120px;background:url(../img/echelon/tdoll/0.png);background-size:120px'
   // 取消选定
   pickBlock(-1)
   // 计算影响格

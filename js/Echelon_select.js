@@ -5,7 +5,8 @@ function changeSelectItems() {
     str_items += '<option value=0 selected></option>'
   } else if (set_guntype === 1) { // HG
     if (num_star === 6) {
-      str_items += '<option value=1097>No.97 M950A [MOD]</option>'
+      str_items += '<option value=1097>No.97 [MOD] M950A</option>'
+      str_items += '<option value=1114>No.114 [MOD] ' + lib_language.NAME_114 + '</option>'
     } else if (num_star === 5) {
       str_items += '<option value=4 selected>No.4 ' + lib_language.NAME_4 + '</option>'
       str_items += '<option value=96>No.96 ' + lib_language.NAME_96 + '</option>'
@@ -23,6 +24,7 @@ function changeSelectItems() {
       str_items += '<option value=285>No.285 C-93</option>'
       str_items += '<option value=294>No.294 ' + lib_language.NAME_294 + '</option>'
       str_items += '<option value=303>No.303 HP-35</option>'
+      str_items += '<option value=331>No.331 蜂鸟</option>'
       str_items += '<option value=1001>No.1 [MOD] ' + lib_language.NAME_1 + '</option>'
       str_items += '<option value=1007>No.7 [MOD] ' + lib_language.NAME_7 + '</option>'
       str_items += '<option value=2001>No.EX1 ' + lib_language.NAME_2001 + '</option>'
@@ -299,6 +301,7 @@ function changeSelectItems() {
       str_items += '<option value=317>No.317 ' + lib_language.NAME_317 + '</option>'
       str_items += '<option value=1037>No.37 [MOD] M14</option>'
       str_items += '<option value=1044>No.44 [MOD] SV-98</option>'
+      str_items += '<option value=1049>No.49 [MOD] ' + lib_language.NAME_49 + '</option>'
       str_items += '<option value=1051>No.51 [MOD] FN-49</option>'
       str_items += '<option value=1095>No.95 [MOD] ' + lib_language.NAME_95 + '</option>'
       str_items += '<option value=1124>No.124 [MOD] Super SASS</option>'
@@ -550,6 +553,7 @@ function changeEquip() {
     } else if (set_guntype === 4) { // RF
       str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
       if (ID === 36) str_items += '<option value=236>' + lib_language.equipNAME_236 + '</option>' // 春田
+      if (ID === 1049) str_items += '<option value=21049>特制曳光弹</option>' // type56
       if (ID === 1053) str_items += '<option value=21053>20mm HEI</option>' // NTW-20
       if (ID === 1252) str_items += '<option value=21252>12.7mm 1SL</option>' // KSVK
     } else if (set_guntype === 5) { // MG

@@ -548,6 +548,14 @@ function reactAllSkill(command, current_time) {
           _empty_layer('fx05_rof_' + k)
         }
       }
+      else if (is_this(k, 331)) { // 蜂鸟数更新
+        if (_spG('kolibri_nextbird_' + k) <= global_frame) {
+          if (_spG('kolibri_number_' + k) < 9) {
+            _spPlus('kolibri_number_' + k)
+            _spS('kolibri_nextbird_' + k, global_frame + 60)
+          }
+        }
+      }
       else if (is_this(k, 2011)) { // jill醉酒状态施加
         if (_spG('jill_drunk') != undefined && _spG('jill_drunk') <= global_frame) {
           changeStatus(k, 'all', 'dmg', -0.15, 3, 'unrepeat')
@@ -2131,6 +2139,36 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
     _spS('fx05_deleterof_' + stand_num, global_frame + 450)
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
+  else if (skillname === 'kolibri') { // 蜂鸟共鸣
+    if (_spG('kolibri_number_' + stand_num) < 1) true // no-bird-no-skill
+    else {
+      var birdnumber = _spG('kolibri_number_' + stand_num)
+      if (birdnumber < parseInt(document.getElementById('special_331_energy_' + stand_num).innerHTML)) true // not enough
+      // 真正执行技能
+      else {
+        if (birdnumber === 1) changeStatus(stand_num, 'all', 'dmg', 0.09, 8)
+        else if (birdnumber === 2) changeStatus(stand_num, 'all', 'dmg', 0.16, 8)
+        else if (birdnumber === 3) changeStatus(stand_num, 'all', 'dmg', 0.25, 8)
+        else {
+          changeStatus(stand_num, 'all', 'dmg', 0.25, 8)
+          if (birdnumber === 4) changeStatus(stand_num, 'all', 'rof', 0.05, 8)
+          else if (birdnumber === 5) changeStatus(stand_num, 'all', 'rof', 0.12, 8)
+          else if (birdnumber === 6) changeStatus(stand_num, 'all', 'rof', 0.25, 8)
+          else {
+            changeStatus(stand_num, 'all', 'rof', 0.25, 8)
+            if (birdnumber === 7) changeStatus(stand_num, 'all', 'crit', 0.2, 8)
+            else if (birdnumber === 8) changeStatus(stand_num, 'all', 'crit', 0.5, 8)
+            else if (birdnumber === 9) changeStatus(stand_num, 'all', 'crit', 1, 8)
+          }
+        }
+        _spS('kolibri_number_' + stand_num, 0)
+        _spS('kolibri_nextbird_' + stand_num, global_frame + 30 * 8)
+        s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+      }
+      // 真正执行技能
+    }
+  }
+
 
   // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
   // debug mode ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦

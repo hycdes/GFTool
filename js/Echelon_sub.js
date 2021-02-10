@@ -185,6 +185,23 @@ function get_leader() {
   }
   return num_leader
 }
+function get_list_of_column(stand_num) { // 返回同列其它人的站位序号
+  var list = []
+  if (stand_num < 0 || stand_num > 8) true
+  else {
+    if (Math.floor(stand_num / 3) === 0) list = [stand_num + 3, stand_num + 6]
+    else if (Math.floor(stand_num / 3) === 1) list = [stand_num + 3, stand_num - 3]
+    else if (Math.floor(stand_num / 3) === 2) list = [stand_num - 3, stand_num - 6]
+  }
+  return list
+}
+function get_column_number(stand_num) {
+  var stn = 0
+  for (var element of get_list_of_column(stand_num)) {
+    if (gs_tdoll[element]) stn++
+  }
+  return stn
+}
 function get_common_position() {
   var common_position
   for (var cn = 0; cn < 9; cn++) {
@@ -556,6 +573,10 @@ function init_loadPrepareStatus() { // 初始化战前属性
       } else if (is_this(i, 330)) { // FX-05
         _spS('fx05_rof_' + i, [])
         _spS('fx05_deleterof_' + i, 0) // 清空被动时刻，此时刻之前才能累积射速buff
+      } else if (is_this(i, 331)) { // Kolibri
+        if (get_column_number(i) === 0) _spS('kolibri_number_' + i, 3) // 同列无人初始化3只
+        else _spS('kolibri_number_' + i, 0)
+        _spS('kolibri_nextbird_' + i, 60)
       } else if (is_this(i, 1005)) { // 七音之凯歌buff预备发动
         _spS('m1895_' + i, 0)
       } else if (is_this(i, 1039)) { // 莫辛纳甘：攻击被动

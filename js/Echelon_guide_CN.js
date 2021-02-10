@@ -246,6 +246,7 @@ lib_language = {
   LAYER_302: '距离倍率',
   skillNAME_306: '耀变体',
   LAYER_329: '常驻切换目标增伤层数',
+  LAYER_331: '释放技能需要的最低蜂鸟数量',
   skillNAME_1007: '短板敲击乐',
   skillNAME_1065: '寄生榴弹',
   skillNAME_1097: '灵魂LIVE!',

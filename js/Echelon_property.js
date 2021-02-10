@@ -370,6 +370,7 @@ lib_affect.set(323, createAffect('l/ll/lu/llu/ld/lld/', 'mg', ['dmg', 'acu'], [0
 lib_affect.set(328, createAffect('d/lu/l/ld/', 'ar/smg', ['dmg', 'eva'], [0.2, 0.15])) // AR-57
 lib_affect.set(329, createAffect('r/ru/ruu/', 'hg', ['cld'], [0.18])) // SVCh
 lib_affect.set(330, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.1])) // FX-05
+lib_affect.set(331, createAffect('l/r/u/uu/uul/uur/', 'all', ['dmg', 'acu'], [0.36, 0.4])) // 蜂鸟
 
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
@@ -384,6 +385,7 @@ lib_affect.set(1032, createAffect('u/l/d/', 'ar', ['dmg', 'acu'], [0.18, 0.15]))
 lib_affect.set(1037, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // M14改
 lib_affect.set(1039, createAffect('d/', 'hg', ['cld'], [0.18])) // 莫辛-纳甘改
 lib_affect.set(1044, createAffect('rd/', 'hg', ['cld'], [0.15])) // SV-98改
+lib_affect.set(1049, createAffect('u/r/d/', 'hg', ['cld'], [0.15])) // 56式半改
 lib_affect.set(1051, createAffect('ru/rd/', 'hg', ['cld'], [0.15])) // FN-49改
 lib_affect.set(1053, createAffect('r/ru/', 'hg', ['cld'], [0.2])) // NTW-20改
 lib_affect.set(1055, createAffect('ru/u/r/rd/d/', 'ar', ['dmg', 'crit'], [0.2, 0.32])) // M4A1改
@@ -754,6 +756,7 @@ lib_property.set(323, createProperty(23, 14, 11, 28, 25, 1375, 0.4, 5)) // LTLX7
 lib_property.set(328, createProperty(26, 14, 74, 92, 0, 915, 0.05, -1)) // AR-57
 lib_property.set(329, createProperty(144, 97, 30, 35, 0, 435, 0.4, -1)) // SVCh
 lib_property.set(330, createProperty(54, 55, 47, 69, 0, 550, 0.2, -1)) // FX-05
+lib_property.set(331, createProperty(15, 59, 128, 58, 0, 330, 0.2, -1)) // 蜂鸟
 
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
@@ -768,6 +771,7 @@ lib_property.set(1032, createProperty(26, 13, 83, 104, 0, 885, 0.05, -1)) // uzi
 lib_property.set(1037, createProperty(111, 74, 28, 44, 0, 430, 0.4, -1))
 lib_property.set(1039, createProperty(136, 89, 40, 31, 0, 455, 0.4, -1)) // mosin
 lib_property.set(1044, createProperty(128, 81, 29, 37, 0, 430, 0.4, -1))
+lib_property.set(1049, createProperty(111, 70, 37, 37, 0, 475, 0.4, -1)) // 56half
 lib_property.set(1051, createProperty(120, 64, 33, 34, 0, 475, 0.4, -1))
 lib_property.set(1053, createProperty(170, 82, 31, 32, 0, 475, 0.4, -1)) // ntw-20
 lib_property.set(1055, createProperty(50, 50, 50, 80, 0, 565, 0.2, -1))
@@ -789,6 +793,7 @@ lib_property.set(1095, createProperty(118, 69, 39, 37, 0, 520, 0.4, -1)) // hany
 lib_property.set(1097, createProperty(33, 57, 77, 72, 0, 400, 0.2, -1)) // m950a
 lib_property.set(1101, createProperty(29, 18, 84, 87, 0, 905, 0.05, -1)) // ump9 MOD
 lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump45 MOD
+lib_property.set(1114, createProperty(31, 75, 98, 52, 0, 410, 0.4, -1)) // Welrod MOD
 lib_property.set(1122, createProperty(48, 48, 44, 97, 0, 620, 0.2, -1)) // G11 MOD
 lib_property.set(1124, createProperty(125, 73, 31, 40, 0, 455, 0.4, -1)) // supersass MOD
 lib_property.set(1136, createProperty(28, 14, 80, 91, 0, 950, 0.05, -1)) // PP-19 MOD
@@ -891,6 +896,7 @@ lib_property_equip.set(11136, createProperty_equip(4, 0, 20, 0, 0, 0, 0, 0, 0, 0
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(2158, createProperty_equip(18, 4, 0, 0, 0, 0, 0.27, 0, 0, 0)) // ks-23
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // m1911
+lib_property_equip.set(21049, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // type56
 lib_property_equip.set(21053, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ntw-20
 lib_property_equip.set(21252, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ksvk
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
@@ -927,6 +933,7 @@ lib_property_equip.set(320111, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, 
 lib_property_equip.set(320112, createProperty_equip(0, 0, 15, 0, 0, 0, 0, 0, 0, -100)) // JILL-d2-Karmotrine
 lib_property_equip.set(3115, createProperty_equip(-6, 0, 47, 0, 0, 0, 0, 0, 0, 0)) // suomi
 lib_property_equip.set(31071, createProperty_equip(0, 10, -5, 0, 0, 0, 0, 0, 0, 0)) // galil
+lib_property_equip.set(31114, createProperty_equip(0, 0, 25, 0, 5, 0, 0, 0, 0, 0)) // welrod
 lib_property_equip.set(32012, createProperty_equip(0, 0, 34, 0, 0, 0, 0, 0, 0, 0)) // SEI
 lib_property_equip.set(22013, createProperty_equip(22, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // Dorothy
 lib_property_equip.set(32014, createProperty_equip(0, 0, 0, 3, 0, 0, 0.3, 0, 0, 0)) // Stella

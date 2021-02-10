@@ -493,6 +493,9 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // �
             final_dmg += _spG('vsk94_exdmg_' + stand_num)
         }
     }
+    else if (is_this(stand_num, 331)) { // Kolibri
+        final_dmg += Math.ceil(1 * info_self.get('dmg') * _pro('random') + _para_arm) * _spG('kolibri_number_' + stand_num) // 暂定1倍单发子弹
+    }
     else if (is_this(stand_num, 1053)) { // NTW-20 MOD 普攻伤害加深
         if (document.getElementById('special_1053_1_' + stand_num).checked) { // 半血以上额外10%伤害
             final_dmg *= 1.1
@@ -628,6 +631,7 @@ function settle_formation(stand_num, fire_status, skillname) {
 
 function settle_addition(stand_num, info_self, info_enemy, enemy_num_left, list_buff) {
     var addition_dmg = 0
+
     if (is_this(stand_num, 1252)) { // KSVK MOD
         var list_debuff = ['enemy_dmg', 'enemy_rof', 'enemy_acu', 'enemy_eva', 'enemy_arm',
             'enemy_speed', 'enemy_dot', 'enemy_dizz']
