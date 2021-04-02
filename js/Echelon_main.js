@@ -880,6 +880,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             s_t[1] = 0
           }
         }
+        else if (is_this(stand_num, 333)) { // VP1915第一发不计算间隔
+          if (_spG('vp1915_isfirst_' + stand_num)) s_t[1] = 0
+          else s_t[1] = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
+        }
         // —————————————————————————————————————— 常规人形按射速折算射击间隔 ——————————————————————————————————————
         else {
           var final_rof = current_Info.get('rof')

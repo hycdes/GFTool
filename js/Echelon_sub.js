@@ -668,6 +668,19 @@ function init_loadPrepareStatus() { // 初始化战前属性
       else if (is_this(i, 329)) { // SVCh
         _spS('svch_frame_' + i, 0) // 技能到期帧
       }
+      else if (is_this(i, 333)) { // VP1915
+        changeStatus(i, 'self', 'dmg', 1.2, -1)
+        _spS('vp1915_layer_' + i, 0) // 易伤层数
+        _spS('vp1915_double_' + i, false) // 易伤是否翻倍
+        _spS('vp1915_isfirst_' + i, true) // 是否为首发
+        if (document.getElementById('special_333_0_' + i).checked) {
+          _spS('vp1915_isforcus_' + i, false) // 扫射
+        }
+        else if (document.getElementById('special_333_1_' + i).checked) {
+          _spS('vp1915_isforcus_' + i, true) // 专注
+
+        }
+      }
       else if (is_this(i, 1071)) { // 加利尔MOD
         var standlist = [], supportnum = 0
         _spS('is_galil_exist', i)

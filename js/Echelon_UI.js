@@ -584,9 +584,9 @@ function changePreview() { // 改变预览显示，也会改变装备对应全�
   }
   // 刷新人物和装备显示
   document.getElementById('img_display').style = 'background: url(../img/echelon/tdoll/' + ID + '.png);background-size:120px'
-  document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
-  document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png)'
-  document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png)'
+  document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png);background-size:76px'
+  document.getElementById('img_e2').style = 'background:url(../img/echelon/equip/' + set_equip[1] + '.png);background-size:76px'
+  document.getElementById('img_e3').style = 'background:url(../img/echelon/equip/' + set_equip[2] + '.png);background-size:76px'
   if (ID <= 0) { // 没选中
     document.getElementById('info_name').innerHTML = lib_language.UI_pickblock
     document.getElementById('info_num').innerHTML = '# -'
@@ -946,6 +946,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 285) addSpecialSetting(285, reverse_position, num_pickblock, 'pickone', 3, 0, ['', '', '']) // C-93
     else if (ID === 315) addSpecialSetting(315, reverse_position, num_pickblock, 'pickone', 2, 0, ['orange', 'dodgerblue']) // AUG Para
     else if (ID === 316) addSpecialSetting(316, reverse_position, num_pickblock, 'pickone', 2, 0, ['dodgerblue', 'orange']) // General Liu
+    else if (ID === 333) addSpecialSetting(333, reverse_position, num_pickblock, 'pickone', 2, 1, ['dodgerblue', 'red']) // VP1915
     else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 'pickone', 6, 5, ['', '', '', '', '', 'red']) // Claes
 
     // 类型4：能量条
@@ -1028,7 +1029,7 @@ function addSpecialSetting() { // ID,_position,_type
     // AR
     [287, 'SIG-556'], [290, lib_language.NAME_290], [318, 'VHS'], [1065, 'HK416'],
     // SMG
-    [213, 'C-MS'], [315, 'AUG Para'],
+    [213, 'C-MS'], [315, 'AUG Para'], [333, 'VP1915'],
     // RF
     [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256],
     [316, lib_language.NAME_316], [329, 'SVCh'], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],

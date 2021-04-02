@@ -19,9 +19,9 @@ var pick_tag = [
 var lib_name = {
   // —————————————— HG ——————————————
   t2001: '诺艾尔', t2003: '琪亚娜', t2006: '德丽莎', t2009: '克莉尔', t2010: '菲尔', t2017: '吉尔·斯汀雷', t2018: '塞伊·朝雾',
-  t1097: 'M950A MOD',
+  t1097: 'M950A MOD', t1114: '维尔德MkⅡ MOD',
   t1001: '柯尔特左轮 MOD', t1007: '斯捷奇金 MOD',
-  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93', t303: 'HP-35',
+  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93', t303: 'HP-35', t331: '蜂鸟',
   t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD', t1221: 'GSh-18 MOD',
   t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科', t269: 'P30', t310: 'Rex Zero 1',
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
@@ -38,7 +38,7 @@ var lib_name = {
   t2019: '多萝西·海兹', t2023: '海莉艾塔', t2028: '特工Vector',
   t1143: 'RO635 MOD',
   t1026: 'MP5 MOD', t1101: 'UMP9 MOD', t1103: 'UMP45 MOD', t1136: 'PP-19 MOD',
-  t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9', t311: 'Lusa', t315: 'AUG Para',
+  t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9', t311: 'Lusa', t315: 'AUG Para', t333: 'VP1915',
   t1029: '司登MkⅡ MOD', t1031: '伯莱塔38型 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
   t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW', t328: 'AR-57',
   t27: '蝎式', t29: '司登MkⅡ',
@@ -74,6 +74,7 @@ var lib_tdoll = [
   create_entry([1, 1, 2017], ['supportdps', 'supportdfs', 'af_dmg', 'af_acu'], [], ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg'], []),
   create_entry([1, 1, 2018], ['supportdfs', 'af_dmg', 'af_eva'], ['random'], ['shield'], []),
   create_entry([1, 6, 1097], ['supportdps', 'startdps', 'af_rof', 'af_acu'], ['random'], ['command_rof', 'command_movespeed', 'weak_eva', 'weak_movespeed'], []),
+  create_entry([1, 6, 1114], ['supportdfs', 'af_dmg', 'af_rof'], ['random', 'suggest_2'], ['forcus_rof', 'weak_dmg', 'weak_acu', 'reducehurt'], ['immo']),
   create_entry([1, 5, 1001], ['supportdps', 'af_dmg', 'af_acu'], ['random'], ['command_dmg', 'command_rof', 'command_acu'], []),
   create_entry([1, 5, 1007], ['supportdps', 'af_rof'], ['random'], ['command_rof', 'forcus_dmg', 'forcus_crit', 'weak_eva'], []),
   create_entry([1, 5, 4], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['random'], ['forcus_dmg', 'command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_crit'], ['feedback']),
@@ -91,6 +92,7 @@ var lib_tdoll = [
   create_entry([1, 5, 272], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['random'], ['forcus_rof', 'deepdmg', 'shield_break'], []),
   create_entry([1, 5, 285], ['supportdps', 'af_dmg', 'af_acu'], ['random', 'suggest_7'], ['command_dmg', 'command_rof'], []),
   create_entry([1, 5, 303], ['supportdps', 'af_dmg', 'af_eva'], ['random', 'suggest_7'], ['passive', 'deepdmg', 'reducehurt'], []),
+  create_entry([1, 5, 331], ['supportdps', 'startdps', 'af_dmg', 'af_acu'], ['random', 'suggest_7', 'suggest_8'], ['command_dmg', 'command_rof', 'command_crit', 'passive', 'multihit'], ['burstsupport']),
   create_entry([1, 4, 1002], ['dps', 'supportdfs', 'af_rof', 'af_acu'], ['back', 'random'], ['fastcd', 'sweep', 'rofstatic', 'smoke'], []),
   create_entry([1, 4, 1005], ['supportdps', 'supportdfs', 'startdps', 'af_dmg', 'af_crit'], ['random'], ['command_dmg', 'command_acu', 'weak_dmg'], ['night']),
   create_entry([1, 4, 1012], ['supportdps', 'af_acu', 'af_eva'], ['random'], ['command_acu', 'command_critdmg', 'command_addcs'], ['night']),
@@ -200,6 +202,7 @@ var lib_tdoll = [
   create_entry([3, 5, 259], ['tank_eva'], ['random', 'suggest_2'], ['forcus_eva', 'multihit'], []),
   create_entry([3, 5, 311], ['tank_eva'], ['random', 'suggest_2'], ['shield', 'reducehurt'], ['taunt']),
   create_entry([3, 5, 315], ['dps', 'tank_eva', 'longdps'], ['random'], ['forcus_dmg', 'forcus_acu', 'forcus_eva', 'status'], ['night']),
+  create_entry([3, 5, 333], ['dps', 'supportdps', 'tank_eva', 'af_dmg'], ['random'], ['forcus_dmg', 'max_acu', 'deepdmg', 'multihit', 'multitarget', 'sweep', 'status'], []),
   create_entry([3, 4, 1029], ['tank_eva'], ['random'], ['handgrenade', 'reducehurt'], []),
   create_entry([3, 4, 1031], ['tank_eva'], ['random'], ['incendinary', 'dizz'], []),
   create_entry([3, 4, 1093], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_rof', 'forcus_eva'], []),
@@ -407,7 +410,7 @@ var lib_tag = [
   ],
   // 4
   [['night', 'mengxin', 'laomo', 'burstsupport',],
-  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'taunt', 'illusion', 'stronger', 'cluster', 'purify', 'immunity', 'clearbuff']
+  ['skillcrit', 'skillarm', 'skilleva', 'normalkiller', 'feedback', 'shootguide', 'taunt', 'illusion', 'stronger', 'cluster', 'purify', 'immunity', 'clearbuff', 'immo']
   ]
 ]
 // tag0————————————————————————————————————————
@@ -604,6 +607,7 @@ var lib_tag_3 = {
   purify: '<img src="../img/class-icon/icon-purify.png" style="width:19px;height:19px">净化',
   immunity: '<img src="../img/class-icon/icon-immunity.png" style="width:19px;height:19px">伤害免疫',
   clearbuff: '<img src="../img/class-icon/icon-clearbuff.png" style="width:19px;height:19px">清除增益',
+  immo: '<img src="../img/class-icon/icon-immo.png" style="width:19px;height:19px">条件无敌',
 }
 var tag3_night = new Map,
   tag3_mengxin = new Map,
@@ -621,7 +625,8 @@ var tag3_night = new Map,
   tag3_cluster = new Map,
   tag3_purify = new Map,
   tag3_immunity = new Map,
-  tag3_clearbuff = new Map
+  tag3_clearbuff = new Map,
+  tag3_immo = new Map
 
 // 特殊说明库
 var lib_alert = new Map

@@ -372,6 +372,8 @@ lib_affect.set(329, createAffect('r/ru/ruu/', 'hg', ['cld'], [0.18])) // SVCh
 lib_affect.set(330, createAffect('r/rd/', 'smg', ['dmg', 'rof'], [0.3, 0.1])) // FX-05
 lib_affect.set(331, createAffect('l/r/u/uu/uul/uur/', 'all', ['dmg', 'acu'], [0.36, 0.4])) // 蜂鸟
 
+lib_affect.set(333, createAffect('l/', 'ar', ['dmg'], [0.25])) // 帕罗莎
+
 // Digimind update
 lib_affect.set(1001, createAffect('u/d/l/r/', 'all', ['dmg', 'acu'], [0.24, 0.6])) // 柯尔特左轮改
 lib_affect.set(1002, createAffect('u/d/l/r/', 'all', ['rof', 'acu'], [0.24, 0.5])) // M1911改
@@ -407,6 +409,7 @@ lib_affect.set(1095, createAffect('r/rd/', 'hg', ['cld'], [0.15])) // 汉阳造8
 lib_affect.set(1097, createAffect('lu/ld/l/ru/rd/', 'all', ['rof', 'acu'], [0.32, 0.6])) // M950A改
 lib_affect.set(1101, createAffect('lu/l/ld/', 'ar', ['rof', 'acu'], [0.15, 0.3])) // UMP9改
 lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])) // UMP45改
+lib_affect.set(1114, createAffect('l/ld/d/r/rd/ldd/', 'all', ['dmg', 'rof'], [0.24, 0.2])) // 维尔德改
 lib_affect.set(1122, createAffect('r/rd/', 'smg', ['dmg', 'eva'], [0.35, 0.12])) // G11 改
 lib_affect.set(1124, createAffect('u/ru/', 'hg', ['cld'], [0.15])) // Super SASS改
 lib_affect.set(1136, createAffect('l/ld/', 'ar', ['dmg', 'acu'], [0.25, 0.15])) // PP-19改
@@ -758,6 +761,8 @@ lib_property.set(329, createProperty(144, 97, 30, 35, 0, 435, 0.4, -1)) // SVCh
 lib_property.set(330, createProperty(54, 55, 47, 69, 0, 550, 0.2, -1)) // FX-05
 lib_property.set(331, createProperty(15, 59, 128, 58, 0, 330, 0.2, -1)) // 蜂鸟
 
+lib_property.set(333, createProperty(25, 12, 66, 91, 0, 1015, 0.05, -1)) // 帕罗莎
+
 // Digimind update
 lib_property.set(1001, createProperty(37, 51, 80, 50, 0, 415, 0.2, -1))
 lib_property.set(1002, createProperty(29, 52, 78, 58, 0, 375, 0.2, -1))
@@ -836,16 +841,21 @@ lib_property_equip.set(11, createProperty_equip(0, 0, 10, 0, 0, 0.2, 0, 0, 0, 0)
 lib_property_equip.set(12, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // 光瞄
 lib_property_equip.set(13, createProperty_equip(0, 30, 0, -1, 0, 0, 0, 0, 0, 0)) // 红点
 lib_property_equip.set(14, createProperty_equip(8, 14, 0, -4, 0, 0, 0, 0, 0, 0)) // 全息
+lib_property_equip.set(15, createProperty_equip(0, 20, 0, 0, 0, 0.3, 0, 0, 0, 0)) // RMR T4红点
 lib_property_equip.set(21, createProperty_equip(15, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // 空尖弹
 lib_property_equip.set(22, createProperty_equip(20, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // 高速弹
 lib_property_equip.set(23, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // 穿甲弹
 lib_property_equip.set(24, createProperty_equip(15, 0, 0, 0, 0, 0, 0.22, 0, 0, 0)) // 猎鹿弹
 lib_property_equip.set(25, createProperty_equip(2.01, 20, 0, 0, 0, 0, 0, 0, 0, 0)) // 独头弹
+lib_property_equip.set(26, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 120, 0)) // M1022狙击弹
+lib_property_equip.set(27, createProperty_equip(0, 0, 0, -5, 0, 0, 0, 0, 500, 0)) // Mk1000SLAP
+lib_property_equip.set(28, createProperty_equip(0, 0, 0, 12, 0, 0, -0.1, 0, 0, 0)) // #7.5鸟弹
 lib_property_equip.set(31, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // X骨骼
 lib_property_equip.set(32, createProperty_equip(-6, 0, 35, 0, 0, 0, 0, 0, 0, 0)) // T骨骼
 lib_property_equip.set(33, createProperty_equip(0, 0, -2, 0, 11, 0, 0, 0, 0, 0)) // 防弹插板
 lib_property_equip.set(34, createProperty_equip(0, 0, 0, 0, 0, 0, 0.25, 0, 0, 0)) // 伪装披风
 lib_property_equip.set(35, createProperty_equip(0, 0, -2, 0, 0, 0, 0, 5, 0, 0)) // 弹链
+lib_property_equip.set(36, createProperty_equip(15, 0, 0, 25, 0, 0, -0.5, 0, 0, 0)) // #2运算芯片
 lib_property_equip.set(41, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 100)) // 夜视仪
 // exclusive equipment
 lib_property_equip.set(19993, createProperty_equip(0, 3, 20, 0, 0, 0.2, 0, 0, 0, 0)) // M9

@@ -1198,6 +1198,7 @@ lib_skill.set(259, [
 ])
 lib_skill.set(311, []) // Lusa 技能没写
 lib_skill.set(315, []) // AUG Para
+lib_skill.set(333, []) // 帕罗莎
 lib_skill.set(1026, [
   createSkill(8, 16, 4, lib_describe.get('ffs')), // 力场盾
   createSkill(8, 16, 4, lib_describe.get('mp5mod')) // 回避提升

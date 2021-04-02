@@ -550,6 +550,25 @@ function settle_accuracy(stand_num, info_self, info_enemy, list_buff) {
             acu += vhs_acu
         }
     }
+    else if (is_this(stand_num, 333)) { // VP1915必中
+        if ((_spG('vp1915_isforcus_' + stand_num)) || (_spG('vp1915_isfirst_' + stand_num))) { // 专注，或是首发，处理易伤
+            var deepdmg = _spG('vp1915_layer_' + stand_num) * 0.03
+            if (global_frame >= 180) deepdmg *= 2
+            deepdmg += 1
+            fragile_main /= deepdmg
+            fragile_all /= deepdmg
+            if (_spG('vp1915_layer_' + stand_num) < 5) {
+                _spPlus('vp1915_layer_' + stand_num) // 能叠易伤
+            }
+            deepdmg = _spG('vp1915_layer_' + stand_num) * 0.03
+            if (global_frame >= 180) deepdmg *= 2
+            deepdmg += 1
+            fragile_main *= deepdmg
+            fragile_all *= deepdmg
+        }
+        if (_spG('vp1915_isforcus_' + stand_num) && _spG('vp1915_isfirst_' + stand_num)) must_acu = true // 专注型首发，必中弹
+        _spS('vp1915_isfirst_' + stand_num, !_spG('vp1915_isfirst_' + stand_num)) // 是否第一发，取反
+    }
 
     // 其它命中
 
