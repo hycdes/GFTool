@@ -531,6 +531,14 @@ function settle_specialskill(stand_num, info_self, info_enemy, final_dmg) { // �
             }
         }
     }
+    else if (is_this(stand_num, 1125)) { // MG4跳弹
+        var extra_dmg = 0
+        if (_pro('ap', info_self) > 600 && enemy_num_left > 1) { // 带了专属，且能够弹射
+            extra_dmg = Math.max(1, Math.ceil(0.1 * info_self.get('dmg') * _pro('random') + _para_arm)) // 10%火力
+            extra_dmg *= 3
+            final_dmg += extra_dmg
+        }
+    }
     else if (is_this(stand_num, 2015)) { // Alma无人机
         if (Set_Special.get('alma_' + stand_num) >= global_frame) {
             var pod_dmg = info_self.get('dmg') * 0.4

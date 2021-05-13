@@ -519,7 +519,7 @@ function changeEquip() {
       str_items += '<option value=13>[' + lib_language.equipNAME_13 + '] ITI MARS</option>'
       str_items += '<option value=15>[' + lib_language.equipNAME_13 + '] RMR T4红点</option>'
       if (ID === 110) str_items += '<option value=1110>ZFG42</option>'
-      if (ID === 125) str_items += '<option value=1125>' + lib_language.equipNAME_1125 + '</option>'
+      if (ID === 125 || ID === 1125) str_items += '<option value=1125>' + lib_language.equipNAME_1125 + '</option>'
       if (ID === 1075) str_items += '<option value=11075>CT 4X20</option>'
       if (ID === 1081) str_items += '<option value=11081>MGO 6x48</option>'
       if (ID === 1089) str_items += '<option value=11089>' + lib_language.equipNAME_11089 + '</option>'
