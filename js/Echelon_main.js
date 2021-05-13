@@ -733,6 +733,8 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       else {
         if (is_this(stand_num, 2026) && !_spG('claes_firestatus_' + stand_num)) { // 库拉耶丝且不能开火
           true
+        } else if (is_this(stand_num, 1125) && document.getElementById('special_1125_' + stand_num).checked && (!_spG('mg4_permission_' + stand_num))) { // MG4特殊射击测试，特殊设定开火许可为false
+          true // do nothing
         } else {
           // 抬手瞬间的判定，子弹抵达前能够获得增益
           if (is_this(stand_num, 2024)) { // 莉可-被动3次攻击叠层数
@@ -973,6 +975,9 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
           if (is_this(stand_num, 2026) && !_spG('claes_firestatus_' + stand_num)) { // 库拉耶丝蓄力状态不算做攻击
             true
           }
+          else if (is_this(stand_num, 1125) && document.getElementById('special_1125_' + stand_num).checked && (!_spG('mg4_permission_' + stand_num))) { // MG4特殊射击测试，特殊设定开火许可为false
+            true // do nothing
+          }
           else {
             cs--
             if (is_this(stand_num, 319)) {
@@ -995,7 +1000,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               _spS('pkp_nextcrit_' + stand_num, 'ready')
             }
           }
-          if (cs === 0) { // 需要换弹
+
+          // ———————————————————————————————————————————— 需要换弹 ————————————————————————————————————————————
+
+          if (cs === 0) {
             var reload_frame = 0
             var rof = current_Info.get('rof')
             if (current_Info.get('type') === 5) { // MG的换弹
@@ -1036,6 +1044,11 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                         else changeStatus(i, 'self', 'dmg', 0.1, reload_frame / 30)
                       }
                     }
+                  }
+                }
+                else if (is_this(stand_num, 1125)) { // MG4 MOD如果勾选了特殊设定
+                  if (document.getElementById('special_1125_' + stand_num).checked) {
+                    _spS('mg4_permission_' + stand_num, false) // 除非开技能，否则禁止开火
                   }
                 }
               }
@@ -1571,6 +1584,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       _spS('aa12_skillmode_' + stand_num, true) // 下一枪是酮血症作用下的强制3目标射击
     }
     else if (is_this(stand_num, 189)) _spS('usas12_' + stand_num, true) // 狂热突袭增加换弹时间
+    else if (is_this(stand_num, 1125) && clip_num === 6) {
+      _spS('mg4_exbullet_' + stand_num, 6)
+      _spS('mg4_permission_' + stand_num, true)
+    }
     s_t[1] = s_t[0].cld * 30 - 1 // 进入冷却
   }
   else if (skillname === 'mustcrit') { // 必定暴击

@@ -6,7 +6,7 @@ var _version = {
   CL: 'v1.0 (2020.04.10)'
 }
 var _updateinfo = {
-  ES: '给Lusa定义了空的技能组，保证能运行，但技能待定'
+  ES: 'mg4'
 }
 var _navitem = [
   '<li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>',

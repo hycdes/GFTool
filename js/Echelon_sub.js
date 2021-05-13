@@ -588,6 +588,10 @@ function init_loadPrepareStatus() { // 初始化战前属性
         changeStatus(i, 'self', 'rof', '0.1', 2)
         changeStatus(i, 'self', 'rof', '0.1', 4)
         changeStatus(i, 'self', 'rof', '0.1', 6)
+      } else if (is_this(i, 1125)) { // MG4 子弹层数
+        _spS('mg4_exbullet_' + i, 0) // 额外子弹数
+        _spS('mg4_permission_' + i, true) // 是否允许开火，用于特殊设定
+        _spS('mg4_dmgbuff_' + i, []) // 增伤层数
       } else if (is_this(i, 2023)) { // 海莉艾塔各类被动层数
         _spS('henri_dmg_' + i, [])
         _spS('henri_eva_' + i, [])

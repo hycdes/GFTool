@@ -738,6 +738,7 @@ lib_describe.set('pa15_single', describe_singleflash(3)) // 劲爆乐园-单体3
 lib_describe.set('pa15_aoe', describe_flash(2)) // 劲爆乐园-群体2秒眩晕
 // clip and aim
 lib_describe.set('addclip_10', describe_addclip(10)) // 弹量+10
+lib_describe.set('addclip_6', describe_addclip(6)) // 弹量+6
 lib_describe.set('addclip_4', describe_addclip(4)) // 弹量+4
 lib_describe.set('addclip_3', describe_addclip(3)) // 弹量+3
 lib_describe.set('addclip_2', describe_addclip(2)) // 弹量+2
@@ -1291,6 +1292,7 @@ lib_skill.set(93, [createSkill(6, 8, 5, lib_describe.get('eva_110'))]) //
 lib_skill.set(94, [createSkill(7, 16, 0, lib_describe.get('flash_3'))]) //
 
 // ———————————————————————————————————————— RF ————————————————————————————————————————
+// ———————————————————————————————————————— RF - 6 ————————————————————————————————————————
 lib_skill.set(1053, []) // NTW MOD根据特殊设定单独判断
 // ———————————————————————————————————————— RF - 5 ————————————————————————————————————————
 lib_skill.set(46, [createSkill(8, 16, 0, lib_describe.get('kar98k'))])
@@ -1414,6 +1416,11 @@ lib_skill.set(51, [createSkill(5, 8, 5, lib_describe.get('dmg_55'))])
 lib_skill.set(52, [createSkill(5, 8, 5, lib_describe.get('rof_55'))])
 
 // ———————————————————————————————————————— MG ————————————————————————————————————————
+// ———————————————————————————————————————— MG - 6 ————————————————————————————————————————
+lib_skill.set(1125, [ // MG4蓄势待发
+  createSkill(8, 18, 8, lib_describe.get('dmg_50')),
+  createSkill(8, 18, 0, lib_describe.get('addclip_6'))
+])
 // ———————————————————————————————————————— MG - 5 ————————————————————————————————————————
 lib_skill.set(109, []) // 连珠终结实现于攻击
 lib_skill.set(112, []) // 狂躁血脉实现于换弹

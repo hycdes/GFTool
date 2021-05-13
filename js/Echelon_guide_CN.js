@@ -278,6 +278,8 @@ lib_language = {
   DESCRIBE_55: '使用炮击',
   DESCRIBE_102_1: '默认',
   DESCRIBE_102_2: '过载',
+  skillNAME_1125: '鬼屋之锤',
+  DESCRIBE_1125: '自首次技能发动后，每一轮射击必须等待技能就绪',
   DESCRIBE_180: '贯穿所有敌人',
   DESCRIBE_192: '贯穿所有敌人',
   DESCRIBE_194_0: '启动状态',

@@ -412,6 +412,7 @@ lib_affect.set(1103, createAffect('lu/l/ld/', 'ar', ['dmg', 'crit'], [0.2, 0.3])
 lib_affect.set(1114, createAffect('l/ld/d/r/rd/ldd/', 'all', ['dmg', 'rof'], [0.24, 0.2])) // 维尔德改
 lib_affect.set(1122, createAffect('r/rd/', 'smg', ['dmg', 'eva'], [0.35, 0.12])) // G11 改
 lib_affect.set(1124, createAffect('u/ru/', 'hg', ['cld'], [0.15])) // Super SASS改
+lib_affect.set(1125, createAffect('rr/rru/rrd/', 'sg', ['acu', 'arm'], [0.2, 0.18])) // MG4改
 lib_affect.set(1136, createAffect('l/ld/', 'ar', ['dmg', 'acu'], [0.25, 0.15])) // PP-19改
 lib_affect.set(1143, createAffect('u/lu/l/ld/d/', 'ar', ['rof', 'acu'], [0.15, 0.4])) // RO635改
 lib_affect.set(1161, createAffect('l/ll/llu/lld/', 'mg', ['dmg'], [0.15])) // 97式霰改
@@ -801,6 +802,7 @@ lib_property.set(1103, createProperty(29, 14, 77, 83, 0, 975, 0.05, -1)) // ump4
 lib_property.set(1114, createProperty(31, 75, 98, 52, 0, 410, 0.4, -1)) // Welrod MOD
 lib_property.set(1122, createProperty(48, 48, 44, 97, 0, 620, 0.2, -1)) // G11 MOD
 lib_property.set(1124, createProperty(125, 73, 31, 40, 0, 455, 0.4, -1)) // supersass MOD
+lib_property.set(1125, createProperty(93, 38, 35, 140, 0, 930, 0.05, 10)) // MG4 MOD
 lib_property.set(1136, createProperty(28, 14, 80, 91, 0, 950, 0.05, -1)) // PP-19 MOD
 lib_property.set(1143, createProperty(29, 15, 77, 97, 0, 1040, 0.05, -1)) // RO635 MOD
 lib_property.set(1161, createProperty(37, 13, 14, 28, 22, 1355, 0.4, 3)) // 97shorgun MOD
@@ -850,6 +852,8 @@ lib_property_equip.set(25, createProperty_equip(2.01, 20, 0, 0, 0, 0, 0, 0, 0, 0
 lib_property_equip.set(26, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 120, 0)) // M1022狙击弹
 lib_property_equip.set(27, createProperty_equip(0, 0, 0, -5, 0, 0, 0, 0, 500, 0)) // Mk1000SLAP
 lib_property_equip.set(28, createProperty_equip(0, 0, 0, 12, 0, 0, -0.1, 0, 0, 0)) // #7.5鸟弹
+lib_property_equip.set(29, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // 闪光弹
+lib_property_equip.set(291, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // 信号弹
 lib_property_equip.set(31, createProperty_equip(0, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // X骨骼
 lib_property_equip.set(32, createProperty_equip(-6, 0, 35, 0, 0, 0, 0, 0, 0, 0)) // T骨骼
 lib_property_equip.set(33, createProperty_equip(0, 0, -2, 0, 11, 0, 0, 0, 0, 0)) // 防弹插板
@@ -905,6 +909,7 @@ lib_property_equip.set(11124, createProperty_equip(10, 0, 0, 0, 0, 0.48, 0, 0, 0
 lib_property_equip.set(11136, createProperty_equip(4, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // pp19
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(2158, createProperty_equip(18, 4, 0, 0, 0, 0, 0.27, 0, 0, 0)) // ks-23
+lib_property_equip.set(2302, createProperty_equip(15, 0, 0, 0, 0, 0.3, 0, 0, 0, 0)) // 防卫者
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // m1911
 lib_property_equip.set(21049, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // type56
 lib_property_equip.set(21053, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ntw-20
@@ -912,6 +917,7 @@ lib_property_equip.set(21252, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180,
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
 lib_property_equip.set(21060, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // as val
 lib_property_equip.set(21061, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // stg44
+lib_property_equip.set(21125, createProperty_equip(-1, 0, 0, 0, 0, 0, 0, 0, 600, 0)) // Mk4 SLAP
 lib_property_equip.set(21221, createProperty_equip(15, 0, 0, 3, 0, 0, 0, 0, 35, 0)) // gsh-18
 lib_property_equip.set(326, createProperty_equip(-6, 0, 58, 0, 0, 0, 0, 0, 0, 0)) // mp5
 lib_property_equip.set(342, createProperty_equip(0, 0, 0, 3, 0, 0, 0.25, 0, 0, 0)) // ptrd

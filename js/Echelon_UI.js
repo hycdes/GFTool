@@ -349,7 +349,7 @@ function manageUI() { // 管理图标变化，不涉及后台数值
       document.getElementById('icon-addstar').onclick = ''
     }
     if (num_star === 5) {
-      if (set_guntype != 1 && set_guntype != 2 && set_guntype != 3 && set_guntype != 4) { // 目前只有HG、AR、SMG、RF有六星
+      if (set_guntype === 6) { // 目前只有SG没有六星
         document.getElementById('icon-addstar').src = '../img/echelon/icon-add-disable.png'
         document.getElementById('icon-addstar').style = 'cursor: default'
         document.getElementById('icon-addstar').onclick = ''
@@ -537,6 +537,7 @@ function resetEquipment() {
       else if (ID === 110) set_equip = [1110, 23, 35] // fg42
       else if (ID === 185) set_equip = [12, 23, 3185] // ameli
       else if (ID === 1081) set_equip = [11081, 23, 35] // lwmmg mod
+      else if (ID === 1125) set_equip = [12, 21125, 35] // mg4 mod
       else if (ID === 2015) set_equip = [12, 23, 32015] // Alma
       else if (ID === 2026) set_equip = [120263, 23, 35] // Claes
       else set_equip = [12, 23, 35]
@@ -934,6 +935,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 1007) addSpecialSetting(1007, reverse_position, num_pickblock, 'singlecheck', '') // Stechkin MOD
     else if (ID === 1065) addSpecialSetting(1065, reverse_position, num_pickblock, 'singlecheck', 'checked') // HK416 MOD
     else if (ID === 1097) addSpecialSetting(1097, reverse_position, num_pickblock, 'singlecheck', 'checked') // M950A MOD
+    else if (ID === 1125) addSpecialSetting(1125, reverse_position, num_pickblock, 'singlecheck', '') // MG4 MOD
     else if (ID === 1252) addSpecialSetting(1252, reverse_position, num_pickblock, 'singlecheck', 'checked') // KSVK MOD
     else if (ID === 2006) addSpecialSetting(2006, reverse_position, num_pickblock, 'singlecheck', 'checked') // Theresa
     else if (ID === 2025) addSpecialSetting(2025, reverse_position, num_pickblock, 'singlecheck', 'checked') // Triela
@@ -1034,7 +1036,7 @@ function addSpecialSetting() { // ID,_position,_type
     [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256],
     [316, lib_language.NAME_316], [329, 'SVCh'], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
     // MG
-    [238, lib_language.NAME_238], [275, 'M1895CB'], [2026, lib_language.NAME_2026],
+    [238, lib_language.NAME_238], [275, 'M1895CB'], [1125, 'MG4 [MOD]'], [2026, lib_language.NAME_2026],
     // SG
     [302, lib_language.NAME_302], [2025, lib_language.NAME_2025]
   ]

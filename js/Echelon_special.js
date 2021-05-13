@@ -246,6 +246,14 @@ function settle_buff(stand_num, info_self, skillname) {
     else if (is_this(stand_num, 1122)) { // g11 mod
         _spPlus('g11_layer_' + stand_num)
     }
+    else if (is_this(stand_num, 1125)) { // MG4 MOD
+        if (_spG('mg4_exbullet_' + stand_num) > 0) { // 额外子弹叠buff
+            multilayer_process('mg4_dmgbuff_' + stand_num, 'add', ['dmg', 0.05, 18 * 30])
+        }
+        var buffnum = multilayer_process('mg4_dmgbuff_' + stand_num, 'get')
+        if (buffnum > 8) buffnum = 8
+        _mul_dmg *= Math.pow(1.05, buffnum)
+    }
     else if (is_this(stand_num, 2012)) { // sei: help stella add buff
         if (is_exist_someone(2014)) {
             if (Set_Special.get('stella_num') === undefined) Set_Special.set('stella_num', 1)
@@ -369,6 +377,12 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
     }
     else if (is_this(stand_num, 1075)) { // M1918 MOD
         if (_pro('cs', info_self) - Set_Special.get('clipsize_' + stand_num) < 3) _para_dmg *= 1.4
+    }
+    else if (is_this(stand_num, 1125)) { // MG4 MOD
+        if (_spG('mg4_exbullet_' + stand_num) > 0) {
+            _para_dmg += 0.25 * (_pro('ap', info_self) - _pro('e_arm', info_enemy)) // 穿甲溢出25%
+            _spDecl('mg4_exbullet_' + stand_num)
+        }
     }
     else if (is_this(stand_num, 1143)) { // RO635 MOD 技能期间攻击命中，为敌人附加伸冤者印记
         if (_spG('ro635_skillon_' + stand_num)) {

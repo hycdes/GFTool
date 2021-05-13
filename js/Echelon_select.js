@@ -336,7 +336,9 @@ function changeSelectItems() {
       str_items += '<option value=52>No.52 BM59</option>'
     }
   } else if (set_guntype === 5) { // MG
-    if (num_star === 5) {
+    if (num_star === 6) {
+      str_items += '<option value=1125>No.125 [MOD] MG4</option>'
+    } else if (num_star === 5) {
       str_items += '<option value=109 selected>No.109 MG5</option>'
       str_items += '<option value=112>No.112 ' + lib_language.NAME_112 + '</option>'
       str_items += '<option value=125>No.125 MG4</option>'
@@ -535,6 +537,7 @@ function changeEquip() {
   } else if (num_pickequip === 2) {
     if (set_guntype === 1) { // HG
       str_items += '<option value=21>' + lib_language.equipNAME_21 + '</option>'
+      str_items += '<option value=291>信号弹</option>'
       if (ID === 1002) str_items += '<option value=21002>' + lib_language.equipNAME_21002 + '</option>' // M1911
       if (ID === 183) str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
       if (ID === 1221) str_items += '<option value=21221>7N31</option>'
@@ -565,11 +568,14 @@ function changeEquip() {
       str_items += '<option value=23>' + lib_language.equipNAME_23 + '</option>'
       str_items += '<option value=26>M1022狙击弹</option>'
       str_items += '<option value=27>Mk1000SLAP</option>'
+      if (ID === 1125) str_items += '<option value=21125>Mk4 SLAP</option>' // MG4
     } else if (set_guntype === 6) { // SG
       str_items += '<option value=24>' + lib_language.equipNAME_24 + '</option>'
       str_items += '<option value=25>' + lib_language.equipNAME_25 + '</option>'
       str_items += '<option value=28>#7.5鸟弹</option>'
+      str_items += '<option value=29>霰弹用闪光弹</option>'
       if (ID === 158) str_items += '<option value=2158>' + lib_language.equipNAME_2158 + '</option>'
+      if (ID === 302) str_items += '<option value=2302>20G特制独头弹</option>'
       if (ID === 2025) str_items += '<option value=22025>' + lib_language.equipNAME_22025 + '</option>'
     }
     // ———————————————————— 第三格装备 ————————————————————
