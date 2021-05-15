@@ -592,6 +592,9 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('mg4_exbullet_' + i, 0) // 额外子弹数
         _spS('mg4_permission_' + i, true) // 是否允许开火，用于特殊设定
         _spS('mg4_dmgbuff_' + i, []) // 增伤层数
+      } else if (is_this(i, 1200)) { // XM3 被动
+        _spS('xm3_count_' + i, 0) // 攻击次数统计
+        _spS('xm3_skillon_' + i, 0) // 技能持续时间
       } else if (is_this(i, 2023)) { // 海莉艾塔各类被动层数
         _spS('henri_dmg_' + i, [])
         _spS('henri_eva_' + i, [])

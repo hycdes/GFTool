@@ -510,7 +510,7 @@ function resetEquipment() {
       else if (ID === 2023) set_equip = [32, 21, 12023] // Henrietta
       else set_equip = [32, 21, 11]
     }
-    else if (set_guntype === 4) {
+    else if (set_guntype === 4) { // RF
       if (ID === 36) set_equip = [12, 236, 34] // springfield
       else if (ID === 39) set_equip = [12, 23, 31039] // mosin
       else if (ID === 42) set_equip = [12, 23, 342] // ptrd
@@ -525,12 +525,13 @@ function resetEquipment() {
       else if (ID === 1053) set_equip = [12, 21053, 34] // ntw20 mod
       else if (ID === 1095) set_equip = [11095, 23, 34] // hanyang88 mod
       else if (ID === 1124) set_equip = [11124, 23, 34] // supersass mod
+      else if (ID === 1200) set_equip = [12, 21200, 34] // xm3 mod
       else if (ID === 1252) set_equip = [12, 21252, 34] // ksvk mod
       else if (ID === 2014) set_equip = [12, 23, 32014] // Stella
       else if (ID === 2024) set_equip = [12, 23, 32024] // Rico
       else set_equip = [12, 23, 34]
     }
-    else if (set_guntype === 5) {
+    else if (set_guntype === 5) { // MG
       if (ID === 75 || ID === 1075) set_equip = [12, 23, 31075] // m1918
       else if (ID === 84) set_equip = [12, 21, 384] // RPD
       else if (ID === 88) set_equip = [12, 23, 388] // MG3
@@ -921,6 +922,15 @@ function addTdoll() { // 添加战术人形
       str_html += '<input class="form-control input-sm" placeholder="integer" id="special_1122_' + (num_pickblock - 1) + '" value="260000"></td></tr></tbody></table>'
       document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
     }
+    else if (ID === 1200) {
+      var str_html = ''
+      str_html += '<h4>' + reverse_position + lib_language.UI_num + ' XM3 [MOD]</h4><p>'
+      str_html += '<table class="table_other table-bordered table-hover" style="width:200px"><tbody><tr><td style="width: 10%">每</td><td style="width: 30%">'
+      str_html += '<input class="form-control input-sm" placeholder=">=0 integer" id="special_1200_' + (num_pickblock - 1) + '" onblur=inputCheck_1200('
+      str_html += "'" + 'special_1200_' + (num_pickblock - 1) + "'"
+      str_html += ') value="1"></td><td>次攻击转换目标</td></tr></tbody></table>'
+      document.getElementById('special_num' + (num_pickblock - 1)).innerHTML = str_html
+    }
 
     // 类型0：单勾选框
     else if (ID === 180) addSpecialSetting(180, reverse_position, num_pickblock, 'singlecheck', 'checked') // PzB39
@@ -1034,7 +1044,7 @@ function addSpecialSetting() { // ID,_position,_type
     [213, 'C-MS'], [315, 'AUG Para'], [333, 'VP1915'],
     // RF
     [180, 'PzB39'], [196, 'JS05'], [231, 'M82A1'], [252, 'KSVK'], [256, lib_language.NAME_256],
-    [316, lib_language.NAME_316], [329, 'SVCh'], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'],
+    [316, lib_language.NAME_316], [329, 'SVCh'], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'], [1200, 'XM3 [MOD]'],
     // MG
     [238, lib_language.NAME_238], [275, 'M1895CB'], [1125, 'MG4 [MOD]'], [2026, lib_language.NAME_2026],
     // SG
@@ -1305,6 +1315,13 @@ function inputCheck_x95(str_id) {
   if (str_input === '' || str_input === null || isNaN(str_input) || (parseInt(str_input) < 0 || parseInt(str_input) > 300)) {
     str_input = 150
     document.getElementById(str_id).value = 150
+  }
+}
+function inputCheck_1200(str_id) {
+  var str_input = document.getElementById(str_id).value
+  if (str_input === '' || str_input === null || isNaN(str_input) || (parseInt(str_input) < 0)) {
+    str_input = 1
+    document.getElementById(str_id).value = 1
   }
 }
 function inputCheck_qbu88(str_id) {

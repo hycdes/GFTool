@@ -254,6 +254,17 @@ function settle_buff(stand_num, info_self, skillname) {
         if (buffnum > 8) buffnum = 8
         _mul_dmg *= Math.pow(1.05, buffnum)
     }
+    else if (is_this(stand_num, 1200)) {
+        if (_spG('xm3_count_' + stand_num) === 0 && _spG('xm3_skillon_' + stand_num) >= global_frame) { // 当前是首发对敌，且技能期间
+            must_acu = true // 必定命中
+            must_crit = true // 必定暴击
+            if (_spG('sunrise') === 'night') _mul_critdmg *= 1.2 // 夜战多20%暴伤
+        }
+        _spPlus('xm3_count_' + stand_num) // 增加次数
+        if (_spG('xm3_count_' + stand_num) >= parseInt(document.getElementById('special_1200_' + stand_num).value)) { // 超过预定次数
+            _spS('xm3_count_' + stand_num, 0) // 归零
+        }
+    }
     else if (is_this(stand_num, 2012)) { // sei: help stella add buff
         if (is_exist_someone(2014)) {
             if (Set_Special.get('stella_num') === undefined) Set_Special.set('stella_num', 1)

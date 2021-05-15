@@ -533,6 +533,11 @@ function describe_kolibri() { // Kolibri
   Describe.name = 'kolibri'
   return Describe
 }
+function describe_xm3() { // xm3 mod
+  var Describe = {}
+  Describe.name = 'xm3'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -658,6 +663,8 @@ lib_describe.set('rof_40', describe_property(['self'], ['rof'], ['0.4'])) // 突
 lib_describe.set('rof_25', describe_property(['self'], ['rof'], ['0.25'])) // 自我气焰 25%
 lib_describe.set('rof_5', describe_property(['self'], ['rof'], ['0.05'])) //  群蛇狩猎-技能开启时 5%
 lib_describe.set('mp7_rof', describe_property(['self'], ['rof'], ['-0.2'])) // 弦月舞者 -20%
+lib_describe.set('rofN_110', describe_propertyN(['self'], ['rof'], ['1.1'])) // 突击专注N 110%
+lib_describe.set('rofND_35', describe_propertyND(['self'], ['rof'], ['0.35'])) // 突击专注ND 35%
 lib_describe.set('rofN_100', describe_propertyN(['self'], ['rof'], ['1'])) // 突击专注N 100%
 lib_describe.set('rofND_32', describe_propertyND(['self'], ['rof'], ['0.32'])) // 突击专注ND 32%
 lib_describe.set('rofN_90', describe_propertyN(['self'], ['rof'], ['0.9'])) // 突击专注N 90%
@@ -897,6 +904,7 @@ lib_describe.set('ar57', describe_ar57()) // 复合改装
 lib_describe.set('svch', describe_svch()) // 甘糖响应
 lib_describe.set('fx05', describe_fx05()) // 群蛇狩猎
 lib_describe.set('kolibri', describe_kolibri()) // 蜂鸟共鸣
+lib_describe.set('xm3', describe_xm3()) // 白色幽灵
 
 // lib_skill
 
@@ -1329,6 +1337,11 @@ lib_skill.set(312, [
 lib_skill.set(316, [createSkill(1, -1, 0, lib_describe.get('generalliu'))]) // 刘氏步枪，所有特性走攻击判定
 lib_skill.set(329, [createSkill(5, 8, 5, lib_describe.get('svch'))]) // SVCh逻辑独立书写
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
+lib_skill.set(1200, [ // XM3 MOD
+  createSkill(8, 8, 5, lib_describe.get('rofN_110')),
+  createSkill(8, 8, 5, lib_describe.get('rofND_35')),
+  createSkill(8, 8, 5, lib_describe.get('xm3')),
+])
 lib_skill.set(1252, [createSkill(9, 16, 0, lib_describe.get('snipe_5'))])
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————
 lib_skill.set(36, [createSkill(10, 16, 0, lib_describe.get('snipe_6'))])

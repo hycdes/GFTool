@@ -31,7 +31,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF
+                    tools)</a>
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -56,7 +57,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">格里芬人事部 <span style="font-size:15px;color:gray" id="info_version"></span></h1>
+                            <h1 class="page-header">格里芬人事部 <span style="font-size:15px;color:gray"
+                                    id="info_version"></span></h1>
                         </div>
                     </div>
                     <script src="../js/Class_main.js"></script>
@@ -82,7 +84,8 @@
                                                     <div style="height:300px;overflow-y:scroll">
                                                         <table>
                                                             <tr>
-                                                                <td style="vertical-align:middle;line-height:55px;" id="result_1">请选择至少一个标签</td>
+                                                                <td style="vertical-align:middle;line-height:55px;"
+                                                                    id="result_1">请选择至少一个标签</td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -96,7 +99,10 @@
                                         </table>
                                         <table class="table table-bordered">
                                             <tr>
-                                                <td style="text-align:center;vertical-align:middle;width:100px;">人形属性<button type="button" style="padding:5px" class="btn btn-default" onclick="empty_taglist(0)">清空</button></td>
+                                                <td style="text-align:center;vertical-align:middle;width:100px;">
+                                                    人形属性<button type="button" style="padding:5px"
+                                                        class="btn btn-default" onclick="empty_taglist(0)">清空</button>
+                                                </td>
                                                 <td style="line-height:40px">
                                                     <p>定位：<span id="tag_0_0"></span></p>
                                                     <p>节奏：<span id="tag_0_1"></span></p>
@@ -104,14 +110,18 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:center;vertical-align:middle;">战斗特性<button type="button" style="padding:5px" class="btn btn-default" onclick="empty_taglist(1)">清空</button></td>
+                                                <td style="text-align:center;vertical-align:middle;">战斗特性<button
+                                                        type="button" style="padding:5px" class="btn btn-default"
+                                                        onclick="empty_taglist(1)">清空</button></td>
                                                 <td style="line-height:40px">
                                                     <p>逻辑：<span id="tag_1_0"></span></p>
                                                     <p>站位：<span id="tag_1_1"></span></p>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:center;vertical-align:middle;">技能特性<button type="button" style="padding:5px" class="btn btn-default" onclick="empty_taglist(2)">清空</button></td>
+                                                <td style="text-align:center;vertical-align:middle;">技能特性<button
+                                                        type="button" style="padding:5px" class="btn btn-default"
+                                                        onclick="empty_taglist(2)">清空</button></td>
                                                 <td style="line-height:40px">
                                                     <p>专注：<span id="tag_2_0"></span></p>
                                                     <p>号令：<span id="tag_2_1"></span></p>
@@ -121,7 +131,9 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:center;vertical-align:middle;">其它特性<button type="button" style="padding:5px" class="btn btn-default" onclick="empty_taglist(3)">清空</button></td>
+                                                <td style="text-align:center;vertical-align:middle;">其它特性<button
+                                                        type="button" style="padding:5px" class="btn btn-default"
+                                                        onclick="empty_taglist(3)">清空</button></td>
                                                 <td style="line-height:40px">
                                                     <p>特殊定位：<span id="tag_3_0"></span></p>
                                                     <p>特殊技能：<span id="tag_3_1"></span></p>
@@ -140,7 +152,8 @@
                                                         <h4>当前选择：<span id="result_2_name">无</span></h4>
                                                         <h4 id="result_2" style="line-height:40px">请选择一个人形</h4>
                                                         <h5>&nbsp</h5>
-                                                        <h5>部分条目换算准则：<a onclick="show_details()" id="text_showdetails" style="cursor:pointer">点击展开详情</a></h5>
+                                                        <h5>部分条目换算准则：<a onclick="show_details()" id="text_showdetails"
+                                                                style="cursor:pointer">点击展开详情</a></h5>
                                                         <h5><span style="color:gray" id="text_details"></span></h5>
                                                     </td>
                                                     <td>
@@ -154,11 +167,21 @@
                                                         </ul>
                                                         <div class="tab-content">
                                                             <div class="tab-pane fade in active" id="commit_similar">
-                                                                <h5>请结合<u><a href="../img/database/data_3-1.jpg" target="_blank">人形强度榜</a></u>选择，并且注意如<span style="color:red">夜战特化</span>等标签可能影响实际发挥</h5>
+                                                                <h5>请结合<u><a href="../img/database/data_3-1.jpg"
+                                                                            target="_blank">人形强度榜</a></u>选择，并且注意如<span
+                                                                        style="color:red">夜战特化</span>等标签可能影响实际发挥</h5>
                                                                 <p>
-                                                                    <button type="button" style="width:70px;padding:3px" class="btn btn-success" onclick="sortnum(7)" id="btn_show7">显示7条</button>
-                                                                    <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-success" onclick="sortnum(10)" id="btn_show10">显示10条</button>
-                                                                    <button type="button" style="width:70px;padding:3px" class="btn btn-outline btn-success" onclick="sortnum(20)" id="btn_show20">显示20条</button>
+                                                                    <button type="button" style="width:70px;padding:3px"
+                                                                        class="btn btn-success" onclick="sortnum(7)"
+                                                                        id="btn_show7">显示7条</button>
+                                                                    <button type="button" style="width:70px;padding:3px"
+                                                                        class="btn btn-outline btn-success"
+                                                                        onclick="sortnum(10)"
+                                                                        id="btn_show10">显示10条</button>
+                                                                    <button type="button" style="width:70px;padding:3px"
+                                                                        class="btn btn-outline btn-success"
+                                                                        onclick="sortnum(20)"
+                                                                        id="btn_show20">显示20条</button>
                                                                 </p>
                                                                 <table class="table table-bordered table-hovered">
                                                                     <thead>
@@ -190,7 +213,8 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#cl-hg"><img src="../img/class/icon-hg-pick.png"></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                            href="#cl-hg"><img src="../img/class/icon-hg-pick.png"></a>
                                                     </h4>
                                                 </div>
                                                 <div id="cl-hg" class="panel-collapse collapse">
@@ -207,7 +231,8 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#cl-ar"><img src="../img/class/icon-ar-pick.png"></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                            href="#cl-ar"><img src="../img/class/icon-ar-pick.png"></a>
                                                     </h4>
                                                 </div>
                                                 <div id="cl-ar" class="panel-collapse collapse">
@@ -224,7 +249,9 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#cl-smg"><img src="../img/class/icon-smg-pick.png"></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                            href="#cl-smg"><img
+                                                                src="../img/class/icon-smg-pick.png"></a>
                                                     </h4>
                                                 </div>
                                                 <div id="cl-smg" class="panel-collapse collapse">
@@ -241,7 +268,8 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#cl-rf"><img src="../img/class/icon-rf-pick.png"></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                            href="#cl-rf"><img src="../img/class/icon-rf-pick.png"></a>
                                                     </h4>
                                                 </div>
                                                 <div id="cl-rf" class="panel-collapse collapse">
@@ -258,12 +286,14 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#cl-mg"><img src="../img/class/icon-mg-pick.png"></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                            href="#cl-mg"><img src="../img/class/icon-mg-pick.png"></a>
                                                     </h4>
                                                 </div>
                                                 <div id="cl-mg" class="panel-collapse collapse">
                                                     <div class="panel-body">
                                                         <p id="tag_tdoll_5_1" style="line-height:55px;"></p>
+                                                        <p id="tag_tdoll_5_6" style="line-height:55px;"></p>
                                                         <p id="tag_tdoll_5_5" style="line-height:55px;"></p>
                                                         <p id="tag_tdoll_5_4" style="line-height:55px;"></p>
                                                         <p id="tag_tdoll_5_3" style="line-height:55px;"></p>
@@ -274,7 +304,8 @@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#cl-sg"><img src="../img/class/icon-sg-pick.png"></a>
+                                                        <a data-toggle="collapse" data-parent="#accordion"
+                                                            href="#cl-sg"><img src="../img/class/icon-sg-pick.png"></a>
                                                     </h4>
                                                 </div>
                                                 <div id="cl-sg" class="panel-collapse collapse">

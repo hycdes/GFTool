@@ -416,6 +416,7 @@ lib_affect.set(1125, createAffect('rr/rru/rrd/', 'sg', ['acu', 'arm'], [0.2, 0.1
 lib_affect.set(1136, createAffect('l/ld/', 'ar', ['dmg', 'acu'], [0.25, 0.15])) // PP-19改
 lib_affect.set(1143, createAffect('u/lu/l/ld/d/', 'ar', ['rof', 'acu'], [0.15, 0.4])) // RO635改
 lib_affect.set(1161, createAffect('l/ll/llu/lld/', 'mg', ['dmg'], [0.15])) // 97式霰改
+lib_affect.set(1200, createAffect('r/ru/', 'hg', ['cld'], [0.18])) // XM3 改
 lib_affect.set(1221, createAffect('u/lu/l/ld/d/r/', 'all', ['dmg', 'acu'], [0.3, 0.4])) // GSh-18改
 lib_affect.set(1252, createAffect('r/rd/rr/', 'hg/sg', ['cld'], [0.15])) // KSVK改
 // EXTRA
@@ -806,6 +807,7 @@ lib_property.set(1125, createProperty(93, 38, 35, 140, 0, 930, 0.05, 10)) // MG4
 lib_property.set(1136, createProperty(28, 14, 80, 91, 0, 950, 0.05, -1)) // PP-19 MOD
 lib_property.set(1143, createProperty(29, 15, 77, 97, 0, 1040, 0.05, -1)) // RO635 MOD
 lib_property.set(1161, createProperty(37, 13, 14, 28, 22, 1355, 0.4, 3)) // 97shorgun MOD
+lib_property.set(1200, createProperty(140, 94, 33, 37, 0, 430, 0.4, -1)) // XM3 MOD
 lib_property.set(1221, createProperty(34, 53, 90, 58, 0, 370, 0.2, -1)) // GSh-18
 lib_property.set(1252, createProperty(163, 85, 30, 32, 0, 450, 0.4, -1)) // KSVK MOD
 // EXTRA
@@ -913,6 +915,7 @@ lib_property_equip.set(2302, createProperty_equip(15, 0, 0, 0, 0, 0.3, 0, 0, 0, 
 lib_property_equip.set(21002, createProperty_equip(17, 0, 0, 0, 0, 0, 0, 0, -7, 0)) // m1911
 lib_property_equip.set(21049, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // type56
 lib_property_equip.set(21053, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ntw-20
+lib_property_equip.set(21200, createProperty_equip(6, 5, 0, 0, 0, 0, 0, 0, 180, 0)) // xm3
 lib_property_equip.set(21252, createProperty_equip(10, 0, 0, 0, 0, 0, 0, 0, 180, 0)) // ksvk
 lib_property_equip.set(21057, createProperty_equip(25, -1, 0, 0, 0, 0, 0, 0, 0, 0)) // ar15
 lib_property_equip.set(21060, createProperty_equip(24, 0, 0, 0, 0, 0, 0, 0, 0, 0)) // as val

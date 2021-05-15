@@ -277,6 +277,7 @@ function changeSelectItems() {
       str_items += '<option value=316>No.316 ' + lib_language.NAME_316 + '</option>'
       str_items += '<option value=329>No.329 SVCh</option>'
       str_items += '<option value=1039>No.39 [MOD] ' + lib_language.NAME_39 + '</option>'
+      str_items += '<option value=1200>No.200 [MOD] XM3</option>'
       str_items += '<option value=1252>No.252 [MOD] KSVK</option>'
       str_items += '<option value=2004>No.EX4 ' + lib_language.NAME_2004 + '</option>'
       str_items += '<option value=2005>No.EX5 ' + lib_language.NAME_2005 + '</option>'

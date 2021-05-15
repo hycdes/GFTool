@@ -1189,6 +1189,9 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       // 技能禁止攻击，或换弹，无任何操作
     }
   }
+
+  // 属性增益大类：包含普通属性、夜战特化属性、夜战特化昼战版属性
+
   else if (skillname === 'property' || (skillname === 'propertyN' && _spG('sunrise') === 'night') || (skillname === 'propertyND' && _spG('sunrise') === 'day')) { // 属性增益类
     var list_target = (s_t[0].Describe).list_target
     var len_list_target = list_target.length
@@ -2188,6 +2191,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
       }
       // 真正执行技能
     }
+  }
+  else if (skillname === 'xm3') { // XM3被动
+    _spS('xm3_skillon_' + stand_num, global_frame + 150)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 
 
