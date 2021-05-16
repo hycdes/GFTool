@@ -515,6 +515,7 @@ function resetEquipment() {
       else if (ID === 39) set_equip = [12, 23, 31039] // mosin
       else if (ID === 42) set_equip = [12, 23, 342] // ptrd
       else if (ID === 46) set_equip = [146, 23, 34] // kar98k
+      else if (ID === 48) set_equip = [148, 23, 34] // wa2000
       else if (ID === 50) set_equip = [150, 23, 34] // lee'enfield
       else if (ID === 52) set_equip = [152, 23, 34] // bm59
       else if (ID === 1039) set_equip = [11039, 23, 31039] // mosin mod

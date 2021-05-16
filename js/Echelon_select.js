@@ -507,6 +507,7 @@ function changeEquip() {
       str_items += '<option value=13>[' + lib_language.equipNAME_13 + '] ITI MARS</option>'
       str_items += '<option value=11>[' + lib_language.equipNAME_11 + '] AC4' + lib_language.equipNAME_11 + '</option>'
       if (ID === 46) str_items += '<option value=146>PM 5-25X65</option>' // Kar98k
+      if (ID === 48) str_items += '<option value=148>SB 2.5-10X56</option>' // WA2000
       if (ID === 50) str_items += '<option value=150>No32 MLI</option>' // Lee'ENFIELD
       if (ID === 52) str_items += '<option value=152>' + lib_language.equipNAME_152 + '</option>' // bm59
       if (ID === 1039) str_items += '<option value=11039>K6-24X56</option>' // 莫辛纳甘-MOD

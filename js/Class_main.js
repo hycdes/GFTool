@@ -45,7 +45,7 @@ var lib_name = {
   // —————————————— RF ——————————————
   t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井', t2024: '莉可',
   t1053: 'NTW-20 MOD',
-  t1039: '莫辛-纳甘 MOD', t1252: 'KSVK MOD',
+  t1039: '莫辛-纳甘 MOD', t1200: 'XM3 MOD', t1252: 'KSVK MOD',
   t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93', t312: 'VSK-94', t316: '刘氏步枪', t329: 'SVCh',
   t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: '汉阳造88式 MOD', t1124: 'Super SASS MOD',
   t36: '春田', t39: '莫辛-纳甘', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '四式', t273: 'SSG3000', t305: '塔布克', t317: '蒙德拉贡',
@@ -231,6 +231,7 @@ var lib_tdoll = [
   create_entry([4, 1, 2024], ['dps'], ['back', 'suggest_1'], ['forcus_dmg', 'ap', 'passive', 'grenade', 'snipe'], ['skillcrit']),
   create_entry([4, 6, 1053], ['dps'], ['back'], ['ap', 'snipe', 'shield_break'], []),
   create_entry([4, 5, 1039], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
+  create_entry([4, 5, 1200], ['dps'], ['back'], ['forcus_rof', 'forcus_critdmg', 'max_acu', 'max_crit', 'ap'], ['night']),
   create_entry([4, 5, 1252], ['dps'], ['front', 'back'], ['ap', 'passive', 'grenade'], []),
   create_entry([4, 5, 46], ['dps'], ['back'], ['ap', 'snipe'], []),
   create_entry([4, 5, 48], ['dps'], ['back'], ['forcus_rof', 'ap'], []),

@@ -1338,9 +1338,9 @@ lib_skill.set(316, [createSkill(1, -1, 0, lib_describe.get('generalliu'))]) // �
 lib_skill.set(329, [createSkill(5, 8, 5, lib_describe.get('svch'))]) // SVCh逻辑独立书写
 lib_skill.set(1039, []) // mosin-nagant mod 单独根据设定判断
 lib_skill.set(1200, [ // XM3 MOD
-  createSkill(8, 8, 5, lib_describe.get('rofN_110')),
-  createSkill(8, 8, 5, lib_describe.get('rofND_35')),
-  createSkill(8, 8, 5, lib_describe.get('xm3')),
+  createSkill(6, 8, 5, lib_describe.get('rofN_110')),
+  createSkill(6, 8, 5, lib_describe.get('rofND_35')),
+  createSkill(6, 8, 5, lib_describe.get('xm3')),
 ])
 lib_skill.set(1252, [createSkill(9, 16, 0, lib_describe.get('snipe_5'))])
 // ———————————————————————————————————————— RF - 4 ————————————————————————————————————————

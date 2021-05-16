@@ -257,7 +257,6 @@ function settle_buff(stand_num, info_self, skillname) {
     else if (is_this(stand_num, 1200)) {
         if (_spG('xm3_count_' + stand_num) === 0 && _spG('xm3_skillon_' + stand_num) >= global_frame) { // 当前是首发对敌，且技能期间
             must_acu = true // 必定命中
-            must_crit = true // 必定暴击
             if (_spG('sunrise') === 'night') _mul_critdmg *= 1.2 // 夜战多20%暴伤
         }
         _spPlus('xm3_count_' + stand_num) // 增加次数

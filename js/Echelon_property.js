@@ -870,6 +870,7 @@ lib_property_equip.set(110, createProperty_equip(0, 0, 18, 0, 0, 0.3, 0, 0, 0, 0
 lib_property_equip.set(117, createProperty_equip(4, 0, 21, 0, 0, 0.28, 0, 0, 0, 0)) // m3
 lib_property_equip.set(118, createProperty_equip(0, 0, 20, -4, 0, 0.35, 0, 0, 0, 0)) // MAC-10
 lib_property_equip.set(146, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.2, 0, 0, 0)) // Kar98k
+lib_property_equip.set(148, createProperty_equip(5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0)) // wa2000
 lib_property_equip.set(150, createProperty_equip(0, 0, 0, 4, 0, 0.48, 0, 0, 0, 0)) // Lee Enfield
 lib_property_equip.set(152, createProperty_equip(0, 8, 0, 6, 0, 0.5, 0, 0, 0, 0)) // bm59
 lib_property_equip.set(166, createProperty_equip(0, 0, 0, 0, 0, 0.48, 0.44, 0, 0, 0))
