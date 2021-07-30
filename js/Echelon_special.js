@@ -415,7 +415,7 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
 }
 
 // 多重攻击
-function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_buff) {
+function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, enemy_form, list_buff) {
     var num = 1
     if (is_this(stand_num, 194)) { // K2判断模式射击次数
         if (_spG('k2_' + stand_num) === 'fever') num *= 3
@@ -435,6 +435,10 @@ function settle_numbers(stand_num, info_self, enemy_arm, enemy_num_left, list_bu
         if (_spG('hanyang88_buff_' + stand_num) >= global_frame) {
             num *= enemy_num_left
         }
+    }
+    else if (is_this(stand_num, 2030)) { // Jashin, aoe伤害
+        num *= enemy_form
+        num *= enemy_num_left
     }
     if (info_self.get('type') === 6) { // SG攻击，目标数特殊处理
         if (is_this(stand_num, 302)) { // 防卫者恒定1目标、8段伤害

@@ -769,7 +769,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             // 特殊结算————————————————————————————————————————————————————————————————————————————————————————————————
             shoot_damage = settle_specialskill(stand_num, current_Info, enemy_arm, shoot_damage)
             // 段数结算————————————————————————————————————————————————————————————————————————————————————————————————
-            shoot_damage *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
+            shoot_damage *= settle_numbers(stand_num, current_Info, enemy_arm, enemy_num_left, enemy_form, list_buff)
             // 暴击结算————————————————————————————————————————————————————————————————————————————————————————————————
             shoot_damage *= settle_crit(stand_num, current_Info, list_buff)
             // 伤害加深和力场结算———————————————————————————————————————————————————————————————————————————————————————
@@ -916,6 +916,9 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               final_rof *= Math.pow(1.05, buffnum)
             }
             //console.log(global_frame, final_rof)
+          }
+          else if (is_this(stand_num, 2030)) {
+            final_rof *= 0.33
           }
 
           // 正常攻击射击间隔
@@ -2558,6 +2561,9 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
       if (document.getElementById('special_1252_' + stand_num).checked) {
         damage_snipe_single += Math.ceil(0.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
       }
+    } else if (this_ID === 2030) { // 小邪神飞踢
+      damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single'))
+      damage_snipe_single += Math.ceil(4.5 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
     } else if (this_ID === 260) { // 劲爆乐园
       damage_snipe_single = Math.ceil(ratio * current_Info.get('dmg') * explain_fgl_ff('single')) + Math.ceil(2 * current_Info.get('dmg') * explain_fgl_ff('around_aoe'))
     } else if (this_ID === 261) { // 乱石崩云

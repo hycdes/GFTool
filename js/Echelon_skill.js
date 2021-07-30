@@ -795,6 +795,7 @@ lib_describe.set('snipe_6', describe_snipe(6, 1.5, 0, 1, 'armless/critless/evale
 lib_describe.set('snipe_5.5', describe_snipe(5.5, 1.5, 0, 1, 'armless/critless/evaless')) // 5.5倍炮狙
 lib_describe.set('snipe_5', describe_snipe(5, 1.5, 0, 1, 'armless/critless/evaless')) // 5倍炮狙
 lib_describe.set('snipe_4', describe_snipe(4, 1.5, 0, 1, 'armless/critless/evaless')) // 4倍炮狙：震荡冲击弹
+lib_describe.set('snipe_3.5', describe_snipe(3, 2, 0, 1, 'armless/critless/evaless')) // 小邪神飞踢
 lib_describe.set('snipe_3', describe_snipe(3, 1, 0, 1, 'armless/critless/evaless')) // 3倍炮狙
 
 lib_describe.set('snipe_10.0_1.5', describe_snipe(10, 1.5, 0, 1, 'armless/critless/evaless')) // 10~5倍炮狙，1.5瞄准
@@ -1632,3 +1633,4 @@ lib_skill.set(2027, [
   createSkill(4, 12, 5, lib_describe.get('aug'))
 ]) // 安洁莉卡
 lib_skill.set(2029, [createSkill(8, 8, 0, lib_describe.get('grenade_5'))]) // 特工416
+lib_skill.set(2030, [createSkill(5, 12, 0, lib_describe.get('snipe_3.5'))]) // 邪神酱

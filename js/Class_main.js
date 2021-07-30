@@ -35,11 +35,11 @@ var lib_name = {
   t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR', t330: 'FX-05',
   t70: 'FNC', t298: 'Vepr',
   // —————————————— SMG ——————————————
-  t2019: '多萝西·海兹', t2023: '海莉艾塔', t2028: '特工Vector',
+  t2019: '多萝西·海兹', t2023: '海莉艾塔', t2028: '特工Vector', t2030: '邪神酱',
   t1143: 'RO635 MOD',
   t1026: 'MP5 MOD', t1101: 'UMP9 MOD', t1103: 'UMP45 MOD', t1136: 'PP-19 MOD',
   t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9', t311: 'Lusa', t315: 'AUG Para', t333: 'VP1915',
-  t1029: '司登MkⅡ MOD', t1031: '伯莱塔38型 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
+  t1029: '司登MkⅡ MOD', t1031: '伯莱塔38型 MOD', t1032: '微型乌兹 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
   t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW', t328: 'AR-57',
   t27: '蝎式', t29: '司登MkⅡ',
   // —————————————— RF ——————————————
@@ -180,6 +180,7 @@ var lib_tdoll = [
   create_entry([3, 1, 2019], ['supportdfs', 'tank_eva'], ['random'], ['forcus_dmg', 'forcus_eva', 'command_acu', 'command_eva', 'status', 'fastcd'], []),
   create_entry([3, 1, 2023], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_rof', 'forcus_eva', 'shield'], []),
   create_entry([3, 1, 2028], ['tank_eva'], ['random'], ['command_eva', 'command_reducehurt'], ['taunt', 'illusion']),
+  create_entry([3, 1, 2030], ['dps', 'tank_eva', 'af_dmg'], ['random'], ['grenade', 'shield'], []),
   create_entry([3, 6, 1143], ['supportdfs', 'tank_eva'], ['random'], ['forcus_eva', 'weak_dmg', 'weak_acu', 'fastcd'], ['immunity']),
   create_entry([3, 5, 1026], ['tank_eva'], ['random'], ['forcus_eva', 'ffshield'], []),
   create_entry([3, 5, 1101], ['tank_eva'], ['random'], ['command_dmg', 'command_eva', 'dizz', 'shield'], []),
@@ -206,6 +207,7 @@ var lib_tdoll = [
   create_entry([3, 5, 333], ['dps', 'supportdps', 'tank_eva', 'af_dmg'], ['random'], ['forcus_dmg', 'max_acu', 'deepdmg', 'multihit', 'multitarget', 'sweep', 'status'], []),
   create_entry([3, 4, 1029], ['tank_eva'], ['random'], ['handgrenade', 'reducehurt'], []),
   create_entry([3, 4, 1031], ['tank_eva'], ['random'], ['incendinary', 'dizz'], []),
+  create_entry([3, 4, 1032], ['dps', 'tank_eva'], ['random'], ['incendinary'], []),
   create_entry([3, 4, 1093], ['tank_eva'], ['random'], ['forcus_dmg', 'forcus_rof', 'forcus_eva'], []),
   create_entry([3, 4, 1094], ['tank_eva'], ['random'], ['weak_acu', 'dizz'], []),
   create_entry([3, 4, 23], ['tank_eva'], ['random'], ['forcus_eva'], []),
@@ -1040,7 +1042,7 @@ function show_details() {
     t_details += '&nbsp-&nbsp烟雾弹 ↔ 减速：0.5<br>'
     t_details += '&nbsp-&nbsp烟雾弹 ↔ 突击压制：0.4<br>'
     t_details += '&nbsp-&nbsp穿甲 ↔ 火力专注：0.4<br>'
-    t_details += '&nbsp-&伤害免疫 ↔ 力场盾：1<br>'
+    t_details += '&nbsp-&nbsp伤害免疫 ↔ 力场盾：1<br>'
     t_showdetails = '点击收起详情'
   }
   is_detail_shown = !is_detail_shown
