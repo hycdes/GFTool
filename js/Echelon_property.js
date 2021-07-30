@@ -441,8 +441,14 @@ lib_affect.set(2024, createAffect('d/dd/ddr/', 'hg', ['cld'], [0.18])) // Rico
 lib_affect.set(2025, createAffect('l/ll/llu/lld/', 'mg', ['dmg', 'acu'], [0.10, 0.15])) // Triela
 lib_affect.set(2026, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // Claes
 lib_affect.set(2027, createAffect('u/ur/r/rd/d/', 'ar/smg', ['dmg', 'acu'], [0.1, 0.2])) // Angelica
-
+lib_affect.set(2028, createAffect('l/ld/', 'ar', ['dmg', 'acu'], [0.12, 0.35])) // agent vector
 lib_affect.set(2029, createAffect('r/ru/', 'smg', ['dmg', 'eva'], [0.2, 0.15])) // agent 416
+lib_affect.set(2030, createAffect('l/lu/ld/', 'ar/smg', ['dmg', 'eva'], [0.25, 0.2])) // jashin
+lib_affect.set(2031, createAffect('rd/ru/', 'hg', ['cld'], [0.18])) // pekora
+lib_affect.set(2032, createAffect('u/ru/r/rd/d/', 'ar/smg', ['dmg', 'acu'], [0.1, 0.2])) // medusa
+lib_affect.set(2033, createAffect('rr/rru/', 'sg', ['dmg', 'arm'], [0.15, 0.15])) // yuri
+lib_affect.set(2034, createAffect('llu/ll/lld/', 'mg', ['dmg', 'acu'], [0.15, 0.15])) // minos
+
 // BUG
 lib_affect.set(3054, createAffect('l/ll/llu/lu/u/lld/ld/d/', 'all', ['dmg', 'rof'], [1, 1])) // M16A1 BOSS
 
@@ -832,8 +838,14 @@ lib_property.set(2024, createProperty(130, 80, 33, 37, 0, 400, 0.4, -1)) // Rico
 lib_property.set(2025, createProperty(37, 12, 12, 26, 21, 1265, 0.4, 4)) // Triela
 lib_property.set(2026, createProperty(79, 35, 36, 139, 0, 785, 0.05, 8)) // Claes
 lib_property.set(2027, createProperty(55, 57, 46, 75, 0, 605, 0.3, -1)) // Angelica
-
+lib_property.set(2028, createProperty(30, 11, 71, 101, 0, 925, 0.05, -1)) // agent vector
 lib_property.set(2029, createProperty(51, 46, 44, 76, 0, 605, 0.2, -1)) // agent 416
+lib_property.set(2030, createProperty(26, 13, 75, 81, 0, 1015, 0.05, -1)) // yashin
+lib_property.set(2031, createProperty(126, 80, 40, 37, 0, 440, 0.4, -1)) // pekora
+lib_property.set(2032, createProperty(58, 57, 47, 73, 0, 605, 0.3, -1)) // medusa
+lib_property.set(2033, createProperty(93, 29, 24, 128, 0, 910, 0.05, -1)) // yuri
+lib_property.set(2034, createProperty(39, 12, 11, 24, 22, 1430, 0.4, -1)) // minos
+
 // BUG
 lib_property.set(3054, createProperty(90, 60, 80, 40, 300, 320000, 1, -1)) // BOSS M16A1
 

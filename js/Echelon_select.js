@@ -122,6 +122,7 @@ function changeSelectItems() {
       str_items += '<option value=2007>No.EX7 ' + lib_language.NAME_2007 + '</option>'
       str_items += '<option value=2027>No.EX27 ' + lib_language.NAME_2027 + '</option>'
       str_items += '<option value=2029>No.EX29 ' + lib_language.NAME_2029 + '</option>'
+      str_items += '<option value=2032>No.EX32 美杜莎</option>'
       str_items += '<option value=3054>No.54 [SF] M16A1</option>'
     } else if (num_star === 4) {
       str_items += '<option value=54 selected>No.54 M16A1</option>'
@@ -201,6 +202,7 @@ function changeSelectItems() {
       str_items += '<option value=1136>No.136 [MOD] PP-19</option>'
       str_items += '<option value=2013>No.EX13 ' + lib_language.NAME_2013 + '</option>'
       str_items += '<option value=2023>No.EX23 ' + lib_language.NAME_2023 + '</option>'
+      str_items += '<option value=2030>No.EX30 邪神酱</option>'
     } else if (num_star === 4) {
       str_items += '<option value=23 selected>No.23 PP-90</option>'
       str_items += '<option value=26>No.26 MP5</option>'
@@ -283,6 +285,7 @@ function changeSelectItems() {
       str_items += '<option value=2005>No.EX5 ' + lib_language.NAME_2005 + '</option>'
       str_items += '<option value=2014>No.EX14 ' + lib_language.NAME_2014 + '</option>'
       str_items += '<option value=2024>No.EX24 ' + lib_language.NAME_2024 + '</option>'
+      str_items += '<option value=2031>No.EX31 佩可拉</option>'
     } else if (num_star === 4) {
       str_items += '<option value=36 selected>No.36 ' + lib_language.NAME_36 + '</option>'
       str_items += '<option value=39>No.39 ' + lib_language.NAME_39 + '</option>'
@@ -354,6 +357,7 @@ function changeSelectItems() {
       str_items += '<option value=1075>No.75 [MOD] M1918</option>'
       str_items += '<option value=2015>No.EX15 ' + lib_language.NAME_2015 + '</option>'
       str_items += '<option value=2026>No.EX26 ' + lib_language.NAME_2026 + '</option>'
+      str_items += '<option value=2033>No.EX33 花园铃百合</option>'
     } else if (num_star === 4) {
       str_items += '<option value=75 selected>No.75 M1918</option>'
       str_items += '<option value=78>No.78 M60</option>'
@@ -404,6 +408,7 @@ function changeSelectItems() {
       str_items += '<option value=2008>No.EX8 ' + lib_language.NAME_2008 + '</option>'
       str_items += '<option value=2016>No.EX16 ' + lib_language.NAME_2016 + '</option>'
       str_items += '<option value=2025>No.EX25 ' + lib_language.NAME_2025 + '</option>'
+      str_items += '<option value=2034>No.EX34 米诺斯</option>'
     } else if (num_star === 4) {
       str_items += '<option value=153 selected>No.153 M37</option>'
       str_items += '<option value=155>No.155 M590</option>'
