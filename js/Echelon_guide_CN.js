@@ -313,6 +313,7 @@ lib_language = {
   DESCRIBE_2006: '敌人进入制裁范围',
   DESCRIBE_2013_0: '改造切换状态',
   DESCRIBE_2013_1: '纳米迷彩',
+  DESCRIBE_2031: ['附加伤害与自身火力倍率'],
 
   fairy_0: '无',
   talent_0: '无',

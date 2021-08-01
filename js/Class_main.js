@@ -27,7 +27,7 @@ var lib_name = {
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
   t5: '纳甘左轮', t10: 'PPK',
   // —————————————— AR ——————————————
-  t2007: '无量塔姬子', t2027: '安洁莉卡', t2029: '特工416',
+  t2007: '无量塔姬子', t2027: '安洁莉卡', t2029: '特工416', t2032: '美杜莎',
   t1065: 'HK416 MOD', t1122: 'G11 MOD',
   t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
   t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t290: '89式自', t306: 'AK-Alfa', t318: 'VHS',
@@ -43,7 +43,7 @@ var lib_name = {
   t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW', t328: 'AR-57',
   t27: '蝎式', t29: '司登MkⅡ',
   // —————————————— RF ——————————————
-  t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井', t2024: '莉可',
+  t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井', t2024: '莉可', t2031: '佩可拉',
   t1053: 'NTW-20 MOD',
   t1039: '莫辛-纳甘 MOD', t1200: 'XM3 MOD', t1252: 'KSVK MOD',
   t46: 'Kar98K', t48: 'WA2000', t50: '李·恩菲尔德', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: '卡尔卡诺M1891', t198: '卡尔卡诺M91/38', t204: '芭莉斯塔', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93', t312: 'VSK-94', t316: '刘氏步枪', t329: 'SVCh',
@@ -119,6 +119,7 @@ var lib_tdoll = [
   create_entry([2, 1, 2007], ['dps', 'af_dmg'], ['front'], ['weak_dmg'], []),
   create_entry([2, 1, 2027], ['dps'], ['front'], ['forcus_dmg', 'fastcd', 'rofstatic'], []),
   create_entry([2, 1, 2029], ['dps', 'startdps'], ['front'], ['grenade', 'forcus_dmg', 'weak_acu', 'weak_eva'], []),
+  create_entry([2, 1, 2032], ['dps', 'supportdps'], ['front'], ['weak_acu', 'weak_eva', 'deepdmg', 'dizz'], []),
   create_entry([2, 6, 1065], ['dps', 'af_dmg'], ['front'], ['grenade', 'deepdmg'], []),
   create_entry([2, 6, 1122], ['dps', 'skilldps', 'af_dmg'], ['front'], ['multihit'], []),
   create_entry([2, 5, 1055], ['dps', 'supportdps', 'af_dmg', 'af_crit'], ['front'], ['forcus_dmg', 'fastcd'], ['laomo']),
@@ -231,6 +232,7 @@ var lib_tdoll = [
   create_entry([4, 1, 2005], ['dps'], ['back'], ['ap'], ['cluster']),
   create_entry([4, 1, 2020], ['dps'], ['back'], ['forcus_dmg', 'forcus_critdmg', 'ap', 'passive', 'multihit', 'multitarget'], []),
   create_entry([4, 1, 2024], ['dps'], ['back', 'suggest_1'], ['forcus_dmg', 'ap', 'passive', 'grenade', 'snipe'], ['skillcrit']),
+  create_entry([4, 1, 2031], ['dps'], ['lowhp'], ['forcus_dmg', 'max_ap', 'ap', 'shield', 'shield_break'], ['purify']),
   create_entry([4, 6, 1053], ['dps'], ['back'], ['ap', 'snipe', 'shield_break'], []),
   create_entry([4, 5, 1039], ['dps'], ['back'], ['forcus_dmg', 'forcus_rof', 'ap', 'snipe'], []),
   create_entry([4, 5, 1200], ['dps'], ['back'], ['forcus_rof', 'forcus_critdmg', 'max_acu', 'max_crit', 'ap'], ['night']),
@@ -407,7 +409,7 @@ var lib_tag = [
   ['suggest_1', 'suggest_2', 'suggest_3', 'suggest_7', 'suggest_8']
   ],
   // 3
-  [['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_eva', 'forcus_arm', 'forcus_crit', 'forcus_critdmg', 'forcus_movespeed', 'forcus_addcs', 'forcus_fastcs', 'max_acu', 'max_crit'],
+  [['forcus_dmg', 'forcus_rof', 'forcus_acu', 'forcus_eva', 'forcus_arm', 'forcus_crit', 'forcus_critdmg', 'forcus_movespeed', 'forcus_addcs', 'forcus_fastcs', 'max_acu', 'max_crit', 'max_ap'],
   ['command_dmg', 'command_rof', 'command_acu', 'command_eva', 'command_arm', 'command_crit', 'command_critdmg', 'command_movespeed', 'command_reducehurt', 'command_addcs'],
   ['weak_dmg', 'weak_rof', 'weak_acu', 'weak_eva', 'weak_movespeed', 'deepdmg'],
   ['ap', 'fastcd', 'passive', 'multihit', 'multitarget', 'sweep', 'penetrate', 'beakback', 'dmgstatic', 'rofstatic'],
@@ -495,6 +497,7 @@ var lib_tag_2 = {
   forcus_fastcs: '<img src="../img/icon-clipsize.png" style="width:19px;height:19px">快速换弹',
   max_acu: '<img src="../img/class-icon/icon-max_acu.png" style="width:19px;height:19px">攻击必中',
   max_crit: '<img src="../img/class-icon/icon-max_crit.png" style="width:19px;height:19px">攻击必暴击',
+  max_ap: '<img src="../img/class-icon/icon-max_crit.png" style="width:19px;height:19px">攻击无视护甲',
 
   command_dmg: '<img src="../img/icon-atkdmg.png" style="width:19px;height:19px">团队火力UP',
   command_rof: '<img src="../img/icon-rof.png" style="width:19px;height:19px">团队射速UP',
@@ -550,6 +553,7 @@ var tag2_forcus_dmg = new Map,
   tag2_forcus_fastcs = new Map,
   tag2_max_acu = new Map,
   tag2_max_crit = new Map,
+  tag2_max_ap = new Map,
 
   tag2_command_dmg = new Map,
   tag2_command_rof = new Map,

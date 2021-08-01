@@ -538,6 +538,11 @@ function describe_xm3() { // xm3 mod
   Describe.name = 'xm3'
   return Describe
 }
+function describe_medusa() { // medusa
+  var Describe = {}
+  Describe.name = 'medusa'
+  return Describe
+}
 
 // lib_decribe
 // universal
@@ -906,6 +911,7 @@ lib_describe.set('svch', describe_svch()) // 甘糖响应
 lib_describe.set('fx05', describe_fx05()) // 群蛇狩猎
 lib_describe.set('kolibri', describe_kolibri()) // 蜂鸟共鸣
 lib_describe.set('xm3', describe_xm3()) // 白色幽灵
+lib_describe.set('medusa', describe_medusa()) // 戈耳工之眼
 
 // lib_skill
 
@@ -1634,3 +1640,5 @@ lib_skill.set(2027, [
 ]) // 安洁莉卡
 lib_skill.set(2029, [createSkill(8, 8, 0, lib_describe.get('grenade_5'))]) // 特工416
 lib_skill.set(2030, [createSkill(5, 12, 0, lib_describe.get('snipe_3.5'))]) // 邪神酱
+lib_skill.set(2031, []) // 佩可拉：暂时不写护盾
+lib_skill.set(2032, [createSkill(3, 3, 0, lib_describe.get('medusa'))]) // 美杜莎

@@ -841,7 +841,7 @@ lib_property.set(2027, createProperty(55, 57, 46, 75, 0, 605, 0.3, -1)) // Angel
 lib_property.set(2028, createProperty(30, 11, 71, 101, 0, 925, 0.05, -1)) // agent vector
 lib_property.set(2029, createProperty(51, 46, 44, 76, 0, 605, 0.2, -1)) // agent 416
 lib_property.set(2030, createProperty(26, 13, 75, 81, 0, 1015, 0.05, -1)) // yashin
-lib_property.set(2031, createProperty(126, 80, 40, 37, 0, 440, 0.4, -1)) // pekora
+lib_property.set(2031, createProperty(126, 80, 40, 37, 0, 440, 0.4, -1)) // pekola
 lib_property.set(2032, createProperty(58, 57, 47, 73, 0, 605, 0.3, -1)) // medusa
 lib_property.set(2033, createProperty(93, 29, 24, 128, 0, 910, 0.05, -1)) // yuri
 lib_property.set(2034, createProperty(39, 12, 11, 24, 22, 1430, 0.4, -1)) // minos
@@ -938,7 +938,7 @@ lib_property_equip.set(21221, createProperty_equip(15, 0, 0, 3, 0, 0, 0, 0, 35, 
 lib_property_equip.set(326, createProperty_equip(-6, 0, 58, 0, 0, 0, 0, 0, 0, 0)) // mp5
 lib_property_equip.set(342, createProperty_equip(0, 0, 0, 3, 0, 0, 0.25, 0, 0, 0)) // ptrd
 lib_property_equip.set(354, createProperty_equip(0, -20, 10, -10, 20, 0, 0, 0, 0, 0)) // m16
-lib_property_equip.set(362, createProperty_equip(5, 5, 20, 0, 0, 0, 0, 0, 0, 0)) // g41
+lib_property_equip.set(362, createProperty_equip(25, 10, 20, 0, 0, 0, 0, 0, 0, 0)) // g41
 lib_property_equip.set(388, createProperty_equip(-25, -10, -2, 0, 0, 0, 0, 30, 0, 0)) // mg3
 lib_property_equip.set(3103, createProperty_equip(0, 0, 35, 0, 0, 0, 0.25, 0, 0, 0)) // UMP series
 lib_property_equip.set(3185, createProperty_equip(8, -3, 0, 0, 0, 0, 0, 6, 0, 0)) // ameli
@@ -971,6 +971,7 @@ lib_property_equip.set(22013, createProperty_equip(22, 0, 0, 0, 0, 0, 0, 0, -7, 
 lib_property_equip.set(32014, createProperty_equip(0, 0, 0, 3, 0, 0, 0.3, 0, 0, 0)) // Stella
 lib_property_equip.set(32015, createProperty_equip(6, 0, -2, 0, 0, 0, 0, 6, 0, 0)) // Elma
 lib_property_equip.set(32016, createProperty_equip(6, 0, -2, 0, 11, 0, 0, 0, 0, 0)) // Dana
+lib_property_equip.set(32032, createProperty_equip(18, 0, 0, 25, 0, 0, -0.5, 0, 0, 0)) // Medusa
 lib_property_equip.set(12023, createProperty_equip(0, 5, 10, 0, 0, 0, 0.25, 0, 0, 0)) // Henrietta
 lib_property_equip.set(32024, createProperty_equip(0, 0, 0, 0, 0, 0, 0.45, 0, 0, 0)) // Rico
 lib_property_equip.set(22025, createProperty_equip(15, 0, 0, 0, 0, 0.25, 0.22, 0, 0, 0)) // Triela
@@ -978,6 +979,7 @@ lib_property_equip.set(120261, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0
 lib_property_equip.set(120262, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0, -2)) // Claes-meteorite
 lib_property_equip.set(120263, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0, -3)) // Claes-watch
 lib_property_equip.set(32027, createProperty_equip(5, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // Angelica
+lib_property_equip.set(32031, createProperty_equip(0, 0, 0, 0, 0, 0, 0.45, 0, 0, 0)) // Pekola
 
 lib_property_equip.set(23054, createProperty_equip(0, 0, 0, 0, 0, 0, 0, 0, 300, 100)) // BUG:M16A1
 
@@ -1057,3 +1059,4 @@ lib_special_info.set(2011, lib_language.special_info_common) // jill
 lib_special_info.set(2013, lib_language.special_info_common) // dorothy
 lib_special_info.set(2025, lib_language.special_info_common) // triela
 lib_special_info.set(2026, lib_language.special_info_common) // claes
+lib_special_info.set(2031, lib_language.special_info_common) // pekola

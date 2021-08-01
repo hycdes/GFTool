@@ -608,6 +608,7 @@ function changeEquip() {
         if (ID === 1071) str_items += '<option value=31071>加利尔专用护木</option>' // Gaili MOD
         if (ID === 1122) str_items += '<option value=31122>G-box</option>' // G11 MOD
         if (ID === 2027) str_items += '<option value=32027>' + lib_language.equipNAME_32027 + '</option>' // 安洁莉卡
+        if (ID === 2032) str_items += '<option value=32032>纸袋头盔</option>' // 美杜莎
       } else if (ID === 54 || ID === 3054) { // M16A1
         if (set_equip[0] != 31 && set_equip[0] != 32) str_items += '<option value=32>IOP T4' + lib_language.equipNAME_31 + '</option>'
         if (set_equip[0] != 31 && set_equip[0] != 32) str_items += '<option value=31>IOP X4' + lib_language.equipNAME_31 + '</option>'
@@ -651,6 +652,7 @@ function changeEquip() {
       if (ID === 1044) str_items += '<option value=31044>' + lib_language.equipNAME_31044 + '</option>' // SV-98 MOD
       if (ID === 2014) str_items += '<option value=32014>' + lib_language.equipNAME_32014 + '</option>'
       if (ID === 2024) str_items += '<option value=32024>' + lib_language.equipNAME_32024 + '</option>'
+      if (ID === 2031) str_items += '<option value=32031>美梦多纳滋</option>'
     } else if (set_guntype === 5) { // MG
       str_items += '<option value=35>' + lib_language.equipNAME_35 + '</option>'
       if (ID === 84) str_items += '<option value=384>' + lib_language.equipNAME_384 + '</option>'

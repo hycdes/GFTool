@@ -715,6 +715,10 @@ function init_loadPrepareStatus() { // 初始化战前属性
       else if (is_this(i, 2014)) { // stella
         changeStatus(i, 'self', 'dmg', -0.5, -1)
       }
+      else if (is_this(i, 2032)) { // medusa
+        _spS('medusa_skillon_' + i, false) // 是否使用过石化
+        _spS('medusa_counter_' + i, 0) // 简化美杜莎叠层数，计算要打几次才开始叠
+      }
     }
   }
   // 载入技能——————————————————————

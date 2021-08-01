@@ -302,6 +302,9 @@ function settle_buff(stand_num, info_self, skillname) {
             else _mul_dmg *= 1.04
         }
     }
+    else if (is_this(stand_num, 2031)) { // pekola
+        ignore_arm = true
+    }
 
     return [
         ['dmg', _mul_dmg], ['acu', _mul_acu], ['critdmg', _mul_critdmg],
@@ -403,6 +406,27 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         if (Set_Special.get('clipsize_' + stand_num) === 1) _para_dmg *= 3
     }
     else if (is_this(stand_num, 2016)) _para_dmg *= 1.8 // Dana
+    else if (is_this(stand_num, 2031)) { // Pekola
+        _para_dmg *= 1 + parseFloat(document.getElementById('special_' + 2031 + '_0_' + stand_num).value) / 2; // 收益减半
+    }
+    else if (is_this(stand_num, 2032)) { // Medusa
+        if (_spG('medusa_counter_' + stand_num) === 0) { // 即将开始叠
+            // 回避
+            Set_Status.get(-2).push([['enemy_eva', 0.9], 240])
+            do_debuff('enemy_eva', 240)
+            endStatus(-1, [['enemy_eva', 0.9], 240], 'enemy_get')
+            // 命中
+            Set_Status.get(-2).push([['enemy_acu', 0.9], 240])
+            do_debuff('enemy_acu', 240)
+            endStatus(-1, [['enemy_acu', 0.9], 240], 'enemy_get')
+            // 下一目标
+            _spPlus('medusa_counter_' + stand_num)
+        }
+        if (_spG('medusa_counter_' + stand_num) >= enemy_num_left) { // 重置
+            _spS('medusa_counter_' + stand_num, 0)
+        }
+
+    }
 
     // 火力护甲结算——————————————————————————————————————————————————
     // 独享型伤害加深

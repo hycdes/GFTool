@@ -617,6 +617,10 @@ function reactAllSkill(command, current_time) {
       fragile_main /= 1.2
       Set_Special.delete('fragile_hk416')
     }
+    if (_spG('fragile_medusa') != undefined && _spG('fragile_medusa') < global_frame) { // 戈耳工之眼重伤
+      fragile_all /= 1.1
+      Set_Special.delete('fragile_medusa')
+    }
 
     // 减伤类状态
     // _spS('temp_defence', 600)
@@ -2197,6 +2201,14 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
   }
   else if (skillname === 'xm3') { // XM3被动
     _spS('xm3_skillon_' + stand_num, global_frame + 150)
+    s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
+  }
+  else if (skillname === 'medusa') { // 戈耳工之眼
+    _spS('medusa_skillon_' + stand_num, true)
+    if (!_spG('medusa_skillon_' + stand_num)) {
+      _spS('fragile_medusa', global_frame + 30 * 5)
+      fragile_all *= 1.1
+    }
     s_t[1] = Math.ceil(s_t[0].cld * (1 - current_Info.get('cld')) * 30) - 1 // 进入冷却
   }
 
