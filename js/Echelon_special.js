@@ -406,9 +406,6 @@ function settle_normal_attack(stand_num, info_self, info_enemy, list_buff) {
         if (Set_Special.get('clipsize_' + stand_num) === 1) _para_dmg *= 3
     }
     else if (is_this(stand_num, 2016)) _para_dmg *= 1.8 // Dana
-    else if (is_this(stand_num, 2031)) { // Pekola
-        _para_dmg *= 1 + parseFloat(document.getElementById('special_' + 2031 + '_0_' + stand_num).value) / 2; // 收益减半
-    }
     else if (is_this(stand_num, 2032)) { // Medusa
         if (_spG('medusa_counter_' + stand_num) === 0) { // 即将开始叠
             // 回避
@@ -727,6 +724,13 @@ function settle_addition(stand_num, info_self, info_enemy, enemy_num_left, list_
                 addition_dmg *= enemy_num_left
             }
         }
+    }
+    else if (is_this(stand_num, 2031)) { // Pekola passive dmg
+        addition_dmg = Math.ceil(
+            (parseFloat(document.getElementById('special_' + 2031 + '_0_' + stand_num).value) / 2) *
+            info_self.get('dmg') * _pro('random')
+        ) * this_formation(stand_num) // 收益减半，无视护甲
+        addition_dmg *= explain_fgl_ff('single') // 参与伤害加深
     }
     return addition_dmg
 }
