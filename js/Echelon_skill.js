@@ -782,6 +782,7 @@ lib_describe.set('grenade_9.6', describe_grenade(9.6)) // 9.6倍榴弹
 lib_describe.set('grenade_8', describe_grenade(8)) // 8倍榴弹
 lib_describe.set('grenade_5', describe_grenade(5)) // 5倍榴弹
 lib_describe.set('grenade_4.5', describe_grenade(4.5)) // 4.5倍榴弹
+lib_describe.set('grenade_2.5', describe_grenade(2.5)) // 2.5倍榴弹
 lib_describe.set('kiana', describe_grenade(-1)) // 阿斯加德之怒，-1表示倍率特殊单独判断
 lib_describe.set('dana', describe_grenade(-1)) // 红色间歇泉，-1表示倍率特殊单独判断
 lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
@@ -1642,3 +1643,4 @@ lib_skill.set(2029, [createSkill(8, 8, 0, lib_describe.get('grenade_5'))]) // �
 lib_skill.set(2030, [createSkill(5, 12, 0, lib_describe.get('snipe_3.5'))]) // 邪神酱
 lib_skill.set(2031, []) // 佩可拉：暂时不写护盾
 lib_skill.set(2032, [createSkill(3, 3, 0, lib_describe.get('medusa'))]) // 美杜莎
+lib_skill.set(2033, [createSkill(8, 16, 0, lib_describe.get('grenade_2.5'))]) // 百合铃

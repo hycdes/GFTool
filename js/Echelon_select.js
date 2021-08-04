@@ -535,6 +535,7 @@ function changeEquip() {
         str_items += '<option value=120262>' + lib_language.equipNAME_120262 + '</option>'
         str_items += '<option value=120263>' + lib_language.equipNAME_120263 + '</option>'
       }
+      if (ID === 2033) str_items += '<option value=12033>魔导书下卷</option>'
     } else if (set_guntype === 6) { // SG
       str_items += '<option value=33>Type3' + lib_language.equipNAME_33 + '</option>'
       if (ID === 1161) str_items += '<option value=31161>' + lib_language.equipNAME_31161 + '</option>'

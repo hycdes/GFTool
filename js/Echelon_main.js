@@ -1137,6 +1137,25 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               _spS('claes_buff_' + stand_num, 0)
               _spS('claes_firestatus_' + stand_num, false)
             }
+            else if (is_this(stand_num, 2033)) { // 百合铃换弹
+              var ran_select = Math.random()
+              if (ran_select < 0.33) { // 三叉戟
+                changeStatus(stand_num, 'all', 'dmg', 0.1, 8)
+                for (var i = 0; i < 9; i++) {
+                  if (gs_tdoll[i]) {
+                    var _ctype = ((Set_Base.get(i)).Info).get('type')
+                    if (_ctype === 5 || _ctype === 6) {
+                      _spS('clipsize_' + i, _spG('clipsize_' + i) + 2) // 弹量+2
+                    }
+                  }
+                }
+              } else if (ran_select >= 0.33 && ran_select < 0.66) { // 铁处女
+                // 降低属性暂时不写
+                ;
+              } else {
+                ;
+              }
+            }
 
           } else {
             if (extra_shoot_pkp) {

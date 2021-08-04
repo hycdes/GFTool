@@ -544,6 +544,7 @@ function resetEquipment() {
       else if (ID === 1125) set_equip = [12, 21125, 35] // mg4 mod
       else if (ID === 2015) set_equip = [12, 23, 32015] // Alma
       else if (ID === 2026) set_equip = [120263, 23, 35] // Claes
+      else if (ID === 2033) set_equip = [12033, 23, 35] // Yurine
       else set_equip = [12, 23, 35]
     }
     else if (set_guntype === 6) {
@@ -963,6 +964,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 316) addSpecialSetting(316, reverse_position, num_pickblock, 'pickone', 2, 0, ['dodgerblue', 'orange']) // General Liu
     else if (ID === 333) addSpecialSetting(333, reverse_position, num_pickblock, 'pickone', 2, 1, ['dodgerblue', 'red']) // VP1915
     else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 'pickone', 6, 5, ['', '', '', '', '', 'red']) // Claes
+    else if (ID === 2033) addSpecialSetting(2033, reverse_position, num_pickblock, 'pickone', 4, 0, ['', 'dodgerblue', 'orange', 'red']) // Yurine
 
     // 类型4：能量条
     else if (ID === 231) addSpecialSetting(231, reverse_position, num_pickblock, 'energy', 4, 4, -1, 'FF6666') // M82A1
@@ -1053,7 +1055,7 @@ function addSpecialSetting() { // ID,_position,_type
     [316, lib_language.NAME_316], [329, 'SVCh'], [1039, lib_language.NAME_39], [1053, 'NTW-20 [MOD]'], [1124, 'Super SASS [MOD]'], [1200, 'XM3 [MOD]'],
     [2031, '佩可拉'],
     // MG
-    [238, lib_language.NAME_238], [275, 'M1895CB'], [1125, 'MG4 [MOD]'], [2026, lib_language.NAME_2026],
+    [238, lib_language.NAME_238], [275, 'M1895CB'], [1125, 'MG4 [MOD]'], [2026, lib_language.NAME_2026], [2033, '花园百合铃'],
     // SG
     [302, lib_language.NAME_302], [2025, lib_language.NAME_2025]
   ]

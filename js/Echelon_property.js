@@ -922,6 +922,7 @@ lib_property_equip.set(11101, createProperty_equip(10, 14, 0, -3, 0, 0, 0, 0, 0,
 lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0, 0)) // ump45
 lib_property_equip.set(11124, createProperty_equip(10, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // supersass
 lib_property_equip.set(11136, createProperty_equip(4, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // pp19
+lib_property_equip.set(12033, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0, 0)) // yurino
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(2158, createProperty_equip(18, 4, 0, 0, 0, 0, 0.27, 0, 0, 0)) // ks-23
 lib_property_equip.set(2302, createProperty_equip(15, 0, 0, 0, 0, 0.3, 0, 0, 0, 0)) // 防卫者
