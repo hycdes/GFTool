@@ -964,7 +964,7 @@ function addTdoll() { // 添加战术人形
     else if (ID === 316) addSpecialSetting(316, reverse_position, num_pickblock, 'pickone', 2, 0, ['dodgerblue', 'orange']) // General Liu
     else if (ID === 333) addSpecialSetting(333, reverse_position, num_pickblock, 'pickone', 2, 1, ['dodgerblue', 'red']) // VP1915
     else if (ID === 2026) addSpecialSetting(2026, reverse_position, num_pickblock, 'pickone', 6, 5, ['', '', '', '', '', 'red']) // Claes
-    else if (ID === 2033) addSpecialSetting(2033, reverse_position, num_pickblock, 'pickone', 4, 0, ['', 'dodgerblue', 'orange', 'red']) // Yurine
+    else if (ID === 2033) addSpecialSetting(2033, reverse_position, num_pickblock, 'pickone', 4, 0, ['', 'orange', 'dodgerblue', 'red']) // Yurine
 
     // 类型4：能量条
     else if (ID === 231) addSpecialSetting(231, reverse_position, num_pickblock, 'energy', 4, 4, -1, 'FF6666') // M82A1

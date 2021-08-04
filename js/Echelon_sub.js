@@ -719,6 +719,10 @@ function init_loadPrepareStatus() { // 初始化战前属性
         _spS('medusa_skillon_' + i, false) // 是否使用过石化
         _spS('medusa_counter_' + i, 0) // 简化美杜莎叠层数，计算要打几次才开始叠
       }
+      else if (is_this(i, 2033)) { // yurine
+        _spS('yurine_' + i, 0) // 默认无效果
+        _spS('yurine_type2_' + i, 0) // 铁处女0层
+      }
     }
   }
   // 载入技能——————————————————————

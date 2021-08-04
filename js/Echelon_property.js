@@ -843,7 +843,7 @@ lib_property.set(2029, createProperty(51, 46, 44, 76, 0, 605, 0.2, -1)) // agent
 lib_property.set(2030, createProperty(26, 13, 75, 81, 0, 1015, 0.05, -1)) // yashin
 lib_property.set(2031, createProperty(126, 80, 40, 37, 0, 440, 0.4, -1)) // pekola
 lib_property.set(2032, createProperty(58, 57, 47, 73, 0, 605, 0.3, -1)) // medusa
-lib_property.set(2033, createProperty(93, 29, 24, 128, 0, 910, 0.05, -1)) // yuri
+lib_property.set(2033, createProperty(93, 29, 24, 128, 0, 910, 0.05, 10)) // yuri
 lib_property.set(2034, createProperty(39, 12, 11, 24, 22, 1430, 0.4, -1)) // minos
 
 // BUG
@@ -1061,3 +1061,4 @@ lib_special_info.set(2013, lib_language.special_info_common) // dorothy
 lib_special_info.set(2025, lib_language.special_info_common) // triela
 lib_special_info.set(2026, lib_language.special_info_common) // claes
 lib_special_info.set(2031, lib_language.special_info_common) // pekola
+lib_special_info.set(2033, lib_language.special_info_common) // yurine

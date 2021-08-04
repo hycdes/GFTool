@@ -735,7 +735,7 @@ function settle_addition(stand_num, info_self, info_enemy, enemy_num_left, list_
     return addition_dmg
 }
 
-function settle_ignoreaccuracy(stand_num, info_self, info_enemy, final_dmg) {
+function settle_ignoreaccuracy(stand_num, info_self, info_enemy, final_dmg, list_buff) {
     var _para_arm = Math.min(2, _pro('ap', info_self) - _pro('e_arm', info_enemy))
     if (is_this(stand_num, 1122)) {// G11 MOD
         var extra_dmg = 0
@@ -751,6 +751,26 @@ function settle_ignoreaccuracy(stand_num, info_self, info_enemy, final_dmg) {
         if (_spG('svch_frame_' + stand_num) >= global_frame) {
             final_dmg += 150 * enemy_form
         }
+    }
+    else if (is_this(stand_num, 2033)) { // 花园百合铃铁处女叠层数
+        if (_spG('yurine_' + stand_num) === 2) { // 铁处女积累层数
+            _spPlus('yurine_type2_' + stand_num)
+            if (_spG('yurine_type2_' + stand_num) >= 5) {
+                var extra_dmg = 0
+                _spS('yurine_type2_' + stand_num, 0)
+                extra_dmg = 3 * info_self.get('dmg') * this_formation(stand_num) // 3倍火力
+                final_dmg += extra_dmg
+            }
+        } else if (_spG('yurine_' + stand_num) === 3) { // 电锯伤害
+            var extra_dmg = 0
+            var critdmg_para = 1
+            if (Math.random() <= info_self.get('crit')) {
+                critdmg_para *= info_self.get('critdmg') * _mul('critdmg', list_buff)
+            }
+            extra_dmg = 0.25 * info_self.get('dmg') * critdmg_para * this_formation(stand_num)
+            final_dmg += extra_dmg
+        }
+
     }
     return final_dmg
 }

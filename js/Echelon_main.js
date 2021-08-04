@@ -784,7 +784,7 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             shoot_damage += settle_addition(stand_num, current_Info, enemy_arm, enemy_num_left, list_buff)
           }
           // 跳过命中步骤和编制的特殊伤害————————————————————————————————————————————————————————————————————————————————————————————————
-          shoot_damage = settle_ignoreaccuracy(stand_num, current_Info, enemy_arm, shoot_damage)
+          shoot_damage = settle_ignoreaccuracy(stand_num, current_Info, enemy_arm, shoot_damage, list_buff)
           // 记录伤害数据———————————————————————————————————————————————————————————————————————————————————————————————
           recordData(stand_num, current_time, shoot_damage + extra_damage)
         }
@@ -1139,7 +1139,11 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             }
             else if (is_this(stand_num, 2033)) { // 百合铃换弹
               var ran_select = Math.random()
+              if (document.getElementById('special_2033_1_' + stand_num).checked) ran_select = 0 // 总是三叉戟
+              else if (document.getElementById('special_2033_2_' + stand_num).checked) ran_select = 0.5 // 总是铁处女
+              else if (document.getElementById('special_2033_3_' + stand_num).checked) ran_select = 1 // 总是电锯
               if (ran_select < 0.33) { // 三叉戟
+                _spS('yurine_' + stand_num, 1)
                 changeStatus(stand_num, 'all', 'dmg', 0.1, 8)
                 for (var i = 0; i < 9; i++) {
                   if (gs_tdoll[i]) {
@@ -1150,10 +1154,10 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
                   }
                 }
               } else if (ran_select >= 0.33 && ran_select < 0.66) { // 铁处女
+                _spS('yurine_' + stand_num, 2)
                 // 降低属性暂时不写
-                ;
               } else {
-                ;
+                _spS('yurine_' + stand_num, 3)
               }
             }
 

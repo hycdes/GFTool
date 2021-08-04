@@ -357,7 +357,7 @@ function changeSelectItems() {
       str_items += '<option value=1075>No.75 [MOD] M1918</option>'
       str_items += '<option value=2015>No.EX15 ' + lib_language.NAME_2015 + '</option>'
       str_items += '<option value=2026>No.EX26 ' + lib_language.NAME_2026 + '</option>'
-      str_items += '<option value=2033>No.EX33 花园铃百合</option>'
+      str_items += '<option value=2033>No.EX33 花园百合铃</option>'
     } else if (num_star === 4) {
       str_items += '<option value=75 selected>No.75 M1918</option>'
       str_items += '<option value=78>No.78 M60</option>'
