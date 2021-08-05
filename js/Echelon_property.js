@@ -844,7 +844,7 @@ lib_property.set(2030, createProperty(26, 13, 75, 81, 0, 1015, 0.05, -1)) // yas
 lib_property.set(2031, createProperty(126, 80, 40, 37, 0, 440, 0.4, -1)) // pekola
 lib_property.set(2032, createProperty(58, 57, 47, 73, 0, 605, 0.3, -1)) // medusa
 lib_property.set(2033, createProperty(93, 29, 24, 128, 0, 910, 0.05, 10)) // yuri
-lib_property.set(2034, createProperty(39, 12, 11, 24, 22, 1430, 0.4, -1)) // minos
+lib_property.set(2034, createProperty(39, 12, 11, 24, 22, 1430, 0.4, 4)) // minos
 
 // BUG
 lib_property.set(3054, createProperty(90, 60, 80, 40, 300, 320000, 1, -1)) // BOSS M16A1
@@ -923,6 +923,7 @@ lib_property_equip.set(11103, createProperty_equip(0, 0, 15, 0, 0, 0.25, 0, 0, 0
 lib_property_equip.set(11124, createProperty_equip(10, 0, 0, 0, 0, 0.48, 0, 0, 0, 0)) // supersass
 lib_property_equip.set(11136, createProperty_equip(4, 0, 20, 0, 0, 0, 0, 0, 0, 0)) // pp19
 lib_property_equip.set(12033, createProperty_equip(10, 5, 0, 0, 0, 0.5, 0, 0, 0, 0)) // yurino
+lib_property_equip.set(12034, createProperty_equip(0, 36, 5, 0, 0, 0, 0, 0, 0, 0)) // minos
 lib_property_equip.set(236, createProperty_equip(0, 0, 0, 10, 0, 0, 0, 0, 195, 0))
 lib_property_equip.set(2158, createProperty_equip(18, 4, 0, 0, 0, 0, 0.27, 0, 0, 0)) // ks-23
 lib_property_equip.set(2302, createProperty_equip(15, 0, 0, 0, 0, 0.3, 0, 0, 0, 0)) // 防卫者

@@ -1570,6 +1570,7 @@ lib_skill.set(188, [createSkill(2, 8, 5, lib_describe.get('sat8'))]) // 坚壁�
 lib_skill.set(229, [createSkill(8, 16, 4, lib_describe.get('m870'))]) // 地狱公路
 lib_skill.set(281, []) // 
 lib_skill.set(282, []) // 
+lib_skill.set(323, []) // LTLX7000
 lib_skill.set(1161, [
   createSkill(8, 16, 8, lib_describe.get('dmg_120')),
   createSkill(8, 16, 8, lib_describe.get('acu_20')),
@@ -1643,4 +1644,5 @@ lib_skill.set(2029, [createSkill(8, 8, 0, lib_describe.get('grenade_5'))]) // �
 lib_skill.set(2030, [createSkill(5, 12, 0, lib_describe.get('snipe_3.5'))]) // 邪神酱
 lib_skill.set(2031, []) // 佩可拉：暂时不写护盾
 lib_skill.set(2032, [createSkill(3, 3, 0, lib_describe.get('medusa'))]) // 美杜莎
-lib_skill.set(2033, [createSkill(8, 16, 0, lib_describe.get('grenade_2.5'))]) // 百合铃
+lib_skill.set(2033, [createSkill(8, 16, 0, lib_describe.get('grenade_2.5'))]) // 花园百合铃
+lib_skill.set(2034, []) // 米诺斯

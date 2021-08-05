@@ -547,12 +547,13 @@ function resetEquipment() {
       else if (ID === 2033) set_equip = [12033, 23, 35] // Yurine
       else set_equip = [12, 23, 35]
     }
-    else if (set_guntype === 6) {
+    else if (set_guntype === 6) { // SG
       if (ID === 158) set_equip = [33, 2158, 13] // ks23
       else if (ID === 302) set_equip = [33, 24, 12] // 防卫者
       else if (ID === 1161) set_equip = [31161, 24, 13] // 97式霰
       else if (ID === 2016) set_equip = [32016, 24, 13] // Dana
       else if (ID === 2025) set_equip = [33, 22025, 13] // Triela
+      else if (ID === 2034) set_equip = [33, 24, 12034] // Minos
       else set_equip = [33, 24, 13]
     }
     document.getElementById('img_e1').style = 'background:url(../img/echelon/equip/' + set_equip[0] + '.png)'
