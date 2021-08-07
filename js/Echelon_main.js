@@ -1016,10 +1016,13 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
             if (current_Info.get('type') === 5) { // MG的换弹
               if (is_this(stand_num, 1075)) { // M1918-MOD 战地魔术
                 reload_frame = 150
-              } else {
+              }
+
+              // —————————————————————————————————————— MG换弹计算公式 ——————————————————————————————————————
+
+              else {
                 if (rof > 1000) rof = 1000
                 else if (rof < 1) rof = 1
-                // —————————————————————————————————————— MG换弹计算公式 ——————————————————————————————————————
                 reload_frame = Math.floor((4 + 200 / rof) * 30)
                 if (is_this(stand_num, 253)) { // 刘易斯 力天使
                   reload_frame = Math.max(Math.ceil(reload_frame * (1 - 0.15 * _spG('angel_strength' + stand_num))), reload_frame * 0.55)
@@ -1069,8 +1072,12 @@ function react(s_t, stand_num, current_time) { // < Skill , countdown_time >, cr
               else if (is_this(stand_num, 2008)) { // 量子回溯瞬间完成换弹
                 reload_frame = rof_to_frame(current_Info.get('type'), current_Info.get('rof'), list_tdoll[stand_num][1].ID) - 1
               }
-              else { // —————————————————————————————————————— MG换弹计算公式 ——————————————————————————————————————
-                reload_frame = Math.floor(65 + 15 * ((list_tdoll[stand_num][1].Property).cs))
+
+              // —————————————————————————————————————— SG换弹计算公式 ——————————————————————————————————————
+
+              else {
+                // 所有人基础值都从65改成了45
+                reload_frame = Math.floor(45 + 15 * ((list_tdoll[stand_num][1].Property).cs))
               }
             } else if (current_Info.get('type') === 4 && is_this(stand_num, 256)) { // 隼的换弹
               reload_frame = 30 + Math.floor(3600 / (current_Info.get('rof') + 10))
@@ -2527,6 +2534,12 @@ function endStatus(stand_num, status, situation) { // 刷新属性，状态是 [
         grenade_para[0] = ((Set_Base.get(stand_num)).Info).get('critdmg')
       } else if (is_this(stand_num, 2016)) { // dana skill
         grenade_para[0] = 0.6 * (1 + 0.01 * ((Set_Base.get(stand_num)).Info).get('arm'))
+      } else if (is_this(stand_num, 2034)) { // minos skill
+        // 取最大生命值20%和50倍火力的最小值
+        grenade_para[0] = 8 +
+          Math.min(
+            0.2 * parseInt(document.getElementById('special_2034_0_' + stand_num).value) / ((Set_Base.get(stand_num)).Info).get('dmg'),
+            50)
       }
     }
     var damage_explode = 0

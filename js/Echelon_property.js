@@ -1063,3 +1063,4 @@ lib_special_info.set(2025, lib_language.special_info_common) // triela
 lib_special_info.set(2026, lib_language.special_info_common) // claes
 lib_special_info.set(2031, lib_language.special_info_common) // pekola
 lib_special_info.set(2033, lib_language.special_info_common) // yurine
+lib_special_info.set(2034, lib_language.special_info_common) // minos

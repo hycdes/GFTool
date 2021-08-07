@@ -788,6 +788,7 @@ lib_describe.set('dana', describe_grenade(-1)) // 红色间歇泉，-1表示倍�
 lib_describe.set('zas', describe_zas()) // 夜枭轰鸣
 lib_describe.set('k11', describe_k11()) // 恐惧榴弹
 lib_describe.set('sop2', describe_sop2()) // 狂乱马戏
+lib_describe.set('minos', describe_grenade(-1)) // 恶魔重拳，-1表示倍率特殊单独判断
 // snipe
 lib_describe.set('kar98k', describe_snipe(3.5, 1, 1, 2, 'armless/critless/evaless')) // 锁链射击
 lib_describe.set('snipe_10', describe_snipe(10, 2, 0, 1, 'armless/critless/evaless')) // 10倍炮狙
@@ -1645,4 +1646,4 @@ lib_skill.set(2030, [createSkill(5, 12, 0, lib_describe.get('snipe_3.5'))]) // �
 lib_skill.set(2031, []) // 佩可拉：暂时不写护盾
 lib_skill.set(2032, [createSkill(3, 3, 0, lib_describe.get('medusa'))]) // 美杜莎
 lib_skill.set(2033, [createSkill(8, 16, 0, lib_describe.get('grenade_2.5'))]) // 花园百合铃
-lib_skill.set(2034, []) // 米诺斯
+lib_skill.set(2034, [createSkill(6, 12, 0, lib_describe.get('minos'))]) // 米诺斯

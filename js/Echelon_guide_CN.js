@@ -316,6 +316,7 @@ lib_language = {
   DESCRIBE_2013_0: '改造切换状态',
   DESCRIBE_2013_1: '纳米迷彩',
   DESCRIBE_2031: ['附加伤害与自身火力倍率'],
+  DESCRIBE_2034: ['敌人血量'],
 
   fairy_0: '无',
   talent_0: '无',

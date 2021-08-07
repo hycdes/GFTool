@@ -59,7 +59,7 @@ var lib_name = {
   t75: 'M1918', t78: 'M60', t85: 'PK', t88: 'MG3', t121: 'Mk48', t149: 'AEK-999', t185: '阿梅利', t199: '80式', t240: 'Mk46', t254: 'UKM2000', t264: '绍沙', t275: 'M1895CB', t319: 'PM1910',
   t77: 'M2HB',
   // —————————————— SG ——————————————
-  t2002: '艾尔菲尔特', t2008: '希儿', t2022: '达娜·赞恩', t2025: '崔耶拉',
+  t2002: '艾尔菲尔特', t2008: '希儿', t2022: '达娜·赞恩', t2025: '崔耶拉', t2034: '米诺斯',
   t1161: '97式霰 MOD',
   t151: 'M1887', t157: 'KSG', t160: 'Saiga-12', t163: 'AA-12', t164: 'FP-6', t188: 'S.A.T.8', t229: 'M870', t281: 'CAWS', t282: 'DP-12', t323: 'LTLX7000',
   t153: 'M37', t155: 'M590', t156: 'Super-Shorty', t161: '97式霰', t162: 'SPAS-12', t165: 'M1014', t189: 'USAS-12', t283: '解放者',
@@ -318,6 +318,7 @@ var lib_tdoll = [
   create_entry([6, 1, 2008], ['dps', 'tank_arm'], ['random'], ['forcus_fastcs', 'passive'], []),
   create_entry([6, 1, 2022], ['tank_arm'], ['random'], ['grenade', 'passive'], []),
   create_entry([6, 1, 2025], ['dps', 'tank_arm'], ['random'], ['forcus_dmg', 'forcus_rof', 'passive', 'status'], []),
+  create_entry([6, 1, 2034], ['tank_arm'], ['random'], ['grenade', 'dizz', 'shield'], []),
   create_entry([6, 5, 1161], ['tank_arm'], ['random'], ['forcus_dmg', 'forcus_acu', 'weak_movespeed', 'multitarget'], []),
   create_entry([6, 5, 151], ['tank_arm'], ['random'], ['dmgstatic', 'snipe'], []),
   create_entry([6, 5, 157], ['tank_arm'], ['random'], ['forcus_arm', 'forcus_eva'], []),

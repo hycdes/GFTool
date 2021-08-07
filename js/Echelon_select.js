@@ -666,6 +666,7 @@ function changeEquip() {
       str_items += '<option value=12>[' + lib_language.equipNAME_12 + '] VFL 6-24X56</option>'
       str_items += '<option value=14>[' + lib_language.equipNAME_14 + '] EOT 518</option>'
       str_items += '<option value=41>[' + lib_language.equipNAME_41 + '] PEQ-16A</option>'
+      if (ID === 2034) str_items += '<option value=12034>摇摆魔铃</option>'
     }
   }
   if (switch_operate && switch_equip) {

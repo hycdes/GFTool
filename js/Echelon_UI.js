@@ -994,9 +994,8 @@ function addTdoll() { // 添加战术人形
       addSpecialSetting(318, reverse_position, num_pickblock, 'description', ['VHS析构属性可以填写数值，也可以填写百分比（需要在末尾带上%）。如果填写了异常值，则默认为0。'])
       addSpecialSetting('append_318', reverse_position, num_pickblock, 'multipleinput', 3, ['45%', '40%', '80%'])
     }
-    else if (ID === 2031) {// Pekola
-      addSpecialSetting(2031, reverse_position, num_pickblock, 'multipleinput', 1, [1])
-    }
+    else if (ID === 2031) addSpecialSetting(2031, reverse_position, num_pickblock, 'multipleinput', 1, [1]) // Pekola
+    else if (ID === 2034) addSpecialSetting(2034, reverse_position, num_pickblock, 'multipleinput', 1, [10000]) // Minos
 
     else if (ID === 276) {
       var str_html = ''
@@ -1058,7 +1057,7 @@ function addSpecialSetting() { // ID,_position,_type
     // MG
     [238, lib_language.NAME_238], [275, 'M1895CB'], [1125, 'MG4 [MOD]'], [2026, lib_language.NAME_2026], [2033, '花园百合铃'],
     // SG
-    [302, lib_language.NAME_302], [2025, lib_language.NAME_2025]
+    [302, lib_language.NAME_302], [2025, lib_language.NAME_2025], [2034, '米诺斯'],
   ]
   var is_appending = false
   var ID = -1,
