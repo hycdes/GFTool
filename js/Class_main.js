@@ -16,12 +16,12 @@ var pick_tag = [
   []
 ]
 // ====================人形添加：修改lib_name和lib_tdoll====================
-var lib_name = {
+var lib_name_cn = {
   // —————————————— HG ——————————————
   t2001: '诺艾尔', t2003: '琪亚娜', t2006: '德丽莎', t2009: '克莉尔', t2010: '菲尔', t2017: '吉尔·斯汀雷', t2018: '塞伊·朝雾',
-  t1097: 'M950A MOD', t1114: '维尔德MkⅡ MOD',
+  t1097: 'M950A MOD', t1114: '维尔德MkII MOD',
   t1001: '柯尔特左轮 MOD', t1007: '斯捷奇金 MOD',
-  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkⅡ', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93', t303: 'HP-35', t331: '蜂鸟',
+  t4: '蟒蛇', t96: '灰熊MkV', t97: 'M950A', t114: '维尔德MkII', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: '竞争者', t233: 'Px4风暴', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: '沙漠之鹰', t285: 'C-93', t303: 'HP-35', t331: '蜂鸟',
   t1002: 'M1911 MOD', t1005: '纳甘左轮 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD', t1221: 'GSh-18 MOD',
   t1: '柯尔特左轮', t7: '斯捷奇金', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: '雷电', t212: 'K5', t248: '杰里科', t269: 'P30', t310: 'Rex Zero 1',
   t3: 'M9', t14: '阿斯特拉左轮', t132: '59式',
@@ -29,19 +29,19 @@ var lib_name = {
   // —————————————— AR ——————————————
   t2007: '无量塔姬子', t2027: '安洁莉卡', t2029: '特工416', t2032: '美杜莎',
   t1065: 'HK416 MOD', t1122: 'G11 MOD',
-  t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD Ⅱ MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
+  t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD II MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
   t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: '95式', t130: '97式', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64式自', t274: 'ACR', t287: "SIG-556", t289: 'R5', t290: '89式自', t306: 'AK-Alfa', t318: 'VHS',
   t1061: 'StG44 MOD', t1063: 'G3 MOD', t1071: '加利尔 MOD',
-  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD Ⅱ', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR', t330: 'FX-05',
+  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD II', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: '56-1式', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: '利贝罗勒', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR', t330: 'FX-05',
   t70: 'FNC', t298: 'Vepr',
   // —————————————— SMG ——————————————
   t2019: '多萝西·海兹', t2023: '海莉艾塔', t2028: '特工Vector', t2030: '邪神酱',
   t1143: 'RO635 MOD',
   t1026: 'MP5 MOD', t1101: 'UMP9 MOD', t1103: 'UMP45 MOD', t1136: 'PP-19 MOD',
   t16: '汤姆森', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: '索米', t127: '79式', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '樱花', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9', t311: 'Lusa', t315: 'AUG Para', t333: 'VP1915',
-  t1029: '司登MkⅡ MOD', t1031: '伯莱塔38型 MOD', t1032: '微型乌兹 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
+  t1029: '司登MkII MOD', t1031: '伯莱塔38型 MOD', t1032: '微型乌兹 MOD', t1093: 'IDW MOD', t1094: '64式 MOD',
   t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: '希普卡', t177: 'KLIN', t203: '蜜獾', t225: 'Cx4 风暴', t280: 'MAT-49', t286: 'KAC-PDW', t328: 'AR-57',
-  t27: '蝎式', t29: '司登MkⅡ',
+  t27: '蝎式', t29: '司登MkII',
   // —————————————— RF ——————————————
   t2004: '雷电芽衣', t2005: '布洛妮娅', t2020: '史黛拉·星井', t2024: '莉可', t2031: '佩可拉',
   t1053: 'NTW-20 MOD',
@@ -65,6 +65,64 @@ var lib_name = {
   t153: 'M37', t155: 'M590', t156: 'Super-Shorty', t161: '97式霰', t162: 'SPAS-12', t165: 'M1014', t189: 'USAS-12', t283: '解放者',
   t159: 'RMB-93'
 }
+var lib_name_en = {
+  // —————————————— HG ——————————————
+  t2001: 'Noel', t2003: 'Kiana', t2006: 'Theresa', t2009: 'Clear', t2010: 'Fail', t2017: 'Jill Stingray', t2018: 'Sei Asagiri',
+  t1097: 'M950A MOD', t1114: 'Welrod MkII MOD',
+  t1001: 'SAA MOD', t1007: 'Stechkin MOD',
+  t4: 'Python', t96: 'Grizzly MkV', t97: 'M950A', t114: 'Welrod MkII', t126: 'NZ75', t142: 'Five-seveN', t166: 'CZ75', t183: 'Contender', t233: 'Px4 Storm', t242: 'P22', t250: 'HS2000', t260: 'PA-15', t272: 'Desert Eagle', t285: 'C-93', t303: 'HP-35', t331: 'Kolibri',
+  t1002: 'M1911 MOD', t1005: 'M1895 MOD', t1012: 'C96 MOD', t1091: 'MP-446 MOD', t1221: 'GSh-18 MOD',
+  t1: 'SAA', t7: 'Stechkin', t98: 'SPP-1', t99: 'Mk23', t100: 'P7', t168: 'SpitFire', t202: 'Thunder', t212: 'K5', t248: 'Jericho', t269: 'P30', t310: 'Rex Zero 1',
+  t3: 'M9', t14: 'Astra', t132: 'Type 59',
+  t5: 'M1895', t10: 'PPK',
+  // —————————————— AR ——————————————
+  t2007: 'Himeko', t2027: 'Angelica', t2029: 'Agent 416', t2032: 'Medusa',
+  t1065: 'HK416 MOD', t1122: 'G11 MOD',
+  t1055: 'M4A1 MOD', t1056: 'M4 SOPMOD II MOD', t1057: 'ST AR-15 MOD', t1060: 'AS Val MOD', t1064: 'G36 MOD',
+  t62: 'G41', t65: 'HK416', t73: 'AUG', t106: 'FAL', t119: 'OTs-14', t122: 'G11', t129: 'Type 95', t130: 'Type 97', t172: 'RFB', t175: 'ART556', t181: 'T91', t194: 'K2', t196: 'Zas M21', t205: 'AN-94', t206: 'AK-12', t214: 'ADS', t215: 'MDR', t236: 'K11', t243: '64 Shiki', t274: 'ACR', t287: "SIG-556", t289: 'R5', t290: '89 Shiki', t306: 'AK-Alfa', t318: 'VHS',
+  t1061: 'StG44 MOD', t1063: 'G3 MOD', t1071: 'Galil MOD',
+  t54: 'M16A1', t55: 'M4A1', t56: 'M4 SOPMOD II', t57: 'ST AR-15', t60: 'AS Val', t64: 'G36', t66: 'Type 56-1', t69: 'FAMAS', t72: 'TAR-21', t118: '9A-91', t171: 'Ribeyrolles', t187: 'Ak 5', t207: 'CZ2000', t216: 'XM8', t227: 'A-91', t237: 'SAR-21', t262: 'EM-2', t288: 'CR-21', t313: 'S-ACR', t330: 'FX-05',
+  t70: 'FNC', t298: 'Vepr',
+  // —————————————— SMG ——————————————
+  t2019: 'Dorothy Haze', t2023: 'Henrietta', t2028: 'Agent Vector', t2030: 'Jashin-chan',
+  t1143: 'RO635 MOD',
+  t1026: 'MP5 MOD', t1101: 'UMP9 MOD', t1103: 'UMP45 MOD', t1136: 'PP-19 MOD',
+  t16: 'Thompson', t20: 'Vector', t28: 'MP7', t59: 'AK-74U', t104: 'G36C', t115: 'Suomi', t127: 'Type 79', t135: 'SR-3MP', t143: 'RO635', t213: 'C-MS', t224: 'PM-06', t228: '100 Shiki', t234: 'JS 9', t245: 'P90', t251: 'X95', t259: 'PM-9', t311: 'Lusa', t315: 'AUG Para', t333: 'VP1915',
+  t1029: 'Sten MkII MOD', t1031: 'M38 MOD', t1032: 'Micro Uzi MOD', t1093: 'IDW MOD', t1094: 'Type 64 MOD',
+  t23: 'PP-90', t26: 'MP5', t101: 'UMP9', t102: 'UMP40', t103: 'UMP45', t136: 'PP-19', t137: 'PP-19-01', t150: 'Shipka', t177: 'KLIN', t203: 'Honey Badger', t225: 'Cx4 Storm', t280: 'MAT-49', t286: 'KAC-PDW', t328: 'AR-57',
+  t27: 'Skorpion', t29: 'Sten MkII',
+  // —————————————— RF ——————————————
+  t2004: 'Raiden Mei', t2005: 'Bronya', t2020: 'Stella Hoshii', t2024: 'Rico', t2031: 'Pekola',
+  t1053: 'NTW-20 MOD',
+  t1039: 'Mosin-Nagant MOD', t1200: 'XM3 MOD', t1252: 'KSVK MOD',
+  t46: 'Kar98K', t48: 'WA2000', t50: 'Lee-Enfield', t53: 'NTW-20', t128: 'M99', t148: 'IWS2000', t179: 'DSR-50', t192: 'JS05', t197: 'Carcano M1891', t198: 'Carcano M91/38', t204: 'Ballista', t211: 'SRS', t222: 'TAC-50', t231: 'M82A1', t257: 'M200', t261: 'QBU-88', t266: 'R93', t312: 'VSK-94', t316: 'General Liu', t329: 'SVCh',
+  t1037: 'M14 MOD', t1044: 'SV-98 MOD', t1051: 'FN-49 MOD', t1095: 'Type 88 MOD', t1124: 'Super SASS MOD',
+  t36: 'Springfield', t39: 'Mosin-Nagant', t42: 'PTRD', t43: 'SVD', t117: 'PSG-1', t146: 'G28', t180: 'PzB39', t184: 'T-5000', t200: 'XM3', t226: 'Mk12', t235: 'SPR A3G', t247: 'K31', t252: 'KSVK', t270: '4 Shiki', t273: 'SSG3000', t305: 'Tabuk', t317: 'Mondragon M1908',
+  t37: 'M14', t256: 'Falcon',
+  // —————————————— MG ——————————————
+  t2021: 'Alma Armas', t2026: 'Claes', t2033: 'Hanazono Yurine',
+  t1125: 'MG4 MOD',
+  t1075: 'M1918 MOD', t1089: 'Bren MOD',
+  t109: 'MG5', t112: 'Negev', t125: 'MG4', t173: 'PKP', t208: 'HK21', t238: '88式', t253: 'Lewis', t263: 'MG36', t276: 'Kord', t307: 'ZB-26',
+  t1081: 'LWMMG MOD',
+  t75: 'M1918', t78: 'M60', t85: 'PK', t88: 'MG3', t121: 'Mk48', t149: 'AEK-999', t185: 'Ameli', t199: 'Type 80', t240: 'Mk46', t254: 'UKM2000', t264: 'Chauchat', t275: 'M1895CB', t319: 'PM1910',
+  t77: 'M2HB',
+  // —————————————— SG ——————————————
+  t2002: 'Elphelt', t2008: 'Seele', t2022: 'Dana Zane', t2025: 'Triela', t2034: 'Minos',
+  t1161: 'Type 97 Shotgun MOD',
+  t151: 'M1887', t157: 'KSG', t160: 'Saiga-12', t163: 'AA-12', t164: 'FP-6', t188: 'S.A.T.8', t229: 'M870', t281: 'CAWS', t282: 'DP-12', t323: 'LTLX7000',
+  t153: 'M37', t155: 'M590', t156: 'Super-Shorty', t161: 'Type 97 Shotgun', t162: 'SPAS-12', t165: 'M1014', t189: 'USAS-12', t283: 'Liberator',
+  t159: 'RMB-93'
+}
+
+var libs_name = {
+  'zh-CN': lib_name_cn,
+  'en-US': lib_name_en,
+}
+
+// Default text to CN
+var lib_name = libs_name['zh-CN'];
+
 var lib_tdoll = [
   // —————————————— HG ——————————————
   create_entry([1, 1, 2001], ['dps', 'supportdps', 'af_rof'], ['random'], ['snipe'], []),
