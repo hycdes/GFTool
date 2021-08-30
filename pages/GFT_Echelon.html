@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>少女前线-阵形模拟器 by 命运の乐章</title>
+    <title data-i18n-key="title">少女前线-阵形模拟器 by 命运の乐章</title>
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
@@ -85,6 +85,12 @@
 </head>
 
 <body>
+    <!-- Loader overlay -->
+    <style>.lds-facebook{display:inline-block;position:relative;width:80px;height:80px}.lds-facebook div{display:inline-block;position:absolute;left:8px;width:16px;background:#444;animation:lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite}.lds-facebook div:nth-child(1){left:8px;animation-delay:-0.24s}.lds-facebook div:nth-child(2){left:32px;animation-delay:-0.12s}.lds-facebook div:nth-child(3){left:56px;animation-delay:0}@keyframes lds-facebook{0%{top:8px;height:64px}100%,50%{top:24px;height:32px}}</style>
+    <div id="loading_overlay" style="position:fixed;width:100%;height:100%;top:0;bottom:0;left:0;right:0;background-color: rgba(255,255,255,0.6);z-index: 99999;">
+        <div class="lds-facebook" style="position:fixed;left:50%;margin-left:-40px;top:50%;margin-top:-40px;background: rgba(255,255,255,0.8);"><div></div><div></div><div></div></div>
+    </div>
+
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -95,7 +101,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066" data-i18n-key="siteName">少女前线工具</span> by <span data-i18n-key="authorName">命运の乐章</span> (GF
                     tools)</a>
             </div>
             <div class="navbar-default sidebar" role="navigation">
@@ -128,13 +134,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header"><img src="../img/class/2034.png">阵形模拟器
+                            <h1 class="page-header"><img src="../img/class/2034.png"><span data-i18n-key="toolName">阵形模拟器</span>
                                 <span style="font-size:15px;color:gray" id="info_version"></span>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="切换为中文"
-                                    class="btn btn-outline btn-default" onclick="Language('Chinese')">中文</button>
+                                    class="btn btn-outline btn-default" onclick="translate_elements('zh-CN')">中文</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom"
                                     title="English language" class="btn btn-outline btn-default"
-                                    onclick="Language('English')">English</button>
+                                    onclick="translate_elements('en-US')">English</button>
                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="한국어"
                                     class="btn btn-outline btn-default" onclick="Language('Korean')">한국어</button>
                             </h1>
@@ -144,12 +150,12 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    梯队设置 <button type="button" style="padding:5px" class="btn btn-success"
-                                        onclick="getHelp(1)">设置教程</button>
+                                    <span data-i18n-key="echelonSetup">梯队设置</span> <button type="button" style="padding:5px" class="btn btn-success"
+                                        onclick="getHelp(1)" data-i18n-key="setupHelp">设置教程</button>
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
-                                        <h4>梯队预览<span style="color:red" id="alert_display"></span></h4>
+                                        <h4><span data-i18n-key="echelonPreview">梯队预览</span><span style="color:red" id="alert_display"></span></h4>
                                         <table class="table_other" style="width:360px; height:360px; overflow:hidden">
                                             <tbody>
                                                 <tr>
@@ -208,10 +214,10 @@
                                         <table class="table_other" style="width:360px">
                                             <tr>
                                                 <td style="text-align:left">
-                                                    <input type="checkbox" id="check_showskilltable"> 显示技能表
+                                                    <input type="checkbox" id="check_showskilltable"> <span data-i18n-key="showSkillTable">显示技能表</span>
                                                 </td>
                                                 <td style="width:25%">
-                                                    队长位
+                                                    <span data-i18n-key="teamLeader">队长位</span>
                                                 </td>
                                                 <td style="width:25%">
                                                     <select class="form-control input-sm" id='select_leader' onchange=""
@@ -231,20 +237,20 @@
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#make_tdoll" data-toggle="tab">人形设定</a>
+                                                <li class="active"><a href="#make_tdoll" data-toggle="tab" data-i18n-key="setDoll">人形设定</a>
                                                 </li>
-                                                <li><a href="#make_fairy" data-toggle="tab">妖精设定</a>
+                                                <li><a href="#make_fairy" data-toggle="tab" data-i18n-key="setFairy">妖精设定</a>
                                                 </li>
-                                                <li><a href="#make_hf" data-toggle="tab">重装部队设定</a>
+                                                <li><a href="#make_hf" data-toggle="tab" data-i18n-key="setHoc">重装部队设定</a>
                                                 </li>
-                                                <li><a href="#make_special" data-toggle="tab">特殊设定</a>
+                                                <li><a href="#make_special" data-toggle="tab" data-i18n-key="setSpecial">特殊设定</a>
                                                 </li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="make_tdoll">
                                                     <div class="col-lg-6">
-                                                        <h4>人形信息 <span style="font-size:15px" id="info_special"></span>
+                                                        <h4><span data-i18n-key="infoDoll">人形信息</span> <span style="font-size:15px" id="info_special"></span>
                                                         </h4>
                                                         <table class="table_other table-bordered table-hover"
                                                             style="width:240px; overflow:hidden" id="table_property">
@@ -255,8 +261,8 @@
                                                                         src="../img/echelon/icon-love.png"
                                                                         style="cursor:pointer"
                                                                         onclick='changeAffection()'></td>
-                                                                <td class="td_info" id='info_name'>请点选一个<b><span
-                                                                            style="color: red">九宫格</span></b></td>
+                                                                <td class="td_info" id='info_name'><span data-i18n-key="tipSelection">请点选一个</span><b><span
+                                                                            style="color: red" data-i18n-key="tipNameTile">九宫格</span></b></td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="td_info"></td>
@@ -314,7 +320,7 @@
                                                             style="width:240px">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td style="height: 30px" id='a_have'>放置人形后才能显示受到的增益
+                                                                    <td style="height: 30px" id='a_have' data-i18n-key="tipTilebuff">放置人形后才能显示受到的增益
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -322,7 +328,7 @@
                                                     </div>
                                                     <!--SETTING-->
                                                     <div class="col-lg-6">
-                                                        <h4>人形</h4>
+                                                        <h4 data-i18n-key="titleDoll">人形</h4>
                                                         <table class="table_other table-bordered table-hover"
                                                             style="width:210px">
                                                             <tbody>
@@ -379,7 +385,7 @@
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-                                                        <h4>装备</h4>
+                                                        <h4 data-i18n-key="titleEquip">装备</h4>
                                                         <div class="tooltip-demo" id="special_equip_setting"></div>
                                                         <table class="table_other table-bordered table-hover"
                                                             style="width:228px">
@@ -426,10 +432,10 @@
                                                         <h8>&nbsp</h8>
                                                         <p>
                                                             <button type="button" class="btn btn-primary"
-                                                                onclick="addTdoll()" id="button_addTdoll"
+                                                                onclick="addTdoll()" id="button_addTdoll" data-i18n-key="buttonAddDoll"
                                                                 disabled>添加人形</button>
                                                             <button type="button" class="btn btn-danger"
-                                                                onclick="deleteTdoll()" id="button_deleteTdoll"
+                                                                onclick="deleteTdoll()" id="button_deleteTdoll" data-i18n-key="buttonRemoveDoll"
                                                                 disabled>删除人形</button>
                                                         </p>
                                                     </div>
@@ -437,7 +443,7 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="make_fairy">
                                                     <div class='col-lg-4'>
-                                                        <h4>妖精选择</h4>
+                                                        <h4 data-i18n-key="titleFairy">妖精选择</h4>
                                                         <table class="table_other table-bordered table-hover"
                                                             style="width:200px">
                                                             <tbody>
@@ -451,32 +457,32 @@
                                                                     <td>
                                                                         <select class="form-control input-sm"
                                                                             id='select_fairy' onchange="changeFairy()">
-                                                                            <option value=0 selected>无妖精</option>
-                                                                            <option value=1>No.1 勇士妖精</option>
-                                                                            <option value=2>No.2 暴怒妖精</option>
-                                                                            <option value=3>No.3 盾甲妖精</option>
-                                                                            <option value=4>No.4 护盾妖精</option>
-                                                                            <option value=5>No.5 防御妖精</option>
-                                                                            <option value=6>No.6 嘲讽妖精</option>
-                                                                            <option value=7>No.7 狙击妖精</option>
-                                                                            <option value=8>No.8 炮击妖精</option>
-                                                                            <option value=9>No.9 空袭妖精</option>
-                                                                            <option value=10>No.10 增援妖精</option>
-                                                                            <option value=11>No.11 空降妖精</option>
-                                                                            <option value=12>No.12 布雷妖精</option>
-                                                                            <option value=13>No.13 火箭妖精</option>
-                                                                            <option value=14>No.14 工事妖精</option>
-                                                                            <option value=15>No.15 指挥妖精</option>
-                                                                            <option value=16>No.16 搜救妖精</option>
-                                                                            <option value=17>No.17 照明妖精</option>
-                                                                            <option value=18>No.18 黄金妖精</option>
-                                                                            <option value=19>No.19 炊事妖精</option>
-                                                                            <option value=20>No.20 花火妖精</option>
-                                                                            <option value=21>No.21 年兽妖精</option>
-                                                                            <option value=22>No.22 海滩妖精</option>
-                                                                            <option value=23>No.23 连击妖精</option>
-                                                                            <option value=24>No.24 立盾妖精</option>
-                                                                            <option value=25>No.25 双生妖精</option>
+                                                                            <option value=0 data-i18n-key="fairy0" selected>无妖精</option>
+                                                                            <option value=1 data-i18n-key="fairy1">No.1 勇士妖精</option>
+                                                                            <option value=2 data-i18n-key="fairy2">No.2 暴怒妖精</option>
+                                                                            <option value=3 data-i18n-key="fairy3">No.3 盾甲妖精</option>
+                                                                            <option value=4 data-i18n-key="fairy4">No.4 护盾妖精</option>
+                                                                            <option value=5 data-i18n-key="fairy5">No.5 防御妖精</option>
+                                                                            <option value=6 data-i18n-key="fairy6">No.6 嘲讽妖精</option>
+                                                                            <option value=7 data-i18n-key="fairy7">No.7 狙击妖精</option>
+                                                                            <option value=8 data-i18n-key="fairy8">No.8 炮击妖精</option>
+                                                                            <option value=9 data-i18n-key="fairy9">No.9 空袭妖精</option>
+                                                                            <option value=10 data-i18n-key="fairy10">No.10 增援妖精</option>
+                                                                            <option value=11 data-i18n-key="fairy11">No.11 空降妖精</option>
+                                                                            <option value=12 data-i18n-key="fairy12">No.12 布雷妖精</option>
+                                                                            <option value=13 data-i18n-key="fairy13">No.13 火箭妖精</option>
+                                                                            <option value=14 data-i18n-key="fairy14">No.14 工事妖精</option>
+                                                                            <option value=15 data-i18n-key="fairy15">No.15 指挥妖精</option>
+                                                                            <option value=16 data-i18n-key="fairy16">No.16 搜救妖精</option>
+                                                                            <option value=17 data-i18n-key="fairy17">No.17 照明妖精</option>
+                                                                            <option value=18 data-i18n-key="fairy18">No.18 黄金妖精</option>
+                                                                            <option value=19 data-i18n-key="fairy19">No.19 炊事妖精</option>
+                                                                            <option value=20 data-i18n-key="fairy20">No.20 花火妖精</option>
+                                                                            <option value=21 data-i18n-key="fairy21">No.21 年兽妖精</option>
+                                                                            <option value=22 data-i18n-key="fairy22">No.22 海滩妖精</option>
+                                                                            <option value=23 data-i18n-key="fairy23">No.23 连击妖精</option>
+                                                                            <option value=24 data-i18n-key="fairy24">No.24 立盾妖精</option>
+                                                                            <option value=25 data-i18n-key="fairy25">No.25 双生妖精</option>
                                                                         </select>
                                                                     </td>
                                                                 </tr>
@@ -485,24 +491,24 @@
                                                                         <select class="form-control input-sm"
                                                                             id='select_talent'
                                                                             onchange="changeTalent(1)" disabled>
-                                                                            <option value=0 selected>不发动天赋</option>
-                                                                            <option value=1>激昂型</option>
-                                                                            <option value=2>杀伤型Ⅰ</option>
-                                                                            <option value=3>杀伤型Ⅱ</option>
-                                                                            <option value=4>精准型Ⅰ</option>
-                                                                            <option value=5>精准型Ⅱ</option>
-                                                                            <option value=6>回避型Ⅰ</option>
-                                                                            <option value=7>回避型Ⅱ</option>
-                                                                            <option value=8>护甲型Ⅰ</option>
-                                                                            <option value=9>护甲型Ⅱ</option>
-                                                                            <option value=10>必杀型Ⅰ</option>
-                                                                            <option value=11>必杀型Ⅱ</option>
-                                                                            <option value=12>冲锋型</option>
-                                                                            <option value=13>突击型</option>
-                                                                            <option value=14>瞄准型</option>
-                                                                            <option value=15>坚韧型</option>
-                                                                            <option value=16>镇压型</option>
-                                                                            <option value=17>敏锐型</option>
+                                                                            <option value=0 data-i18n-key="talent0" selected>不发动天赋</option>
+                                                                            <option value=1 data-i18n-key="talent1">激昂型</option>
+                                                                            <option value=2 data-i18n-key="talent2">杀伤型Ⅰ</option>
+                                                                            <option value=3 data-i18n-key="talent3">杀伤型Ⅱ</option>
+                                                                            <option value=4 data-i18n-key="talent4">精准型Ⅰ</option>
+                                                                            <option value=5 data-i18n-key="talent5">精准型Ⅱ</option>
+                                                                            <option value=6 data-i18n-key="talent6">回避型Ⅰ</option>
+                                                                            <option value=7 data-i18n-key="talent7">回避型Ⅱ</option>
+                                                                            <option value=8 data-i18n-key="talent8">护甲型Ⅰ</option>
+                                                                            <option value=9 data-i18n-key="talent9">护甲型Ⅱ</option>
+                                                                            <option value=10 data-i18n-key="talent10">必杀型Ⅰ</option>
+                                                                            <option value=11 data-i18n-key="talent11">必杀型Ⅱ</option>
+                                                                            <option value=12 data-i18n-key="talent12">冲锋型</option>
+                                                                            <option value=13 data-i18n-key="talent13">突击型</option>
+                                                                            <option value=14 data-i18n-key="talent14">瞄准型</option>
+                                                                            <option value=15 data-i18n-key="talent15">坚韧型</option>
+                                                                            <option value=16 data-i18n-key="talent16">镇压型</option>
+                                                                            <option value=17 data-i18n-key="talent17">敏锐型</option>
                                                                         </select>
                                                                     </td>
                                                                 </tr>
@@ -510,7 +516,7 @@
                                                         </table>
                                                     </div>
                                                     <div class='col-lg-8'>
-                                                        <h4>属性</h4>
+                                                        <h4 data-i18n-key="titleAttribute">属性</h4>
                                                         <table class="table_other table-bordered table-hover"
                                                             style="width:200px">
                                                             <tbody>
@@ -534,7 +540,7 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td><input type="checkbox" id="fairyskill_active"
-                                                                            disabled> 发动技能</td>
+                                                                            disabled> <span data-i18n-key="tipActivateFairySkill">发动技能</span></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -542,7 +548,7 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="make_hf">
                                                     <div class='col-lg-4'>
-                                                        <h4>火力支援</h4>
+                                                        <h4 data-i18n-key="titleHoc">火力支援</h4>
                                                         <table class="table_other table-bordered table-hover">
                                                             <tbody>
                                                                 <tr>
@@ -594,7 +600,7 @@
                                                         </table>
                                                     </div>
                                                     <div class='col-lg-8'>
-                                                        <h4>属性</h4>
+                                                        <h4 data-i18n-key="titleHocStats">属性</h4>
                                                         <table
                                                             class="table_left table-striped table-bordered table-hover">
                                                             <tbody>
@@ -878,7 +884,7 @@
                                                 </div>
                                                 <div class="tab-pane fade" id="make_special">
                                                     <div class="col-lg-6">
-                                                        <h4>人形特殊设定</h4>
+                                                        <h4 data-i18n-key="titleSpecialSetting">人形特殊设定</h4>
                                                         <p id="special_num0"></p>
                                                         <p id="special_num1"></p>
                                                         <p id="special_num2"></p>
@@ -890,19 +896,19 @@
                                                         <p id="special_num8"></p>
                                                     </div>
                                                     <div class="col-lg-6">
-                                                        <h4>全体增益</h4>
-                                                        <p><input type="checkbox" id="check_init_critmax"> 全员满暴击</p>
+                                                        <h4 data-i18n-key="settingAllBuff">全体增益</h4>
+                                                        <p><input type="checkbox" id="check_init_critmax"> <span data-i18n-key="settingMaxCrit">全员满暴击</span></p>
                                                         <p><input type="checkbox" id="check_init_construction">
-                                                            进入紧急壁垒（工事妖精技能）</p>
-                                                        <p><input type="checkbox" id="check_init_buff"> 增幅代码(未完成)</p>
+                                                            <span data-i18n-key="settingFortress">进入紧急壁垒（工事妖精技能）</span></p>
+                                                        <p><input type="checkbox" id="check_init_buff"> <span data-i18n-key="settingManualBuff">增幅代码(未完成)</span></p>
                                                         <textarea class="form-control" rows="5"
                                                             placeholder="每行代表一种增幅 [standnum,type,ratio]; standnum: 1~9; type: dmg,acu,eva,rof,arm,crit,critdmg; ratio: number。例如：[1,dmg,0.3] 或者 [4,acu,-0.4]"></textarea>
                                                         <p id="special_fairy"></p>
-                                                        <h4>技能强制延时 <span
-                                                                style="font-size:12px;color:gray">可能导致被动技能延迟，请谨慎</span>
+                                                        <h4><span data-i18n-key="settingDelayBattle">技能强制延时</span> <span
+                                                                style="font-size:12px;color:gray" data-i18n-key="settingDelayBattleWarning">可能导致被动技能延迟，请谨慎</span>
                                                         </h4>
                                                         <h5><span
-                                                                style="font-size:12px;color:gray">累加在前置cd，不受冷却缩减影响</span>
+                                                                style="font-size:12px;color:gray" data-i18n-key="settingDelayBattleWarning2">累加在前置cd，不受冷却缩减影响</span>
                                                         </h5>
                                                         <table class="table_other">
                                                             <tbody>
@@ -930,12 +936,12 @@
                         <div class="col-lg-12">
                             <div class="panel panel-default"
                                 style="background:url(../img/Produce-16lab.png) no-repeat right 100px top 100px;">
-                                <div class="panel-heading">
+                                <div class="panel-heading" data-i18n-key="titleResults">
                                     结果
                                 </div>
                                 <div class="panel-body">
                                     <div class="col-lg-4">
-                                        <h4>环境</h4>
+                                        <h4 data-i18n-key="titleEnvironment">环境</h4>
                                         <table class="table_other table-bordered table-hover" style="width:300px">
                                             <tbody>
                                                 <tr>
@@ -954,10 +960,10 @@
                                                     <td style="height: 30px">
                                                         <label class="radio-inline"><input type="radio"
                                                                 name="switch_class" id="switch_normal"
-                                                                checked><b>普通</b></label>
+                                                                checked><b data-i18n-key="tipEnemyNormal">普通</b></label>
                                                         <label class="radio-inline"><input type="radio"
                                                                 name="switch_class" id="switch_elite"><span
-                                                                style="color:dodgerblue"><b>精英</b></span></label>
+                                                                style="color:dodgerblue"><b data-i18n-key="tipEnemyElite">精英</b></span></label>
                                                         <label class="radio-inline"><input type="radio"
                                                                 name="switch_class" id="switch_boss"><span
                                                                 style="color:red"><b>BOSS</b></span></label>
@@ -968,24 +974,24 @@
                                         <table class="table_other table-bordered table-hover" style="width:300px">
                                             <tbody>
                                                 <tr>
-                                                    <td style="width: 25%">接敌时间</td>
+                                                    <td style="width: 25%" data-i18n-key="settingBattleStart">接敌时间</td>
                                                     <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入非负数"
                                                             id="time_init" value=0 onblur="checkEnviInput()">
                                                     </td>
-                                                    <td style="width: 25%">战斗时间</td>
+                                                    <td style="width: 25%" data-i18n-key="settingBattleDuration">战斗时间</td>
                                                     <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入正数"
                                                             id="time_battle" value=20 onblur="checkEnviInput()">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td style="width: 25%">单组编制</td>
+                                                    <td style="width: 25%" data-i18n-key="settingEnemyDummyLinkCount">单组编制</td>
                                                     <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入1~5整数"
                                                             id='enemy_form' value=1 onblur="checkEnviInput()">
                                                     </td>
-                                                    <td style="width: 25%">组数</td>
+                                                    <td style="width: 25%" data-i18n-key="settingEnemyGroupCount">组数</td>
                                                     <td style="width: 25%">
                                                         <input class="form-control input-sm" placeholder="输入正整数"
                                                             id='enemy_num' value=1 onblur="checkEnviInput()">
@@ -997,17 +1003,17 @@
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#Setting1" data-toggle="tab">输出测试</a>
+                                                <li class="active"><a href="#Setting1" data-toggle="tab" data-i18n-key="testDamageDealt">输出测试</a>
                                                 </li>
-                                                <li><a href="#Setting1-2" data-toggle="tab">承伤测试</a>
+                                                <li><a href="#Setting1-2" data-toggle="tab" data-i18n-key="testDamageTaken">承伤测试</a>
                                                 </li>
-                                                <li><a href="#Setting3" data-toggle="tab">其他</a>
+                                                <li><a href="#Setting3" data-toggle="tab" data-i18n-key="testOther">其他</a>
                                                 </li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Setting1">
-                                                    <h4>敌人防御属性</h4>
+                                                    <h4 data-i18n-key="titleEnemyStatsDefensive">敌人防御属性</h4>
                                                     <table class="table_other table-bordered table-hover"
                                                         style="width:300px">
                                                         <tbody>
@@ -1046,13 +1052,13 @@
                                                         style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">回避</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyEvasion">回避</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入非负整数" id='enemy_eva' value=0
                                                                         onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">护甲</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyArmor">护甲</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入非负整数" id='enemy_arm' value=0
@@ -1060,13 +1066,13 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 25%">力场</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyForcefield">力场</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_forcefield'
                                                                         value=0 onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">力场max</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyForcefieldMax">力场max</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_forcefield_max'
@@ -1075,17 +1081,17 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h4>输出计算</h4>
+                                                    <h4 data-i18n-key="titleDamageCalculation">输出计算</h4>
                                                     <p>
                                                         <button type="button" class="btn btn-outline btn-info"
-                                                            onclick="getResult(1,'damage')">计算1次</button>
+                                                            onclick="getResult(1,'damage')" data-i18n-key="buttonRun1x">计算1次</button>
                                                         <button type="button" class="btn btn-outline btn-primary"
                                                             onclick="getResult(100,'damage')"
-                                                            id="btn_dmg100">100次平均</button>
+                                                            id="btn_dmg100" data-i18n-key="buttonRun100x">100次平均</button>
                                                     </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting1-2">
-                                                    <h4>敌人输出属性</h4>
+                                                    <h4 data-i18n-key="titleEnemyStatsOffensive">敌人输出属性</h4>
                                                     <table class="table_other table-bordered table-hover"
                                                         style="width:300px">
                                                         <tbody>
@@ -1108,8 +1114,8 @@
                                                                         src="../img/echelon/enemy-tpl-s-4.png"
                                                                         style="cursor: pointer"
                                                                         onclick='templatePro(14)'></td>
-                                                                <td style="width:100px; height:40px">模板待定</td>
-                                                                <td style="width:100px; height:40px">模板待定</td>
+                                                                <td style="width:100px; height:40px" data-i18n-key="tipPlaceholder">模板待定</td>
+                                                                <td style="width:100px; height:40px" data-i18n-key="tipPlaceholder">模板待定</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -1118,13 +1124,13 @@
                                                         style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">伤害</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyDamage">伤害</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_dmg' value=10
                                                                         onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">射速</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyRoF">射速</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_rof' value=40
@@ -1139,8 +1145,8 @@
                                                             <tr>
                                                                 <td style="width: 50%"><input type="checkbox"
                                                                         id="enemy_acumax" onchange="checkEnviInput()">
-                                                                    敌人攻击必中</td>
-                                                                <td style="width: 25%">命中</td>
+                                                                    <span data-i18n-key="settingEnemySureHit">敌人攻击必中</span></td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyAccuracy">命中</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入非负整数" id='enemy_acu' value=10
@@ -1153,13 +1159,13 @@
                                                         style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">穿甲</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyAP">穿甲</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入非负整数" id='enemy_ap' value=0
                                                                         onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">破防</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyPierce">破防</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入非负整数" id='enemy_dbk' value=0
@@ -1172,13 +1178,13 @@
                                                         style="width:300px">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 25%">回避</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyEva">回避</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_eva_2' value=10
                                                                         onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">护甲</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyArmor">护甲</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_arm_2' value=0
@@ -1186,13 +1192,13 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 25%">力场</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyForcefield">力场</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_forcefield_2'
                                                                         value=0 onblur="checkEnviInput()">
                                                                 </td>
-                                                                <td style="width: 25%">力场max</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyForcefieldMax">力场max</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_forcefield_2_max'
@@ -1207,10 +1213,10 @@
                                                             <tr>
                                                                 <td style="width: 50%">
                                                                     <input type="checkbox" id="enemy_hp_check"
-                                                                        onchange="checkEnviInput()"> 敌人<span
-                                                                        style="color:orangered">能够被杀死</span>
+                                                                        onchange="checkEnviInput()"> <span data-i18n-key="tipEnemy">敌人</span><span
+                                                                        style="color:orangered" data-i18n-key="tipEnemyCanBeKilled">能够被杀死</span>
                                                                 </td>
-                                                                <td style="width: 25%">生命</td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyHP">生命</td>
                                                                 <td style="width: 25%">
                                                                     <input class="form-control input-sm"
                                                                         placeholder="输入正整数" id='enemy_hp' value=1000
@@ -1227,7 +1233,7 @@
                                                                         class="radio-inline"><input type="radio"
                                                                             name="inj_type" id="inj_type1"
                                                                             onchange="checkEnviInput()"
-                                                                            checked><b>按顺序承伤</b></label></td>
+                                                                            checked><b data-i18n-key="settingTankOrder">按顺序承伤</b></label></td>
                                                                 <td style="width: 30%"><input
                                                                         class="form-control input-sm" placeholder="输入顺序"
                                                                         id='inj_order' value=639528417
@@ -1235,26 +1241,26 @@
                                                                 <td style="width: 35%"><label
                                                                         class="radio-inline"><input type="radio"
                                                                             name="inj_type" id="inj_type2"
-                                                                            onchange="checkEnviInput()"><b>全体承伤</b></label>
+                                                                            onchange="checkEnviInput()"><b data-i18n-key="settingTankAoE">全体承伤</b></label>
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <h4>承伤计算</h4>
+                                                    <h4 data-i18n-key="titleDamageTakenCalculation">承伤计算</h4>
                                                     <p>
                                                         <button type="button" class="btn btn-outline btn-warning"
-                                                            id="suffer_1" onclick="getResult(1,'suffer')"
+                                                            id="suffer_1" onclick="getResult(1,'suffer')" data-i18n-key="buttonRun1x"
                                                             disabled>计算1次</button>
                                                         <button type="button" class="btn btn-outline btn-danger"
-                                                            id="suffer_100" onclick="getResult(100,'suffer')"
+                                                            id="suffer_100" onclick="getResult(100,'suffer')" data-i18n-key="buttonRun100x"
                                                             disabled>100次平均</button>
                                                     </p>
                                                 </div>
                                                 <div class="tab-pane fade" id="Setting3">
-                                                    <h4>说明和参考</h4>
-                                                    <p> * 射击及狙击弹道瞬间到达</p>
-                                                    <p> * 榴弹准备至出膛设定为1秒</p>
-                                                    <p> * R93技能存在特殊机制故被动实际效果为92帧</p>
+                                                    <h4 data-i18n-key="noticeTitle">说明和参考</h4>
+                                                    <p data-i18n-key="noticeBody1"> * 射击及狙击弹道瞬间到达</p>
+                                                    <p data-i18n-key="noticeBody2"> * 榴弹准备至出膛设定为1秒</p>
+                                                    <p data-i18n-key="noticeBody3"> * R93技能存在特殊机制故被动实际效果为92帧</p>
                                                     <p>伤害判定流程和公式 <a href="https://bbs.nga.cn/read.php?tid=15377235"
                                                             target="_blank"><span style="color:gray">[NGA链接]</span></a>
                                                     </p>
@@ -1278,16 +1284,16 @@
                                         <div class="panel-body">
                                             <!-- Nav tabs -->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#Table_stat" data-toggle="tab">统计数据</a>
+                                                <li class="active"><a href="#Table_stat" data-toggle="tab" data-i18n-key="tipStatistics">统计数据</a>
                                                 </li>
-                                                <li><a href="#Table_set" data-toggle="tab">显示设置</a>
+                                                <li><a href="#Table_set" data-toggle="tab" data-i18n-key="tipSettingDisplay">显示设置</a>
                                                 </li>
                                                 <li><a href="#Table_debug" data-toggle="tab">Debug</a></li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane fade in active" id="Table_stat">
-                                                    <h4>测试结果</h4>
+                                                    <h4 data-i18n-key="titleSimulationResults">测试结果</h4>
                                                     <table class="table_other table-bordered table-hover"
                                                         id="table_envi">
                                                         <tbody>
@@ -1295,19 +1301,19 @@
                                                                 <td style="width:62px"><img
                                                                         src="../img/icon-daytime.png" id="envi_day">
                                                                 </td>
-                                                                <td style="width:100px">接敌 <span style="color:green"
+                                                                <td style="width:100px"><span data-i18n-key="tipEnemyEncounterTime">接敌</span> <span style="color:green"
                                                                         id='envi_contertime'>-</span>s</td>
                                                                 <td style="width:62px"><img
                                                                         src="../img/echelon/fairy/icon-f0.png"
                                                                         id="envi_fairy"></td>
-                                                                <td style="width:100px">天赋 <span id='envi_talent'
+                                                                <td style="width:100px"><span data-i18n-key="tipFairyTalent">天赋</span> <span id='envi_talent'
                                                                         style="color:orangered">-</span></td>
                                                             </tr>
                                                             <tr style="height:31px">
                                                                 <td style="width:62px"></td>
-                                                                <td style="width:100px">战斗 <span style="color:green"
+                                                                <td style="width:100px"><span data-i18n-key="tipBattleDuration">战斗</span> <span style="color:green"
                                                                         id='envi_alltime'>-</span>s</td>
-                                                                <td style="width:62px">技能 <span id='envi_fairyskill'
+                                                                <td style="width:62px"><span data-i18n-key="tipFairySkill">技能</span> <span id='envi_fairyskill'
                                                                         style="color:dodgerblue">-</span></td>
                                                                 <td style="width:100px"></td>
                                                             </tr>
@@ -1316,7 +1322,7 @@
                                                     <table class="table_other table-bordered table-hover">
                                                         <tbody>
                                                             <tr style="height:31px;text-align:left">
-                                                                <td style="width:100px;text-align:center">类型 <span
+                                                                <td style="width:100px;text-align:center"><span data-i18n-key="tipEnemyType">类型</span> <span
                                                                         style="color:black" id='envi_ene_type'>-</span>
                                                                 </td>
                                                                 <td style="width:100px">&nbsp<img
@@ -1333,7 +1339,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr style="height:31px;text-align:left">
-                                                                <td style="width:100px;text-align:center">编制 <span
+                                                                <td style="width:100px;text-align:center"><span data-i18n-key="tipEnemyLinks">编制</span> <span
                                                                         style="color:green" id='envi_ene_form'>-</span>
                                                                 </td>
                                                                 <td style="width:100px">&nbsp<img
@@ -1350,7 +1356,7 @@
                                                                 </td>
                                                             </tr>
                                                             <tr style="height:31px;text-align:left">
-                                                                <td style="width:100px;text-align:center">组数 <span
+                                                                <td style="width:100px;text-align:center"><span data-i18n-key="tipEnemyGroups">组数</span> <span
                                                                         style="color:green" id='envi_ene_num'>-</span>
                                                                 </td>
                                                                 <td style="width:100px">&nbsp<img
@@ -1371,7 +1377,7 @@
                                                     <table class="table_other table-bordered table-hover">
                                                         <tbody>
                                                             <tr style="height:31px;text-align:left">
-                                                                <td style="width:100px;text-align:center">总输出</td>
+                                                                <td style="width:100px;text-align:center" data-i18n-key="tipTotalDamage">总输出</td>
                                                                 <td style="width:350px">&nbsp&nbsp<b><span
                                                                             style="color:orangered"
                                                                             id='envi_alldmg'>0</span></b></td>
@@ -1431,7 +1437,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4>图表</h4>
+                                        <h4 data-i18n-key="titleGraph">图表</h4>
                                         <div id="placeholder" style="height:400px"></div>
                                     </div>
                                 </div>
@@ -1476,7 +1482,6 @@
             document.getElementById('side-menu').innerHTML += item
         }
     </script>
-
 </body>
 
 </html>
