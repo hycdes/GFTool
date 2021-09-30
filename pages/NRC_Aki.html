@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>少女前线工具 by 命运の乐章</title>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <script>
+        function calculate() {
+            var crit_base = parseFloat(document.getElementById('crit_base').value) / 100,
+                critdmg_base = parseFloat(document.getElementById('critdmg_base').value) / 100,
+                crit_skill = parseFloat(document.getElementById('crit_skill').value) / 100,
+                critdmg_skill = parseFloat(document.getElementById('critdmg_skill').value) / 100,
+                command = ''
+            var ratio = 0,
+                ratio_original = 1,
+                result = 1,
+                crit = crit_base,
+                critdmg = critdmg_base + critdmg_skill
+            if (document.getElementById('command_aki').checked) command = 'aki'
+            if (command === 'aki') {
+                var temp_crit = crit, current_p = 1
+                console.log(crit_base, critdmg_base)
+                ratio_original = crit_base * critdmg_base
+                while (temp_crit < 1) {
+                    ratio += current_p * temp_crit * critdmg
+                    current_p *= (1 - temp_crit) // 前项
+                    temp_crit += crit_skill // 暴击递增
+                }
+                ratio += current_p * temp_crit * critdmg
+                result = (ratio + 1) / (ratio_original + 1) - 1
+                result = (result * 100).toFixed(2)
+                document.getElementById('result').innerHTML = result
+            }
+        }
+    </script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+        </div>
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li><a href="index.html"><i class="fa fa-home fa-fw"></i> 工具站主页</a></li>
+                    <li><a href="pages/index.html"><i class="fa fa-home fa-fw"></i> 少女前线工具站主页</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="page-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">云图收益计算</h1>
+                </div>
+                <!--折叠栏目-->
+                <div class="col-lg-8">计算目标
+                    <label class="radio-inline"><input type="radio" name="switch_class" id="command_aki" checked>
+                        <span style="color:dodgerblue"><b>秋</b></span>
+                    </label>
+                    <table class="table table-striped table-hover table-bordered" style="width:300px">
+                        <thead>
+                            <tr>
+                                <th style="width:50%">属性</th>
+                                <th style="width:40%">数值</th>
+                                <th style="width:10%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width:50%">暴击率</td>
+                                <td style="width:40%">
+                                    <input class="form-control input-sm" placeholder="输入正整数" id='crit_base' value=10>
+                                </td>
+                                <td style="width:10%">%</td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">暴击伤害</td>
+                                <td style="width:40%">
+                                    <input class="form-control input-sm" placeholder="输入正整数" id='critdmg_base' value=50>
+                                </td>
+                                <td style="width:10%">%</td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">被动暴击伤害</td>
+                                <td style="width:40%">
+                                    <input class="form-control input-sm" placeholder="输入正整数" id='critdmg_skill'
+                                        value=30>
+                                </td>
+                                <td style="width:10%">%</td>
+                            </tr>
+                            <tr>
+                                <td style="width:50%">被动暴击率累加</td>
+                                <td style="width:40%">
+                                    <input class="form-control input-sm" placeholder="输入正整数" id='crit_skill' value=30>
+                                </td>
+                                <td style="width:10%">%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h5>技能收益：相比没有该技能，提升输出<span style="color:orangered" id='result'>-</span>%</h5>
+                    <button type="button" class="btn btn-outline btn-warning" onclick="calculate()">计算</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Notifications - Use for reference -->
+</body>
+
+</html>
