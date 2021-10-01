@@ -31,12 +31,13 @@
             if (document.getElementById('command_aki').checked) command = 'aki'
             if (command === 'aki') {
                 var temp_crit = crit, current_p = 1
-                console.log(crit_base, critdmg_base)
+                var crit_counter = 1
                 ratio_original = crit_base * critdmg_base
                 while (temp_crit < 1) {
-                    ratio += current_p * temp_crit * critdmg
+                    ratio += (current_p * temp_crit * critdmg) / crit_counter
                     current_p *= (1 - temp_crit) // 前项
                     temp_crit += crit_skill // 暴击递增
+                    crit_counter++
                 }
                 ratio += current_p * temp_crit * critdmg
                 result = (ratio + 1) / (ratio_original + 1) - 1
@@ -69,7 +70,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">云图收益计算</h1>
+                    <h1 class="page-header">云图收益计算
+                        <span style="font-size:15px;color:gray">更新日期：2021.10.01</span>
+                    </h1>
                 </div>
                 <!--折叠栏目-->
                 <div class="col-lg-8">计算目标
