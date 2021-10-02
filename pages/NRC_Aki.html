@@ -39,7 +39,7 @@
                     temp_crit += crit_skill // 暴击递增
                     crit_counter++
                 }
-                ratio += current_p * temp_crit * critdmg
+                ratio += (current_p * 1 * critdmg) / crit_counter
                 result = (ratio + 1) / (ratio_original + 1) - 1
                 result = (result * 100).toFixed(2)
                 document.getElementById('result').innerHTML = result
