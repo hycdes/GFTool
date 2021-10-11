@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>云图计划-算法模拟器 by 命运の乐章</title>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .table_other {
+            padding: 0px;
+            text-align: center;
+            background-color: white;
+        }
+
+        .table_left {
+            padding: 0px;
+            text-align: left;
+            background-color: white;
+        }
+
+        .td_affect {
+            padding: 0px;
+            width: 10px;
+            height: 10px;
+            background-color: #6a696a;
+            text-align: center
+        }
+
+        .td_energy {
+            padding: 0px;
+            width: 30px;
+            height: 20px;
+            background-color: #ffffff;
+            text-align: center
+        }
+
+        .td_affect_info {
+            padding: 0px;
+            width: 210px;
+            height: 10px;
+            text-align: center
+        }
+
+        .td_pickgun {
+            padding: 0px;
+            background-color: black;
+            width: 70px;
+            height: 36px;
+        }
+
+        .td_starbutton {
+            width: 40px;
+            height: 40px;
+        }
+
+        .td_info {
+            width: 120px;
+            height: 40px;
+        }
+
+        .td_equip {
+            width: 76px;
+            height: 70px;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #container {
+            height: 384px;
+            margin: left;
+        }
+    </style>
+    <script type="text/javascript" src="../js/NRC_Algo_init.js"></script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">云图计划工具</span>
+                    by <span data-i18n-key="authorName">命运の乐章</span> (NRC tools)</a>
+            </div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <script>
+            function Language(typeCode) {
+                if (typeCode === 'Chinese') window.location.href = "GFT_Echelon.html";
+                else if (typeCode === 'English') window.location.href = "GFT_Echelon-EN.html";
+                else if (typeCode === 'Korean') window.location.href = "GFT_Echelon-KO.html";
+            }
+        </script>
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tooltip-demo">
+                            <h1 class="page-header">算法模拟器</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span>算法设置</span>
+                                </div>
+                                <div class="panel-body">
+
+                                    <!-- 人形选择 -->
+
+                                    <div class="col-lg-6">
+                                        <h4>人形选择</h4>
+                                        <table class="table_other table-bordered " style="width:420px;height:120px"
+                                            id="table_neursoul_info">
+                                            <tbody>
+                                                <tr>
+                                                    <!-- 心智头像 -->
+                                                    <td>
+                                                        <img src="../img/nrc/neursoul/0-0.png" id="img_neursoul">
+                                                    </td>
+
+                                                    <td>
+                                                        <img src="../img/nrc/job/job1_disable.png"
+                                                            style="cursor:pointer" onclick='change_job(1)' id="job1">
+                                                    </td>
+                                                    <td>
+                                                        <img src="../img/nrc/job/job2_disable.png"
+                                                            style="cursor:pointer" onclick='change_job(2)' id="job2">
+                                                    </td>
+                                                    <td>
+                                                        <img src="../img/nrc/job/job3_disable.png"
+                                                            style="cursor:pointer" onclick='change_job(3)' id="job3">
+                                                    </td>
+                                                    <td>
+                                                        <img src="../img/nrc/job/job4_disable.png"
+                                                            style="cursor:pointer" onclick='change_job(4)' id="job4">
+                                                    </td>
+                                                    <td>
+                                                        <img src="../img/nrc/job/job5_disable.png"
+                                                            style="cursor:pointer" onclick='change_job(5)' id="job5">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id=""></td>
+                                                    <td id="" colspan="2">
+                                                        人形选择
+                                                        <select class="form-control input-sm" id="select_neursoul"
+                                                            onchange="change_neursoul()" disabled>
+                                                            <option value=0 selected>——</option>
+                                                        </select>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <img src="../img/nrc/base/5star.png">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <h4>总属性</h4>
+                                        <table class="table table-bordered table-hover" id="table_pro_all">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:110px"><b>最大生命值</b></td>
+                                                    <td id="pro_hp">-</td>
+                                                    <td style="width:110px"><b>战后生命恢复</b></td>
+                                                    <td id="pro_hprecover">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>攻击力</b></td>
+                                                    <td id="pro_ad">-</td>
+                                                    <td><b>算力</b></td>
+                                                    <td id="pro_ap">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>物理穿透</b></td>
+                                                    <td id="pro_adpnt">-</td>
+                                                    <td><b>算量穿透</b></td>
+                                                    <td id="pro_appnt">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>暴击率</b></td>
+                                                    <td id="pro_crit">-</td>
+                                                    <td><b>暴击伤害</b></td>
+                                                    <td id="pro_critdmg">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>物理防御</b></td>
+                                                    <td id="pro_addfs">-</td>
+                                                    <td><b>算量防御</b></td>
+                                                    <td id="pro_apdfs">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>攻速值</b></td>
+                                                    <td id="pro_rof">-</td>
+                                                    <td><b>闪避率</b></td>
+                                                    <td id="pro_eva">-</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- 算法选择 -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Flot Charts JavaScript -->
+    <script src="../vendor/flot/excanvas.min.js"></script>
+    <script src="../vendor/flot/jquery.flot.js"></script>
+    <script src="../vendor/flot/jquery.flot.resize.js"></script>
+    <script src="../vendor/flot/jquery.flot.time.js"></script>
+    <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+    <!--version info-->
+
+
+</body>
+
+</html>
