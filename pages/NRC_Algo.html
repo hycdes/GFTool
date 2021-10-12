@@ -116,13 +116,7 @@
                 </div>
             </div>
         </nav>
-        <script>
-            function Language(typeCode) {
-                if (typeCode === 'Chinese') window.location.href = "GFT_Echelon.html";
-                else if (typeCode === 'English') window.location.href = "GFT_Echelon-EN.html";
-                else if (typeCode === 'Korean') window.location.href = "GFT_Echelon-KO.html";
-            }
-        </script>
+
         <!-- Main Pages -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -189,6 +183,32 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                                        <h4>快捷算法配置</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-danger" onclick=""
+                                                disabled>物理型输出</button>
+                                            <button type="button" class="btn btn-danger" onclick=""
+                                                disabled>算量型输出</button>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-info" onclick=""
+                                                disabled>常规单守卫</button>
+                                            <button type="button" class="btn btn-info" onclick="" disabled>反伤守卫</button>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-warning" onclick=""
+                                                disabled>功能型特种</button>
+                                            <button type="button" class="btn btn-warning" onclick=""
+                                                disabled>物理输出型特种</button>
+                                            <button type="button" class="btn btn-warning" onclick=""
+                                                disabled>算量输出型特种</button>
+                                            <button type="button" class="btn btn-success" onclick=""
+                                                disabled>持续型医师</button>
+                                            <button type="button" class="btn btn-success" onclick=""
+                                                disabled>瞬时型医师</button>
+                                            <button type="button" class="btn btn-success" onclick=""
+                                                disabled>功能型医师</button>
+                                        </p>
                                     </div>
 
                                     <div class="col-lg-6">
@@ -231,11 +251,283 @@
                                                     <td><b>闪避率</b></td>
                                                     <td id="pro_eva">-</td>
                                                 </tr>
+                                                <tr>
+                                                    <td><b>伤害增加</b></td>
+                                                    <td id="pro_alldmg">-</td>
+                                                    <td><b>伤害减免</b></td>
+                                                    <td id="pro_allreduce">-</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><b>技能急速</b></td>
+                                                    <td id="pro_cd">-</td>
+                                                    <td><b>治疗加成</b></td>
+                                                    <td id="pro_heal">-</td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
 
                                     <!-- 算法选择 -->
+                                    <h4>算法</h4>
+                                    <table class="table table-bordered" id="table_algo_info" style="width:850px">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:100px"></th>
+                                                <th style="width:150px;text-align:center">算法</th>
+                                                <th style="width:200px;text-align:center">主属性</th>
+                                                <th style="width:200px;text-align:center">副属性1</th>
+                                                <th style="width:200px;text-align:center">副属性2</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- 攻击性 -->
+                                            <tr>
+                                                <td style="text-align:center;vertical-align:middle">攻击性</td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_1_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>-</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_1_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>算力 +12%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_1_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害提升 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_1_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>算力 +7.2%</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_2_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>-</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_2_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>算力 +12%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_2_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害提升 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_2_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>算力 +7.2%</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_3_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>-</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_3_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>算力 +12%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_3_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害提升 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_1_3_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>算力 +7.2%</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <!-- 稳定性 -->
+                                            <tr>
+                                                <td style="text-align:center;vertical-align:middle">稳定性</td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_1_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>异相回归1</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_1_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>最大生命值 +1800</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_1_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害降低 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_1_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>最大生命值 770</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_2_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>异相回归2</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_2_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>最大生命值 +1800</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_2_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害降低 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_2_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>最大生命值 770</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_3_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>-</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_3_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>-</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_3_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>-</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_2_3_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>-</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <!-- 特异性 -->
+                                            <tr>
+                                                <td style="text-align:center;vertical-align:middle">特异性</td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_1_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>异相回归1</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_1_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>算力 +12%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_1_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害提升 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_1_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>算力 +7.2%</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_2_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>异相回归2</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_2_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>算力 +12%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_2_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害提升 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_2_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>算力 +7.2%</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_3_1"
+                                                        onchange="change_algo(1,1)" disabled>
+                                                        <option value=0 selected>异相回归3</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_3_2"
+                                                        onchange="change_property(1)" disabled>
+                                                        <option value=0 selected>算力 +12%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_3_3"
+                                                        onchange="change_property(2)" disabled>
+                                                        <option value=0 selected>伤害提升 +3.9%</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control input-sm" id="select_algo_3_3_4"
+                                                        onchange="change_property(3)" disabled>
+                                                        <option value=0 selected>算力 +7.2%</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
                                 </div>
                             </div>

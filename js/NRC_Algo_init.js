@@ -35,4 +35,7 @@ window.onload = function () {
     loadScript('../js/NRC_Algo_UI.js')
     loadScript('../js/NRC_Algo_data.js')
     merge_cell_row('table_neursoul_info', 0, 0, 1)
+    merge_cell_row('table_algo_info', 0, 1, 3)
+    merge_cell_row('table_algo_info', 0, 4, 6)
+    merge_cell_row('table_algo_info', 0, 7, 9)
 }

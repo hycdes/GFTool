@@ -67,4 +67,32 @@ function change_neursoul() {
     document.getElementById('pro_apdfs').innerHTML = neursoul.apdfs + '+'
     document.getElementById('pro_rof').innerHTML = neursoul.rof + '+'
     document.getElementById('pro_eva').innerHTML = neursoul.eva + '+'
+    document.getElementById('pro_alldmg').innerHTML = 0 + '+'
+    document.getElementById('pro_allreduce').innerHTML = 0 + '+'
+    change_algo_set(job_id, neursoul_id)
+}
+function change_algo_set(job_id, neursoul_id) {
+    if (job_id === 1) {
+        for (var i = 1; i <= 3; i++) {
+            document.getElementById('select_algo_1_' + i + '_1').innerHTML = fill_select('main_algo', 1)
+            document.getElementById('select_algo_1_' + i + '_1').disabled = false
+        }
+        document.getElementById('select_algo_2_1_1').innerHTML = fill_select('main_algo', 2)
+        document.getElementById('select_algo_2_2_1').innerHTML = fill_select('main_algo', 2)
+        document.getElementById('select_algo_2_3_1').innerHTML = lib_algo[0]
+        document.getElementById('select_algo_2_1_1').disabled = false
+        document.getElementById('select_algo_2_2_1').disabled = false
+        document.getElementById('select_algo_2_3_1').disabled = true
+    }
+}
+function change_algo(num_class, num_position) {
+
+}
+function fill_select(command) {
+    var str_return = ''
+    if (command === 'main_algo') {
+        var num_position = arguments['1']
+        for (var item of lib_algo[num_position]) str_return += item
+    }
+    return str_return
 }
