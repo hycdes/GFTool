@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>云图计划-伤害模拟器 by 命运の乐章</title>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .table_other {
+            padding: 0px;
+            text-align: center;
+            background-color: white;
+        }
+
+        .table_left {
+            padding: 0px;
+            text-align: left;
+            background-color: white;
+        }
+
+        .td_affect {
+            padding: 0px;
+            width: 10px;
+            height: 10px;
+            background-color: #6a696a;
+            text-align: center
+        }
+
+        .td_energy {
+            padding: 0px;
+            width: 30px;
+            height: 20px;
+            background-color: #ffffff;
+            text-align: center
+        }
+
+        .td_affect_info {
+            padding: 0px;
+            width: 210px;
+            height: 10px;
+            text-align: center
+        }
+
+        .td_pickgun {
+            padding: 0px;
+            background-color: black;
+            width: 70px;
+            height: 36px;
+        }
+
+        .td_starbutton {
+            width: 40px;
+            height: 40px;
+        }
+
+        .td_info {
+            width: 120px;
+            height: 40px;
+        }
+
+        .td_equip {
+            width: 76px;
+            height: 70px;
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #container {
+            height: 384px;
+            margin: left;
+        }
+    </style>
+    <script type="text/javascript" src="../js/NRC_Dmg_init.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">云图计划工具</span> by 命运の乐章</a>
+            </div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tooltip-demo">
+                            <h1 class="page-header"><img src="../img/nc/avator/shooter-hubble.png">云图计划伤害模拟
+                                <span style="font-size:15px;color:gray" id="info_version"></span>
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <span>梯队设置</span>
+                                </div>
+                                <div class="panel-body">
+                                    <!--队伍配置-->
+                                    <div class="col-lg-6">
+                                        <h4>队伍设置<span style="color:red" id="alert_display"></span></h4>
+                                        <table class="table_other" style="width:360px; height:120px; overflow:hidden">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="blockimg_1"
+                                                        style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)">
+                                                        <img id="img_1" src="../img/nc/avator/null.png"
+                                                            style="cursor:pointer" onclick='pickBlock(1)'>
+                                                    </td>
+                                                    <td id="blockimg_2"
+                                                        style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)">
+                                                        <img id="img_2" src="../img/nc/avator/null.png"
+                                                            style="cursor:pointer" onclick='pickBlock(2)'>
+                                                    </td>
+                                                    <td id="blockimg_3"
+                                                        style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)">
+                                                        <img id="img_3" src="../img/nc/avator/null.png"
+                                                            style="cursor:pointer" onclick='pickBlock(3)'>
+                                                    </td>
+                                                    <td id="blockimg_4"
+                                                        style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)">
+                                                        <img id="img_4" src="../img/nc/avator/null.png"
+                                                            style="cursor:pointer" onclick='pickBlock(4)'>
+                                                    </td>
+                                                    <td id="blockimg_5"
+                                                        style="width:120px;height:120px;background:url(../img/echelon/tdoll/0.png)">
+                                                        <img id="img_5" src="../img/nc/avator/null.png"
+                                                            style="cursor:pointer" onclick='pickBlock(5)'>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <!--人形详细设定-->
+                                    <div class="col-lg-6">
+                                        <h4>人形信息</h4>
+
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <h4>函数和协议<span style="color:red" id="alert_display"></span></h4>
+                                        <h5>已选择函数</h5>
+                                        <p>
+                                        </p>
+                                        <p>
+                                            <button type="button" class="btn btn-default" style="background-color:gray"
+                                                onclick="getResult(1,'damage')">
+                                                <img src="../img/nc/function/通用-协力暴击.png">
+                                                <span
+                                                    style="font-size:25px;vertical-align:middle;color:white">协力暴击</span>
+                                            </button>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default"
+                                style="background:url(../img/Produce-16lab.png) no-repeat right 100px top 100px;">
+                                <div class="panel-heading" data-i18n-key="titleResults">
+                                    模拟结果
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-lg-4">
+                                        <h4 data-i18n-key="titleEnvironment">环境</h4>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 50%"><img id="icon-day"
+                                                            src="../img/echelon/icon-battle-daytime.png"
+                                                            style="cursor: pointer" onclick='changeSunrise(1)'></td>
+                                                    <td style="width: 50%"><img id="icon-night"
+                                                            src="../img/echelon/icon-battle-night-no.png"
+                                                            style="cursor: pointer" onclick='changeSunrise(2)'></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="height: 30px">
+                                                        <label class="radio-inline"><input type="radio"
+                                                                name="switch_class" id="switch_normal" checked><b
+                                                                data-i18n-key="tipEnemyNormal">普通</b></label>
+                                                        <label class="radio-inline"><input type="radio"
+                                                                name="switch_class" id="switch_elite"><span
+                                                                style="color:dodgerblue"><b
+                                                                    data-i18n-key="tipEnemyElite">精英</b></span></label>
+                                                        <label class="radio-inline"><input type="radio"
+                                                                name="switch_class" id="switch_boss"><span
+                                                                style="color:red"><b>BOSS</b></span></label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <table class="table_other table-bordered table-hover" style="width:300px">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width: 25%" data-i18n-key="settingBattleStart">接敌时间</td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入非负数"
+                                                            id="time_init" value=0 onblur="checkEnviInput()">
+                                                    </td>
+                                                    <td style="width: 25%" data-i18n-key="settingBattleDuration">战斗时间
+                                                    </td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入正数"
+                                                            id="time_battle" value=20 onblur="checkEnviInput()">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width: 25%" data-i18n-key="settingEnemyDummyLinkCount">
+                                                        单组编制</td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入1~5整数"
+                                                            id='enemy_form' value=1 onblur="checkEnviInput()">
+                                                    </td>
+                                                    <td style="width: 25%" data-i18n-key="settingEnemyGroupCount">组数
+                                                    </td>
+                                                    <td style="width: 25%">
+                                                        <input class="form-control input-sm" placeholder="输入正整数"
+                                                            id='enemy_num' value=1 onblur="checkEnviInput()">
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#Setting1" data-toggle="tab"
+                                                        data-i18n-key="testDamageDealt">输出测试</a>
+                                                </li>
+                                                <li><a href="#Setting1-2" data-toggle="tab"
+                                                        data-i18n-key="testDamageTaken">承伤测试</a>
+                                                </li>
+                                                <li><a href="#Setting3" data-toggle="tab"
+                                                        data-i18n-key="testOther">其他</a>
+                                                </li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade in active" id="Setting1">
+                                                    <h4 data-i18n-key="titleEnemyStatsDefensive">敌人防御属性</h4>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-1.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(1)'></td>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-2.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(2)'></td>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-3.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(3)'></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-4.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(4)'></td>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-5.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(5)'></td>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-6.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(6)'></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h7>&nbsp</h7>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyEvasion">回避</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入非负整数" id='enemy_eva' value=0
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyArmor">护甲</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入非负整数" id='enemy_arm' value=0
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyForcefield">力场</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_forcefield'
+                                                                        value=0 onblur="checkEnviInput()">
+                                                                </td>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyForcefieldMax">力场max</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_forcefield_max'
+                                                                        value=0 onblur="checkEnviInput()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h4 data-i18n-key="titleDamageCalculation">输出计算</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-info"
+                                                            onclick="getResult(1,'damage')"
+                                                            data-i18n-key="buttonRun1x">计算1次</button>
+                                                        <button type="button" class="btn btn-outline btn-primary"
+                                                            onclick="getResult(100,'damage')" id="btn_dmg100"
+                                                            data-i18n-key="buttonRun100x">100次平均</button>
+                                                    </p>
+                                                </div>
+                                                <div class="tab-pane fade" id="Setting1-2">
+                                                    <h4 data-i18n-key="titleEnemyStatsOffensive">敌人输出属性</h4>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-s-1.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(11)'></td>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-s-2.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(12)'></td>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-s-3.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(13)'></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width:100px; height:40px"><img id=""
+                                                                        src="../img/echelon/enemy-tpl-s-4.png"
+                                                                        style="cursor: pointer"
+                                                                        onclick='templatePro(14)'></td>
+                                                                <td style="width:100px; height:40px"
+                                                                    data-i18n-key="tipPlaceholder">模板待定</td>
+                                                                <td style="width:100px; height:40px"
+                                                                    data-i18n-key="tipPlaceholder">模板待定</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h7>&nbsp</h7>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyDamage">伤害</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_dmg' value=10
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyRoF">
+                                                                    射速</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_rof' value=40
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%"><input type="checkbox"
+                                                                        id="enemy_acumax" onchange="checkEnviInput()">
+                                                                    <span
+                                                                        data-i18n-key="settingEnemySureHit">敌人攻击必中</span>
+                                                                </td>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyAccuracy">命中</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入非负整数" id='enemy_acu' value=10
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyAP">穿甲
+                                                                </td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入非负整数" id='enemy_ap' value=0
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyPierce">破防</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入非负整数" id='enemy_dbk' value=0
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyEva">
+                                                                    回避</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_eva_2' value=10
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyArmor">护甲</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_arm_2' value=0
+                                                                        onblur="checkEnviInput()">
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyForcefield">力场</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_forcefield_2'
+                                                                        value=0 onblur="checkEnviInput()">
+                                                                </td>
+                                                                <td style="width: 25%"
+                                                                    data-i18n-key="settingEnemyForcefieldMax">力场max</td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_forcefield_2_max'
+                                                                        value=0 onblur="checkEnviInput()">
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 50%">
+                                                                    <input type="checkbox" id="enemy_hp_check"
+                                                                        onchange="checkEnviInput()"> <span
+                                                                        data-i18n-key="tipEnemy">敌人</span><span
+                                                                        style="color:orangered"
+                                                                        data-i18n-key="tipEnemyCanBeKilled">能够被杀死</span>
+                                                                </td>
+                                                                <td style="width: 25%" data-i18n-key="settingEnemyHP">生命
+                                                                </td>
+                                                                <td style="width: 25%">
+                                                                    <input class="form-control input-sm"
+                                                                        placeholder="输入正整数" id='enemy_hp' value=1000
+                                                                        onblur="checkEnviInput()" disabled>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        style="width:300px">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="width: 35%"><label
+                                                                        class="radio-inline"><input type="radio"
+                                                                            name="inj_type" id="inj_type1"
+                                                                            onchange="checkEnviInput()" checked><b
+                                                                            data-i18n-key="settingTankOrder">按顺序承伤</b></label>
+                                                                </td>
+                                                                <td style="width: 30%"><input
+                                                                        class="form-control input-sm" placeholder="输入顺序"
+                                                                        id='inj_order' value=639528417
+                                                                        onblur="checkEnviInput()"></td>
+                                                                <td style="width: 35%"><label
+                                                                        class="radio-inline"><input type="radio"
+                                                                            name="inj_type" id="inj_type2"
+                                                                            onchange="checkEnviInput()"><b
+                                                                            data-i18n-key="settingTankAoE">全体承伤</b></label>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <h4 data-i18n-key="titleDamageTakenCalculation">承伤计算</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-outline btn-warning"
+                                                            id="suffer_1" onclick="getResult(1,'suffer')"
+                                                            data-i18n-key="buttonRun1x" disabled>计算1次</button>
+                                                        <button type="button" class="btn btn-outline btn-danger"
+                                                            id="suffer_100" onclick="getResult(100,'suffer')"
+                                                            data-i18n-key="buttonRun100x" disabled>100次平均</button>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="panel-body">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#Table_stat" data-toggle="tab"
+                                                        data-i18n-key="tipStatistics">统计数据</a>
+                                                </li>
+                                                <li><a href="#Table_set" data-toggle="tab"
+                                                        data-i18n-key="tipSettingDisplay">显示设置</a>
+                                                </li>
+                                                <li><a href="#Table_debug" data-toggle="tab">Debug</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade in active" id="Table_stat">
+                                                    <h4 data-i18n-key="titleSimulationResults">测试结果</h4>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        id="table_envi">
+                                                        <tbody>
+                                                            <tr style="height:31px">
+                                                                <td style="width:62px"><img
+                                                                        src="../img/icon-daytime.png" id="envi_day">
+                                                                </td>
+                                                                <td style="width:100px"><span
+                                                                        data-i18n-key="tipEnemyEncounterTime">接敌</span>
+                                                                    <span style="color:green"
+                                                                        id='envi_contertime'>-</span>s
+                                                                </td>
+                                                                <td style="width:62px"><img
+                                                                        src="../img/echelon/fairy/icon-f0.png"
+                                                                        id="envi_fairy"></td>
+                                                                <td style="width:100px"><span
+                                                                        data-i18n-key="tipFairyTalent">天赋</span> <span
+                                                                        id='envi_talent'
+                                                                        style="color:orangered">-</span></td>
+                                                            </tr>
+                                                            <tr style="height:31px">
+                                                                <td style="width:62px"></td>
+                                                                <td style="width:100px"><span
+                                                                        data-i18n-key="tipBattleDuration">战斗</span>
+                                                                    <span style="color:green"
+                                                                        id='envi_alltime'>-</span>s
+                                                                </td>
+                                                                <td style="width:62px"><span
+                                                                        data-i18n-key="tipFairySkill">技能</span> <span
+                                                                        id='envi_fairyskill'
+                                                                        style="color:dodgerblue">-</span></td>
+                                                                <td style="width:100px"></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center"><span
+                                                                        data-i18n-key="tipEnemyType">类型</span> <span
+                                                                        style="color:black" id='envi_ene_type'>-</span>
+                                                                </td>
+                                                                <td style="width:100px">&nbsp<img
+                                                                        src="../img/icon-atkdmg.png"> <span
+                                                                        style="color:green" id='envi_ene_dmg'>-</span>
+                                                                </td>
+                                                                <td style="width:100px">&nbsp<img
+                                                                        src="../img/icon-rof.png"> <span
+                                                                        style="color:green" id='envi_ene_rof'>-</span>
+                                                                </td>
+                                                                <td style="width:150px">&nbsp<img
+                                                                        src="../img/icon-hp.png"> <span
+                                                                        style="color:green" id='envi_ene_hp'>-</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center"><span
+                                                                        data-i18n-key="tipEnemyLinks">编制</span> <span
+                                                                        style="color:green" id='envi_ene_form'>-</span>
+                                                                </td>
+                                                                <td style="width:100px">&nbsp<img
+                                                                        src="../img/icon-eva.png"> <span
+                                                                        style="color:green" id='envi_ene_eva'>-</span>
+                                                                </td>
+                                                                <td style="width:100px">&nbsp<img
+                                                                        src="../img/icon-atkacu.png"> <span
+                                                                        style="color:green" id='envi_ene_acu'>-</span>
+                                                                </td>
+                                                                <td style="width:150px">&nbsp<img
+                                                                        src="../img/icon-ff.png"> <span
+                                                                        style="color:green" id='envi_ene_ff'>-</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center"><span
+                                                                        data-i18n-key="tipEnemyGroups">组数</span> <span
+                                                                        style="color:green" id='envi_ene_num'>-</span>
+                                                                </td>
+                                                                <td style="width:100px">&nbsp<img
+                                                                        src="../img/icon-arm.png"> <span
+                                                                        style="color:green" id='envi_ene_arm'>-</span>
+                                                                </td>
+                                                                <td style="width:100px">&nbsp<img
+                                                                        src="../img/icon-ap.png"> <span
+                                                                        style="color:green" id='envi_ene_ap'>-</span>
+                                                                </td>
+                                                                <td style="width:150px">&nbsp<img
+                                                                        src="../img/icon-dbk.png"> <span
+                                                                        style="color:green" id='envi_ene_dbk'>-</span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr style="height:31px;text-align:left">
+                                                                <td style="width:100px;text-align:center"
+                                                                    data-i18n-key="tipTotalDamage">总输出</td>
+                                                                <td style="width:350px">&nbsp&nbsp<b><span
+                                                                            style="color:orangered"
+                                                                            id='envi_alldmg'>0</span></b></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody id="envi_stat"></tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="Table_set">
+                                                    <h8>&nbsp</h8>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr id="allcontrol_showhide"></tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover">
+                                                        <tbody>
+                                                            <tr id="fairyHF_showhide"></tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table class="table_other table-bordered table-hover"
+                                                        id="table_showhide">
+                                                    </table>
+                                                </div>
+                                                <div class="tab-pane fade" id="Table_debug">
+                                                    <h4>Debug mode: display code running status</h4>
+                                                    <p>
+                                                        <button type="button" class="btn btn-default"
+                                                            onclick="debug_switch()" id="debug_button"
+                                                            style="width:200px">Click to open debug mode</button>
+                                                        <button type="button" class="btn btn-default"
+                                                            onclick="debug_clear()">Clear console</button>
+                                                    </p>
+                                                    <p>
+                                                        <button type="button" style="padding:2px;width:100px"
+                                                            class="btn btn-warning" id="debug_s_attack"
+                                                            onclick="debug_display(0)">Show attack</button>
+                                                        <button type="button" style="padding:2px;width:100px"
+                                                            class="btn btn-warning" id="debug_s_skill"
+                                                            onclick="debug_display(1)">Show skill</button>
+                                                        <button type="button" style="padding:2px;width:100px"
+                                                            class="btn btn-default" id="debug_s_status"
+                                                            onclick="debug_display(2)">No status</button>
+                                                    </p>
+                                                    <div class="form-group"
+                                                        style="height:400px;overflow-y:scroll;text-align:left">
+                                                        <table class="table table-bordered">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td id="debug_content"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4 data-i18n-key="titleGraph">图表</h4>
+                                        <div id="placeholder" style="height:400px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Flot Charts JavaScript -->
+    <script src="../vendor/flot/excanvas.min.js"></script>
+    <script src="../vendor/flot/jquery.flot.js"></script>
+    <script src="../vendor/flot/jquery.flot.resize.js"></script>
+    <script src="../vendor/flot/jquery.flot.time.js"></script>
+    <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+    <!--version info-->
+    <script src="../js/version_GFT.js"></script>
+    <script>
+        document.getElementById('info_version').innerHTML = _version.ES
+        document.getElementById('info_updatelog').innerHTML = _updateinfo.ES
+        for (var item of _navitem) {
+            document.getElementById('side-menu').innerHTML += item
+        }
+    </script>
+</body>
+
+</html>

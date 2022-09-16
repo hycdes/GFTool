@@ -12,7 +12,7 @@ function is_equal_reconstruct(a1, a2, b1, b2) {
 function is_goto(a1) {
     var p = Math.random(), list_p = p_metrix[a1]
     var i = 0, p_current = list_p[i], goto_i = 0
-    while (p_current)
+    while (p_current) { }
 
 }
 
