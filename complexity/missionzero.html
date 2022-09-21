@@ -60,7 +60,8 @@
                                     id="info_version"></span></h1>
                         </div>
                     </div>
-                    <!-- Main Script -->
+                    <!-- Javascript initialization -->
+                    <script src="mz_data.js"></script>
                     <script src="mz_gameplay_main.js"></script>
                     <!-- Main Script -->
                     <div class="col-lg-12">
@@ -72,13 +73,13 @@
                                 <ul class="nav nav-tabs">
                                     <li class="active" id="sort_tag_li"><a href="#sort_tag" data-toggle="tab">按分类标签</a>
                                     </li>
-                                    <li id="sort_item_li"><a href="#sort_item" data-toggle="tab">按角色或道具</a>
+                                    <li id="sort_tdoll_li"><a href="#sort_tdoll" data-toggle="tab">按角色或道具</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
                                     <!-- 按分类标签 -->
                                     <div class="tab-pane fade in active" id="sort_tag">
-                                        <h4>符合条件的人形 <span id="result_1_tags"></span></h4>
+                                        <h4>符合条件的结果 <span id="result_1_tags"></span></h4>
                                         <table class="table table-bordered">
                                             <tr>
                                                 <td>
@@ -111,38 +112,40 @@
                                             </tr>
                                             <tr>
                                                 <td style="text-align:center;vertical-align:middle;">
-                                                    按玩法
-                                                    <br>（天狼星）<button type="button" style="padding:5px"
+                                                    天狼星
+                                                    <br>玩法<br><button type="button" style="padding:5px"
                                                         class="btn btn-default" onclick="empty_taglist(1)">清空</button>
                                                 </td>
                                                 <td style="line-height:40px">
-                                                    <h6> * 该部分与莫比乌斯玩法互斥</h6>
-                                                    <p>破译：<span id="tag_1_0"></span></p>
-                                                    <p>援护：<span id="tag_1_1"></span></p>
-                                                    <p>情报：<span id="tag_1_1"></span></p>
-                                                    <p>干扰：<span id="tag_1_1"></span></p>
-                                                    <p>生存：<span id="tag_1_1"></span></p>
-                                                    <p>隐秘：<span id="tag_1_1"></span></p>
+                                                    <h6 span style="color:gray"> * 该部分与莫比乌斯玩法互斥</h6>
+                                                    <p>#0破译：<span id="tag_1_0"></span></p>
+                                                    <p>#1援护：<span id="tag_1_1"></span></p>
+                                                    <p>#2情报：<span id="tag_1_2"></span></p>
+                                                    <p>#3干扰：<span id="tag_1_3"></span></p>
+                                                    <p>#4阻制：<span id="tag_1_4"></span></p>
+                                                    <p>#5生存：<span id="tag_1_5"></span></p>
+                                                    <p>#6隐秘：<span id="tag_1_6"></span></p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="text-align:center;vertical-align:middle;">
-                                                    按玩法
-                                                    <br>（莫比乌斯）<button type="button" style="padding:5px"
+                                                    莫比乌斯
+                                                    <br>玩法<br><button type="button" style="padding:5px"
                                                         class="btn btn-default" onclick="empty_taglist(2)">清空</button>
                                                 </td>
                                                 <td style="line-height:40px">
-                                                    <h6> * 该部分与天狼星玩法互斥</h6>
-                                                    <p>伤害：<span id="tag_2_0"></span></p>
-                                                    <p>阻制：<span id="tag_2_1"></span></p>
-                                                    <p>敏捷：<span id="tag_2_2"></span></p>
-                                                    <p>情报：<span id="tag_2_3"></span></p>
-                                                    <p>隐秘：<span id="tag_2_4"></span></p>
+                                                    <h6 span style="color:gray"> * 该部分与天狼星玩法互斥</h6>
+                                                    <p>#0伤害：<span id="tag_2_0"></span></p>
+                                                    <p>#1阻制：<span id="tag_2_1"></span></p>
+                                                    <p>#2敏捷：<span id="tag_2_2"></span></p>
+                                                    <p>#3情报：<span id="tag_2_3"></span></p>
+                                                    <p>#4隐秘：<span id="tag_2_4"></span></p>
+                                                    <p>#5其它：<span id="tag_2_5"></span></p>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align:center;vertical-align:middle;">按玩法
-                                                    <br>（通用）<button type="button" style="padding:5px"
+                                                <td style="text-align:center;vertical-align:middle;">通用玩法
+                                                    <br>通用机制<br><button type="button" style="padding:5px"
                                                         class="btn btn-default" onclick="empty_taglist(3)">清空</button>
                                                 </td>
                                                 <td style="line-height:40px">
@@ -153,171 +156,170 @@
                                         </table>
                                     </div>
                                     <!-- 按战术人形 -->
-                                    <div class="tab-pane fade" id="sort_item">
+                                    <div class="tab-pane fade" id="sort_tdoll">
                                         <!-- <button type="button" style="padding:5px" class="btn btn-default" onclick="find_similar()">test</button> -->
                                         <div class="col-lg-12">
                                             <h7>&nbsp</h7>
                                             <table class="table table-bordered">
                                                 <tr>
-                                                    <td style="width:30%">
+                                                    <td style="width:50%">
                                                         <h4>当前选择：<span id="result_2_name">无</span></h4>
-                                                        <h4 id="result_2" style="line-height:40px">请选择一个人形</h4>
+                                                        <h4 id="result_2" style="line-height:40px">请选择一个项目</h4>
                                                         <h5>&nbsp</h5>
-                                                        <h5>部分条目换算准则：<a onclick="show_details()" id="text_showdetails"
-                                                                style="cursor:pointer">点击展开详情</a></h5>
+                                                        <h5><span style="color:gray">[注]
+                                                                局内成长获取的特性由*表示，*初级**中级***高级</span></h5>
+                                                        <!-- <h5>部分条目换算准则：<a onclick="show_details()" id="text_showdetails"
+                                                                style="cursor:pointer">点击展开详情</a></h5> -->
                                                         <h5><span style="color:gray" id="text_details"></span></h5>
                                                     </td>
+
                                                     <td>
-                                                        <ul class="nav nav-pills">
-                                                            <li class="active">
-                                                                <a href="#commit_similar" data-toggle="tab">相似人选</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#commit_partner" data-toggle="tab">推荐搭档</a>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="tab-content">
-                                                            <div class="tab-pane fade in active" id="commit_similar">
-                                                                <h5>请结合<u><a href="../img/database/data_3-1.jpg"
-                                                                            target="_blank">人形强度榜</a></u>选择，并且注意如<span
-                                                                        style="color:red">夜战特化</span>等标签可能影响实际发挥</h5>
-                                                                <p>
-                                                                    <button type="button" style="width:70px;padding:3px"
-                                                                        class="btn btn-success" onclick="sortnum(7)"
-                                                                        id="btn_show7">显示7条</button>
-                                                                    <button type="button" style="width:70px;padding:3px"
-                                                                        class="btn btn-outline btn-success"
-                                                                        onclick="sortnum(10)"
-                                                                        id="btn_show10">显示10条</button>
-                                                                    <button type="button" style="width:70px;padding:3px"
-                                                                        class="btn btn-outline btn-success"
-                                                                        onclick="sortnum(20)"
-                                                                        id="btn_show20">显示20条</button>
-                                                                </p>
-                                                                <table class="table table-bordered table-hovered">
-                                                                    <thead>
-                                                                        <th style="text-align:center">人形</th>
-                                                                        <th style="text-align:center">相似度</th>
-                                                                        <th style="text-align:center">共性</th>
-                                                                    </thead>
-                                                                    <tbody id="result_2_sim"></tbody>
-                                                                </table>
+                                                        <div class="col-lg-12">
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse"
+                                                                            data-parent="#accordion" href="#cl-hg">
+                                                                            <h4>天狼星英雄 Sirius Hero</h4>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="cl-hg" class="panel-collapse collapse">
+                                                                    <div class="panel-body">
+                                                                        <p id="tag_tdoll_1" style="line-height:55px;">
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                            <div class="tab-pane fade" id="commit_partner">
-                                                                <h4>该部分没做完</h4>
-                                                                <table class="table table-bordered table-hovered">
-                                                                    <thead>
-                                                                        <th style="text-align:center">人形</th>
-                                                                        <th style="text-align:center">契合度</th>
-                                                                        <th style="text-align:center">配合</th>
-                                                                    </thead>
-                                                                    <tbody id="result_2_par"></tbody>
-                                                                </table>
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse"
+                                                                            data-parent="#accordion" href="#cl-ar">
+                                                                            <h4>天狼星道具 Sirius Props</h4>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="cl-ar" class="panel-collapse collapse">
+                                                                    <div class="panel-body">
+                                                                        <p id="tag_tdoll_2" style="line-height:55px;">
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
+                                                            <div class="panel panel-default">
+                                                                <div class="panel-heading">
+                                                                    <h4 class="panel-title">
+                                                                        <a data-toggle="collapse"
+                                                                            data-parent="#accordion" href="#cl-smg">
+                                                                            <h4>莫比乌斯英雄 Mobius Hero</h4>
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div id="cl-smg" class="panel-collapse collapse">
+                                                                    <div class="panel-body">
+                                                                        <p id="tag_tdoll_3" style="line-height:55px;">
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+
                                                         </div>
                                                     </td>
+
                                                 </tr>
+
                                             </table>
                                         </div>
 
                                         <div class="col-lg-12">
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion"
-                                                            href="#cl-hg">
-                                                            <h4>天狼星英雄 Sirius Hero</h4>
-                                                        </a>
-                                                    </h4>
+                                                    筛选结果
                                                 </div>
-                                                <div id="cl-hg" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <p id="tag_tdoll_1_1" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_1_6" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_1_5" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_1_4" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_1_3" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_1_2" style="line-height:55px;"></p>
+                                                <div class="panel-body">
+                                                    <ul class="nav nav-pills">
+                                                        <li class="active">
+                                                            <a href="#commit_similar" data-toggle="tab">相似人选</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#commit_partner" data-toggle="tab">推荐搭档</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane fade in active" id="commit_similar">
+                                                            <p>
+                                                                <button type="button" style="width:70px;padding:3px"
+                                                                    class="btn btn-success" onclick="sortnum(7)"
+                                                                    id="btn_show7">显示7条</button>
+                                                                <button type="button" style="width:70px;padding:3px"
+                                                                    class="btn btn-outline btn-success"
+                                                                    onclick="sortnum(10)" id="btn_show10">显示10条</button>
+                                                                <button type="button" style="width:70px;padding:3px"
+                                                                    class="btn btn-outline btn-success"
+                                                                    onclick="sortnum(20)" id="btn_show20">显示20条</button>
+                                                            </p>
+                                                            <table class="table table-bordered table-hovered">
+                                                                <thead>
+                                                                    <th style="text-align:center">角色或道具</th>
+                                                                    <th style="text-align:center">用途相似度</th>
+                                                                    <th style="text-align:center">相同特性</th>
+                                                                    <th style="text-align:center">相似特性</th>
+                                                                </thead>
+                                                                <tbody id="result_2_sim"></tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="tab-pane fade" id="commit_partner">
+                                                            <h4>该部分没做完</h4>
+                                                            <table class="table table-bordered table-hovered">
+                                                                <thead>
+                                                                    <th style="text-align:center">人形</th>
+                                                                    <th style="text-align:center">契合度</th>
+                                                                    <th style="text-align:center">配合</th>
+                                                                </thead>
+                                                                <tbody id="result_2_par"></tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion"
-                                                            href="#cl-ar">
-                                                            <h4>天狼星道具 Sirius Props</h4>
-                                                        </a>
-                                                    </h4>
-                                                </div>
-                                                <div id="cl-ar" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <p id="tag_tdoll_2_1" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_2_6" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_2_5" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_2_4" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_2_3" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_2_2" style="line-height:55px;"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion"
-                                                            href="#cl-smg">
-                                                            <h4>莫比乌斯英雄 Mobius Hero</h4>
-                                                        </a>
-                                                    </h4>
-                                                </div>
-                                                <div id="cl-smg" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <p id="tag_tdoll_3_1" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_3_6" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_3_5" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_3_4" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_3_3" style="line-height:55px;"></p>
-                                                        <p id="tag_tdoll_3_2" style="line-height:55px;"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
                                         </div>
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
-
             </div>
         </div>
-    </div>
-    <!-- jQuery -->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-    <!-- Flot Charts JavaScript -->
-    <script src="../vendor/flot/excanvas.min.js"></script>
-    <script src="../vendor/flot/jquery.flot.js"></script>
-    <script src="../vendor/flot/jquery.flot.resize.js"></script>
-    <script src="../vendor/flot/jquery.flot.time.js"></script>
-    <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
-    <!--version info-->
-    <script src="mz_version.js"></script>
-    <script>
-        document.getElementById('info_version').innerHTML = _version.CL
-        for (var item of _navitem) {
-            document.getElementById('side-menu').innerHTML += item
-        }
-    </script>
+        <!-- jQuery -->
+        <script src="../vendor/jquery/jquery.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="../dist/js/sb-admin-2.js"></script>
+        <!-- Flot Charts JavaScript -->
+        <script src="../vendor/flot/excanvas.min.js"></script>
+        <script src="../vendor/flot/jquery.flot.js"></script>
+        <script src="../vendor/flot/jquery.flot.resize.js"></script>
+        <script src="../vendor/flot/jquery.flot.time.js"></script>
+        <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+        <!--version info-->
+        <script src="mz_version.js"></script>
+        <script>
+            document.getElementById('info_version').innerHTML = _version.CL
+            for (var item of _navitem) {
+                document.getElementById('side-menu').innerHTML += item
+            }
+        </script>
 </body>
 
 </html>
