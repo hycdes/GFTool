@@ -1,5 +1,8 @@
-var num_taglist = 4; // 首页标签列表数量
-var num_sort = 7 // 默认排序展示数
+var num_taglist = 4 // 首页标签列表数量
+var num_sort = 7 // 默认相似度排序展示数
+var num_sort2 = 100
+var num_sort_sim = 30
+var num_sort_par
 var pick_id = -1 //
 var pick_tag = [
     [],
@@ -7,9 +10,6 @@ var pick_tag = [
     [],
     []
 ]
-var lib_sim = new Map // 存储选择人物每个tag的等级
-var lib_sim_value = new Map // 存储选择人物每个tag已经计算好的数值
-var lib_sim_similar = new Map
 
 function create_entry(info_name, info_skilllist) {
     var entry = {}
@@ -87,6 +87,20 @@ var lib_tdoll = [
         [
             [[1, 0, 'gp_s_hack_boost', 5]],
             [[1, 0, 'gp_s_hack_savelost', -1]],
+        ]
+    ),
+    // 救援队
+    create_entry([1, 2, 11021, [[0, 1, 'sirius_orientation_support', 4], [0, 1, 'sirius_orientation_survive', 4]]],
+        [
+            [[1, 5, 'gp_s_survive_highhp', -1], [1, 1, 'gp_s_support_saverecover', -1], [1, 5, 'gp_s_survive_highprotect', 4]],
+            [[1, 5, 'gp_s_survive_highqte', -1]],
+        ]
+    ),
+    // 拳击手
+    create_entry([1, 2, 11022, [[0, 1, 'sirius_orientation_support', 4], [0, 1, 'sirius_orientation_survive', 4]]],
+        [
+            [[1, 5, 'gp_s_survive_highhp', -1], [1, 1, 'gp_s_support_saverecover', -1], [1, 5, 'gp_s_survive_highprotect', 4]],
+            [[1, 5, 'gp_s_survive_highqte', -1]],
         ]
     ),
 
@@ -171,7 +185,7 @@ var lib_tdoll = [
         ]
     ),
     // 龙啸天
-    create_entry([3, 4, 2120, [[0, 2, 'mobius_orientation_damage', 3], [0, 2, 'mobius_orientation_agile', 2], [0, 2, 'mobius_orientation_intel', 3]]],
+    create_entry([3, 4, 2120, [[0, 2, 'mobius_orientation_damage', 3], [0, 2, 'mobius_orientation_agile', 1], [0, 2, 'mobius_orientation_intel', 2]]],
         [
             [[2, 3, 'gp_m_intel_maxhackexpose', -1]],
             [],
@@ -205,7 +219,7 @@ var lib_tag = [
         ['gp_s_intel_weakarea', 'gp_s_intel_strongarea', 'gp_s_intel_acclocate', 'gp_s_intel_maplocate'], // 情报
         ['gp_s_itf_phantom', 'gp_s_itf_phantomplus'], // 干扰
         ['gp_s_block_slow', 'gp_s_block_control', 'gp_s_block_forcemove', 'gp_s_block_disarm', 'gp_s_block_watchflash', 'gp_s_block_watchsmoke'], // 阻制
-        ['gp_s_survive_highhp', 'gp_s_survive_highprotect'], // 生存
+        ['gp_s_survive_highhp', 'gp_s_survive_highprotect', 'gp_s_survive_highqte'], // 生存
         ['gp_s_hide_invi', 'gp_s_hide_reduceexpose'], // 隐秘
 
     ],
@@ -276,6 +290,7 @@ var lib_tag_1 = {
 
     gp_s_survive_highhp: '高血量',
     gp_s_survive_highprotect: '额外受击保护',
+    gp_s_survive_highqte: 'QTE效率强化',
 
     gp_s_hide_invi: '隐身',
     gp_s_hide_reduceexpose: '暴露时间减少',
@@ -304,6 +319,7 @@ var tag1_gp_s_hack_boost = new Map,
 
     tag1_gp_s_survive_highhp = new Map,
     tag1_gp_s_survive_highprotect = new Map,
+    tag1_gp_s_survive_highqte = new Map,
 
     tag1_gp_s_hide_invi = new Map,
     tag1_gp_s_hide_reduceexpose = new Map

@@ -62,6 +62,8 @@
                     </div>
                     <!-- Javascript initialization -->
                     <script src="mz_data.js"></script>
+                    <script src="mz_algo_similarity.js"></script>
+                    <script src="mz_algo_compatibility.js"></script>
                     <script src="mz_gameplay_main.js"></script>
                     <!-- Main Script -->
                     <div class="col-lg-12">
@@ -168,8 +170,6 @@
                                                         <h5>&nbsp</h5>
                                                         <h5><span style="color:gray">[注]
                                                                 局内成长获取的特性由*表示，*初级**中级***高级</span></h5>
-                                                        <!-- <h5>部分条目换算准则：<a onclick="show_details()" id="text_showdetails"
-                                                                style="cursor:pointer">点击展开详情</a></h5> -->
                                                         <h5><span style="color:gray" id="text_details"></span></h5>
                                                     </td>
 
@@ -249,39 +249,55 @@
                                                         </li>
                                                     </ul>
                                                     <div class="tab-content">
+
                                                         <div class="tab-pane fade in active" id="commit_similar">
                                                             <p>
                                                                 <button type="button" style="width:70px;padding:3px"
-                                                                    class="btn btn-success" onclick="sortnum(7)"
-                                                                    id="btn_show7">显示7条</button>
+                                                                    class="btn btn-success" onclick="sort_num(7)"
+                                                                    id="btn_sort_num_7">显示7条</button>
                                                                 <button type="button" style="width:70px;padding:3px"
                                                                     class="btn btn-outline btn-success"
-                                                                    onclick="sortnum(10)" id="btn_show10">显示10条</button>
+                                                                    onclick="sort_num(10)"
+                                                                    id="btn_sort_num_10">显示10条</button>
                                                                 <button type="button" style="width:70px;padding:3px"
                                                                     class="btn btn-outline btn-success"
-                                                                    onclick="sortnum(20)" id="btn_show20">显示20条</button>
+                                                                    onclick="sort_num(20)"
+                                                                    id="btn_sort_num_20">显示20条</button>
+                                                                <button type="button" style="width:70px;padding:3px"
+                                                                    class="btn btn-warning" onclick="sort_sim(30)"
+                                                                    id="btn_sort_sim_30">相似≥30%</button>
+                                                                <button type="button" style="width:70px;padding:3px"
+                                                                    class="btn btn-outline btn-warning"
+                                                                    onclick="sort_sim(50)"
+                                                                    id="btn_sort_sim_50">相似≥50%</button>
+                                                                <button type="button" style="width:70px;padding:3px"
+                                                                    class="btn btn-outline btn-warning"
+                                                                    onclick="sort_sim(0)"
+                                                                    id="btn_sort_sim_0">不限制</button>
                                                             </p>
                                                             <table class="table table-bordered table-hovered">
                                                                 <thead>
                                                                     <th style="text-align:center">角色或道具</th>
-                                                                    <th style="text-align:center">用途相似度</th>
+                                                                    <th style="text-align:center">相似度</th>
                                                                     <th style="text-align:center">相同特性</th>
                                                                     <th style="text-align:center">相似特性</th>
                                                                 </thead>
                                                                 <tbody id="result_2_sim"></tbody>
                                                             </table>
                                                         </div>
+
                                                         <div class="tab-pane fade" id="commit_partner">
-                                                            <h4>该部分没做完</h4>
                                                             <table class="table table-bordered table-hovered">
                                                                 <thead>
-                                                                    <th style="text-align:center">人形</th>
-                                                                    <th style="text-align:center">契合度</th>
-                                                                    <th style="text-align:center">配合</th>
+                                                                    <th style="text-align:center">角色或道具</th>
+                                                                    <th style="text-align:center">搭配度</th>
+                                                                    <th style="text-align:center">定位</th>
+                                                                    <th style="text-align:center">玩点配合</th>
                                                                 </thead>
                                                                 <tbody id="result_2_par"></tbody>
                                                             </table>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
