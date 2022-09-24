@@ -208,7 +208,7 @@ function classify_by_tdoll(id) {
 
 // 基础语义函数
 // base
-function comp_sim(pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // 相似对比较
+function comp_sim(pair_a, pair_b) { return pair_b[1] - pair_a[1]; } // 相似比较
 
 // ============================= 计算式 get_ =============================
 function get_tdoll_from_id(id) {
@@ -281,10 +281,19 @@ function is_tag_same(tagname, skilllist) {
   return false
 }
 function is_element_in_array(element, array) {
-  for (var a of array) {
-    if (element === a) return true
+  if (arguments['2'] === undefined) { // return yes or no
+    for (var a of array) {
+      if (element === a) return true
+    }
+    return false
   }
-  return false
+  else { // return index
+    var it = arguments['2']
+    for (var i = 0; i < array.length; i++) {
+      if (element === array[i][it]) return i
+    }
+    return -1
+  }
 }
 
 

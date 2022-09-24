@@ -196,7 +196,7 @@ var lib_tdoll = [
     // 警戒
     create_entry([3, 3, 2160, [[0, 2, 'mobius_orientation_agile', 3], [0, 2, 'mobius_orientation_intel', 3]]],
         [
-            [[2, 3, 'gp_m_intel_strongarea', 3]],
+            [[2, 3, 'gp_m_intel_strongarea', 3], [2, 1, 'gp_m_block_lockexposearea', -1]],
             [[2, 3, 'gp_m_intel_strongarea', 3]],
             [[2, 2, 'gp_m_agile_fastmove', 4]]
         ]
@@ -226,7 +226,7 @@ var lib_tag = [
     // 莫比乌斯玩点
     [
         ['gp_m_damage_breakout', 'gp_m_damage_area'], // 伤害
-        ['gp_m_block_slow', 'gp_m_block_control', 'gp_m_block_forcemove'], // 阻制
+        ['gp_m_block_slow', 'gp_m_block_control', 'gp_m_block_forcemove', 'gp_m_block_lockexposearea'], // 阻制
         ['gp_m_agile_boost', 'gp_m_agile_fastmove', 'gp_m_agile_teleport', 'gp_m_agile_controlresist'], // 敏捷
         ['gp_m_intel_weakarea', 'gp_m_intel_strongarea', 'gp_m_intel_acclocate', 'gp_m_intel_cloth', 'gp_m_intel_maxhackexpose'], // 情报
         ['gp_m_hide_disguisenpc', 'gp_m_hide_immunedetect'], // 隐秘
@@ -234,8 +234,8 @@ var lib_tag = [
     ],
     // 地图玩点
     [
-        [],
-        []
+        ['gp_u_door', 'gp_u_leap', 'gp_u_climb', 'gp_u_physics'],
+        ['gp_u_normal_npc', 'gp_u_code_npc']
     ]
 ]
 // tag0 职业定位
@@ -332,6 +332,7 @@ var lib_tag_2 = {
     gp_m_block_slow: '减速',
     gp_m_block_control: '控制',
     gp_m_block_forcemove: '强制位移',
+    gp_m_block_lockexposearea: '封锁暴露区域',
 
     gp_m_agile_boost: '加速',
     gp_m_agile_fastmove: '快速位移',
@@ -355,6 +356,7 @@ var tag2_gp_m_damage_breakout = new Map,
     tag2_gp_m_block_slow = new Map,
     tag2_gp_m_block_control = new Map,
     tag2_gp_m_block_forcemove = new Map,
+    tag2_gp_m_block_lockexposearea = new Map,
 
     tag2_gp_m_agile_boost = new Map,
     tag2_gp_m_agile_fastmove = new Map,
@@ -375,8 +377,20 @@ var tag2_gp_m_damage_breakout = new Map,
 
 // tag3 地图玩点
 var lib_tag_3 = {
-    night: '<img src="../img/class-icon/icon-night-abilityup.png" style="width:19px;height:19px">夜战特化',
+    gp_u_door: '门',
+    gp_u_leap: '翻越体',
+    gp_u_climb: '位移点',
+    gp_u_physics: '碰撞体',
+
+    gp_u_normal_npc: '普通NPC',
+    gp_u_code_npc: '密码NPC',
 
 }
-var tag3_night = new Map
+var tag3_gp_u_door = new Map,
+    tag3_gp_u_leap = new Map,
+    tag3_gp_u_climb = new Map,
+    tag3_gp_u_physics = new Map,
+
+    tag3_gp_u_normal_npc = new Map,
+    tag3_gp_u_code_npc = new Map
 
