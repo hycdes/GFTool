@@ -40,6 +40,7 @@ var lib_cpt_record = new Map
 function calculate_compatibility(ID) {
     if (ID === -1) true
     else {
+        var display_type = ''
         var cpt = 0 // 契合度
         var cpt_ort = 0 // 定位搭配值
         var cpt_gp = 0 // 玩点搭配值
@@ -53,11 +54,12 @@ function calculate_compatibility(ID) {
 
         // Sirius Props
         if (ID > 1000 && ID < 2000) {
-            ;
+            display_type = 'sirius_props'
         }
 
         // Mobius Hero
         else if (ID > 2000 && ID < 10000) {
+            display_type = 'mobius_hero'
             var array_score_ort_this = [0, 0, 0, 0, 0]
             var array_score_ort_total = [0, 0, 0, 0, 0]
             var array_score_ort = [0, 0, 0, 0, 0]
@@ -208,7 +210,13 @@ function calculate_compatibility(ID) {
 
         // Sirius Hero
         else if (ID > 10000) {
-            ;
+            display_type = 'sirius_hero'
         }
     }
+}
+
+function init_fill_cpt() {
+    var str_thead = ''
+    var str_tbody = ''
+    document.getElementById('detail_cpt_thead')
 }
