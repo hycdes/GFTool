@@ -79,7 +79,7 @@ var lib_tdoll = [
     create_entry([1, 2, 11011, [[0, 1, 'sirius_orientation_hack', 3], [0, 1, 'sirius_orientation_survive', 1]]],
         [
             [[1, 0, 'gp_s_hack_relay', 4]],
-            [[1, 5, 'gp_s_hide_reduceexpose', 3]],
+            [[1, 6, 'gp_s_hide_reduceexpose', 3]],
         ]
     ),
     // 理财师
@@ -90,38 +90,121 @@ var lib_tdoll = [
         ]
     ),
     // 救援队
-    create_entry([1, 2, 11021, [[0, 1, 'sirius_orientation_support', 4], [0, 1, 'sirius_orientation_survive', 4]]],
+    create_entry([1, 2, 11021, [[0, 1, 'sirius_orientation_support', 4], [0, 1, 'sirius_orientation_survive', 3]]],
         [
-            [[1, 5, 'gp_s_survive_highhp', -1], [1, 1, 'gp_s_support_saverecover', -1], [1, 5, 'gp_s_survive_highprotect', 4]],
-            [[1, 5, 'gp_s_survive_highqte', -1]],
+            [[1, 5, 'gp_s_survive_shield', -1]],
+            [[1, 1, 'gp_s_support_boost', 5], [1, 5, 'gp_s_survive_highstamina', 3]],
         ]
     ),
     // 拳击手
-    create_entry([1, 2, 11022, [[0, 1, 'sirius_orientation_support', 4], [0, 1, 'sirius_orientation_survive', 4]]],
+    create_entry([1, 2, 11022, [[0, 1, 'sirius_orientation_support', 4], [0, 1, 'sirius_orientation_survive', 5]]],
         [
-            [[1, 5, 'gp_s_survive_highhp', -1], [1, 1, 'gp_s_support_saverecover', -1], [1, 5, 'gp_s_survive_highprotect', 4]],
+            [[1, 5, 'gp_s_survive_highhp', -1], [1, 1, 'gp_s_support_saverecover', -1], [1, 5, 'gp_s_survive_highprotect', 5], [1, 5, 'gp_s_survive_highstamina', 3]],
             [[1, 5, 'gp_s_survive_highqte', -1]],
         ]
     ),
-
+    // 殓尸人
+    create_entry([1, 2, 11023, [[0, 1, 'sirius_orientation_support', 5]]],
+        [
+            [[1, 1, 'gp_s_support_longwaitrescue', 2]],
+            [[1, 1, 'gp_s_support_remoterescue', -1]],
+        ]
+    ),
+    // 情报员
+    create_entry([1, 2, 11031, [[0, 1, 'sirius_orientation_intel', 5]]],
+        [
+            [[1, 2, 'gp_s_intel_maplocate', 3]],
+            [[1, 2, 'gp_s_intel_maplocate', 3], [1, 2, 'gp_s_intel_acclocate', 5, '***']],
+        ]
+    ),
+    // 辣妹
+    create_entry([1, 2, 11032, [[0, 1, 'sirius_orientation_intel', 3], [0, 1, 'sirius_orientation_interference', 3]]],
+        [
+            [[1, 2, 'gp_s_intel_maplocate', 3]],
+            [[1, 4, 'gp_s_block_slow', 3], [1, 3, 'gp_s_itf_followboost', 3, '**'], [1, 4, 'gp_s_block_control', 2, '***']],
+        ]
+    ),
+    // 旅行者
+    create_entry([1, 2, 11041, [[0, 1, 'sirius_orientation_intel', 1], [0, 1, 'sirius_orientation_interference', 4]]],
+        [
+            [[1, 3, 'gp_s_itf_phantomplus', -1], [1, 2, 'gp_s_intel_acclocate', 3], [1, 4, 'gp_s_block_disarm', 1, '**'], [1, 4, 'gp_s_block_watchflash', 2, '**']],
+            [[1, 3, 'gp_s_itf_phantomplus', -1], [1, 3, 'gp_s_itf_phantom', 2, '***']],
+        ]
+    ),
+    // 狂热粉
+    create_entry([1, 2, 11051, [[0, 1, 'sirius_orientation_interference', 5], [0, 1, 'sirius_orientation_survive', 3]]],
+        [
+            [[1, 5, 'gp_s_survive_highprotect', 4], [1, 5, 'gp_s_survive_highstamina', 5, '***']],
+            [[1, 2, 'gp_s_block_control', 1], [1, 2, 'gp_s_block_control', 5, '***']],
+        ]
+    ),
+    // 女演员
+    create_entry([1, 2, 11061, [[0, 1, 'sirius_orientation_interference', 1], [0, 1, 'sirius_orientation_survive', 3]]],
+        [
+            [[1, 6, 'gp_s_hide_disguise', -1]],
+            [[1, 6, 'gp_s_hide_npcnotfight', -1], [1, 6, 'gp_s_hide_npcfree', -1, '**']],
+        ]
+    ),
 
     // —————————————— Sirius Props ——————————————
     // 替身徽章
-    create_entry([2, 1, 1001, [[0, 1, 'sirius_orientation_survive', 4], [0, 1, 'sirius_orientation_interference', 3]]],
+    create_entry([2, 1, 1001, [[0, 1, 'sirius_orientation_interference', 2], [0, 1, 'sirius_orientation_survive', 4]]],
         [
             [[1, 6, 'gp_s_hide_invi', 4], [1, 6, 'gp_s_itf_phantom', 1]],
         ]
     ),
     // 幻觉飞弹
-    create_entry([2, 1, 1003, [[0, 1, 'sirius_orientation_survive', 4], [0, 1, 'sirius_orientation_interference', 3]]],
+    create_entry([2, 1, 1003, [[0, 1, 'sirius_orientation_interference', 3], [0, 1, 'sirius_orientation_survive', 3]]],
         [
             [[1, 4, 'gp_s_block_disarm', 3], [1, 4, 'gp_s_block_watchflash', 4], [1, 6, 'gp_s_itf_phantom', 4]],
+        ]
+    ),
+    // 巨星玩偶
+    create_entry([2, 1, 1004, [[0, 1, 'sirius_orientation_hack', 1], [0, 1, 'sirius_orientation_interference', 3], [0, 1, 'sirius_orientation_survive', 2]]],
+        [
+            [[1, 3, 'gp_s_itf_npcmovearound', 5], [1, 0, 'gp_s_hack_slowcodenpc', 2, '*'], [1, 0, 'gp_s_itf_walkboost', 5, '**'], [1, 6, 'gp_s_hide_disguise', -1, '***'], [3, 1, 'gp_u_normal_npc', -1], [3, 1, 'gp_u_code_npc', -1, '*']],
         ]
     ),
     // 隐身盾牌
     create_entry([2, 1, 1006, [[0, 1, 'sirius_orientation_survive', 5]]],
         [
             [[1, 6, 'gp_s_hide_invi', 3]],
+        ]
+    ),
+    // 棒球烟雾弹
+    create_entry([2, 1, 1008, [[0, 1, 'sirius_orientation_support', 3], [0, 1, 'sirius_orientation_survive', 3]]],
+        [
+            [[1, 4, 'gp_s_block_disarm', 5], [1, 4, 'gp_s_block_watchsmoke', 5]],
+        ]
+    ),
+    // 震慑脉冲
+    create_entry([2, 1, 1009, [[0, 1, 'sirius_orientation_support', 3], [0, 1, 'sirius_orientation_survive', 3]]],
+        [
+            [[1, 4, 'gp_s_block_control', 5], [1, 4, 'gp_s_block_slow', 5, '***']],
+        ]
+    ),
+    // 门锁干扰器
+    create_entry([2, 1, 1011, [[0, 1, 'sirius_orientation_support', 2], [0, 1, 'sirius_orientation_survive', 4]]],
+        [
+            [[3, 0, 'gp_u_door', -1]],
+        ]
+    ),
+    // 惊吓魔盒
+    create_entry([2, 1, 1012, [[0, 1, 'sirius_orientation_interference', 5], [0, 1, 'sirius_orientation_survive', 1]]],
+        [
+            [[1, 3, 'gp_s_itf_npcscare', 5], [1, 4, 'gp_s_block_weakresist', 5, '**'], [1, 5, 'gp_s_survive_boost', 1], [3, 1, 'gp_u_normal_npc', -1]],
+        ]
+    ),
+    // 救救鸭
+    create_entry([2, 1, 1014, [[0, 1, 'sirius_orientation_support', 5], [0, 1, 'sirius_orientation_survive', 1]]],
+        [
+            [[1, 1, 'gp_s_support_remoterescue', -1], [1, 5, 'gp_s_survive_boost', 5]],
+        ]
+    ),
+    // 狗仔相机
+    create_entry([2, 1, 1016, [[0, 1, 'sirius_orientation_intel', 2], [0, 1, 'sirius_orientation_interference', 2], [0, 1, 'sirius_orientation_survive', 2]]],
+        [
+            [[1, 2, 'gp_s_intel_acclocate', 2], [1, 4, 'gp_s_block_control', 5], [3, 1, 'gp_u_normal_npc', -1]],
         ]
     ),
 
@@ -131,7 +214,7 @@ var lib_tdoll = [
         [
             [[2, 1, 'gp_m_block_forcemove', 3]],
             [[2, 2, 'gp_m_agile_fastmove', 5], [2, 5, 'gp_m_agile_reducecd', 4, '***']],
-            [[2, 1, 'gp_m_block_slow', 2], [2, 1, 'gp_m_block_control', 2]]
+            [[2, 1, 'gp_m_block_slow', 2], [2, 1, 'gp_m_block_control', 2], [3, 0, 'gp_u_physics', -1]]
         ]
     ),
     // 加布里埃尔
@@ -143,10 +226,10 @@ var lib_tdoll = [
         ]
     ),
     // 默芙
-    create_entry([3, 3, 2060, [[0, 2, 'mobius_orientation_intel', 3], [0, 2, 'mobius_orientation_hide', 4]]],
+    create_entry([3, 3, 2060, [[0, 2, 'mobius_orientation_agile', 1], [0, 2, 'mobius_orientation_intel', 3], [0, 2, 'mobius_orientation_hide', 4]]],
         [
             [[2, 3, 'gp_m_intel_cloth', -1], [2, 3, 'gp_m_intel_weakarea', 5, '***']],
-            [[2, 4, 'gp_m_hide_disguisenpc', -1], [2, 4, 'gp_m_hide_immunedetect', -1]],
+            [[2, 2, 'gp_m_agile_boost', 1], [2, 4, 'gp_m_hide_disguisenpc', -1], [2, 4, 'gp_m_hide_immunedetect', -1]],
             [[2, 3, 'gp_m_intel_strongarea', 4], [2, 3, 'gp_m_intel_acclocate', 4, '***'], [2, 2, 'gp_m_agile_boost', 3, '***']]
         ]
     ),
@@ -155,8 +238,8 @@ var lib_tdoll = [
         [
             [[2, 2, 'gp_m_agile_boost', 1]],
             [[2, 2, 'gp_m_agile_boost', 3], [2, 1, 'gp_m_block_slow', 3], [2, 3, 'gp_m_intel_weakarea', 1, '**']],
-            [[2, 2, 'gp_m_block_slow', 3], [2, 2, 'gp_m_block_control', 5, '***'], [2, 2, 'gp_m_agile_teleport', -1]],
-            [[2, 2, 'gp_m_agile_teleport', -1]]
+            [[2, 1, 'gp_m_block_slow', 3], [2, 1, 'gp_m_block_control', 5, '***'], [2, 2, 'gp_m_agile_teleport', -1]],
+            [[2, 2, 'gp_m_agile_teleportally', -1]]
         ]
     ),
     // 西斯特
@@ -198,7 +281,7 @@ var lib_tdoll = [
         [
             [[2, 3, 'gp_m_intel_strongarea', 3], [2, 1, 'gp_m_block_lockexposearea', -1]],
             [[2, 3, 'gp_m_intel_strongarea', 3]],
-            [[2, 2, 'gp_m_agile_fastmove', 4]]
+            [[2, 2, 'gp_m_agile_fastmove', 4], [3, 0, 'gp_u_leap', -1]]
         ]
     ),
 
@@ -214,20 +297,20 @@ var lib_tag = [
     ],
     // 天狼星玩点
     [
-        ['gp_s_hack_boost', 'gp_s_hack_relay', 'gp_s_hack_savelost'], // 破译
-        ['gp_s_support_boost', 'gp_s_support_saverecover'], // 援护
+        ['gp_s_hack_boost', 'gp_s_hack_relay', 'gp_s_hack_savelost', 'gp_s_hack_slowcodenpc'], // 破译
+        ['gp_s_support_boost', 'gp_s_support_saverecover', 'gp_s_support_longwaitrescue', 'gp_s_support_remoterescue'], // 援护
         ['gp_s_intel_weakarea', 'gp_s_intel_strongarea', 'gp_s_intel_acclocate', 'gp_s_intel_maplocate'], // 情报
-        ['gp_s_itf_phantom', 'gp_s_itf_phantomplus'], // 干扰
-        ['gp_s_block_slow', 'gp_s_block_control', 'gp_s_block_forcemove', 'gp_s_block_disarm', 'gp_s_block_watchflash', 'gp_s_block_watchsmoke'], // 阻制
-        ['gp_s_survive_highhp', 'gp_s_survive_highprotect', 'gp_s_survive_highqte'], // 生存
-        ['gp_s_hide_invi', 'gp_s_hide_reduceexpose'], // 隐秘
+        ['gp_s_itf_phantom', 'gp_s_itf_phantomplus', 'gp_s_itf_npcmovearound', 'gp_s_itf_npcscare', 'gp_s_itf_followboost', 'gp_s_itf_walkboost'], // 干扰
+        ['gp_s_block_slow', 'gp_s_block_control', 'gp_s_block_weakresist', 'gp_s_block_forcemove', 'gp_s_block_disarm', 'gp_s_block_watchflash', 'gp_s_block_watchsmoke'], // 阻制
+        ['gp_s_survive_boost', 'gp_s_survive_highhp', 'gp_s_survive_shield', 'gp_s_survive_highprotect', 'gp_s_survive_highqte', 'gp_s_survive_highstamina'], // 生存
+        ['gp_s_hide_invi', 'gp_s_hide_reduceexpose', 'gp_s_hide_disguise', 'gp_s_hide_npcnotfight', 'gp_s_hide_npcfree'], // 隐秘
 
     ],
     // 莫比乌斯玩点
     [
         ['gp_m_damage_breakout', 'gp_m_damage_area'], // 伤害
         ['gp_m_block_slow', 'gp_m_block_control', 'gp_m_block_forcemove', 'gp_m_block_lockexposearea'], // 阻制
-        ['gp_m_agile_boost', 'gp_m_agile_fastmove', 'gp_m_agile_teleport', 'gp_m_agile_controlresist'], // 敏捷
+        ['gp_m_agile_boost', 'gp_m_agile_fastmove', 'gp_m_agile_teleport', 'gp_m_agile_teleportally', 'gp_m_agile_controlresist'], // 敏捷
         ['gp_m_intel_weakarea', 'gp_m_intel_strongarea', 'gp_m_intel_acclocate', 'gp_m_intel_cloth', 'gp_m_intel_maxhackexpose'], // 情报
         ['gp_m_hide_disguisenpc', 'gp_m_hide_immunedetect'], // 隐秘
         ['gp_m_agile_reducecd'], // 其它
@@ -269,9 +352,12 @@ var lib_tag_1 = {
     gp_s_hack_boost: '破译加速',
     gp_s_hack_relay: '接力破译',
     gp_s_hack_savelost: '掉点止损',
+    gp_s_hack_slowcodenpc: '减缓密码NPC移动',
 
     gp_s_support_boost: '援护加速',
     gp_s_support_saverecover: '救援回血',
+    gp_s_support_longwaitrescue: '延长倒地时间',
+    gp_s_support_remoterescue: '远程救援',
 
     gp_s_intel_weakarea: '模糊区域暴露',
     gp_s_intel_strongarea: '精确区域暴露',
@@ -280,27 +366,41 @@ var lib_tag_1 = {
 
     gp_s_itf_phantom: '幻影',
     gp_s_itf_phantomplus: '幻影强化',
+    gp_s_itf_npcmovearound: 'NPC流动',
+    gp_s_itf_npcscare: 'NPC恐慌',
+    gp_s_itf_followboost: '跟随加速',
+    gp_s_itf_walkboost: '行走加速',
 
     gp_s_block_slow: '减速',
     gp_s_block_control: '控制',
+    gp_s_block_weakresist: '控制抗性削弱',
     gp_s_block_forcemove: '强制位移',
     gp_s_block_disarm: '缴械',
     gp_s_block_watchflash: '视觉遮蔽：闪光',
     gp_s_block_watchsmoke: '视觉遮蔽：烟雾',
 
+    gp_s_survive_boost: '加速',
     gp_s_survive_highhp: '高血量',
+    gp_s_survive_shield: '护盾',
     gp_s_survive_highprotect: '额外受击保护',
     gp_s_survive_highqte: 'QTE效率强化',
+    gp_s_survive_highstamina: '高体力回复',
 
     gp_s_hide_invi: '隐身',
     gp_s_hide_reduceexpose: '暴露时间减少',
+    gp_s_hide_disguise: '变装',
+    gp_s_hide_npcnotfight: 'NPC不交战',
+    gp_s_hide_npcfree: 'NPC不报警'
 }
 var tag1_gp_s_hack_boost = new Map,
     tag1_gp_s_hack_relay = new Map,
     tag1_gp_s_hack_savelost = new Map,
+    tag1_gp_s_hack_slowcodenpc = new Map,
 
     tag1_gp_s_support_boost = new Map,
     tag1_gp_s_support_saverecover = new Map,
+    tag1_gp_s_support_longwaitrescue = new Map,
+    tag1_gp_s_support_remoterescue = new Map,
 
     tag1_gp_s_intel_weakarea = new Map,
     tag1_gp_s_intel_strongarea = new Map,
@@ -309,20 +409,31 @@ var tag1_gp_s_hack_boost = new Map,
 
     tag1_gp_s_itf_phantom = new Map,
     tag1_gp_s_itf_phantomplus = new Map,
+    tag1_gp_s_itf_npcmovearound = new Map,
+    tag1_gp_s_itf_npcscare = new Map,
+    tag1_gp_s_itf_followboost = new Map,
+    tag1_gp_s_itf_walkboost = new Map,
 
     tag1_gp_s_block_slow = new Map,
     tag1_gp_s_block_control = new Map,
+    tag1_gp_s_block_weakresist = new Map,
     tag1_gp_s_block_forcemove = new Map,
     tag1_gp_s_block_disarm = new Map,
     tag1_gp_s_block_watchflash = new Map,
     tag1_gp_s_block_watchsmoke = new Map,
 
+    tag1_gp_s_survive_boost = new Map,
     tag1_gp_s_survive_highhp = new Map,
+    tag1_gp_s_survive_shield = new Map,
     tag1_gp_s_survive_highprotect = new Map,
     tag1_gp_s_survive_highqte = new Map,
+    tag1_gp_s_survive_highstamina = new Map,
 
     tag1_gp_s_hide_invi = new Map,
-    tag1_gp_s_hide_reduceexpose = new Map
+    tag1_gp_s_hide_reduceexpose = new Map,
+    tag1_gp_s_hide_disguise = new Map,
+    tag1_gp_s_hide_npcnotfight = new Map,
+    tag1_gp_s_hide_npcfree = new Map
 
 // tag2 莫比乌斯玩点
 var lib_tag_2 = {
@@ -337,6 +448,7 @@ var lib_tag_2 = {
     gp_m_agile_boost: '加速',
     gp_m_agile_fastmove: '快速位移',
     gp_m_agile_teleport: '传送',
+    gp_m_agile_teleportally: '传送队友',
     gp_m_agile_controlresist: '控制抵抗',
 
     gp_m_intel_weakarea: '模糊区域暴露',
@@ -361,6 +473,7 @@ var tag2_gp_m_damage_breakout = new Map,
     tag2_gp_m_agile_boost = new Map,
     tag2_gp_m_agile_fastmove = new Map,
     tag2_gp_m_agile_teleport = new Map,
+    tag2_gp_m_agile_teleportally = new Map,
     tag2_gp_m_agile_controlresist = new Map,
 
     tag2_gp_m_intel_weakarea = new Map,
@@ -377,13 +490,13 @@ var tag2_gp_m_damage_breakout = new Map,
 
 // tag3 地图玩点
 var lib_tag_3 = {
-    gp_u_door: '门',
+    gp_u_door: '锁门',
     gp_u_leap: '翻越体',
     gp_u_climb: '位移点',
     gp_u_physics: '碰撞体',
 
-    gp_u_normal_npc: '普通NPC',
-    gp_u_code_npc: '密码NPC',
+    gp_u_normal_npc: '影响普通NPC',
+    gp_u_code_npc: '影响密码NPC',
 
 }
 var tag3_gp_u_door = new Map,

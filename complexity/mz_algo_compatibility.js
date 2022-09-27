@@ -1,23 +1,40 @@
 // 玩点配合Map，存在即这个tag包含了玩点配合值
 var lib_cpt_tag = new Map
 lib_cpt_tag.set('gp_m_agile_teleport', [
-    ['gp_m_agile_teleport', 1],
+    ['gp_m_agile_teleportally', 1],
     ['gp_m_agile_fastmove', 0.5]
+])
+lib_cpt_tag.set('gp_m_agile_teleportally', [
+    ['gp_m_agile_teleport', 1],
+    ['gp_m_intel_maxhackexpose', 0.5],
 ])
 lib_cpt_tag.set('gp_m_agile_fastmove', [
     ['gp_m_agile_teleport', 0.5],
     ['gp_m_agile_fastmove', 0.5],
 ])
 lib_cpt_tag.set('gp_m_block_slow', [
+    ['gp_m_damage_breakout', 1],
+    ['gp_m_block_slow', 1],
+    ['gp_m_block_control', 0.5],
+])
+lib_cpt_tag.set('gp_m_block_control', [
+    ['gp_m_damage_breakout', 0.5],
+    ['gp_m_block_slow', 0.5],
+    ['gp_m_block_control', 0.2],
+])
+lib_cpt_tag.set('gp_m_damage_breakout', [
     ['gp_m_block_slow', 1],
     ['gp_m_block_control', 0.5]
 ])
-lib_cpt_tag.set('gp_m_block_control', [
-    ['gp_m_block_slow', 0.5],
-    ['gp_m_block_control', 0.5]
+lib_cpt_tag.set('gp_m_block_lockexposearea', [
+    ['gp_m_intel_cloth', 0.5],
 ])
-
-
+lib_cpt_tag.set('gp_m_intel_cloth', [
+    ['gp_m_block_lockexposearea', 0.5],
+])
+lib_cpt_tag.set('gp_m_intel_maxhackexpose', [
+    ['gp_m_agile_teleportally', 0.5],
+])
 
 
 // 玩点配合值Map，记录tag*tag分数最高值
@@ -35,6 +52,10 @@ var lib_cpt_record = new Map
 // 定位搭配值 = [(1+伤害)*(1+阻制) + (1+敏捷)] * (1+情报+隐秘/2)
 // 玩点搭配：+数值
 // 
+
+var weight_orientation = 100
+var weight_gameplaycompatibility = 7
+var weight_bios = 100
 
 // 玩点搭配值：
 function calculate_compatibility(ID) {
@@ -87,11 +108,12 @@ function calculate_compatibility(ID) {
                 if (!is_skip) {
                     array_score_ort = [0, 0, 0, 0, 0]
                     for (var ort_tdoll of tdoll.orientationlist) {
-                        if (ort_tdoll[2] === 'mobius_orientation_damage') array_score_ort[0] += ort_tdoll[3]
-                        else if (ort_tdoll[2] === 'mobius_orientation_block') array_score_ort[1] += ort_tdoll[3]
-                        else if (ort_tdoll[2] === 'mobius_orientation_agile') array_score_ort[2] += ort_tdoll[3]
-                        else if (ort_tdoll[2] === 'mobius_orientation_intel') array_score_ort[3] += ort_tdoll[3]
-                        else if (ort_tdoll[2] === 'mobius_orientation_hide') array_score_ort[4] += ort_tdoll[3]
+                        array_score_ort[get_ort_index('mobius_hero', ort_tdoll[2])] += ort_tdoll[3]
+                        // if (ort_tdoll[2] === 'mobius_orientation_damage') array_score_ort[0] += ort_tdoll[3]
+                        // else if (ort_tdoll[2] === 'mobius_orientation_block') array_score_ort[1] += ort_tdoll[3]
+                        // else if (ort_tdoll[2] === 'mobius_orientation_agile') array_score_ort[2] += ort_tdoll[3]
+                        // else if (ort_tdoll[2] === 'mobius_orientation_intel') array_score_ort[3] += ort_tdoll[3]
+                        // else if (ort_tdoll[2] === 'mobius_orientation_hide') array_score_ort[4] += ort_tdoll[3]
                     }
 
                     // 定位搭配值
@@ -148,14 +170,14 @@ function calculate_compatibility(ID) {
                     // 实战修正
 
                     // 汇总
-                    cpt_ort = Math.ceil(cpt_ort * 100)
-                    cpt_gp = Math.ceil(cpt_gp * 10)
-                    cpt_bios = Math.ceil(cpt_bios * 100)
+                    cpt_ort = Math.ceil(cpt_ort * weight_orientation)
+                    cpt_gp = Math.ceil(cpt_gp * weight_gameplaycompatibility)
+                    cpt_bios = Math.ceil(cpt_bios * weight_bios)
                     cpt = cpt_ort + cpt_gp + cpt_bios
                     if (cpt > 0) cpt_list.push([tdoll.id, cpt, cpt_ort, cpt_gp, cpt_bios])
 
                     // debug
-                    console.log(lib_cpt_record)
+                    // console.log(lib_cpt_record)
                 }
 
             }
@@ -186,7 +208,22 @@ function calculate_compatibility(ID) {
 
                 // 定位展示
                 current_str += '<td style="line-height:40px;vertical-align:middle">'
-                // for each orientation
+                // 统计定位分
+                var ort_list = [0, 0, 0, 0, 0]
+                for (var temp_ort of tdoll_this.orientationlist) {
+                    ort_list[get_ort_index('mobius_hero', temp_ort[2])] += temp_ort[3]
+                }
+                for (var temp_ort of current_tdoll.orientationlist) {
+                    ort_list[get_ort_index('mobius_hero', temp_ort[2])] += temp_ort[3]
+                }
+                for (var ortidx = 0; ortidx < ort_list.length; ortidx++) {
+                    if (ort_list[ortidx] > 5) ort_list[ortidx] = 5
+                }
+                current_str += '伤害 <span style="color:' + get_level_color(ort_list[0]) + '"><b>' + ort_list[0] + '</span></b> '
+                current_str += '阻制 <span style="color:' + get_level_color(ort_list[1]) + '"><b>' + ort_list[1] + '</span></b> '
+                current_str += '敏捷 <span style="color:' + get_level_color(ort_list[2]) + '"><b>' + ort_list[2] + '</span></b> '
+                current_str += '情报 <span style="color:' + get_level_color(ort_list[3]) + '"><b>' + ort_list[3] + '</span></b> '
+                current_str += '隐秘 <span style="color:' + get_level_color(ort_list[4]) + '"><b>' + ort_list[4] + '</span></b>'
                 for (var i = 0; i < current_tdoll.orientationlist.length; i++) {
                     var temp_str_btn = ''
 
@@ -198,6 +235,16 @@ function calculate_compatibility(ID) {
 
                 // 配合玩点展示
                 current_str += '<td style="line-height:40px;vertical-align:middle">'
+                if (lib_cpt_record.get(cpt_list[n][0]) != undefined) {
+                    for (var record of lib_cpt_record.get(cpt_list[n][0])) {
+                        current_str += get_btn_html([2, 1, record[0], record[1]], 'disabled', 'nolevel')
+                        current_str += ' 适合 '
+                        current_str += get_btn_html([2, 1, record[2], record[3]], 'disabled', 'nocolor/nolevel')
+                        current_str += '，契合值=' + Math.ceil(record[4] * weight_gameplaycompatibility)
+                        current_str += '<br>'
+                    }
+                }
+
                 current_str += '</td>'
 
                 current_str += '</tr>'
@@ -214,6 +261,7 @@ function calculate_compatibility(ID) {
         }
     }
 }
+
 
 function init_fill_cpt() {
     var str_thead = ''

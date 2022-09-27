@@ -110,7 +110,7 @@ function change_tag(tag_type) {
 function classify_by_tag() {
   var str_btn_display = ''
   var num_type = -1
-  var str_alert = ''
+  // var str_alert = ''
   var over = false, status = 'no-tdoll'
   var list_num = []
   for (var tdoll of lib_tdoll) {
@@ -169,7 +169,7 @@ function classify_by_tag() {
     }
     document.getElementById('result_1').innerHTML = str_btn
   }
-  document.getElementById('result_1_alert').innerHTML = str_alert
+
 }
 
 // 根据人选进行筛选
@@ -223,6 +223,34 @@ function get_btn_color(num) {
   if (num === 2) return 'danger'
   if (num === 3) return 'warning'
 }
+function get_level_color(num) {
+  if (num === 0) return '#000000'
+  if (num === 1) return '#336600'
+  if (num === 2) return '#6666ff'
+  if (num === 3) return '#33CC66'
+  if (num === 4) return '#FF9900'
+  if (num === 5) return '#FF0000'
+}
+function get_ort_index(type, ort_name) {
+  if (type === 'mobius_hero') {
+    if (ort_name === 'mobius_orientation_damage') return 0
+    else if (ort_name === 'mobius_orientation_block') return 1
+    else if (ort_name === 'mobius_orientation_agile') return 2
+    else if (ort_name === 'mobius_orientation_intel') return 3
+    else if (ort_name === 'mobius_orientation_hide') return 4
+  }
+  return -1
+}
+function get_ort_name(type, index) {
+  if (type === 'mobius_hero') {
+    if (index === 0) return 'mobius_orientation_damage'
+    else if (index === 1) return 'mobius_orientation_block'
+    else if (index === 2) return 'mobius_orientation_agile'
+    else if (index === 3) return 'mobius_orientation_intel'
+    else if (index === 4) return 'mobius_orientation_hide'
+  }
+  return ''
+}
 function get_skillname_html(tdoll, skillindex) {
   var temp_str = ''
   if (lib_skillname.get(tdoll.id)[skillindex][0] === 0) temp_str += '<span style="color:#000066">[被动] '
@@ -238,10 +266,21 @@ function get_btn_html(skilltag, status) {
   var skilltag_tagname = skilltag[2]
   var skilltag_level = skilltag[3]
   var skilltag_devinfo = ''
+  var special_nocolor = false, special_nolevel = false
+  if (arguments['2'] != undefined) {
+    var command_list = arguments['2'].split('/')
+    for (var command of command_list) {
+      if (command === 'nocolor') special_nocolor = true
+      else if (command === 'nolevel') special_nolevel = true
+    }
+  }
   if (skilltag.length > 4) skilltag_devinfo = skilltag[4]
   str_skill += '<button type="button" style="padding:3px" '
   str_skill += 'class="btn btn-'
-  str_skill += get_btn_color(skilltag_maintype)
+
+  if (special_nocolor) str_skill += 'default'
+  else str_skill += get_btn_color(skilltag_maintype)
+
   str_skill += '"'
   str_skill += ' id="btn_jump_tag_' + skilltag_maintype + '_' + skilltag_tagname + '"'
   str_skill += ' onclick="jump_tag(' + skilltag_maintype + ',' + "'" + skilltag_tagname + "'" + ')"'
@@ -249,7 +288,10 @@ function get_btn_html(skilltag, status) {
   else if (status === 'disabled' || status === 'outline-disabled') str_skill += ' disabled>'
   eval('str_skill+=lib_tag_' + skilltag_maintype + '.' + skilltag_tagname)
   str_skill += skilltag_devinfo
-  if (skilltag_level > 0) str_skill += ' <img src="ui/level' + skilltag_level + '.png">'
+
+  if (special_nolevel) true
+  else if (skilltag_level > 0) str_skill += ' <img src="ui/level' + skilltag_level + '.png">'
+
   str_skill += '</button> '
   return str_skill
 }

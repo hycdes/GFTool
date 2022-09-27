@@ -23,29 +23,33 @@ function calculate_similarity(ID) {
         var this_tdoll = get_tdoll_from_id(ID)
         var this_type = this_tdoll.type
         var this_skilllist = this_tdoll.skilllist
-        var is_skip = false // 是否跳过，同ID或跨阵营不计算相似度
         // get total_function, define map
         for (var skill of this_skilllist) {
             for (var tag of skill) {
-                if (tag[3] === -1) total_function += 5
-                else total_function += tag[3]
-                lib_sim.set((1000 * tag[0] + tag[1]) + '_' + tag[2], tag[3])
+
+                var tag_base = tag[3]
+                var tag_dev = 1
+                if (tag.length > 4) { // 局内成长带来的属性，作打折处理
+                    if (tag[4].length === 1) tag_dev = 0.9 // 初级成长假定90%局势有效
+                    else if (tag[4].length === 2) tag_dev = 0.7 // 中级成长假定70%局势有效
+                    else if (tag[4].length === 3) tag_dev = 0.4 // 高级成长假定40%局势有效
+                }
+                if (tag_base === -1) tag_base = 5
+                total_function += tag_base * tag_dev
+                lib_sim.set((1000 * tag[0] + tag[1]) + '_' + tag[2], tag_base * tag_dev)
             }
         }
         // find similarity
         for (var tdoll of lib_tdoll) {
             // init
             lib_sim_value.clear()
-            is_skip = false
             sim_function = 0
-            // same ID
-            if (ID === tdoll.id) {
-                is_skip = true
-            }
-            // diff camp
-            if (this_type != tdoll.type) {
-                is_skip = true
-            }
+            sim_function2 = 0
+
+            var is_skip = false // 是否跳过，同ID或跨阵营不计算相似度
+            if (ID === tdoll.id) is_skip = true// same ID
+            if (this_type != tdoll.type) is_skip = true     // diff camp
+
             // calculate similarity
             if (!is_skip) {
                 // same tag
@@ -139,11 +143,22 @@ function calculate_sim_same(lib, list) { // lib当前库，list其它人技能�
             tagid = (tag[0] * 1000 + tag[1]) + '_' + tag[2]
             // 是否存在该能力
             if (lib.get(tagid) != undefined) {
+
+                var tag_dev = 1
+                if (tag.length > 4) { // 局内成长带来的属性，作打折处理
+                    if (tag[4].length === 1) tag_dev = 0.9 // 初级成长假定90%局势有效
+                    else if (tag[4].length === 2) tag_dev = 0.7 // 中级成长假定70%局势有效
+                    else if (tag[4].length === 3) tag_dev = 0.4 // 高级成长假定40%局势有效
+                }
+
                 temp_level_this = lib.get(tagid)
-                temp_level = tag[3]
+                temp_level = tag[3] * tag_dev
                 // 如果是特殊能力，算作5
-                if (temp_level === -1) temp_level = 5
-                if (temp_level_this === -1) temp_level_this = 5
+                if (temp_level === -1) temp_level = 5 * tag_dev
+                if (temp_level_this === -1) {
+                    temp_level_this = 5
+                    console.log('BUGGGGGGGGGGGG')
+                }
                 sim_same_temp = Math.min(temp_level, temp_level_this)
                 if (lib_sim_value.get(tagid) === undefined) {
                     lib_sim_value.set(tagid, sim_same_temp)
