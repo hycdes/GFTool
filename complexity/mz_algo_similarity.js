@@ -18,14 +18,25 @@ function calculate_similarity(ID) {
         var sim = 0 // 相似度
         var sim_function = 0 // 相似值的相同tag
         var sim_function2 = 0 // 相似值的类似tag
-        var total_function = 2 // 功能总值
+        var total_function = 2 // 功能总值，默认2
         var simlist = []
+        var tag_num_counting_for_similar = []
         var this_tdoll = get_tdoll_from_id(ID)
         var this_type = this_tdoll.type
         var this_skilllist = this_tdoll.skilllist
-        // get total_function, define map
+        // 根据所有tag次级类型，初始化
+        for (var main = 0; main < lib_tag.length; main++) {
+            tag_num_counting_for_similar.push([])
+            for (var sub = 0; sub < lib_tag[main].length; sub++) {
+                tag_num_counting_for_similar[main].push(0)
+            }
+        }
+        // 计算自我功能总值，并统计每一次级定位tag数
         for (var skill of this_skilllist) {
             for (var tag of skill) {
+
+                tag_num_counting_for_similar[tag[0]][tag[1]]++ // 统计每个次级tag有多少，每次相同会-1，仅统计剩下的能和多少相似
+                console.log(tag_num_counting_for_similar)
 
                 var tag_base = tag[3]
                 var tag_dev = 1
@@ -45,17 +56,25 @@ function calculate_similarity(ID) {
             lib_sim_value.clear()
             sim_function = 0
             sim_function2 = 0
-
+            var tag_num_counting_temp = []
             var is_skip = false // 是否跳过，同ID或跨阵营不计算相似度
             if (ID === tdoll.id) is_skip = true// same ID
             if (this_type != tdoll.type) is_skip = true     // diff camp
 
             // calculate similarity
             if (!is_skip) {
+                // 初始化tag计数器，复制一份tag_num_counting_for_similar
+                for (var i1 = 0; i1 < tag_num_counting_for_similar.length; i1++) {
+                    tag_num_counting_temp.push([])
+                    for (var i2 = 0; i2 < tag_num_counting_for_similar[i1].length; i2++) {
+                        tag_num_counting_temp[i1].push(tag_num_counting_for_similar[i1][i2])
+                    }
+                }
+
                 // same tag
-                sim_function += calculate_sim_same(lib_sim, tdoll.skilllist)
+                sim_function += calculate_sim_same(lib_sim, tdoll.skilllist, tag_num_counting_temp)
                 // similar tag
-                sim_function2 += calculate_sim_similar(lib_sim, tdoll.skilllist, tdoll.id)
+                sim_function2 += calculate_sim_similar(lib_sim, tdoll.skilllist, tdoll.id, tag_num_counting_temp)
                 // 只筛选满足相似度阈值的结果
                 if (sim_function + sim_function2 > 0) {
                     sim = (sim_function + sim_function2) / total_function
@@ -133,7 +152,7 @@ function calculate_similarity(ID) {
 }
 
 // 计算相同tag
-function calculate_sim_same(lib, list) { // lib当前库，list其它人技能列表
+function calculate_sim_same(lib, list, counter_metrix) { // lib当前库，list其它人技能列表
     var sim_same = 0
     var sim_same_temp = 0
     var temp_level_this = 1, temp_level = 1
@@ -160,6 +179,7 @@ function calculate_sim_same(lib, list) { // lib当前库，list其它人技能�
                     console.log('BUGGGGGGGGGGGG')
                 }
                 sim_same_temp = Math.min(temp_level, temp_level_this)
+                counter_metrix[tag[0]][tag[1]]--; // 计数
                 if (lib_sim_value.get(tagid) === undefined) {
                     lib_sim_value.set(tagid, sim_same_temp)
                 } else {
@@ -175,7 +195,7 @@ function calculate_sim_same(lib, list) { // lib当前库，list其它人技能�
     return sim_same
 }
 // 计算相似tag
-function calculate_sim_similar(lib, list, id) {
+function calculate_sim_similar(lib, list, id, counter_metrix) {
     var sim_similar = 0
     var tagid, tagattr
     for (var skill of list) {
@@ -186,7 +206,8 @@ function calculate_sim_similar(lib, list, id) {
             for (var key of lib.keys()) {
                 if (lib.get(tagid) === undefined) {
                     if (key.split('_')[0] === tagattr) {
-                        sim_similar += 0.5
+                        if (counter_metrix[tag[0]][tag[1]] > 0)
+                            sim_similar += 0.5
                         var temp_array = []
                         if (lib_sim_similar.get(id) === undefined) {
                             temp_array.push(tag[2])

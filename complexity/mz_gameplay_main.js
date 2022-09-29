@@ -53,11 +53,19 @@ function init_fill_tag_tdoll() {
   }
 }
 function empty_taglist(tag_type) { // 清空对应tag列表选取
-  for (var currenttag of pick_tag[tag_type]) {
-    document.getElementById('btn_tag_' + tag_type + '_' + currenttag).className = 'btn btn-default'
+  if (tag_type === 'all') {
+    empty_taglist(0)
+    empty_taglist(1)
+    empty_taglist(2)
+    empty_taglist(3)
+  } else {
+    for (var currenttag of pick_tag[tag_type]) {
+      document.getElementById('btn_tag_' + tag_type + '_' + currenttag).className = 'btn btn-default'
+    }
+    pick_tag[tag_type] = []
+    change_tag(tag_type)
   }
-  pick_tag[tag_type] = []
-  change_tag(tag_type)
+
 }
 // 根据tdoll筛选结果，点击tag按钮，转到按tag筛选
 function jump_tag(tag_type, tag) {
