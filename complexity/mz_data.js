@@ -213,15 +213,15 @@ var lib_tdoll = [
     create_entry([3, 3, 2010, [[0, 2, 'mobius_orientation_damage', 2], [0, 2, 'mobius_orientation_block', 2], [0, 2, 'mobius_orientation_agile', 4]]],
         [
             [[2, 1, 'gp_m_block_forcemove', 3]],
-            [[2, 2, 'gp_m_agile_fastmove', 5], [2, 5, 'gp_m_agile_reducecd', 4, '***']],
-            [[2, 1, 'gp_m_block_slow', 2], [2, 1, 'gp_m_block_control', 2], [3, 0, 'gp_u_physics', -1]]
+            [[2, 2, 'gp_m_agile_fastmove', 5], [2, 5, 'gp_m_other_reducecd', 4, '***'], [2, 5, 'gp_m_other_area', 3]],
+            [[2, 1, 'gp_m_block_slow', 2], [2, 1, 'gp_m_block_control', 2]]
         ]
     ),
     // 加布里埃尔
     create_entry([3, 3, 2020, [[0, 2, 'mobius_orientation_block', 4], [0, 2, 'mobius_orientation_agile', 3]]],
         [
-            [[2, 5, 'gp_m_agile_reducecd', 4]],
-            [[2, 1, 'gp_m_block_control', 3], [2, 1, 'gp_m_block_forcemove', 5]],
+            [[2, 5, 'gp_m_other_reducecd', 4]],
+            [[2, 1, 'gp_m_block_control', 3], [2, 1, 'gp_m_block_forcemove', 5], [2, 5, 'gp_m_other_area', 3]],
             [[2, 2, 'gp_m_agile_controlresist', 4]]
         ]
     ),
@@ -237,8 +237,8 @@ var lib_tdoll = [
     create_entry([3, 4, 2070, [[0, 2, 'mobius_orientation_block', 3], [0, 2, 'mobius_orientation_agile', 4]]],
         [
             [[2, 2, 'gp_m_agile_boost', 1]],
-            [[2, 2, 'gp_m_agile_boost', 3], [2, 1, 'gp_m_block_slow', 3], [2, 3, 'gp_m_intel_weakarea', 1, '**']],
-            [[2, 1, 'gp_m_block_slow', 3], [2, 1, 'gp_m_block_control', 5, '***'], [2, 2, 'gp_m_agile_teleport', -1]],
+            [[2, 2, 'gp_m_agile_boost', 3], [2, 1, 'gp_m_block_slow', 3], [2, 3, 'gp_m_intel_weakarea', 1, '**'], [2, 5, 'gp_m_other_area', 2]],
+            [[2, 1, 'gp_m_block_slow', 3], [2, 1, 'gp_m_block_control', 5, '***'], [2, 2, 'gp_m_agile_teleport', -1], [2, 5, 'gp_m_other_area', 5]],
             [[2, 2, 'gp_m_agile_teleportally', -1]]
         ]
     ),
@@ -248,14 +248,14 @@ var lib_tdoll = [
             [[2, 2, 'gp_m_agile_boost', 3]],
             [[2, 2, 'gp_m_agile_teleport', -1]],
             [[2, 2, 'gp_m_agile_teleport', -1]],
-            [[2, 1, 'gp_m_block_control', 5]]
+            [[2, 1, 'gp_m_block_control', 5], [2, 5, 'gp_m_other_area', 2]]
         ]
     ),
     // 胖达
     create_entry([3, 3, 2090, [[0, 2, 'mobius_orientation_damage', 4], [0, 2, 'mobius_orientation_agile', 2]]],
         [
-            [[2, 0, 'gp_m_damage_area', 3]],
-            [[2, 0, 'gp_m_damage_breakout', 4], [2, 0, 'gp_m_damage_area', 3]],
+            [[2, 5, 'gp_m_other_area', 4]],
+            [[2, 0, 'gp_m_damage_breakout', 4], [2, 5, 'gp_m_other_area', 3]],
             [[2, 2, 'gp_m_agile_fastmove', 2]]
         ]
     ),
@@ -263,8 +263,8 @@ var lib_tdoll = [
     create_entry([3, 3, 2100, [[0, 2, 'mobius_orientation_block', 3], [0, 2, 'mobius_orientation_intel', 5]]],
         [
             [[2, 1, 'gp_m_block_slow', 4], [2, 2, 'gp_m_block_control', 2, '***']],
-            [[2, 3, 'gp_m_intel_strongarea', 4]],
-            [[2, 3, 'gp_m_intel_strongarea', 4], [2, 3, 'gp_m_intel_acclocate', 4, '***']]
+            [[2, 3, 'gp_m_intel_strongarea', 4], [2, 5, 'gp_m_other_area', 3]],
+            [[2, 3, 'gp_m_intel_strongarea', 4], [2, 3, 'gp_m_intel_acclocate', 4, '***'], [2, 5, 'gp_m_other_area', 4]]
         ]
     ),
     // 龙啸天
@@ -273,14 +273,14 @@ var lib_tdoll = [
             [[2, 3, 'gp_m_intel_maxhackexpose', -1]],
             [],
             [[2, 2, 'gp_m_agile_boost', 4]],
-            [[2, 0, 'gp_m_damage_breakout', 2], [2, 0, 'gp_m_damage_area', 3]]
+            [[2, 0, 'gp_m_damage_breakout', 2], [2, 5, 'gp_m_other_area', 3]]
         ]
     ),
     // 警戒
     create_entry([3, 3, 2160, [[0, 2, 'mobius_orientation_agile', 3], [0, 2, 'mobius_orientation_intel', 3]]],
         [
-            [[2, 3, 'gp_m_intel_strongarea', 3], [2, 1, 'gp_m_block_lockexposearea', -1]],
-            [[2, 3, 'gp_m_intel_strongarea', 3]],
+            [[2, 3, 'gp_m_intel_strongarea', 3], [2, 1, 'gp_m_block_lockexposearea', -1], [2, 5, 'gp_m_other_area', 2]],
+            [[2, 3, 'gp_m_intel_strongarea', 3], [2, 5, 'gp_m_other_area', 2]],
             [[2, 2, 'gp_m_agile_fastmove', 4], [3, 0, 'gp_u_leap', -1]]
         ]
     ),
@@ -308,16 +308,16 @@ var lib_tag = [
     ],
     // 莫比乌斯玩点
     [
-        ['gp_m_damage_breakout', 'gp_m_damage_area'], // 伤害
+        ['gp_m_damage_breakout',], // 伤害
         ['gp_m_block_slow', 'gp_m_block_control', 'gp_m_block_forcemove', 'gp_m_block_lockexposearea'], // 阻制
         ['gp_m_agile_boost', 'gp_m_agile_fastmove', 'gp_m_agile_teleport', 'gp_m_agile_teleportally', 'gp_m_agile_controlresist'], // 敏捷
         ['gp_m_intel_weakarea', 'gp_m_intel_strongarea', 'gp_m_intel_acclocate', 'gp_m_intel_cloth', 'gp_m_intel_maxhackexpose'], // 情报
         ['gp_m_hide_disguisenpc', 'gp_m_hide_immunedetect'], // 隐秘
-        ['gp_m_agile_reducecd'], // 其它
+        ['gp_m_other_reducecd', 'gp_m_other_area'], // 其它
     ],
     // 地图玩点
     [
-        ['gp_u_door', 'gp_u_leap', 'gp_u_climb', 'gp_u_physics'],
+        ['gp_u_door', 'gp_u_leap', 'gp_u_climb'],
         ['gp_u_normal_npc', 'gp_u_code_npc']
     ]
 ]
@@ -438,7 +438,6 @@ var tag1_gp_s_hack_boost = new Map,
 // tag2 莫比乌斯玩点
 var lib_tag_2 = {
     gp_m_damage_breakout: '爆发伤害',
-    gp_m_damage_area: '范围伤害',
 
     gp_m_block_slow: '减速',
     gp_m_block_control: '控制',
@@ -460,10 +459,10 @@ var lib_tag_2 = {
     gp_m_hide_disguisenpc: '伪装NPC',
     gp_m_hide_immunedetect: '免疫检测',
 
-    gp_m_agile_reducecd: '冷却缩减',
+    gp_m_other_reducecd: '冷却缩减',
+    gp_m_other_area: '范围判定',
 }
 var tag2_gp_m_damage_breakout = new Map,
-    tag2_gp_m_damage_area = new Map,
 
     tag2_gp_m_block_slow = new Map,
     tag2_gp_m_block_control = new Map,
@@ -485,7 +484,8 @@ var tag2_gp_m_damage_breakout = new Map,
     tag2_gp_m_hide_disguisenpc = new Map,
     tag2_gp_m_hide_immunedetect = new Map,
 
-    tag2_gp_m_agile_reducecd = new Map
+    tag2_gp_m_other_reducecd = new Map,
+    tag2_gp_m_other_area = new Map
 
 
 // tag3 地图玩点
@@ -493,7 +493,6 @@ var lib_tag_3 = {
     gp_u_door: '锁门',
     gp_u_leap: '翻越体',
     gp_u_climb: '位移点',
-    gp_u_physics: '碰撞体',
 
     gp_u_normal_npc: '影响普通NPC',
     gp_u_code_npc: '影响密码NPC',
@@ -502,7 +501,6 @@ var lib_tag_3 = {
 var tag3_gp_u_door = new Map,
     tag3_gp_u_leap = new Map,
     tag3_gp_u_climb = new Map,
-    tag3_gp_u_physics = new Map,
 
     tag3_gp_u_normal_npc = new Map,
     tag3_gp_u_code_npc = new Map
