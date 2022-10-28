@@ -213,6 +213,44 @@ function classify_by_tdoll(id) {
   calculate_compatibility(id)
 }
 
+// 展示相关性
+function show_compatibility() {
+  var str_tbody = ''
+  var list_element = []
+  // 填充表头（跳过定位）
+  str_tbody += '<tr>'
+  for (var i = 1; i < lib_tag.length; i++) {
+    for (var list_e of lib_tag[i]) {
+      for (var e of list_e) {
+        var temp_pair = [e]
+        eval('temp_pair.push(lib_tag_' + i + '.' + e + ')')
+        list_element.push(temp_pair)
+      }
+    }
+  }
+  str_tbody += '<td class="table_info_compatibility">'
+  str_tbody += '</td>'
+  console.log(list_element)
+  for (var i = 0; i < list_element.length; i++) {
+    str_tbody += '<td class="table_info_compatibility">'
+
+    //str_tbody += list_element[i][1]
+    str_tbody += '</td>'
+  }
+  str_tbody += '</tr>'
+  // for (var r = 0; r < list_element.length; r++) {
+  //   str_tbody += '<td style="width:100px">'
+  //   str_tbody += list_element[r][1]
+  //   str_tbody += '</td>'
+  //   for (var c = 0; c < list_element.length; c++) {
+  //     str_tbody += '<td class="table_info_compatibility">'
+  //     str_tbody += ''
+  //     str_tbody += '</td>'
+  //   }
+  // }
+  document.getElementById('detail_cpt_tbody').innerHTML = str_tbody
+}
+
 
 // 基础语义函数
 // base
@@ -371,4 +409,5 @@ window.onload = function () {
   init_fill_tag()
   init_fill_tag_tdoll()
   init_generate_map()
+  show_compatibility()
 }

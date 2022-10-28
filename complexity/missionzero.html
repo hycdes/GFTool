@@ -17,6 +17,14 @@
         .table_mid {
             text-align: center;
         }
+
+        .table_info_compatibility {
+            padding: 0px;
+            width: 100px;
+            height: 100px;
+            font-size: 7px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -330,10 +338,12 @@
                             </div>
 
                             <!-- 详细信息 -->
-                            <div class="tab-pane fade" id="info_detail">
-                                <table class="table table-bordered">
-                                    <thead id="detail_cpt_thead"></thead>
-                                    <tbody id="detail_cpt_tbody"></tbody>
+                            <div class="tab-pane fade" id="info_detail"
+                                style="width:1500px;height:730px;overflow-y:scroll">
+                                <table class="table-bordered" style="table-layout:fixed">
+                                    <tbody id="detail_cpt_tbody">
+
+                                    </tbody>
                                 </table>
                             </div>
 

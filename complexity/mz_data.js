@@ -70,6 +70,11 @@ lib_skillname.set(2100, [[0, '制导式脉冲'], [1, '观测枢纽'], [1, '扫�
 lib_skillname.set(2120, [[0, '标记：出头鸟'], [1, '狩猎：出头鸟'], [1, '暴龙本色'], [1, '飞雷爪击']])
 lib_skillname.set(2160, [[0, '全线封杀'], [1, '封锁令'], [1, '亲临现场']])
 
+lib_skillname.set(3002, [[1, '幻影']])
+lib_skillname.set(3003, [[1, '扫描']])
+lib_skillname.set(3004, [[1, '烟雾弹']])
+lib_skillname.set(3005, [[1, '易拉罐']])
+
 var lib_tdoll = [
     // tag内容格式
     // orientationtag: [ subtype(0~N) , tagname , level ]
@@ -303,7 +308,7 @@ var lib_tag = [
         ['gp_s_itf_phantom', 'gp_s_itf_phantomplus', 'gp_s_itf_npcmovearound', 'gp_s_itf_npcscare', 'gp_s_itf_followboost', 'gp_s_itf_walkboost'], // 干扰
         ['gp_s_block_slow', 'gp_s_block_control', 'gp_s_block_weakresist', 'gp_s_block_forcemove', 'gp_s_block_disarm', 'gp_s_block_watchflash', 'gp_s_block_watchsmoke'], // 阻制
         ['gp_s_survive_boost', 'gp_s_survive_highhp', 'gp_s_survive_shield', 'gp_s_survive_highprotect', 'gp_s_survive_highqte', 'gp_s_survive_highstamina'], // 生存
-        ['gp_s_hide_invi', 'gp_s_hide_reduceexpose', 'gp_s_hide_disguise', 'gp_s_hide_npcnotfight', 'gp_s_hide_npcfree'], // 隐秘
+        ['gp_s_hide_invi', 'gp_s_hide_reduceexpose', 'gp_s_hide_changecloth', 'gp_s_hide_disguise', 'gp_s_hide_npcnotfight', 'gp_s_hide_npcfree'], // 隐秘
 
     ],
     // 莫比乌斯玩点
@@ -388,6 +393,7 @@ var lib_tag_1 = {
 
     gp_s_hide_invi: '隐身',
     gp_s_hide_reduceexpose: '暴露时间减少',
+    gp_s_hide_changecloth: '更换伪装',
     gp_s_hide_disguise: '变装',
     gp_s_hide_npcnotfight: 'NPC不交战',
     gp_s_hide_npcfree: 'NPC不报警'
@@ -431,6 +437,7 @@ var tag1_gp_s_hack_boost = new Map,
 
     tag1_gp_s_hide_invi = new Map,
     tag1_gp_s_hide_reduceexpose = new Map,
+    tag1_gp_s_hide_changecloth = new Map,
     tag1_gp_s_hide_disguise = new Map,
     tag1_gp_s_hide_npcnotfight = new Map,
     tag1_gp_s_hide_npcfree = new Map
