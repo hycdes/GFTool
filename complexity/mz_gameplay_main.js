@@ -1,3 +1,6 @@
+var global_ui_showcpt_length = 0
+
+
 // 遍历所有人选的所有tag，为每个tag字典，将该角色id注册为true
 function init_generate_map() {
   for (var tdoll of lib_tdoll) {
@@ -217,8 +220,6 @@ function classify_by_tdoll(id) {
 function show_compatibility() {
   var str_tbody = ''
   var list_element = []
-  // 填充表头（跳过定位）
-  str_tbody += '<tr>'
   for (var i = 1; i < lib_tag.length; i++) {
     for (var list_e of lib_tag[i]) {
       for (var e of list_e) {
@@ -228,29 +229,59 @@ function show_compatibility() {
       }
     }
   }
+  global_ui_showcpt_length = list_element.length
+  // 填充表头（跳过定位）
+  // 定宽行及表头
+  str_tbody += '<tr>'
   str_tbody += '<td class="table_info_compatibility">'
+  str_tbody += '<img src="ui/width100.png"><br>'
   str_tbody += '</td>'
-  console.log(list_element)
   for (var i = 0; i < list_element.length; i++) {
-    str_tbody += '<td class="table_info_compatibility">'
-
-    //str_tbody += list_element[i][1]
+    str_tbody += '<td class="table_info_compatibility"'
+    str_tbody += ' id="cpt_th_' + i + '"' // 表头编号：cpt_th_xxx
+    str_tbody += '>'
+    str_tbody += '<img src="ui/width100.png"><br>'
+    str_tbody += list_element[i][1]
     str_tbody += '</td>'
   }
   str_tbody += '</tr>'
-  // for (var r = 0; r < list_element.length; r++) {
-  //   str_tbody += '<td style="width:100px">'
-  //   str_tbody += list_element[r][1]
-  //   str_tbody += '</td>'
-  //   for (var c = 0; c < list_element.length; c++) {
-  //     str_tbody += '<td class="table_info_compatibility">'
-  //     str_tbody += ''
-  //     str_tbody += '</td>'
-  //   }
-  // }
+
+  for (var r = 0; r < list_element.length; r++) {
+    str_tbody += '<tr>'
+    str_tbody += '<td class="table_info_compatibility"'
+    str_tbody += ' id="cpt_tl_' + r + '"' // 表侧编号：cpt_tl_xxx
+    str_tbody += '>'
+    str_tbody += list_element[r][1]
+    str_tbody += '</td>'
+    for (var c = 0; c < list_element.length; c++) {
+      str_tbody += '<td class="table_info_compatibility_ratio"'
+      str_tbody += ' id="cpt_td_' + r + '_' + c + '"' // 表格编号：cpt_td_r_c
+      str_tbody += '>'
+      if (lib_cpt_tag.get(list_element[r][0]) != undefined) { // 当前行有可配合tag
+        var temp_cptlist = lib_cpt_tag.get(list_element[r][0])
+        var temp_it = is_element_in_array(list_element[c][0], temp_cptlist, 0)
+        if (temp_it != -1) {
+          str_tbody += (temp_cptlist[temp_it][1] * 100) + '%'
+        }
+      }
+      str_tbody += '</td>'
+    }
+    str_tbody += '</tr>'
+  }
+
   document.getElementById('detail_cpt_tbody').innerHTML = str_tbody
 }
 
+function colored_cpt() {
+  // 染色
+  for (var r = 0; r < global_ui_showcpt_length; r++) {
+    for (var c = 0; c < global_ui_showcpt_length; c++) {
+      if (document.getElementById('cpt_td_' + r + '_' + c).innerHTML != '') {
+        do_html_tb_colored('cpt_tl_' + r, '(255,0,0,0.5)')
+      }
+    }
+  }
+}
 
 // 基础语义函数
 // base
@@ -342,7 +373,15 @@ function get_btn_html(skilltag, status) {
   return str_skill
 }
 
+// ============================= 执行式 do_ =============================
+
+function do_html_tb_colored(tb_html, color_exp) {
+  document.getElementById(tb_html).style = "background-color:" + color_exp
+}
+
+
 // ============================= 判断式 is_ =============================
+
 function is_related_pair(list1, list2, tag1, tag2) { // 是否是相关tag
   var loop_tag = [tag1, tag2]
   var loop_list = [list1, list2]
@@ -410,4 +449,5 @@ window.onload = function () {
   init_fill_tag_tdoll()
   init_generate_map()
   show_compatibility()
+  colored_cpt()
 }
