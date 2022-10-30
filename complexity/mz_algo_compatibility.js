@@ -1,39 +1,39 @@
 // 玩点配合Map，存在即这个tag包含了玩点配合值
 var lib_cpt_tag = new Map
 lib_cpt_tag.set('gp_m_agile_teleport', [
-    ['gp_m_agile_teleportally', 1],
-    ['gp_m_agile_fastmove', 0.5]
+    ['gp_m_agile_teleportally', 1, '双人包夹'],
+    ['gp_m_agile_fastmove', 0.5, '双人包夹']
 ])
 lib_cpt_tag.set('gp_m_agile_teleportally', [
-    ['gp_m_agile_teleport', 1],
-    ['gp_m_intel_maxhackexpose', 0.5],
+    ['gp_m_agile_teleport', 1, '双人包夹'],
+    ['gp_m_intel_maxhackexpose', 0.5, '指定抓人'],
 ])
 lib_cpt_tag.set('gp_m_agile_fastmove', [
-    ['gp_m_agile_teleport', 0.5],
-    ['gp_m_agile_fastmove', 0.5],
+    ['gp_m_agile_teleport', 0.5, '双人包夹'],
+    ['gp_m_agile_fastmove', 0.5, '双人包夹'],
 ])
 lib_cpt_tag.set('gp_m_block_slow', [
-    ['gp_m_damage_breakout', 1],
-    ['gp_m_block_slow', 1],
-    ['gp_m_block_control', 0.5],
+    ['gp_m_damage_breakout', 1, '高额伤害'],
+    ['gp_m_block_slow', 1, '控制配合'],
+    ['gp_m_block_control', 0.5, '控制配合'],
 ])
 lib_cpt_tag.set('gp_m_block_control', [
-    ['gp_m_damage_breakout', 0.5],
-    ['gp_m_block_slow', 0.5],
-    ['gp_m_block_control', 0.2],
+    ['gp_m_damage_breakout', 0.5, '高额伤害'],
+    ['gp_m_block_slow', 0.5, '控制配合'],
+    ['gp_m_block_control', 0.2, '控制配合'],
 ])
 lib_cpt_tag.set('gp_m_damage_breakout', [
-    ['gp_m_block_slow', 1],
-    ['gp_m_block_control', 0.5]
+    ['gp_m_block_slow', 1, '高额伤害'],
+    ['gp_m_block_control', 0.5, '高额伤害']
 ])
 lib_cpt_tag.set('gp_m_block_lockexposearea', [
-    ['gp_m_intel_cloth', 0.5],
+    ['gp_m_intel_cloth', 0.5, '位置锁定'],
 ])
 lib_cpt_tag.set('gp_m_intel_cloth', [
-    ['gp_m_block_lockexposearea', 0.5],
+    ['gp_m_block_lockexposearea', 0.5, '位置锁定'],
 ])
 lib_cpt_tag.set('gp_m_intel_maxhackexpose', [
-    ['gp_m_agile_teleportally', 0.5],
+    ['gp_m_agile_teleportally', 0.5, '指定抓人'],
 ])
 
 

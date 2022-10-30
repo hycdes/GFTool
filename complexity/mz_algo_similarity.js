@@ -36,7 +36,6 @@ function calculate_similarity(ID) {
             for (var tag of skill) {
 
                 tag_num_counting_for_similar[tag[0]][tag[1]]++ // 统计每个次级tag有多少，每次相同会-1，仅统计剩下的能和多少相似
-                console.log(tag_num_counting_for_similar)
 
                 var tag_base = tag[3]
                 var tag_dev = 1
@@ -176,7 +175,6 @@ function calculate_sim_same(lib, list, counter_metrix) { // lib当前库，list�
                 if (temp_level === -1) temp_level = 5 * tag_dev
                 if (temp_level_this === -1) {
                     temp_level_this = 5
-                    console.log('BUGGGGGGGGGGGG')
                 }
                 sim_same_temp = Math.min(temp_level, temp_level_this)
                 counter_metrix[tag[0]][tag[1]]--; // 计数

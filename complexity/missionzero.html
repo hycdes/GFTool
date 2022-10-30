@@ -20,16 +20,16 @@
 
         .table_info_compatibility {
             padding: 0px;
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
             font-size: 7px;
             text-align: center;
         }
 
         .table_info_compatibility_ratio {
             padding: 0px;
-            width: 100px;
-            height: 100px;
+            width: 50px;
+            height: 50px;
             font-size: 15px;
             text-align: center;
         }
@@ -81,6 +81,7 @@
                     <script src="mz_algo_similarity.js"></script>
                     <script src="mz_algo_compatibility.js"></script>
                     <script src="mz_algo_restraint.js"></script>
+                    <script src="mz_display.js"></script>
                     <script src="mz_gameplay_main.js"></script>
                     <!-- Main Script -->
                     <div class="col-lg-12">
@@ -346,11 +347,52 @@
                             </div>
 
                             <!-- 详细信息 -->
-                            <div class="tab-pane fade" id="info_detail"
+                            <div class="tab-pane fade tooltip-demo" id="info_detail"
                                 style="height:730px;overflow-x:scroll;overflow-y:scroll">
-                                <table class="table-bordered" style="table-layout:fixed">
-                                    <tbody id="detail_cpt_tbody">
+                                <!-- 筛选按钮 -->
+                                <h4></h4>
+                                <p>
+                                <table>
+                                    <tr>
+                                        <td style="padding:2px">
+                                            <button type="button" class="btn btn-success"
+                                                onclick="change_display_cpt('no-item')"
+                                                id="btn_show_cpt_no_item">显示全部玩点</button>
+                                        </td>
+                                        <td style="padding:2px">
+                                            <button type="button" class="btn btn-outline btn-success"
+                                                onclick="change_display_cpt('select-item')"
+                                                id="btn_show_cpt_select_item">查看指定道具</button>
+                                        </td>
+                                        <td style="padding:2px">
+                                            <select class="form-control" id='select_type' onchange=""
+                                                style="width:140px" disabled>
+                                                <option value=1 selected>天狼星英雄</option>
+                                            </select>
+                                        </td>
+                                        <td style="padding:2px">
+                                            <select class="form-control" id='select_item' onchange=""
+                                                style="width:170px" disabled>
+                                                <option value=1 selected>骇客 柯文</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
 
+                                </p>
+                                <p>
+                                    <button type="button" class="btn btn-primary" onclick="change_display_cpt('all')"
+                                        id="btn_show_cpt_all">不筛选</button>
+                                    <button type="button" class="btn btn-primary btn-outline"
+                                        onclick="change_display_cpt('no-empty')"
+                                        id="btn_show_cpt_no_empty">移除空行空列</button>
+                                    <button type="button" class="btn btn-primary btn-outline"
+                                        onclick="change_display_cpt('no-empty-rank')"
+                                        id="btn_show_cpt_no_empty_rank">移除空行</button>
+                                </p>
+                                <!-- 相似性表格 -->
+                                <table class="table-bordered table-hover" style="table-layout:fixed">
+                                    <tbody id="detail_cpt_tbody">
                                     </tbody>
                                 </table>
                             </div>
@@ -364,28 +406,41 @@
                 </div>
             </div>
         </div>
-        <!-- jQuery -->
-        <script src="../vendor/jquery/jquery.min.js"></script>
-        <!-- Bootstrap Core JavaScript -->
-        <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-        <!-- Metis Menu Plugin JavaScript -->
-        <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-        <!-- Custom Theme JavaScript -->
-        <script src="../dist/js/sb-admin-2.js"></script>
-        <!-- Flot Charts JavaScript -->
-        <script src="../vendor/flot/excanvas.min.js"></script>
-        <script src="../vendor/flot/jquery.flot.js"></script>
-        <script src="../vendor/flot/jquery.flot.resize.js"></script>
-        <script src="../vendor/flot/jquery.flot.time.js"></script>
-        <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
-        <!--version info-->
-        <script src="mz_version.js"></script>
-        <script>
-            document.getElementById('info_version').innerHTML = _version.CL
-            for (var item of _navitem) {
-                document.getElementById('side-menu').innerHTML += item
-            }
-        </script>
+    </div>
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <script>
+        // tooltip demo
+        $('.tooltip-demo').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        })
+        // popover demo
+        $("[data-toggle=popover]")
+            .popover()
+    </script>
+    <!-- Flot Charts JavaScript -->
+    <script src="../vendor/flot/excanvas.min.js"></script>
+    <script src="../vendor/flot/jquery.flot.js"></script>
+    <script src="../vendor/flot/jquery.flot.resize.js"></script>
+    <script src="../vendor/flot/jquery.flot.time.js"></script>
+    <script src="../vendor/flot-tooltip/jquery.flot.tooltip.min.js"></script>
+
+    <!--version info-->
+    <script src="mz_version.js"></script>
+    <script>
+        document.getElementById('info_version').innerHTML = _version.CL
+        for (var item of _navitem) {
+            document.getElementById('side-menu').innerHTML += item
+        }
+    </script>
+
 </body>
 
 </html>

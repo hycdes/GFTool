@@ -27,7 +27,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF
+                    tools)</a>
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -48,7 +49,8 @@
                         <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
                         <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
                         <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
-                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
+                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a>
+                        </li>
                         <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp掉落统计</a></li>
                         <li><a href="GFT_Class.html"><i class="fa fa-search"></i> &nbsp格里芬人事部</a></li>
                     </ul>
@@ -61,7 +63,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="tooltip-demo">
-                            <h1 class="page-header">建造模拟器(维护中) <button type="button" data-toggle="tooltip" data-placement="bottom" title="数据参考自IOP公司制造统计网站 格里芬魔术真实复刻" class="btn btn-outline btn-default">?</button></h1>
+                            <h1 class="page-header">建造模拟器(维护中) <button type="button" data-toggle="tooltip"
+                                    data-placement="bottom" title="数据参考自IOP公司制造统计网站 格里芬魔术真实复刻"
+                                    class="btn btn-outline btn-default">?</button></h1>
                         </div>
                     </div>
                 </div>
@@ -72,7 +76,8 @@
                             <div class="panel-heading">
                                 建造
                             </div>
-                            <div class="panel-body" id="panelSetting" style="background:url(../img/Produce-tdoll-normal.png) no-repeat right 15px bottom 15px">
+                            <div class="panel-body" id="panelSetting"
+                                style="background:url(../img/Produce-tdoll-normal.png) no-repeat right 15px bottom 15px">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs">
                                     <li class="active">
@@ -96,64 +101,142 @@
                                             <p>&nbsp</p>
                                             <!-- numbers = produce_type/resource_type/number_position -->
                                             <div class="row" style="margin-bottom:10px">
-                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,400,400,400,200)"><img src="../img/produce/normal-tdoll/icon-mix.png"> 4442</button>
-                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,130,130,130,30)"><img src="../img/produce/normal-tdoll/icon-hg.png"> 1110</button>
-                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,100,400,400,100)"><img src="../img/produce/normal-tdoll/icon-ar.png"> 1441</button>
-                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,400,400,100,200)"><img src="../img/produce/normal-tdoll/icon-smg.png"> 4412</button>
-                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,400,100,400,200)"><img src="../img/produce/normal-tdoll/icon-rf.png"> 4142</button>
-                                                <button type="button" class="btn btn-default" onclick="swap_reso(1,700,600,100,400)"><img src="../img/produce/normal-tdoll/icon-mg.png"> 7614</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="swap_reso(1,400,400,400,200)"><img
+                                                        src="../img/produce/normal-tdoll/icon-mix.png"> 4442</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="swap_reso(1,130,130,130,30)"><img
+                                                        src="../img/produce/normal-tdoll/icon-hg.png"> 1110</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="swap_reso(1,100,400,400,100)"><img
+                                                        src="../img/produce/normal-tdoll/icon-ar.png"> 1441</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="swap_reso(1,400,400,100,200)"><img
+                                                        src="../img/produce/normal-tdoll/icon-smg.png"> 4412</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="swap_reso(1,400,100,400,200)"><img
+                                                        src="../img/produce/normal-tdoll/icon-rf.png"> 4142</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="swap_reso(1,700,600,100,400)"><img
+                                                        src="../img/produce/normal-tdoll/icon-mg.png"> 7614</button>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-hum.png);position:relative">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up111" onclick="change_reso('+111')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up112" onclick="change_reso('+112')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up113" onclick="change_reso('+113')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down111" onclick="change_reso('-111')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down112" onclick="change_reso('-112')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down113" onclick="change_reso('-113')">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num111">
-                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num112">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num113">
+                                                <div class="col-lg-6"
+                                                    style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-hum.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:76px;top:5px" id="up111"
+                                                        onclick="change_reso('+111')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:139px;top:5px" id="up112"
+                                                        onclick="change_reso('+112')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:202px;top:5px" id="up113"
+                                                        onclick="change_reso('+113')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:76px;top:135px" id="down111"
+                                                        onclick="change_reso('-111')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:139px;top:135px" id="down112"
+                                                        onclick="change_reso('-112')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:202px;top:135px" id="down113"
+                                                        onclick="change_reso('-113')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:76px;top:59px" id="num111">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png"
+                                                        style="position:absolute;left:139px;top:59px" id="num112">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:202px;top:59px" id="num113">
                                                 </div>
-                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-amm.png);position:relative">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up121" onclick="change_reso('+121')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up122" onclick="change_reso('+122')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up123" onclick="change_reso('+123')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down121" onclick="change_reso('-121')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down122" onclick="change_reso('-122')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down123" onclick="change_reso('-123')">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num121">
-                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num122">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num123">
+                                                <div class="col-lg-6"
+                                                    style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-amm.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:76px;top:5px" id="up121"
+                                                        onclick="change_reso('+121')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:139px;top:5px" id="up122"
+                                                        onclick="change_reso('+122')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:202px;top:5px" id="up123"
+                                                        onclick="change_reso('+123')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:76px;top:135px" id="down121"
+                                                        onclick="change_reso('-121')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:139px;top:135px" id="down122"
+                                                        onclick="change_reso('-122')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:202px;top:135px" id="down123"
+                                                        onclick="change_reso('-123')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:76px;top:59px" id="num121">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png"
+                                                        style="position:absolute;left:139px;top:59px" id="num122">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:202px;top:59px" id="num123">
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-rat.png);position:relative">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up131" onclick="change_reso('+131')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up132" onclick="change_reso('+132')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up133" onclick="change_reso('+133')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down131" onclick="change_reso('-131')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down132" onclick="change_reso('-132')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down133" onclick="change_reso('-133')">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num131">
-                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num132">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num133">
+                                                <div class="col-lg-6"
+                                                    style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-rat.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:76px;top:5px" id="up131"
+                                                        onclick="change_reso('+131')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:139px;top:5px" id="up132"
+                                                        onclick="change_reso('+132')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:202px;top:5px" id="up133"
+                                                        onclick="change_reso('+133')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:76px;top:135px" id="down131"
+                                                        onclick="change_reso('-131')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:139px;top:135px" id="down132"
+                                                        onclick="change_reso('-132')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:202px;top:135px" id="down133"
+                                                        onclick="change_reso('-133')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:76px;top:59px" id="num131">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png"
+                                                        style="position:absolute;left:139px;top:59px" id="num132">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:202px;top:59px" id="num133">
                                                 </div>
-                                                <div class="col-lg-6" style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-pts.png);position:relative">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:76px;top:5px" id="up141" onclick="change_reso('+141')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:139px;top:5px" id="up142" onclick="change_reso('+142')">
-                                                    <img src="../img/produce/normal-tdoll/btn-up.png" style="position:absolute;left:202px;top:5px" id="up143" onclick="change_reso('+143')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:76px;top:135px" id="down141" onclick="change_reso('-141')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:139px;top:135px" id="down142" onclick="change_reso('-142')">
-                                                    <img src="../img/produce/normal-tdoll/btn-down.png" style="position:absolute;left:202px;top:135px" id="down143" onclick="change_reso('-143')">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:76px;top:59px" id="num141">
-                                                    <img src="../img/produce/normal-tdoll/img-3.png" style="position:absolute;left:139px;top:59px" id="num142">
-                                                    <img src="../img/produce/normal-tdoll/img-0.png" style="position:absolute;left:202px;top:59px" id="num143">
+                                                <div class="col-lg-6"
+                                                    style="width:264px;height:182px;background:url(../img/produce/normal-tdoll/bg-pts.png);position:relative">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:76px;top:5px" id="up141"
+                                                        onclick="change_reso('+141')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:139px;top:5px" id="up142"
+                                                        onclick="change_reso('+142')">
+                                                    <img src="../img/produce/normal-tdoll/btn-up.png"
+                                                        style="position:absolute;left:202px;top:5px" id="up143"
+                                                        onclick="change_reso('+143')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:76px;top:135px" id="down141"
+                                                        onclick="change_reso('-141')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:139px;top:135px" id="down142"
+                                                        onclick="change_reso('-142')">
+                                                    <img src="../img/produce/normal-tdoll/btn-down.png"
+                                                        style="position:absolute;left:202px;top:135px" id="down143"
+                                                        onclick="change_reso('-143')">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:76px;top:59px" id="num141">
+                                                    <img src="../img/produce/normal-tdoll/img-3.png"
+                                                        style="position:absolute;left:139px;top:59px" id="num142">
+                                                    <img src="../img/produce/normal-tdoll/img-0.png"
+                                                        style="position:absolute;left:202px;top:59px" id="num143">
                                                 </div>
                                             </div>
                                             <div class="row" style="margin-top:10px">
-                                                <button type="button" class="btn btn-outline btn-success" onclick="produce(1,1)">建造x1</button>
-                                                <button type="button" class="btn btn-outline btn-success" onclick="produce(1,10)">建造x10</button>
+                                                <button type="button" class="btn btn-outline btn-success"
+                                                    onclick="produce(1,1)">建造x1</button>
+                                                <button type="button" class="btn btn-outline btn-success"
+                                                    onclick="produce(1,10)">建造x10</button>
                                             </div>
                                         </div>
                                     </div>
@@ -163,30 +246,37 @@
                                         <div class="col-lg-12">
                                             <p>&nbsp</p>
                                             <p>
-                                                <button type="button" class="btn btn-default" onclick="setWeightH(1)">低耗 4163</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeightH(2)">普通 6264</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeightH(3)">高耗 6664</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeightH(1)">低耗
+                                                    4163</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeightH(2)">普通
+                                                    6264</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeightH(3)">高耗
+                                                    6664</button>
                                             </p>
                                         </div>
                                         <!--Resource-->
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">人力</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=1000 id="MwH" onblur="checkValueHeavy()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=1000
+                                                    id="MwH" onblur="checkValueHeavy()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">口粮</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=1000 id="RwH" onblur="checkValueHeavy()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=1000
+                                                    id="RwH" onblur="checkValueHeavy()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">弹药</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=1000 id="AwH" onblur="checkValueHeavy()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=1000
+                                                    id="AwH" onblur="checkValueHeavy()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">零件</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=1000 id="PwH" onblur="checkValueHeavy()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=1000
+                                                    id="PwH" onblur="checkValueHeavy()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -203,7 +293,8 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-warning" id="buttonHeavy" onclick="addListHMulti()">重型建造</button></p>
+                                            <p><button type="button" class="btn btn-warning" id="buttonHeavy"
+                                                    onclick="addListHMulti()">重型建造</button></p>
                                         </div>
                                     </div>
                                     <!--NORMAL EQUIP-->
@@ -211,29 +302,35 @@
                                         <div class="col-lg-12">
                                             <p>&nbsp</p>
                                             <p>
-                                                <button type="button" class="btn btn-default" onclick="setWeightE(1)">通用 150x4</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeightE(2)">无瞄具 151x4</button>
+                                                <button type="button" class="btn btn-default" onclick="setWeightE(1)">通用
+                                                    150x4</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="setWeightE(2)">无瞄具 151x4</button>
                                             </p>
                                         </div>
                                         <!--Resource-->
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">人力</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10 id="MwE" onblur="checkValueNormalE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=10
+                                                    id="MwE" onblur="checkValueNormalE()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">口粮</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10 id="RwE" onblur="checkValueNormalE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=10
+                                                    id="RwE" onblur="checkValueNormalE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">弹药</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10 id="AwE" onblur="checkValueNormalE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=10
+                                                    id="AwE" onblur="checkValueNormalE()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">零件</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=10 id="PwE" onblur="checkValueNormalE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=10
+                                                    id="PwE" onblur="checkValueNormalE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -243,7 +340,8 @@
                                                 </select></p>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-info" id="buttonNormalE" onclick="addListEMulti()">普通建造</button>
+                                            <p><button type="button" class="btn btn-info" id="buttonNormalE"
+                                                    onclick="addListEMulti()">普通建造</button>
                                             </p>
                                         </div>
                                     </div>
@@ -253,31 +351,39 @@
                                         <div class="col-lg-12">
                                             <p>&nbsp</p>
                                             <p>
-                                                <button type="button" class="btn btn-default" onclick="setWeightEH(1)">零类 0000</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeightEH(2)">一类 2021</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeightEH(3)">二类 0221</button>
-                                                <button type="button" class="btn btn-default" onclick="setWeightEH(4)">全类 2222</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="setWeightEH(1)">零类 0000</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="setWeightEH(2)">一类 2021</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="setWeightEH(3)">二类 0221</button>
+                                                <button type="button" class="btn btn-default"
+                                                    onclick="setWeightEH(4)">全类 2222</button>
                                             </p>
                                         </div>
                                         <!--Resource-->
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">人力</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=500 id="MwEH" onblur="checkValueHeavyE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=500
+                                                    id="MwEH" onblur="checkValueHeavyE()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">口粮</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=500 id="RwEH" onblur="checkValueHeavyE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=500
+                                                    id="RwEH" onblur="checkValueHeavyE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">弹药</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=500 id="AwEH" onblur="checkValueHeavyE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=500
+                                                    id="AwEH" onblur="checkValueHeavyE()">
                                             </div>
                                             <div class="form-group input-group">
                                                 <span class="input-group-addon">零件</span>
-                                                <input type="text" class="form-control" placeholder="输入整数" value=500 id="PwEH" onblur="checkValueHeavyE()">
+                                                <input type="text" class="form-control" placeholder="输入整数" value=500
+                                                    id="PwEH" onblur="checkValueHeavyE()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -294,7 +400,8 @@
                                             </p>
                                         </div>
                                         <div class="col-lg-12">
-                                            <p><button type="button" class="btn btn-danger" id="buttonHeavyE" onclick="addListEHMulti()">重型建造</button></p>
+                                            <p><button type="button" class="btn btn-danger" id="buttonHeavyE"
+                                                    onclick="addListEHMulti()">重型建造</button></p>
                                         </div>
                                     </div>
 
@@ -320,31 +427,38 @@
                                             <td style="text-align:center;vertical-align:middle"><b>消耗</b></td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-hum.png"></td>
+                                            <td style="text-align:center;vertical-align:middle"><img
+                                                    src="../img/produce/icon-hum.png"></td>
                                             <td style="text-align:center;vertical-align:middle" id="costs_hum">0</td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-amm.png"></td>
+                                            <td style="text-align:center;vertical-align:middle"><img
+                                                    src="../img/produce/icon-amm.png"></td>
                                             <td style="text-align:center;vertical-align:middle" id="costs_amm">0</td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-rat.png"></td>
+                                            <td style="text-align:center;vertical-align:middle"><img
+                                                    src="../img/produce/icon-rat.png"></td>
                                             <td style="text-align:center;vertical-align:middle" id="costs_rat">0</td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-pts.png"></td>
+                                            <td style="text-align:center;vertical-align:middle"><img
+                                                    src="../img/produce/icon-pts.png"></td>
                                             <td style="text-align:center;vertical-align:middle" id="costs_pts">0</td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-tc.png" width=30 height=30></td>
+                                            <td style="text-align:center;vertical-align:middle"><img
+                                                    src="../img/produce/icon-tc.png" width=30 height=30></td>
                                             <td style="text-align:center;vertical-align:middle" id="costs_tc">0</td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-ec.png" width=30 height=30></td>
+                                            <td style="text-align:center;vertical-align:middle"><img
+                                                    src="../img/produce/icon-ec.png" width=30 height=30></td>
                                             <td style="text-align:center;vertical-align:middle" id="costs_ec">0</td>
                                         </tr>
                                         <tr>
-                                            <td style="text-align:center;vertical-align:middle"><img src="../img/produce/icon-core.png" width=30 height=30></td>
+                                            <td style="text-align:center;vertical-align:middle"><img
+                                                    src="../img/produce/icon-core.png" width=30 height=30></td>
                                             <td style="text-align:center;vertical-align:middle" id="costs_core">0</td>
                                         </tr>
                                     </table>
@@ -391,7 +505,8 @@
                                         <div class="tab-pane fade in active" id="TdollResult">
                                             <div class="panel-body">
                                                 <h4>
-                                                    建造显示 <img src='../img/produce/show-all.png' style="cursor: pointer" id="btn_show_nt" onclick='swap_show(1)'>
+                                                    建造显示 <img src='../img/produce/show-all.png' style="cursor: pointer"
+                                                        id="btn_show_nt" onclick='swap_show(1)'>
                                                 </h4>
                                                 <div style='height:550px; overflow-y:scroll'>
                                                     <table class="table table-bordered table-hover">
@@ -413,15 +528,18 @@
                                                 <div class="col-lg-12">
                                                     <label>显示条目</label>
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="ExpanSwitchE" id="showAllSwitchE" value="option1" onclick="showAllE()" checked>
+                                                        <input type="radio" name="ExpanSwitchE" id="showAllSwitchE"
+                                                            value="option1" onclick="showAllE()" checked>
                                                         <b><span style="color:dodgerblue">全部</span></b>
                                                     </label>
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="ExpanSwitchE" id="showFiveSwitchE" value="option2" onclick="showFiveE()">
+                                                        <input type="radio" name="ExpanSwitchE" id="showFiveSwitchE"
+                                                            value="option2" onclick="showFiveE()">
                                                         <b><span style="color:darkorange">★★★★★</span></b>
                                                     </label>
                                                     <label class="radio-inline">
-                                                        <input type="radio" name="ExpanSwitchE" id="showFairy" value="option3" onclick="showFairy()">
+                                                        <input type="radio" name="ExpanSwitchE" id="showFairy"
+                                                            value="option3" onclick="showFairy()">
                                                         <b><span style="color:red">妖精</span></b>
                                                     </label>
                                                 </div>
@@ -430,7 +548,8 @@
                                                         <div class="table-responsive" id="sumChartE"></div>
                                                     </div>
                                                     <div class="panel-body">
-                                                        <div class="table-responsive" id="rankingChartE" style='height:500px; overflow-y:scroll'></div>
+                                                        <div class="table-responsive" id="rankingChartE"
+                                                            style='height:500px; overflow-y:scroll'></div>
                                                     </div>
                                                 </div>
 
