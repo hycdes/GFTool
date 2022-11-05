@@ -24,7 +24,7 @@ function create_entry(info_name, info_skilllist) {
 // ====================人形添加：修改lib_name和lib_tdoll====================
 var lib_name = {
     // —————————————— Sirius Hero ——————————————
-    t11011: '骇客 K.', t11012: '理财师 查理·格雷尔',
+    t11011: '骇客 柯文', t11012: '理财师 查理·格雷尔',
     t11021: '救援队 前田美绘', t11022: '拳击手 黑川隼人', t11023: '殓尸人 桐木',
     t11031: '情报员 安娜', t11032: '辣妹 熏',
     t11041: '旅行者 砂',
@@ -512,3 +512,16 @@ var tag3_gp_u_door = new Map,
     tag3_gp_u_normal_npc = new Map,
     tag3_gp_u_code_npc = new Map
 
+var lib_display_cpt_select = new Map
+lib_display_cpt_select.set(1,
+    '<option value=11011 selected>骇客 柯文</option>'
+    + '<option value=11012>理财师 查理·格雷尔</option>'
+    + '<option value=11021>救援队 前田美绘</option>'
+    + '<option value=11022>拳击手 黑川隼人</option>'
+    + '<option value=11023>敛尸人 桐木</option>'
+    + '<option value=11031>情报员 安娜</option>'
+    + '<option value=11032>辣妹 熏</option>'
+    + '<option value=11041>旅行者 砂</option>'
+    + '<option value=11051>狂热粉 默</option>'
+    + '<option value=11061>女演员 伊莉娜</option>'
+)

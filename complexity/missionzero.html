@@ -356,7 +356,7 @@
                                     <tr>
                                         <td style="padding:2px">
                                             <button type="button" class="btn btn-success"
-                                                onclick="change_display_cpt('no-item')"
+                                                onclick="change_display_cpt_select(0)"
                                                 id="btn_show_cpt_no_item">显示全部玩点</button>
                                         </td>
                                         <td style="padding:2px">
@@ -365,17 +365,17 @@
                                                 id="btn_show_cpt_select_item">查看指定道具</button>
                                         </td>
                                         <td style="padding:2px">
-                                            <select class="form-control" id='select_type'
-                                                onchange="change_display_cpt_select(1)" style="width:140px"
-                                                id="select_cpt_type" disabled>
+                                            <select class="form-control" onchange="change_display_cpt_select(1)"
+                                                style="width:140px" id="select_cpt_type" disabled>
                                                 <option value=1 selected>天狼星英雄</option>
+                                                <option value=2>天狼星道具</option>
+                                                <option value=3>莫比乌斯英雄</option>
                                             </select>
                                         </td>
                                         <td style="padding:2px">
-                                            <select class="form-control" id='select_item'
-                                                onchange="change_display_cpt('select-item')" style="width:170px"
-                                                id="select_cpt_item" disabled>
-                                                <option value=1 selected>骇客 柯文</option>
+                                            <select class="form-control" onchange="change_display_cpt_select(2)"
+                                                style="width:170px" id="select_cpt_item" disabled>
+                                                <option value=11011 selected>骇客 柯文</option>
                                             </select>
                                         </td>
                                     </tr>

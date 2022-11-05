@@ -1,5 +1,12 @@
 // 玩点配合Map，存在即这个tag包含了玩点配合值
 var lib_cpt_tag = new Map
+// 天狼星玩法配合
+lib_cpt_tag.set('gp_s_itf_phantom', [
+    ['gp_s_block_watchsmoke', 1, '逃生组合'],
+    ['gp_s_block_watchflash', 0.5, '逃生组合'],
+])
+
+// 莫比乌斯玩法配合
 lib_cpt_tag.set('gp_m_agile_teleport', [
     ['gp_m_agile_teleportally', 1, '双人包夹'],
     ['gp_m_agile_fastmove', 0.5, '双人包夹']

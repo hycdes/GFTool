@@ -52,6 +52,22 @@ function init_fill_tag_tdoll() {
     document.getElementById(str_pid).innerHTML += str_btn
   }
 }
+// 填充选择标签库，用于筛选下拉框内部HTML数据的初始化
+function init_fill_select_list() {
+  // 搭配列表
+  var temp_list_cpt = ['', '', '']
+  for (var tdoll of lib_tdoll) {
+    var temp_str = ''
+    temp_str += '<option value=' + tdoll.id + '>'
+    eval('temp_str+=lib_name.t' + tdoll.id)
+    temp_str += '</option>'
+    temp_list_cpt[tdoll.type - 1] += temp_str
+  }
+  for (var i = 0; i < 3; i++) {
+    lib_display_cpt_select.set(i + 1, temp_list_cpt[i])
+  }
+}
+
 function empty_taglist(tag_type) { // 清空对应tag列表选取
   if (tag_type === 'all') {
     empty_taglist(0)
@@ -378,6 +394,7 @@ window.onload = function () {
   init_fill_tag()
   init_fill_tag_tdoll()
   init_generate_map()
+  init_fill_select_list()
   show_compatibility('all')
   colored_cpt()
 }

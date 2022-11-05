@@ -1,12 +1,17 @@
 var global_ui_showcpt_length = 0
 var global_ui_showcpt_rank_it_list = []
 var global_ui_showcpt_column_it_list = []
+var global_ui_showcpt_item_it_list = []
+var global_ui_cpt_select = false
 var global_ui_command = ['no-item', 'all']
 
 // 展示相关性
 function show_compatibility() {
+    // clear
     global_ui_showcpt_rank_it_list = []
     global_ui_showcpt_column_it_list = []
+    global_ui_showcpt_item_it_list = []
+
     var str_tbody = ''
     var list_element = []
     var no_empty_column = false, no_empty_rank = false, special_item = false
@@ -21,7 +26,8 @@ function show_compatibility() {
         for (var list_e of lib_tag[i]) {
             for (var e of list_e) {
                 var temp_pair = [e]
-                eval('temp_pair.push(lib_tag_' + i + '.' + e + ')')
+                eval('temp_pair.push(lib_tag_' + i + '.' + e + ')') // ['tag_id','tag_name']
+                temp_pair.push(i) // ['tag_id','tag_name','type']
                 list_element.push(temp_pair)
             }
         }
@@ -32,6 +38,8 @@ function show_compatibility() {
     // 初始化矩阵
     for (var i = 0; i < list_element.length; i++) global_ui_showcpt_rank_it_list.push(false)
     for (var i = 0; i < list_element.length; i++) global_ui_showcpt_column_it_list.push(false)
+    for (var i = 0; i < list_element.length; i++) global_ui_showcpt_item_it_list.push(false)
+
     // 筛选空行空列
     for (var r = 0; r < list_element.length; r++) {
         for (var c = 0; c < list_element.length; c++) {
@@ -46,10 +54,18 @@ function show_compatibility() {
             }
         }
     }
-    // 筛选道具
+    // 筛选道具特性
     if (special_item) {
-        var temp_id = 1
-        var temp_cptlist = get_tdoll_from_id(temp_id)
+        var temp_id = parseInt(document.getElementById('select_cpt_item').value)
+        var temp_tdoll = get_tdoll_from_id(temp_id)
+        for (var skill of temp_tdoll.skilllist) {
+            for (var tag of skill) {
+                var temp_it = is_element_in_array(tag[2], list_element, 0)
+                if (temp_it != -1) {
+                    global_ui_showcpt_item_it_list[temp_it] = true
+                }
+            }
+        }
     }
 
 
@@ -76,14 +92,19 @@ function show_compatibility() {
     for (var r = 0; r < list_element.length; r++) {
         var is_display = true
         var str_temp_rank = ''
-        var bool_temp_is_empty = true
-        if (no_empty_rank) is_display = global_ui_showcpt_rank_it_list[r] // 是否显示该行
+        if (no_empty_rank) is_display = is_display && global_ui_showcpt_rank_it_list[r] // 是否显示该行（空行筛选）
+        if (special_item) is_display = is_display && global_ui_showcpt_item_it_list[r] // 是否显示该行（选定条目筛选）
 
         if (is_display) {
             str_temp_rank += '<tr>'
             str_temp_rank += '<td class="table_info_compatibility"'
             str_temp_rank += ' id="cpt_tl_' + r + '"' // 表侧编号：cpt_tl_xxx
             str_temp_rank += '>'
+            // 着色
+            console.log(list_element[r][2])
+            if (list_element[r][2] === 1 || list_element[r][1] === 2) {
+                str_temp_rank += '1'
+            }
             str_temp_rank += list_element[r][1]
             str_temp_rank += '</td>'
             for (var c = 0; c < list_element.length; c++) {
@@ -99,7 +120,6 @@ function show_compatibility() {
                         var temp_it = is_element_in_array(list_element[c][0], temp_cptlist, 0)
                         // 显示相似性百分比
                         if (temp_it != -1) {
-                            bool_temp_is_empty = false
                             str_temp_rank += '<span data-placement="top" data-toggle="tooltip" title="'
                             str_temp_rank += list_element[r][1] + '×' + list_element[c][1] + ' → ' + temp_cptlist[temp_it][2]
                             str_temp_rank += '">'
@@ -150,6 +170,34 @@ function change_display_cpt(command) {
     show_compatibility()
     colored_cpt(command)
 }
+function change_display_cpt_select(command) {
+    if (command === 0) { // 是否选取特定物品
+        global_ui_cpt_select = !global_ui_cpt_select
+        // 按钮是否可按
+        if (global_ui_cpt_select) {
+            document.getElementById('btn_show_cpt_no_item').className = "btn btn-outline btn-success"
+            document.getElementById('btn_show_cpt_select_item').className = "btn btn-success"
+            document.getElementById('select_cpt_type').disabled = false
+            document.getElementById('select_cpt_item').disabled = false
+            document.getElementById('select_cpt_item').innerHTML = lib_display_cpt_select.get(parseInt(document.getElementById('select_cpt_type').value))
+            change_display_cpt('select-item')
+        } else {
+            document.getElementById('btn_show_cpt_no_item').className = "btn btn-success"
+            document.getElementById('btn_show_cpt_select_item').className = "btn btn-outline btn-success"
+            document.getElementById('select_cpt_type').disabled = true
+            document.getElementById('select_cpt_item').disabled = true
+            change_display_cpt('no-item')
+        }
+    }
+    else if (command === 1) {
+        document.getElementById('select_cpt_item').innerHTML = lib_display_cpt_select.get(parseInt(document.getElementById('select_cpt_type').value))
+        change_display_cpt('select-item')
+    }
+    else if (command === 2) {
+        change_display_cpt('select-item')
+    }
+
+}
 
 function colored_cpt(command) {
     // 染色
@@ -162,11 +210,13 @@ function colored_cpt(command) {
             if (command === 'no-empty') is_colored = is_colored && global_ui_showcpt_column_it_list[c]
 
             if (is_colored) {
-                if (document.getElementById('cpt_td_' + r + '_' + c).innerHTML != '') {
-                    var temp_str = document.getElementById('cpt_td_' + r + '_' + c).innerHTML
-                    temp_str = (temp_str.split('%')[0]).split('>')[1]
-                    var color_percent = (parseInt(temp_str) / 100) * 0.2
-                    document.getElementById('cpt_td_' + r + '_' + c).style.backgroundColor = 'rgb(255,0,0,' + color_percent + ')'
+                if (document.getElementById('cpt_td_' + r + '_' + c) != null) {
+                    if (document.getElementById('cpt_td_' + r + '_' + c).innerHTML != '') {
+                        var temp_str = document.getElementById('cpt_td_' + r + '_' + c).innerHTML
+                        temp_str = (temp_str.split('%')[0]).split('>')[1]
+                        var color_percent = (parseInt(temp_str) / 100) * 0.2
+                        document.getElementById('cpt_td_' + r + '_' + c).style.backgroundColor = 'rgb(255,0,0,' + color_percent + ')'
+                    }
                 }
             }
 
