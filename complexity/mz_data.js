@@ -501,8 +501,8 @@ var lib_tag_3 = {
     gp_u_leap: '翻越体',
     gp_u_climb: '位移点',
 
-    gp_u_normal_npc: '影响普通NPC',
-    gp_u_code_npc: '影响密码NPC',
+    gp_u_normal_npc: '普通NPC',
+    gp_u_code_npc: '密码NPC',
 
 }
 var tag3_gp_u_door = new Map,

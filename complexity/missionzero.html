@@ -361,18 +361,20 @@
                                         </td>
                                         <td style="padding:2px">
                                             <button type="button" class="btn btn-outline btn-success"
-                                                onclick="change_display_cpt('select-item')"
+                                                onclick="change_display_cpt_select(0)"
                                                 id="btn_show_cpt_select_item">查看指定道具</button>
                                         </td>
                                         <td style="padding:2px">
-                                            <select class="form-control" id='select_type' onchange=""
-                                                style="width:140px" disabled>
+                                            <select class="form-control" id='select_type'
+                                                onchange="change_display_cpt_select(1)" style="width:140px"
+                                                id="select_cpt_type" disabled>
                                                 <option value=1 selected>天狼星英雄</option>
                                             </select>
                                         </td>
                                         <td style="padding:2px">
-                                            <select class="form-control" id='select_item' onchange=""
-                                                style="width:170px" disabled>
+                                            <select class="form-control" id='select_item'
+                                                onchange="change_display_cpt('select-item')" style="width:170px"
+                                                id="select_cpt_item" disabled>
                                                 <option value=1 selected>骇客 柯文</option>
                                             </select>
                                         </td>

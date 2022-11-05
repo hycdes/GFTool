@@ -4,16 +4,19 @@ var global_ui_showcpt_column_it_list = []
 var global_ui_command = ['no-item', 'all']
 
 // 展示相关性
-function show_compatibility(command) {
+function show_compatibility() {
     global_ui_showcpt_rank_it_list = []
     global_ui_showcpt_column_it_list = []
     var str_tbody = ''
     var list_element = []
-    var no_empty_column = false, no_empty_rank = false
-    if (command === 'all') { true }
-    else if (command === 'no-empty-column') { no_empty_column = true }
-    else if (command === 'no-empty-rank') { no_empty_rank = true }
-    else if (command === 'no-empty') { no_empty_column = true; no_empty_rank = true }
+    var no_empty_column = false, no_empty_rank = false, special_item = false
+    // 初始化筛选规则
+    if (global_ui_command[0] != 'no-item') special_item = true
+    if (global_ui_command[1] === 'all') { true }
+    else if (global_ui_command[1] === 'no-empty-column') { no_empty_column = true }
+    else if (global_ui_command[1] === 'no-empty-rank') { no_empty_rank = true }
+    else if (global_ui_command[1] === 'no-empty') { no_empty_column = true; no_empty_rank = true }
+
     for (var i = 1; i < lib_tag.length; i++) {
         for (var list_e of lib_tag[i]) {
             for (var e of list_e) {
@@ -24,11 +27,12 @@ function show_compatibility(command) {
         }
     }
     global_ui_showcpt_length = list_element.length
+
     // 按筛选规则计算供展示的数据
     // 初始化矩阵
     for (var i = 0; i < list_element.length; i++) global_ui_showcpt_rank_it_list.push(false)
     for (var i = 0; i < list_element.length; i++) global_ui_showcpt_column_it_list.push(false)
-
+    // 筛选空行空列
     for (var r = 0; r < list_element.length; r++) {
         for (var c = 0; c < list_element.length; c++) {
             if (lib_cpt_tag.get(list_element[r][0]) != undefined) { // 当前行有可配合tag
@@ -42,10 +46,15 @@ function show_compatibility(command) {
             }
         }
     }
+    // 筛选道具
+    if (special_item) {
+        var temp_id = 1
+        var temp_cptlist = get_tdoll_from_id(temp_id)
+    }
 
 
-    // 填充表头（跳过定位）
-    // 定宽行及表头
+    // 填充表头，跳过定位
+    // 定宽行及表头（应用筛选规则1）
     str_tbody += '<tr>'
     str_tbody += '<td class="table_info_compatibility">'
     str_tbody += '<img src="ui/width50.png"><br><b><span style="color:red">玩点配合</span></b>'
@@ -63,7 +72,7 @@ function show_compatibility(command) {
         }
     }
     str_tbody += '</tr>'
-    // 行数据（应用筛选规则）
+    // 行数据（应用筛选规则0、1）
     for (var r = 0; r < list_element.length; r++) {
         var is_display = true
         var str_temp_rank = ''
@@ -114,6 +123,17 @@ function show_compatibility(command) {
 }
 
 function change_display_cpt(command) {
+    if (command === 'no-item' || command === 'select-item') {
+        // 设置command0值
+        global_ui_command[0] = command
+        // 按钮着色初始化
+        document.getElementById('btn_show_cpt_no_item').className = 'btn btn-outline btn-success'
+        document.getElementById('btn_show_cpt_select_item').className = 'btn btn-outline btn-success'
+        // do
+        if (command === 'no-item') document.getElementById('btn_show_cpt_no_item').className = 'btn btn-success'
+        else if (command === 'select-item') document.getElementById('btn_show_cpt_select_item').className = 'btn btn-success'
+    }
+
     if (command === 'all' || command === 'no-empty' || command === 'no-empty-rank') {
         // 设置command1值
         global_ui_command[1] = command
@@ -127,18 +147,7 @@ function change_display_cpt(command) {
         else if (command === 'no-empty-rank') document.getElementById('btn_show_cpt_no_empty_rank').className = 'btn btn-primary'
     }
 
-    else if (command === 'no-item' || command === 'select-item') {
-        // 设置command0值
-        global_ui_command[0] = command
-        // 按钮着色初始化
-        document.getElementById('btn_show_cpt_no_item').className = 'btn btn-outline btn-success'
-        document.getElementById('btn_show_cpt_select_item').className = 'btn btn-outline btn-success'
-        // do
-        if (command === 'no-item') document.getElementById('btn_show_cpt_no_item').className = 'btn btn-success'
-        else if (command === 'select-item') document.getElementById('btn_show_cpt_select_item').className = 'btn btn-success'
-    }
-
-    show_compatibility(command)
+    show_compatibility()
     colored_cpt(command)
 }
 
