@@ -396,5 +396,4 @@ window.onload = function () {
   init_generate_map()
   init_fill_select_list()
   show_compatibility('all')
-  colored_cpt()
 }

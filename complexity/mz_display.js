@@ -101,10 +101,6 @@ function show_compatibility() {
             str_temp_rank += ' id="cpt_tl_' + r + '"' // 表侧编号：cpt_tl_xxx
             str_temp_rank += '>'
             // 着色
-            console.log(list_element[r][2])
-            if (list_element[r][2] === 1 || list_element[r][1] === 2) {
-                str_temp_rank += '1'
-            }
             str_temp_rank += list_element[r][1]
             str_temp_rank += '</td>'
             for (var c = 0; c < list_element.length; c++) {
@@ -112,21 +108,37 @@ function show_compatibility() {
                 if (no_empty_column) is_push = global_ui_showcpt_column_it_list[c] // 是否显示该列
 
                 if (is_push) {
-                    str_temp_rank += '<td class="table_info_compatibility_ratio"'
-                    str_temp_rank += ' id="cpt_td_' + r + '_' + c + '"' // 表格编号：cpt_td_r_c
-                    str_temp_rank += '>'
+                    var temp_td_html = '',
+                        temp_td_style = '',
+                        temp_td_rgb = 0,
+                        temp_td_value = 0
+                    // 提前计算是否需要显示内容
                     if (lib_cpt_tag.get(list_element[r][0]) != undefined) { // 当前行有可配合tag
                         var temp_cptlist = lib_cpt_tag.get(list_element[r][0])
                         var temp_it = is_element_in_array(list_element[c][0], temp_cptlist, 0)
                         // 显示相似性百分比
                         if (temp_it != -1) {
-                            str_temp_rank += '<span data-placement="top" data-toggle="tooltip" title="'
-                            str_temp_rank += list_element[r][1] + '×' + list_element[c][1] + ' → ' + temp_cptlist[temp_it][2]
-                            str_temp_rank += '">'
-                            str_temp_rank += (temp_cptlist[temp_it][1] * 100) + '%'
-                            str_temp_rank += '</span>'
+                            temp_td_value = (temp_cptlist[temp_it][1] * 100) // 百分比数
+                            if (list_element[r][2] === 1) { // 【蓝色】天狼星玩点
+                                temp_td_rgb = '0,0,255,'
+                            } else if (list_element[r][2] === 2) { // 【红色】莫比乌斯玩点
+                                temp_td_rgb = '255,0,0,'
+                            }
+                            temp_td_style = ' style="background-color:rgb(' + temp_td_rgb + ((temp_td_value) / 400) + ')" '
+
+                            temp_td_html += '<span data-placement="top" data-toggle="tooltip" title="'
+                            temp_td_html += list_element[r][1] + '×' + list_element[c][1] + ' → ' + temp_cptlist[temp_it][2]
+                            temp_td_html += '">'
+                            temp_td_html += temp_td_value + '%'
+                            temp_td_html += '</span>'
                         }
                     }
+
+                    str_temp_rank += '<td class="table_info_compatibility_ratio"'
+                    str_temp_rank += ' id="cpt_td_' + r + '_' + c + '"' // 表格编号：cpt_td_r_c
+                    str_temp_rank += temp_td_style
+                    str_temp_rank += '>'
+                    str_temp_rank += temp_td_html
                     str_temp_rank += '</td>'
                 }
 
@@ -168,7 +180,6 @@ function change_display_cpt(command) {
     }
 
     show_compatibility()
-    colored_cpt(command)
 }
 function change_display_cpt_select(command) {
     if (command === 0) { // 是否选取特定物品
@@ -199,27 +210,27 @@ function change_display_cpt_select(command) {
 
 }
 
-function colored_cpt(command) {
-    // 染色
-    for (var r = 0; r < global_ui_showcpt_length; r++) {
-        for (var c = 0; c < global_ui_showcpt_length; c++) {
-            var is_colored = true
-            if (command === 'no-empty' || command === 'no-empty-rank') {
-                is_colored = (is_colored && global_ui_showcpt_rank_it_list[r])
-            }
-            if (command === 'no-empty') is_colored = is_colored && global_ui_showcpt_column_it_list[c]
+// function colored_cpt(command) {
+//     // 染色
+//     for (var r = 0; r < global_ui_showcpt_length; r++) {
+//         for (var c = 0; c < global_ui_showcpt_length; c++) {
+//             var is_colored = true
+//             if (command === 'no-empty' || command === 'no-empty-rank') {
+//                 is_colored = (is_colored && global_ui_showcpt_rank_it_list[r])
+//             }
+//             if (command === 'no-empty') is_colored = is_colored && global_ui_showcpt_column_it_list[c]
 
-            if (is_colored) {
-                if (document.getElementById('cpt_td_' + r + '_' + c) != null) {
-                    if (document.getElementById('cpt_td_' + r + '_' + c).innerHTML != '') {
-                        var temp_str = document.getElementById('cpt_td_' + r + '_' + c).innerHTML
-                        temp_str = (temp_str.split('%')[0]).split('>')[1]
-                        var color_percent = (parseInt(temp_str) / 100) * 0.2
-                        document.getElementById('cpt_td_' + r + '_' + c).style.backgroundColor = 'rgb(255,0,0,' + color_percent + ')'
-                    }
-                }
-            }
+//             if (is_colored) {
+//                 if (document.getElementById('cpt_td_' + r + '_' + c) != null) {
+//                     if (document.getElementById('cpt_td_' + r + '_' + c).innerHTML != '') {
+//                         var temp_str = document.getElementById('cpt_td_' + r + '_' + c).innerHTML
+//                         temp_str = (temp_str.split('%')[0]).split('>')[1]
+//                         var color_percent = (parseInt(temp_str) / 100) * 0.2
+//                         document.getElementById('cpt_td_' + r + '_' + c).style.backgroundColor = 'rgb(255,0,0,' + color_percent + ')'
+//                     }
+//                 }
+//             }
 
-        }
-    }
-}
+//         }
+//     }
+// }

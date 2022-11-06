@@ -126,7 +126,7 @@ var lib_tdoll = [
     create_entry([1, 2, 11032, [[0, 1, 'sirius_orientation_intel', 3], [0, 1, 'sirius_orientation_interference', 3]]],
         [
             [[1, 2, 'gp_s_intel_maplocate', 3]],
-            [[1, 4, 'gp_s_block_slow', 3], [1, 3, 'gp_s_itf_followboost', 3, '**'], [1, 4, 'gp_s_block_control', 2, '***']],
+            [[1, 4, 'gp_s_block_slowfar', 3], [1, 3, 'gp_s_itf_followboost', 3, '**'], [1, 4, 'gp_s_block_control', 2, '***']],
         ]
     ),
     // 旅行者
@@ -306,7 +306,7 @@ var lib_tag = [
         ['gp_s_support_boost', 'gp_s_support_saverecover', 'gp_s_support_longwaitrescue', 'gp_s_support_remoterescue'], // 援护
         ['gp_s_intel_weakarea', 'gp_s_intel_strongarea', 'gp_s_intel_acclocate', 'gp_s_intel_maplocate'], // 情报
         ['gp_s_itf_phantom', 'gp_s_itf_phantomplus', 'gp_s_itf_npcmovearound', 'gp_s_itf_npcscare', 'gp_s_itf_followboost', 'gp_s_itf_walkboost'], // 干扰
-        ['gp_s_block_slow', 'gp_s_block_control', 'gp_s_block_weakresist', 'gp_s_block_forcemove', 'gp_s_block_disarm', 'gp_s_block_watchflash', 'gp_s_block_watchsmoke'], // 阻制
+        ['gp_s_block_slow', 'gp_s_block_slowfar', 'gp_s_block_control', 'gp_s_block_weakresist', 'gp_s_block_forcemove', 'gp_s_block_disarm', 'gp_s_block_watchflash', 'gp_s_block_watchsmoke'], // 阻制
         ['gp_s_survive_boost', 'gp_s_survive_highhp', 'gp_s_survive_shield', 'gp_s_survive_highprotect', 'gp_s_survive_highqte', 'gp_s_survive_highstamina'], // 生存
         ['gp_s_hide_invi', 'gp_s_hide_reduceexpose', 'gp_s_hide_changecloth', 'gp_s_hide_disguise', 'gp_s_hide_npcnotfight', 'gp_s_hide_npcfree'], // 隐秘
 
@@ -377,6 +377,7 @@ var lib_tag_1 = {
     gp_s_itf_walkboost: '行走加速',
 
     gp_s_block_slow: '减速',
+    gp_s_block_slowfar: '远离减速',
     gp_s_block_control: '控制',
     gp_s_block_weakresist: '控制抗性削弱',
     gp_s_block_forcemove: '强制位移',
@@ -421,6 +422,7 @@ var tag1_gp_s_hack_boost = new Map,
     tag1_gp_s_itf_walkboost = new Map,
 
     tag1_gp_s_block_slow = new Map,
+    tag1_gp_s_block_slowfar = new Map,
     tag1_gp_s_block_control = new Map,
     tag1_gp_s_block_weakresist = new Map,
     tag1_gp_s_block_forcemove = new Map,

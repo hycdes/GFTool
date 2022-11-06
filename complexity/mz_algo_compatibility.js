@@ -1,9 +1,63 @@
 // 玩点配合Map，存在即这个tag包含了玩点配合值
 var lib_cpt_tag = new Map
-// 天狼星玩法配合
+
+// 天狼星玩法配合#0
+lib_cpt_tag.set('gp_s_hack_boost', [
+    ['gp_s_hack_relay', 0.5, '达到进度保存点'],
+])
+lib_cpt_tag.set('gp_s_hack_relay', [
+    ['gp_s_hack_boost', 0.5, '达到进度保存点'],
+    ['gp_s_intel_weakarea', 0.2, '保护接力破译'],
+    ['gp_s_intel_strongarea', 0.6, '保护接力破译'],
+    ['gp_s_intel_acclocate', 1, '保护接力破译'],
+    ['gp_s_intel_maplocate', 0.6, '保护接力破译'],
+    ['gp_s_block_slowfar', 0.6, '保护接力破译'],
+])
+// 天狼星玩法配合#1
+// 天狼星玩法配合#2
+lib_cpt_tag.set('gp_s_intel_weakarea', [
+    ['gp_s_hack_relay', 0.2, '保护接力破译'],
+])
+lib_cpt_tag.set('gp_s_intel_strongarea', [
+    ['gp_s_hack_relay', 0.6, '保护接力破译'],
+])
+lib_cpt_tag.set('gp_s_intel_acclocate', [
+    ['gp_s_hack_relay', 1, '保护接力破译'],
+])
+lib_cpt_tag.set('gp_s_intel_maplocate', [
+    ['gp_s_hack_relay', 0.6, '保护接力破译'],
+])
+
+// 天狼星玩法配合#3
 lib_cpt_tag.set('gp_s_itf_phantom', [
-    ['gp_s_block_watchsmoke', 1, '逃生组合'],
-    ['gp_s_block_watchflash', 0.5, '逃生组合'],
+    ['gp_s_block_watchsmoke', 1, '强化幻影迷惑'],
+    ['gp_s_block_watchflash', 0.5, '强化幻影迷惑'],
+    ['gp_s_hide_disguise', 1, '强化幻影迷惑'],
+])
+// 天狼星玩法配合#4
+lib_cpt_tag.set('gp_s_block_slowfar', [
+    ['gp_s_hack_relay', 0.6, '保护接力破译'],
+])
+lib_cpt_tag.set('gp_s_block_control', [
+    ['gp_s_block_weakresist', 1, '增强控制'],
+])
+lib_cpt_tag.set('gp_s_block_weakresist', [
+    ['gp_s_block_control', 1, '增强控制'],
+])
+lib_cpt_tag.set('gp_s_block_watchsmoke', [
+    ['gp_s_itf_phantom', 1, '强化幻影迷惑'],
+    ['gp_s_block_watchflash', 0.3, '强化视觉遮蔽'],
+    ['gp_s_hide_disguise', 0.3, '变装不易察觉'],
+])
+lib_cpt_tag.set('gp_s_block_watchflash', [
+    ['gp_s_itf_phantom', 0.5, '强化幻影迷惑'],
+    ['gp_s_block_watchsmoke', 0.3, '强化视觉遮蔽'],
+])
+// 天狼星玩法配合#5
+// 天狼星玩法配合#6
+lib_cpt_tag.set('gp_s_hide_disguise', [
+    ['gp_s_itf_phantom', 1, '强化幻影迷惑'],
+    ['gp_s_block_watchsmoke', 0.3, '变装不易察觉'],
 ])
 
 // 莫比乌斯玩法配合
