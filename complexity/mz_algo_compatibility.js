@@ -38,7 +38,10 @@ set_cpt('gp_m_intel_cloth', 'gp_m_block_lockexposearea', 0.6, '位置锁定')
 
 // 实战修正
 var lib_cpt_bios = new Map
-set_cpt_bios(11032, 'gp_s_block_control', 100, 'prop')
+set_cpt_bios(11011, 'gp_u_other_selfonly', 50, 'prop')
+set_cpt_bios(11012, 'gp_u_other_selfonly', 50, 'prop')
+set_cpt_bios(11032, 'gp_s_block_control', 50, 'prop')
+set_cpt_bios(11061, 'gp_u_other_selfonly', 100, 'prop')
 
 // 玩点配合值Map，记录tag*tag分数最高值
 // 结构：< tag_name , [ tag_this_name , value ] >

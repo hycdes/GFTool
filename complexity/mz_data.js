@@ -70,10 +70,10 @@ lib_skillname.set(2100, [[0, '制导式脉冲'], [1, '观测枢纽'], [1, '扫�
 lib_skillname.set(2120, [[0, '标记：出头鸟'], [1, '狩猎：出头鸟'], [1, '暴龙本色'], [1, '飞雷爪击']])
 lib_skillname.set(2160, [[0, '全线封杀'], [1, '封锁令'], [1, '亲临现场']])
 
-lib_skillname.set(3002, [[1, '幻影']])
-lib_skillname.set(3003, [[1, '扫描']])
-lib_skillname.set(3004, [[1, '烟雾弹']])
-lib_skillname.set(3005, [[1, '易拉罐']])
+// lib_skillname.set(3002, [[1, '幻影']])
+// lib_skillname.set(3003, [[1, '扫描']])
+// lib_skillname.set(3004, [[1, '烟雾弹']])
+// lib_skillname.set(3005, [[1, '易拉罐']])
 
 var lib_tdoll = [
     // tag内容格式
@@ -155,7 +155,7 @@ var lib_tdoll = [
     // 替身徽章
     create_entry([2, 1, 1001, [[0, 1, 'sirius_orientation_interference', 2], [0, 1, 'sirius_orientation_survive', 4]]],
         [
-            [[1, 6, 'gp_s_hide_invi', 4], [1, 6, 'gp_s_itf_phantom', 1]],
+            [[3, 2, 'gp_u_other_selfonly', -1], [1, 6, 'gp_s_hide_invi', 4], [1, 6, 'gp_s_itf_phantom', 1]],
         ]
     ),
     // 幻觉飞弹
@@ -167,13 +167,13 @@ var lib_tdoll = [
     // 巨星玩偶
     create_entry([2, 1, 1004, [[0, 1, 'sirius_orientation_hack', 1], [0, 1, 'sirius_orientation_interference', 3], [0, 1, 'sirius_orientation_survive', 2]]],
         [
-            [[1, 3, 'gp_s_itf_npcmovearound', 5], [1, 0, 'gp_s_hack_slowcodenpc', 2, '*'], [1, 0, 'gp_s_itf_walkboost', 5, '**'], [1, 6, 'gp_s_hide_disguise', -1, '***'], [3, 1, 'gp_u_normal_npc', -1], [3, 1, 'gp_u_code_npc', -1, '*']],
+            [[3, 2, 'gp_u_other_supportonly', -1], [1, 3, 'gp_s_itf_npcmovearound', 5], [1, 0, 'gp_s_hack_slowcodenpc', 2, '*'], [1, 0, 'gp_s_itf_walkboost', 5, '**'], [1, 6, 'gp_s_hide_disguise', -1, '***'], [3, 1, 'gp_u_normal_npc', -1], [3, 1, 'gp_u_code_npc', -1, '*']],
         ]
     ),
     // 隐身盾牌
     create_entry([2, 1, 1006, [[0, 1, 'sirius_orientation_survive', 5]]],
         [
-            [[1, 6, 'gp_s_hide_invi', 3]],
+            [[3, 2, 'gp_u_other_selfonly', -1], [1, 6, 'gp_s_hide_invi', 3]],
         ]
     ),
     // 棒球烟雾弹
@@ -191,25 +191,25 @@ var lib_tdoll = [
     // 门锁干扰器
     create_entry([2, 1, 1011, [[0, 1, 'sirius_orientation_support', 2], [0, 1, 'sirius_orientation_survive', 4]]],
         [
-            [[3, 0, 'gp_u_door', -1]],
+            [[3, 2, 'gp_u_other_selfonly', -1], [3, 0, 'gp_u_door', -1]],
         ]
     ),
     // 惊吓魔盒
     create_entry([2, 1, 1012, [[0, 1, 'sirius_orientation_interference', 5], [0, 1, 'sirius_orientation_survive', 1]]],
         [
-            [[1, 3, 'gp_s_itf_npcscare', 5], [1, 4, 'gp_s_block_weakresist', 5, '**'], [1, 5, 'gp_s_survive_boost', 1], [3, 1, 'gp_u_normal_npc', -1]],
+            [[3, 2, 'gp_u_other_supportonly', -1], [1, 3, 'gp_s_itf_npcscare', 5], [1, 4, 'gp_s_block_weakresist', 5, '**'], [1, 5, 'gp_s_survive_boost', 1], [3, 1, 'gp_u_normal_npc', -1]],
         ]
     ),
     // 救救鸭
     create_entry([2, 1, 1014, [[0, 1, 'sirius_orientation_support', 5], [0, 1, 'sirius_orientation_survive', 1]]],
         [
-            [[1, 1, 'gp_s_support_remoterescue', -1], [1, 5, 'gp_s_survive_boost', 5]],
+            [[3, 2, 'gp_u_other_supportonly', -1], [1, 1, 'gp_s_support_remoterescue', -1], [1, 5, 'gp_s_survive_boost', 5]],
         ]
     ),
     // 狗仔相机
-    create_entry([2, 1, 1016, [[0, 1, 'sirius_orientation_intel', 2], [0, 1, 'sirius_orientation_interference', 2], [0, 1, 'sirius_orientation_survive', 2]]],
+    create_entry([2, 1, 1016, [[0, 1, 'sirius_orientation_intel', 2], [0, 1, 'sirius_orientation_interference', 3]]],
         [
-            [[1, 2, 'gp_s_intel_acclocate', 2], [1, 4, 'gp_s_block_control', 3], [3, 1, 'gp_u_normal_npc', -1]],
+            [[3, 2, 'gp_u_other_supportonly', -1], [1, 4, 'gp_s_block_control', 3], [1, 2, 'gp_s_intel_acclocate', 1], [1, 4, 'gp_s_block_control', 3], [3, 1, 'gp_u_normal_npc', -1]],
         ]
     ),
 
@@ -323,7 +323,8 @@ var lib_tag = [
     // 地图玩点
     [
         ['gp_u_door', 'gp_u_leap', 'gp_u_climb'],
-        ['gp_u_normal_npc', 'gp_u_code_npc']
+        ['gp_u_normal_npc', 'gp_u_code_npc'],
+        ['gp_u_other_selfonly', 'gp_u_other_supportonly'], // 特殊性质
     ]
 ]
 // tag0 职业定位
@@ -398,6 +399,7 @@ var lib_tag_1 = {
     gp_s_hide_disguise: '变装',
     gp_s_hide_npcnotfight: 'NPC不交战',
     gp_s_hide_npcfree: 'NPC不报警'
+
 }
 var tag1_gp_s_hack_boost = new Map,
     tag1_gp_s_hack_relay = new Map,
@@ -506,13 +508,19 @@ var lib_tag_3 = {
     gp_u_normal_npc: '普通NPC',
     gp_u_code_npc: '密码NPC',
 
+    gp_u_other_selfonly: '自用为主',
+    gp_u_other_supportonly: '辅助为主'
+
 }
 var tag3_gp_u_door = new Map,
     tag3_gp_u_leap = new Map,
     tag3_gp_u_climb = new Map,
 
     tag3_gp_u_normal_npc = new Map,
-    tag3_gp_u_code_npc = new Map
+    tag3_gp_u_code_npc = new Map,
+
+    tag3_gp_u_other_selfonly = new Map,
+    tag3_gp_u_other_supportonly = new Map
 
 var lib_display_cpt_select = new Map
 lib_display_cpt_select.set(1,
