@@ -292,14 +292,14 @@
                                                             class="btn btn-outline btn-success" onclick="sort_num(20)"
                                                             id="btn_sort_num_20">显示20条</button>
                                                         <button type="button" style="width:70px;padding:3px"
-                                                            class="btn btn-warning" onclick="sort_sim(30)"
+                                                            class="btn btn-warning" onclick="sort_sim(0)"
+                                                            id="btn_sort_sim_0">不限制</button>
+                                                        <button type="button" style="width:70px;padding:3px"
+                                                            class="btn btn-outline btn-warning" onclick="sort_sim(30)"
                                                             id="btn_sort_sim_30">相似≥30%</button>
                                                         <button type="button" style="width:70px;padding:3px"
                                                             class="btn btn-outline btn-warning" onclick="sort_sim(50)"
                                                             id="btn_sort_sim_50">相似≥50%</button>
-                                                        <button type="button" style="width:70px;padding:3px"
-                                                            class="btn btn-outline btn-warning" onclick="sort_sim(0)"
-                                                            id="btn_sort_sim_0">不限制</button>
                                                     </p>
 
                                                     <div style="height:300px;overflow-y:scroll">
@@ -317,24 +317,38 @@
                                                 </div>
 
                                                 <div class="tab-pane fade" id="commit_partner">
-                                                    <table class="table table-bordered table-hovered">
-                                                        <thead>
-                                                            <th style="text-align:center">角色或道具</th>
-                                                            <th style="text-align:center">搭配度</th>
-                                                            <th style="text-align:center">定位总分</th>
-                                                            <th style="text-align:center">玩点配合</th>
-                                                        </thead>
-                                                        <tbody id="result_2_par"></tbody>
+                                                    <table class="table table-bordered">
+                                                        <tr>
+                                                            <td>
+                                                                <table class="table table-bordered table-hovered">
+                                                                    <thead>
+                                                                        <th style="text-align:center">角色</th>
+                                                                        <th style="text-align:center">搭配度</th>
+                                                                    </thead>
+                                                                    <tbody id="result_1_par"></tbody>
+                                                                </table>
+                                                            </td>
+                                                            <td>
+                                                                <table class="table table-bordered table-hovered">
+                                                                    <thead>
+                                                                        <th style="text-align:center">道具</th>
+                                                                        <th style="text-align:center">搭配度</th>
+                                                                    </thead>
+                                                                    <tbody id="result_2_par"></tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
                                                     </table>
+
                                                 </div>
 
                                                 <div class="tab-pane fade" id="commit_anti">
                                                     <table class="table table-bordered table-hovered">
                                                         <thead>
                                                             <th style="text-align:center">角色或道具</th>
-                                                            <th style="text-align:center">搭配度</th>
+                                                            <th style="text-align:center">克制度</th>
                                                             <th style="text-align:center">定位总分</th>
-                                                            <th style="text-align:center">玩点配合</th>
+                                                            <th style="text-align:center">玩点克制</th>
                                                         </thead>
                                                         <tbody id="result_2_ant"></tbody>
                                                     </table>

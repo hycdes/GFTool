@@ -1,7 +1,7 @@
 var num_taglist = 4 // 首页标签列表数量
 var num_sort = 7 // 默认相似度排序展示数
 var num_sort2 = 100
-var num_sort_sim = 30
+var num_sort_sim = 0
 var num_sort_par
 var pick_id = -1 //
 var pick_tag = [
@@ -209,7 +209,7 @@ var lib_tdoll = [
     // 狗仔相机
     create_entry([2, 1, 1016, [[0, 1, 'sirius_orientation_intel', 2], [0, 1, 'sirius_orientation_interference', 2], [0, 1, 'sirius_orientation_survive', 2]]],
         [
-            [[1, 2, 'gp_s_intel_acclocate', 2], [1, 4, 'gp_s_block_control', 5], [3, 1, 'gp_u_normal_npc', -1]],
+            [[1, 2, 'gp_s_intel_acclocate', 2], [1, 4, 'gp_s_block_control', 3], [3, 1, 'gp_u_normal_npc', -1]],
         ]
     ),
 

@@ -240,6 +240,14 @@ function get_tdoll_from_id(id) {
     if (lib_tdoll[i].id === id) return lib_tdoll[i]
   }
 }
+function get_dev_percent(tag) {
+  if (tag.length > 4) {
+    if (tag[4].length === 1) return 0.9 // 初级成长假定90%局势有效
+    else if (tag[4].length === 2) return 0.7 // 中级成长假定70%局势有效
+    else if (tag[4].length === 3) return 0.4 // 高级成长假定40%局势有效
+  }
+  else return 1
+}
 function get_btn_color(num) {
   if (num === 0) return 'success'
   if (num === 1) return 'primary'
@@ -261,6 +269,13 @@ function get_ort_index(type, ort_name) {
     else if (ort_name === 'mobius_orientation_agile') return 2
     else if (ort_name === 'mobius_orientation_intel') return 3
     else if (ort_name === 'mobius_orientation_hide') return 4
+  }
+  else if (type === 'sirius_hero' || type === 'sirius_prop') {
+    if (ort_name === 'sirius_orientation_hack') return 0
+    else if (ort_name === 'sirius_orientation_support') return 1
+    else if (ort_name === 'sirius_orientation_intel') return 2
+    else if (ort_name === 'sirius_orientation_interference') return 3
+    else if (ort_name === 'sirius_orientation_survive') return 4
   }
   return -1
 }
