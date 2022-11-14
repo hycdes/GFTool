@@ -33,7 +33,7 @@ var reso_nt = [30, 30, 30, 30], // max 999
     [63, 'G3'], [68, 'L85A1'], [71, '加利尔'], [74, 'SIG-50'], [107, 'F2000'], [133, '63式'],
     [16, '汤姆森'], [20, 'Vector'], [28, 'MP7'], [104, 'G36C'], [115, '索米'], [127, '79式'], [135, 'SR-3MP'], [213, 'C-MS'], [228, '樱花'], [245, 'P90'],
     [23, 'PP-90'], [26, 'MP5'], [101, 'UMP9'], [103, 'UMP45'], [137, 'PP-19-01'], [150, '希普卡'],
-    [18, 'MAC-10'], [23, 'PPS-43'], [27, '蝎式'], [29, '司登 MkⅡ'], [32, '微型乌兹'], [116, 'Z-62'],
+    [18, 'MAC-10'], [22, 'PPS-43'], [27, '蝎式'], [29, '司登 MkⅡ'], [32, '微型乌兹'], [116, 'Z-62'],
     [17, 'M3'], [21, 'PPsh-41'], [24, 'PP2000'], [25, 'MP-40'], [31, '伯莱塔38型'], [33, 'M45'], [92, 'Spectre M4'], [93, 'IDW'], [94, '64式'],
     [261, 'QBU-88'], [257, 'M200'], [198, '卡尔卡诺M91/38'], [197, '卡尔卡诺M1891'], [148, 'IWS2000'], [128, 'M99'], [53, 'NTW-20'], [50, '李·恩菲尔德'], [48, 'WA2000'], [46, 'Kar98k'],
     [36, '春田'], [39, '莫辛·纳甘'], [42, 'PTRD'], [43, 'SVD'], [117, 'PSG-1'], [146, 'G28'], [180, 'PzB39'], [184, 'T-5000'], [235, 'SPR-A3G'], [247, 'K31'], [270, '四式'],
@@ -238,7 +238,7 @@ function makeTdoll(Mw, Aw, Rw, Pw, starNum) { // Normal-produce T-doll, possibil
       }
     } else if (starNum === 3) {
       TdollList.push(creatTdollInfo_SMG('SMG@18', 178))
-      TdollList.push(creatTdollInfo_SMG('SMG@23', 99))
+      TdollList.push(creatTdollInfo_SMG('SMG@22', 99))
       TdollList.push(creatTdollInfo_SMG('SMG@27', 130))
       TdollList.push(creatTdollInfo_SMG('SMG@29', 298))
       TdollList.push(creatTdollInfo_SMG('SMG@32', 188))
