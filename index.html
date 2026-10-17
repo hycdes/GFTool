@@ -1,56 +1,142 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>命运の乐章 工具站</title>
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>命运の乐章工具站</title>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="favicon-32.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <style>
+    :root {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --text: #1d1d1f;
+      --text-2: #86868b;
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 14px 44px rgba(0, 0, 0, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
+
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+        "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(760px 420px at 50% -12%, rgba(0, 113, 227, 0.1), transparent 70%);
+      pointer-events: none;
+    }
+
+    main {
+      position: relative;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    h1 {
+      margin: 0 0 36px;
+      text-align: center;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      letter-spacing: -0.6px;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .tile {
+      --c: #e6005c;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 200px;
+      padding: 32px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+
+    .tile.gf2 { --c: #0071e3; }
+
+    .tile::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 64px;
+      height: 3px;
+      border-radius: 0 0 3px 3px;
+      background: var(--c);
+      opacity: 0.85;
+    }
+
+    .tile:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(0, 0, 0, 0.14);
+    }
+
+    .tile-name {
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: -0.4px;
+    }
+
+    .tile-sub {
+      font-size: 12px;
+      letter-spacing: 0.3px;
+      color: var(--text-2);
+    }
+
+    @media (max-width: 640px) {
+      .tiles { grid-template-columns: 1fr; }
+      .tile { min-height: 160px; }
+    }
+  </style>
 </head>
 
 <body>
-    <script>
-        function jumpPage(command) {
-            if (command === 'gf') window.location.href = "pages/index.html";
-            else if (command === 'ak') window.location.href = "pages/AKT_index.html";
-            else if (command === 'pns') window.location.href = "pages/PNS_beta.html";
-        }
-    </script>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default" style="width:400px;text-align:center">
-                    <div class="panel-heading">
-                        <h3 class="panel-title" style="text-align:center">欢迎访问 命运の乐章 工具站</h3>
-                    </div>
-                    <div class="panel-body">
-                        <h8>&nbsp</h8>
-                        <form role="form">
-                            <table class="table table-bordered" style="width:350px">
-                                <tbody>
-                                    <tr>
-                                        <td><img src="img/btn_GFT.jpg" style="cursor:pointer" onclick='jumpPage("gf")'>
-                                        </td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/metisMenu/metisMenu.min.js"></script>
-    <script src="dist/js/sb-admin-2.js"></script>
+  <main>
+    <h1>命运の乐章工具站</h1>
+    <nav class="tiles">
+      <a class="tile gf1" href="gf1/index.html">
+        <span class="tile-name">少女前线</span>
+        <span class="tile-sub">Girls' Frontline</span>
+      </a>
+      <a class="tile gf2" href="gf2/index.html">
+        <span class="tile-name">少女前线2：追放</span>
+        <span class="tile-sub">Girls' Frontline 2: Exilium</span>
+      </a>
+    </nav>
+  </main>
 </body>
 
 </html>

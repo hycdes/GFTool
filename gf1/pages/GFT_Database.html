@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>少女前线-资料库 by 命运の乐章</title>
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script>
+        function playGIF(imgType, imgNum) {
+            var playArea = document.getElementById('GIFArea');
+            if (imgType === 1) {
+                if (imgNum === 1) playArea.innerHTML = '<img src="../img/GIF/0-2_1.gif" alt="">';
+                if (imgNum === 2) playArea.innerHTML = '<img src="../img/GIF/0-2_2.gif" alt="">';
+            }
+            if (imgType === 2) {
+                if (imgNum === 1) playArea.innerHTML = '<img src="../img/GIF/8-1n_1.gif" alt="">';
+                if (imgNum === 2) playArea.innerHTML = '<img src="../img/GIF/8-1n_2.gif" alt="">';
+                if (imgNum === 3) playArea.innerHTML = '<img src="../img/GIF/8-1n_3.gif" alt="">';
+            }
+            if (imgType === 3) {
+                if (imgNum === 1) playArea.innerHTML = '<img src="../img/GIF/11-5_1.gif" alt="">';
+                if (imgNum === 2) playArea.innerHTML = '<img src="../img/GIF/11-5_2.gif" alt="">';
+                if (imgNum === 3) playArea.innerHTML = '<img src="../img/GIF/11-5_3.gif" alt="">';
+            }
+        }
+    </script>
+    <style type="text/css">
+        .table_crowd {
+            padding: 0px;
+            text-align: left;
+        }
+    </style>
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span style="color:#FF0066">少女前线工具</span> by 命运の乐章 (GF tools)</a>
+            </div>
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </li>
+                        <li><a href="index.html"><i class="fa fa-home fa-fw"></i> 主页</a></li>
+                        <li><a href="GFT_Database.html"><i class="fa fa-book fa-fw"></i> 资料库</a></li>
+                        <li><a href="GFT_LogiRank.html"><i class="fa fa-briefcase fa-fw"></i> 后勤排序器</a></li>
+                        <li><a href="GFT_LevelCal.html"><i class="fa fa-upload fa-fw"></i> 练级计算器</a></li>
+                        <li><a href="GFT_IOPSimulate.html"><i class="fa fa-gears fa-fw"></i> 建造模拟器</a></li>
+                        <li><a href="GFT_ChipCal.html"><i class="fa fa-delicious fa-fw"></i> 芯片计算器</a></li>
+                        <li><a href="GFT_Echelon.html"><i class="glyphicon glyphicon-screenshot"></i> &nbsp阵形模拟器</a></li>
+                        <li><a href="GFT_Stat.html"><i class="glyphicon glyphicon-stats"></i> &nbsp掉落统计</a></li>
+                        <li><a href="GFT_Class.html"><i class="fa fa-search"></i> &nbsp格里芬人事部</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Main Pages -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">资料库 <span style="font-size:15px;color:gray" id="info_version"></span></h1>
+                    </div>
+                    <script src="../js/version_GFT.js"></script>
+                    <script>document.getElementById('info_version').innerHTML = _version.DB</script>
+                    <!--No.1 Guide & Reference-->
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                指南和参考
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#StrategyIndex" data-toggle="tab">攻略合集</a>
+                                    </li>
+                                    <li><a href="#Usefulmap" data-toggle="tab">刷图GIF教程</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="StrategyIndex" style="background:url(../img/DB-Echelon.png) no-repeat right top;">
+                                        <h4>萌新教学</h4>
+                                        <p>[<u><a href="https://www.bilibili.com/video/av35145448" target="_blank">视频</a></u>] 新人十分钟<span style="color:#FF0066">全方位入门</span></p>
+                                        <p>[<u><a href="https://www.bilibili.com/video/av49629686" target="_blank">视频</a></u>] 少女前线问题终结者！<span style="color:#FF0066">直击新人痛点</span>！</p>
+                                        <p>[<u><a href="../img/database/data_0-1.png" target="_blank">图片</a></u>] 第一队主力<span style="color:#FF0066">高性价比推荐</span></p>
+                                        <p>[<u><a href="../img/database/data_0-2.png" target="_blank">图片</a></u>] 怎么<span style="color:#FF0066">升级最快</span>！</p>
+                                        <h4>攻略合集</h4>
+                                        <p>[<u><a href="https://www.bilibili.com/video/av75003021" target="_blank">视频</a></u>] <span style="color:#FF0066">少女前线全剧情解说</span></p>
+                                        <p>
+                                            [<u><a href="../img/database/data_3-1.jpg" target="_blank">图片</a></u>] 人形强度榜(转载)
+                                            [<u><a href="../img/database/data_3-5.png" target="_blank">图片</a></u>] 妖精光环排行
+                                        </p>
+                                        <p>
+                                            [<u><a href="../img/database/data_3-2.jpg" target="_blank">图片</a></u>] AR队配队(转载)
+                                            [<u><a href="../img/database/data_3-3.jpg" target="_blank">图片</a></u>] RF队配队(转载)
+                                            [<u><a href="../img/database/data_3-4.jpg" target="_blank">图片</a></u>] MG队配队(转载)
+                                        </p>
+                                        <p>
+                                            [<u><a href="https://www.bilibili.com/video/av41524897" target="_blank">视频</a></u>] 重装部队视频教学
+                                            [<u><a href="../img/database/data_4-2.png" target="_blank">图片</a></u>] 各类重装用不到的芯片
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane fade" id="Usefulmap" style="background:url(../img/Produce-16lab.png) no-repeat right bottom;">
+                                        <h5>&nbsp</h5>
+                                        <table class="table table-bordered table-hover" style="width: 560px; height:315px; text-align: center">
+                                            <tbody>
+                                                <tr>
+                                                    <td id="GIFArea">GIF预览区<br>按下对应地图按钮，动态图将在此显示<br>手机请注意流量</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h4>0-2 教程</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(1,1)">放置和补给</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(1,2)">战斗阵形</button>
+                                        </p>
+                                        <h4>8-1N 教程</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(2,1)">放置和补给</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(2,2)">战斗阵形</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(2,3)">快速切换队伍</button>
+                                        </p>
+                                        <h4>11-5 教程</h4>
+                                        <p>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(3,1)">放置和补给</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(3,2)">战斗阵形-黑雷</button>
+                                            <button type="button" class="btn btn-default" onclick="playGIF(3,3)">战斗阵形</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--No.2 Data-->
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                数据查询
+                            </div>
+                            <div class="panel-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#Produce" data-toggle="tab">建造</a>
+                                    </li>
+                                    <li><a href="#Strengthen" data-toggle="tab">升级与强化</a>
+                                    </li>
+                                    <li><a href="#NightMap" data-toggle="tab">夜战地图</a>
+                                    </li>
+                                    <li><a href="#UsefulWeb" data-toggle="tab">常用站点</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="Produce" style="background:url(../img/DB-IOP.png) no-repeat right top;">
+                                        <h4>时间表</h4>
+                                        <p>建造时间表(转载)：<u><a href="../img/database/data_1-1.png" target="_blank">少女前线建造时间表</a></u></p>
+                                        <h4>阈值和特化公式</h4>
+                                        <p>建造阈值和建造概率：<u><a href="../img/database/data_1-2.png" target="_blank">建造阈值和建造概率</a></u>&nbsp&nbsp<a href="https://tieba.baidu.com/p/5616725529?red_tag=1655095007" target="_blank"><span style="color:gray">[参考资料链接]</span></a></p>
+                                        <p>推荐公式：<u><a href="../img/database/data_1-3.png" target="_blank">装备人形高概率建造公式</a></u></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="Strengthen">
+                                        <h4>自律升级</h4>
+                                        <p>最高<span style="color:#FF0066">性价比</span>：<u><a href="../img/database/data_SR-1.png" target="_blank">排行前15自律地图</a></u>&nbsp&nbsp<a href="http://ngabbs.com/read.php?tid=16173232" target="_blank"><span style="color:gray">[参考资料链接]</span></a></p>
+                                        <p>最高<span style="color:#FF0066">性价比</span>：<u><a href="../img/database/data_SR-2.png" target="_blank">衰减等级90级以上自律地图</a></u></p>
+                                        <p>最高<span style="color:#FF0066">经验</span>：<u><a href="../img/database/data_SR-3.png" target="_blank">排行前15自律地图</a></u></p>
+                                        <p>最高<span style="color:#FF0066">经验</span>：<u><a href="../img/database/data_SR-4.png" target="_blank">衰减等级90级以上自律地图</a></u></p>
+                                        <h4>强化的消耗</h4>
+                                        <p>强化和技能升级消耗：<u><a href="../img/database/data_2-1.png" target="_blank">装备强化和技能升级消耗</a></u></p>
+                                        <h4>属性提升</h4>
+                                        <p>三改后升级：<u><a href="../img/database/data_2-2.png" target="_blank">三改后人形升级属性提升</a></u>&nbsp&nbsp<a href="https://nga.178.com/read.php?tid=15940787" target="_blank"><span style="color:gray">[参考资料链接]</span></a></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="NightMap">
+                                        <h4>全息地图</h4>
+                                        <p><a href="https://gf.underseaworld.net" target="_blank"><span style="color:gray">[数据来源]</span></a> * 地图仅显示初始固定敌人</p>
+                                        <p><a href="../img/database/img_data_Night1-1.png" target="_blank">1-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night1-2.png" target="_blank">1-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night1-3.png" target="_blank">1-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night1-4.png" target="_blank">1-4N</a></p>
+                                        <p><a href="../img/database/img_data_Night2-1.png" target="_blank">2-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night2-2.png" target="_blank">2-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night2-3.png" target="_blank">2-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night2-4.png" target="_blank">2-4N</a></p>
+                                        <p><a href="../img/database/img_data_Night3-1.png" target="_blank">3-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night3-2.png" target="_blank">3-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night3-3.png" target="_blank">3-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night3-4.png" target="_blank">3-4N</a></p>
+                                        <p><a href="../img/database/img_data_Night4-1.png" target="_blank">4-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night4-2.png" target="_blank">4-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night4-3.png" target="_blank">4-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night4-4.png" target="_blank">4-4N</a></p>
+                                        <p><a href="../img/database/img_data_Night5-1.png" target="_blank">5-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night5-2.png" target="_blank">5-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night5-3.png" target="_blank">5-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night5-4.png" target="_blank">5-4N</a></p>
+                                        <p><a href="../img/database/img_data_Night6-1.png" target="_blank">6-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night6-2.png" target="_blank">6-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night6-3.png" target="_blank">6-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night6-4.png" target="_blank">6-4N</a></p>
+                                        <p><a href="../img/database/img_data_Night7-1.png" target="_blank">7-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night7-2.png" target="_blank">7-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night7-3.png" target="_blank">7-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night7-4.png" target="_blank">7-4N</a></p>
+                                        <p><a href="../img/database/img_data_Night8-1.png" target="_blank">8-1N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night8-2.png" target="_blank">8-2N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night8-3.png" target="_blank">8-3N</a>&nbsp&nbsp&nbsp<a href="../img/database/img_data_Night8-4.png" target="_blank">8-4N</a></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="UsefulWeb">
+                                        <h8>&nbsp</h8>
+                                        <p><a href="https://gf.underseaworld.net/zh/" target="_blank"><span style="color:gray">[少女前线数据网站]</span></a>&nbsp&nbsp全地图敌人数据速查</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                </div>
+                <div class="row">
+                    <!--No.3 Download-->
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                图片资源
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <p><span style="color:gray"> * 本站仅提供 命运の乐章 制作的图片</span></p>
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#Reso_bg" data-toggle="tab">图片资源</a>
+                                    </li>
+                                    <li><a href="#Reso_logo" data-toggle="tab">图标</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="Reso_bg">
+                                        <h4>壁纸</h4>
+                                        <table class="table_crowd" style="width:400px">
+                                            <tr>
+                                                <td style="width:250px">(1920*1080) AR+忤逆+404小队</td>
+                                                <td style="width:75px"><a href="../img/reso/wallpaper/elite_color.png" target="_blank">[原版]</a></td>
+                                                <td style="width:75px"><a href="../img/reso/wallpaper/elite_black.png" target="_blank">[背影版]</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:250px">(1920*1080) 铁血工造</td>
+                                                <td style="width:75px"><a href="../img/reso/wallpaper/sf_name.png" target="_blank">[原版]</a></td>
+                                                <td style="width:75px"><a href="../img/reso/wallpaper/sf_noname.png" target="_blank">[无代号]</a></td>
+                                            </tr>
+                                        </table>
+                                        <h4>剧情线</h4>
+                                        <p><a href="../img/reso/timeline/dd_s_ct.jpg" target="_blank">深层映射/塌缩点/有序紊流 剧情线</a></p>
+                                        <p><a href="../img/reso/timeline/isomer.jpg" target="_blank">异构体 剧情线</a></p>
+                                    </div>
+                                    <div class="tab-pane fade" id="Reso_logo">
+                                        <h4>势力</h4>
+                                        <table class="table_crowd" style="width:400px">
+                                            <tr>
+                                                <td style="width:100px">格里芬</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/Griffin_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/Griffin_white.png" target="_blank">[白]</a>
+                                                </td>
+                                                <td style="width:100px">I.O.P.</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/iop_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/iop_white.png" target="_blank">[白]</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:100px">铁血工造</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/sangvisferri_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/sangvisferri_white.png" target="_blank">[白]</a>
+                                                </td>
+                                                <td style="width:100px">16Lab</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/16lab_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/16lab_white.png" target="_blank">[白]</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:100px">90wish</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/90wish.png" target="_blank">[彩色]</a>
+                                                </td>
+                                                <td style="width:100px">WAVE</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/WAVE.png" target="_blank">[彩色]</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:100px">帕拉蒂斯</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/paradeus_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/paradeus_white.png" target="_blank">[白]</a>
+                                                </td>
+                                                <td style="width:100px">欧伽斯</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/ogas_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/ogas_white.png" target="_blank">[白]</a>
+                                                    <a href="../img/reso/logo/ogas.png" target="_blank">[彩色]</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <h4>队伍</h4>
+                                        <table class="table_crowd" style="width:400px">
+                                            <tr>
+                                                <td style="width:100px">Anti-Rain</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/AntiRain_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/AntiRain_white.png" target="_blank">[白]</a>
+                                                </td>
+                                                <td style="width:100px">404</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/404_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/404_white.png" target="_blank">[白]</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width:100px">DEFY</td>
+                                                <td style="width:100px">
+                                                    <a href="../img/reso/logo/DEFY_black.png" target="_blank">[黑]</a>
+                                                    <a href="../img/reso/logo/DEFY_white.png" target="_blank">[白]</a>
+                                                </td>
+                                                <td style="width:100px"></td>
+                                                <td style="width:100px"></td>
+                                            </tr>
+                                        </table>
+                                        <h4>活动</h4>
+                                        <p><a href="../img/reso/logo/DD.png" target="_blank">深层映射 DeepDive</a></p>
+                                        <p><a href="../img/reso/logo/Singularity.png" target="_blank">塌缩点 Singularity</a></p>
+                                        <p><a href="../img/reso/logo/CT.png" target="_blank">有序紊流 Continuum Turbulence</a></p>
+                                        <p><a href="../img/reso/logo/isomer.png" target="_blank">异构体 Isomer</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
