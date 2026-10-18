@@ -6,6 +6,13 @@
   var WEAPONS = window.WEAPON_STAT || {};
   var KEYS = window.KEY_STAT || { byDoll: {} };
   var MIMICRY = window.MIMICRY_STAT || { rates: {}, byDoll: {} };
+  var TERMS = window.TERM_STAT || {};
+  var ROLE_ICON = {
+    1: "img/ui/prof_guard.png",
+    2: "img/ui/prof_scout.png",
+    3: "img/ui/prof_assist.png",
+    4: "img/ui/prof_suppress.png"
+  };
   var view = document.getElementById("view");
   var navEl = document.getElementById("nav");
 
@@ -213,12 +220,20 @@
   // ---- equipment state ----
   var equipState = {};
   var equipPicker = null;
+  var pickerAnchor = null;
+  var configOpenState = {};
+  function getConfigOpen(d) { return !!configOpenState[d.id]; }
+  var vertebraState = {};
+  function getVertebra(d) {
+    if (vertebraState[d.id] === undefined) vertebraState[d.id] = 6;
+    return vertebraState[d.id];
+  }
   var dollRenderMode = "detail";
   var weaponFilterState = { rank: "all" };
   var keyState = {};
   var keyPicker = null;
   var critFullState = {};
-  function getCritFull(d) { return !!critFullState[d.id]; }
+  function getCritFull(d) { if (critFullState[d.id] === undefined) critFullState[d.id] = true; return !!critFullState[d.id]; }
   var CRIT3 = ["攻击", "暴击", "暴击伤害"];
   function effectiveAttrs(k, critFull, isGeneric) {
     var attrs = arr(k.attrs).map(function (a) { return { name: a.name, value: a.value }; });
@@ -234,11 +249,10 @@
     return attrs;
   }
   var oathState = {};
-  function getOathState(d) { if (oathState[d.id] === undefined) oathState[d.id] = true; return oathState[d.id]; }
+  function getOathState(d) { if (oathState[d.id] === undefined) oathState[d.id] = true; return !!oathState[d.id]; }
   var emblemState = {};
-  function getEmblem(d) { return !!emblemState[d.id]; }
-  var mimicryState = {};
-  function getMimicryLevel(d) { if (mimicryState[d.id] === undefined) mimicryState[d.id] = 60; return mimicryState[d.id]; }
+  function getEmblem(d) { if (emblemState[d.id] === undefined) emblemState[d.id] = true; return !!emblemState[d.id]; }
+  function getMimicryLevel(d) { return 60; }
   function mimicryCore(d) { return MIMICRY.byDoll[d.id] || null; }
   function mimicryContrib(d) {
     var m = mimicryCore(d);
@@ -251,10 +265,14 @@
     return (MIMICRY.roles && MIMICRY.roles[String(id)]) || { name: "?", color: "#86868b" };
   }
   var FACTOR_UNIT = MIMICRY.factorUnit || 15;
-  function roleBadge(id, count) {
+  function roleBadge(id, count, filled) {
     var r = roleInfo(id);
-    return '<span class="role-badge" style="background:' + r.color + '" title="' + esc(r.name) + '显像因子">' +
-      esc(r.name) + (count != null ? " ×" + count : "") + "</span>";
+    var icon = ROLE_ICON[id] || ROLE_ICON[String(id)];
+    var style = filled ? ' style="background:' + r.color + '22;border:1px solid ' + r.color + '66"' : "";
+    return '<span class="role-badge' + (filled ? " filled" : "") + '"' + style + ' title="' + esc(r.name) + '显像因子">' +
+      (icon ? '<img src="' + icon + '" alt="' + esc(r.name) + '" />' : "") +
+      (count != null ? '<span class="rb-count">×' + count + "</span>" : "") +
+    "</span>";
   }
   function reqBadges(req) {
     var out = "";
@@ -265,11 +283,10 @@
   }
   function mimicrySlots(m) {
     if (!m || !m.slots || !m.slots.length) return "";
-    return m.slots.map(function (t) { return roleBadge(t); }).join("");
+    return m.slots.map(function (t) { return roleBadge(t, null, true); }).join("");
   }
   // 契合度(默契回馈)：加成 = Σ round(基础属性 × 系数/1000)，系数全局一致
-  var favorState = {};
-  function getFavorLevel(d) { if (favorState[d.id] === undefined) favorState[d.id] = 5; return favorState[d.id]; }
+  function getFavorLevel(d) { return 9; }
   var FAVOR_COEF = {
     2: { "\u653b\u51fb": 36.34 },
     3: { "\u9632\u5fa1": 71.9 },
@@ -279,7 +296,7 @@
   var FAVOR_HP_CUM = { 1: 0, 2: 50.41, 3: 107.88, 4: 107.88, 5: 179.80 };
   function favorContrib(d) {
     var base = (d.attrGroups || {})["\u57fa\u7840\u5c5e\u6027"] || {};
-    var lv = getFavorLevel(d);
+    var lv = Math.min(getFavorLevel(d), 5);
     function num(k) { var v = parseFloat(String(base[k] || 0).replace("%", "")); return isNaN(v) ? 0 : v; }
     var out = { "攻击": 0, "生命": 0, "防御": 0 };
     ["攻击", "防御"].forEach(function (k) {
@@ -339,20 +356,21 @@
     if (w && w.stats && w.stats[statKey + "加成"] != null) mults.push({ v: w.stats[statKey + "加成"], src: "武器" });
     arr(keyTerms).forEach(function (t) { mults.push(t); });
     if (attach && attach.pct) mults.push({ v: fmtStat(attach.pct) + "%", src: "配件" });
-    return { nums: nums, mults: mults };
+    return { nums: nums, mults: mults, add: [] };
   }
   function sumForm(d, statKey, statLabel, w, keyTerms, attachPct) {
     var nums = groupTerms(d, statKey, statLabel);
     if (w && w.stats && w.stats[statKey] != null) nums.push({ v: w.stats[statKey], src: "武器" });
     if (attachPct) nums.push({ v: fmtStat(attachPct) + "%", src: "配件" });
     arr(keyTerms).forEach(function (t) { nums.push(t); });
-    return { nums: nums, mults: [] };
+    return { nums: nums, mults: [], add: [] };
   }
   function formNum(v) { return parseFloat(String(v).replace("%", "")) || 0; }
   function formValue(form) {
     var base = form.nums.reduce(function (a, t) { return a + formNum(t.v); }, 0);
     var mult = form.mults.length ? (1 + form.mults.reduce(function (a, t) { return a + formNum(t.v); }, 0) / 100) : 1;
-    return base * mult;
+    var add = (form.add || []).reduce(function (a, t) { return a + formNum(t.v); }, 0);
+    return base * mult + add;
   }
   function formTerm(v, src) {
     return '<span class="exp-term"><span class="exp-num">' + esc(v) + '</span><span class="exp-src">' + esc(src) + "</span></span>";
@@ -360,8 +378,11 @@
   function formOp(ch) { return '<span class="exp-op">' + ch + "</span>"; }
   function formText(form) {
     var n = form.nums.map(function (t) { return t.v; }).join(" + ");
-    if (form.mults.length) return "= (" + n + ") × (1 + " + form.mults.map(function (t) { return t.v; }).join(" + ") + ")";
-    return "= " + n;
+    var text;
+    if (form.mults.length) text = "= (" + n + ") × (1 + " + form.mults.map(function (t) { return t.v; }).join(" + ") + ")";
+    else text = "= " + n;
+    if ((form.add || []).length) text += " + " + form.add.map(function (t) { return t.v; }).join(" + ");
+    return text;
   }
   function formDetail(form) {
     var h = formOp("=");
@@ -374,6 +395,9 @@
     } else {
       form.nums.forEach(function (t, i) { if (i) h += formOp("+"); h += formTerm(t.v, t.src); });
     }
+    (form.add || []).forEach(function (t) {
+      h += formOp("+"); h += formTerm(t.v, t.src);
+    });
     return '<div class="stat-formula">' + h + "</div>";
   }
   function statCell(label, value, form) {
@@ -415,17 +439,22 @@
     var st = getEquipState(d);
     var w = st.weaponId ? WEAPONS[st.weaponId] : null;
     if (!w) {
-      return '<button class="dmg-tile empty weapon-slot" onclick="EQ.open(\'' + d.id + '\',\'add\')"><span class="plus">+</span></button>';
+      return '<button class="dmg-tile empty weapon-slot" onclick="EQ.open(\'' + d.id + '\',\'add\',this)"><span class="plus">+</span></button>';
     }
     return '<div class="dmg-tile has-doll weapon-slot' + (st.locked ? " locked" : "") + '">' +
       '<button class="tile-btn tile-lock" title="' + (st.locked ? "已锁定，点击解锁" : "锁定") + '" onclick="event.stopPropagation();EQ.toggleLock(\'' + d.id + '\')">' +
         (st.locked ? LOCK_ICON : UNLOCK_ICON) + "</button>" +
       '<button class="tile-btn tile-del" title="卸下" onclick="event.stopPropagation();EQ.remove(\'' + d.id + '\')">✕</button>' +
-      '<div class="tile-body" onclick="EQ.open(\'' + d.id + '\',\'replace\')">' +
+      '<div class="tile-body" onclick="EQ.open(\'' + d.id + '\',\'replace\',this)">' +
         '<img src="' + w.thumbnail + '" alt="" onerror="this.style.visibility=\'hidden\'" />' +
         '<div class="tile-name">' + esc(w.name) + "</div>" +
       "</div>" +
     "</div>";
+  }
+  function keyNameHtml(name) {
+    var parts = String(name || "").split("·");
+    if (parts.length <= 1) return esc(name);
+    return esc(parts[0]) + "<br>" + esc(parts.slice(1).join("·"));
   }
   function keySlot(d, kind, index) {
     var st = getKeyState(d);
@@ -439,13 +468,13 @@
     if (data) {
       return '<div class="key-tile">' +
         '<button class="tile-btn tile-del" title="卸下" onclick="event.stopPropagation();EQ.removeKey(\'' + d.id + '\',\'' + kind + '\',' + index + ')">✕</button>' +
-        '<div class="key-tile-body" onclick="EQ.openKey(\'' + d.id + '\',\'' + kind + '\',' + index + ')">' +
+        '<div class="key-tile-body" onclick="EQ.openKey(\'' + d.id + '\',\'' + kind + '\',' + index + ',this)">' +
           (data.icon ? '<img src="' + data.icon + '" alt="" onerror="this.style.visibility=\'hidden\'" />' : '<div class="key-gen-icon">通用</div>') +
-          '<div class="key-name">' + esc(data.name) + "</div>" +
+          '<div class="key-name">' + keyNameHtml(data.name) + "</div>" +
         "</div>" +
       "</div>";
     }
-    return '<button class="key-tile empty" onclick="EQ.openKey(\'' + d.id + '\',\'' + kind + '\',' + index + ')"><span class="plus">+</span></button>';
+    return '<button class="key-tile empty" onclick="EQ.openKey(\'' + d.id + '\',\'' + kind + '\',' + index + ',this)"><span class="plus">+</span></button>';
   }
   function keyTiles(d) {
     return keySlot(d, "affection", 0) + keySlot(d, "shared", 0) + keySlot(d, "shared", 1) + keySlot(d, "shared", 2);
@@ -454,7 +483,7 @@
     var st = getAttachState(d);
     var html = '<div class="attach-grid">';
     ATTACH_SLOTS.forEach(function (label, i) {
-      html += '<button class="attach-tile" onclick="EQ.openAttach(\'' + d.id + '\',' + i + ')">' +
+      html += '<button class="attach-tile" onclick="EQ.openAttach(\'' + d.id + '\',' + i + ',this)">' +
         '<div class="attach-name">' + esc(label) + '</div>' +
         '<div class="attach-attrs">' + st[i].map(function (a) { return '<span class="aa">' + esc(a) + "</span>"; }).join("") + "</div>" +
       "</button>";
@@ -481,10 +510,10 @@
     var m = mimicryCore(d);
     if (!m) return '<span class="mim-none">无</span>';
     var mc = mimicryContrib(d);
-    return '<label class="oath"><input type="number" min="1" max="60" value="' + getMimicryLevel(d) +
-      '" onchange="EQ.setMimicry(\'' + d.id + '\', this.value)" /><span>' + esc(m.name) + "</span></label>" +
+    return '<div class="mim-title-row"><span class="mim-lv">Lv.60</span><span class="mim-name">' + esc(m.name) + "</span></div>" +
       '<div class="mim-vals">攻击 ' + mc["攻击"] + " · 生命 " + mc["生命"] + " · 防御 " + mc["防御"] + "</div>" +
-      '<div class="mim-slots"><span class="mim-label">生长数据槽位</span>' + mimicrySlots(m) + "</div>";
+      '<div class="mim-slots"><span class="mim-label">生长数据槽位</span>' + mimicrySlots(m) + "</div>" +
+      mimicryFormsHtml(d);
   }
   function mimicryFormsHtml(d) {
     var m = mimicryCore(d);
@@ -495,34 +524,50 @@
         return '<div class="mim-form">' +
           '<span class="mim-form-stage">' + esc(f.name) + '</span>' +
           '<span class="mim-form-req">' + (reqBadges(f.req) || '<span class="mim-none">无</span>') + '</span>' +
-          '<span class="mim-form-eff">' + (f.effect || "") + '</span>' +
+          '<span class="mim-form-eff">' + renderRich(f.effect || "", []) + '</span>' +
         "</div>";
       }).join("") +
     "</div>";
   }
   function favorControl(d) {
     var fc = favorContrib(d);
-    return '<label class="oath"><input type="number" min="1" max="5" value="' + getFavorLevel(d) +
-      '" onchange="EQ.setFavor(\'' + d.id + '\', this.value)" /><span>契合度等级（2–5 级加成）</span></label>' +
-      '<div class="mim-vals">攻击 ' + fc["攻击"] + " · 生命 " + fc["生命"] + " · 防御 " + fc["防御"] + "</div>";
+    return '<div class="mim-vals">攻击 +' + fc["攻击"] + " · 生命 +" + fc["生命"] + " · 防御 +" + fc["防御"] + "</div>" +
+      '<label class="oath"><input type="checkbox"' + (getOathState(d) ? " checked" : "") +
+        ' onchange="EQ.toggleOath(\'' + d.id + '\')" /><span>铭契</span></label>' +
+      '<div class="mim-note">铭契：攻击 / 生命 / 防御 +5%</div>';
+  }
+  function vertebraControl(d) {
+    var v = getVertebra(d);
+    var axis = "";
+    for (var i = 0; i <= 6; i++) {
+      axis += '<span class="' + (i === v ? "active" : "") + '">' + i + "</span>";
+    }
+    return '<div class="vert-control">' +
+      '<input type="range" min="0" max="6" step="1" value="' + v +
+        '" oninput="EQ.setVertebra(\'' + d.id + '\', this.value)" />' +
+      '<div class="vert-axis" id="vertAxis-' + d.id + '">' + axis + "</div>" +
+    "</div>" +
+    '<div class="mim-note">选择椎体后，技能自动切换到对应等级描述</div>';
   }
   function equipWidget(d) {
-    return '<div class="equip-row">' +
-      '<div class="equip-group"><div class="equip-title">武器</div>' +
-        '<div class="weapon-body">' + weaponTile(d) + attachGrid(d) + "</div></div>" +
-      '<div class="equip-group"><div class="equip-title">位键佩戴</div>' +
-        '<div class="key-grid">' + keyTiles(d) + "</div>" +
-        '<label class="oath"><input type="checkbox"' + (getCritFull(d) ? " checked" : "") +
-          ' onchange="EQ.toggleCritFull(\'' + d.id + '\')" /><span>攻爆满配</span></label></div>' +
-      '<div class="equip-group"><div class="equip-title">铭契</div>' +
-        '<label class="oath"><input type="checkbox"' + (getOathState(d) ? " checked" : "") +
-          ' onchange="EQ.toggleOath(\'' + d.id + '\')" /><span>启用（攻击 / 生命 / 防御 +5%）</span></label></div>' +
-      '<div class="equip-group"><div class="equip-title">拟态图谱</div>' + mimicryControl(d) + "</div>" +
-      '<div class="equip-group"><div class="equip-title">契合度</div>' + favorControl(d) + "</div>" +
-      '<div class="equip-group"><div class="equip-title">徽记助益</div>' +
-        '<label class="oath"><input type="checkbox"' + (getEmblem(d) ? " checked" : "") +
-          ' onchange="EQ.toggleEmblem(\'' + d.id + '\')" /><span>启用（攻击 / 生命 / 防御 +1）</span></label></div>' +
-    "</div>";
+    return '<div class="equip-row config-row1">' +
+        '<div class="equip-group"><div class="equip-title">椎体</div>' + vertebraControl(d) + "</div>" +
+        '<div class="equip-group"><div class="equip-title">契合度（Lv9）</div>' + favorControl(d) + "</div>" +
+        '<div class="equip-group"><div class="equip-title">徽记助益</div>' +
+          '<label class="oath"><input type="checkbox"' + (getEmblem(d) ? " checked" : "") +
+            ' onchange="EQ.toggleEmblem(\'' + d.id + '\')" /><span>最终攻击 / 生命 / 防御 +1</span></label></div>' +
+      "</div>" +
+      '<div class="equip-row config-row2">' +
+        '<div class="equip-group weapon-group"><div class="equip-title">武器</div>' +
+          '<div class="weapon-body">' + weaponTile(d) + attachGrid(d) + "</div></div>" +
+      "</div>" +
+      '<div class="equip-row config-row3">' +
+        '<div class="equip-group"><div class="equip-title">位键佩戴</div>' +
+          '<label class="oath"><input type="checkbox"' + (getCritFull(d) ? " checked" : "") +
+            ' onchange="EQ.toggleCritFull(\'' + d.id + '\')" /><span>攻暴满配</span></label>' +
+          '<div class="key-grid">' + keyTiles(d) + "</div></div>" +
+        '<div class="equip-group"><div class="equip-title">拟态图谱</div>' + mimicryControl(d) + "</div>" +
+      "</div>";
   }
   function equipPickerHtml(d) {
     if (!equipPicker || equipPicker.dollId !== d.id) return "";
@@ -550,9 +595,52 @@
     "</div>";
   }
 
+  function capturePickerAnchor(el) {
+    if (!el) { pickerAnchor = null; return; }
+    var r = el.getBoundingClientRect();
+    pickerAnchor = {
+      left: r.left + window.scrollX,
+      top: r.top + window.scrollY,
+      right: r.right + window.scrollX,
+      bottom: r.bottom + window.scrollY
+    };
+  }
+  function positionPicker() {
+    var el = document.querySelector(".picker-float");
+    if (!el || !pickerAnchor) return;
+    el.style.position = "fixed";
+    el.style.right = "auto";
+    el.style.bottom = "auto";
+    el.style.maxHeight = "";
+    el.style.visibility = "hidden";
+    var w = el.offsetWidth, h = el.offsetHeight;
+    var ax = pickerAnchor.left - window.scrollX;
+    var ay = pickerAnchor.top - window.scrollY;
+    var ar = pickerAnchor.right - window.scrollX;
+    var ab = pickerAnchor.bottom - window.scrollY;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var left = ax;
+    if (left + w > vw - 12) left = ar - w;
+    left = Math.max(12, Math.min(left, vw - w - 12));
+    var spaceBelow = vh - ab - 12;
+    var spaceAbove = ay - 12;
+    var top;
+    if (spaceBelow >= 200) {
+      el.style.maxHeight = Math.min(h, spaceBelow) + "px";
+      top = ab + 8;
+    } else {
+      el.style.maxHeight = Math.min(h, Math.max(120, spaceAbove)) + "px";
+      h = el.offsetHeight;
+      top = ay - h - 8;
+      if (top < 12) top = 12;
+    }
+    el.style.left = left + "px";
+    el.style.top = top + "px";
+    el.style.visibility = "";
+  }
   function getKeyState(d) {
     var st = keyState[d.id];
-    if (!st) { st = { affection: true, shared: [d.id, null, null] }; keyState[d.id] = st; }
+    if (!st) { st = { affection: true, shared: [d.id, "generic_crit", "generic_crit"] }; keyState[d.id] = st; }
     return st;
   }
   function equippedKeys(d) {
@@ -601,7 +689,7 @@
     var cards = list.map(function (k) {
       return '<button class="key-card" onclick="EQ.pickKey(\'' + k.ref + '\')">' +
         '<div class="key-card-ico">' + (k.data.icon ? '<img loading="lazy" src="' + k.data.icon + '" alt="" />' : '<div class="key-gen-icon">通用</div>') + "</div>" +
-        '<div class="key-card-info"><div class="key-card-name">' + esc(k.data.name) + "</div>" +
+        '<div class="key-card-info"><div class="key-card-name">' + keyNameHtml(k.data.name) + "</div>" +
           '<div class="key-card-attrs">' + arr(k.data.attrs).map(function (a) { return '<span class="chip">' + esc(a.name) + a.value + "%</span>"; }).join("") + "</div>" +
         "</div></button>";
     }).join("");
@@ -635,9 +723,9 @@
     if (fc["生命"]) hpF.nums.push({ v: fmtStat(fc["生命"]), src: "契合度" });
     if (fc["防御"]) defF.nums.push({ v: fmtStat(fc["防御"]), src: "契合度" });
     if (getEmblem(d)) {
-      atkF.nums.push({ v: "1", src: "徽记助益" });
-      hpF.nums.push({ v: "1", src: "徽记助益" });
-      defF.nums.push({ v: "1", src: "徽记助益" });
+      atkF.add.push({ v: "1", src: "徽记助益" });
+      hpF.add.push({ v: "1", src: "徽记助益" });
+      defF.add.push({ v: "1", src: "徽记助益" });
     }
     var cells =
       statCell("攻击", fmtStat(formValue(atkF)), atkF) +
@@ -647,9 +735,222 @@
       statCell("暴击伤害", fmtStat(formValue(critDF)) + "%", critDF) +
       plainCell("稳态", fmtStat(sumStat(d, "稳态"))) +
       plainCell("行动力", fmtStat(sumStat(d, "行动力")));
-    return '<div class="stat-panel">' + equipWidget(d) + mimicryFormsHtml(d) +
+    return '<div class="stat-panel">' +
+      '<div class="panel-head stat-head"><h3>属性</h3>' +
+        '<button class="config-toggle' + (getConfigOpen(d) ? " open" : "") +
+          '" onclick="EQ.toggleConfigOpen(\'' + d.id + '\')">' +
+          '<span class="config-arrow"></span>' +
+          '<span class="config-title">人物配置</span>' +
+          '<span class="config-hint">' + (getConfigOpen(d) ? "点击收起" : "点击展开进行设置") + "</span>" +
+        "</button>" +
+      "</div>" +
+      '<div class="config-body"' + (getConfigOpen(d) ? "" : ' style="display:none"') + ">" +
+        equipWidget(d) +
+      "</div>" +
       '<div class="stat-grid">' + cells + "</div>" + equipPickerHtml(d) + keyPickerHtml(d) + attachPickerHtml(d) + "</div>";
   }
+
+  /* ---------------- skills + glossary ---------------- */
+  function escHtml(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function termKey(type, id) { return type + ":" + id; }
+  function termRefHtml(ref) {
+    if (!ref || ref[1] == null) return null;
+    var key = termKey(ref[0], ref[1]);
+    var t = TERMS[key];
+    if (!t || !t.name) return null;
+    return '<span class="term" data-term="' + esc(key) + '">' + esc(t.name) + "</span>";
+  }
+  function renderRich(text, refs) {
+    if (!text) return "";
+    var s = String(text).replace(/\r\n/g, "\n").replace(/\n/g, "<br>");
+    var re = /(<color=#[0-9a-fA-F]{6,8}>|<\/color>|\{[0-9]+\}|<br\s*\/?>|<\/?b>|<\/?i>|<\/?u>)/g;
+    var out = "";
+    var last = 0;
+    var m;
+    while ((m = re.exec(s))) {
+      out += escHtml(s.slice(last, m.index));
+      var tok = m[0];
+      if (/^<color=#/.test(tok)) {
+        var hex = tok.slice(8, -1);
+        out += '<span style="color:#' + hex + '">';
+      } else if (tok === "</color>") {
+        out += "</span>";
+      } else if (/^\{[0-9]+\}$/.test(tok)) {
+        var idx = parseInt(tok.slice(1, -1), 10);
+        var html = termRefHtml((refs || [])[idx]);
+        out += html != null ? html : escHtml(tok);
+      } else if (/^<br/i.test(tok)) {
+        out += "<br>";
+      } else {
+        out += tok;
+      }
+      last = m.index + tok.length;
+    }
+    out += escHtml(s.slice(last));
+    return out;
+  }
+  function termTipHtml(key) {
+    var seen = {}, queue = [key], out = [];
+    while (queue.length) {
+      var k = queue.shift();
+      if (seen[k]) continue;
+      seen[k] = 1;
+      var t = TERMS[k];
+      if (!t) continue;
+      out.push('<div class="term-entry"><div class="term-name">' + esc(t.name || "") + "</div>" +
+        '<div class="term-desc">' + renderRich(t.desc || "", t.refs || []) + "</div></div>");
+      (t.refs || []).forEach(function (r) {
+        if (r && r[1] != null) {
+          var nk = termKey(r[0], r[1]);
+          if (!seen[nk]) queue.push(nk);
+        }
+      });
+    }
+    return out.join("");
+  }
+  function levelGrade(label) {
+    var m = /\(\s*(\d+)椎\s*\)/.exec(label || "");
+    return m ? parseInt(m[1], 10) : 0;
+  }
+  function selectedLevelIndex(labels, vert) {
+    var sel = 0;
+    for (var i = 0; i < labels.length; i++) {
+      if (levelGrade(labels[i]) <= vert) sel = i;
+    }
+    return sel;
+  }
+  function skillCardHtml(s, idx, vert) {
+    var nm = (s.name || "").replace(/\s*Lv\.\d+\s*$/, "");
+    if (typeof vert !== "number") vert = 6;
+    var chips = arr(s.tags).concat(arr(s.subTags)).map(function (t) {
+      return '<span class="chip">' + esc(t) + "</span>";
+    }).join("");
+    var descs = arr(s.descs);
+    if (!descs.length) descs = [s.desc || ""];
+    var refs = arr(s.descRefs);
+    if (!refs.length) refs = [[]];
+    var levelLabels = arr(s.levels);
+    var sel = selectedLevelIndex(levelLabels, vert);
+    var tabs = levelLabels.length > 1
+      ? '<div class="skill-levels">' + levelLabels.map(function (l, i) {
+          return '<button class="lvl' + (i === sel ? " active correct" : "") + '" data-grade="' + levelGrade(l) + '" onclick="SKILL.setLevel(this,' + i + ')">' + esc(l) + "</button>";
+        }).join("") + "</div>"
+      : "";
+    var descHtml = descs.map(function (d, i) {
+      return '<div class="skill-desc' + (i === sel ? " active" : "") + '" data-level="' + i + '"' +
+        (i === sel ? "" : ' style="display:none"') + ">" + renderRich(d, refs[i] || []) + "</div>";
+    }).join("");
+    var costs = arr(s.costs).length
+      ? '<div class="skill-costs">' + arr(s.costs).map(function (c) { return '<span class="cost-chip">' + esc(c) + "</span>"; }).join("") + "</div>"
+      : "";
+    var vert = arr(s.vertebrae).length
+      ? '<div class="skill-vert">' + arr(s.vertebrae).map(function (v) {
+          return '<div class="vert-row"><span class="vert-label">' + esc(v.label) + '</span><span class="vert-text">' +
+            renderRich(v.text || "", v.refs || []) + "</span></div>";
+        }).join("") + "</div>"
+      : "";
+    var icon = s.icon
+      ? '<div class="skill-icon"><img loading="lazy" src="' + s.icon + '" onerror="this.style.visibility=\'hidden\'" /></div>'
+      : '<div class="skill-icon"></div>';
+    return '<div class="skill-card" data-skill="' + idx + '">' +
+      '<div class="skill-head">' + icon +
+        '<div class="skill-head-txt"><div class="skill-name">' + esc(nm) + "</div>" +
+          '<div class="skill-tags">' + chips + "</div></div>" +
+      "</div>" + tabs + descHtml + costs + vert +
+    "</div>";
+  }
+  function skillPanelHtml(d) {
+    var list = arr(d.skills);
+    if (!list.length) return "";
+    return '<div class="panel skill-panel">' +
+      '<div class="panel-head"><h3>技能</h3><span class="panel-sub">椎体拉条会自动切换描述 · 点击 Lv 标签可手动查看 · 悬浮蓝色词条查看机制</span></div>' +
+      '<div class="skill-list">' + list.map(function (s, i) { return skillCardHtml(s, i, getVertebra(d)); }).join("") + "</div>" +
+    "</div>";
+  }
+
+  /* ---------------- glossary tooltip ---------------- */
+  var termTipEl = document.createElement("div");
+  termTipEl.className = "term-tip";
+  termTipEl.id = "termTip";
+  document.body.appendChild(termTipEl);
+  var termHideTimer = null;
+  function cancelTermHide() { if (termHideTimer) { clearTimeout(termHideTimer); termHideTimer = null; } }
+  function hideTermTip() { cancelTermHide(); termTipEl.style.display = "none"; }
+  function scheduleTermHide() {
+    cancelTermHide();
+    termHideTimer = setTimeout(hideTermTip, 120);
+  }
+  function showTermTip(el) {
+    var key = el.getAttribute("data-term");
+    if (!key) return;
+    var html = termTipHtml(key);
+    if (!html) return;
+    cancelTermHide();
+    termTipEl.innerHTML = html;
+    termTipEl.style.display = "block";
+    var r = el.getBoundingClientRect();
+    var tw = termTipEl.offsetWidth, th = termTipEl.offsetHeight;
+    var left = Math.min(r.left, window.innerWidth - tw - 12);
+    var top = r.bottom + 8;
+    if (top + th > window.innerHeight - 12) top = r.top - th - 8;
+    if (top < 12) top = 12;
+    termTipEl.style.left = Math.max(12, left) + "px";
+    termTipEl.style.top = top + "px";
+  }
+  termTipEl.addEventListener("mouseenter", cancelTermHide);
+  termTipEl.addEventListener("mouseleave", hideTermTip);
+  document.addEventListener("mouseover", function (e) {
+    var el = e.target && e.target.closest ? e.target.closest(".term") : null;
+    if (el && !el.closest(".term-tip")) showTermTip(el);
+  });
+  document.addEventListener("mouseout", function (e) {
+    var el = e.target && e.target.closest ? e.target.closest(".term") : null;
+    if (el && !el.closest(".term-tip")) scheduleTermHide();
+  });
+  document.addEventListener("click", function (e) {
+    var el = e.target && e.target.closest ? e.target.closest(".term") : null;
+    if (el && !el.closest(".term-tip")) { e.preventDefault(); showTermTip(el); }
+    else if (!(e.target && e.target.closest && e.target.closest(".term-tip"))) hideTermTip();
+  });
+
+  window.SKILL = {
+    setLevel: function (btn, idx) {
+      var card = btn.closest(".skill-card");
+      if (!card) return;
+      Array.prototype.forEach.call(card.querySelectorAll(".skill-levels .lvl"), function (b) {
+        b.classList.toggle("active", b === btn);
+      });
+      Array.prototype.forEach.call(card.querySelectorAll(".skill-desc"), function (d) {
+        var on = String(d.getAttribute("data-level")) === String(idx);
+        d.classList.toggle("active", on);
+        d.style.display = on ? "block" : "none";
+      });
+    },
+    applyVertebra: function (dollId, vert) {
+      Array.prototype.forEach.call(document.querySelectorAll(".skill-card"), function (card) {
+        var btns = card.querySelectorAll(".skill-levels .lvl");
+        if (!btns.length) return;
+        var sel = 0;
+        for (var i = 0; i < btns.length; i++) {
+          var g = parseInt(btns[i].getAttribute("data-grade") || "0", 10);
+          if (g <= vert) sel = i;
+        }
+        Array.prototype.forEach.call(btns, function (b, i) {
+          b.classList.toggle("active", i === sel);
+          b.classList.toggle("correct", i === sel);
+        });
+        Array.prototype.forEach.call(card.querySelectorAll(".skill-desc"), function (d) {
+          var on = String(d.getAttribute("data-level")) === String(sel);
+          d.classList.toggle("active", on);
+          d.style.display = on ? "block" : "none";
+        });
+      });
+    }
+  };
+
 
   function viewDollDetail(id) {
     dollRenderMode = "detail";
@@ -658,40 +959,7 @@
 
     var statPanel = dollStatPanel(d);
 
-    var skillsHtml = "";
-    var dSkills = arr(d.skills);
-    if (dSkills.length) {
-      skillsHtml = '<div class="attr-section"><h3>技能</h3><div class="skill-list">' +
-        dSkills.map(function (s) {
-          var nm = (s.name || "").replace(/\s*Lv\.\d+\s*$/, "");
-          var chips = arr(s.tags).concat(arr(s.subTags)).map(function (t) {
-            return '<span class="chip">' + esc(t) + "</span>";
-          }).join("");
-          var levels = arr(s.levels).length
-            ? '<div class="skill-levels">' + arr(s.levels).map(function (l) { return '<span class="lvl">' + esc(l) + "</span>"; }).join("") + "</div>"
-            : "";
-          var costs = arr(s.costs).length
-            ? '<div class="skill-costs">' + arr(s.costs).map(function (c) { return '<span class="cost-chip">' + esc(c) + "</span>"; }).join("") + "</div>"
-            : "";
-          var vert = arr(s.vertebrae).length
-            ? '<div class="skill-vert">' + arr(s.vertebrae).map(function (v) {
-                return '<div class="vert-row"><span class="vert-label">' + esc(v.label) + '</span><span class="vert-text">' + (v.text || "") + "</span></div>";
-              }).join("") + "</div>"
-            : "";
-          var icon = s.icon
-            ? '<div class="skill-icon"><img loading="lazy" src="' + s.icon + '" onerror="this.style.visibility=\'hidden\'" /></div>'
-            : '<div class="skill-icon"></div>';
-          return '<div class="skill-card">' +
-            '<div class="skill-head">' + icon +
-              '<div class="skill-head-txt"><div class="skill-name">' + esc(nm) + "</div>" +
-                '<div class="skill-tags">' + chips + "</div></div>" +
-            "</div>" + levels +
-            '<div class="skill-desc">' + (s.desc || "") + "</div>" +
-            costs + vert +
-          "</div>";
-        }).join("") +
-      "</div></div>";
-    }
+    var skillPanel = skillPanelHtml(d);
 
     view.innerHTML =
       '<button class="back-btn" onclick="location.hash=\'#/codex/doll\'">' + ICON.back + " 返回人形列表</button>" +
@@ -705,7 +973,8 @@
           '<div class="intro">' + esc(d.intro) + "</div>" +
         "</div>" +
       "</div>" +
-      statPanel + skillsHtml;
+      statPanel + skillPanel;
+    positionPicker();
 
     if (equipPicker && equipPicker.dollId === d.id) {
       bindSegs({ erank: "rank" }, weaponFilterState, function () { refreshDoll(d.id); });
@@ -765,14 +1034,14 @@
           (slot.locked ? LOCK_ICON : UNLOCK_ICON) + "</button>" +
         '<button class="tile-btn tile-del" title="移除" onclick="event.stopPropagation();DMG.remove(' + i + ')">✕</button>' +
         '<button class="tile-btn tile-mag' + (open ? " on" : "") + '" title="配置" onclick="event.stopPropagation();DMG.toggleConfig(\'' + slot.id + '\')">' + MAG_ICON + "</button>" +
-        '<div class="tile-body" onclick="DMG.openPicker(\'doll\',\'replace\',' + i + ')">' +
+        '<div class="tile-body" onclick="DMG.openPicker(\'doll\',\'replace\',' + i + ',this)">' +
           '<img src="' + (d.thumbnail || "") + '" alt="" onerror="this.style.visibility=\'hidden\'" />' +
           '<div class="tile-name">' + esc(d.name || slot.id) + '</div>' +
         "</div>" +
       "</div>";
     });
     if (damageState.slots.length < DMG_MAX) {
-      html += '<button class="dmg-tile empty" onclick="DMG.openPicker(\'doll\',\'add\')"><span class="plus">+</span></button>';
+      html += '<button class="dmg-tile empty" onclick="DMG.openPicker(\'doll\',\'add\',null,this)"><span class="plus">+</span></button>';
     }
     return html;
   }
@@ -799,13 +1068,13 @@
     damageState.enemies.forEach(function (slot, i) {
       html += '<div class="dmg-tile has-enemy">' +
         '<button class="tile-btn tile-del" title="移除" onclick="event.stopPropagation();DMG.removeEnemy(' + i + ')">✕</button>' +
-        '<div class="tile-body" onclick="DMG.openPicker(\'enemy\',\'replace\',' + i + ')">' +
+        '<div class="tile-body" onclick="DMG.openPicker(\'enemy\',\'replace\',' + i + ',this)">' +
           '<div class="tile-text">' + esc(enemyName(slot.id)) + '</div>' +
         "</div>" +
       "</div>";
     });
     if (damageState.enemies.length < ENEMY_MAX) {
-      html += '<button class="dmg-tile empty" onclick="DMG.openPicker(\'enemy\',\'add\')"><span class="plus">+</span></button>';
+      html += '<button class="dmg-tile empty" onclick="DMG.openPicker(\'enemy\',\'add\',null,this)"><span class="plus">+</span></button>';
     }
     return html;
   }
@@ -894,6 +1163,8 @@
         '<div id="simOut" class="sim-out"></div>' +
       "</div>";
 
+    positionPicker();
+
     if (p && p.kind !== "enemy") {
       bindFilters(damageState.filters, "p", viewDamage);
       var pc = document.getElementById("pcount");
@@ -902,9 +1173,10 @@
   }
 
   window.DMG = {
-    openPicker: function (kind, mode, index) {
+    openPicker: function (kind, mode, index, anchorEl) {
       if (kind !== "enemy" && mode === "replace" && damageState.slots[index] && damageState.slots[index].locked) return;
       damageState.picker = { kind: kind, mode: mode, index: index };
+      capturePickerAnchor(anchorEl);
       viewDamage();
     },
     closePicker: function () { damageState.picker = null; viewDamage(); },
@@ -966,10 +1238,32 @@
   }
 
   window.EQ = {
-    open: function (dollId, mode) {
+    toggleConfigOpen: function (dollId) {
+      configOpenState[dollId] = !getConfigOpen(DATA[dollId]);
+      equipPicker = null;
+      keyPicker = null;
+      attachPicker = null;
+      refreshDoll(dollId);
+    },
+    setVertebra: function (dollId, v) {
+      var n = parseInt(v, 10);
+      if (isNaN(n)) n = 6;
+      vertebraState[dollId] = Math.max(0, Math.min(6, n));
+      var axis = document.getElementById("vertAxis-" + dollId);
+      if (axis) {
+        Array.prototype.forEach.call(axis.children, function (sp, i) {
+          sp.classList.toggle("active", i === vertebraState[dollId]);
+        });
+      }
+      if (window.SKILL) window.SKILL.applyVertebra(dollId, vertebraState[dollId]);
+    },
+    open: function (dollId, mode, anchorEl) {
       var st = getEquipState(DATA[dollId]);
       if (mode === "replace" && st.locked) return;
       equipPicker = { dollId: dollId, mode: mode };
+      keyPicker = null;
+      attachPicker = null;
+      capturePickerAnchor(anchorEl);
       refreshDoll(dollId);
     },
     close: function () {
@@ -995,8 +1289,11 @@
       st.locked = !st.locked;
       refreshDoll(dollId);
     },
-    openKey: function (dollId, kind, index) {
+    openKey: function (dollId, kind, index, anchorEl) {
       keyPicker = { dollId: dollId, kind: kind, index: index };
+      equipPicker = null;
+      attachPicker = null;
+      capturePickerAnchor(anchorEl);
       refreshDoll(dollId);
     },
     closeKey: function () {
@@ -1018,8 +1315,11 @@
       else st.shared[index] = null;
       refreshDoll(dollId);
     },
-    openAttach: function (dollId, slot) {
+    openAttach: function (dollId, slot, anchorEl) {
       attachPicker = { dollId: dollId, slot: slot };
+      equipPicker = null;
+      keyPicker = null;
+      capturePickerAnchor(anchorEl);
       refreshDoll(dollId);
     },
     closeAttach: function () {
@@ -1047,18 +1347,6 @@
     toggleCritFull: function (dollId) {
       critFullState[dollId] = !getCritFull(DATA[dollId]);
       refreshDoll(dollId);
-    },
-    setMimicry: function (dollId, v) {
-      var n = parseInt(v, 10);
-      if (isNaN(n)) n = 1;
-      mimicryState[dollId] = Math.max(1, Math.min(60, n));
-      refreshDoll(dollId);
-    },
-    setFavor: function (dollId, v) {
-      var n = parseInt(v, 10);
-      if (isNaN(n)) n = 1;
-      favorState[dollId] = Math.max(1, Math.min(5, n));
-      refreshDoll(dollId);
     }
   };
 
@@ -1067,10 +1355,7 @@
     var entries = MIMICRY.entries || [];
     var growth = MIMICRY.growth || [];
 
-    var legend = [1, 2, 3, 4].map(function (id) {
-      var r = roleInfo(id);
-      return '<span class="role-badge" style="background:' + r.color + '">' + esc(r.name) + "</span>";
-    }).join("");
+    var legend = [1, 2, 3, 4].map(function (id) { return roleBadge(id); }).join("");
 
     var stageRows = stages.map(function (s, i) {
       var lvText = s.lv ? "Lv." + s.lv : "初始";
@@ -1318,6 +1603,10 @@
     }
   }
 
+  window.addEventListener("scroll", function () {
+    if (document.querySelector(".picker-float")) positionPicker();
+  }, false);
+  window.addEventListener("resize", positionPicker);
   window.addEventListener("hashchange", render);
   if (!location.hash) location.hash = "#/codex/doll";
   render();

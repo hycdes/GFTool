@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --bg: #f5f5f7;
   --surface: #ffffff;
   --surface-2: #fafafa;
@@ -339,16 +339,58 @@ a { color: inherit; text-decoration: none; }
   padding: 16px 18px;
   margin-bottom: 26px;
 }
+.stat-panel > .panel-head { margin-bottom: 12px; }
+.stat-head h3 { font-size: 18px; }
+.config-toggle {
+  margin-left: 8px; display: inline-flex; align-items: baseline; gap: 8px;
+  border: 0; background: transparent; padding: 4px 0; cursor: pointer;
+  font-family: inherit;
+}
+.config-toggle:hover .config-title { color: var(--accent); }
+.config-arrow {
+  width: 0; height: 0; display: inline-block;
+  border-left: 6px solid var(--text-3);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.15s ease;
+}
+.config-toggle.open .config-arrow { transform: rotate(90deg); }
+.config-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.config-hint { font-size: 12px; color: var(--text-3); }
+.config-body {
+  margin-bottom: 16px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+.config-body .equip-row { margin-top: 0; margin-bottom: 12px; }
+.config-body .equip-row:last-child { margin-bottom: 0; }
+.config-row1 .equip-group,
+.config-row3 .equip-group { flex: 1 1 0; min-width: 0; }
+.vert-control { width: 100%; }
+.vert-control input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.vert-axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-3); padding: 0 2px; }
+.vert-axis span { min-width: 12px; text-align: center; }
+.vert-axis span.active { font-weight: 700; color: var(--accent); }
+.config-row2 .equip-group { width: 100%; }
+.config-row2 .weapon-slot { width: 468px; height: 160px; }
+.config-row2 .weapon-slot.has-doll .tile-body img { object-fit: contain; }
+.mim-title-row { display: flex; align-items: baseline; gap: 8px; }
+.mim-lv {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  background: var(--accent-soft); padding: 1px 7px; border-radius: 6px;
+}
+.mim-name { font-size: 13px; color: var(--text); }
 .equip-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 26px; margin-bottom: 16px; }
 .equip-group { display: flex; flex-direction: column; gap: 8px; }
 .equip-title { font-size: 13px; font-weight: 600; color: var(--text-3); }
 .weapon-slot { width: 312px; }
-.weapon-body { display: flex; flex-direction: column; gap: 8px; }
+.weapon-body { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
 
 /* weapon attachments (2 rows, width = weapon tile) */
-.attach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.attach-grid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 76px; gap: 8px; width: 480px; }
 .attach-tile {
-  width: auto; min-height: 66px; display: flex; flex-direction: column; gap: 5px;
+  width: auto; min-height: 76px; display: flex; flex-direction: column; gap: 5px;
   border: 1px solid var(--border); background: var(--surface); border-radius: 12px;
   padding: 8px 10px; cursor: pointer; text-align: left;
   transition: border-color 0.16s ease, background 0.16s ease;
@@ -356,7 +398,7 @@ a { color: inherit; text-decoration: none; }
 .attach-tile:hover { border-color: var(--accent); background: rgba(0, 113, 227, 0.04); }
 .attach-name { font-size: 12px; font-weight: 700; color: var(--text); font-family: "Microsoft YaHei", "微软雅黑", sans-serif; }
 .attach-attrs { display: flex; flex-wrap: wrap; gap: 3px; }
-.attach-attrs .aa { font-size: 10px; color: var(--text-2); background: rgba(0, 0, 0, 0.05); padding: 1px 5px; border-radius: 5px; }
+.attach-attrs .aa { font-size: 10px; color: var(--text-2); background: rgba(0, 0, 0, 0.05); padding: 1px 5px; border-radius: 5px; white-space: nowrap; }
 
 /* key slots 2x2 */
 .key-grid { display: grid; grid-template-columns: repeat(2, 74px); gap: 8px; }
@@ -366,7 +408,21 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex; align-items: center; gap: 8px; padding-top: 4px;
   font-size: 13px; color: var(--text); cursor: pointer; user-select: none;
 }
-.oath input { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+input[type="checkbox"] {
+  -webkit-appearance: none; appearance: none;
+  width: 42px; height: 24px; flex: 0 0 42px;
+  border-radius: 999px; background: #d1d1d6; position: relative;
+  cursor: pointer; transition: background 0.2s ease; margin: 0;
+  vertical-align: middle;
+}
+input[type="checkbox"]::before {
+  content: ""; position: absolute; width: 20px; height: 20px; border-radius: 50%;
+  background: #fff; top: 2px; left: 2px; transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+input[type="checkbox"]:checked { background: #34c759; }
+input[type="checkbox"]:checked::before { transform: translateX(18px); }
+input[type="checkbox"]:focus-visible { outline: 2px solid rgba(52, 199, 89, 0.45); outline-offset: 2px; }
 .equip-group input[type="number"] {
   width: 56px; padding: 4px 6px; font: inherit; font-size: 13px;
   border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text);
@@ -406,11 +462,11 @@ a { color: inherit; text-decoration: none; }
 .key-tile-body { position: absolute; inset: 0; cursor: pointer; }
 .key-tile-body img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .key-name {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 4px 3px;
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 12px 4px 3px;
   font-size: 10px; font-weight: 600; color: #fff; text-align: center;
+  line-height: 1.18;
   font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0));
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .key-gen-icon {
   width: 100%; height: 100%;
@@ -437,7 +493,7 @@ a { color: inherit; text-decoration: none; }
 }
 .key-card-ico img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .key-card-info { min-width: 0; }
-.key-card-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.key-card-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.35; }
 .key-card-attrs { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
 .stat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
 .stat-cell {
@@ -505,7 +561,7 @@ a { color: inherit; text-decoration: none; }
   flex: 0 0 52px;
   border-radius: 12px;
   overflow: hidden;
-  background: linear-gradient(160deg, #e9e9ee, #dcdce2);
+  background: #2c2c30;
 }
 .skill-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .skill-head-txt { min-width: 0; }
@@ -523,15 +579,20 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-3);
   background: rgba(0, 0, 0, 0.05);
   padding: 2px 9px;
+  border: 0;
   border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
 }
-.skill-levels .lvl:first-child { color: var(--accent); background: var(--accent-soft); }
+.skill-levels .lvl:hover { color: var(--text); }
+.skill-levels .lvl.active { color: var(--accent); background: var(--accent-soft); }
+.skill-levels .lvl.correct::before { content: "✓ "; color: #34c759; font-weight: 800; }
 .skill-desc {
   margin-top: 14px;
   font-size: 14px;
   line-height: 1.75;
   color: var(--text);
-  white-space: pre-wrap;
+  white-space: normal;
 }
 .skill-desc .border-b { border-bottom: 1px dashed currentColor; }
 .skill-costs { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
@@ -562,7 +623,41 @@ a { color: inherit; text-decoration: none; }
   border-radius: 6px;
   white-space: nowrap;
 }
-.vert-text { font-size: 13.5px; line-height: 1.75; color: var(--text-2); white-space: pre-wrap; }
+.vert-text { font-size: 13.5px; line-height: 1.75; color: var(--text-2); white-space: normal; }
+
+/* skill panel + glossary terms */
+.skill-panel .panel-head { margin-bottom: 14px; }
+.skill-panel .panel-head h3 { font-size: 17px; }
+.term {
+  color: #3487e0;
+  border-bottom: 1px dashed #3487e0;
+  cursor: help;
+}
+.term-tip {
+  position: fixed;
+  display: none;
+  z-index: 9999;
+  max-width: 460px;
+  max-height: 72vh;
+  overflow: auto;
+  background: #1c1c20;
+  color: #ececf0;
+  border: 1px solid #3a3a42;
+  border-radius: 10px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.48);
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.72;
+  font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
+}
+.term-tip .term-entry + .term-entry {
+  border-top: 1px solid #35353d;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+.term-tip .term-name { font-weight: 700; color: #8fc7ff; margin-bottom: 4px; font-size: 13.5px; }
+.term-tip .term-desc { color: #ececf0; }
+.term-tip .term { pointer-events: none; color: #6fb3ff; border-bottom-color: #6fb3ff; }
 
 /* ---------------- Damage calculator ---------------- */
 .panel {
@@ -749,6 +844,8 @@ a { color: inherit; text-decoration: none; }
   top: calc(100% + 8px);
   left: 0;
   right: 0;
+  width: min(860px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
   z-index: 50;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -887,14 +984,19 @@ a { color: inherit; text-decoration: none; }
 .role-badge {
   display: inline-flex;
   align-items: center;
-  padding: 1px 7px;
-  border-radius: 999px;
-  color: #fff;
+  gap: 1px;
+  padding: 0;
+  border-radius: 4px;
+  color: var(--text-2);
   font-size: 11px;
   font-weight: 600;
-  line-height: 1.6;
+  line-height: 1;
   white-space: nowrap;
+  background: transparent;
 }
+.role-badge img { width: 17px; height: 17px; object-fit: contain; display: block; }
+.role-badge.filled { padding: 2px 4px; border-radius: 7px; }
+.role-badge .rb-count { font-size: 11px; font-weight: 700; color: var(--text-2); }
 
 .mim-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
 .mim-note { font-size: 12.5px; color: var(--text-2); line-height: 1.7; margin: 8px 0; }
