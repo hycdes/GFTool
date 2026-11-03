@@ -40,6 +40,7 @@ AMMO_BY_WEAPON = {
     7: '近战',    # Blade
 }
 AMMO_BY_ELEMENT = {2: '轻型弹', 4: '中型弹', 8: '重型弹', 16: '近战', 32: '霰弹', 1: None}
+ELEMENT_NAMES = {1: '燃烧', 2: '电导', 3: '冷凝', 4: '酸蚀', 5: '浊刻', 6: '重势', 7: '寄生', 31: '源谐'}
 SKILL_ORDER = {3: 0, 4: 1, 5: 2, 2: 3, 1: 4}
 PROFESSION_ICONS = {
     'Icon_Professional_Guard': 'prof_guard',
@@ -48,10 +49,10 @@ PROFESSION_ICONS = {
     'Icon_Professional_Suppress': 'prof_suppress',
 }
 
-# Preserve the wiki-era default list order.  New dolls are appended alphabetically
-# after these entries so existing ordering never churns.
+# Fallback order for old dolls without a character-banner record in GachaData.
+# Dolls with a banner time are sorted newest-first by release_dates().
 LEGACY_DOLL_ORDER = [
-    'IglaSSR', 'AgentSSR', 'CeciliaSSR', 'EaglettaSSR', 'AsteriaSSR', 'KoledaSSR',
+    'DestroyerSSR', 'IglaSSR', 'AgentSSR', 'CeciliaSSR', 'EaglettaSSR', 'AsteriaSSR', 'KoledaSSR',
     'FaelynnSSR', 'WelrodSSR', 'MitylSSR', 'SoppoSSR', 'OTs14SSR', 'SextansSSR',
     'LiushihSSR', 'BastiSSR', 'CheyanneSSR', 'LoreleySSR', 'SakuraSSR', 'PhaetusaSSR',
     'HelenSSR', 'LewisSSR', 'VoymastinaSSR', 'AlvaSSR', 'LindSSR', 'FlorenceSSR',
@@ -535,6 +536,7 @@ def build_skills(t, dolls, term_store):
                 icon = generic_attack_icon(doll['tags'][1] if len(doll['tags']) > 1 else '')
             tags = [x.strip() for x in (t.text(first.get(22)) or '').split('/') if x.strip()]
             sub = subtags_for(first, battle, doll, tags)
+            meta = skill_meta(battle.get(first.get(1), {}), sub[0] if sub else '')
             levels = []
             descs = []
             desc_refs = []
@@ -567,6 +569,7 @@ def build_skills(t, dolls, term_store):
                 'icon': 'img/skill/%s.png' % icon,
                 'tags': tags,
                 'subTags': sub,
+                'meta': meta,
                 'levels': levels,
                 'desc': descs[0] if descs else '',
                 'descs': descs,
@@ -618,6 +621,52 @@ def weapon_id(name):
         '手枪': 1, '冲锋枪': 2, '狙击枪': 3, '突击步枪': 4,
         '机枪': 5, '霰弹枪': 6, '刀': 7,
     }.get(name)
+
+
+def stability_damage(b):
+    """Steady-damage value is stored as the ``2,<n>`` segment in BattleSkillData.f17."""
+    raw = b.get(17)
+    if isinstance(raw, (bytes, bytearray)):
+        raw = raw.decode('utf-8', 'ignore')
+    if not raw:
+        return None
+    for seg in raw.split(';'):
+        parts = seg.split(',')
+        if len(parts) >= 2 and parts[0].strip() == '2':
+            try:
+                value = int(parts[1])
+            except ValueError:
+                continue
+            if 0 <= value <= 20:
+                return value
+    return None
+
+
+def skill_meta(b, ammo):
+    """Header metadata: ammo / steady damage / element / cooldown / index cost."""
+    meta = {}
+    if ammo:
+        meta['ammo'] = ammo
+    value = stability_damage(b)
+    if value is not None:
+        meta['stability'] = value
+    element = ELEMENT_NAMES.get(b.get(6))
+    if element:
+        meta['element'] = element
+    value = b.get(31)
+    if isinstance(value, int) and value > 0:
+        meta['cooldown'] = value
+    value = b.get(34)
+    if isinstance(value, int) and value > 0:
+        meta['cost'] = value
+    return meta
+
+
+# Some raw refs point at an empty wrapper buff id; map them to the real buff.
+# Destroyer's 弹药狂热 {4} (拒绝退场) raw ref: 0:-1,1088081262,1
+TERM_REF_OVERRIDES = {
+    (0, (-1, 1088081262, 1)): 1088081261,
+}
 
 
 def parse_refs(s):
@@ -680,6 +729,9 @@ class TermStore:
                 self.buff_groups[group].extend(packed_varints(r.get(2)))
 
     def resolve_one(self, typ, cands):
+        override = TERM_REF_OVERRIDES.get((typ, tuple(cands)))
+        if override is not None:
+            return override
         table = self.buffs if typ == 0 else (self.dicts if typ == 1 else {})
         fallback = self.buff_data if typ == 0 else {}
         positives = [x for x in cands if x > 0]
@@ -764,15 +816,59 @@ def collect_skill_refs(dolls):
     return refs
 
 
-def order_dolls(dolls):
-    ordered = OrderedDict()
-    for sid in LEGACY_DOLL_ORDER:
-        if sid in dolls:
-            ordered[sid] = dolls[sid]
-    for sid in sorted(dolls):
-        if sid not in ordered:
-            ordered[sid] = dolls[sid]
-    return ordered
+def collect_key_refs(t):
+    display = {r.get(1): r for r in t.rows('BattleSkillDisplayData') if isinstance(r.get(1), int)}
+    refs = []
+    for r in t.rows('TalentKeyData'):
+        sid = r.get(6)
+        if not isinstance(sid, int):
+            continue
+        row = display.get(sid)
+        if row:
+            refs.append(parse_refs(t.text(row.get(4))))
+    return refs
+
+
+def release_dates(t):
+    """doll id -> earliest character-banner start timestamp from GachaData."""
+    gun_to_id = {}
+    for r in t.rows('GunData'):
+        gid = r.get(1)
+        sid = t.text(r.get(5))
+        if isinstance(gid, int) and sid:
+            gun_to_id[gid] = sid
+    release = {}
+    for r in t.rows('GachaData'):
+        if r.get(4) != 3:
+            continue
+        gid = r.get(30)
+        if isinstance(gid, str) and gid.isdigit():
+            gid = int(gid)
+        if not isinstance(gid, int):
+            continue
+        sid = gun_to_id.get(gid)
+        if not sid:
+            continue
+        start = r.get(7)
+        if not isinstance(start, int) or start <= 0:
+            continue
+        if sid not in release or start < release[sid]:
+            release[sid] = start
+    return release
+
+
+def order_dolls(dolls, t):
+    release = release_dates(t)
+    fallback = {sid: i for i, sid in enumerate(LEGACY_DOLL_ORDER)}
+
+    def key(sid):
+        ts = release.get(sid)
+        fb = fallback.get(sid, len(LEGACY_DOLL_ORDER))
+        if ts is not None:
+            return (0, -ts, fb)
+        return (1, 0, fb)
+
+    return OrderedDict((sid, dolls[sid]) for sid in sorted(dolls, key=key))
 
 
 def main():
@@ -787,14 +883,14 @@ def main():
     print('reading tables ...')
     t = Tables(args.table)
     old_attr = load_old_attr()
-    dolls = order_dolls(build_dolls(t, old_attr))
+    dolls = order_dolls(build_dolls(t, old_attr), t)
     print('dolls:', len(dolls))
 
     print('building skills ...')
     term_store = TermStore(t)
     build_skills(t, dolls, term_store)
     print('terms ...')
-    terms = term_store.collect(collect_skill_refs(dolls))
+    terms = term_store.collect(collect_skill_refs(dolls) + collect_key_refs(t))
     print('terms:', len(terms))
 
     if not args.no_images:
@@ -847,7 +943,7 @@ def main():
         fp.write('// GF2 Tools T-Doll data\n')
         fp.write('// Generated by scripts/scrape_local.py from the local game client.\n')
         fp.write('// Fields: id, name, rank, tags, intro, avatar, thumbnail, attrGroups, skills\n')
-        fp.write('// skill: { name, icon, tags, subTags, levels, desc, descs, descRefs, vertebrae }\n')
+        fp.write('// skill: { name, icon, tags, subTags, meta, levels, desc, descs, descRefs, vertebrae }\n')
         fp.write('window.TDOLL_STAT = ')
         json.dump(out, fp, ensure_ascii=False, separators=(',', ':'))
         fp.write(';\n')

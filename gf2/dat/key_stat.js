@@ -1756,7 +1756,7 @@ window.KEY_STAT = {
                                                  "id":  "suomi_leap",
                                                  "name":  "跃键·摇滚雪绒花",
                                                  "icon":  "img/key/suomi_leap.png",
-                                                 "text":  "行动支援 造成的伤害改为冷凝伤害。友方单位拥有 寒霜屏障 时，造成的冷凝伤害提高15%，回合开始时恢复4点稳态指数。友方单位攻击前，若没有 寒霜屏障 ，则索米立刻为其施加 寒霜屏障 ，持续2回合，吸收量为60%索米初始攻击力，至多不超过100%目标最大生命值。使用制胜技能雪域明光时，对敌方目标施加 冰封 ，持续2回合。"
+                                                 "text":  "【1阶】 行动支援 造成的伤害改为冷凝伤害。友方单位拥有 寒霜屏障 时，造成的冷凝伤害提高15%，回合开始时恢复4点稳态指数。友方单位攻击前，若没有 寒霜屏障 ，则索米立刻为其施加 寒霜屏障 ，持续2回合，吸收量为60%索米初始攻击力，至多不超过100%目标最大生命值。使用制胜技能雪域明光时，对敌方目标施加 冰封 ，持续2回合。 【2阶】 自身防御力提高40%，受到的伤害降低50%。行动结束时，获得2点导染指数。 冷凝类友方人形受到致命伤害时，对其施加 雪域屏障 ，持续1个大回合，驱散所有减益效果并解除 嘲讽 、 逃避 、 眩晕 和 诱导 效果；战斗开始时，场上每有1个冷凝类友方人形，触发次数增加1次，每场战斗至多触发5次。 使用制胜技能雪域明光后，对敌方目标施加 雪绒花 ，持续2回合。 战斗开始时，场上每有1个冷凝类友方人形，使用制胜技能雪域明光后，为所有冷凝类友方人形施加1层 防卫支援 ，自身获得1层 冰雪堡垒 。"
                                              }
                                 },
                    "PapashaSSR":  {
@@ -5090,7 +5090,79 @@ window.KEY_STAT = {
                                                  }
                                              ],
                                    "leap":  null
-                               }
+                               },
+                   "DestroyerSSR":  {
+                                        "affection":  {
+                                                          "id":  "destroyer_love",
+                                                          "name":  "契合键·冒犯的艺术家",
+                                                          "icon":  "img/key/destroyer_love.png",
+                                                          "attrs":  [
+                                                                        {
+                                                                            "name":  "暴击",
+                                                                            "value":  4.5
+                                                                        },
+                                                                        {
+                                                                            "name":  "攻击",
+                                                                            "value":  4.5
+                                                                        },
+                                                                        {
+                                                                            "name":  "生命",
+                                                                            "value":  4.5
+                                                                        }
+                                                                    ]
+                                                      },
+                                        "shared":  {
+                                                       "id":  "destroyer_common",
+                                                       "name":  "共键·最后的疯狂",
+                                                       "icon":  "img/key/destroyer_common.png",
+                                                       "attrs":  [
+                                                                     {
+                                                                         "name":  "暴击",
+                                                                         "value":  5
+                                                                     }
+                                                                 ],
+                                                       "text":  "自身生命值小于等于80%时，造成的伤害提高10%。"
+                                                   },
+                                        "fixed":  [
+                                                      {
+                                                          "id":  "destroyer_static_1",
+                                                          "name":  "固键·爆破专家",
+                                                          "icon":  "img/key/destroyer_static_1.png",
+                                                          "text":  "战斗开始时，额外获得3颗榴弹且上限提高3颗。"
+                                                      },
+                                                      {
+                                                          "id":  "destroyer_static_2",
+                                                          "name":  "固键·冷场的脱口秀",
+                                                          "icon":  "img/key/destroyer_static_2.png",
+                                                          "text":  "使用主动技能后在生效范围内产生霜冻地格，持续2回合。"
+                                                      },
+                                                      {
+                                                          "id":  "destroyer_static_3",
+                                                          "name":  "固键·无差别攻击",
+                                                          "icon":  "img/key/destroyer_static_3.png",
+                                                          "text":  "主动使用弹药狂热后，获得以血还血，持续3回合。"
+                                                      },
+                                                      {
+                                                          "id":  "destroyer_static_4",
+                                                          "name":  "固键·被祝福的玛利亚",
+                                                          "icon":  "img/key/destroyer_static_4.png",
+                                                          "text":  "使用主动技能毁灭指令或主动技能末日弹幕后，获得寒霜屏障，持续3回合，寒霜屏障吸收量为65%初始攻击力，至多不超过60%最大生命值。"
+                                                      },
+                                                      {
+                                                          "id":  "destroyer_static_5",
+                                                          "name":  "固键·铁血的魔犬",
+                                                          "icon":  "img/key/destroyer_static_5.png",
+                                                          "text":  "战斗开始时，场上每有1个拥有铁血的友方人形，自身造成的暴击伤害提高5%，至多25%。"
+                                                      },
+                                                      {
+                                                          "id":  "destroyer_static_6",
+                                                          "name":  "固键·不计一切代价",
+                                                          "icon":  "img/key/destroyer_static_6.png",
+                                                          "text":  "使用主动技能毁灭指令或末日弹幕时消耗的生命值降低至5%，但每个大回合开始时消耗自身70%初始生命值的生命值。受到来自机械单位的伤害降低50%。"
+                                                      }
+                                                  ],
+                                        "leap":  null
+                                    }
                },
     "genericShared":  {
                           "id":  "generic_crit",

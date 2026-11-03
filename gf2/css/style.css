@@ -565,6 +565,28 @@ input[type="checkbox"]:focus-visible { outline: 2px solid rgba(52, 199, 89, 0.45
 }
 .skill-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .skill-head-txt { min-width: 0; }
+.skill-name-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.skill-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+.skill-meta .meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-3);
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 8px 2px 4px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.skill-meta .meta-chip img {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #2c2c30;
+}
 .skill-name {
   font-family: "Microsoft YaHei", "微软雅黑", "PingFang SC", "Hiragino Sans GB", sans-serif;
   font-size: 16px;
@@ -624,6 +646,45 @@ input[type="checkbox"]:focus-visible { outline: 2px solid rgba(52, 199, 89, 0.45
   white-space: nowrap;
 }
 .vert-text { font-size: 13.5px; line-height: 1.75; color: var(--text-2); white-space: normal; }
+
+/* mind-spiral key panel */
+.spiral-group + .spiral-group { margin-top: 18px; }
+.spiral-group-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-2);
+  margin-bottom: 10px;
+}
+.spiral-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.spiral-grid.single { grid-template-columns: minmax(0, 1fr); }
+.spiral-card {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.spiral-icon {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #2c2c30;
+}
+.spiral-body { min-width: 0; flex: 1; }
+.spiral-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.spiral-attrs { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.spiral-attrs .chip { font-size: 11.5px; padding: 2px 7px; }
+.spiral-text { font-size: 13px; line-height: 1.65; color: var(--text-2); margin-top: 6px; }
+@media (max-width: 900px) {
+  .spiral-grid { grid-template-columns: 1fr; }
+}
 
 /* skill panel + glossary terms */
 .skill-panel .panel-head { margin-bottom: 14px; }

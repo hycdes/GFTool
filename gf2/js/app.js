@@ -5,6 +5,7 @@
   var DATA = window.TDOLL_STAT || {};
   var WEAPONS = window.WEAPON_STAT || {};
   var KEYS = window.KEY_STAT || { byDoll: {} };
+  var KEY_DESC = window.KEY_DESC_STAT || {};
   var MIMICRY = window.MIMICRY_STAT || { rates: {}, byDoll: {} };
   var TERMS = window.TERM_STAT || {};
   var ROLE_ICON = {
@@ -822,12 +823,47 @@
     }
     return sel;
   }
+  var META_ICONS = {
+    ammo: {
+      "轻型弹": "img/ui/type_a_light.png",
+      "中型弹": "img/ui/type_a_mid.png",
+      "重型弹": "img/ui/type_a_heavy.png",
+      "近战": "img/ui/type_a_sword.png",
+      "霰弹": "img/ui/type_a_sg.png"
+    },
+    element: {
+      "燃烧": "img/ui/type_e_fire.png",
+      "电导": "img/ui/type_e_elec.png",
+      "冷凝": "img/ui/type_e_ice.png",
+      "酸蚀": "img/ui/type_e_acid.png",
+      "浊刻": "img/ui/type_e_hydro.png",
+      "源谐": "img/ui/type_e_harmony.png"
+    },
+    stability: "img/ui/type_s_steady.png",
+    cooldown: "img/ui/type_s_cd.png",
+    cost: "img/ui/type_s_potential.png"
+  };
+  function metaChipHtml(text, icon) {
+    return '<span class="meta-chip">' +
+      (icon ? '<img src="' + icon + '" alt="" onerror="this.style.display=\'none\'">' : '') +
+      esc(String(text)) + "</span>";
+  }
   function skillCardHtml(s, idx, vert) {
     var nm = (s.name || "").replace(/\s*Lv\.\d+\s*$/, "");
     if (typeof vert !== "number") vert = 6;
-    var chips = arr(s.tags).concat(arr(s.subTags)).map(function (t) {
+    var chips = arr(s.tags).map(function (t) {
       return '<span class="chip">' + esc(t) + "</span>";
     }).join("");
+    var meta = s.meta || {};
+    var metaChips = [];
+    if (meta.ammo) metaChips.push(metaChipHtml(meta.ammo, META_ICONS.ammo[meta.ammo]));
+    if (meta.stability != null) metaChips.push(metaChipHtml("稳态伤害 " + meta.stability, META_ICONS.stability));
+    if (meta.element) metaChips.push(metaChipHtml(meta.element, META_ICONS.element[meta.element]));
+    if (meta.cooldown != null) metaChips.push(metaChipHtml("冷却时间 " + meta.cooldown, META_ICONS.cooldown));
+    if (meta.cost != null) metaChips.push(metaChipHtml("导染消耗 " + meta.cost, META_ICONS.cost));
+    var metaHtml = metaChips.length
+      ? '<div class="skill-meta">' + metaChips.join("") + "</div>"
+      : "";
     var descs = arr(s.descs);
     if (!descs.length) descs = [s.desc || ""];
     var refs = arr(s.descRefs);
@@ -857,7 +893,7 @@
       : '<div class="skill-icon"></div>';
     return '<div class="skill-card" data-skill="' + idx + '">' +
       '<div class="skill-head">' + icon +
-        '<div class="skill-head-txt"><div class="skill-name">' + esc(nm) + "</div>" +
+        '<div class="skill-head-txt"><div class="skill-name-row"><div class="skill-name">' + esc(nm) + "</div>" + metaHtml + "</div>" +
           '<div class="skill-tags">' + chips + "</div></div>" +
       "</div>" + tabs + descHtml + costs + vert +
     "</div>";
@@ -868,6 +904,41 @@
     return '<div class="panel skill-panel">' +
       '<div class="panel-head"><h3>技能</h3><span class="panel-sub">椎体拉条会自动切换描述 · 点击 Lv 标签可手动查看 · 悬浮蓝色词条查看机制</span></div>' +
       '<div class="skill-list">' + list.map(function (s, i) { return skillCardHtml(s, i, getVertebra(d)); }).join("") + "</div>" +
+    "</div>";
+  }
+
+  function spiralKeyCard(k) {
+    var attrs = arr(k.attrs).map(function (a) {
+      return '<span class="chip">' + esc(a.name) + esc(String(a.value)) + "%</span>";
+    }).join("");
+    var rich = KEY_DESC[k.id] || {};
+    var text = rich.text || k.text || "";
+    var refs = rich.refs || k.refs || [];
+    return '<div class="spiral-card">' +
+      (k.icon ? '<img class="spiral-icon" src="' + k.icon + '" alt="" onerror="this.style.visibility=\'hidden\'" />' : '<div class="spiral-icon"></div>') +
+      '<div class="spiral-body">' +
+        '<div class="spiral-name">' + esc(k.name || "") + "</div>" +
+        (attrs ? '<div class="spiral-attrs">' + attrs + "</div>" : "") +
+        (text ? '<div class="spiral-text">' + renderRich(text, refs) + "</div>" : "") +
+      "</div>" +
+    "</div>";
+  }
+  function spiralPanelHtml(d) {
+    var kd = (KEYS.byDoll || {})[d.id];
+    if (!kd) return "";
+    var groups = [];
+    if (kd.affection) groups.push({ title: "好感键", keys: [kd.affection], single: true });
+    if (kd.shared) groups.push({ title: "共键", keys: [kd.shared], single: true });
+    if (arr(kd.fixed).length) groups.push({ title: "专属固键", keys: arr(kd.fixed), single: false });
+    if (!groups.length) return "";
+    return '<div class="panel spiral-panel">' +
+      '<div class="panel-head"><h3>心智螺旋</h3><span class="panel-sub">好感键 · 共键 · 专属固键</span></div>' +
+      groups.map(function (g) {
+        return '<div class="spiral-group"><div class="spiral-group-title">' + esc(g.title) + "</div>" +
+          '<div class="spiral-grid' + (g.single ? " single" : "") + '">' +
+            g.keys.map(spiralKeyCard).join("") +
+          "</div></div>";
+      }).join("") +
     "</div>";
   }
 
@@ -960,6 +1031,7 @@
     var statPanel = dollStatPanel(d);
 
     var skillPanel = skillPanelHtml(d);
+    var spiralPanel = spiralPanelHtml(d);
 
     view.innerHTML =
       '<button class="back-btn" onclick="location.hash=\'#/codex/doll\'">' + ICON.back + " 返回人形列表</button>" +
@@ -973,7 +1045,7 @@
           '<div class="intro">' + esc(d.intro) + "</div>" +
         "</div>" +
       "</div>" +
-      statPanel + skillPanel;
+      statPanel + skillPanel + spiralPanel;
     positionPicker();
 
     if (equipPicker && equipPicker.dollId === d.id) {

@@ -1,6 +1,63 @@
 ﻿// GF2 Tools weapon data
 // Fields: id, name, rank (5/4/3), tags, intro, image, thumbnail, stats, bond{id,name,text}, trait{label,text}, effects[], pools[]
 window.WEAPON_STAT = {
+    "Weapon_Destroyer_5":  {
+                               "id":  "Weapon_Destroyer_5",
+                               "name":  "盖娅终结",
+                               "rank":  5,
+                               "tags":  [
+                                            "霰弹枪",
+                                            "霰弹"
+                                        ],
+                               "intro":  "利用铁血技术研发的特制武器，枪身及子弹均经过了特殊改造，以符合破坏者对爆破武装的要求。大地随重炮的轰鸣震颤之际，便是向敌人宣告死亡的终结之时。",
+                               "image":  "img/weapon/Weapon_Destroyer_5_1024.png",
+                               "thumbnail":  "img/weapon/thumb/Weapon_Destroyer_5_1024.png",
+                               "stats":  {
+                                             "攻击":  "390",
+                                             "攻击加成":  "15%"
+                                         },
+                               "bond":  {
+                                            "id":  "DestroyerSSR",
+                                            "name":  "破坏者",
+                                            "text":  "对拥有冷凝类减益的目标造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2.5%\u003c/span\u003e，对军方造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2.5%\u003c/span\u003e。自身造成的冷凝伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e，战斗开始时获得\u003cspan style=\"color:#f26c1c\"\u003e3层\u003c/span\u003e\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e犬牙\u003c/span\u003e\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e犬牙:\u003c/span\u003e 破坏者专属标记，至多叠加\u003cspan style=\"color:#f26c1c\"\u003e3层\u003c/span\u003e。不可驱散。"
+                                        },
+                               "trait":  {
+                                             "label":  "特质",
+                                             "text":  "自身生命值不满时无视目标\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e防御力，若造成\u003cspan style=\"color:#42cce0\"\u003e冷凝伤害\u003c/span\u003e，额外无视其\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e的防御力。"
+                                         },
+                               "effects":  [
+                                               {
+                                                   "name":  "困兽之斗 Lv.1",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e20%\u003c/span\u003e。使用制胜技能恢复自身生命值后，制胜技能冷却时间减少\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e，每个大回合至多触发\u003cspan style=\"color:#f26c1c\"\u003e1次\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "困兽之斗 Lv.2",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e24%\u003c/span\u003e。使用制胜技能恢复自身生命值后，制胜技能冷却时间减少\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e，每个大回合至多触发\u003cspan style=\"color:#f26c1c\"\u003e1次\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "困兽之斗 Lv.3",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e28%\u003c/span\u003e。使用制胜技能恢复自身生命值后，制胜技能冷却时间减少\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e，每个大回合至多触发\u003cspan style=\"color:#f26c1c\"\u003e1次\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "困兽之斗 Lv.4",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e32%\u003c/span\u003e。使用制胜技能恢复自身生命值后，制胜技能冷却时间减少\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e，每个大回合至多触发\u003cspan style=\"color:#f26c1c\"\u003e1次\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "困兽之斗 Lv.5",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e36%\u003c/span\u003e。使用制胜技能恢复自身生命值后，制胜技能冷却时间减少\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e，每个大回合至多触发\u003cspan style=\"color:#f26c1c\"\u003e1次\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "困兽之斗 Lv.6",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e40%\u003c/span\u003e。使用制胜技能恢复自身生命值后，制胜技能冷却时间减少\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e，每个大回合至多触发\u003cspan style=\"color:#f26c1c\"\u003e1次\u003c/span\u003e。"
+                                               }
+                                           ],
+                               "pools":  [
+                                             {
+                                                 "name":  "军备提升",
+                                                 "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
+                                             }
+                                         ]
+                           },
     "Weapon_Igla_5":  {
                           "id":  "Weapon_Igla_5",
                           "name":  "天鹅之死",
@@ -4264,6 +4321,62 @@ window.WEAPON_STAT = {
 
                                           ]
                             },
+    "Weapon_Destroyer_4":  {
+                               "id":  "Weapon_Destroyer_4",
+                               "name":  "铁鬣",
+                               "rank":  4,
+                               "tags":  [
+                                            "霰弹枪",
+                                            "霰弹"
+                                        ],
+                               "intro":  "与破坏者契合度较高的特制武器，根据破坏者的要求进行了改装，强劲的性能，足以用它来轰平眼前的道路。",
+                               "image":  "img/weapon/Weapon_Destroyer_4_1024.png",
+                               "thumbnail":  "img/weapon/thumb/Weapon_Destroyer_4_1024.png",
+                               "stats":  {
+                                             "攻击":  "278"
+                                         },
+                               "bond":  {
+                                            "id":  "",
+                                            "name":  "",
+                                            "text":  ""
+                                        },
+                               "trait":  {
+                                             "label":  "特质",
+                                             "text":  "自身生命值不满时无视目标\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e防御力，若造成\u003cspan style=\"color:#42cce0\"\u003e冷凝伤害\u003c/span\u003e，额外无视其\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e的防御力。"
+                                         },
+                               "effects":  [
+                                               {
+                                                   "name":  "失控獠牙 Lv.1",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "失控獠牙 Lv.2",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e12%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "失控獠牙 Lv.3",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e14%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "失控獠牙 Lv.4",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e16%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "失控獠牙 Lv.5",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "失控獠牙 Lv.6",
+                                                   "text":  "自身生命值不满时造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e20%\u003c/span\u003e。"
+                                               }
+                                           ],
+                               "pools":  [
+                                             {
+                                                 "name":  "军备提升",
+                                                 "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
+                                             }
+                                         ]
+                           },
     "Weapon_Igla_4":  {
                           "id":  "Weapon_Igla_4",
                           "name":  "挽歌",
@@ -9298,6 +9411,59 @@ window.WEAPON_STAT = {
 
                                       ]
                         },
+    "Weapon_Destroyer_3":  {
+                               "id":  "Weapon_Destroyer_3",
+                               "name":  "旧式铁鬣",
+                               "rank":  3,
+                               "tags":  [
+                                            "霰弹枪",
+                                            "霰弹"
+                                        ],
+                               "intro":  "从暗商处采购的廉价武器，凭借着有如咆哮般的开火声，讨得了破坏者的欢心。",
+                               "image":  "img/weapon/Weapon_Destroyer_3_1024.png",
+                               "thumbnail":  "img/weapon/thumb/Weapon_Destroyer_3_1024.png",
+                               "stats":  {
+                                             "攻击":  "195"
+                                         },
+                               "bond":  {
+                                            "id":  "",
+                                            "name":  "",
+                                            "text":  ""
+                                        },
+                               "trait":  {
+                                             "label":  "",
+                                             "text":  ""
+                                         },
+                               "effects":  [
+                                               {
+                                                   "name":  "火力武装 Lv.1",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e1%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.2",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.3",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e3%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.4",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e4%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.5",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.6",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e6%\u003c/span\u003e。"
+                                               }
+                                           ],
+                               "pools":  [
+
+                                         ]
+                           },
     "Weapon_G36_3":  {
                          "id":  "Weapon_G36_3",
                          "name":  "旧式格威尔36",
