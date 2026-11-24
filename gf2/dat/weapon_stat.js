@@ -1,6 +1,63 @@
 ﻿// GF2 Tools weapon data
 // Fields: id, name, rank (5/4/3), tags, intro, image, thumbnail, stats, bond{id,name,text}, trait{label,text}, effects[], pools[]
 window.WEAPON_STAT = {
+    "Weapon_Kuro_5":  {
+                          "id":  "Weapon_Kuro_5",
+                          "name":  "阈限风暴",
+                          "rank":  5,
+                          "tags":  [
+                                       "突击步枪",
+                                       "中型弹"
+                                   ],
+                          "intro":  "卡萝被配给的高性能突击步枪，以MDR突击步枪为原型，针对卡萝别具一格的作战方式进行了深度改造。对胆敢冒犯主播大人的黑子们降下如暴风骤雨般的制裁吧。",
+                          "image":  "img/weapon/Weapon_Kuro_5_1024.png",
+                          "thumbnail":  "img/weapon/thumb/Weapon_Kuro_5_1024.png",
+                          "stats":  {
+                                        "攻击":  "369",
+                                        "攻击加成":  "15%"
+                                    },
+                          "bond":  {
+                                       "id":  "KuroSSR",
+                                       "name":  "卡萝",
+                                       "text":  "对拥有电导类减益的目标造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2.5%\u003c/span\u003e，对吉拉尔集团造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2.5%\u003c/span\u003e。"
+                                   },
+                          "trait":  {
+                                        "label":  "特质",
+                                        "text":  "主动技能造成精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e后，自身造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e3%\u003c/span\u003e，至多提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1个大回合\u003c/span\u003e。"
+                                    },
+                          "effects":  [
+                                          {
+                                              "name":  "PK主场 Lv.1",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e4次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合暴击伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e8次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合开始时获得\u003cspan style=\"color:#f26c1c\"\u003e2点\u003c/span\u003e导染指数。"
+                                          },
+                                          {
+                                              "name":  "PK主场 Lv.2",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e4次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合暴击伤害提高\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e8次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合开始时获得\u003cspan style=\"color:#f26c1c\"\u003e2点\u003c/span\u003e导染指数。"
+                                          },
+                                          {
+                                              "name":  "PK主场 Lv.3",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e21%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e4次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合暴击伤害提高\u003cspan style=\"color:#f26c1c\"\u003e21%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e8次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合开始时获得\u003cspan style=\"color:#f26c1c\"\u003e2点\u003c/span\u003e导染指数。"
+                                          },
+                                          {
+                                              "name":  "PK主场 Lv.4",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e24%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e4次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合暴击伤害提高\u003cspan style=\"color:#f26c1c\"\u003e24%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e8次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合开始时获得\u003cspan style=\"color:#f26c1c\"\u003e2点\u003c/span\u003e导染指数。"
+                                          },
+                                          {
+                                              "name":  "PK主场 Lv.5",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e27%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e4次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合暴击伤害提高\u003cspan style=\"color:#f26c1c\"\u003e27%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e8次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合开始时获得\u003cspan style=\"color:#f26c1c\"\u003e2点\u003c/span\u003e导染指数。"
+                                          },
+                                          {
+                                              "name":  "PK主场 Lv.6",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e4次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合暴击伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；本回合若造成\u003cspan style=\"color:#f26c1c\"\u003e8次\u003c/span\u003e及以上精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e，下回合开始时获得\u003cspan style=\"color:#f26c1c\"\u003e2点\u003c/span\u003e导染指数。"
+                                          }
+                                      ],
+                          "pools":  [
+                                        {
+                                            "name":  "军备提升",
+                                            "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
+                                        }
+                                    ]
+                      },
     "Weapon_Destroyer_5":  {
                                "id":  "Weapon_Destroyer_5",
                                "name":  "盖娅终结",
@@ -80,32 +137,32 @@ window.WEAPON_STAT = {
                                    },
                           "trait":  {
                                         "label":  "特质",
-                                        "text":  "无视目标\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e防御力，造成近战伤害时，额外无视其\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e防御力。"
+                                        "text":  "无视目标\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e的防御力，造成近战伤害时，额外无视其\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e的防御力。"
                                     },
                           "effects":  [
                                           {
                                               "name":  "执事热忱 Lv.1",
-                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e20%\u003c/span\u003e。友方单位使用主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
+                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e20%\u003c/span\u003e。所有友方单位的主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
                                           },
                                           {
                                               "name":  "执事热忱 Lv.2",
-                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e。友方单位使用主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
+                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e。所有友方单位的主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
                                           },
                                           {
                                               "name":  "执事热忱 Lv.3",
-                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e。友方单位使用主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
+                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e。所有友方单位的主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
                                           },
                                           {
                                               "name":  "执事热忱 Lv.4",
-                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e35%\u003c/span\u003e。友方单位使用主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
+                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e35%\u003c/span\u003e。所有友方单位的主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
                                           },
                                           {
                                               "name":  "执事热忱 Lv.5",
-                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e40%\u003c/span\u003e。友方单位使用主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
+                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e40%\u003c/span\u003e。所有友方单位的主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
                                           },
                                           {
                                               "name":  "执事热忱 Lv.6",
-                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e45%\u003c/span\u003e。友方单位使用主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
+                                              "text":  "自身拥有增益效果时，造成的物理伤害提高\u003cspan style=\"color:#f26c1c\"\u003e45%\u003c/span\u003e。所有友方单位的主动斩域技能造成伤害时，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n若造成回合外物理伤害，技能后获得\u003cspan style=\"color:#f26c1c\"\u003e1点\u003c/span\u003e通透指数，每回合至多获得\u003cspan style=\"color:#f26c1c\"\u003e6点\u003c/span\u003e。"
                                           }
                                       ],
                           "pools":  [
@@ -169,6 +226,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-09-22 09:00:00 ~ 2026-10-13 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                          }
                                      ]
                        },
@@ -226,6 +287,10 @@ window.WEAPON_STAT = {
                                            {
                                                "name":  "军备提升",
                                                "time":  "2026-09-01 08:00:00 ~ 2026-09-22 08:59:59"
+                                           },
+                                           {
+                                               "name":  "军备提升",
+                                               "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                            }
                                        ]
                          },
@@ -653,6 +718,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-06-09 08:00:00 ~ 2026-06-30 05:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                          }
                                      ]
                        },
@@ -1012,15 +1081,15 @@ window.WEAPON_STAT = {
                                            },
                                            {
                                                "name":  "月火遗诗 Lv.2",
-                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。"
+                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。"
                                            },
                                            {
                                                "name":  "月火遗诗 Lv.3",
-                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。"
+                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。"
                                            },
                                            {
                                                "name":  "月火遗诗 Lv.4",
-                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e35%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。"
+                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e35%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。"
                                            },
                                            {
                                                "name":  "月火遗诗 Lv.5",
@@ -1028,7 +1097,7 @@ window.WEAPON_STAT = {
                                            },
                                            {
                                                "name":  "月火遗诗 Lv.6",
-                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e45%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。"
+                                               "text":  "全体友方单位造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。若自身拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e余烬\u003c/span\u003e\u003c/span\u003e或\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e炽火余烬\u003c/span\u003e\u003c/span\u003e，则造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e45%\u003c/span\u003e。\n友方单位获得燃烧类增益效果时，获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e攻击提升II\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e炽火余烬:\u003c/span\u003e 造成的燃烧伤害提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e，受到的伤害降低\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e；暴击伤害永久提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。燃烧类增益不可驱散。\n\u003cspan style=\"color:#3487e0\"\u003e攻击提升II:\u003c/span\u003e 攻击力提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。增益效果。"
                                            }
                                        ],
                            "pools":  [
@@ -1840,7 +1909,7 @@ window.WEAPON_STAT = {
                            "effects":  [
                                            {
                                                "name":  "美德礼赞 Lv.1",
-                                               "text":  "行动结束时，给自身和自身的\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e实体召唤物\u003c/span\u003e\u003c/span\u003e施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e浸润I\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n制胜技能造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e实体召唤物:\u003c/span\u003e 在战斗中占用地格、拥有属性且可被选中的召唤物。\n\u003cspan style=\"color:#3487e0\"\u003e浸润I:\u003c/span\u003e 造成\u003cspan style=\"color:#2caadb\"\u003e浊刻伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。浊刻类增益。"
+                                               "text":  "行动结束时，给自身和自身的\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e实体召唤物\u003c/span\u003e\u003c/span\u003e施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e浸润I\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n制胜技能造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e浸润I:\u003c/span\u003e 造成\u003cspan style=\"color:#2caadb\"\u003e浊刻伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。浊刻类增益。\n\u003cspan style=\"color:#3487e0\"\u003e实体召唤物:\u003c/span\u003e 在战斗中占用地格、拥有属性且可被选中的召唤物。"
                                            },
                                            {
                                                "name":  "美德礼赞 Lv.2",
@@ -1860,7 +1929,7 @@ window.WEAPON_STAT = {
                                            },
                                            {
                                                "name":  "美德礼赞 Lv.6",
-                                               "text":  "行动结束时，给自身和自身的\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e实体召唤物\u003c/span\u003e\u003c/span\u003e施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e浸润I\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n制胜技能造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e40%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e实体召唤物:\u003c/span\u003e 在战斗中占用地格、拥有属性且可被选中的召唤物。\n\u003cspan style=\"color:#3487e0\"\u003e浸润I:\u003c/span\u003e 造成\u003cspan style=\"color:#2caadb\"\u003e浊刻伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。浊刻类增益。"
+                                               "text":  "行动结束时，给自身和自身的\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e实体召唤物\u003c/span\u003e\u003c/span\u003e施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e浸润I\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e2回合\u003c/span\u003e。\n制胜技能造成的伤害提高\u003cspan style=\"color:#f26c1c\"\u003e40%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e浸润I:\u003c/span\u003e 造成\u003cspan style=\"color:#2caadb\"\u003e浊刻伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。浊刻类增益。\n\u003cspan style=\"color:#3487e0\"\u003e实体召唤物:\u003c/span\u003e 在战斗中占用地格、拥有属性且可被选中的召唤物。"
                                            }
                                        ],
                            "pools":  [
@@ -2495,6 +2564,10 @@ window.WEAPON_STAT = {
                                        {
                                            "name":  "重逢采购·军备",
                                            "time":  "2026-09-22 09:00:00 ~ 2026-11-03 08:59:59"
+                                       },
+                                       {
+                                           "name":  "军备提升",
+                                           "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                        }
                                    ]
                      },
@@ -2683,7 +2756,7 @@ window.WEAPON_STAT = {
                           "effects":  [
                                           {
                                               "name":  "胜者加冕 Lv.1",
-                                              "text":  "拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e洞察\u003c/span\u003e\u003c/span\u003e时，造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。友方单位主动攻击前，若目标拥有冷凝类减益时，则造成的冷凝伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e，目标拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e僵冷\u003c/span\u003e\u003c/span\u003e时，造成的冷凝伤害提高增加至\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e洞察:\u003c/span\u003e 制胜技能的射程增加\u003cspan style=\"color:#f26c1c\"\u003e1格\u003c/span\u003e。增益效果。\n\u003cspan style=\"color:#3487e0\"\u003e僵冷:\u003c/span\u003e 无法移动、无法主动位移。冷凝类移动减益。"
+                                              "text":  "拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e洞察\u003c/span\u003e\u003c/span\u003e时，造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。友方单位主动攻击前，若目标拥有冷凝类减益时，则造成的冷凝伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e，目标拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e僵冷\u003c/span\u003e\u003c/span\u003e时，造成的冷凝伤害提高增加至\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e僵冷:\u003c/span\u003e 无法移动、无法主动位移。冷凝类移动减益。\n\u003cspan style=\"color:#3487e0\"\u003e洞察:\u003c/span\u003e 制胜技能的射程增加\u003cspan style=\"color:#f26c1c\"\u003e1格\u003c/span\u003e。增益效果。"
                                           },
                                           {
                                               "name":  "胜者加冕 Lv.2",
@@ -2699,7 +2772,7 @@ window.WEAPON_STAT = {
                                           },
                                           {
                                               "name":  "胜者加冕 Lv.5",
-                                              "text":  "拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e洞察\u003c/span\u003e\u003c/span\u003e时，造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e。友方单位主动攻击前，若目标拥有冷凝类减益时，则造成的冷凝伤害提高\u003cspan style=\"color:#f26c1c\"\u003e9%\u003c/span\u003e，目标拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e僵冷\u003c/span\u003e\u003c/span\u003e时，造成的冷凝伤害提高增加至\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e僵冷:\u003c/span\u003e 无法移动、无法主动位移。冷凝类移动减益。\n\u003cspan style=\"color:#3487e0\"\u003e洞察:\u003c/span\u003e 制胜技能的射程增加\u003cspan style=\"color:#f26c1c\"\u003e1格\u003c/span\u003e。增益效果。"
+                                              "text":  "拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e洞察\u003c/span\u003e\u003c/span\u003e时，造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e。友方单位主动攻击前，若目标拥有冷凝类减益时，则造成的冷凝伤害提高\u003cspan style=\"color:#f26c1c\"\u003e9%\u003c/span\u003e，目标拥有\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e僵冷\u003c/span\u003e\u003c/span\u003e时，造成的冷凝伤害提高增加至\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e洞察:\u003c/span\u003e 制胜技能的射程增加\u003cspan style=\"color:#f26c1c\"\u003e1格\u003c/span\u003e。增益效果。\n\u003cspan style=\"color:#3487e0\"\u003e僵冷:\u003c/span\u003e 无法移动、无法主动位移。冷凝类移动减益。"
                                           },
                                           {
                                               "name":  "胜者加冕 Lv.6",
@@ -2811,6 +2884,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "重逢采购·军备",
                                              "time":  "2026-09-22 09:00:00 ~ 2026-11-03 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                          }
                                      ]
                        },
@@ -3107,6 +3184,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "重逢采购·军备",
                                              "time":  "2026-09-22 09:00:00 ~ 2026-11-03 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                          }
                                      ]
                        },
@@ -3194,27 +3275,27 @@ window.WEAPON_STAT = {
                           "effects":  [
                                           {
                                               "name":  "狮吼 Lv.1",
-                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e9%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e"
+                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e9%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
                                           },
                                           {
                                               "name":  "狮吼 Lv.2",
-                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e12%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e20%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e \n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
+                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e12%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e20%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
                                           },
                                           {
                                               "name":  "狮吼 Lv.3",
-                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e"
+                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e15%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
                                           },
                                           {
                                               "name":  "狮吼 Lv.4",
-                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e"
+                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
                                           },
                                           {
                                               "name":  "狮吼 Lv.5",
-                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e21%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e35%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e \n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
+                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e21%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e35%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
                                           },
                                           {
                                               "name":  "狮吼 Lv.6",
-                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e50%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e"
+                                              "text":  "施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e导电\u003c/span\u003e\u003c/span\u003e时，追加一次\u003cspan style=\"color:#f26c1c\"\u003e25%\u003c/span\u003e攻击力的固定伤害，并有\u003cspan style=\"color:#f26c1c\"\u003e50%\u003c/span\u003e的概率施加\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e麻痹\u003c/span\u003e\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1回合\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e导电:\u003c/span\u003e 受到伤害时，转化为\u003cspan style=\"color:#3487e0\"\u003e麻痹\u003c/span\u003e。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。\n\u003cspan style=\"color:#3487e0\"\u003e麻痹:\u003c/span\u003e 指令禁止，禁止使用普通攻击和主动技能。电导类减益。"
                                           }
                                       ],
                           "pools":  [
@@ -3539,7 +3620,7 @@ window.WEAPON_STAT = {
                                              },
                                              {
                                                  "name":  "轨迹巡弋 Lv.2",
-                                                 "text":  "造成击杀时或当自身\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e再动\u003c/span\u003e\u003c/span\u003e结束后，主动技能造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e，至多叠加\u003cspan style=\"color:#f26c1c\"\u003e5层\u003c/span\u003e。叠加至\u003cspan style=\"color:#f26c1c\"\u003e5层\u003c/span\u003e时，主动攻击后获得3格\u003cspan style=\"color:#3487e0\"\u003e移动追加\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e再动:\u003c/span\u003e 包含\u003cspan style=\"color:#3487e0\"\u003e行动追加\u003c/span\u003e，\u003cspan style=\"color:#3487e0\"\u003e移动追加\u003c/span\u003e和\u003cspan style=\"color:#3487e0\"\u003e指令追加\u003c/span\u003e。\n\u003cspan style=\"color:#3487e0\"\u003e行动追加:\u003c/span\u003e 可以进行一次行动。\n\u003cspan style=\"color:#3487e0\"\u003e指令追加:\u003c/span\u003e 可以执行除移动以外的其他指令。"
+                                                 "text":  "造成击杀时或当自身\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e再动\u003c/span\u003e\u003c/span\u003e结束后，主动技能造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e，至多叠加\u003cspan style=\"color:#f26c1c\"\u003e5层\u003c/span\u003e。叠加至\u003cspan style=\"color:#f26c1c\"\u003e5层\u003c/span\u003e时，主动攻击后获得3格\u003cspan style=\"color:#3487e0\"\u003e移动追加\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e再动:\u003c/span\u003e 包含\u003cspan style=\"color:#3487e0\"\u003e行动追加\u003c/span\u003e，\u003cspan style=\"color:#3487e0\"\u003e移动追加\u003c/span\u003e和\u003cspan style=\"color:#3487e0\"\u003e指令追加\u003c/span\u003e。\n\u003cspan style=\"color:#3487e0\"\u003e指令追加:\u003c/span\u003e 可以执行除移动以外的其他指令。\n\u003cspan style=\"color:#3487e0\"\u003e行动追加:\u003c/span\u003e 可以进行一次行动。"
                                              },
                                              {
                                                  "name":  "轨迹巡弋 Lv.3",
@@ -4321,6 +4402,62 @@ window.WEAPON_STAT = {
 
                                           ]
                             },
+    "Weapon_Kuro_4":  {
+                          "id":  "Weapon_Kuro_4",
+                          "name":  "MDR突击步枪",
+                          "rank":  4,
+                          "tags":  [
+                                       "突击步枪",
+                                       "中型弹"
+                                   ],
+                          "intro":  "与卡萝契合度高的枪械，采用了独特的模块化设计。可通过更换模块填装不同规格的子弹，以便快速适应不同的作战环境。",
+                          "image":  "img/weapon/Weapon_Kuro_4_1024.png",
+                          "thumbnail":  "img/weapon/thumb/Weapon_Kuro_4_1024.png",
+                          "stats":  {
+                                        "攻击":  "265"
+                                    },
+                          "bond":  {
+                                       "id":  "",
+                                       "name":  "",
+                                       "text":  ""
+                                   },
+                          "trait":  {
+                                        "label":  "特质",
+                                        "text":  "主动技能造成精准\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e后，自身造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e3%\u003c/span\u003e，至多提高\u003cspan style=\"color:#f26c1c\"\u003e30%\u003c/span\u003e，持续\u003cspan style=\"color:#f26c1c\"\u003e1个大回合\u003c/span\u003e。"
+                                    },
+                          "effects":  [
+                                          {
+                                              "name":  "人气碾压 Lv.1",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e"
+                                          },
+                                          {
+                                              "name":  "人气碾压 Lv.2",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e12%\u003c/span\u003e"
+                                          },
+                                          {
+                                              "name":  "人气碾压 Lv.3",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e14%\u003c/span\u003e"
+                                          },
+                                          {
+                                              "name":  "人气碾压 Lv.4",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e16%\u003c/span\u003e"
+                                          },
+                                          {
+                                              "name":  "人气碾压 Lv.5",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e18%\u003c/span\u003e"
+                                          },
+                                          {
+                                              "name":  "人气碾压 Lv.6",
+                                              "text":  "造成的\u003cspan style=\"color:#d4ae08\"\u003e电导伤害\u003c/span\u003e提高\u003cspan style=\"color:#f26c1c\"\u003e20%\u003c/span\u003e"
+                                          }
+                                      ],
+                          "pools":  [
+                                        {
+                                            "name":  "军备提升",
+                                            "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
+                                        }
+                                    ]
+                      },
     "Weapon_Destroyer_4":  {
                                "id":  "Weapon_Destroyer_4",
                                "name":  "铁鬣",
@@ -4398,7 +4535,7 @@ window.WEAPON_STAT = {
                                    },
                           "trait":  {
                                         "label":  "特质",
-                                        "text":  "无视目标\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e防御力，造成近战伤害时，额外无视其\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e防御力。"
+                                        "text":  "无视目标\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e的防御力，造成近战伤害时，额外无视其\u003cspan style=\"color:#f26c1c\"\u003e10%\u003c/span\u003e的防御力。"
                                     },
                           "effects":  [
                                           {
@@ -4486,6 +4623,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-09-22 09:00:00 ~ 2026-10-13 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                          }
                                      ]
                        },
@@ -4542,6 +4683,10 @@ window.WEAPON_STAT = {
                                            {
                                                "name":  "军备提升",
                                                "time":  "2026-09-01 08:00:00 ~ 2026-09-22 08:59:59"
+                                           },
+                                           {
+                                               "name":  "军备提升",
+                                               "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                            }
                                        ]
                          },
@@ -4962,6 +5107,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-06-09 08:00:00 ~ 2026-06-30 05:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                          }
                                      ]
                        },
@@ -6630,6 +6779,10 @@ window.WEAPON_STAT = {
                                        {
                                            "name":  "军备提升",
                                            "time":  "2025-06-17 08:00:00 ~ 2025-07-08 05:59:59"
+                                       },
+                                       {
+                                           "name":  "军备提升",
+                                           "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                        }
                                    ]
                      },
@@ -6882,6 +7035,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2025-04-15 08:00:00 ~ 2025-05-06 05:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                          }
                                      ]
                        },
@@ -7194,6 +7351,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-10-13 09:00:00 ~ 2026-11-03 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                          }
                                      ]
                        },
@@ -7318,6 +7479,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2025-08-26 08:00:00 ~ 2025-09-09 07:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                          }
                                      ]
                        },
@@ -7742,6 +7907,18 @@ window.WEAPON_STAT = {
                                                {
                                                    "name":  "军备提升",
                                                    "time":  "2026-10-13 09:00:00 ~ 2026-11-03 08:59:59"
+                                               },
+                                               {
+                                                   "name":  "军备提升",
+                                                   "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
+                                               },
+                                               {
+                                                   "name":  "军备提升",
+                                                   "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
+                                               },
+                                               {
+                                                   "name":  "军备提升",
+                                                   "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                                }
                                            ]
                              },
@@ -7926,6 +8103,10 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-09-22 09:00:00 ~ 2026-10-13 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                          }
                                      ]
                        },
@@ -8234,6 +8415,10 @@ window.WEAPON_STAT = {
                                         {
                                             "name":  "军备提升",
                                             "time":  "2026-09-22 09:00:00 ~ 2026-10-13 08:59:59"
+                                        },
+                                        {
+                                            "name":  "军备提升",
+                                            "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                         }
                                     ]
                       },
@@ -8482,6 +8667,18 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-10-13 09:00:00 ~ 2026-11-03 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                          }
                                      ]
                        },
@@ -8666,6 +8863,10 @@ window.WEAPON_STAT = {
                                                {
                                                    "name":  "军备提升",
                                                    "time":  "2026-10-13 09:00:00 ~ 2026-11-03 08:59:59"
+                                               },
+                                               {
+                                                   "name":  "军备提升",
+                                                   "time":  "2026-11-24 09:00:00 ~ 2026-12-15 08:59:59"
                                                }
                                            ]
                              },
@@ -8699,7 +8900,7 @@ window.WEAPON_STAT = {
                                              },
                                              {
                                                  "name":  "耐行 Lv.2",
-                                                 "text":  "获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e再动\u003c/span\u003e\u003c/span\u003e时，精准类主动技能造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e12%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e再动:\u003c/span\u003e 包含\u003cspan style=\"color:#3487e0\"\u003e行动追加\u003c/span\u003e，\u003cspan style=\"color:#3487e0\"\u003e移动追加\u003c/span\u003e和\u003cspan style=\"color:#3487e0\"\u003e指令追加\u003c/span\u003e。\n\u003cspan style=\"color:#3487e0\"\u003e指令追加:\u003c/span\u003e 可以执行除移动以外的其他指令。\n\u003cspan style=\"color:#3487e0\"\u003e行动追加:\u003c/span\u003e 可以进行一次行动。"
+                                                 "text":  "获得\u003cspan style=\"color:#3487e0\"\u003e\u003cspan class=\"border-b border-dashed border-blue-500\"\u003e再动\u003c/span\u003e\u003c/span\u003e时，精准类主动技能造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e12%\u003c/span\u003e。\n\n\u003cspan style=\"color:#3487e0\"\u003e再动:\u003c/span\u003e 包含\u003cspan style=\"color:#3487e0\"\u003e行动追加\u003c/span\u003e，\u003cspan style=\"color:#3487e0\"\u003e移动追加\u003c/span\u003e和\u003cspan style=\"color:#3487e0\"\u003e指令追加\u003c/span\u003e。\n\u003cspan style=\"color:#3487e0\"\u003e行动追加:\u003c/span\u003e 可以进行一次行动。\n\u003cspan style=\"color:#3487e0\"\u003e指令追加:\u003c/span\u003e 可以执行除移动以外的其他指令。"
                                              },
                                              {
                                                  "name":  "耐行 Lv.3",
@@ -8906,6 +9107,18 @@ window.WEAPON_STAT = {
                                          {
                                              "name":  "军备提升",
                                              "time":  "2026-09-22 09:00:00 ~ 2026-10-13 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
+                                         },
+                                         {
+                                             "name":  "军备提升",
+                                             "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                          }
                                      ]
                        },
@@ -9090,6 +9303,18 @@ window.WEAPON_STAT = {
                                        {
                                            "name":  "军备提升",
                                            "time":  "2026-09-22 09:00:00 ~ 2026-10-13 08:59:59"
+                                       },
+                                       {
+                                           "name":  "军备提升",
+                                           "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
+                                       },
+                                       {
+                                           "name":  "军备提升",
+                                           "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
+                                       },
+                                       {
+                                           "name":  "军备提升",
+                                           "time":  "2026-11-03 09:00:00 ~ 2026-11-24 08:59:59"
                                        }
                                    ]
                      },
@@ -9411,59 +9636,6 @@ window.WEAPON_STAT = {
 
                                       ]
                         },
-    "Weapon_Destroyer_3":  {
-                               "id":  "Weapon_Destroyer_3",
-                               "name":  "旧式铁鬣",
-                               "rank":  3,
-                               "tags":  [
-                                            "霰弹枪",
-                                            "霰弹"
-                                        ],
-                               "intro":  "从暗商处采购的廉价武器，凭借着有如咆哮般的开火声，讨得了破坏者的欢心。",
-                               "image":  "img/weapon/Weapon_Destroyer_3_1024.png",
-                               "thumbnail":  "img/weapon/thumb/Weapon_Destroyer_3_1024.png",
-                               "stats":  {
-                                             "攻击":  "195"
-                                         },
-                               "bond":  {
-                                            "id":  "",
-                                            "name":  "",
-                                            "text":  ""
-                                        },
-                               "trait":  {
-                                             "label":  "",
-                                             "text":  ""
-                                         },
-                               "effects":  [
-                                               {
-                                                   "name":  "火力武装 Lv.1",
-                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e1%\u003c/span\u003e。"
-                                               },
-                                               {
-                                                   "name":  "火力武装 Lv.2",
-                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2%\u003c/span\u003e。"
-                                               },
-                                               {
-                                                   "name":  "火力武装 Lv.3",
-                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e3%\u003c/span\u003e。"
-                                               },
-                                               {
-                                                   "name":  "火力武装 Lv.4",
-                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e4%\u003c/span\u003e。"
-                                               },
-                                               {
-                                                   "name":  "火力武装 Lv.5",
-                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。"
-                                               },
-                                               {
-                                                   "name":  "火力武装 Lv.6",
-                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e6%\u003c/span\u003e。"
-                                               }
-                                           ],
-                               "pools":  [
-
-                                         ]
-                           },
     "Weapon_G36_3":  {
                          "id":  "Weapon_G36_3",
                          "name":  "旧式格威尔36",
@@ -10206,6 +10378,112 @@ window.WEAPON_STAT = {
 
                                            ]
                              },
+    "Weapon_Kuro_3":  {
+                          "id":  "Weapon_Kuro_3",
+                          "name":  "旧式MDR突击步枪",
+                          "rank":  3,
+                          "tags":  [
+                                       "突击步枪",
+                                       "中型弹"
+                                   ],
+                          "intro":  "从暗商处采购的廉价武器，糟糕的品控和连续不断的小毛病让人很难不口吐芬芳。",
+                          "image":  "img/weapon/Weapon_Kuro_3_1024.png",
+                          "thumbnail":  "img/weapon/thumb/Weapon_Kuro_3_1024.png",
+                          "stats":  {
+                                        "攻击":  "188"
+                                    },
+                          "bond":  {
+                                       "id":  "",
+                                       "name":  "",
+                                       "text":  ""
+                                   },
+                          "trait":  {
+                                        "label":  "",
+                                        "text":  ""
+                                    },
+                          "effects":  [
+                                          {
+                                              "name":  "火力武装 Lv.1",
+                                              "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e1%\u003c/span\u003e。"
+                                          },
+                                          {
+                                              "name":  "火力武装 Lv.2",
+                                              "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2%\u003c/span\u003e。"
+                                          },
+                                          {
+                                              "name":  "火力武装 Lv.3",
+                                              "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e3%\u003c/span\u003e。"
+                                          },
+                                          {
+                                              "name":  "火力武装 Lv.4",
+                                              "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e4%\u003c/span\u003e。"
+                                          },
+                                          {
+                                              "name":  "火力武装 Lv.5",
+                                              "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。"
+                                          },
+                                          {
+                                              "name":  "火力武装 Lv.6",
+                                              "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e6%\u003c/span\u003e。"
+                                          }
+                                      ],
+                          "pools":  [
+
+                                    ]
+                      },
+    "Weapon_Destroyer_3":  {
+                               "id":  "Weapon_Destroyer_3",
+                               "name":  "旧式铁鬣",
+                               "rank":  3,
+                               "tags":  [
+                                            "霰弹枪",
+                                            "霰弹"
+                                        ],
+                               "intro":  "从暗商处采购的廉价武器，凭借着有如咆哮般的开火声，讨得了破坏者的欢心。",
+                               "image":  "img/weapon/Weapon_Destroyer_3_1024.png",
+                               "thumbnail":  "img/weapon/thumb/Weapon_Destroyer_3_1024.png",
+                               "stats":  {
+                                             "攻击":  "195"
+                                         },
+                               "bond":  {
+                                            "id":  "",
+                                            "name":  "",
+                                            "text":  ""
+                                        },
+                               "trait":  {
+                                             "label":  "",
+                                             "text":  ""
+                                         },
+                               "effects":  [
+                                               {
+                                                   "name":  "火力武装 Lv.1",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e1%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.2",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e2%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.3",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e3%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.4",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e4%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.5",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e5%\u003c/span\u003e。"
+                                               },
+                                               {
+                                                   "name":  "火力武装 Lv.6",
+                                                   "text":  "造成伤害提高\u003cspan style=\"color:#f26c1c\"\u003e6%\u003c/span\u003e。"
+                                               }
+                                           ],
+                               "pools":  [
+
+                                         ]
+                           },
     "Weapon_Igla_3":  {
                           "id":  "Weapon_Igla_3",
                           "name":  "旧式挽歌",

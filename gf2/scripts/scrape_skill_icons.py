@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Refresh T-Doll skill icons from the official GF2 wiki API.
+"""DEPRECATED (2026-11): the site now uses local skill icons extracted by
+scripts/scrape_local.py (BattleSkillDisplayData.f10).  This script is kept
+for reference only; it is no longer part of the update flow.
+
+Refresh T-Doll skill icons from the official GF2 wiki API.
 
 Rules:
   * Icon source: POST https://gf2-bbs-api.exiliumgf.com/wiki/hero_detail

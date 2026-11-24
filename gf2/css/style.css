@@ -678,7 +678,18 @@ input[type="checkbox"]:focus-visible { outline: 2px solid rgba(52, 199, 89, 0.45
   background: #2c2c30;
 }
 .spiral-body { min-width: 0; flex: 1; }
-.spiral-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.spiral-name { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 14px; font-weight: 700; color: var(--text); }
+.spiral-stage {
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 5px;
+  border: 1px solid rgba(122, 182, 255, 0.28);
+  background: rgba(74, 144, 226, 0.14);
+  color: #8fc2ff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+}
 .spiral-attrs { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
 .spiral-attrs .chip { font-size: 11.5px; padding: 2px 7px; }
 .spiral-text { font-size: 13px; line-height: 1.65; color: var(--text-2); margin-top: 6px; }
@@ -883,6 +894,14 @@ input[type="checkbox"]:focus-visible { outline: 2px solid rgba(52, 199, 89, 0.45
 .btn-primary:hover { background: #0077ed; }
 .btn-primary:active { transform: scale(0.98); }
 .sim-out { margin-top: 14px; font-size: 14px; color: var(--text-2); }
+.sim-line { margin-top: 8px; line-height: 1.7; }
+.sim-line b { color: var(--text); font-variant-numeric: tabular-nums; }
+.sim-total { margin-top: 16px; font-size: 22px; font-weight: 700; color: var(--text); }
+.sim-total b { color: var(--accent); font-variant-numeric: tabular-nums; }
+.field-select { width: auto; min-width: 120px; cursor: pointer; }
+.dmg-adv { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
+.dmg-adv summary { cursor: pointer; font-size: 13.5px; font-weight: 600; color: var(--text-2); }
+.dmg-adv[open] summary { margin-bottom: 12px; }
 
 /* enemy picker list */
 .enemy-list { padding: 2px 18px 18px; display: flex; flex-direction: column; gap: 8px; }

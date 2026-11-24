@@ -4,7 +4,7 @@
 Usage:
     py -3 scripts/scrape_mimicry.py [table_dir]
 
-Default table_dir: D:/Program Files/GF2Exilium/GF2 Game/GF2_Exilium_Data/LocalCache/Data/Table
+Default table_dir: D:/Program Files/GF2Exilium/GF2 Game/GF2 Game/GF2_Exilium_Data/LocalCache/Data/Table
 
 Sources:
     CoreData.bytes          - per-doll mimic core: role, 6 slot types, base atk/hp/def, 6 form ids
@@ -20,7 +20,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-DEFAULT_TABLE = r'D:\Program Files\GF2Exilium\GF2 Game\GF2_Exilium_Data\LocalCache\Data\Table'
+DEFAULT_TABLE = r'D:\Program Files\GF2Exilium\GF2 Game\GF2 Game\GF2_Exilium_Data\LocalCache\Data\Table'
 
 ROLES = {
     1: {"name": "防卫", "color": "#3b82f6"},

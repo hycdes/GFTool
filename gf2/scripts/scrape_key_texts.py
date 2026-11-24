@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Build rich mind-spiral key descriptions from the local game client.
 
-`key_stat.js` keeps the icon/name/attrs from the official API.  The
-description text and mechanic-term references are local game data:
-  TalentKeyData.f6 -> BattleSkillDisplayData.f3 (text) / f4 (refs)
+The description text and mechanic-term references are local game data:
+  TalentKeyData.f6       -> BattleSkillDisplayData.f3 (text) / f4 (refs)
+  SpTalentKeyData.f5     -> BattleSkillDisplayData.f3/f4 (stage-2 leap keys)
 
 Outputs:
   dat/key_desc_stat.js   keyId -> {text, refs}
@@ -45,12 +45,58 @@ def main():
         if name and name not in by_name:
             by_name[name] = r
 
+    # Leap stages: stage 1 = TalentKeyData (type 3); stage 2 = SpTalentKeyData.
+    leap1_by_talent = {}
+    leap2_by_sp = {}
+    for doll_id, doll in keys.get('byDoll', {}).items():
+        leaps = doll.get('leaps')
+        if not leaps and doll.get('leap'):
+            leaps = [doll['leap']]
+        for key in leaps or []:
+            if key.get('stage', 1) == 1 and key.get('talentId'):
+                leap1_by_talent[key['talentId']] = (doll_id, key)
+            elif key.get('spTalentId'):
+                leap2_by_sp[key['spTalentId']] = (doll_id, key)
+
     out = {}
     refs_list = []
     placeholder_count = 0
     unresolved = []
+
+    def record(site_id, key_name, disp, doll_id):
+        nonlocal placeholder_count
+        text = t.text(disp.get(3)) or ''
+        if not text:
+            return
+        refs = store.resolve(s.parse_refs(t.text(disp.get(4))), owner='键:' + (key_name or ''))
+        out[site_id] = {'text': text, 'refs': refs}
+        refs_list.append(refs)
+        for n in sorted(set(int(x) for x in re.findall(r'\{(\d+)\}', text))):
+            placeholder_count += 1
+            if n >= len(refs) or refs[n][1] is None:
+                unresolved.append((doll_id, key_name, n, refs))
+
+    # Stage-1 leap descriptions (type 3, by talent id; names collide across stages).
+    for r in t.rows('TalentKeyData'):
+        typ = r.get(2)
+        if isinstance(typ, list):
+            typ = typ[0] if typ else None
+        if typ != 3:
+            continue
+        info = leap1_by_talent.get(r.get(1))
+        disp = display.get(r.get(6))
+        if info and disp:
+            record(info[1]['id'], info[1].get('name'), disp, info[0])
+
+    # Stage-2 leap descriptions (SpTalentKeyData.f5).
+    for r in t.rows('SpTalentKeyData'):
+        info = leap2_by_sp.get(r.get(1))
+        disp = display.get(r.get(5))
+        if info and disp:
+            record(info[1]['id'], info[1].get('name'), disp, info[0])
+
     for doll_id, doll in keys.get('byDoll', {}).items():
-        for category in ('shared', 'fixed', 'leap'):
+        for category in ('shared', 'fixed'):
             vals = doll.get(category)
             if not vals:
                 continue
@@ -60,20 +106,9 @@ def main():
                 row = by_name.get(key.get('name'))
                 if not row:
                     continue
-                skill_id = row.get(6)
-                disp = display.get(skill_id)
-                if not disp:
-                    continue
-                text = t.text(disp.get(3)) or ''
-                if not text:
-                    continue
-                refs = store.resolve(s.parse_refs(t.text(disp.get(4))))
-                out[key.get('id') or key.get('name')] = {'text': text, 'refs': refs}
-                refs_list.append(refs)
-                for n in sorted(set(int(x) for x in re.findall(r'\{(\d+)\}', text))):
-                    placeholder_count += 1
-                    if n >= len(refs) or refs[n][1] is None:
-                        unresolved.append((doll_id, key.get('name'), n, refs))
+                disp = display.get(row.get(6))
+                if disp:
+                    record(key.get('id') or key.get('name'), key.get('name'), disp, doll_id)
 
     with io.open(DESC_PATH, 'w', encoding='utf-8', newline='\n') as fp:
         fp.write('// GF2 Tools mind-spiral key rich descriptions\n')

@@ -4,6 +4,36 @@
 
 ---
 
+## 红线：词条引用解析（严禁再犯）
+
+以下为硬约束，违反会直接导致攻略错误：
+
+1. **严禁**把 `0:-1,<familyId>,<flag>` 中的 `-1` / 尾部 `flag` 当作 buff id；解析只取中间的 `familyId`。
+2. **严禁**用“`BuffClassData` 组内第一个有名字的 buff”去猜词条；必须按 §9.4 的顺序解析（精确 → 家族 → 分享组 → 隐藏名 → 显式组 → 相邻）。
+3. **严禁**用一次性 `TERM_REF_OVERRIDES` 掩盖解析器缺陷；必须修 `parse_refs()` / `resolve_one()` 根因，override 只用于确实无规律的数据。
+4. 每次「更新角色」后，**必须**检查 `scrape_local.py` 的 `heuristic term refs` 日志（含 `owner=技能:...` / `owner=名词:...`），并抽查 §9.4 回归锚点；特别确认卡萝「直播状态」→「热度」，**绝不能是「火热攻势I」**。
+5. 出现同类串词条，视为 P0 缺陷：修解析器 + 补日志/锚点 + 重跑全量数据，不允许只修单个坏词条。
+
+> 2026-11-24 案例：`parse_refs()` 曾把尾部 flag `1` 当候选，命中 `BuffClassData` 组 1（火热攻势I），导致卡萝「直播状态」的叠层显示成火热攻势I；上一轮只给破坏者加了单点 override 所以复发。现已从解析器层修复并加日志/锚点。
+
+---
+
+## 0. 触发词：更新角色
+
+当用户说「更新角色」时：**以本地客户端配置表 / AssetBundles 为准重新生成，不要用 mcc / 官网 API 替代人形、技能、名词、位键、技能图标。** 按顺序执行：
+
+1. 确认游戏已更新：`Table/GunData.bytes` 的修改时间、`CacheResVersion` 已是新版本，且 `GunData` 里能查到新角色 sid；游戏进程未运行。
+2. `py -3 scripts/scrape_local.py --rescan` — 重扫 bundle、重写 `dat/tdoll_stat.js` / `dat/term_stat.js`、更新 `img/avatar` / `img/thumbnail` / `img/skill`（本地技能图标 128×128）。
+3. `py -3 scripts/scrape_keys_local.py` — 本地 `TalentKeyData` / `ItemData` / `PropertyData` → `dat/key_stat.js` + `img/key/`（本地位键图标 256×256）。
+4. `py -3 scripts/scrape_key_texts.py` — 本地 `TalentKeyData` → `dat/key_desc_stat.js`，词条并入 `term_stat.js`。
+5. `py -3 scripts/scrape_mimicry.py` — 本地拟态图谱 → `dat/mimicry_stat.js`。
+6. 武器（**默认必跑**）：`powershell -File scripts/scrape_weapon.ps1`（源 mcc；**只有武器仍走 mcc**，脚本用 `$PSScriptRoot` 自动定位仓库根目录）。跑完确认 `WEAPON_STAT` 中存在 `bond.id == 新角色 sid` 且 `rank == 5` 的专武（人形页会通过 `signatureWeapon()` 自动装备），并检查 `img/weapon/` 与 `img/weapon/thumb/` 图片已下载。
+7. 校验：新角色名字、标签、头像、技能名/等级/椎体、名词浮窗、**技能头元数据（稳态伤害 f23 优先，卡萝乐子制造机=2）**、位键（含本地图标/跃键 1/2 阶）、**专武（bond.id/rank/图片）**、拟态；**必须检查 `scrape_local.py` 的 `heuristic term refs` 日志和 §9.4 回归锚点**（直播状态→热度等）。
+
+> `scripts/scrape_skill_icons.py`（官网技能图标）和 `scripts/scrape_keys.ps1`（官网位键）**已停用**，保留仅作参考。之前在 mcc 上手工补的临时数据会被第 2 步整体覆盖，属预期。
+
+---
+
 ## 1. 数据来源一览
 
 | 数据 | 来源 | 抓取方式 | 落地文件 |
@@ -11,15 +41,15 @@
 | 人形基础信息 / 头像 / 缩略图 | 本地配置表 + AssetBundles | `scripts/scrape_local.py` | `dat/tdoll_stat.js`、`img/avatar/`、`img/thumbnail/` |
 | 技能 / 椎体 / 机制名词 | 本地配置表 | `scripts/scrape_local.py` | `dat/tdoll_stat.js`、`dat/term_stat.js` |
 | 技能头元数据（弹种 / 稳态伤害 / 属性 / 冷却 / 导染消耗） | 本地 `BattleSkillData` | `scripts/scrape_local.py` | `dat/tdoll_stat.js`（`skills[].meta`） |
-| 技能图标 | 官网 API `hero_detail` 的 `skill[].desc` 首个 `<img>` | `scripts/scrape_skill_icons.py` → 128×128 | `img/skill/NAME_skill_NO.png` |
+| 技能图标 | 本地 `BattleSkillDisplayData.f10` 贴图名 | `scripts/scrape_local.py` → 128×128 | `img/skill/Skill_<id>_*.png` |
 | 武器（属性/烙印/特质/特效/卡池） | `https://gf2.mcc.wiki/weapon` | 页面 HTML（SSR） | `dat/weapon_stat.js`、`img/weapon/` |
-| 位键（固键/共键/好感键/跃键） | `gf2-bbs-api.exiliumgf.com`（官网 API） | POST 接口 | `dat/key_stat.js`、`img/key/` |
-| 心智螺旋键描述（富文本 / 词条） | 本地 `TalentKeyData` + `BattleSkillDisplayData` | `scripts/scrape_key_texts.py` | `dat/key_desc_stat.js`（词条并入 `dat/term_stat.js`） |
+| 位键（固键/共键/好感键/跃键） | 本地 `TalentKeyData` + `ItemData.f8` + `PropertyData` | `scripts/scrape_keys_local.py` | `dat/key_stat.js`、`img/key/` |
+| 心智螺旋键描述（富文本 / 词条） | 本地 `TalentKeyData` / `SpTalentKeyData` + `BattleSkillDisplayData` | `scripts/scrape_key_texts.py` | `dat/key_desc_stat.js`（词条并入 `dat/term_stat.js`） |
 | 拟态图谱（核心） | 游戏本地配置表 | 解包 protobuf | `dat/mimicry_stat.js` |
 | 拟态图谱（核心 / 生长数据 / 显像形态） | 游戏本地配置表 | 解包 protobuf | `dat/mimicry_stat.js` |
 | 契合度（默契回馈） | 游戏本地配置表 + 反推公式 | 解包 + 四锚点拟合 | 内置在 `js/app.js` |
 
-> 人形页的技能、椎体、机制名词、技能头元数据、头像/缩略图已改为**纯本地客户端**；技能图标改走**官网 API**（见 §9.5.1），不再使用 mcc.wiki。武器与位键暂时仍走 wiki / 官网 API。
+> 人形页的技能、椎体、机制名词、技能头元数据、头像/缩略图、技能图标、位键（数据 + 图标）全部为**纯本地客户端**（见 §9.5.1、§9.8）；官网 API 已停用。只有武器仍走 mcc.wiki。
 
 抓取脚本都在 `scripts/`，解包工具 `scripts/pbtable_decode.py`。
 
@@ -27,11 +57,13 @@
 
 ## 2. 本地配置表在哪、什么格式
 
-游戏安装目录 `D:\Program Files\GF2Exilium`，配置表在：
+游戏安装目录 `D:\Program Files\GF2Exilium`（重装后多了一层 `GF2 Game`），配置表在：
 
 ```
-…\GF2 Game\GF2_Exilium_Data\LocalCache\Data\Table\
+D:\Program Files\GF2Exilium\GF2 Game\GF2 Game\GF2_Exilium_Data\LocalCache\Data\Table\
 ```
+
+> 资源包在同级的 `AssetBundles_Windows\`；`scrape_local.py` / `scrape_mimicry.py` 的默认路径已按此更新。
 
 - 共约 **2288 个 `.bytes`** 文件（全量配置表），**二进制 protobuf、未加密**。
 - 格式：`[4 字节前缀] + Protobuf 消息`；顶层 `f1`≈表号、`f2`=版本，之后是重复的「行」`f3`（或 `f1`）`{f1: 主键, f2: {字段…}}`。
@@ -90,35 +122,34 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
 
 ---
 
-## 5. 官网 API（位键）
+## 5. 官网 API（已停用）
 
-- 基址 `https://gf2-bbs-api.exiliumgf.com`，POST，返回 `{Code, Message, data}`（`Code==0` 成功）。
-- 人形详情：`POST /wiki/hero_detail`，body `{"id": <id>}`；id 为 4 位数（1001–1085，共 68 个）。
-- 每人的 `data.info.talent[]` 即心智螺旋键：按标题前缀分 契合键 / 固键 / 共键 / 跃键。
-- 键图标/属性解析要点：描述里 `<img>` 的尺寸写作 `width="70"`、`height="71"`、`height="20"` 等**不统一**，且常有 `style=` 排在 `src=` 前 → **键图标取描述里第一个 `<img>`**，**属性图标取 `width` 或 `height="20"`**（文案紧跟其后）。
-- 好感键（契合键）的属性百分比统一按 **4.5%（最大值）** 写入。
-- 少数键图标 URL 指向 `gf2.mcc.wiki/image/key/...`（**404**），需改写到 `/static/thumbnail/item/...`；`*_love.png` 失效时去掉 `_love` 再试。
-- 共键原生属性可能为空（纯效果键）；界面里三个共键的加成会**合并为一项**展示。
+位键和技能图标已全部改为本地来源，不再依赖 `gf2-bbs-api.exiliumgf.com`：
+
+- 位键数据 + 图标：`scripts/scrape_keys_local.py`（本地 `TalentKeyData` / `ItemData.f8` / `PropertyData`，见 §9.8）。
+- 位键富文本描述：`scripts/scrape_key_texts.py`（本地 `BattleSkillDisplayData`）。
+- 技能图标：`scripts/scrape_local.py`（本地贴图，见 §9.5.1）。
+
+> 历史备注：旧方案用 `POST /wiki/hero_detail` 的 `data.info.talent[]` / `skill[]`，从描述 HTML 里的 `<img>` 解析属性与图标；`scripts/scrape_keys.ps1`、`scripts/scrape_skill_icons.py` 保留但**不再运行**。官网新角色数据也可能延迟（例如 2026-11-24 卡萝 hero id 1089 返回 `Code 20052`）。
 
 ---
 
 ## 6. 出新角色时的更新流程
 
-1. **人形（纯本地）**：进游戏让它下载最新配置表，再运行
+1. **人形 / 技能 / 名词 / 技能图标（纯本地）**：进游戏让它下载最新配置表，再运行
    `py -3 scripts/scrape_local.py [--table DIR] [--bundles DIR] [--index FILE] [--no-images] [--rescan]`（默认读取 `D:\Program Files\GF2Exilium\...\Table` 与 `...\AssetBundles_Windows`）。
-   脚本会重写 `dat/tdoll_stat.js`、`dat/term_stat.js`，并更新 `img/avatar/`、`img/thumbnail/`、`img/ui/`；`img/skill/` 的本地导出仅作备用，最终技能图标按 §9.5.1 从官网下载并命名。
+   脚本会重写 `dat/tdoll_stat.js`、`dat/term_stat.js`，更新 `img/avatar/`、`img/thumbnail/`、`img/ui/`，并把 `BattleSkillDisplayData.f10` 的技能图标以 128×128 导出到 `img/skill/Skill_<id>_*.png`（见 §9.5.1）。
    - 首次运行会扫描全部 bundle 建立 `scripts/.asset_index.json` 缓存（约 2 分钟）；之后直接复用。若新增/改名贴图找不到，加 `--rescan`。
    - 只更新数据不抓图：加 `--no-images`。
-2. **技能图标**：运行 `py -3 scripts/scrape_skill_icons.py`。
-   脚本会从官网 API 下载全部技能图标、转 128×128、按 `NAME_skill_NO` 命名，并回写 `tdoll_stat.js` 的 `skills[].icon`；普攻通用图标保留 `Skill_Attack_*`，旧 `Skill_<id>_*.png` 不再使用。
-3. **武器 / 位键**：
-   - `scripts\scrape_weapon.ps1`（武器，源 mcc）
-   - `scripts\scrape_keys.ps1`（位键，源官网 API；**文件含中文，需 UTF-8 BOM**）
+2. **位键（纯本地）**：
+   - `py -3 scripts/scrape_keys_local.py` — 本地表 → `dat/key_stat.js` + `img/key/*.png`（256×256，见 §9.8）。
+   - `py -3 scripts/scrape_key_texts.py` — 位键富文本描述 → `dat/key_desc_stat.js`，并把词条并入 `dat/term_stat.js`。
+3. **武器（mcc，默认必跑）**：`powershell -File scripts/scrape_weapon.ps1`（只有武器仍用 mcc）。脚本抓 mcc 列表页 `/weapon` 与全部详情页，更新 `dat/weapon_stat.js`、`img/weapon/`、`img/weapon/thumb/`；跑完确认新角色 `bond.id` 对应的 rank 5 专武存在。
 4. **更新拟态图谱**：
    `py -3 scripts/scrape_mimicry.py`（默认读取 `D:\Program Files\GF2Exilium\...\Table`，可传入其它目录）。
    脚本会重写 `dat/mimicry_stat.js`（核心属性、槽位、显像形态、特化形态、生长数据）。
 5. **契合度无需更新**（公式与 §4 系数对所有人都适用；除非游戏改系数，才需重测）。
-6. 校验：拿任一新人的游戏内 UI 对一遍（名字、标签、头像、技能名/等级/椎体、名词浮窗、技能头元数据）。
+6. 校验：拿任一新人的游戏内 UI 对一遍（名字、标签、头像、技能名/等级/椎体、名词浮窗、技能头元数据、位键图标/属性、拟态）。
 
 ---
 
@@ -127,6 +158,9 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
 - PowerShell 5.1 默认按 ANSI 读 `.ps1`，含中文的脚本必须存成 **UTF-8 with BOM**，否则中文乱码、正则失效。
 - `ConvertTo-Json` 会把**单元素数组**变成标量、**空数组**变成 `{}`；写数组字段要用 `[object[]]@(...)` 强制。
 - mcc 的 `doll` / `weapon` 详情页是 SSR，数据直接在 HTML 里；官网 `exiliumgf` 是 Vue SPA，数据走上面的 API。
+- 新版本表的 `GachaData.f30` 是 bytes（ASCII 数字，如 `b"1089"`），`release_dates()` 需要兼容 bytes，否则新角色拿不到上线时间、排不到列表最前。
+- `TermStore.collect` 需要兼容 `collect_key_refs()` 传入的**未解析** refs（第二项是候选 id 列表而不是单个 id），否则新角色带位键时会 `%d format` 报错。
+- 词条 ref `0:-1,X,1` 的尾 `1` 是参数不是 id；旧解析把它当 id 会落到 `BuffClassData` 组 1（火热攻势I）。已按 §9.4 修复，更新角色后务必检查 `heuristic term refs` 日志，防止再次串词条。
 - `CoreData` 里核心名含两个 `·`（如「支援核心·寇尔芙·镜刻」），取人形名要 `split("·",1)[1]`。
 
 ---
@@ -194,12 +228,12 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
 
 ### 9.3.1 技能头元数据（`skills[].meta`，纯本地解包）
 
-技能名右侧展示的弹种、稳态伤害、属性、冷却时间、导染消耗全部来自本地 `BattleSkillData`，**不要再从 wiki / 官网页面临时抓**：
+技能名右侧展示的弹种、稳态伤害、属性、冷却时间、导染消耗全部来自本地 `BattleSkillData` / `BattleSkillDisplayData`，**不要再从 wiki / 官网页面临时抓**：
 
 | 字段 | 含义 | 本地来源 | 规则 |
 |---|---|---|---|
 | `ammo` | 子弹类型 | `BattleSkillData.f45`（经 `subtags_for`） | `2/4/8/16/32` = 轻型/中型/重型/近战/霰弹；`1` = 用人形自身枪种弹种；空 = 无。普攻兜底用自身枪种弹种。 |
-| `stability` | 稳态伤害 | `BattleSkillData.f17` | 分号分隔段中的 `2,<n>`（`n` 必须是数字）；没有该段、或第二段是 `#...` 引用时不写入。 |
+| `stability` | 稳态伤害 | **优先 `BattleSkillDisplayData.f23`**；否则 `BattleSkillData.f17` | `f23` 是游戏 UI 的稳态伤害字段，必须优先；复合/召唤技能只在这里有值（乐子制造机=2、狂欢时间=5、守护之道=2）。`f23` 为空时才看 `f17` 分号段里的 `2,<n>`（普攻/直接伤害）。**不要用 `f3` 子技能的稳态值兜底**：那可能是条件值（如雷降“若潮湿额外 4 点固定稳态伤害”），f23 为空时游戏不显示基础稳态。 |
 | `element` | 属性 | `BattleSkillData.f6` | `1` 燃烧 / `2` 电导 / `3` 冷凝 / `4` 酸蚀 / `5` 浊刻 / `6` 重势 / `7` 寄生 / `31` 源谐；缺失 = 物理/无属性。 |
 | `cooldown` | 冷却时间 | `BattleSkillData.f31` | 大于 0 才写入。 |
 | `cost` | 导染消耗 | `BattleSkillData.f34` | 大于 0 才写入。 |
@@ -212,7 +246,8 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
   - `cooldown` → `type_s_cd.png`（游戏 `Buff_Cooldown`）。
   - `cost` → `type_s_potential.png`（游戏 `Buff_PotentialAdd`；导染内部名为 Potential）。
 - 前端：技能名右侧按 `ammo → 稳态伤害 N → element → 冷却时间 N → 导染消耗 N` 顺序渲染 `.meta-chip`，每个 chip 为 16×16 圆形图标 + 文字；下方 `.skill-tags` 只显示 `tags`，不再重复弹种。
-- 例：破坏者普攻 `{ammo:"霰弹", stability:3, element:"冷凝"}`；狂欢时间 `{element:"冷凝", cooldown:3}`。
+- 例：破坏者普攻 `{ammo:"霰弹", stability:3, element:"冷凝"}`；狂欢时间 `{stability:5, element:"冷凝", cooldown:3}`；卡萝乐子制造机 `{ammo:"中型弹", stability:2, element:"电导"}`；卡萝弹幕发射 `{ammo:"中型弹", stability:3}`。
+- 回归锚点：卡萝「乐子制造机」stability=**2**；破坏者「狂欢时间」=5；春田「守护之道」=2；卡萝「弹幕发射」=3；卡萝「谣言制裁」「重度直播」不应有 stability（f23 为空且 f17 无 `2,<n>`）。
 
 ### 9.3.2 心智螺旋键描述（本地富文本）
 
@@ -221,15 +256,35 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
 - `scripts/scrape_key_texts.py` 按键名匹配本地行，生成 `dat/key_desc_stat.js`（`keyId -> {text, refs}`），并把键引用到的词条合并进 `dat/term_stat.js`；技能和键共用同一套 `TERM_STAT`。
 - 前端 `spiralKeyCard` 使用 `KEY_DESC_STAT[keyId]` + `renderRich(text, refs)`，与技能描述一致：数值橙色、机制词条蓝色虚线下划线 + 悬浮浮窗。
 - 好感键/契合键在 `TalentKeyData` 中没有战斗技能描述，只有属性；面板只显示属性 chip。
+- 跃键 2 阶描述来自 `SpTalentKeyData.f5` → `BattleSkillDisplayData.f3/f4`；两阶同名，`scrape_key_texts.py` 用 `talentId` / `spTalentId` 显式映射，**不能按名称匹配**。
+- 位键的**数据与图标**同样来自本地，见 §9.8（`scrape_keys_local.py`）。
 
 ### 9.4 机制名词（BattleDictionary）
 
 - 表格：`BattleDictionaryData`（类型 1）与 `BattleBuffPerformData`（类型 0）。两者结构都是：
   - `f1` = id，`f2` = 名称语言 id，`f3` = 描述语言 id，`f4` = 子词条引用串。
 - 技能/名词描述里的 `{0}`、`{1}` 对应 `f4` 中以 `;` 分隔的第 0、1 条引用。
-- 引用格式：`<类型>:<id>`，后面可跟逗号参数（如 `0:-1,10058001,1`）。解析时取**存在的最大正数 id**；类型 0 查 `BattleBuffPerformData`，类型 1 查 `BattleDictionaryData`。
-- 类型 0 若直接 id 不存在，可能是 **buff 组 id**：再查 `BuffClassData.f1 → f2 packed varint 列表` 或 `BattleBuffData.f44`，取组内第一个有名称/描述的 buff。
-- **已知特例**：破坏者「弹药狂热」的 `{4}` 原始引用是 `0:-1,1088081262,1`；`1088081262` 是无名称/描述的空壳 buff，`1088081261` 才是「拒绝退场」。走 group fallback 会误选 `1` 组里的「火热攻势I」。`scrape_local.py` 用 `TERM_REF_OVERRIDES` 把该 ref 覆盖为 `1088081261`。
+- 引用串只有两种：
+  - `<type>:<id>`（单 id）；
+  - `<type>:-1,<familyId>,<flag>`（如 `0:-1,10890400,1`）：`-1` 是哨兵，尾部 `flag` 是参数，**不是 buff id**。
+- **不要把 `-1` / 尾部 flag 当候选 id。** 历史 bug：旧 `parse_refs()` 把尾部 `1` 当成 id，解析落到 `BuffClassData` 第 1 组（火热攻势I），导致卡萝「直播状态」的叠层被错误显示成「火热攻势I」，同类问题也发生在破坏者「弹药狂热」等。现在 `parse_refs()` 对 `-1,<familyId>,<flag>` 只取中间的 `familyId`。
+- `TermStore.resolve_one()` 的解析顺序：
+  1. **精确 id**：类型 0 查 `BattleBuffPerformData`，类型 1 查 `BattleDictionaryData`。
+  2. **buff 家族**：id 以 `familyId` 为字符串前缀、且多 1–3 位（`10890400 → 108904002/3/4`、`107007 → 10700701/02`）；按**名称**分组，取成员最多的同名家族，再取最低等级（基础描述）。
+  3. **分享组**：`BuffShareLimitData.f5` 的 `id-level` 列表（如 `104700 → 塔瑞兹 104704011`）。
+  4. `BattleBuffData.f3` 的隐藏基础名（仅名称兜底）。
+  5. **显式 buff 组**：`BuffClassData.f1 → f2` 或 `BattleBuffData.f44`，取组内最低 id 的有名成员。
+  6. **空壳 id 相邻**：`X-1` / `X+1`（如 `1088081262 → 拒绝退场 1088081261`）。
+- 走 2–6 的启发式解析时，`scrape_local.py` 会输出 `heuristic term refs` 日志（cands → chosen + 同组成员）。**新增角色后必须检查这份日志**，确认选中的名词在句子里通顺；只有无法解释的候选才用 `TERM_REF_OVERRIDES` 兜底（按键为解析后的 cands tuple）。
+- 回归锚点（每次更新后抽查）：
+  - 卡萝「直播状态」`{1}` → **热度**（`108904002`）
+  - 破坏者「弹药狂热」`{4}` → **拒绝退场**（`1088081261`）
+  - 米什缇「梦游」→ **补丁模式 / 激斗模式**
+  - 春田「跃键·守望相依」→ **塔瑞兹**（`104704011`）
+  - 贝丝蒂「闯祸的天才 / 惊吓礼物 / 恣意涂抹」→ **“小可爱”**（`10710701`）
+  - 夏安「社交不适应症 / 心理韧性 / 倾注全神」→ **靶心**（`10700701`）
+  - 秋桦「焦痕」、妮基塔「畏罪」、黛烟「校音」、乌尔丽德「迷彩」、莫辛纳甘「积极作战」等启发式项也应通顺
+  - **非燃烧语境里不应再出现「火热攻势I」**。
 - `BattleBuffData.f3` 是**名称语言 id**（不是描述），仅在 `BattleBuffPerformData` 缺失时作为名称兜底。
 - 前端 `dat/term_stat.js` 存展开后的 `{name, desc, refs}`。鼠标悬浮词条时：
   - 显示该词条名称 + 描述；
@@ -251,42 +306,25 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
 - 贴图映射：
   - 头像 `img/avatar/<id>.png` ← `Avatar_Whole_<id>`
   - 缩略图 `img/thumbnail/<id>.png` ← `Avatar_Half_<id>`（缩放到 256×256）
-  - 技能图标：本地 `BattleSkillDisplayData.f10` 贴图仅作备用（64×64）；最终图标按 §9.5.1 从官网下载。
+  - 技能图标：本地 `BattleSkillDisplayData.f10` 贴图（128×128）就是最终图标，见 §9.5.1。
   - 技能头图标 `img/ui/type_s_cd.png` ← `Buff_Cooldown`；`type_s_potential.png` ← `Buff_PotentialAdd`；`type_s_steady.png` ← `Buff_WillSub`（均缩放到 50×50）。
   - 定位/职业小图标 `img/ui/prof_guard|scout|assist|suppress.png` ← `Icon_Professional_Guard/Scout/Assist/Suppress`（缩放到 64×64，用于显像形态需求徽章）
 - `scrape_local.py` 首次运行会扫描全部 bundle，建立 `scripts/.asset_index.json`（`贴图名 → bundle 文件名`）；之后复用。新增贴图找不到时加 `--rescan`。
 - 只更新数据、不抓图：`py -3 scripts/scrape_local.py --no-images`。
 
-### 9.5.1 技能图标（官网，全量）
+### 9.5.1 技能图标（本地）
 
-- **不再从 mcc.wiki 找技能图标**。统一从官网 API `POST /wiki/hero_detail` 的 `data.info.skill[]` 取：每个技能 `desc` 里的第一个 `<img src="...">`（`community-cdn.exiliumgf.com/prod/...`）。
-- 脚本：`py -3 scripts/scrape_skill_icons.py`。自动读取 `dat/tdoll_stat.js` → 按角色名匹配官网技能 → 下载 → 转 **128×128 PNG** → 按规则命名 → 回写 `skills[].icon`。支持 `--dry-run`、`--force`、`--only ID`。
-- 命名：`NAME_skill_NO.png`
-  - `NAME` = 角色英文名，去掉 `SSR`/`SR` 后缀（如 `DestroyerSSR` → `Destroyer`）。
-  - `_skill_` 为固定字段。
-  - `NO` 为两位数字：
-    - 普攻：若现有图标是通用 `Skill_Attack_*.png`，直接复用现有通用图标，**不新增文件**；普攻非通用时命名 `00`。
-    - 其他技能：按技能展示顺序从 `01` 开始编号（`01`、`02`、`03`……）。
-- 官网 API 偶尔返回旧的 `gf2.mcc.wiki/image/skill/...` 地址（404）；脚本会自动改写到 `gf2.mcc.wiki/static/thumbnail/skill/...`。
-- 旧 `Skill_<角色id>_Active/Passive_*.png` 在完成全量替换后删除，只保留 8 个通用 `Skill_Attack_*`。
-- 示例（破坏者）：
-  - 普攻「撕咬」→ 复用 `Skill_Attack_Shotgun.png`
-  - 毁灭指令 → `Destroyer_skill_01.png`
-  - 末日弹幕 → `Destroyer_skill_02.png`
-  - 狂欢时间 → `Destroyer_skill_03.png`
-  - 弹药狂热 → `Destroyer_skill_04.png`
+- **纯本地**：技能图标 = `BattleSkillDisplayData.f10` 的贴图名，从 `AssetBundles_Windows` 导出。
+- `scrape_local.py` 以 **128×128** 导出到 `img/skill/<贴图名>.png`，并把 `skills[].icon` 写成对应相对路径（如 `img/skill/Skill_KuroSSR_Active_1.png`）。
+- 普攻：`f10` 为空时回退到枪种通用图标 `Skill_Attack_*`（通用图标本身也由本地导出）。
+- 新角色/新贴图先跑 `scrape_local.py --rescan` 更新 `.asset_index.json`。
+- 官网版 `scrape_skill_icons.py`（`NAME_skill_NO.png`）**已停用**；旧的 `NAME_skill_NO.png` 已从 `img/skill/` 删除，只保留本地 `Skill_*.png` + 8 个通用 `Skill_Attack_*`。
+- 示例（破坏者）：普攻「撕咬」→ `Skill_Attack_Shotgun.png`；毁灭指令 → `Skill_DestroyerSSR_Active_1.png`；末日弹幕 → `Skill_DestroyerSSR_Active_2.png`；狂欢时间 → `Skill_DestroyerSSR_Active_3.png`；弹药狂热 → `Skill_DestroyerSSR_Passive_1.png`。
 
-### 9.5.2 图标本地化匹配现状
+### 9.5.2 图标本地化现状
 
-- **技能图标**：350/350 均可在本地 bundle 找到对应纹理（`BattleSkillDisplayData.f10`）；最新角色需要先跑一次 `scrape_local.py --rescan` 更新 `scripts/.asset_index.json` 缓存（破坏者的 4 个图标就是 rescan 后才进入索引的）。
-- **当前 web 图标 vs 本地纹理**：327/350 基本一致（94 个像素级一致，233 个仅缩放差异）；**20 个明显不同**，官方 API 疑似给的是通用/错位图标：
-  - `NemesisSR`：启星、隧穿之匣、星群追应、定点观测
-  - `LennaSSR`：野性扑灭、跃动追踪
-  - `PeriSSR`：风险投资、超额订单、最终价码、极致收益
-  - `DaiyanSSR`：清商和鸣、逸响入神
-  - `AsteriaSSR`：轨炮裁决；`UllridSSR`：隐迹追猎、哨戒射击（通用弓图标被官方图标覆盖）
-  - `MishtySSR`：无梦好夜；`LevaSSR`：有序扰乱；`NagantSR`：制裁宣告
-  - `LoreleySSR`：女王的恩赐；`MacqiatoSSR`：专业手段
+- 技能图标已 100% 本地（`Skill_<id>_Active/Passive_*.png`），`tdoll_stat.js` 不再引用任何官网图标；旧的官网图标文件已删除。
+- 之前“官网 API 约 20 个图标不一致”的问题已消失（统一使用本地纹理）；普通攻击通用图标仍保留 `Skill_Attack_*`。
 - **技能头图标**：`stability` / `cooldown` / `cost` 已使用本地 `Buff_WillSub` / `Buff_Cooldown` / `Buff_PotentialAdd`。
 - **仍待本地化**：`type_a_*`（弹种）与 `type_e_*`（属性）目前在本地纹理索引中**没有找到直接同名/等价资源**，可能内嵌在 UI SpriteAtlas 或 TMP SpriteAsset 中；先保留现有图标，不做替换，后续再查。
 
@@ -299,10 +337,11 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
 ### 9.7 前端展示约定
 
 - 人形列表按**上线时间倒序**（最新在前）：`scrape_local.py` 的 `release_dates()` 从本地 `GachaData` 取每个角色最早的角色卡池开始时间（`f4=3`，`f30`=角色 id，`f7`=开始时间戳）；没有卡池记录的早期人形按 `LEGACY_DOLL_ORDER` 的 wiki 顺序兜底。新角色只要游戏里开了角色卡池，重新生成后会自动排在最前。
+- 人形筛选新增「跃键」：`全部 / 1阶 / 2阶`。1阶 = 拥有 1 阶跃键（51 人），2阶 = 拥有 2 阶跃键（10 人）；数据取 `KEY_STAT.byDoll[id].leaps[].stage`。
 - 人形详情页的「技能」是一个 `panel`，每个技能是其中的子 panel（`.skill-card`）；「技能」标题沿用原来的 17px；技能图标底板为深灰 `#2c2c30`。
 - 每个技能有 `Lv.N ( X椎 )` 按钮，点击可手动切换该等级的完整描述（`descs`）；普攻图标缺失时按枪种回退到 `Skill_Attack_*`。
 - 技能名右侧显示元数据 chip（弹种 / 稳态伤害 / 属性 / 冷却时间 / 导染消耗），来自 `skills[].meta`；下方 `.skill-tags` 只显示技能分类 `tags`，不再重复弹种。
-- 人形详情新增「心智螺旋」panel：按好感键 / 共键 / 专属固键分组，展示 `KEY_STAT.byDoll[id]` 的图标、名称、属性 chip 和描述；固键双列、移动端单列，跃键暂不展示。描述优先取 `KEY_DESC_STAT`，用 `renderRich` 渲染（数值橙色、机制词条浮窗），与技能描述一致。
+- 人形详情新增「心智螺旋」panel：按好感键 / 共键 / 专属固键 / 跃键分组，展示 `KEY_STAT.byDoll[id]` 的图标、名称、属性 chip 和描述；固键双列、移动端单列；跃键单列展示**所有阶段**（1阶/2阶），卡片名称旁显示 `1阶`/`2阶` 徽章。描述优先取 `KEY_DESC_STAT`，用 `renderRich` 渲染（数值橙色、机制词条浮窗），与技能描述一致。
 - 「椎体」横向拉条范围 0–6，默认 6；选中后，每个技能自动切到**不超过该椎体的最高等级**描述，并在对应 Lv 标签前显示绿色 `✓`。
 - 技能下方「椎体 · X」列表来自该等级 `f8` 变化文案；额外技能若无椎体升级则不显示。
 - 技能/椎体描述中的机制名词渲染为蓝色虚线下划线（`.term`）；鼠标悬浮显示深色浮窗（`.term-tip`）。
@@ -318,3 +357,44 @@ py -3 scripts/pbtable_decode.py "<某个.bytes>" <递归深度> 4
 - 位键默认：1 号槽自己的好感键，2 号槽自己的共键，3/4 号槽「共键·通用暴击」；「攻暴满配」开关位于位键磁贴上方，默认开启。
 - 所有 checkbox 使用 Apple 风格滑动开关；键名称按 `·` 换行（如「共键」换行「通用暴击」）。
 - 武器/位键/配件编辑浮窗（以及伤害计算的人形/敌人选择浮窗）用 `position: fixed` 定位到点击磁贴附近：优先下方 8px；下方不足 200px 时放到上方；最大高度按剩余空间自适应。
+- 人形详情通过 `signatureWeapon(d.id)` 自动装备专武：在 `WEAPON_STAT` 中找 `rank == 5 && bond.id == d.id` 的武器；新角色未抓专武时武器磁贴只显示空槽。因此「更新角色」默认必须跑 `scripts/scrape_weapon.ps1` 并核对 `bond.id`。
+
+### 9.8 心智螺旋位键（本地）
+
+脚本：`scripts/scrape_keys_local.py`（数据 + 图标）、`scripts/scrape_key_texts.py`（富文本描述）。
+
+| 内容 | 本地来源 |
+|---|---|
+| 键类型 | `TalentKeyData.f2`：`1` 固键 / `2` 共键 / `3` 跃键 / `4` 契合键（好感键） |
+| 键名 | `TalentKeyData.f7`（语言 id）；2 阶跃键沿用 1 阶名称 |
+| 归属人形 | `f9`（固/跃）或 `f15`（共/契合）= 枪 id |
+| 描述 | 1 阶 `TalentKeyData.f6`；2 阶 `SpTalentKeyData.f5` → `BattleSkillDisplayData.f3/f4`（`scrape_key_texts.py`） |
+| 图标 | `ItemData.f8` = 贴图名；从 bundle 导出 **256×256** 到 `img/key/<eng>_*.png` |
+| 属性 | `f5` → `PropertyData`：`9` 暴击 / `10` 暴击伤害 / `29` 攻击 / `30` 生命 / `32` 防御；数值为 ×10 的百分比（`50` → `5%`） |
+
+- 命名与旧版一致：`<eng>_love` / `<eng>_common` / `<eng>_static_N` / `<eng>_leap`；`eng` = 角色 id 去掉 `SSR`/`SR` 后小写。
+- **跃键多阶**：`TalentKeyData` 的 `f2=3` 是 1 阶；`SpTalentKeyData` 以 `f2=1阶键 id`、`f5=2阶描述显示行` 表示 2 阶（当前共 10 人：琼玖、玛绮朵、乌尔丽德、索米、莱妮、托洛洛、桑朵莱希、黛烟、绛雨、妮基塔）。
+  - `key_stat.js` 的 `leaps` 数组保存全部阶段：`{id,name,icon,stage,talentId[,spTalentId],text}`；`stage` 为 1/2，2 阶 id 为 `<eng>_leap_2`，图标复用 1 阶。
+  - `leap` 字段保留为**最高阶**对象（兼容旧用法）；前端/筛选以 `leaps` 为准。
+  - `key_desc_stat.js` 同时写 `jiangyu_leap`（1 阶）和 `jiangyu_leap_2`（2 阶）；两阶名称相同，**不能只按名称匹配**，`scrape_key_texts.py` 用 `talentId` / `spTalentId` 显式映射。
+  - 前端「心智螺旋」跃键组按 stage 升序单列展示；筛选「跃键」1阶=有 1 阶（51 人），2阶=有 2 阶（10 人）。
+- 契合键三个属性值统一写 **4.5%**（最大值），属性名取自 `PropertyData` 字段。
+- 变体人形本地没有独立契合键行（`ColphneDoppelgaengerSSR`、`NemesisGnosisSSR`）：脚本用 `VARIANT_LOVE` 复用本体（`ColphneSR` / `NemesisSR`）的名称/属性，但图标用自己的 `<sid>_love` 贴图。
+- 通用共键 `generic_crit` 是站内固定项，硬编码在脚本里。
+- 旧 `scrape_keys.ps1`（官网 API）已停用。
+
+---
+
+## 10. 预下载（PreDownloadRes）拆包
+
+版本更新前的「预下载」**只有资源、没有配置表**：`Table/` 要等正式版本更新、登录器下载新 `StcTable` 后才会出现新角色数据；官网 `hero_detail` 也会等到角色上线才有。
+
+- 目录：`...\LocalCache\Data\AssetBundles_Windows_PreDownloadRes`
+  - `<md5>.bundle`：新增 bundle，直接用 §9.5 的 key 解密即可。
+  - `<md5>.bundle_diff`：对现有 bundle 的 **HDIFFSF20（zstd）** 补丁；文件名去掉 `_diff` 就是目标 bundle。
+  - `*.gf`：zip，内含 CriWare 音频（`.acb`），不是贴图。
+- 打补丁：调用游戏自带的 `...\GF2_Exilium_Data\Plugins\x86_64\hpatchz.dll` 唯一导出 `hpatch(old, diff, out, NULL)`（ctypes，`restype=c_ubyte`）；返回 1 并打印 `patch ok!` 即成功。
+- 新角色贴图通常加进**已有的共享 bundle**（不是新建 bundle）：2026-11 卡萝的头像在 `9d5e9b62...bundle`、技能图标在 `9405364c...bundle`，两者在预下载里都是 `.bundle_diff`。定位方法：在 `.asset_index.json` 里找同类贴图（其他 `Avatar_Whole_*` / `Skill_*`）所在 bundle，再看该 bundle 有没有预下载补丁。
+- 打完补丁后用同一套 `decrypt_bundle` + UnityPy 读取；把新贴图名 → bundle 名补进 `.asset_index.json`，正式更新后不加 `--rescan` 也能直接提取。
+- **技能/属性等文本可从 mcc 临时补**：mcc.wiki 详情页是 Nuxt SSR，HTML 只渲染当前等级 + 词条解释；但它的 `/_nuxt/*.js` chunk 内嵌了该角色的完整对象（`DollProperty` / `DollSkill` / `DollKeys` / `Pools`），包含每级 `Desc`、椎体 `UpgradeDesc`、`ElementTypeId` / `BulletTypeId` / `CDTime` / `WillDamage`、图标名和位键描述。用 `new Function("return (" + 对象字面量 + ")")()` 即可取出（见 2026-11-24 卡萝临时数据）。
+- 2026-11-24 实例：新角色「卡萝」内部 id = `KuroSSR`（火力 / 突击步枪 / 电导）。预下载已有模型、武器、技能图标、`Avatar_Whole/Half_KuroSSR`，但 `GunData` 和官网 API 均无她的数据。当时先用 mcc 的 JS 数据临时生成技能（全等级 + 椎体 + 12 个新词条，词条 id 用 990000001+ 临时编号）、属性和图标；`tdoll_stat.js` / `term_stat.js` 均会在本地表更新后的下一次 `scrape_local.py` 重写，临时数据自动被本地版覆盖。

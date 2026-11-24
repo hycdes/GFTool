@@ -92,12 +92,12 @@
 
   /* ---------------- views ---------------- */
   function viewDollList() {
-    var state = { acquire: "all", rank: "all", role: "all", element: "all", ammo: "all" };
+    var state = { acquire: "all", rank: "all", role: "all", element: "all", ammo: "all", leap: "all" };
 
     view.innerHTML =
       '<h1 class="page-title">人形</h1>' +
       '<p class="page-desc">少女前线2：追放人形图鉴，共 ' + allDolls.length + ' 名。点击卡片查看基础属性。</p>' +
-      '<div class="toolbar">' + filtersHtml(state, "") + "</div>" +
+      '<div class="toolbar">' + filtersHtml(state, "", true) + "</div>" +
       '<div class="doll-grid" id="grid"></div>';
 
     var grid = document.getElementById("grid");
@@ -140,7 +140,8 @@
       rank: [all, { v: "5", label: "精英" }, { v: "4", label: "标准" }],
       role: spread(roleOptions),
       element: spread(ELEMENT_ORDER),
-      ammo: spread(AMMO_ORDER)
+      ammo: spread(AMMO_ORDER),
+      leap: [all, { v: "1", label: "1阶" }, { v: "2", label: "2阶" }]
     };
   }
 
@@ -150,7 +151,7 @@
     }).join("") + "</div>";
   }
 
-  function filtersHtml(f, prefix) {
+  function filtersHtml(f, prefix, withLeap) {
     var o = filterOptionsHtml();
     return '<div class="filter-row">' +
         '<span class="flabel">获取</span>' + segHtml(prefix + "acq", o.acquire, f.acquire) +
@@ -161,11 +162,15 @@
         '<span class="flabel">属性</span>' + segHtml(prefix + "elem", o.element, f.element) +
         '<span class="flabel">弹种</span>' + segHtml(prefix + "ammo", o.ammo, f.ammo) +
         '<span class="result-count" id="' + prefix + 'count"></span>' +
-      "</div>";
+      "</div>" +
+      (withLeap
+        ? '<div class="filter-row"><span class="flabel">跃键</span>' +
+          segHtml(prefix + "leap", o.leap, f.leap) + "</div>"
+        : "");
   }
 
   function bindFilters(f, prefix, onChange) {
-    [["acq", "acquire"], ["rank", "rank"], ["role", "role"], ["elem", "element"], ["ammo", "ammo"]].forEach(function (p) {
+    [["acq", "acquire"], ["rank", "rank"], ["role", "role"], ["elem", "element"], ["ammo", "ammo"], ["leap", "leap"]].forEach(function (p) {
       var el = document.getElementById(prefix + p[0]);
       if (!el) return;
       el.addEventListener("click", function (e) {
@@ -177,6 +182,15 @@
     });
   }
 
+  function dollLeapStages(d) {
+    var kd = (KEYS.byDoll || {})[d.id] || {};
+    var leaps = arr(kd.leaps);
+    if (!leaps.length && kd.leap) leaps = [kd.leap];
+    var stages = {};
+    leaps.forEach(function (k) { if (k && k.stage) stages[k.stage] = 1; });
+    return stages;
+  }
+
   function matchFilters(d, f) {
     var tags = arr(d.tags);
     if (f.acquire === "standard" && !isStandard(d)) return false;
@@ -185,6 +199,7 @@
     if (f.role !== "all" && tags[0] !== f.role) return false;
     if (f.element !== "all" && tags[2] !== f.element) return false;
     if (f.ammo !== "all" && AMMO_LABEL[tags[1]] !== f.ammo) return false;
+    if (f.leap && f.leap !== "all" && !dollLeapStages(d)[f.leap]) return false;
     return true;
   }
 
@@ -701,7 +716,7 @@
     "</div>";
   }
 
-  function dollStatPanel(d) {
+  function dollFinalStats(d) {
     var w = equippedWeapon(d);
     var kc = keyContribs(d);
     var ac = attachContribs(d);
@@ -728,13 +743,23 @@
       hpF.add.push({ v: "1", src: "徽记助益" });
       defF.add.push({ v: "1", src: "徽记助益" });
     }
+    return {
+      atk: formValue(atkF), hp: formValue(hpF), def: formValue(defF),
+      crit: formValue(critF), critDmg: formValue(critDF),
+      stability: sumStat(d, "稳态"),
+      forms: { atk: atkF, hp: hpF, def: defF, crit: critF, critDmg: critDF }
+    };
+  }
+
+  function dollStatPanel(d) {
+    var s = dollFinalStats(d);
     var cells =
-      statCell("攻击", fmtStat(formValue(atkF)), atkF) +
-      statCell("生命", fmtStat(formValue(hpF)), hpF) +
-      statCell("防御", fmtStat(formValue(defF)), defF) +
-      statCell("暴击", fmtStat(formValue(critF)) + "%", critF) +
-      statCell("暴击伤害", fmtStat(formValue(critDF)) + "%", critDF) +
-      plainCell("稳态", fmtStat(sumStat(d, "稳态"))) +
+      statCell("攻击", fmtStat(s.atk), s.forms.atk) +
+      statCell("生命", fmtStat(s.hp), s.forms.hp) +
+      statCell("防御", fmtStat(s.def), s.forms.def) +
+      statCell("暴击", fmtStat(s.crit) + "%", s.forms.crit) +
+      statCell("暴击伤害", fmtStat(s.critDmg) + "%", s.forms.critDmg) +
+      plainCell("稳态", fmtStat(s.stability)) +
       plainCell("行动力", fmtStat(sumStat(d, "行动力")));
     return '<div class="stat-panel">' +
       '<div class="panel-head stat-head"><h3>属性</h3>' +
@@ -914,10 +939,11 @@
     var rich = KEY_DESC[k.id] || {};
     var text = rich.text || k.text || "";
     var refs = rich.refs || k.refs || [];
+    var stage = k.stage ? '<span class="spiral-stage">' + k.stage + "阶</span>" : "";
     return '<div class="spiral-card">' +
       (k.icon ? '<img class="spiral-icon" src="' + k.icon + '" alt="" onerror="this.style.visibility=\'hidden\'" />' : '<div class="spiral-icon"></div>') +
       '<div class="spiral-body">' +
-        '<div class="spiral-name">' + esc(k.name || "") + "</div>" +
+        '<div class="spiral-name">' + esc(k.name || "") + stage + "</div>" +
         (attrs ? '<div class="spiral-attrs">' + attrs + "</div>" : "") +
         (text ? '<div class="spiral-text">' + renderRich(text, refs) + "</div>" : "") +
       "</div>" +
@@ -930,9 +956,15 @@
     if (kd.affection) groups.push({ title: "好感键", keys: [kd.affection], single: true });
     if (kd.shared) groups.push({ title: "共键", keys: [kd.shared], single: true });
     if (arr(kd.fixed).length) groups.push({ title: "专属固键", keys: arr(kd.fixed), single: false });
+    var leaps = arr(kd.leaps);
+    if (!leaps.length && kd.leap) leaps = [kd.leap];
+    if (leaps.length) {
+      leaps = leaps.slice().sort(function (a, b) { return (a.stage || 1) - (b.stage || 1); });
+      groups.push({ title: "跃键", keys: leaps, single: true });
+    }
     if (!groups.length) return "";
     return '<div class="panel spiral-panel">' +
-      '<div class="panel-head"><h3>心智螺旋</h3><span class="panel-sub">好感键 · 共键 · 专属固键</span></div>' +
+      '<div class="panel-head"><h3>心智螺旋</h3><span class="panel-sub">好感键 · 共键 · 专属固键 · 跃键</span></div>' +
       groups.map(function (g) {
         return '<div class="spiral-group"><div class="spiral-group-title">' + esc(g.title) + "</div>" +
           '<div class="spiral-grid' + (g.single ? " single" : "") + '">' +
@@ -1056,7 +1088,23 @@
   /* ---------------- damage calculator: doll selection ---------------- */
   var DMG_MAX = 7;
   var ENEMY_MAX = 1;
-  var damageState = { slots: [], enemies: [], expanded: {}, fields: { turns: "1" }, picker: null,
+  var damageState = { slots: [], enemies: [], expanded: {}, fields: {
+    turns: "1",
+    enemyDef: "500",
+    skillPct: "100",
+    dmgBonus: "0",
+    behitBonus: "0",
+    elemBonus: "0",
+    coverRed: "50",
+    stabRed: "0",
+    counter: "none",
+    critMode: "auto",
+    elementPool: "add",
+    scratch: "no",
+    cfgF5: "1.8",
+    cfgF6: "-0.36",
+    cfgF7: "-0.01"
+  }, picker: null,
     filters: { acquire: "all", rank: "all", role: "all", element: "all", ammo: "all" } };
   var ENEMIES = [{ id: "dummy", name: "默认木桩" }];
   function enemyName(id) { for (var i = 0; i < ENEMIES.length; i++) { if (ENEMIES[i].id === id) return ENEMIES[i].name; } return id; }
@@ -1204,6 +1252,31 @@
       '" oninput="DMG.setField(\'' + key + '\', this.value)" /></label>';
   }
 
+  function fieldNum(label, key, step) {
+    return '<label class="field"><span class="field-label">' + esc(label) + "</span>" +
+      '<input class="field-input" type="number"' + (step ? ' step="' + step + '"' : "") +
+      ' value="' + esc(damageState.fields[key] == null ? "" : damageState.fields[key]) +
+      '" oninput="DMG.setField(\'' + key + '\', this.value)" /></label>';
+  }
+
+  function fieldSelect(label, key, options) {
+    var cur = damageState.fields[key];
+    return '<label class="field"><span class="field-label">' + esc(label) + "</span>" +
+      '<select class="field-input field-select" onchange="DMG.setField(\'' + key + '\', this.value)">' +
+      options.map(function (o) {
+        return '<option value="' + o[0] + '"' + (o[0] === cur ? " selected" : "") + ">" + esc(o[1]) + "</option>";
+      }).join("") + "</select></label>";
+  }
+
+  function toNum(v, fallback) {
+    var n = parseFloat(String(v == null ? "" : v).replace("%", ""));
+    return isNaN(n) ? (fallback == null ? 0 : fallback) : n;
+  }
+
+  function fmtMul(x) {
+    return String(Math.round(x * 1000) / 1000);
+  }
+
   function viewDamage() {
     dollRenderMode = "damage";
     var p = damageState.picker;
@@ -1225,12 +1298,41 @@
       "</div>" +
 
       '<div class="panel">' +
-        '<div class="panel-head"><h3>战斗环境</h3></div>' +
-        '<div class="field-grid">' + field("回合数", "turns") + "</div>" +
+        '<div class="panel-head"><h3>战斗环境</h3><span class="panel-sub">基础伤害 = ceil(攻击² / (攻击 + 防御))；未确认项均可调</span></div>' +
+        '<div class="field-grid">' +
+          field("回合数", "turns") +
+          fieldNum("敌方防御", "enemyDef", "1") +
+          fieldNum("技能倍率 %", "skillPct", "1") +
+          fieldNum("增伤 Σ %", "dmgBonus", "1") +
+          fieldNum("易伤 Σ %", "behitBonus", "1") +
+        "</div>" +
+        '<div class="field-grid" style="margin-top:12px">' +
+          fieldSelect("属性关系", "counter", [["none", "无"], ["up", "克制 +20%"], ["down", "逆克制 -20%"]]) +
+          fieldSelect("暴击", "critMode", [["auto", "按面板暴击率（期望）"], ["yes", "必定暴击"], ["no", "不暴击"]]) +
+          fieldNum("掩体减伤 %", "coverRed", "1") +
+          fieldNum("稳态减伤 %", "stabRed", "1") +
+        "</div>" +
+        '<div class="field-grid" style="margin-top:12px">' +
+          fieldSelect("异位增伤池", "elementPool", [["add", "与通用增伤加算"], ["mul", "独立乘区"]]) +
+          fieldNum("异位增伤 %", "elemBonus", "1") +
+          fieldSelect("擦伤", "scratch", [["no", "正常伤害"], ["yes", "擦伤（×0.1）"]]) +
+        "</div>" +
+        '<details class="dmg-adv">' +
+          "<summary>未确认系数 / 公式说明</summary>" +
+          '<div class="field-grid">' +
+            fieldNum("f5", "cfgF5", "0.01") +
+            fieldNum("f6", "cfgF6", "0.01") +
+            fieldNum("f7", "cfgF7", "0.01") +
+          "</div>" +
+          '<p class="mim-note">BattleConfigData：f5=1.8、f6=-0.36、f7=-0.01，含义未确认，默认不参与计算。' +
+          "暴击区已按官方文案确认：暴击伤害 120% = 触发暴击时的伤害倍率 ×1.2。" +
+          "掩体减伤配置值 0.5/0.6/0.75、稳态减伤默认值均未确认，请按实测调整。" +
+          "异位增伤与通用增伤是否同池未确认，可切换“加算 / 独立乘区”。</p>" +
+        "</details>" +
       "</div>" +
 
       '<div class="panel">' +
-        '<div class="panel-head"><h3>结果</h3></div>' +
+        '<div class="panel-head"><h3>结果</h3><span class="panel-sub">按首位人形当前面板 + 上方环境参数计算</span></div>' +
         '<button class="btn-primary" onclick="DMG.simulate()">开始模拟</button>' +
         '<div id="simOut" class="sim-out"></div>' +
       "</div>";
@@ -1297,7 +1399,63 @@
       viewDamage();
     },
     setField: function (key, v) { damageState.fields[key] = v; },
-    simulate: function () { /* 计算逻辑待实现 */ }
+    simulate: function () {
+      var out = document.getElementById("simOut");
+      if (!out) return;
+      var slot = damageState.slots[0];
+      var d = slot && DATA[slot.id];
+      if (!d) { out.innerHTML = '<div class="empty">请先选择 1 名人形</div>'; return; }
+
+      var f = damageState.fields;
+      var st = dollFinalStats(d);
+      var atk = Math.max(0, st.atk);
+      var def = Math.max(0, toNum(f.enemyDef, 500));
+      var skill = Math.max(0, toNum(f.skillPct, 100)) / 100;
+      var hit = toNum(f.dmgBonus, 0) / 100;
+      var behit = toNum(f.behitBonus, 0) / 100;
+      var elem = toNum(f.elemBonus, 0) / 100;
+      var elemMul = f.elementPool === "mul" ? (1 + elem) : 1;
+      var addPool = f.elementPool === "mul" ? hit : (hit + elem);
+      var dmgMul = Math.max(0, 1 + addPool) * Math.max(0, 1 + behit) * Math.max(0, elemMul);
+
+      var counter = f.counter === "up" ? 0.2 : (f.counter === "down" ? -0.2 : 0);
+      var counterMul = 1 + counter;
+
+      var coverRed = Math.max(0, Math.min(100, toNum(f.coverRed, 0))) / 100;
+      var stabRed = Math.max(0, Math.min(100, toNum(f.stabRed, 0))) / 100;
+      var coverMul = 1 - coverRed;
+      var stabMul = 1 - stabRed;
+
+      var critRate = Math.max(0, Math.min(100, st.crit)) / 100;
+      var critMult = Math.max(0.01, st.critDmg / 100);
+      var critMul;
+      var critLabel;
+      if (f.critMode === "yes") { critMul = critMult; critLabel = "必定暴击 ×" + fmtMul(critMult); }
+      else if (f.critMode === "no") { critMul = 1; critLabel = "不暴击 ×1"; }
+      else { critMul = 1 + critRate * (critMult - 1); critLabel = "期望 ×" + fmtMul(critMul); }
+
+      var base = Math.ceil(atk * atk / Math.max(1, atk + def));
+      var mult = skill * dmgMul * counterMul * coverMul * stabMul * critMul;
+      var final = Math.ceil(base * mult);
+      var scratch = f.scratch === "yes";
+      if (scratch) final = Math.ceil(base * 0.1);
+
+      out.innerHTML =
+        '<div class="sim-line">攻击 <b>' + fmtStat(atk) + '</b> · 敌方防御 <b>' + fmtStat(def) + '</b>' +
+          ' · 暴击率 <b>' + fmtStat(st.crit) + '%</b> · 暴击伤害 <b>' + fmtStat(st.critDmg) + '%</b></div>' +
+        '<div class="sim-line">基础伤害 = ceil(' + fmtStat(atk) + '² / (' + fmtStat(atk) + ' + ' + fmtStat(def) + ')) = <b>' + base + '</b></div>' +
+        '<div class="sim-line">技能倍率 ×' + fmtMul(skill) +
+          ' · 增伤区 ×' + fmtMul(Math.max(0, 1 + addPool)) +
+          ' · 易伤区 ×' + fmtMul(Math.max(0, 1 + behit)) +
+          (f.elementPool === "mul" ? ' · 异位独立 ×' + fmtMul(Math.max(0, elemMul)) : '') +
+          ' · 克制区 ×' + fmtMul(counterMul) +
+          ' · 掩体区 ×' + fmtMul(coverMul) +
+          ' · 稳态区 ×' + fmtMul(stabMul) +
+          ' · 暴击区 ' + critLabel + '</div>' +
+        '<div class="sim-total">' + (scratch ? "擦伤伤害 ≈ " : "单次伤害 ≈ ") + '<b>' + final + '</b></div>' +
+        (scratch ? '<div class="mim-note">擦伤按“基础伤害 ×0.1”处理，忽略其他乘区（待确认）。</div>' : "") +
+        '<div class="mim-note">f5/f6/f7 未参与计算；掩体/稳态减伤按输入值直接相乘；回合数暂未参与单次伤害。</div>';
+    }
   };
 
   window.STAT = {

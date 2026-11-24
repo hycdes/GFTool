@@ -9,8 +9,8 @@ Usage:
                                   [--rescan] [--index FILE]
 
 Defaults:
-    table   D:/Program Files/GF2Exilium/GF2 Game/GF2_Exilium_Data/LocalCache/Data/Table
-    bundles D:/Program Files/GF2Exilium/GF2 Game/GF2_Exilium_Data/LocalCache/Data/AssetBundles_Windows
+    table   D:/Program Files/GF2Exilium/GF2 Game/GF2 Game/GF2_Exilium_Data/LocalCache/Data/Table
+    bundles D:/Program Files/GF2Exilium/GF2 Game/GF2 Game/GF2_Exilium_Data/LocalCache/Data/AssetBundles_Windows
 """
 import argparse
 import io
@@ -23,8 +23,8 @@ from collections import OrderedDict, defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-DEFAULT_TABLE = r'D:\Program Files\GF2Exilium\GF2 Game\GF2_Exilium_Data\LocalCache\Data\Table'
-DEFAULT_BUNDLES = r'D:\Program Files\GF2Exilium\GF2 Game\GF2_Exilium_Data\LocalCache\Data\AssetBundles_Windows'
+DEFAULT_TABLE = r'D:\Program Files\GF2Exilium\GF2 Game\GF2 Game\GF2_Exilium_Data\LocalCache\Data\Table'
+DEFAULT_BUNDLES = r'D:\Program Files\GF2Exilium\GF2 Game\GF2 Game\GF2_Exilium_Data\LocalCache\Data\AssetBundles_Windows'
 DEFAULT_INDEX = os.path.join(HERE, '.asset_index.json')
 
 BUNDLE_KEY = b'UnityFS\x00\x00\x00\x00\x075.x.'
@@ -536,7 +536,7 @@ def build_skills(t, dolls, term_store):
                 icon = generic_attack_icon(doll['tags'][1] if len(doll['tags']) > 1 else '')
             tags = [x.strip() for x in (t.text(first.get(22)) or '').split('/') if x.strip()]
             sub = subtags_for(first, battle, doll, tags)
-            meta = skill_meta(battle.get(first.get(1), {}), sub[0] if sub else '')
+            meta = skill_meta(battle.get(first.get(1), {}), sub[0] if sub else '', display_stability(t, first))
             levels = []
             descs = []
             desc_refs = []
@@ -551,7 +551,9 @@ def build_skills(t, dolls, term_store):
                     levels.append('Lv.%d ( %d椎 )' % (lv, grade))
                 else:
                     levels.append('Lv.%d' % lv)
-                refs = term_store.resolve(parse_refs(t.text(r.get(4))))
+                refs = term_store.resolve(
+                    parse_refs(t.text(r.get(4))),
+                    owner='技能:' + (t.text(first.get(2)) or ''))
                 descs.append(t.text(r.get(3)) or '')
                 desc_refs.append(refs)
                 if lv > 1:
@@ -642,12 +644,33 @@ def stability_damage(b):
     return None
 
 
-def skill_meta(b, ammo):
+def display_stability(t, row):
+    """BattleSkillDisplayData.f23 is the game's UI steady-damage value.
+
+    Composite / summon skills keep it here (乐子制造机 = 2, 狂欢时间 = 5).
+    It must win over f17, and conditional child values (e.g. 雷降 "若潮湿额外
+    4点固定稳态伤害") must NOT be used as the base value.
+    """
+    value = row.get(23)
+    if isinstance(value, (bytes, bytearray)):
+        value = t.text(value)
+    if isinstance(value, int):
+        result = value
+    elif isinstance(value, str) and value.strip().isdigit():
+        result = int(value.strip())
+    else:
+        return None
+    return result if result > 0 else None
+
+
+def skill_meta(b, ammo, ui_stability=None):
     """Header metadata: ammo / steady damage / element / cooldown / index cost."""
     meta = {}
     if ammo:
         meta['ammo'] = ammo
-    value = stability_damage(b)
+    value = ui_stability
+    if value is None:
+        value = stability_damage(b)
     if value is not None:
         meta['stability'] = value
     element = ELEMENT_NAMES.get(b.get(6))
@@ -662,11 +685,9 @@ def skill_meta(b, ammo):
     return meta
 
 
-# Some raw refs point at an empty wrapper buff id; map them to the real buff.
-# Destroyer's 弹药狂热 {4} (拒绝退场) raw ref: 0:-1,1088081262,1
-TERM_REF_OVERRIDES = {
-    (0, (-1, 1088081262, 1)): 1088081261,
-}
+# Manual escape hatch for refs the generic rules cannot resolve.
+# Key = (type, tuple(candidate_ids)) AFTER parse_refs normalization.
+TERM_REF_OVERRIDES = {}
 
 
 def parse_refs(s):
@@ -682,17 +703,23 @@ def parse_refs(s):
             typ = int(type_s)
         except ValueError:
             continue
-        cands = []
-        for x in rest.replace(':', ',').split(','):
-            x = x.strip()
-            if x.lstrip('-').isdigit():
-                cands.append(int(x))
+        parts = [x.strip() for x in rest.replace(':', ',').split(',')]
+        ints = [int(x) for x in parts if x.lstrip('-').isdigit()]
+        # Format `-1,<familyId>,<flag>`: leading -1 is a sentinel and the
+        # trailing flag is NOT a buff id.  Treating it as an id used to fall
+        # back to BuffClassData group 1 (火热攻势I).
+        if len(parts) == 3 and parts[0] == '-1' and len(ints) == 3:
+            cands = [ints[1]]
+        else:
+            cands = ints
         refs.append([typ, cands])
     return refs
 
 
 class TermStore:
     def __init__(self, t):
+        self.weak = []
+        self._weak_seen = set()
         self.dicts = {}
         for r in t.rows('BattleDictionaryData'):
             i = r.get(1)
@@ -709,8 +736,20 @@ class TermStore:
                 self.buffs[i] = {
                     'name': t.text(r.get(2)) or '',
                     'desc': t.text(r.get(3)) or '',
+                    'gfx': t.text(r.get(16)) or '',
                     'raw': parse_refs(t.text(r.get(4))),
                 }
+        self.share_groups = defaultdict(list)
+        for r in t.rows('BuffShareLimitData'):
+            g = r.get(1)
+            if isinstance(g, list):
+                g = g[0] if g else None
+            if not isinstance(g, int):
+                continue
+            for token in (t.text(r.get(5)) or '').split(','):
+                token = token.strip().split('-', 1)[0]
+                if token.isdigit():
+                    self.share_groups[g].append(int(token))
         self.buff_data = {}
         self.buff_groups = defaultdict(list)
         for r in t.rows('BattleBuffData'):
@@ -728,29 +767,109 @@ class TermStore:
             if isinstance(group, int):
                 self.buff_groups[group].extend(packed_varints(r.get(2)))
 
-    def resolve_one(self, typ, cands):
+    def _table(self, typ):
+        return self.buffs if typ == 0 else (self.dicts if typ == 1 else {})
+
+    def _is_named(self, typ, i):
+        row = self._table(typ).get(i)
+        return bool(row and (row['name'] or row['desc']))
+
+    def _name(self, typ, i):
+        row = self._table(typ).get(i)
+        return (row or {}).get('name') or ''
+
+    def _family(self, typ, ref_id):
+        """Ref `-1,<familyId>,1` points at a buff family, not a single id.
+
+        Actual variants are ids that start with the ref id plus 1-3 digits
+        (10890400 -> 108904002/3/4; 107007 -> 10700701/02).  Group candidates
+        by name, take the biggest same-name family, then its lowest id
+        (base level description).
+        """
+        prefix = str(ref_id)
+        if len(prefix) < 4:  # never let short/garbage refs match everything
+            return []
+        table = self._table(typ)
+        named = [i for i in table
+                 if str(i).startswith(prefix)
+                 and 1 <= len(str(i)) - len(prefix) <= 3
+                 and self._is_named(typ, i)]
+        if not named:
+            return []
+        groups = defaultdict(list)
+        for i in named:
+            name = table[i]['name'] or ''
+            groups[name or ('#%d' % i)].append(i)
+        best = max(groups.values(), key=lambda g: (len(g), -min(g)))
+        return sorted(best)
+
+    def _log_weak(self, method, typ, cands, chosen, members, owner=''):
+        key = (method, typ, tuple(cands), chosen, owner)
+        if key in self._weak_seen:
+            return
+        self._weak_seen.add(key)
+        self.weak.append({
+            'method': method,
+            'type': typ,
+            'cands': list(cands),
+            'chosen': chosen,
+            'name': self._name(typ, chosen),
+            'members': members,
+            'owner': owner,
+        })
+
+    def resolve_one(self, typ, cands, owner=''):
         override = TERM_REF_OVERRIDES.get((typ, tuple(cands)))
         if override is not None:
             return override
-        table = self.buffs if typ == 0 else (self.dicts if typ == 1 else {})
         fallback = self.buff_data if typ == 0 else {}
         positives = [x for x in cands if x > 0]
+
+        # 1) exact id
         for x in sorted(positives, reverse=True):
-            if x in table and (table[x]['name'] or table[x]['desc']):
+            if self._is_named(typ, x):
                 return x
+
+        # 2) buff family / level variants
+        for x in positives:
+            fam = self._family(typ, x)
+            if fam:
+                self._log_weak('family', typ, cands, fam[0], fam, owner)
+                return fam[0]
+
+        # 3) share-limit group (e.g. 104700 -> 塔瑞兹 level variants)
+        for x in positives:
+            members = sorted(set(self.share_groups.get(x, [])))
+            named = [m for m in members if self._is_named(typ, m)]
+            if named:
+                self._log_weak('share', typ, cands, named[0], named, owner)
+                return named[0]
+
+        # 4) hidden base row carrying only a name
         for x in positives:
             if x in fallback and (fallback[x]['name'] or fallback[x]['desc']):
                 return x
+
+        # 5) explicit buff group
+        for x in positives:
             if typ == 0 and x in self.buff_groups:
-                for gid in sorted(self.buff_groups[x]):
-                    if gid in table and (table[gid]['name'] or table[gid]['desc']):
-                        return gid
+                named = sorted(g for g in self.buff_groups[x] if self._is_named(typ, g))
+                if named:
+                    self._log_weak('group', typ, cands, named[0], named, owner)
+                    return named[0]
+
+        # 6) empty wrapper id -> neighboring real buff
+        for x in positives:
+            for y in (x - 1, x + 1):
+                if self._is_named(typ, y):
+                    self._log_weak('adjacent', typ, cands, y, [y], owner)
+                    return y
         return None
 
-    def resolve(self, raw):
+    def resolve(self, raw, owner=''):
         out = []
         for typ, cands in raw:
-            out.append([typ, self.resolve_one(typ, cands)])
+            out.append([typ, self.resolve_one(typ, cands, owner)])
         return out
 
     def collect(self, skill_refs):
@@ -759,6 +878,8 @@ class TermStore:
         queue = []
         for refs in skill_refs:
             for typ, rid in refs or []:
+                if isinstance(rid, list):
+                    rid = self.resolve_one(typ, rid)
                 if rid is not None:
                     queue.append((typ, rid))
 
@@ -775,7 +896,7 @@ class TermStore:
                     src = {'name': f['name'], 'desc': f['desc'], 'raw': []}
                 else:
                     continue
-            refs = self.resolve(src.get('raw', []))
+            refs = self.resolve(src.get('raw', []), owner='名词:' + (src.get('name') or ''))
             terms[key] = {
                 'name': src.get('name') or '',
                 'desc': src.get('desc') or '',
@@ -842,7 +963,12 @@ def release_dates(t):
         if r.get(4) != 3:
             continue
         gid = r.get(30)
-        if isinstance(gid, str) and gid.isdigit():
+        if isinstance(gid, (bytes, bytearray)):
+            try:
+                gid = int(gid.decode('ascii').strip())
+            except ValueError:
+                gid = None
+        elif isinstance(gid, str) and gid.isdigit():
             gid = int(gid)
         if not isinstance(gid, int):
             continue
@@ -892,6 +1018,12 @@ def main():
     print('terms ...')
     terms = term_store.collect(collect_skill_refs(dolls) + collect_key_refs(t))
     print('terms:', len(terms))
+    if term_store.weak:
+        print('heuristic term refs:', len(term_store.weak))
+        for w in term_store.weak:
+            members = ', '.join('%d=%s' % (m, term_store._name(w['type'], m)) for m in w['members'])
+            print('  %-8s %s -> %d %s [%s]  owner=%s' % (
+                w['method'], w['cands'], w['chosen'], w['name'], members, w.get('owner', '')))
 
     if not args.no_images:
         print('indexing bundles ...')
@@ -925,7 +1057,7 @@ def main():
                     icon = icon[:-4]
                 if icon:
                     icons.add(icon)
-        extract_textures(args.bundles, index, icons, os.path.join(ROOT, 'img', 'skill'), size=(64, 64))
+        extract_textures(args.bundles, index, icons, os.path.join(ROOT, 'img', 'skill'), size=(128, 128))
         # profession / duty icons (used by mimicry requirement badges)
         extract_textures(args.bundles, index, set(PROFESSION_ICONS.keys()), os.path.join(ROOT, 'img', 'ui'),
                          size=(64, 64), name_fn=lambda nm: PROFESSION_ICONS.get(nm, nm))
